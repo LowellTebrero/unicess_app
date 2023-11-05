@@ -175,13 +175,9 @@ Route::middleware(['auth', 'role:admin'])->name('admin.')->prefix('admin')->grou
         Route::get('/adminfilter','AdminPointsfilter')->name('points.AdminPointsfilter');
     });
 
-
     Route::get('/chart', [ChartController::class, 'index'])->name('chart.index');
-    Route::get('/show-file/{id}', [InventoryController::class, 'ShowFiles'])->name('inventory.show-inventory');
 
-
-
-    Route::get('evaluation',[EvaluationController::class, 'index'])->name('evaluation.index');
+    Route::get('evaluation/index',[EvaluationController::class, 'index'])->name('evaluation.index');
     Route::get('evaluation/{id}/{year}',[EvaluationController::class, 'show'])->name('evaluation.show');
     Route::patch('evaluation-update/{id}',[EvaluationController::class, 'update'])->name('evaluation.update');
     Route::get('/filters',[EvaluationController::class, 'filters'])->name('evaluation.filters');
@@ -193,8 +189,6 @@ Route::middleware(['auth', 'role:admin'])->name('admin.')->prefix('admin')->grou
     Route::get('/template-download/{template_name}',[OtherSettingsController::class, 'download'])->name('template.download');
     Route::post('/year-post',[OtherSettingsController::class, 'yearPost'])->name('yearpost.upload');
     Route::post('/faculty-post',[OtherSettingsController::class, 'facultyPost'])->name('facultypost.upload');
-
-
 
 });
 

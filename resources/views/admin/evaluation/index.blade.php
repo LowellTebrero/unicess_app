@@ -3,9 +3,8 @@
     <section class="text-gray-700 2xl:min-h-[87vh] m-8 mt-5 p-5  bg-white rounded-xl shadow">
 
         <div class="flex justify-between px-5">
-            <div class="">
+            <div>
                 <h1 class="tracking-wider text-2xl font-semibold">Evaluation Overview </h1>
-
 
                 <div id="toggle-container" class="mt-2">
 
@@ -14,7 +13,6 @@
                         type="checkbox" data-id="{{ $toggle->id }}" {{ $toggle->status === 'checked' ? 'checked' : '' }}
                         id="toggle" />
                         <label class="toggle-switch">Switch here to Open/Close Evaluation</label>
-
                 </div>
             </div>
 
@@ -36,9 +34,6 @@
 
         <x-messages />
     </section>
-
-
-
 
     <script>
         // Wait for the DOM to load
