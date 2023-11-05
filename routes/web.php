@@ -144,9 +144,9 @@ Route::middleware(['auth', 'role:admin'])->name('admin.')->prefix('admin')->grou
 
 
     Route::controller(EvaluationController::class)->group(function () {
-        Route::get('evaluation/index','index')->name('evaluation.index');
-        Route::get('evaluation/{id}/{year}', 'show')->name('evaluation.show');
-        Route::patch('evaluation-update/{id}', 'update')->name('evaluation.update');
+        Route::get('/evaluation/index','index')->name('evaluation.index');
+        Route::get('/evaluation/{id}/{year}', 'show')->name('evaluation.show');
+        Route::patch('/evaluation-update/{id}', 'update')->name('evaluation.update');
         Route::get('/filters','filters')->name('evaluation.filters');
     });
 
