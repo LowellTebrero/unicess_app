@@ -13,9 +13,7 @@
     </style>
 
     <section class="flex min-h-full justify-between overflow-hidden w-full">
-
         <div class="xl:px-8 flex 2xl:w-full xl:w-[56rem] flex-col mt-5">
-
             <div class="p-4 px-5 flex  bg-white rounded-xl min-h-[12vh] shadow">
                 <div>
                     <h1 class="tracking-wider 2xl:text-2xl font-semibold text-slate-700">Welcome,
