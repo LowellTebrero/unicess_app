@@ -12,13 +12,13 @@
         }
     </style>
 
-    <section class="flex min-h-full overflow-hidden w-full">
+    <section class="flex min-h-full justify-between overflow-hidden w-full">
 
-        <div class="xl:px-8 flex 2xl:w-full xl:w-[52rem] flex-col mt-5">
+        <div class="xl:px-8 flex 2xl:w-full xl:w-[56rem] flex-col mt-5">
 
             <div class="p-4 px-5 flex  bg-white rounded-xl min-h-[12vh] shadow">
                 <div>
-                    <h1 class="tracking-wider 2xl:text-2xl font-semibold text-slate-700 ">Welcome,
+                    <h1 class="tracking-wider 2xl:text-2xl font-semibold text-slate-700">Welcome,
                         {{ Auth()->user()->name }} </h1>
                     <span class="tracking-wider text-sm">{{  date('D M d, Y') }} </span>
                 </div>
@@ -35,20 +35,20 @@
                     <!-- Table -->
                     <div class="w-full  mx-auto bg-white  rounded-md border border-gray-200 h-full">
                         <header class="px-5 py-4 border-b border-gray-100 flex justify-between">
-                            <div class="flex space-x-2 items-center">
-                                <h2 class="font-semibold text-gray-600 xl:text-sm">Proposal Dashboard</h2>
+                            <div class="flex xl:space-x-2 items-center">
+                                <h2 class="font-semibold text-gray-600 2xl:text-sm xl:text-xs xl:mr-2">Proposal Dashboard</h2>
                                 <select class="text-xs rounded border border-gray-300 text-gray-700" id="myDropdown" name="authorize_name">
                                     <option {{ '' == request('authorize_name') ? 'selected ' : '' }} value="">Select Status</option>
                                     <option {{ 'pending' == request('authorize_name') ? 'selected ' : '' }} value="pending">Pending</option>
                                     <option {{ 'ongoing' == request('authorize_name') ? 'selected ' : '' }} value="ongoing">Ongoing</option>
                                     <option {{ 'finished' == request('authorize_name') ? 'selected ' : '' }} value="finished">Finished</option>
                                 </select>
-                                <input id="searchInput"  class="text-xs rounded border border-gray-300 w-[20rem] text-gray-700" type="text" placeholder="Search Proposal Title...">
+                                <input id="searchInput"  class="text-xs rounded border border-gray-300 2xl:w-[20rem] xl:w-[15rem] text-gray-700" type="text" placeholder="Search Proposal Title...">
                             </div>
 
                             {{--  Create Proposal   --}}
                             <div class="space-x-2 flex">
-                                <a href={{ route('admin.dashboard.create') }} class="text-white bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 focus:text-[.8rem] transition-all rounded-lg xl:text-sm px-3 py-2 2xl:text-sm">+ Upload Proposal</a>
+                                <a href={{ route('admin.dashboard.create') }} class="text-white bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 focus:text-[.8rem] transition-all rounded-lg xl:text-xs px-3 py-2 2xl:text-sm">+ Upload Proposal</a>
                                 <div id="wrapper" class="flex items-center transition-all">
                                     <a href="" type="submit" class="" id="deleteAllSelected" style="display: none" onclick="return confirm('Are you sure?')">
                                         <svg class="fill-red-500" xmlns="http://www.w3.org/2000/svg" height="30"

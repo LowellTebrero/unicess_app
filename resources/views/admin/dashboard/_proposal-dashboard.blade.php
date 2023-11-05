@@ -5,7 +5,7 @@
                 class="text-[.7rem] font-semibold uppercase text-gray-400 bg-gray-50 top-0 sticky ">
                 <tr>
                     <th class="p-2 whitespace-nowrap">
-                        <div class="font-semibold text-left">Faculty Name</div>
+                        <div class="font-semibold text-left">Uploader</div>
                     </th>
                     <th class="p-2 whitespace-nowrap">
                         <div class="font-semibold text-left">Project Title</div>
@@ -45,7 +45,7 @@
                         <td class="p-3 whitespace-nowrap">
                             <a href={{ route('admin.dashboard.edit-proposal', $proposal->id) }}>
                             <div
-                                class="text-left  text-gray-700 2xl:text-sm xl:text-[.7rem]">
+                                class="text-left text-gray-700 2xl:text-sm xl:text-[.7rem]">
                                 {{ Str::limit($proposal->project_title, 80) }}
                             </div>
                             </a>
