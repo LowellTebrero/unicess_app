@@ -42,9 +42,6 @@ class EvaluationController extends Controller
 
     }
 
-
-
-
     public function filters(Request $request){
 
         $selectedYear = $request->input('year');
