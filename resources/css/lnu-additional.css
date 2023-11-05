@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+.footer {
+    background-image: linear-gradient(to right, rgba(4, 47, 139, 0.656),rgba(4, 47, 139, 0.704)), url("/public/img/footer-bg.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+.images {
+    transition: transform 1s;
+}
+
+.images:hover {
+    transform: scale(1.2) rotate(9deg);
+}
+
+
+.p-tag {
+    display: flex;
+    justify-content: space-evenly;
+}

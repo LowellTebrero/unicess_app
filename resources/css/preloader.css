@@ -1,0 +1,73 @@
+
+.loader {
+    z-index: 70;
+    position: fixed;
+    width: 100%;
+    min-height: 100vh;
+    background: #ecf0f1;
+}
+
+.loader .loader-inner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 80px;
+    height: 80px;
+    transform: translate(-50%, -50%);
+}
+
+.loader span {
+    position: absolute;
+    width: 40%;
+    height: 40%;
+    border-radius: 50%;
+    animation: loading 2s ease infinite;
+}
+
+.loader span:nth-child(1) {
+    background: #0066ff;
+    animation-delay: .5s;
+}
+
+.loader span:nth-child(2) {
+    background: #ffffff;
+    animation-delay: 1s;
+}
+
+.loader span:nth-child(3) {
+    background: #ffd000;
+    animation-delay: 1.5s;
+}
+
+.loader span:nth-child(4) {
+    background: #193848;
+    animation-delay: 2s;
+}
+
+@keyframes loading {
+    0%, 100% {
+        transform: translate(0);
+    }
+
+    25% {
+        transform: translate(80px);
+    }
+
+    50% {
+        transform: translate(80px, 80px);
+    }
+
+    75% {
+        transform: translate(0, 80px);
+    }
+}
+
+.loader.fadeOut {
+    animation: fadeOut 1s alternate;
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+    }
+}

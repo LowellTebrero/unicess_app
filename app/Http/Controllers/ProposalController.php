@@ -1,0 +1,397 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Carbon\Carbon;
+use App\Models\User;
+use App\Models\Point;
+use App\Models\Program;
+use App\Models\CesoRole;
+use App\Models\Evaluation;
+use App\Models\Location;
+use App\Models\Proposal;
+use Illuminate\Http\Request;
+use App\Models\ProposalMember;
+use Illuminate\Validation\Rule;
+use App\Models\ParticipationName;
+use App\Models\TemporaryEvaluationFile;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use toastr;
+
+
+
+
+class ProposalController extends Controller
+{
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {
+        $user = Auth::user();
+        $currentYear = date('Y');
+        $Temporary = TemporaryEvaluationFile::all();
+
+        $proposals = Proposal::with(['proposal_members' => function ($query) {
+        $query->where('user_id', auth()->user()->id);
+        }])->orderBy('created_at', 'DESC')->whereYear('created_at', $currentYear)->paginate(8);
+
+        $programs = Program::orderBy('program_name')->pluck('program_name', 'id')->prepend('Select Program', '');
+        $locations = Location::orderBy('location_name')->pluck('location_name', 'id')->prepend('Select Location', '');
+        $ceso_roles = CesoRole::orderBy('role_name')->pluck('role_name', 'id')->prepend('Select Role', '');
+        $counts = Proposal::where('user_id', auth()->user()->id)->where('authorize', 'finished')->whereYear('created_at', $currentYear)->count();
+        $members = User::orderBy('name')->whereNot('name', 'Administrator')->pluck('name', 'id')->prepend('Select Username', '');
+        $parts_names = ParticipationName::orderBy('participation_name')->pluck('participation_name', 'id')->prepend('Select Participation', '');
+        $second = ProposalMember::select('user_id')->with('proposal')->where('user_id', auth()->user()->id)->whereYear('created_at', $currentYear)->count();
+        $proposalMembers = ProposalMember::with('proposal')->where('user_id', auth()->user()->id)->orderBy('created_at', 'DESC')->paginate(6);
+        $latestYearPoints = Evaluation::select(DB::raw('MAX(YEAR(created_at)) as max_year'), 'total_points')->groupBy('total_points')->latest('created_at')->where('user_id', auth()->user()->id)->whereYear('created_at', $currentYear)->first();
+
+
+        return view('user.dashboard.index',compact(
+        'proposalMembers','latestYearPoints','proposals', 'user', 'counts', 'programs',
+             'locations', 'ceso_roles', 'members' , 'parts_names'
+        ,'currentYear',  'second', 'Temporary'));
+    }
+
+    public function create()
+    {
+        $programs = Program::orderBy('program_name')->pluck('program_name', 'id')->prepend('Select Program', '');
+        $members = User::orderBy('name')->whereNot('name', 'Administrator')->pluck('name', 'id')->prepend('Select Username', '');
+        $ceso_roles = CesoRole::orderBy('role_name')->pluck('role_name', 'id')->prepend('Select Role', '');
+        $locations = Location::orderBy('location_name')->pluck('location_name', 'id')->prepend('Select Location', '');
+        $parts_names = ParticipationName::orderBy('participation_name')->pluck('participation_name', 'id')->prepend('Select Participation', '');
+
+        return view('user.dashboard.create', compact('programs', 'members','ceso_roles', 'locations','parts_names'  ));
+    }
+
+    public function store(Request $request)
+    {
+       $request->validate([
+
+            'program_id' => 'required',
+            'location_id' => Rule::requiredIf(function () {
+                return in_array(request()->ceso_role_id,
+                ['Facilitator/Moderator','Reactor/Panel member','Technical Assistance/Consultancy','Resource Speaker/Trainer', 'nullable']);
+            }),
+            'project_title' => ['regex:/^[^<>?:|\/"*]+$/','required','min:6' ,Rule::unique('proposals')],
+            'started_date' => 'required',
+            'finished_date' => 'required',
+            'proposal_pdf' => "required|mimes:pdf|max:10048",
+            'special_order_pdf' => "required|mimes:pdf|max:10048",
+
+           ],  [
+            'project_title.regex' => 'Invalid characters: \ / : * ? " < > |',
+        ]);
+
+
+        $post = new Proposal();
+        $post->program_id =  $request->program_id;
+        $post->project_title =  $request->project_title;
+        $post->started_date =  $request->started_date;
+        $post->finished_date =  $request->finished_date;
+        $post->user_id  = auth()->id();
+
+
+        if ($request->hasFile('proposal_pdf')) {
+            $post->addMediaFromRequest('proposal_pdf')->usingName('proposal')->usingFileName($request->project_title.'_proposal.pdf')->toMediaCollection('proposalPdf');
+        }
+
+        if ($request->hasFile('special_order_pdf')) {
+            $post->addMediaFromRequest('special_order_pdf')->usingName('special_order')->usingFileName($request->project_title.'_special_order.pdf')->toMediaCollection('specialOrderPdf');
+        }
+
+        $post->save();
+
+
+
+        if($request->leader_id){
+
+            $leadersave = [
+                'proposal_id' => $post->id,
+                'user_id'=> $request->input('leader_id'),
+                'leader_member_type' => $request->input('leader_member_type'),
+                'location_id' => $request->input('location_id'),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ];
+
+            DB::table('proposal_members')->insert($leadersave);
+        };
+
+
+        if($request->member_id !== null){
+
+            for($i=0; $i < count($request->member_id); $i++){
+
+                $datasave = [
+                    'proposal_id' => $post->id,
+                    'user_id'=> $request->member_id[$i]['id'],
+                    'member_type' => $request->member[$i]['type'],
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
+                ];
+
+                DB::table('proposal_members')->insert($datasave);
+                ProposalMember::whereNull('user_id')->where('proposal_id', $post->id)->delete();
+            }
+        }
+
+        flash()->addSuccess('Proposal Uploaded Successfully.');
+
+        return redirect(route('User-dashboard.index'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+
+    public function showProposal($id)
+    {
+        $users = User::all();
+        $proposals = Proposal::where('id', $id)->with('medias')->with('proposal_members')->with('programs')->first();
+        $proposal_member = ProposalMember::with('user')->where('user_id', auth()->user()->id)->first();
+        $proposal = Proposal::with('programs')->with('proposal_members')->with('user')->where('id', $id)->first();
+        // dd($proposal_member);
+        $program = Program::orderBy('program_name')->pluck('program_name', 'id')->prepend('Select Program', '');
+        $parts_names = ParticipationName::orderBy('participation_name')->pluck('participation_name', 'id');
+        $members = User::orderBy('name')->whereNot('name', 'Administrator')->pluck('name', 'id');
+        $ceso_roles = CesoRole::orderBy('role_name')->pluck('role_name', 'id')->prepend('Select Role', '');
+        $locations = Location::orderBy('location_name')->pluck('location_name', 'id')->prepend('Select Location', '');
+
+        // dd($proposals);
+        return view('user.dashboard.show-user-proposal', compact('proposals', 'proposal', 'proposal_member', 'program'
+        ,'parts_names','members', 'ceso_roles', 'locations', 'users' ));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $proposal = Proposal::with('programs')->where('id', $id)->first();
+        return view('dashboard.edit', compact('proposal'));
+
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+
+    public function updateDetails(Request $request, $id)
+    {
+        $proposals = Proposal::where('id', $id)->first();
+
+        // dd($request);
+
+        $request->validate([
+            'program_id' => 'required',
+            'project_title' => 'required',
+            'started_date' => 'required',
+            'finished_date' => 'required',
+        ]);
+
+
+
+      $proposed = Proposal::where('id', $proposals->id)->update([
+
+            'program_id' => $request->program_id,
+            'project_title' => $request->project_title,
+            'started_date' =>  $request->started_date,
+            'finished_date' =>  $request->finished_date,
+        ]);
+
+        if ($proposed) {
+
+        if($request->leader_id !== null){
+
+            ProposalMember::whereNotNull('leader_member_type')->where('proposal_id', $proposals->id)->delete();
+            ProposalMember::whereNotNull('leader_member_type')->where('proposal_id', $proposals->id)->create([
+                    'proposal_id' => $proposals->id,
+                    'user_id'=> $request->leader_id,
+                    'leader_member_type' => $request->leader_member_type,
+                    'location_id' => $request->location_id,
+                ]);
+            }else{
+                ProposalMember::whereNotNull('leader_member_type')->where('proposal_id', $proposals->id)->delete();
+            }
+
+            if($request->member !== null){
+
+                ProposalMember::whereNotNull('member_type')->where('proposal_id', $proposals->id)->delete();
+                foreach ($request->member as $item) {
+
+                    $model = new ProposalMember();
+                    $model->proposal_id = $proposals->id;
+                    $model->user_id = $item['id'];
+                    $model->member_type = $item['type'];
+                    $model->save();
+                }
+
+                }else {
+                    ProposalMember::whereNotNull('member_type')->where('proposal_id', $proposals->id)->delete();
+                }
+
+
+            app('flasher')->addSuccess('Your account has been re-activated.');
+
+
+            return back();
+        }
+
+        app('flasher')->addError('Your account has been re-activated.');
+        return back();
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function fileIndex()
+    {
+
+        $views = collect(File::allFiles(public_path('upload')))->map->getPathName();
+        return view('makefile', compact('views'));
+    }
+
+
+     // Create Make Directory
+     public function createDirecrotory(Request $request)
+     {
+
+         $request->validate([
+             'filename' => 'required',
+            ]);
+
+         $path = public_path('upload/filefolder/'. $request->filename);
+
+         if(!File::isDirectory($path)){
+             File::makeDirectory($path, 0775, true, true);
+
+     // retry storing the file in newly created path.
+         }
+
+         return redirect(route('index-file'));
+     }
+
+
+     public function tagsInput(Request $request)
+     {
+        $keyword = $request->input('keyword');
+        Log::info($keyword);
+        $skills = DB::table('users')->where('name','like','%'.$keyword.'%')->select('users.id','users.name')->get();
+        return json_encode($skills);
+
+        return view('makefile');
+     }
+
+     public function UserDeleteProposal($id){
+
+        $proposal = Proposal::findorFail($id);
+        $proposal->delete();
+
+        return redirect(route('User-dashboard.index'))->with('message', 'Proposal Deleted Successfully');
+     }
+
+     public function search(Request $request, $id)
+    {
+        $query = $request->input('query');
+        $selected_value = $request->input('selected_value');
+
+        $currentYear = date('Y');
+        $previousYear = $currentYear + 1;
+        $proposal = Proposal::with('programs')->get();
+        $user = Auth::user();
+        $programs = Program::orderBy('program_name')->pluck('program_name', 'id')->prepend('Select Program', '');
+        $locations = Location::orderBy('location_name')->pluck('location_name', 'id')->prepend('Select Location', '');
+        $ceso_roles = CesoRole::orderBy('role_name')->pluck('role_name', 'id')->prepend('Select Role', '');
+        $counts = Proposal::where('user_id', auth()->user()->id)->where('authorize', 'finished')->whereYear('created_at', $currentYear)->count();
+        $members = User::orderBy('name')->whereNot('name', 'Administrator')->pluck('name', 'id')->prepend('Select Username', '');
+        $parts_names = ParticipationName::orderBy('participation_name')->pluck('participation_name', 'id')->prepend('Select Participation', '');
+        $second = ProposalMember::select('user_id')->with('proposal')->where('user_id', auth()->user()->id)->whereYear('created_at', $currentYear)->count();
+        $Temporary = TemporaryEvaluationFile::all();
+        $latestYearPoints = Evaluation::select(DB::raw('MAX(YEAR(created_at)) as max_year'), 'total_points')->groupBy('total_points')->latest('created_at')->where('user_id', auth()->user()->id)->whereYear('created_at', $currentYear)->first();
+        $proposalMembers = ProposalMember::with('proposal')->where('user_id', auth()->user()->id)->orderBy('created_at', 'DESC')->paginate(6);
+
+
+
+        $proposals = Proposal::where(function ($query) {
+            if($companyId = request('selected_value')){
+                $query->where('authorize', $companyId);
+            }})->when($query, function ($querys) use ($query) {
+                return $querys->where('project_title', 'like', "%$query%");
+                })->with(['proposal_members' => function ($query) {
+                $query->where('user_id', auth()->user()->id);
+            }])->orderBy('created_at', 'DESC')->paginate(8);
+
+
+
+
+        return view('user.dashboard.user-dashboard._dashboard', compact(
+        'proposalMembers','latestYearPoints','proposals', 'user', 'counts',
+        'programs', 'locations', 'ceso_roles', 'members' , 'parts_names','currentYear',
+        'previousYear', 'second', 'Temporary'));
+    }
+
+     public function filter(Request $request, $id)
+    {
+
+        $selected_value = $request->input('selected_value');
+        $query = $request->input('query');
+        $currentYear = date('Y');
+        $previousYear = $currentYear + 1;
+        $proposal = Proposal::with('programs')->get();
+        $user = Auth::user();
+        $programs = Program::orderBy('program_name')->pluck('program_name', 'id')->prepend('Select Program', '');
+        $locations = Location::orderBy('location_name')->pluck('location_name', 'id')->prepend('Select Location', '');
+        $ceso_roles = CesoRole::orderBy('role_name')->pluck('role_name', 'id')->prepend('Select Role', '');
+        $counts = Proposal::where('user_id', auth()->user()->id)->where('authorize', 'finished')->whereYear('created_at', $currentYear)->count();
+        $members = User::orderBy('name')->whereNot('name', 'Administrator')->pluck('name', 'id')->prepend('Select Username', '');
+        $parts_names = ParticipationName::orderBy('participation_name')->pluck('participation_name', 'id')->prepend('Select Participation', '');
+        $second = ProposalMember::select('user_id')->with('proposal')->where('user_id', auth()->user()->id)->whereYear('created_at', $currentYear)->count();
+        $Temporary = TemporaryEvaluationFile::all();
+        $latestYearPoints = Evaluation::select(DB::raw('MAX(YEAR(created_at)) as max_year'), 'total_points')->groupBy('total_points')->latest('created_at')->where('user_id', auth()->user()->id)->whereYear('created_at', $currentYear)->first();
+        $proposalMembers = ProposalMember::with('proposal')->where('user_id', auth()->user()->id)->orderBy('created_at', 'DESC')->paginate(6);
+
+
+        $proposals = Proposal::with(['proposal_members' => function ($query) {
+                $query->where('user_id', auth()->user()->id);
+                }])->when($query, function ($querys) use ($query) {
+                    return $querys->where('project_title', 'like', "%$query%");
+                })->where(function ($query) {
+                    if($companyId = request('selected_value')){
+                        $query->where('authorize', $companyId);
+                    }})->orderBy('created_at', 'DESC')->paginate(8);
+
+
+
+        return view('user.dashboard.user-dashboard._dashboard', compact(
+        'proposalMembers','latestYearPoints','proposals', 'user', 'counts',
+        'programs', 'locations', 'ceso_roles', 'members' , 'parts_names','currentYear',
+        'previousYear', 'second', 'Temporary'));
+
+    }
+
+}

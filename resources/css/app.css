@@ -1,0 +1,261 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+    /* margin: 0;
+    padding: 0;
+    box-sizing: border-box; */
+    font-family: 'Poppins';
+  }
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+.navbar-dashboard-slider {
+    margin-left: 0;
+}
+
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  /* The slider */
+  .sliders {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+
+  .sliders:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+
+  input:checked + .sliders {
+    background-color: #2196F3;
+  }
+
+  input:focus + .sliders {
+    box-shadow: 0 0 1px #2196F3;
+  }
+
+  input:checked + .sliders:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+
+  /* Rounded sliders */
+  .sliders.round {
+    border-radius: 34px;
+  }
+
+  .sliders.round:before {
+    border-radius: 50%;
+  }
+
+.update-image {
+    clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+}
+
+.article-bg {
+    background-image: linear-gradient(to top right, rgba(18, 52, 245, 0.279), rgba(13, 149, 246, 0.125)), url("/public/img/article-bg.png");
+    min-height: 55vh;
+    background-repeat: no-repeat;
+
+
+
+}
+
+.mission-vision {
+    background-image: linear-gradient(to right, rgb(4, 46, 139), rgb(4, 46, 139),rgba(4, 47, 139, 0.704), rgba(63, 92, 254, 0.476)), url("/public/img/mission-vision.jpg");
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.footer {
+    background-image: linear-gradient(to right, rgba(4, 47, 139, 0.656),rgba(4, 47, 139, 0.704)), url("/public/img/footer-bg.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.m-s {
+    flex: 3 1 25rem;
+}
+.img {
+    flex: 1 1 25rem;
+}
+
+
+.sidebar {
+    width: 18rem;
+    transition: all .2s;
+}
+
+.sidebar.active span {
+   display: none;
+   transition: all .2s;
+
+}
+
+.sidebar.active  {
+  width: 10rem;
+
+}
+
+.show-a-tag{
+    opacity: 100;
+}
+
+.add-background{
+    background-color: blue;
+}
+
+
+.remove-margin {
+    margin-left: 7rem;
+    transition: all .2s;
+}
+
+.sidebar.active {
+    width: 7rem;
+    transition: all .2s;
+
+}
+
+  .slides{
+    width: 500%;
+    height: 500px;
+    display: flex;
+  }
+
+  .slides input{
+    display: none;
+  }
+
+  .slide{
+    width: 20%;
+    transition: 2s;
+  }
+
+  .slide img{
+    width: 800px;
+    height: 500px;
+  }
+
+  /*css for manual slide navigation*/
+
+  .navigation-manual{
+
+
+    position: absolute;
+    left: 0%;
+    bottom: 5%;
+    display: flex;
+  }
+
+  #showImage{
+    width: 100%;
+  }
+  .manual-btn{
+    border: 2px solid #40D3DC;
+    padding: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 1s;
+  }
+
+  .manual-btn:not(:last-child){
+    margin-right: 40px;
+  }
+
+  .manual-btn:hover{
+    background: #40D3DC;
+  }
+
+  #radio1:checked ~ .first{
+    margin-left: 0;
+  }
+
+  #radio2:checked ~ .first{
+    margin-left: -20%;
+  }
+
+  #radio3:checked ~ .first{
+    margin-left: -40%;
+  }
+
+  #radio4:checked ~ .first{
+    margin-left: -60%;
+  }
+
+  /*css for automatic navigation*/
+
+  .navigation-auto{
+
+    position: absolute;
+    left: 0%;
+    bottom: 5%;
+    display: flex;
+
+
+  }
+
+  .navigation-auto div{
+    border: 2px solid #40D3DC;
+    padding: 5px;
+    border-radius: 10px;
+    transition: 1s;
+  }
+
+  .navigation-auto div:not(:last-child){
+    margin-right: 40px;
+  }
+
+  #radio1:checked ~ .navigation-auto .auto-btn1{
+    background: #40D3DC;
+  }
+
+  #radio2:checked ~ .navigation-auto .auto-btn2{
+    background: #40D3DC;
+  }
+
+  #radio3:checked ~ .navigation-auto .auto-btn3{
+    background: #40D3DC;
+  }
+
+  #radio4:checked ~ .navigation-auto .auto-btn4{
+    background: #40D3DC;
+  }
