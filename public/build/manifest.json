@@ -1,0 +1,31 @@
+{
+  "public/img/article-bg.png": {
+    "file": "assets/article-bg-2b04d491.png",
+    "src": "public/img/article-bg.png"
+  },
+  "public/img/footer-bg.jpg": {
+    "file": "assets/footer-bg-bc9817f2.jpg",
+    "src": "public/img/footer-bg.jpg"
+  },
+  "public/img/mission-vision.jpg": {
+    "file": "assets/mission-vision-b2ed96f1.jpg",
+    "src": "public/img/mission-vision.jpg"
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-e80beffd.css",
+    "isEntry": true,
+    "src": "resources/css/app.css"
+  },
+  "resources/js/app.css": {
+    "file": "assets/app-3839a03e.css",
+    "src": "resources/js/app.css"
+  },
+  "resources/js/app.js": {
+    "css": [
+      "assets/app-3839a03e.css"
+    ],
+    "file": "assets/app-4ea13e9c.js",
+    "isEntry": true,
+    "src": "resources/js/app.js"
+  }
+}
