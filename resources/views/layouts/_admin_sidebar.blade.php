@@ -29,7 +29,7 @@
                 {{ __('Points') }}
             </x-custom-nav-link>
 
-            <x-custom-nav-link :href="url('/admin/evaluation')" :active="request()->routeIs('admin.evaluation.*')">
+            <x-custom-nav-link :href="route('admin.evaluation.index')" :active="request()->routeIs('admin.evaluation.*')">
                 <svg class="fill-white mr-2" xmlns="http://www.w3.org/2000/svg" height="35"
                     viewBox="0 -960 960 960" width="30">
                     <path
