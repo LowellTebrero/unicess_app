@@ -16,13 +16,9 @@ class EvaluationController extends Controller
         $evaluations = Evaluation::with('users')->with('evaluationfile')->get();
         $currentYear = date('Y');
         $previousYear = $currentYear + 1;
-
         $id = 1;
         $toggle = EvaluationStatus::findorFail($id);
-
-        $latestYear = Evaluation::selectRaw('YEAR(created_at) as year')->orderByDesc('created_at')->groupBy('year')->pluck('year')->first();
-        $latestData = Evaluation::whereYear('created_at', '>=', $currentYear)
-        ->whereYear('created_at', '<=', $previousYear)->get();
+        $latestData = Evaluation::whereYear('created_at', '>=', $currentYear)->whereYear('created_at', '<=', $previousYear)->get();
 
         return view('admin.evaluation.index', compact( 'latestData','currentYear', 'previousYear', 'evaluations', 'toggle'));
     }
