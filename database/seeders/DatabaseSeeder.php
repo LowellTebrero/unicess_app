@@ -19,15 +19,15 @@ class DatabaseSeeder extends Seeder
     {
 
 
-        // $this->call(RoleAndPermissionSeeder::class);
-        // $this->call(ProgramSeeder::class);
-        // $this->call(CesoRoleSeeder::class);
-        // $this->call(PartnerSeeder::class);
-        // $this->call(FacultySeeder::class);
-        // $this->call(LocationSeeder::class);
-        // $this->call(AdminSeeder::class);
-        // $this->call(ParticipationNameSeeder::class);
-        // $this->call(YearSeeder::class);
+        $this->call(RoleAndPermissionSeeder::class);
+        $this->call(ProgramSeeder::class);
+        $this->call(FacultySeeder::class);
+        $this->call(CesoRoleSeeder::class);
+        $this->call(PartnerSeeder::class);
+        $this->call(LocationSeeder::class);
+        $this->call(ParticipationNameSeeder::class);
+        $this->call(YearSeeder::class);
+         $this->call(AdminSeeder::class);
 
 
 
