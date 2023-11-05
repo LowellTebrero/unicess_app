@@ -140,7 +140,14 @@ Route::middleware(['auth', 'role:admin'])->name('admin.')->prefix('admin')->grou
         Route::get('/dashboard/user-proposal/{id}','checkProposal')->name('dashboard.edit-proposal');
         Route::put('/update-user-proposal/{id}',  'updateDetails')->name('dashboard.update-project-details');
         Route::delete('/delete-user-proposal',  'DeleteProposal')->name('dashboard.delete-project-proposal');
+    });
 
+
+    Route::controller(EvaluationController::class)->group(function () {
+        Route::get('evaluation/index','index')->name('evaluation.index');
+        Route::get('evaluation/{id}/{year}', 'show')->name('evaluation.show');
+        Route::patch('evaluation-update/{id}', 'update')->name('evaluation.update');
+        Route::get('/filters','filters')->name('evaluation.filters');
     });
 
 
@@ -167,8 +174,6 @@ Route::middleware(['auth', 'role:admin'])->name('admin.')->prefix('admin')->grou
     });
 
 
-
-
     Route::controller(AdminPointController::class)->group(function () {
         Route::get('/points', 'index')->name('points.index');
         Route::get('/points/{id}/{year}', 'show')->name('points.show');
@@ -176,12 +181,6 @@ Route::middleware(['auth', 'role:admin'])->name('admin.')->prefix('admin')->grou
     });
 
     Route::get('/chart', [ChartController::class, 'index'])->name('chart.index');
-
-    Route::get('evaluation/index',[EvaluationController::class, 'index'])->name('evaluation.index');
-    Route::get('evaluation/{id}/{year}',[EvaluationController::class, 'show'])->name('evaluation.show');
-    Route::patch('evaluation-update/{id}',[EvaluationController::class, 'update'])->name('evaluation.update');
-    Route::get('/filters',[EvaluationController::class, 'filters'])->name('evaluation.filters');
-
     Route::get('/edit-toggle/{id}', [ToggleController::class, 'edit'])->name('edit.submit');
 
     Route::get('/template-index',[OtherSettingsController::class, 'index'])->name('template.index');
