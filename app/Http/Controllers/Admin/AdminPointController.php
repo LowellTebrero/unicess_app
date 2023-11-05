@@ -18,7 +18,8 @@ class AdminPointController extends Controller
 
         $name = request('year');
 
-        $latestYear = Evaluation::selectRaw('YEAR(created_at) as year')->orderByDesc('created_at')->groupBy('year')->pluck('year')->first();
+        // $latestYear = Evaluation::selectRaw('YEAR(created_at) as year')->orderByDesc('created_at')->pluck('year')->first();
+
         $latestData = Evaluation::whereYear('created_at', '>=', $currentYear)
         ->whereYear('created_at', '<=', $previousYear)->orderBy("total_points", "DESC")->get();
 

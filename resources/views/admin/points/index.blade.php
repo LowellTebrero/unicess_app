@@ -3,7 +3,7 @@
 <section class="rounded-xl shadow m-8 mt-5 p-5 text-slate-700 bg-white min-h-[87vh]">
     <div class="flex justify-between px-5">
         <div>
-            <h1 class=" font-semibold text-2xl tracking-wider">Evaluation Points Overview </h1>
+            <h1 class="font-semibold text-2xl tracking-wider">Evaluation Points Overview </h1>
         </div>
         <div>
             <select name="myDropdown" id="myDropdown" class="xl:text-sm border-slate-500 rounded-lg">
