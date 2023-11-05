@@ -19,17 +19,17 @@
 
                     <tr class="hover:bg-gray-100 ">
                         <td class="px-4 py-4 whitespace-nowrap text-xs text-gray-800">
-                            <a href={{route('admin.inventory.show-inventory', $proposal->id)}} target="__blank">
+                            <a href={{route('admin.inventory.proposal-show', $proposal->id)}} target="__blank">
                                 {{ $proposal->created_at->diffForHumans()}}
                             </a>
                         </td>
                         <td class="px-4 py-4 whitespace-nowrap text-xs text-gray-800">
-                            <a href={{route('admin.inventory.show-inventory', $proposal->id)}} target="__blank">
+                            <a href={{route('admin.inventory.proposal-show', $proposal->id)}} target="__blank">
                                 {{ Str::limit($proposal->project_title, 110)}}
                             </a>
                         </td>
                         <td class="px-4 py-4 whitespace-nowrap text-xs text-gray-800">
-                            <a href={{route('admin.inventory.show-inventory', $proposal->id)}} target="__blank">
+                            <a href={{route('admin.inventory.proposal-show', $proposal->id)}} target="__blank">
                                 {{ $proposal->authorize}}
                             </a>
                         </td>
