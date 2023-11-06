@@ -1,15 +1,6 @@
 <x-admin-layout>
     <style>
-        [x-cloak] {
-            display: none
-        }
-
-        form button:disabled,
-        form button[disabled] {
-            border: 1px solid #999999;
-            background-color: #cccccc;
-            color: #666666;
-        }
+        [x-cloak] { display: none}
     </style>
 
     <section class="flex min-h-full justify-between overflow-hidden w-full">

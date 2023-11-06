@@ -243,6 +243,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/downloads-other/{id}','downloadsOther');
         Route::get('/download/{id}','download');
         Route::get('/download-media/{id}','downloadsMedia');
+        Route::put('/update-inventory-project-details/{id}', 'UpdateShowInventory')->name('inventory.update-project-details');
     });
 
     Route::controller(TemplateController::class)->group(function () {

@@ -130,21 +130,19 @@ class ProposalController extends Controller
         };
 
 
-        if($request->member_id !== null){
+        if($request->member !== null){
 
-            for($i=0; $i < count($request->member_id); $i++){
+            foreach ($request->member as $item) {
 
-                $datasave = [
-                    'proposal_id' => $post->id,
-                    'user_id'=> $request->member_id[$i]['id'],
-                    'member_type' => $request->member[$i]['type'],
-                    'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now()
-                ];
-
-                DB::table('proposal_members')->insert($datasave);
-                ProposalMember::whereNull('user_id')->where('proposal_id', $post->id)->delete();
+            $model = new ProposalMember();
+            $model->proposal_id = $post->id;
+            $model->user_id = $item['id'];
+            $model->member_type = $item['type'];
+            $model->save();
             }
+
+            ProposalMember::whereNull('user_id')->where('proposal_id', $post->id)->delete();
+
         }
 
         flash()->addSuccess('Proposal Uploaded Successfully.');

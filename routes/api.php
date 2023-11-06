@@ -61,6 +61,7 @@ Route::post('/update-customize-user-all-proposal/{id}', [CustomizeUsersAllPropos
 
 
 Route::post('/update-customize-user/{id}', [InventoryController::class, 'updateData'])->name('update.user-customize');
+Route::post('/update-customize-user-show/{id}', [InventoryController::class, 'updateShowData'])->name('update.user-show');
 Route::get('/update-year-user/{id}', [InventoryController::class, 'filterInventoryYear'])->name('update.user-year');
 Route::get('/search-proposal-name/{id}', [InventoryController::class, 'search'])->name('search.proposal-name');
 

@@ -71,7 +71,6 @@
 
                                     @if ($proposal->id == $prop->proposal_id)
 
-
                                             <tr class="hover:bg-gray-200 ">
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800  w-[1/4]">
                                                     <a href={{ route('inventory.show', $proposal->id) }}>

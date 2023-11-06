@@ -12,7 +12,7 @@
     <section class="bg-white mt-5  m-8 rounded-xl min-h-[87vh]">
 
         <div class="flex justify-between items-center p-4 ">
-            <h1 class="text-2xl font-semibold text-slate-700">Upload Proposal</h1>
+            <h1 class="text-2xl font-semibold text-slate-700">Upload Proposal <span class="text-red-500 text-xs tracking-wide font-light"> * required fields</span></h1>
             <a href="/User-dashboard" class="text-red-500 text-xl font-medium focus:bg-gray-300 focus:rounded">
                 <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -70,15 +70,15 @@
                 <div class="flex space-x-4 w-full">
 
                     <div class="w-full">
-                        <label class="xl:text-xs block text-slate-700 text-sm font-medium mb-2 2xl:text-sm">Project leader <span class="text-red-500">*</span></label>
+                        <label class="xl:text-xs block text-slate-700 text-sm font-medium mb-2 2xl:text-sm">Project leader</label>
                         <select name="leader_id" class="rounded-md xl:text-xs w-full  border-zinc-300" value="{{ old('leader_id') }}" id="leader" onchange="RequiredGet(this)">
-                            @foreach ($members as $id => $name ) <option value="{{ $id }}" @if ($id == old('leader_id')) selected="selected"@endif >{{ $name }}</option>@endforeach
+                            @foreach ($members as $id => $name ) <option value="{{ $id }}">{{ $name }}</option>@endforeach
                         </select>
                         @error('project_leader') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
                     </div>
 
                     <div class="w-full">
-                        <label class="xl:text-xs block text-slate-700 text-sm font-medium mb-2 2xl:text-sm">Role of Leader <span class="text-red-500">*</span></label>
+                        <label class="xl:text-xs block text-slate-700 text-sm font-medium mb-2 2xl:text-sm">Role of Leader</label>
                         <select onchange="yesnoCheck(this)" id="leader_member_type" name="leader_member_type" value="{{ old('leader_member_type') }}" class="rounded-md xl:text-xs w-full border-zinc-300">
                             @foreach ($ceso_roles as $id => $role_name )
                             <option value="{{ $id }}"  @if ($id == old('leader_member_type'))
@@ -91,7 +91,7 @@
                     </div>
 
                     <div class="w-full">
-                        <label class="xl:text-xs block text-slate-700 text-sm font-medium mb-2 2xl:text-sm">Location <span class="text-red-500">*</span></label>
+                        <label class="xl:text-xs block text-slate-700 text-sm font-medium mb-2 2xl:text-sm">Location</label>
                         <select id="location_id" type="text"  class="rounded-md xl:text-xs w-full border-zinc-300 " name="location_id" value="{{ old('location_id') }}">
                             @foreach ($locations as $id => $location_name )
                             <option value="{{ $id }}"
@@ -121,8 +121,8 @@
                         <tbody>
                         <tr>
                             <td class="pr-4">
-                                <select name="member_id[0][id]" class="rounded-md xl:text-xs w-full border-zinc-300" id="member"  value="{{ old('member_id[0][id]') }}" required>
-                                    @foreach ($members as $id => $name ) <option value="{{ $id }}" @if ($id == old('member_id[0][id]')) selected="selected" @endif >{{ $name }}</option> @endforeach
+                                <select name="member[0][id]" class="rounded-md xl:text-xs w-full border-zinc-300" id="member">
+                                    @foreach ($members as $id => $name ) <option value="{{ $id }}" @if ($id == old('member_id[0][id]')) selected="selected" @endif required>{{ $name }}</option> @endforeach
                                 </select>
                             </td>
 
@@ -144,13 +144,13 @@
                 <div class="xl:flex xl:justify-between mt-4 space-x-4 w-full">
                     <div class="mb-4 w-full">
                         <label class="xl:text-xs block text-slate-700 text-sm font-medium mb-2">PROJECT PROPOSAL PDF <span class="text-red-500">*</span></label>
-                        <input onchange="checkInputs()"  class="bg-white border-zinc-300 xl:text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-700 leading-tight focus:outline-none" name="proposal_pdf" id="proposal_pdf" type="file">
+                        <input onchange="checkInputs()"  class="bg-white border-zinc-300 xl:text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-700 leading-tight focus:outline-none" name="proposal_pdf" id="proposal_pdf" type="file" required>
                         @error('proposal_pdf') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
                     </div>
 
                     <div class="mb-4 w-full">
                         <label class="xl:text-xs block text-slate-700 text-sm font-medium mb-2">SPECIAL ORDER PDF <span class="text-red-500">*</span></label>
-                        <input onchange="checkInputs()" class="bg-white border-zinc-300 xl:text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-700 leading-tight focus:outline-none" name="special_order_pdf" id="special_order_pdf" type="file">
+                        <input onchange="checkInputs()" class="bg-white border-zinc-300 xl:text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-700 leading-tight focus:outline-none" name="special_order_pdf" id="special_order_pdf" type="file" required>
                         @error('special_order_pdf') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
                     </div>
                 </div>
@@ -177,7 +177,7 @@
             $('#table').append(
                 `<tr>
                     <td class="pr-4 pt-2">
-                        <select name="member_id[`+i+`][id]" class="rounded-md xl:text-xs w-full border-zinc-300" required >
+                        <select name="member[`+i+`][id]" class="rounded-md xl:text-xs w-full border-zinc-300" required >
                             @foreach ($members as $id => $name )
                             <option value="{{ $id }}"
                             @if ($id == old('member_id'))
@@ -219,7 +219,7 @@
             function RequiredGet(answer){
 
                 console.log(answer.value)
-                if(answer.value == '' ){
+                if(answer.value == 'selected' ){
                     document.getElementById('member').required = true;
                     console.log(document.getElementById('member'));
 

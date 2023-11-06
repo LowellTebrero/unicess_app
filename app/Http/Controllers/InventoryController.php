@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Program;
+use App\Models\CesoRole;
+use App\Models\Location;
 use App\Models\Proposal;
 use App\Models\AdminYear;
 use Illuminate\Http\Request;
 use App\Models\ProposalMember;
 use App\Models\ProposalProject;
+use App\Models\ParticipationName;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\CustomizeUserInventory;
@@ -36,14 +40,86 @@ class InventoryController extends Controller
     public function show($id)
     {
         $proposals = Proposal::where('id', $id)->with('medias')->with('programs')->first();
-        // dd($proposals);
+        $members = User::orderBy('name')->whereNot('name', 'Administrator')->pluck('name', 'id')->prepend('Select Username', '');
+        $ceso_roles = CesoRole::orderBy('role_name')->pluck('role_name', 'id')->prepend('Select Role', '');
+        $locations = Location::orderBy('location_name')->pluck('location_name', 'id')->prepend('Select Location', '');
+        $parts_names = ParticipationName::orderBy('participation_name')->pluck('participation_name', 'id')->prepend('Select Participation', '');
+        $inventory = CustomizeUserInventory::where('id', 2)->get();
         $proposal = Proposal::where('id', $id)->with('programs')->where('authorize', 'finished')->first();
         $proposal_member = ProposalMember::where('user_id', auth()->user()->id)->first();
+        $program = Program::orderBy('program_name')->pluck('program_name', 'id')->prepend('Select Program', '');
 
-        return view('user.inventory.show', compact('proposals', 'proposal', 'proposal_member'));
-
+        return view('user.inventory.show', compact('proposals', 'proposal', 'proposal_member', 'inventory', 'program', 'members'
+    ,'ceso_roles','locations', 'parts_names'));
 
     }
+
+    public function UpdateShowInventory(Request $request, $id)
+    {
+        $proposals = Proposal::where('id', $id)->first();
+
+        // dd($request);
+
+        $request->validate([
+            'program_id' => 'required',
+            'project_title' => 'required',
+            'started_date' => 'required',
+            'finished_date' => 'required',
+        ]);
+
+
+
+      $proposed = Proposal::where('id', $proposals->id)->update([
+
+            'program_id' => $request->program_id,
+            'project_title' => $request->project_title,
+            'started_date' =>  $request->started_date,
+            'finished_date' =>  $request->finished_date,
+        ]);
+
+        if ($proposed) {
+
+        if($request->leader_id !== null){
+
+            ProposalMember::whereNotNull('leader_member_type')->where('proposal_id', $proposals->id)->delete();
+            ProposalMember::whereNotNull('leader_member_type')->where('proposal_id', $proposals->id)->create([
+                    'proposal_id' => $proposals->id,
+                    'user_id'=> $request->leader_id,
+                    'leader_member_type' => $request->leader_member_type,
+                    'location_id' => $request->location_id,
+                ]);
+            }else{
+                ProposalMember::whereNotNull('leader_member_type')->where('proposal_id', $proposals->id)->delete();
+            }
+
+            if($request->member !== null){
+
+                ProposalMember::whereNotNull('member_type')->where('proposal_id', $proposals->id)->delete();
+                foreach ($request->member as $item) {
+
+                    $model = new ProposalMember();
+                    $model->proposal_id = $proposals->id;
+                    $model->user_id = $item['id'];
+                    $model->member_type = $item['type'];
+                    $model->save();
+                }
+
+                }else {
+                    ProposalMember::whereNotNull('member_type')->where('proposal_id', $proposals->id)->delete();
+                }
+
+
+            app('flasher')->addSuccess('Proposal details successfully updated.');
+
+
+            return back();
+        }
+
+        app('flasher')->addError('Something went wrong.');
+        return back();
+    }
+
+
 
     // Universal User
     public function downloadsPdf($id)
@@ -96,15 +172,21 @@ class InventoryController extends Controller
 
     public function userUpdateFiles(Request $request, $id)
     {
+        $request->validate([
+            'proposal_pdf' => 'mimes:pdf',
+            'moa' => 'mimes:pdf',
+
+
+        ]);
+
        $proposals = Proposal::where('id', $id)->first();
        $project_title = $proposals->project_title;
 
 
        if ($request->hasFile('proposal_pdf')) {
-        $proposals->clearMediaCollection('proposalPdf');
-        $proposals->addMediaFromRequest('proposal_pdf')->usingName('proposal')->usingFileName($project_title.'_proposal.pdf')->toMediaCollection('proposalPdf');
-    }
-
+            $proposals->clearMediaCollection('proposalPdf');
+            $proposals->addMediaFromRequest('proposal_pdf')->usingName('proposal')->usingFileName($project_title.'_proposal.pdf')->toMediaCollection('proposalPdf');
+        }
 
          if ($request->hasFile('moa')) {
              $proposals->clearMediaCollection('MoaPDF');
@@ -113,38 +195,15 @@ class InventoryController extends Controller
 
          if ($images = $request->file('other_files')) {
 
-            // $collectionName = 'otherFile';
-
-            // $model = Media::find($id);
-
             foreach ($images as $image) {
-
-                // $existingMedia = $model->getMedia($collectionName, $image->getClientOriginalName());
-
-                // if ($existingMedia) {
-                //     // File with the same name already exists; handle the filename conflict
-                //     $originalName = $image->getClientOriginalName();
-                //     $extension = $image->getClientOriginalExtension();
-                //     $i = 1;
-
-                //     while ($existingMedia) {
-                //         $newFilename = $originalName . " ($i).$extension";
-                //         $existingMedia = $model->getFirstMediaUrl($collectionName, $newFilename);
-                //         $i++;
-                //     }
-
-                //     $proposals->addMedia($image)
-                //     ->toMediaCollection($collectionName)
-                //     ->usingName($newFilename)->toMediaCollection('otherFile');
-
-                // }else {
-
                 $proposals->addMedia($image)->usingName('other')->toMediaCollection('otherFile');
-            // }
             }
         }
          $proposals->update();
-         return back()->with('message', 'Status updated successfully');
+         app('flasher')->addSuccess('Files successfully updated.');
+         return back();
+
+
     }
 
 
@@ -241,6 +300,22 @@ class InventoryController extends Controller
     public function downloadsMedia(Media $id)
     {
         return response()->download($id->getPath(), $id->file_name);
+    }
+
+
+    public function updateShowData(Request $request, $id){
+        // Find the model instance you want to update
+        $model = CustomizeUserInventory::find($id);
+
+        if (!$model) {
+            return response()->json(['message' => 'Model not found'], 404);
+        }
+
+        // Update the model attributes based on the dropdown value
+        $model->number = $request->input('selected_value');
+        $model->save();
+
+        return response()->json(['message' => 'Data updated successfully']);
     }
 
 }
