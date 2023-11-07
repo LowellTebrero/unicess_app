@@ -25,17 +25,17 @@
                 <div class="lg:absolute z-50 flex lg:flex-col flex-row  px-5 ">
 
                     <div class="flex space-x-2 items-center lg:items-start  lg:flex-col  ml-5">
-                        <a class=" drop-shadow-lg" href={{ route('lnu') }}><img class="xl:w-32 lg:w-24 w-[4rem]"
+                        <a class=" drop-shadow-lg" href={{ route('lnu') }}><img class="xl:w-32 lg:w-24 w-[4.5rem]"
                         src="{{ asset('img/logo.png') }}">
                         </a>
                     </div>
 
                     <div class="lg:flex-col p-5">
-                        <h1 class="text-white lg:text-2xl my-5 drop-shadow-lg">Leyte Normal University</h1>
-                        <h1 class="text-yellow-400  lg:text-xl xl:text-4xl tracking-widest font-bold drop-shadow-lg text-md">
+                        <h1 class="text-white lg:text-2xl lg:my-5 drop-shadow-lg">Leyte Normal University</h1>
+                        <h1 class="text-yellow-400 text-xs lg:text-xl xl:text-4xl tracking-widest font-bold drop-shadow-lg text-md">
                             UNIVERSITY COMMUNITY EXTENSION SERVICES SYSTEM (UniCESS)
                         </h1>
-                        <h1 class="text-white text-lg mt-5 drop-shadow-lg md:text-sm">WELCOME NORMALISTA!</h1>
+                        <h1 class="text-white lg:text-lg lg:mt-5 drop-shadow-lg md:text-sm text-xs">WELCOME NORMALISTA!</h1>
                     </div>
                 </div>
             </div>
