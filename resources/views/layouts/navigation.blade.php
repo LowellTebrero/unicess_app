@@ -24,29 +24,41 @@
 
                     <!-- Navigation Links -->
 
-                        <x-nav-link class="text-white text-xs xl:text-sm 2xl:text-base" href="#hero-section">
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex ">
+                        <x-nav-link class=" text-white text-xs xl:text-sm 2xl:text-base" href="#hero-section">
                             {{ __('Home') }}
                         </x-nav-link>
+                    </div>
 
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex ">
                         <x-nav-link class="text-white text-xs xl:text-sm 2xl:text-base" href="#events-section">
                             {{ __('Events') }}
                         </x-nav-link>
+                    </div>
 
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex ">
                         <x-nav-link class="text-white text-xs xl:text-sm 2xl:text-base" href="#about-section">
                             {{ __('About') }}
                         </x-nav-link>
+                    </div>
 
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex ">
                         <x-nav-link class="text-white text-xs xl:text-sm 2xl:text-base" href="#article-section">
                             {{ __('Articles') }}
                         </x-nav-link>
+                    </div>
 
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex ">
                         <x-nav-link class="text-white text-xs xl:text-sm 2xl:text-base" href="#program-and-services-section">
                             {{ __('Program and Services') }}
                         </x-nav-link>
+                    </div>
 
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex ">
                         <x-nav-link class="text-white text-xs xl:text-sm 2xl:text-base" href="#contact-section">
                             {{ __('Contact us') }}
                         </x-nav-link>
+                    </div>
 
                 </div>
                 </div>
@@ -79,15 +91,11 @@
                             $notifications = auth()->user()->unreadNotifications;
                             @endphp
 
-
-
                             <div class="flex flex-col drop-shadow-lg backdrop-blur-sm  px-3 h-[30vh] overflow-y-auto overflow-x-hidden relative">
-
 
                                 <div class="sticky top-0 ">
                                     <h1 class="font-semibold  mb-3 text-sm text-gray-800">Notifications</h1>
                                 </div>
-
 
                                 @forelse (auth()->user()->unreadnotifications as $notification )
 
@@ -101,7 +109,6 @@
                                     Mark as read
                                 </a>
                                 @empty
-
                                 <h1 class="text-center">No notifications</h1>
                                 @endforelse
                             </div>
@@ -131,16 +138,16 @@
 
                             @if (Auth::user()->authorize == 'checked')
 
-                            @hasrole('admin')
-                            <x-dropdown-link :href="route('admin.dashboard.index')" class="dynamic-link">
-                                {{ __('Dashboard') }}
-                            </x-dropdown-link>
+                                @hasrole('admin')
+                                <x-dropdown-link :href="route('admin.dashboard.index')" class="dynamic-link">
+                                    {{ __('Dashboard') }}
+                                </x-dropdown-link>
 
-                            @else
-                            <x-dropdown-link :href="route('User-dashboard.index')" class="dynamic-link">
-                                {{ __('Dashboard') }}
-                            </x-dropdown-link>
-                            @endhasrole
+                                @else
+                                <x-dropdown-link :href="route('User-dashboard.index')" class="dynamic-link">
+                                    {{ __('Dashboard') }}
+                                </x-dropdown-link>
+                                @endhasrole
 
 
                             <x-dropdown-link :href="route('profile.partials.edit-auth-profile',$user->id)" class="dynamic-link">
@@ -179,34 +186,34 @@
 
                 {{--  Guest Dropdown  --}}
                 @guest
-                <div class="hidden sm:flex sm:items-center sm:ml-6">
-                    <x-dropdown align="right" width="48">
-                        <x-slot name="trigger">
+                    <div class="hidden sm:flex sm:items-center sm:ml-6">
+                        <x-dropdown align="right" width="48">
+                            <x-slot name="trigger">
 
-                            <button class="inline-flex items-center px-3 py-2 border-none border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-800 hover:text-yellow-500 focus:outline-none transition ease-in-out duration-150">
-                                <div>Login</div>
+                                <button class="inline-flex items-center px-3 py-2 border-none border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-800 hover:text-yellow-500 focus:outline-none transition ease-in-out duration-150">
+                                    <div>Login</div>
 
-                                <div class="ml-1">
-                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                    </svg>
-                                </div>
-                            </button>
+                                    <div class="ml-1">
+                                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                </button>
 
-                        </x-slot>
+                            </x-slot>
 
-                        <x-slot name="content">
-                            <x-dropdown-link :href="route('login')">
-                                {{ __('Login') }}
-                            </x-dropdown-link>
+                            <x-slot name="content">
+                                <x-dropdown-link :href="route('login')">
+                                    {{ __('Login') }}
+                                </x-dropdown-link>
 
-                            <x-dropdown-link :href="route('register')">
-                                {{ __('Register') }}
-                            </x-dropdown-link>
+                                <x-dropdown-link :href="route('register')">
+                                    {{ __('Register') }}
+                                </x-dropdown-link>
 
-                        </x-slot>
-                    </x-dropdown>
-                </div>
+                            </x-slot>
+                        </x-dropdown>
+                    </div>
                 @endguest
 
 
@@ -223,27 +230,65 @@
         </div>
 
     @auth
+        <!-- Responsive Navigation Menu -->
+        <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden ">
+            {{--  <div class="pt-2 pb-3 space-y-1">
+                <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    {{ __('Dashboard') }}
+                </x-responsive-nav-link>
+            </div>  --}}
 
-    <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden ">
-        {{--  <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
-        </div>  --}}
+            <!-- Responsive Settings Options -->
+            <div class="pt-4 pb-1 border-t border-gray-200">
 
-        <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200">
-            <div class="px-4">
+                <div class="flex-wrap px-4">
+                <x-nav-link class=" text-white text-xs xl:text-sm 2xl:text-base " href="#hero-section">
+                    {{ __('Home') }}
+                </x-nav-link>
+
+
+                <x-nav-link class="text-white text-xs xl:text-sm 2xl:text-base" href="#events-section">
+                    {{ __('Events') }}
+                </x-nav-link>
+
+                <x-nav-link class="text-white text-xs xl:text-sm 2xl:text-base" href="#about-section">
+                    {{ __('About') }}
+                </x-nav-link>
+
+
+
+                <x-nav-link class="text-white text-xs xl:text-sm 2xl:text-base" href="#article-section">
+                    {{ __('Articles') }}
+                </x-nav-link>
+
+
+
+                <x-nav-link class="text-white text-xs xl:text-sm 2xl:text-base" href="#program-and-services-section">
+                    {{ __('Program and Services') }}
+                </x-nav-link>
+
+
+
+                <x-nav-link class="text-white text-xs xl:text-sm 2xl:text-base" href="#contact-section">
+                    {{ __('Contact us') }}
+                </x-nav-link>
+
+            </div>
+
+
+            <div class="px-4 mt-2">
                 <div class="font-medium text-sm text-slate-500">{{ Auth::user()->name }}</div>
             </div>
 
-            <div class="mt-3 space-y-1">
 
-                <x-responsive-nav-link :href="route('dashboard')" class="text-white">
+
+            <div class="space-y-1">
+
+                <x-responsive-nav-link :href="route('dashboard')" class="text-white text-sm">
                     {{ __('Dashboard') }}
                 </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('profile.partials.edit-auth-profile', $user->id)" class="text-white">
+
+                <x-responsive-nav-link :href="route('profile.partials.edit-auth-profile', $user->id)" class="text-white text-sm">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
 
@@ -251,14 +296,14 @@
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
 
-                    <x-responsive-nav-link :href="route('logout')" class="text-white"
+                    <x-responsive-nav-link :href="route('logout')" class="text-white text-sm"
                             onclick="event.preventDefault();
                                         this.closest('form').submit();">
                         {{ __('Log Out') }}
                     </x-responsive-nav-link>
                 </form>
             </div>
+            </div>
         </div>
-    </div>
     @endauth
 </nav>
