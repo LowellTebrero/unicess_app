@@ -7,7 +7,7 @@
         }
     </style>
 
-<section class="bg-image w-full min-h-[40vh] z-10 relative overflow-hidden p-4 sm:p-0">
+<section class="bg-image w-full min-h-[40vh] z-10 relative overflow-hidden p-4">
 
     <div class="w-[90%] m-auto text-white tracking-wide">
         <h1 class="2xl:mt-12 sm:mt-8 mt-4 2xl:text-2xl xl:text-xl font-semibold">About LNU Community Extension Services</h1>
