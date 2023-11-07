@@ -12,31 +12,18 @@ class UserFilterEvaluationController extends Controller
 {
     public function user_filter_evaluation(Request $request, $id){
 
-        $selectedYear = $request->input('selected_value');
-
-        $currentYear = date('Y');
+        $selectedYear = $request->input('years');
+        $currentYear = $selectedYear;
         $previousYear = $currentYear + 1;
 
-
-        [$startYear, $endYear] = explode('-', $selectedYear);
-
-        $evaluation_status = Evaluation::select(DB::raw('YEAR(created_at) year') , 'status' , 'id')->where('user_id', $id)
-        ->whereYear('created_at', '>=', $startYear)
-        ->whereYear('created_at', '<=', $endYear)
-        ->get();
-
+        $evaluation_status = Evaluation::select(DB::raw('YEAR(created_at) year') , 'status' , 'id')->where('user_id', $id)->whereYear('created_at', $selectedYear)->get();
         $status = EvaluationStatus::select('status')->get();
         $latestYear = ProposalMember::select(DB::raw('MAX(YEAR(created_at)) as max_year'))->where('user_id',  $id)->value('max_year');
         $result = Evaluation::select('status', DB::raw('MAX(YEAR(created_at)) as max_year'))->groupBy('status')->get();
         $latesEvaluationtYear = Evaluation::select(DB::raw('MAX(YEAR(created_at)) as max_year'))->where('user_id',  $id)->value('max_year');
         $latestYearAndId = Evaluation::select(DB::raw('YEAR(created_at) as year'), DB::raw('MAX(id) as id'))->groupBy('year')->orderByDesc('year')->first();
+        $evaluation = Evaluation::where('user_id', $id)->whereYear('created_at', $selectedYear)->get();
 
-        $evaluation = Evaluation::where('user_id', $id)->whereYear('created_at', '>=', $startYear)
-        ->whereYear('created_at', '<=', $endYear)->get();
-
-
-        $currentYear = $startYear;
-        $previousYear = $endYear;
 
         $data = [
             'evaluation' => $evaluation,
@@ -46,9 +33,9 @@ class UserFilterEvaluationController extends Controller
             'result'  => $result,
             'latesEvaluationtYear'   => $latesEvaluationtYear,
             'latestYearAndId' => $latestYearAndId,
+            'id' => $id,
+            'currentYear'=> $currentYear,
             'previousYear' => $previousYear,
-            'currentYear' => $currentYear,
-            'id' => $id
 
         ];
 

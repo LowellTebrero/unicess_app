@@ -244,6 +244,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/download/{id}','download');
         Route::get('/download-media/{id}','downloadsMedia');
         Route::put('/update-inventory-project-details/{id}', 'UpdateShowInventory')->name('inventory.update-project-details');
+        Route::delete('/delete-inventory-proposals/{id}','UserDeleteInventoryProposal')->name('inventory-delete-proposals');
     });
 
     Route::controller(TemplateController::class)->group(function () {

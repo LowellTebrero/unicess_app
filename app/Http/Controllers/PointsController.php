@@ -16,31 +16,23 @@ class PointsController extends Controller
 {
     public function index(Request $request){
 
-
         $cesos = CesoRole::all();
-
         $currentYear = date('Y');
-        $previousYear = $currentYear + 1;
 
         $status = EvaluationStatus::select('status')->get();
         $years = AdminYear::orderBy('year', 'DESC')->pluck('year');
-        $proposals = ProposalMember::where('user_id', auth()->user()->id)->whereYear('created_at', '>=', $currentYear)
-        ->whereYear('created_at', '<=', $previousYear)->get();
-
-
+        $proposals = ProposalMember::where('user_id', auth()->user()->id)->whereYear('created_at', $currentYear)
+        ->get();
         $evaluation_status = Evaluation::select(DB::raw('YEAR(created_at) year') , 'status')->where('user_id', auth()->user()->id)->get();
-        $latestYearPoints = Evaluation::select('created_at', 'total_points')->latest('created_at')->where('user_id', auth()->user()->id)->whereYear('created_at', '>=', $currentYear)
-        ->whereYear('created_at', '<=', $previousYear)->first();
-
+        $latestYearPoints = Evaluation::select('created_at', 'total_points')->latest('created_at')->where('user_id', auth()->user()->id)->whereYear('created_at', $currentYear)->first();
         $ceso_roles = CesoRole::all();
-
-
+        $evaluations = Evaluation::where('user_id', Auth()->user()->id)->whereYear('created_at', $currentYear)->get();
 
         return view('user.point-system.index', compact('proposals',
          'cesos',   'ceso_roles',
-         'currentYear', 'previousYear',
+         'currentYear',
          'status', 'evaluation_status',
-          'latestYearPoints', 'years'));
+          'latestYearPoints', 'years', 'evaluations'));
     }
 
     public function filter(Request $request){

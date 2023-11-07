@@ -27,10 +27,9 @@ class InventoryController extends Controller
         $years = AdminYear::orderBy('year', 'DESC')->pluck('year');
         $proposalyear = Proposal::select('created_at')->pluck('created_at');
 
-
         $proposals = Proposal::whereYear('created_at',  date('Y'))->with(['proposal_members' => function ($query) {
             $query->where('user_id', auth()->user()->id);
-            }])->orderBy('created_at', 'DESC')->with('programs')->distinct()->get();
+        }])->orderBy('created_at', 'DESC')->with('programs')->distinct()->get();
 
 
 
@@ -58,16 +57,12 @@ class InventoryController extends Controller
     {
         $proposals = Proposal::where('id', $id)->first();
 
-        // dd($request);
-
         $request->validate([
             'program_id' => 'required',
             'project_title' => 'required',
             'started_date' => 'required',
             'finished_date' => 'required',
         ]);
-
-
 
       $proposed = Proposal::where('id', $proposals->id)->update([
 
@@ -317,5 +312,15 @@ class InventoryController extends Controller
 
         return response()->json(['message' => 'Data updated successfully']);
     }
+
+    public function UserDeleteInventoryProposal($id){
+
+        $proposal = Proposal::findorFail($id);
+        $proposal->delete();
+
+        app('flasher')->addSuccess('Proposal Delete successfully');
+
+        return redirect(route('inventory.index'))->with('message', 'Proposal Deleted Successfully');
+     }
 
 }

@@ -17,7 +17,7 @@ class UserPointFilterController extends Controller
     public function user_filter_points(Request $request, $id){
 
         $selectedYear = $request->input('selected_value');
-
+        $evaluations = Evaluation::where('user_id', $id)->whereYear('created_at', $selectedYear)->get();
 
         $proposals = ProposalMember::where('user_id', $id)->whereYear('created_at', $selectedYear)->get();
 
@@ -45,7 +45,8 @@ class UserPointFilterController extends Controller
             'evaluation_status'  => $evaluation_status,
             'ceso_roles'  => $ceso_roles,
             'currentYear'   => $selectedYear,
-            'previousYear' => $selectedYear
+            'previousYear' => $selectedYear,
+            'evaluations' => $evaluations
         ];
 
         // dd($proposals);

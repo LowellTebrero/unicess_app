@@ -5,13 +5,10 @@
         <div class=" flex justify-between p-8">
             <h1 class="text-2xl font-semibold tracking-wider">Evaluation overview  <button data-tooltip-target="tooltip-right3" data-tooltip-placement="bottom" class="inline-block" type="button"><img src="{{ asset('img/i.png') }}" width="18" alt=""></button></h1>
 
-            <select name="myDropdown" id="myDropdown" class="xl:text-sm border-slate-500 rounded-lg">
-                <option value="2023-2024">2023-2024</option>
-                <option value="2022-2023">2022-2023</option>
-                <option value="2021-2022">2021-2022</option>
-                <option value="2020-2021">2020-2021</option>
-                <option value="2019-2020">2019-2020</option>
-                <option value="2018-2019">2018-2019</option>
+            <select name="Years" id="Years" class="xl:text-sm border-slate-500 rounded-lg">
+                @foreach ($years as $year )
+                <option value="{{ $year }}">{{ $year }}</option>
+                @endforeach
             </select>
         </div>
         <hr>
@@ -91,13 +88,13 @@
 
     <script>
         $(document).ready(function () {
-            $('#myDropdown').on('change', function () {
-                var selectedValue = $(this).val();
+            $('#Years').on('change', function () {
+                var years = $(this).val();
 
                 $.ajax({
                     url: '/api/user-filter-evaluation/{{ Auth()->user()->id }}',
                     type: 'GET',
-                    data: { selected_value: selectedValue },
+                    data: { years: years },
                     success: function(data) {
                 // Update the filtered data container with the response
                 $('#filtered-data').html(data);

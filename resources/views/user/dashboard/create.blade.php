@@ -121,8 +121,8 @@
                         <tbody>
                         <tr>
                             <td class="pr-4">
-                                <select name="member[0][id]" class="rounded-md xl:text-xs w-full border-zinc-300" id="member">
-                                    @foreach ($members as $id => $name ) <option value="{{ $id }}" @if ($id == old('member_id[0][id]')) selected="selected" @endif required>{{ $name }}</option> @endforeach
+                                <select name="member[0][id]" class="rounded-md xl:text-xs w-full border-zinc-300" id="member" required>
+                                    @foreach ($members as $id => $name ) <option value="{{ $id }}" @if ($id == old('member_id[0][id]')) selected="selected" @endif >{{ $name }}</option> @endforeach
                                 </select>
                             </td>
 
@@ -214,12 +214,15 @@
             });
         </script>
 
+
+
         <script type="text/javascript">
+
 
             function RequiredGet(answer){
 
                 console.log(answer.value)
-                if(answer.value == 'selected' ){
+                if(answer.value == '' ){
                     document.getElementById('member').required = true;
                     console.log(document.getElementById('member'));
 
@@ -230,10 +233,6 @@
               }
             }
 
-
-        </script>
-
-        <script type="text/javascript">
 
             function yesnoCheck(answer){
 

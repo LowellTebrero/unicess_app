@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\AdminYear;
 use App\Models\Evaluation;
 use Illuminate\Http\Request;
 use App\Models\EvaluationFile;
@@ -11,9 +12,9 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\EvaluationStatus;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use App\Models\TemporaryEvaluationFile;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
 class EvaluateController extends Controller
@@ -31,11 +32,12 @@ class EvaluateController extends Controller
         $result = Evaluation::select('status', DB::raw('MAX(YEAR(created_at)) as max_year'))->groupBy('status')->where('user_id', auth()->user()->id)->get();
         $latestYearAndId = Evaluation::select(DB::raw('YEAR(created_at) as year'),DB::raw('MAX(id) as id'))->groupBy('year')->orderByDesc('year')->where('user_id', auth()->user()->id)->first();
         $id = Auth()->user()->id;
+        $years = AdminYear::orderBy('year', 'DESC')->pluck('year');
 
         return view('user.evaluate.index',
         compact('latestYearAndId','id','result',
         'currentYear', 'previousYear', 'evaluation_status', 'status',
-        'proposal_member', 'latestYear', 'latesEvaluationtYear' , 'evaluation'));
+        'proposal_member', 'latestYear', 'latesEvaluationtYear' , 'evaluation', 'years'));
     }
 
 
