@@ -229,6 +229,68 @@
             </div>
         </div>
 
+    @guest
+        <!-- Responsive Navigation Menu -->
+        <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden ">
+            {{--  <div class="pt-2 pb-3 space-y-1">
+                <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    {{ __('Dashboard') }}
+                </x-responsive-nav-link>
+            </div>  --}}
+
+            <!-- Responsive Settings Options -->
+            <div class="pt-4 pb-1 border-t border-gray-200">
+
+                <div class="flex-wrap px-4">
+                <x-nav-link class=" text-white text-xs xl:text-sm 2xl:text-base " href="#hero-section">
+                    {{ __('Home') }}
+                </x-nav-link>
+
+
+                <x-nav-link class="text-white text-xs xl:text-sm 2xl:text-base" href="#events-section">
+                    {{ __('Events') }}
+                </x-nav-link>
+
+                <x-nav-link class="text-white text-xs xl:text-sm 2xl:text-base" href="#about-section">
+                    {{ __('About') }}
+                </x-nav-link>
+
+
+
+                <x-nav-link class="text-white text-xs xl:text-sm 2xl:text-base" href="#article-section">
+                    {{ __('Articles') }}
+                </x-nav-link>
+
+
+
+                <x-nav-link class="text-white text-xs xl:text-sm 2xl:text-base" href="#program-and-services-section">
+                    {{ __('Program and Services') }}
+                </x-nav-link>
+
+
+
+                <x-nav-link class="text-white text-xs xl:text-sm 2xl:text-base" href="#contact-section">
+                    {{ __('Contact us') }}
+                </x-nav-link>
+
+            </div>
+
+            <x-dropdown-link :href="route('login')" class="text-white">
+                {{ __('Login') }}
+            </x-dropdown-link>
+
+            <x-dropdown-link :href="route('register')" class="text-white">
+                {{ __('Register') }}
+            </x-dropdown-link>
+
+
+
+
+
+            </div>
+        </div>
+    @endguest
+
     @auth
         <!-- Responsive Navigation Menu -->
         <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden ">
