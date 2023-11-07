@@ -9,8 +9,8 @@
             <!-- Email Address -->
             <div class="space-y-2">
                 <div class=" mb-8">
-                <h1 class="text-4xl py-2">Login Account</h1>
-                <h3 class="text-gray-600">Please enter your account credentials to proceed</h3>
+                <h1 class="xl:text-4xl text-2xl  py-2">Login Account</h1>
+                <h3 class="text-gray-600 text-sm ">Please enter your account credentials to proceed</h3>
                 </div>
             <div class="">
                 <div>
