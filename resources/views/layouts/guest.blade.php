@@ -25,7 +25,7 @@
                 <div class="lg:absolute z-50 flex lg:flex-col flex-row  px-5 ">
 
                     <div class="flex space-x-2 items-center lg:items-start  lg:flex-col  ml-5">
-                        <a class=" drop-shadow-lg" href={{ route('lnu') }}><img class="xl:w-32 lg:w-24 w-[4.2rem]"
+                        <a class=" drop-shadow-lg" href={{ route('lnu') }}><img class="xl:w-32 lg:w-24 w-[4rem]"
                         src="{{ asset('img/logo.png') }}">
                         </a>
                     </div>
