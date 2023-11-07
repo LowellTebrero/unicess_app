@@ -166,15 +166,15 @@
             $maxLength = 18; // Adjust the maximum length as needed
             @endphp
 
-            {{--  Proposal PDF  --}}
+     
             @foreach ($proposals->medias as $mediaLibrary)
                 @if ((!empty($mediaLibrary->model_id)) && (!empty($mediaLibrary->collection_name)))
 
-                    <div data-tooltip-target="tooltip-proposal" type="button" class="bg-white w-full xl:w-[10rem] xl:min-h-[14vh] shadow-md rounded-lg hover:bg-slate-100 transition-all m-2 relative">
+                    <div data-tooltip-target="tooltip-proposal" type="button" class="bg-white w-full sm:w-[10rem] xl:w-[10rem] xl:min-h-[14vh] shadow-md rounded-lg hover:bg-slate-100 transition-all m-2 relative">
 
                         <x-alpine-modal>
                             <x-slot name="scripts">
-                                <div class="flex items-center flex-col p-4 space-y-3 " target="__blank">
+                                <div class="flex items-center flex-col p-4 space-y-3  " target="__blank">
                                     <div>
                                         @if ($mediaLibrary->mime_type == 'image/jpeg' || $mediaLibrary->mime_type == 'image/png' || $mediaLibrary->mime_type == 'image/jpg')
                                         <img src="{{asset('img/image-icon.png') }}" class="xl:w-[3rem]" width="30">
@@ -185,9 +185,6 @@
                                         @else
                                         <img src="{{asset('img/pdf.png')}}" class="xl:w-[3rem]" width="30">
                                         @endif
-
-
-
                                     </div>
 
                                     <div class="text-xs text-left">

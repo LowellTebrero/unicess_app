@@ -30,7 +30,7 @@
         @endif
 
 
-        <form class=" pb-8 w-1/2 mx-auto  rounded-lg p-7 mt-12" action="{{ route('User-dashboard.store') }}" method="POST" enctype="multipart/form-data">
+        <form class="pb-8 2xl:w-1/2 xl:w-3/4 mx-auto   rounded-lg p-7 xl:mt-2 2xl:mt-12" action="{{ route('User-dashboard.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
             <div class="flex space-y-7 flex-col">

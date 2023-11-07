@@ -11,52 +11,44 @@
         <!-- Primary Navigation Menu -->
         <div class="2xl:max-w-[95%] xl:w-full m-auto px-2 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
-                <div class="flex">
+                <div class="flex  2xl:space-x-12 xl:space-x-5 sm:space-x-4">
 
                     <!-- Logo -->
-                    <div class="shrink-0 flex items-center">
-                        <a class="text-3xl  font-bold tracking-wider text-yellow-400" href="{{ route('lnu') }}">
+                    <div class="shrink-0 flex items-center ">
+                        <a class="xl:text-3xl  font-bold tracking-wider text-yellow-400" href="{{ route('lnu') }}">
                         UniCESS
                         </a>
                     </div>
 
+                    <div class="flex space-x-4">
+
                     <!-- Navigation Links -->
-                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex ">
-                        <x-nav-link class="text-white xl:text-xs 2xl:text-base" href="#hero-section">
+
+                        <x-nav-link class="text-white text-xs xl:text-sm 2xl:text-base" href="#hero-section">
                             {{ __('Home') }}
                         </x-nav-link>
-                    </div>
 
-                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link class="text-white xl:text-xs 2xl:text-base" href="#events-section">
+                        <x-nav-link class="text-white text-xs xl:text-sm 2xl:text-base" href="#events-section">
                             {{ __('Events') }}
                         </x-nav-link>
-                    </div>
 
-                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link class="text-white xl:text-xs 2xl:text-base" href="#about-section">
+                        <x-nav-link class="text-white text-xs xl:text-sm 2xl:text-base" href="#about-section">
                             {{ __('About') }}
                         </x-nav-link>
-                    </div>
 
-
-                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link class="text-white xl:text-xs 2xl:text-base" href="#article-section">
+                        <x-nav-link class="text-white text-xs xl:text-sm 2xl:text-base" href="#article-section">
                             {{ __('Articles') }}
                         </x-nav-link>
-                    </div>
 
-                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link class="text-white xl:text-xs 2xl:text-base" href="#program-and-services-section">
+                        <x-nav-link class="text-white text-xs xl:text-sm 2xl:text-base" href="#program-and-services-section">
                             {{ __('Program and Services') }}
                         </x-nav-link>
-                    </div>
 
-                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link class="text-white xl:text-xs 2xl:text-base" href="#contact-section">
+                        <x-nav-link class="text-white text-xs xl:text-sm 2xl:text-base" href="#contact-section">
                             {{ __('Contact us') }}
                         </x-nav-link>
-                    </div>
+
+                </div>
                 </div>
 
                 {{--  Authenticated Dropdown  --}}

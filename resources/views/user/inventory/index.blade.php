@@ -2,21 +2,21 @@
     @hasanyrole('Faculty extensionist|Extension coordinator')
         <style>[x-cloak] {display: none}</style>
 
-        <section class="mt-5 m-8 bg-white rounded-lg  xl:min-h-[87vh] ">
+        <section class="mt-5 m-8 bg-white rounded-lg  xl:min-h-[87vh]  min-h-[100vh]">
 
-            <div class="p-4 flex justify-between">
-                <h1 class="font-semibold tracking-wider text-xl text-slate-700">My Inventory</h1>
+            <div class="p-4 flex justify-between sm:flex-col space-y-2 sm:space-y-0 md:flex-row flex-col space-x-0">
+                <h1 class="font-semibold tracking-wider sm:text-xl text-slate-700 text-base">My Inventory</h1>
 
-                <div class="space-x-4">
-                    <input id="searchInput"  class="text-xs rounded border border-slate-500 w-[20rem]" type="text" placeholder="Search Proposal Title...">
-                    <select name="Years" id="Years" class="xl:text-xs border-slate-500 rounded">
+                <div class="sm:space-x-2 space-y-2">
+                    <input id="searchInput"  class="text-xs rounded border border-slate-500 sm:w-[15rem] xl:w-[20rem] w-full" type="text" placeholder="Search Proposal Title...">
+                    <select name="Years" id="Years" class="md:text-xs text-xs  border-slate-500 rounded w-full sm:w-[8rem]">
                         <option value="">All Year</option>
                         @foreach ($years as $year )
                         <option value="{{ $year }}" @if ($year == date('Y')) selected="selected" @endif >{{ $year }}</option>
                         @endforeach
                     </select>
 
-                    <select id="myDropdown" class="rounded text-xs">
+                    <select id="myDropdown" class="rounded text-xs w-full sm:w-[8rem]">
                         @foreach ($inventory as $invent )
                         <option value="1" {{ old('1', $invent->number) == '1' ? 'selected' : '' }}>Tiles</option>
                         <option value="2" {{ old('2', $invent->number) == '2' ? 'selected' : '' }}>Medium Icon</option>

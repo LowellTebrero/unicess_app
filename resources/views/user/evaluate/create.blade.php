@@ -15,6 +15,17 @@
     </style>
 
     <section class="p-8 rounded-lg bg-white mt-5 m-8 w-[95%] mx-auto text-gray-700">
+
+        <div class="flex justify-end">
+            <a class="hover:bg-gray-200 focus:bg-red-200 px-2 py-1 rounded" href={{ route('evaluate.index') }}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </a>
+        </div>
+
+
+
         <form action="{{ route('evaluate.post') }}" method="POST" enctype="multipart/form-data" id="form" class="form">
             @csrf
 

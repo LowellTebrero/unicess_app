@@ -97,9 +97,9 @@
 
             @if ($currentYear == date('Y') && $stats->status == "close" &&  $latestYear == $currentYear && $evaluation->isEmpty())
                 <div class="flex space-y-2 items-center justify-center flex-col ">
-                    <img src="{{ asset('img/attention.png') }}" width="90" class="closed-image">
-                    <h1 class="text-3xl font-semibold tracking-wider closed-title">Whoops..</h1>
-                    <h1 class="mt-2 tracking-wide closed-description">The evaluation form has been closed by the admin. </h1>
+                    <img src="{{ asset('img/attention.png') }}" width="90" class="closed-image w-[5rem] sm:w-[7rem]">
+                    <h1 class="sm:text-3xl font-semibold tracking-wider closed-title text-sm">Whoops..</h1>
+                    <h1 class="mt-2 tracking-wide closed-description text-sm sm:text-lg text-center">The evaluation form has been closed by the admin. </h1>
                 </div>
             @endif
 
@@ -130,8 +130,8 @@
 
             @if ($currentYear == date('Y') && $stats->status == "checked" && $latestYear == $currentYear && $latesEvaluationtYear != $latestYear && $evaluation->isEmpty())
                 <div class="flex flex-col items-center space-y-2">
-                    <h1 class="text-lg  open-text">The evaluation form is now open. </h1>
-                    <button type="submit" class="bg-blue-500 text-white px-4 hover:bg-blue-600 rounded-xl py-2 open-button">Click here to submit</button>
+                    <h1 class="sm:text-lg text-center open-text">The evaluation form is now open. </h1>
+                    <button type="submit" class="bg-blue-500 text-white px-4 hover:bg-blue-600 rounded-xl py-2 open-button text-sm sm:text-md">Click here to submit</button>
                 </div>
             @endif
             {{--  @endforeach  --}}
@@ -174,7 +174,7 @@
                 @if ($currentYear != date('Y') && $currentYear == $Estatus->year && ($stats->status == "checked" || $stats->status == "close") && $Estatus->status == 'evaluated')
                     {{--  {{ $Estatus }}  --}}
                     <div class="flex flex-col space-y-2">
-                    <h1 class="font-medium text-lg tracking-wider">Download Evaluation Form {{ $currentYear  }}</h1>
+                    <h1 class="font-medium sm:text-lg text-sm text-center tracking-wider">Download Evaluation Form {{ $currentYear  }}</h1>
                     <a href="{{ route('evaluate-pdf',$Estatus->id ) }}" class="text-white text-center py-2 px-3 rounded-lg text-sm bg-green-400 hover:bg-green-500">Click here to download </a>
                     </div>
                     @endif

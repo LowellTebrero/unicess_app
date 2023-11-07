@@ -6,7 +6,6 @@
                 <th scope="col" class="px-6 py-4 font-medium ">Project Title</th>
                 <th scope="col" class="px-6 py-4 font-medium ">Status</th>
                 <th scope="col" class="px-6 py-4 font-medium ">Uploaded</th>
-                <th scope="col" class="px-6 py-4 font-medium ">Action</th>
             </tr>
         </thead>
 
@@ -19,9 +18,35 @@
         <tr class="hover:bg-gray-50">
 
             <td class="px-6 py-4">
-                <span class="inline-flex items-center gap-1 rounded-full py-1 text-xs font-medium text-gray-900 tracking-wider">
-                    {{ $proposal->project_title }}
-                </span>
+                @foreach ($proposal->medias as $mediaLibrary)
+                @if (!empty($mediaLibrary->model_id) && !empty($mediaLibrary->collection_name == 'proposalPdf'))
+                    <div data-tooltip-target="tooltip-proposal" type="button"
+                        class="relative">
+
+                        <x-alpine-modal>
+
+                            <x-slot name="scripts">
+                                <span class="text-xs font-medium text-gray-900 tracking-wider">
+                                     
+                                   
+                                </span>
+                            </x-slot>
+
+                            <x-slot name="title">
+                                <span class="">{{ Str::limit($mediaLibrary->file_name) }}</span>
+                            </x-slot>
+
+                            <div class="w-[50rem]">
+                                <iframe class=" 2xl:w-[100%] drop-shadow mt-2 w-full h-[80vh]"
+                                    src="{{ $proposal->getFirstMediaUrl('proposalPdf') }}"
+                                    width=""></iframe>
+                            </div>
+                        </x-alpine-modal>
+                    </div>
+
+
+                @endif
+            @endforeach
             </td>
 
             <td class="px-6 py-4">
@@ -36,41 +61,7 @@
                 </span>
             </td>
 
-            <td class="px-6 py-4">
 
-                <span class="inline-flex items-center gap-1 rounded-full py-1 text-xs text-gray-900">
-                    @foreach ($proposal->medias as $mediaLibrary)
-                    @if (!empty($mediaLibrary->model_id) && !empty($mediaLibrary->collection_name == 'proposalPdf'))
-                        <div data-tooltip-target="tooltip-proposal" type="button"
-                            class="relative">
-
-                            <x-alpine-modal>
-
-                                <x-slot name="scripts">
-                                    <div class="flex" target="__blank">
-                                        <img src="{{ asset('img/pdf.png') }}" class="xl:w-[2rem]">
-                                    </div>
-                                </x-slot>
-
-                                <x-slot name="title">
-                                    <span class="">{{ Str::limit($mediaLibrary->file_name) }}</span>
-                                </x-slot>
-
-                                <div class="w-[50rem]">
-                                    <iframe class=" 2xl:w-[100%] drop-shadow mt-2 w-full h-[80vh]"
-                                        src="{{ $proposal->getFirstMediaUrl('proposalPdf') }}"
-                                        width=""></iframe>
-                                </div>
-                            </x-alpine-modal>
-                        </div>
-
-
-                    @endif
-
-                @endforeach
-
-                </span>
-            </td>
 
         </tr>
         @endif

@@ -1,8 +1,7 @@
 
     <div class=" flex justify-between ">
     <div class="">
-        <h1 class="text-md">Proposal Information</h1>
-
+        <h1 class="text-md 2xl:text-base xl:text-sm">Proposal Information</h1>
 
         <div class="space-y-4 mt-5 text-sm">
             <div class="space-y-4">
@@ -10,8 +9,8 @@
                 @foreach ($proposals as $proposal )
                     <div class="flex flex-col">
 
-                    <div class="flex flex-col">
-                        <div class="flex space-x-2">
+                    <div class="flex flex-col 2xl:text-base xl:text-xs">
+                        <div class="flex space-x-2 ">
                             <h1>Proposal ID: {{ $proposal->proposal_id }}</h1>
                             <h1>Title: {{ $proposal->proposal->project_title }}</h1>
                         </div>
@@ -28,7 +27,7 @@
                 @endforeach
 
             </div>
-            <div class="space-y-2">
+            <div class="space-y-2 2xl:text-base xl:text-xs">
                 @foreach ($evaluations as $evaluation )
                 @if ($evaluation->chairmanship_university !== null)
                 <h1>Chairmanship University: {{ $evaluation->chairmanship_university }} points</h1>
@@ -118,7 +117,7 @@
 
     <div class="text-center pr-20">
         <h1>Total Points: </h1>
-        <h3 class="mt-7 text-7xl">@if ($latestYearPoints == null) 0 @else {{ $latestYearPoints->total_points }} @endif</h3>
+        <h3 class="mt-7 2xl:text-7xl xl:text-4xl">@if ($latestYearPoints == null) 0 @else {{ $latestYearPoints->total_points }} @endif</h3>
     </div>
 
 </div>

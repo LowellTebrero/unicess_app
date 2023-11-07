@@ -4,29 +4,29 @@
         [x-cloak] {display: none}
     </style>
 
-    <section class="m-8 rounded-lg text-slate-700 relative mt-5 xl:min-h-[85vh] 2xl:min-h-[87vh] bg-white">
+    <section class="m-8 rounded-lg text-slate-700 relative mt-5 xl:min-h-[85vh] 2xl:min-h-[87vh] min-h-[100vh] bg-white">
 
 
         @foreach ($allproposal as $proposal )
 
             @if ($proposal->number == 1)
 
-                <div class="flex justify-between p-4">
+                <div class="flex justify-between p-4 flex-col space-y-2 lg:space-y-0  lg:flex-row">
                     <div>
-                        <h1 class="text-xl font-semibold tracking-wider ">List of Project Proposal </h1>
+                        <h1 class="xl:text-xl font-semibold tracking-wider md:text-lg text-base">List of Project Proposal </h1>
                     </div>
 
-                    <div class="space-x-2">
-                        <input type="text" id="searchInput" class="rounded text-sm" placeholder="Search Proposal Title...">
+                    <div class="sm:space-x-2 space-y-2 md:space-y-0 lg:flex-row text-xs">
+                        <input type="text" id="searchInput" class="rounded xl:text-sm text-xs w-full  sm:w-[15rem] md:w-[20rem]" placeholder="Search Proposal Title...">
 
-                        <select name="MyAllDropdown" id="MyAllDropdown" class="xl:text-sm border-slate-500 rounded">
+                        <select name="MyAllDropdown" id="MyAllDropdown" class="xl:text-sm text-xs border-slate-500 rounded w-full sm:w-[8rem]">
                             <option value="">Select Year</option>
                                 @foreach ($years as $year )
                             <option value="{{ $year }}">{{ $year }}</option>
                             @endforeach
                         </select>
 
-                        <select name="Proposal" id="Proposal" class="xl:text-sm border-slate-500 rounded">
+                        <select name="Proposal" id="Proposal" class="xl:text-sm text-xs border-slate-500 rounded w-full sm:w-[8rem]">
                         @foreach ($allproposal as $proposal )
                         <option value="1" {{ old('1', $proposal->number) == '1' ? 'selected' : '' }}>All Proposal</option>
                         <option value="2" {{ old('2', $proposal->number) == '2' ? 'selected' : '' }}>My Proposal</option>
@@ -46,20 +46,20 @@
 
                 <div class="flex justify-between p-4">
                     <div>
-                        <h1 class="text-xl font-semibold tracking-wider ">List of project proposal </h1>
+                        <h1 class="xl:text-xl font-semibold tracking-wider text-lg">List of project proposal </h1>
                     </div>
 
                     <div class="space-x-2">
-                        <input type="text" id="searchMyInput" class="rounded text-sm" placeholder="Search Proposal Title...">
+                        <input type="text" id="searchMyInput" class="rounded xl:text-sm text-xs" placeholder="Search Proposal Title...">
 
-                        <select name="myProposalDropdown" id="myProposalDropdown" class="xl:text-sm border-slate-500 rounded">
+                        <select name="myProposalDropdown" id="myProposalDropdown" class="xl:text-sm text-xs border-slate-500 rounded">
                             <option value="">Select Year</option>
                             @foreach ($years as $year )
                                     <option value="{{ $year }}">{{ $year }}</option>
                             @endforeach
                     </select>
 
-                        <select name="Proposal" id="Proposal" class="xl:text-sm border-slate-500 rounded">
+                        <select name="Proposal" id="Proposal" class="xl:text-sm text-xs border-slate-500 rounded">
                         @foreach ($allproposal as $proposal )
                         <option value="1" {{ old('1', $proposal->number) == '1' ? 'selected' : '' }}>All Proposal</option>
                         <option value="2" {{ old('2', $proposal->number) == '2' ? 'selected' : '' }}>My Proposal</option>

@@ -22,7 +22,7 @@ $id = Auth::user()->id;$user = App\Models\User::find($id);
 
                     <!-- Navigation Links -->
                     <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
-                        <x-nav-link class="text-white" :href="route('lnu')" :active="request()->routeIs('lnu')">
+                        <x-nav-link class="text-white home" :href="route('lnu')" :active="request()->routeIs('lnu')">
                             {{ __('Home') }}
                         </x-nav-link>
                     </div>

@@ -342,7 +342,7 @@ class ProposalController extends Controller
                 return $querys->where('project_title', 'like', "%$query%");
                 })->with(['proposal_members' => function ($query) {
                 $query->where('user_id', auth()->user()->id);
-            }])->orderBy('created_at', 'DESC')->paginate(8);
+            }])->orderBy('created_at', 'DESC')->whereYear('created_at', $currentYear )->paginate(8);
 
 
 
@@ -381,7 +381,7 @@ class ProposalController extends Controller
                 })->where(function ($query) {
                     if($companyId = request('selected_value')){
                         $query->where('authorize', $companyId);
-                    }})->orderBy('created_at', 'DESC')->paginate(8);
+                    }})->orderBy('created_at', 'DESC')->whereYear('created_at', $currentYear )->paginate(8);
 
 
 

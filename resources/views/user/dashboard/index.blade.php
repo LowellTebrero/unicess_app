@@ -26,16 +26,15 @@
                 </div>
             </div>
 
-            <section class="mx-5 flex xl:flex-row flex-col md:flex-row justify-between 2xl:h-48 xl:h-36 text-gray-700">
-                <div class="w-full m-5 rounded-lg bg-gradient-to-tl from-cyan-400 to-sky-300 xl:px-5  2xl:px-10 2xl:py-9 xl:py-5 flex">
+            <section class="mx-5 flex xl:flex-row flex-col md:flex-row justify-between 2xl:h-48 xl:h-36 lg:h-[25vh]  text-gray-700">
+                <div class="w-full m-5 rounded-lg bg-gradient-to-tl from-cyan-400 to-sky-300 md:p-2 xl:px-5 2xl:px-10 2xl:py-9 xl:py-5 flex flex-col xl:flex-row lg:pt-3 xl:p-0 items-center">
                     @if($user->gender == 'Female')
-                    <img src="{{ asset('/img/female.svg') }}" class="2xl:w-24 xl:mr-5 2xl:mr-8  xl:w-16 xl:h-16 2xl:h-20">
+                    <img src="{{ asset('/img/female.svg') }}" class="2xl:w-24 xl:mr-5 2xl:mr-8  xl:w-16 xl:h-16 2xl:h-20 w-16">
                     @elseif($user->gender == 'Male')
-                    <img src="{{ asset('/img/male.svg') }}" class="2xl:w-24 xl:mr-5 2xl:mr-8  xl:w-16 xl:h-16 2xl:h-20">
-                    @else
+                    <img src="{{ asset('/img/male.svg') }}" class="2xl:w-24 xl:mr-5 2xl:mr-8  xl:w-16 xl:h-16 2xl:h-20 w-16 lg:w-[4rem]">
                     @endif
-                    <h1 class="font-thick text-gray-900 tracking-wide xl:text-xs 2xl:text-base">Your Role
-                        <span class="block text-lg font-semibold xl:text-sm 2xl:text-lg">
+                    <h1 class="font-thick text-gray-900 tracking-wide xl:text-xs 2xl:text-base lg:text-center md:text-xs md:text-center">Your Role
+                        <span class="block text-lg font-semibold xl:text-sm 2xl:text-lg lg:text-sm md:text-xs">
                             @if (!empty($user->getRoleNames()))
                             @foreach ($user->getRoleNames() as $name )
                             {{ $name }}
@@ -46,17 +45,18 @@
 
                 </div>
 
-                <div class="w-full m-5 rounded-lg bg-gradient-to-tl from-violet-400 to-sky-500 xl:px-5  xl:py-5 2xl:px-10 2xl:py-5 flex ">
-
-                    <div class="flex-1 text-gray-900">
-                    <span class="block text-2xl font-medium xl:text-4xl 2xl:text-6xl  flex-1">{{$counts}}</span>
-                    <h1 class="font-thick  tracking-wide xl:text-xs 2xl:text-sm">Completed Proposal</h1>
+                <div class="w-full m-5 rounded-lg bg-gradient-to-tl from-violet-400 to-sky-500 xl:px-5 xl:py-5 2xl:px-10 2xl:py-5 flex lg:p-2">
+                    <div class="flex-1 text-gray-900 ">
+                        <span class="block text-2xl font-medium xl:text-4xl 2xl:text-6xl  flex-1 lg:text-5xl">{{$counts}}</span>
+                        <h1 class="font-thick  tracking-wide xl:text-xs 2xl:text-sm lg:text-xs">Completed Proposal</h1>
                     </div>
 
-                    <div class=" flex items-center justify-center">
-                        <img src="{{ asset('/img/approved.png') }}" class="2xl:w-[5rem] xl:w-16 xl:h-14 2xl:h-[5rem]">
+                    <div class="flex xl:items-center justify-center lg:items-start lg:pt-4 xl:pt-0">
+                        <img src="{{ asset('/img/approved.png') }}" class="2xl:w-[5rem] xl:w-16 xl:h-14 2xl:h-[5rem] lg:w-[3rem]">
                     </div>
                 </div>
+
+
 
                 <div class="w-full m-5 rounded-lg  bg-gradient-to-tl from-red-500 to-pink-400 xl:px-5  xl:py-5 2xl:px-10 2xl:py-5 flex">
 
@@ -92,7 +92,7 @@
                     <div class="flex justify-between items-center py-5 bg-white px-4">
 
                         <div class="flex space-x-2  items-center">
-                            <h1 class="tracking-wider">Proposal Dashboard</h1>
+                            <h1 class="tracking-wider xl:text-xs 2xl:text-base text-xs">Proposal Dashboard</h1>
                             <select class="text-xs rounded border border-gray-300" id="myDropdown" name="authorize_name">
                                 <option {{ '' == request('authorize_name') ? 'selected ' : '' }} value="">Select Status</option>
                                 <option {{ 'pending' == request('authorize_name') ? 'selected ' : '' }} value="pending">Pending</option>
@@ -107,7 +107,7 @@
                         <x-alpine-modal>
 
                             <x-slot name="scripts">
-                                <div class="bg-blue-600 px-2 py-2 rounded-md text-white xl:text-[.8rem] 2xl:text-base xl:text-xs flex">+ Upload Proposal</div>
+                                <div class="bg-blue-600 px-2 py-2 rounded-md text-white xl:text-[.8rem] 2xl:text-base xl:text-xs flex text-xs">+ Upload Proposal</div>
                             </x-slot>
 
                             <x-slot name="title">Upload Proposal</x-slot>

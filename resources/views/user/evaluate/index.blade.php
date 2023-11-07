@@ -2,10 +2,10 @@
 
     <section class="m-8  rounded-lg text-slate-700 relative mt-5 bg-white min-h-[87vh]">
 
-        <div class=" flex justify-between p-8">
-            <h1 class="text-2xl font-semibold tracking-wider">Evaluation overview  <button data-tooltip-target="tooltip-right3" data-tooltip-placement="bottom" class="inline-block" type="button"><img src="{{ asset('img/i.png') }}" width="18" alt=""></button></h1>
+        <div class=" flex justify-between p-8 flex-col sm:flex-row">
+            <h1 class="xl:text-2xl sm:text-lg text-[.9rem] font-semibold tracking-wider">Evaluation overview <button data-tooltip-target="tooltip-right3" data-tooltip-placement="bottom" class="inline-block" type="button"><img src="{{ asset('img/i.png') }}" width="18" alt=""></button></h1>
 
-            <select name="Years" id="Years" class="xl:text-sm border-slate-500 rounded-lg">
+            <select name="Years" id="Years" class="sm:text-sm text-xs  border-slate-500 rounded-lg">
                 @foreach ($years as $year )
                 <option value="{{ $year }}">{{ $year }}</option>
                 @endforeach
