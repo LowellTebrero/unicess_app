@@ -11,11 +11,11 @@
         <!-- Primary Navigation Menu -->
         <div class="2xl:max-w-[95%] xl:w-full m-auto px-2 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
-                <div class="flex  2xl:space-x-12 xl:space-x-5 sm:space-x-4">
+                <div class="flex space-x-2  2xl:space-x-12 xl:space-x-5 sm:space-x-4">
 
                     <!-- Logo -->
                     <div class="shrink-0 flex items-center ">
-                        <a class="xl:text-3xl  font-bold tracking-wider text-yellow-400" href="{{ route('lnu') }}">
+                        <a class="xl:text-3xl text-lg font-bold tracking-wider text-yellow-400" href="{{ route('lnu') }}">
                         UniCESS
                         </a>
                     </div>
