@@ -44,10 +44,12 @@
             </div>
             <img class="md:h-[10vh] lg:min-h-screen backdrop-opacity-5 blur-sm absolute top-0 left-0 right-0 w-full min-h-screen object-cover"
             src="{{ asset('img/bg-2.jpg') }}" alt="">
+
+
         </div>
+        {{--  <div class="w-full h-18  lg:w-[3rem] md:h-[3vh] lg:min-h-screen bg-blue-600 pt-5 lg:pt-0"></div>  --}}
 
 
-        <div class="xl:min-h-screen w-full  h-18 lg:w-[3rem] md:h-[3vh] lg:min-h-screen bg-blue-600 pt-5 lg:pt-0"></div>
 
         <section class="flex-1 flex  justify-center items-center bg-gray-100  p-10 lg:p-0">
 
