@@ -1,7 +1,7 @@
 
 {{--  University Updates  --}}
 <section class="bg-slate-100">
-  <div class="min-h-[55vh] flex-col sm:flex-row space-y-8 sm:space-y-0 sm:space-x-4 space-x-0  flex items-center mx-4 justify-center p-8 sm:p-0  md:space-y-0 sm:mx-8  md:space-x-6  lg:space-y-0 lg:space-x-16 md:mx-16 ">
+  <div class="min-h-[55vh] flex-col space-y-8  sm:flex-row  sm:space-x-4 space-x-0  flex items-center mx-4 justify-center p-8 sm:p-0 md:mx-16   sm:space-y-0  md:space-y-0 lg:space-y-0 xl:space-y-0 sm:mx-8  md:space-x-6   lg:space-x-16 ">
 
     {{--  <img class="absolute h-full w-full opacity-0 md:opacity-0 lg:opacity-100" src="{{ asset('img/arrow-bg.png') }}" alt="">  --}}
 
