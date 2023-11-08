@@ -32,7 +32,7 @@
 
                     <div class="lg:flex-col p-5">
                         <h1 class="text-white lg:text-2xl lg:my-5 drop-shadow-lg">Leyte Normal University</h1>
-                        <h1 class="text-yellow-400 text-xs lg:text-xl xl:text-4xl tracking-widest font-bold drop-shadow-lg text-md">
+                        <h1 class="text-yellow-400 text-xs lg:text-2xl xl:text-4xl tracking-widest font-bold drop-shadow-lg text-md">
                             UNIVERSITY COMMUNITY EXTENSION SERVICES SYSTEM (UniCESS)
                         </h1>
                         <h1 class="text-white lg:text-lg lg:mt-5 drop-shadow-lg md:text-sm text-xs">WELCOME NORMALISTA!</h1>
