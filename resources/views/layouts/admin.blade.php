@@ -21,40 +21,57 @@
     @livewireStyles
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/sidebar.css'])
     <script defer src="https://unpkg.com/@alpinejs/focus@3.x.x/dist/cdn.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
 
 </head>
 
-<body class="font-sans antialiased ">
+<body class="font-sans antialiased min-h-full">
 
     {{--  md:flex-row xl:flex-row min-h-screen   --}}
     <section class="flex w-full relative min-h-screen">
 
-
-        <div class="">
             {{--  Sidebar Section  --}}
-            <div class="w-full sticky top-0 left-0 ">
+            <div class="sidebar xl:w-[12rem] 2xl:w-[14rem] xl:sticky xl:top-0 xl:left-0 transition-all">
                 @include('layouts._admin_sidebar')
             </div>
-        </div>
 
-
-        <div class="flex-col flex w-full flex-1 ">
+        <div class="flex-col flex w-full flex-1 relative">
             {{--  Navbar Section  --}}
-            <div class="w-full sticky top-0 z-40">
-                @include('layouts.navbar-dashboard')
+            <div class="w-full flex sticky top-0 z-40">
+                <div class="bg-blue-800 flex items-center justify-center xl:hidden">
+                    <button class="ml-4 btn-slide">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6h18M3 12h18M3 18h18"/></svg>
+                    </button>
+                </div>
+                <div class="w-full">
+                     @include('layouts.navbar-dashboard')
+                </div>
+
             </div>
 
             {{--  Hero Section  --}}
             <main id="hero-section" class="bg-blue-100 h-full w-full transition-all overflow-hidden">
                 {{ $slot }}
             </main>
-
         </div>
+
     </section>
 
+    <script>
+        let button = document.querySelector(".btn-slide")
+        let sidebar = document.querySelector(".sidebar")
+        let closebutton = document.querySelector(".close-button")
 
+        button.addEventListener('click',() => {
+            sidebar.classList.toggle('active');
+          });
+
+        closebutton.addEventListener('click',() => {
+            sidebar.classList.remove('active');
+          });
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.js"></script>
