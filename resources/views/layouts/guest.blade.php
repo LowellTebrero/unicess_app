@@ -18,7 +18,7 @@
 <body class="font-sans text-gray-900 antialiased">
     <div class="w-full flex flex-col  lg:flex-row xl:flex-row 2xl:flex-row min-h-[100vh] ">
         {{-- lg:min-h-screen flex flex-col lg:flex-row md:flex-col w-full items-center bg-blue-100  --}}
-        <div class="xl:flex-1 lg:w-[25rem]  flex lg:min-h-screen  relative overflow-hidden">
+        <div class="flex-1 lg:w-[25rem]  flex lg:min-h-screen  relative overflow-hidden">
             {{-- flex  justify-center  lg:min-h-screen md:overflow-hidden lg:overflow-hidden   --}}
             <div class="flex flex-row lg:flex-col lg:px-16 lg:py-20 w-full  lg:min-h-screen ">
 
@@ -47,7 +47,7 @@
         </div>
 
 
-        <div class="xl:min-h-screen w-[3rem] h-18 lg:w-[3rem] md:h-[3vh] lg:min-h-screen bg-blue-600 pt-5 lg:pt-0"></div>
+        <div class="xl:min-h-screen w-full  h-18 lg:w-[3rem] md:h-[3vh] lg:min-h-screen bg-blue-600 pt-5 lg:pt-0"></div>
 
         <section class="flex-1 flex  justify-center items-center bg-gray-100  p-10 lg:p-0">
 
