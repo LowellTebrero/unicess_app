@@ -1,7 +1,7 @@
 
 {{--  University Updates  --}}
 <section class="bg-slate-100">
-  <div class="min-h-[55vh] flex items-center justify-center flex-col mx-4 space-x-4 sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 p-8 sm:mx-8">
+  <div class="sm:min-h-[55vh] min-h-[30vh] flex items-center justify-center sm:space-x-4 sm:p-8 sm:mx-8 mx-4 p-4 py-10  flex-col space-x-0 space-y-2 sm:space-y-0 sm:flex-row">
 
     {{--  <img class="absolute h-full w-full opacity-0 md:opacity-0 lg:opacity-100" src="{{ asset('img/arrow-bg.png') }}" alt="">  --}}
 
