@@ -51,7 +51,7 @@
 
 
 
-        <section class="flex-1 flex  justify-center items-center bg-gray-100 min-h-[100vh]  p-10 lg:p-0">
+        <section class="flex-1 flex  justify-center items-center bg-gray-100 p-10 lg:p-0">
 
 
             <div class="flex-col flex bg-white shadow rounded-xl xl:w-2/3 2xl:w-1/2">
