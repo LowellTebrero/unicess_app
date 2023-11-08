@@ -17,8 +17,8 @@
 
 
     <div class="img flex flex-col items-center justify-center">
-        <img class="opacity-0 sm:opacity-100 w-[3rem] sm:w-[7rem] lg:w-[10rem] xl:w-[12rem]" src="{{ asset('img/logo.png') }}"  alt="">
-        <h1 class="opacity-0 sm:opacity-100 sm:mt-5  text-white sm:text-lg font-bold text-xs md:text-2xl lg:text-2xl  xl:text-2xl">UNICESS 2023</h1>
+        <img class=" w-[3rem] sm:w-[7rem] lg:w-[10rem] xl:w-[12rem]" src="{{ asset('img/logo.png') }}"  alt="">
+        <h1 class=" sm:mt-5  text-white sm:text-lg font-bold text-xs md:text-2xl lg:text-2xl  xl:text-2xl">UNICESS 2023</h1>
     </div>
 
 </section>
