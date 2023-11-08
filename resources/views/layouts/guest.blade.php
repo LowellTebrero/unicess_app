@@ -47,7 +47,7 @@
         </div>
 
 
-        <div class="xl:min-h-screen h-18 lg:w-[3rem] md:h-[3vh] lg:min-h-screen bg-blue-600 pt-5 lg:pt-0"></div>
+        <div class="xl:min-h-screen w-[3rem] h-18 lg:w-[3rem] md:h-[3vh] lg:min-h-screen bg-blue-600 pt-5 lg:pt-0"></div>
 
         <section class="flex-1 flex  justify-center items-center bg-gray-100  p-10 lg:p-0">
 
