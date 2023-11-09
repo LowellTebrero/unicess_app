@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminInventoryController;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +21,7 @@ use App\Http\Controllers\Admin\ChartController;
 use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\AllProposalController;
 use App\Http\Controllers\ProfileRoleController;
+use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\UserWelcomeController;
 use App\Http\Controllers\Admin\ToggleController;
 use App\Http\Controllers\Admin\FacultyController;
@@ -34,6 +34,7 @@ use App\Http\Controllers\Admin\AdminPointController;
 use App\Http\Controllers\Admin\EvaluationController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\OtherSettingsController;
+use App\Http\Controllers\Admin\AdminInventoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -170,6 +171,8 @@ Route::middleware(['auth', 'role:admin'])->name('admin.')->prefix('admin')->grou
         Route::get('/inventory/admin-sort-file', 'sortfile')->name('inventory.admin-sort-file');
         Route::get('/download-proposal-media/{id}','InventorydownloadMedia')->name('inventory.admin-download-media');
         Route::get('/inventory-show/{id}','show')->name('inventory.proposal-show');
+        Route::get('/inventory/{id}','showInventory')->name('inventory.show-inventory');
+
 
     });
 
@@ -265,25 +268,26 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/proposal/dashboard-search/{id}',  'search')->name('proposal.user-dashboard-search');
         Route::get('/proposal/dashboard-filter/{id}',  'filter')->name('proposal.user-dashboard-filter');
         Route::resource('/User-dashboard',ProposalController::class);
+        Route::get('/user-profile',  'UserProfile')->name('User-dashboard.profile');
+        Route::get('/my-proposal',  'MyProposal')->name('User-dashboard.my-proposal');
+        Route::get('/my-proposal-search/{id}',  'MyProposalSearch')->name('User-dashboard.my-proposal-search');
+        Route::get('/my-proposal-filter-year/{id}',  'MyProposalFilterYear')->name('User-dashboard.my-proposal-filter-year');
     });
 
+        Route::get('/welcome-user',[UserWelcomeController::class, 'WelcomeUser'])->name('auth.welcome-user');
 
+        Route::get('/points', [PointsController::class, 'index'])->name('points-system.index');
+        Route::get('/filter', [PointsController::class, 'filter'])->name('points-system.filter');
 
+        Route::get('/evaluate/index', [EvaluateController::class, 'index'])->name('evaluate.index');
+        Route::get('/evaluate/{id}', [EvaluateController::class, 'create'])->name('evaluate.create');
+        Route::post('/post-evaluate', [EvaluateController::class, 'post'])->name('evaluate.post');
+        Route::get('/filter/evaluate/index', [EvaluateController::class, 'EvaluateFilterIndex'])->name('evaluate.EvaluateFilterIndex');
+        Route::get('/evaluate-pdf/{id}', [EvaluateController::class, 'evaluatePdf'])->name('evaluate-pdf');
 
-    Route::get('/welcome-user',[UserWelcomeController::class, 'WelcomeUser'])->name('auth.welcome-user');
-
-    Route::get('/points', [PointsController::class, 'index'])->name('points-system.index');
-    Route::get('/filter', [PointsController::class, 'filter'])->name('points-system.filter');
-
-    Route::get('/evaluate/index', [EvaluateController::class, 'index'])->name('evaluate.index');
-    Route::get('/evaluate/{id}', [EvaluateController::class, 'create'])->name('evaluate.create');
-    Route::post('/post-evaluate', [EvaluateController::class, 'post'])->name('evaluate.post');
-    Route::get('/filter/evaluate/index', [EvaluateController::class, 'EvaluateFilterIndex'])->name('evaluate.EvaluateFilterIndex');
-    Route::get('/evaluate-pdf/{id}', [EvaluateController::class, 'evaluatePdf'])->name('evaluate-pdf');
-
-    Route::get('/allProposal', [AllProposalController::class, 'index'])->name('allProposal.index');
-    Route::post('update-proposal/{proposal}', [SelectController::class, 'update']);
-    Route::delete('/delete-uploaded-file/{id}', [EvaluateController::class, 'deleteFile']);
+        Route::get('/allProposal', [AllProposalController::class, 'index'])->name('allProposal.index');
+        Route::post('update-proposal/{proposal}', [SelectController::class, 'update']);
+        Route::delete('/delete-uploaded-file/{id}', [EvaluateController::class, 'deleteFile']);
 
 
 });

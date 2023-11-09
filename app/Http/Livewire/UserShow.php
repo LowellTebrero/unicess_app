@@ -19,7 +19,7 @@ class UserShow extends Component
     // protected $paginationTheme = 'bootstrap';
 
     public $search = "";
-    public $paginate = 10;
+    public $paginate = 15;
     public $selectedFaculty = null;
     public $selectedRole = null;
     public $authorizing = "";

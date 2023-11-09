@@ -4,6 +4,10 @@
     width: 12rem;
     visibility: visible;
 }
+.subsidebar.active {
+    width: 12rem;
+
+}
 
 @media screen and (max-width: 300) {
 

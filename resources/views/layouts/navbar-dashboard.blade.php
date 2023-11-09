@@ -21,12 +21,17 @@ $id = Auth::user()->id;$user = App\Models\User::find($id);
                     </div>  --}}
 
                     <!-- Navigation Links -->
-                    <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
+                    {{--  <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
                         <x-nav-link class="text-white home" :href="route('lnu')" :active="request()->routeIs('lnu')">
                             {{ __('Home') }}
                         </x-nav-link>
+                    </div>  --}}
+                    @role('admin')
+                     <div class="text-white mt-2 ml-6">
+                        <h1 class="tracking-wider text-sm font-medium">Welcome, {{ Auth()->user()->name }} </h1>
+                        <span class="tracking-wider text-[.7rem] text-slate-200">{{  date('D M d, Y') }} </span>
                     </div>
-
+                    @endrole
 
                 </div>
 

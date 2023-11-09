@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Program;
 use App\Models\Proposal;
+use App\Models\Evaluation;
 use Illuminate\Http\Request;
 use App\Charts\ProposalChart;
 use App\Models\ProposalMember;
@@ -27,15 +28,15 @@ use Illuminate\Support\Facades\Notification;
         $projectProposal = Proposal::where('authorize', 'pending')->count();
         $ongoingProposal = Proposal::where('authorize', 'ongoing')->count();
         $finishedProposal = Proposal::where('authorize', 'finished')->count();
-        $allProposal = Proposal::orderBy('authorize', 'desc')->with('programs')->with('proposal_members')->paginate(6);
+        $allProposal = Proposal::orderBy('authorize', 'desc')->with('programs')->with('proposal_members')->get();
         $pendingAccount = User::where('authorize', 'pending')->count();
         $totalAccount = DB::table('users')->select('id')->count();
         $totalProposal = DB::table('proposals')->select('id')->count();
         $getCountProposals = DB::table('proposals')->whereDate('created_at', Carbon::today())->count();
         $getCountUsers = DB::table('users')->whereDate('created_at', Carbon::today())->count();
         $programs = Program::orderBy('program_name')->pluck('program_name', 'id')->prepend('Select Program', '');
-
-
+        $evaluation = Evaluation::where('status', 'evaluated')->whereYear('created_at', date('Y'))->count();
+        // dd($evaluation);
         // $proposal_member = ProposalMember::leftJoin('users', 'proposal_members.user_id', '=', 'users.id')
         // ->whereNotNull(['users.faculty_id'])
         // ->select('users.first_name', DB::raw('SUM(points) as total'))
@@ -58,7 +59,7 @@ use Illuminate\Support\Facades\Notification;
 
         return view('admin.dashboard.index', compact('projectProposal', 'allProposal', 'getCountProposals', 'getCountUsers',
              'pendingAccount', 'totalAccount', 'ongoingProposal', 'currentYear' , 'previousYear',
-             'finishedProposal', 'totalProposal', 'programs' ));
+             'finishedProposal', 'totalProposal', 'programs', 'evaluation' ));
     }
 
     public function store(Request $request)
@@ -149,7 +150,7 @@ use Illuminate\Support\Facades\Notification;
                 $query->where('authorize', $companyId);
             }})->when($query, function ($querys) use ($query) {
                 return $querys->where('project_title', 'like', "%$query%");
-            })->paginate(6);
+            })->get();
 
 
 
@@ -180,7 +181,7 @@ use Illuminate\Support\Facades\Notification;
         })->where(function ($query) {
             if($companyId = request('selected_value')){
                 $query->where('authorize', $companyId);
-            }})->paginate(6);
+            }})->get();
 
 
 

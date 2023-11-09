@@ -32,12 +32,11 @@
         </div>
         <hr>
 
-        <div class=" min-h-[12vh] bg-gradient-to-r
+        <div class="min-h-[12vh] bg-gradient-to-r
         from-slate-400
         via-slate-300
         to-slate-200
-
-        background-animate ">
+        background-animate">
         </div>
 
         <div class="w-40 absolute top-28 left-12 z-20">
@@ -134,13 +133,13 @@
                            <div>
                                <input type="text" id="searchInput" class="text-xs border-gray-400 rounded-md w-[20rem]" placeholder="Search proposal title...">
                                <select  class="text-xs border-gray-400 rounded-md" id="Years">
-                                   <option value="">Select All Year</option>
+                                   <option value="">All Year</option>
                                    @foreach ($years as $year )
                                        <option value="{{ $year }}" @if ($year == date('Y')) selected="selected" @endif>{{ $year }}</option>
                                    @endforeach
                                </select>
                                <select  class="text-xs border-gray-400 rounded-md" id="Status">
-                                   <option value="">Select Status</option>
+                                   <option value=""> Status</option>
                                    <option value="pending">Pending</option>
                                    <option value="ongoing">Ongoing</option>
                                    <option value="finished">Finished</option>
@@ -167,13 +166,13 @@
                        <h1 class="tracking-wider">Evaluation Overview</h1>
                        <div>
                             <select  class="text-xs border-gray-400 rounded-md" id="EvaluationYears">
-                               <option value="">Select All Year</option>
+                               <option value="">All Year</option>
                                @foreach ($years as $year )
                                    <option value="{{ $year }}" >{{ $year }}</option>
                                @endforeach
                             </select>
                             <select  class="text-xs border-gray-400 rounded-md" id="EvaluationStatus">
-                               <option value="">Select Status</option>
+                               <option value="">Status</option>
                                <option value="pending">Pending</option>
                                <option value="evaluated">Validated</option>
                             </select>

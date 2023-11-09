@@ -30,7 +30,7 @@
                             <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = true">
 
                                 <!-- Trigger for Modal -->
-                                <button class="px-2 py-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 xl:text-[.8rem] 2xl:text-xs xl:text-xs space-x-2 flex" type="button" @click="showModal = true">
+                                <button class="px-2 py-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 xl:text-[.8rem] 2xl:text-xs text-xs space-x-2 flex" type="button" @click="showModal = true">
                                     <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="17"
                                     height="17" viewBox="0 0 16 16">
                                     <g fill="currentColor">
@@ -106,7 +106,7 @@
                             <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = true">
 
                                 <!-- Trigger for Modal -->
-                                <button class="px-2 py-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 xl:text-[.8rem] 2xl:text-xs xl:text-xs space-x-2 flex" type="button" @click="showModal = true">
+                                <button class="px-2 py-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 xl:text-[.8rem] 2xl:text-xs text-xs space-x-2 flex" type="button" @click="showModal = true">
                                     <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M4 7h3m13 0h-9m9 10h-3M4 17h9m-9-5h16"/></svg>
                                      Edit Proposal details
                                 </button>
@@ -312,7 +312,7 @@
                                 </div>
                             </div>
 
-                            <a class="px-2 py-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 xl:text-[.8rem] 2xl:text-xs xl:text-xs space-x-2 flex" href={{ url('download', $proposals->id) }}>
+                            <a class="px-2 py-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 xl:text-[.8rem] 2xl:text-xs text-xs space-x-2 flex" href={{ url('download', $proposals->id) }}>
                                 <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 256 256"><path fill="currentColor" d="M82.34 117.66A8 8 0 0 1 88 104h32V40a8 8 0 0 1 16 0v64h32a8 8 0 0 1 5.66 13.66l-40 40a8 8 0 0 1-11.32 0ZM216 144a8 8 0 0 0-8 8v56H48v-56a8 8 0 0 0-16 0v56a16 16 0 0 0 16 16h160a16 16 0 0 0 16-16v-56a8 8 0 0 0-8-8Z"/></svg>
                                 Download to zip
                             </a>

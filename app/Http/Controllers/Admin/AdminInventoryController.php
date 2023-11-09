@@ -32,8 +32,8 @@ class AdminInventoryController extends Controller
      // Show Faculty Admin
      public function show($id)
      {
+        
       $proposalID = Proposal::with('programs')
-
       ->whereHas('user', function($query){
           $query->with('faculty')
       ->whereHas('faculty', function ($query){
@@ -49,6 +49,13 @@ class AdminInventoryController extends Controller
       $allFaculty = Faculty::orderBy('name')->pluck('name', 'id')->prepend('All Faculty', '');
 
       return view('admin.inventory.show' , compact('proposalID', 'programID', 'userfaculty', 'facs', 'allFaculty'));
+     }
+
+
+     public function showInventory($id){
+
+        $proposals = Proposal::where('id', $id)->first();
+        return view('admin.inventory.show-inventory', compact('proposals'));
      }
 
 

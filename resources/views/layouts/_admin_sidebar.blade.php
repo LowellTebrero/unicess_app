@@ -1,17 +1,21 @@
 
-    <div class="w-full h-[100vh] bg-gradient-to-t from-blue-500 to-blue-800">
+    <div class="min-h-screen bg-gradient-to-t from-blue-500 to-blue-800 transition-all fixed subsidebar xl:w-[12rem] 2xl:w-[14rem]">
 
         <nav class="flex-grow pr-2 pl-2 pb-4 space-y-2 md:block md:pb-0 navigation ">
 
-            <div class="flex items-center py-3  justify-center space-x-2">
-                <!-- Logo -->
-                <img src="{{ asset('img/logo.png') }}" width="45" alt="">
-                <a class="text-lg  font-bold tracking-wider text-yellow-400" href="{{ route('lnu') }}">
-                UniCESS
-                </a>
-            </div>
 
-            <x-custom-nav-link class="nav-item" :href="route('admin.dashboard.index')" wire:navigate :active="request()->routeIs('admin.dashboard.*')">
+        <div class="flex items-center py-3 justify-between px-4 xl:px-0 xl:justify-center space-x-2">
+            <!-- Logo -->
+            <img src="{{ asset('img/logo.png') }}" width="45" class="logo">
+            <a class="text-lg font-bold tracking-wider text-yellow-400" href="{{ route('lnu') }}">UniCESS</a>
+            <button class="close-button lg:block xl:hidden">
+                <svg class="text-white" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+            <x-custom-nav-link class="nav-item " :href="route('admin.dashboard.index')" wire:navigate :active="request()->routeIs('admin.dashboard.*')">
                 <svg class="fill-white mr-2 " xmlns="http://www.w3.org/2000/svg" height="35"
                     viewBox="0 96 960 960" width="30">
                     <path

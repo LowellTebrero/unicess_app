@@ -14,17 +14,13 @@
 
     </style>
 
-    <section class="p-8 rounded-lg bg-white mt-5 m-8 w-[95%] mx-auto text-gray-700">
+    <section class="p-4 sm:p-8 rounded-lg bg-white mt-5 m-8 w-[95%] mx-auto text-gray-700 relative">
 
-        <div class="flex justify-end">
-            <a class="hover:bg-gray-200 focus:bg-red-200 px-2 py-1 rounded" href={{ route('evaluate.index') }}>
+            <a class="hover:bg-gray-200 focus:bg-red-200 px-2 py-1 rounded absolute top-2 right-5" href={{ route('evaluate.index') }}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </a>
-        </div>
-
-
 
         <form action="{{ route('evaluate.post') }}" method="POST" enctype="multipart/form-data" id="form" class="form">
             @csrf
@@ -37,13 +33,13 @@
                 @include('user.evaluate.create_filter._filter_create_note')
             </div>
 
-            <div class="flex xl:flex-col 2xl:flex-row  border-x border-b border-gray-400">
+            <div class="flex flex-col 2xl:flex-row  border-x border-b border-gray-400">
 
                 <div class="w-full border-r border-gray-400 p-10">
                     <h1 class=" text-md font-semibold tracking-wider ">I. Administrative Work</h1>
                     <div class="mt-8">
                     <h1 class="py-4  text-sm font-medium ">1. Chairmanship of Working Committees</h1>
-                    <div class="mb-4 flex space-x-12">
+                    <div class="mb-4 xl:flex-row flex-col flex xl:space-x-12">
                         <div class="w-full">
                             <label class="block text-sm font mb-2" for="username">
                             University Wide <span class="text-xs xl:inline-block"> (7 pts. per committee)</span>
@@ -66,7 +62,7 @@
 
                     <div class="mt-6">
                     <h1 class="py-4  text-sm font-medium">2. Membership in Working Committee</h1>
-                    <div class="mb-4 flex space-x-12">
+                    <div class="mb-4 xl:flex-row flex-col flex xl:space-x-12">
                         <div class="w-full">
                             <label class="block  text-sm font mb-2" for="username">
                             University Wide <span class="text-xs xl:inline-block"> (5 pts. per committee)</span>
@@ -202,13 +198,13 @@
 
 
             <div class=" p-5 mt-12 border border-gray-400 bg-slate-100">
-                <p class="font-semibold  xl:text-sm 2xl:text-[1.1rem] ">
+                <p class="font-semibold  text-xs sm:text-sm 2xl:text-[1.1rem] ">
                     B. COMMUNITY OUTREACH -- 20 pts. (Ceiling Points)
                     (Should show proof of involvement e.g., TOUS.O, Certificate of Appearance/Activity Attendance
                     Monitoring Form)
                 </p>
 
-                <p class=" pt-4 xl:text-xs 2xl:text-sm text-justify font-medium">
+                <p class="text-xs pt-4  2xl:text-sm text-justify font-medium">
                     Note: In case of multiple roles in training, the one with highest points will prevail or will be given credit.
                     <span class=" font-semibold">Training Programs/Symposia/For a</span>
                 </p>
@@ -228,70 +224,70 @@
 
                 @if ($row->leader_member_type == '1' && $row->location_id == '1')
 
-                <h1>Training Director/Coordinator - Local/National  <span class="text-sm">(10 pts. per Training)</span></h1>
+                <h1 class="text-sm">Training Director/Coordinator - Local/National  <span class="text-xs sm:text-sm">(10 pts. per Training)</span></h1>
                 <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="training_director_local"  type="text" id="inputfield1" onkeypress="return isNumber(event)" required>
                 @endif
 
                 @if ($row->leader_member_type == '1' && $row->location_id == '2')
 
-                <h1>Training Director/Coordinator - International   <span class="text-sm">(15 pts. per Training)</span></h1>
+                <h1 class="text-sm">Training Director/Coordinator - International   <span class="text-xs sm:text-sm">(15 pts. per Training)</span></h1>
                 <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="training_director_international" type="text" id="inputfield2" onkeypress="return isNumber(event)" required>
                 @endif
 
                 @if ($row->leader_member_type == '2' && $row->location_id == '1')
 
-                <h1>Resource Speaker/Trainer - Local/National  <span class="text-sm">(7 pts. per Training)</span></h1>
+                <h1 class="text-sm">Resource Speaker/Trainer - Local/National  <span class="text-xs sm:text-sm">(7 pts. per Training)</span></h1>
                 <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="resource_speaker_local" type="text" onkeypress="return isNumber(event)" required>
                 @endif
 
                 @if ($row->leader_member_type == '2' && $row->location_id == '2')
 
-                <h1>Resource Speaker/Trainer - International   <span class="text-sm">(10 pts. per Training)</span></h1>
+                <h1 class="text-sm" >Resource Speaker/Trainer - International   <span class="text-xs sm:text-sm">(10 pts. per Training)</span></h1>
                 <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="resource_speaker_international" type="text" onkeypress="return isNumber(event)" required>
                 @endif
 
 
                 @if ($row->leader_member_type == '3' && $row->location_id == '1')
 
-                <h1>Facilitator moderator - local   <span class="text-sm">(3 pts. per Training)</span></h1>
+                <h1 class="text-sm">Facilitator moderator - local   <span class="text-xs sm:text-sm">(3 pts. per Training)</span></h1>
                 <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="facilitator_moderator_local" type="text" onkeypress="return isNumber(event)" required>
                 @endif
 
                 @if ($row->leader_member_type == '3' && $row->location_id == '2')
 
-                <h1>Facilitator moderator - International  <span class="text-sm">(7 pts. per Training)</span></h1>
+                <h1 class="text-sm">Facilitator moderator - International  <span class="text-xs sm:text-sm">(7 pts. per Training)</span></h1>
                 <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="facilitator_moderator_international" type="text" onkeypress="return isNumber(event)" required>
                 @endif
 
 
                 @if ($row->leader_member_type == '4' && $row->location_id == '1')
 
-                <h1>Reactor panel member - local  <span class="text-sm">(2 pts. per Training)</span></h1>
+                <h1 class="text-sm">Reactor panel member - local  <span class="text-xs sm:text-sm">(2 pts. per Training)</span></h1>
                 <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="reactor_panel_member_local" type="text" onkeypress="return isNumber(event)" required>
                 @endif
 
                 @if ($row->leader_member_type == '4' && $row->location_id == '2')
 
-                <h1>Reactor panel member - International  <span class="text-sm">(5 pts. per Training)</span></h1>
+                <h1 class="text-sm">Reactor panel member - International  <span class="text-xs sm:text-sm">(5 pts. per Training)</span></h1>
                 <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="reactor_panel_member_international" type="text" onkeypress="return isNumber(event)" required>
                 @endif
 
 
                 @if ($row->leader_member_type == '5' && empty($row->location_id))
 
-                <h1>Technical Assistance/Consultancy  <span class="text-sm">(7 pts. per project)</span></h1>
+                <h1 class="text-sm">Technical Assistance/Consultancy  <span class="text-xs sm:text-sm">(7 pts. per project)</span></h1>
                 <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="technical_assistance"  type="text" onkeypress="return isNumber(event)" required>
                 @endif
 
                 @if ($row->leader_member_type == '6' && empty($row->location_id))
 
-                <h1>Judge  <span class="text-sm">(3 pts.) Note: Only extra-curricular activities where are academic in nature (e.g., debates, orations, quiz shows)</span></h1>
+                <h1 class="text-sm">Judge  <span class="text-xs sm:text-sm">(3 pts.) Note: Only extra-curricular activities where are academic in nature (e.g., debates, orations, quiz shows)</span></h1>
                 <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="judge_community"  type="text" onkeypress="return isNumber(event)" required>
                 @endif
 
                 @if ($row->leader_member_type == '7' && empty($row->location_id))
 
-                <h1>Commencement/Guest Speaker: <span class="text-sm">(4 pts.)</span></h1>
+                <h1 class="text-sm">Commencement/Guest Speaker: <span class="text-xs sm:text-sm">(4 pts.)</span></h1>
                 <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="commencement_guest_speaker" type="text" onkeypress="return isNumber(event)" required>
                 @endif
                 {{--  @endif  --}}
@@ -300,48 +296,45 @@
 
             </div>
 
-
-
-
             <div class="mt-12">
                 <div class="p-5 border border-gray-400 bg-slate-100">
-                    <p class="font-semibold  xl:text-sm 2xl:text-lg">
+                    <p class="font-semibold  xl:text-sm 2xl:text-lg text-xs">
                         C. Service to the Adopted Barangay/institutions -- 50 pts. (Ceiling Points)
                         (Should show proof of involvement e.g., T.O/S.O, Activity Attendance Monitoring Form)
                     </p>
                 </div>
 
                 <div class="w-full border-x border-b p-8 border-gray-400">
-                    <h1 class=" text-md font-medium xl:text-xs 2xl:text-sm">I. Participation in the extension and training per day:</h1>
+                    <h1 class="text-md font-medium ">I. Participation in the extension and training per day:</h1>
 
-                    <div class="my-4 flex space-x-12 input-group">
+                    <div class="my-4 space-y-4 lg:space-y-0 lg:flex-row flex flex-col lg:space-x-12 input-group">
 
                         @foreach ($result2 as $rows )
 
                         @if ($rows->member_type == 'Coordinator/Organizer/consultants' )
                         <div class="w-full">
-                        <h1>Coordinator/Organizer/consultants (10 pts. per day) </h1>
+                        <h1 class="text-xs sm:text-sm">Coordinator/Organizer/consultants (10 pts. per day) </h1>
                         <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm"  name="coordinator_organizer_consultants"  type="text" required onkeypress="return isNumber(event)">
                         </div>
                         @endif
 
                         @if ($rows->member_type == 'Facilitator' )
                         <div class="w-full">
-                        <h1>Facilitator (6 pts. per day) </h1>
+                        <h1 class="text-xs sm:text-sm">Facilitator (6 pts. per day) </h1>
                         <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm"   name="facilitator"   type="text" required onkeypress="return isNumber(event)">
                         </div>
                         @endif
 
                         @if ($rows->member_type == 'Member' )
                         <div class="w-full">
-                        <h1>Member (4 pts. per day) </h1>
+                        <h1 class="text-xs sm:text-sm">Member (4 pts. per day) </h1>
                         <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm"   name="member" type="text" required onkeypress="return isNumber(event)">
                         </div>
                         @endif
 
                         @if ($rows->member_type == 'Resource person/lecturer' )
                         <div class="w-full">
-                        <h1>Resource person/lecturer (8 pts. per day) </h1>
+                        <h1 class="text-xs sm:text-sm">Resource person/lecturer (8 pts. per day) </h1>
                         <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="resource_person_lecturer"  type="text" required onkeypress="return isNumber(event)">
                         </div>
 
@@ -354,7 +347,7 @@
 
 
             <div class="py-12 submit-btn">
-                <button type="submit"  class="btn  button block text-white bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-blue-800 disabled:hover:bg-slate-400  transition-all" onclick="myFunction()">
+                <button type="submit" class="btn w-full lg:w-[15rem] button block text-white bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-blue-800 disabled:hover:bg-slate-400  transition-all" onclick="myFunction()">
                     Submit here
                 </button>
             </div>

@@ -1,5 +1,5 @@
 
-<p class="font-semibold xl:text-sm 2xl:text-[1.1rem]">
+<p class="font-semibold xl:text-sm 2xl:text-[1.1rem] text-sm">
     A. SERVICE TO THE UNIVERSITY -- 30 points (Ceiling Points)
     (Should show proof of involvement e.g., T.O/S.O, Certificate of Appearance/Activity Attendance
     Monitoring Form)
@@ -7,7 +7,7 @@
 </p>
 
 
-<p class="pt-2 text-sm text-justify font-light xl:text-xs 2xl:text-sm">
+<p class="pt-2 text-justify font-light text-xs 2xl:text-sm ">
     Note: Covers Extension and Community Services: (a) Extension services refer to activities related to
         academic work directly in line with one's area of specialization, but does not include private practice of
         one's profession such as law, accountancy, etc; (b) Community services refer to activities related to

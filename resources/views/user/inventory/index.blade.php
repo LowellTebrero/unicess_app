@@ -2,7 +2,7 @@
     @hasanyrole('Faculty extensionist|Extension coordinator')
         <style>[x-cloak] {display: none}</style>
 
-        <section class="mt-5 m-8 bg-white rounded-lg  xl:min-h-[87vh]  min-h-[100vh]">
+        <section class="mt-5 m-8 bg-white rounded-lg xl:min-h-[80vh] min-h-[100vh]">
 
             <div class="p-4 flex justify-between sm:flex-col space-y-2 sm:space-y-0 md:flex-row flex-col space-x-0">
                 <h1 class="font-semibold tracking-wider sm:text-xl text-slate-700 text-base">My Inventory</h1>

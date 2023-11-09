@@ -32,7 +32,7 @@ class UserController extends Controller
         $evaluations = Evaluation::orderBy('created_at', 'DESC')->where('user_id', $user->id)->whereYear('created_at', date('Y'))->get();
         $proposals = Proposal::with(['proposal_members' => function ($query) use ($user) {
         $query->where('user_id', $user->id);
-        }])->orderBy('created_at', 'DESC')->get();
+        }])->whereYear('created_at', date('Y'))->orderBy('created_at', 'DESC')->get();
 
         return view ('admin.users.role', compact('user',  'toggle', 'proposals', 'years', 'customs', 'evaluations'));
     }

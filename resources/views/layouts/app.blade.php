@@ -36,7 +36,7 @@
 
 
             {{--  Sidebar Section  --}}
-            <div class="sidebar xl:w-[12rem] 2xl:w-[14rem] xl:sticky xl:top-0 xl:left-0 transition-all">
+            <div class="sidebar xl:w-[12rem] 2xl:w-[14rem] 2xl:sticky xl:top-0 xl:left-0 transition-all">
                 @include('layouts._user_sidebar')
             </div>
 

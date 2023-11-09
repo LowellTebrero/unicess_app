@@ -32,7 +32,7 @@
                 </select>
 
                 <select wire:model="paginate" name="paginate" id="paginate" class="text-xs rounded ">
-                    <option value="10">10</option>
+                    <option value="15">15</option>
                     <option value="50">50</option>
                     <option value="70">70</option>
                 </select>
@@ -40,8 +40,8 @@
         </div>
         <hr>
 
-        <div class="overflow-x-auto p-2 rounded mt-12 px-8">
-            <table class="table-auto w-full border-collapse ">
+        <div class="overflow-x-auto p-2 px-8 2xl:h-[77vh] ">
+            <table class="table-auto w-full border-collapse">
 
                 <thead class="text-[.7rem] text-gray-800 uppercase bg-slate-200">
                     <tr>
@@ -127,8 +127,9 @@
                     @endforelse
                 </tbody>
             </table>
-            <div class="p-2">{{ $users->links() }}</div>
+
         </div>
+        <div class="px-4 pb-2">{{ $users->links() }}</div>
     </div>
 
 <x-messages/>

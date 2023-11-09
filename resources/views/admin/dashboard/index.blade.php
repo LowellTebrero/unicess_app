@@ -3,15 +3,11 @@
         [x-cloak] { display: none}
     </style>
 
-    <section class="flex min-h-full justify-between overflow-hidden w-full bg-red-500">
-        <div class="xl:px-8 flex 2xl:w-full w-auto lg:w-[47rem] xl:w-[56rem] flex-col xl:mt-5  p-4">
-            <div class="p-4 px-5 flex  bg-white rounded-xl min-h-[12vh] shadow">
-                <div>
-                    <h1 class="tracking-wider 2xl:text-2xl font-semibold text-slate-700">Welcome,
-                        {{ Auth()->user()->name }} </h1>
-                    <span class="tracking-wider text-sm">{{  date('D M d, Y') }} </span>
-                </div>
-            </div>
+    <section class="flex min-h-full flex-col-reverse xl:flex-row  xl:justify-between overflow-hidden  ">
+        <div class="xl:px-8 flex 2xl:w-full w-full xl:w-[56rem] flex-col  p-4">
+            {{--  <div class="p-4 px-5 flex  bg-white rounded-xl min-h-[12vh] shadow">
+
+            </div>  --}}
 
             {{--  4 Button Modal  --}}
             @include('admin.dashboard._button-modal')
@@ -23,35 +19,39 @@
                 <div class="flex flex-col justify-center h-full w-full ">
                     <!-- Table -->
                     <div class="w-full  mx-auto bg-white  rounded-md border border-gray-200 h-full">
-                        <header class="px-5 py-4 border-b border-gray-100 flex justify-between">
-                            <div class="flex xl:space-x-2 items-center">
-                                <h2 class="font-semibold text-gray-600 2xl:text-sm xl:text-xs xl:mr-2">Proposal Dashboard</h2>
-                                <select class="text-xs rounded border border-gray-300 text-gray-700" id="myDropdown" name="authorize_name">
-                                    <option {{ '' == request('authorize_name') ? 'selected ' : '' }} value="">Select Status</option>
-                                    <option {{ 'pending' == request('authorize_name') ? 'selected ' : '' }} value="pending">Pending</option>
-                                    <option {{ 'ongoing' == request('authorize_name') ? 'selected ' : '' }} value="ongoing">Ongoing</option>
-                                    <option {{ 'finished' == request('authorize_name') ? 'selected ' : '' }} value="finished">Finished</option>
-                                </select>
-                                <input id="searchInput"  class="text-xs rounded border border-gray-300 2xl:w-[20rem] xl:w-[15rem] text-gray-700" type="text" placeholder="Search Proposal Title...">
-                            </div>
+                        <header class="px-5 sm:px-2 py-4 border-b border-gray-100 flex justify-between">
+                            <div class="flex flex-col sm:flex-row  md:flex-row sm:justify-between space-y-2 sm:space-y-0 space-x-0  w-full">
+                                <div class="flex sm:space-x-2 space-x-0  items-center">
+                                    <h2 class="font-semibold text-gray-600 2xl:text-sm xl:text-xs xl:mr-2 text-xs hidden md:block">Proposal Dashboard</h2>
+                                    <select class="text-xs rounded border border-gray-300 text-gray-700" id="myDropdown" name="authorize_name">
+                                        <option {{ '' == request('authorize_name') ? 'selected ' : '' }} value="">Select Status</option>
+                                        <option {{ 'pending' == request('authorize_name') ? 'selected ' : '' }} value="pending">Pending</option>
+                                        <option {{ 'ongoing' == request('authorize_name') ? 'selected ' : '' }} value="ongoing">Ongoing</option>
+                                        <option {{ 'finished' == request('authorize_name') ? 'selected ' : '' }} value="finished">Finished</option>
+                                    </select>
+                                    <input id="searchInput"  class=" text-xs rounded border border-gray-300 2xl:w-[20rem] sm:w-[15rem] w-full text-gray-700" type="text" placeholder="Search Proposal Title...">
+                                </div>
 
-                            {{--  Create Proposal   --}}
-                            <div class="space-x-2 flex">
-                                <a href={{ route('admin.dashboard.create') }} class="text-white bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 focus:text-[.8rem] transition-all rounded-lg xl:text-xs px-3 py-2 2xl:text-sm">+ Upload Proposal</a>
-                                <div id="wrapper" class="flex items-center transition-all">
-                                    <a href="" type="submit" class="" id="deleteAllSelected" style="display: none" onclick="return confirm('Are you sure?')">
-                                        <svg class="fill-red-500" xmlns="http://www.w3.org/2000/svg" height="30"
-                                        viewBox="0 96 960 960" width="30">
-                                        <path d="M261 936q-24.75 0-42.375-17.625T201 876V306h-41v-60h188v-30h264v30h188v60h-41v570q0 24-18 42t-42 18H261Zm438-630H261v570h438V306ZM367 790h60V391h-60v399Zm166 0h60V391h-60v399ZM261 306v570-570Z" />
-                                        </svg>
-                                    </a>
+                                {{--  Create Proposal   --}}
+                                <div class="space-x-2 flex ">
+                                    <a href={{ route('admin.dashboard.create') }} class="text-white bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 focus:text-[.8rem] transition-all rounded-lg xl:text-xs px-3 py-2 2xl:text-sm text-sm w-full">+ Upload Proposal</a>
+                                    <div id="wrapper" class="flex items-center transition-all">
+                                        <a href="" type="submit" class="" id="deleteAllSelected" style="display: none" onclick="return confirm('Are you sure?')">
+                                            <svg class="fill-red-500" xmlns="http://www.w3.org/2000/svg" height="30"
+                                            viewBox="0 96 960 960" width="30">
+                                            <path d="M261 936q-24.75 0-42.375-17.625T201 876V306h-41v-60h188v-30h264v30h188v60h-41v570q0 24-18 42t-42 18H261Zm438-630H261v570h438V306ZM367 790h60V391h-60v399Zm166 0h60V391h-60v399ZM261 306v570-570Z" />
+                                            </svg>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </header>
 
-                        <div id="filtered-data">
-                        @include('admin.dashboard._proposal-dashboard')
-                        </div>
+
+                            <div id="filtered-data">
+                                @include('admin.dashboard._proposal-dashboard')
+                            </div>
+
                     </div>
                 </div>
             </section>

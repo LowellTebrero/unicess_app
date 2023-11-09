@@ -2,24 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use toastr;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Point;
 use App\Models\Program;
 use App\Models\CesoRole;
-use App\Models\Evaluation;
 use App\Models\Location;
 use App\Models\Proposal;
+use App\Models\AdminYear;
+use App\Models\Evaluation;
 use Illuminate\Http\Request;
 use App\Models\ProposalMember;
 use Illuminate\Validation\Rule;
 use App\Models\ParticipationName;
-use App\Models\TemporaryEvaluationFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
-use toastr;
+use App\Models\TemporaryEvaluationFile;
 
 
 
@@ -45,7 +46,9 @@ class ProposalController extends Controller
 
         $proposals = Proposal::with(['proposal_members' => function ($query) {
         $query->where('user_id', auth()->user()->id);
-        }])->orderBy('created_at', 'DESC')->whereYear('created_at', $currentYear)->paginate(8);
+        }])->orderBy('created_at', 'DESC')->whereYear('created_at', date('Y'))->get();
+
+        $userId = Auth::id();
 
         $programs = Program::orderBy('program_name')->pluck('program_name', 'id')->prepend('Select Program', '');
         $locations = Location::orderBy('location_name')->pluck('location_name', 'id')->prepend('Select Location', '');
@@ -53,10 +56,10 @@ class ProposalController extends Controller
         $counts = Proposal::where('user_id', auth()->user()->id)->where('authorize', 'finished')->whereYear('created_at', $currentYear)->count();
         $members = User::orderBy('name')->whereNot('name', 'Administrator')->pluck('name', 'id')->prepend('Select Username', '');
         $parts_names = ParticipationName::orderBy('participation_name')->pluck('participation_name', 'id')->prepend('Select Participation', '');
-        $second = ProposalMember::select('user_id')->with('proposal')->where('user_id', auth()->user()->id)->whereYear('created_at', $currentYear)->count();
+        $second = ProposalMember::where('user_id', auth()->user()->id)->whereYear('created_at', date('Y'))->count();
+
         $proposalMembers = ProposalMember::with('proposal')->where('user_id', auth()->user()->id)->orderBy('created_at', 'DESC')->paginate(6);
         $latestYearPoints = Evaluation::select(DB::raw('MAX(YEAR(created_at)) as max_year'), 'total_points')->groupBy('total_points')->latest('created_at')->where('user_id', auth()->user()->id)->whereYear('created_at', $currentYear)->first();
-
 
         return view('user.dashboard.index',compact(
         'proposalMembers','latestYearPoints','proposals', 'user', 'counts', 'programs',
@@ -342,7 +345,7 @@ class ProposalController extends Controller
                 return $querys->where('project_title', 'like', "%$query%");
                 })->with(['proposal_members' => function ($query) {
                 $query->where('user_id', auth()->user()->id);
-            }])->orderBy('created_at', 'DESC')->whereYear('created_at', $currentYear )->paginate(8);
+            }])->orderBy('created_at', 'DESC')->whereYear('created_at', $currentYear )->get();
 
 
 
@@ -381,7 +384,7 @@ class ProposalController extends Controller
                 })->where(function ($query) {
                     if($companyId = request('selected_value')){
                         $query->where('authorize', $companyId);
-                    }})->orderBy('created_at', 'DESC')->whereYear('created_at', $currentYear )->paginate(8);
+                    }})->orderBy('created_at', 'DESC')->whereYear('created_at', $currentYear )->get();
 
 
 
@@ -390,6 +393,76 @@ class ProposalController extends Controller
         'programs', 'locations', 'ceso_roles', 'members' , 'parts_names','currentYear',
         'previousYear', 'second', 'Temporary'));
 
+    }
+
+    public function UserProfile(){
+
+        $user = User::where('id', Auth()->user()->id)->get();
+        $facultyUsers = User::whereNot('name', 'Administrator')->whereNot('id', Auth()->user()->id)->where('faculty_id', Auth()->user()->faculty_id)->get();
+
+
+        return view('user.dashboard.profile.index', compact('facultyUsers', 'user'));
+    }
+
+    public function MyProposal(){
+        $count = ProposalMember::where('user_id', auth()->user()->id)->where(function ($query) {
+            if($year = request('selected_value')){
+                $query->whereYear('created_at', $year);
+        }})->count();
+
+        $years = AdminYear::orderBy('year', 'DESC')->pluck('year');
+        $proposals = Proposal::with(['proposal_members' => function ($query) {
+        $query->where('user_id', auth()->user()->id);
+        }])->whereYear('created_at', date('Y'))->get();
+
+        return view('user.dashboard.MyProposal.index', compact('proposals', 'years', 'count'));
+    }
+
+    public function MyProposalSearch(Request $request, $id){
+
+        $query = $request->input('query');
+        $years = AdminYear::orderBy('year', 'DESC')->pluck('year');
+
+        $count = ProposalMember::where('user_id', auth()->user()->id)->where(function ($query) {
+            if($year = request('selected_value')){
+                $query->whereYear('created_at', $year);
+        }})->count();
+
+        $proposals = Proposal::where(function ($query) {
+            if($year = request('selected_value')){
+                $query->whereYear('created_at', $year);
+            }})->when($query, function ($querys) use ($query) {
+                return $querys->where('project_title', 'like', "%$query%");
+        })->with(['proposal_members' => function ($query) {
+        $query->where('user_id', auth()->user()->id);
+        }])->get();
+
+        return view('user.dashboard.MyProposal._filter-dashboard', compact('proposals', 'years', 'count'));
+    }
+
+    public function MyProposalFilterYear(Request $request, $id){
+
+        $query = $request->input('query');
+        $years = AdminYear::orderBy('year', 'DESC')->pluck('year');
+
+        $count = ProposalMember::where('user_id', auth()->user()->id)->where(function ($query) {
+            if($year = request('selected_value')){
+                $query->whereYear('created_at', $year);
+        }})->count();
+
+
+        $proposals = Proposal::when($query, function ($querys) use ($query) {
+            return $querys->where('project_title', 'like', "%$query%");
+        })
+        ->where(function ($query) {
+            if($year = request('selected_value')){
+                $query->whereYear('created_at', $year);
+        }})
+        ->with(['proposal_members' => function ($query) {
+            $query->where('user_id', auth()->user()->id);
+            }])->get();
+
+        return view('user.dashboard.MyProposal._filter-dashboard', compact('proposals', 'years', 'count'));
     }
 
 }

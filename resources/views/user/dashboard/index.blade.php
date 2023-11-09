@@ -11,10 +11,6 @@
     </style>
 
 
-    @php
-    $users = App\Models\User::where('authorize', 'pending')->get();
-    @endphp
-
     @if (Auth::user()->authorize == 'checked')
 
         @hasanyrole('Faculty extensionist|Extension coordinator')
@@ -27,23 +23,24 @@
             </div>
 
             <section class="mx-5 flex xl:flex-row flex-col md:flex-row justify-between 2xl:h-48 xl:h-36 lg:h-[25vh]  text-gray-700">
-                <div class="w-full m-5 rounded-lg bg-gradient-to-tl from-cyan-400 to-sky-300 md:p-2 xl:px-5 2xl:px-10 2xl:py-9 xl:py-5 flex flex-col xl:flex-row lg:pt-3 xl:p-0 items-center">
+
+                <a href={{ route('User-dashboard.profile') }} class="w-full m-5 rounded-lg hover:from-cyan-500 hover:to-sky-400 bg-gradient-to-tl from-cyan-400 to-sky-300 md:p-2 xl:px-5 2xl:px-10 2xl:py-9 xl:py-5 flex flex-col xl:flex-row lg:pt-3 xl:p-0 items-center">
                     @if($user->gender == 'Female')
                     <img src="{{ asset('/img/female.svg') }}" class="2xl:w-24 xl:mr-5 2xl:mr-8  xl:w-16 xl:h-16 2xl:h-20 w-16">
                     @elseif($user->gender == 'Male')
                     <img src="{{ asset('/img/male.svg') }}" class="2xl:w-24 xl:mr-5 2xl:mr-8  xl:w-16 xl:h-16 2xl:h-20 w-16 lg:w-[4rem]">
+                    @else
+                    <img src="{{ asset('/upload/profile.png') }}" class="2xl:w-24 xl:mr-5 2xl:mr-8  xl:w-16 xl:h-12 2xl:h-20 w-16 lg:w-[4rem]">
                     @endif
                     <h1 class="font-thick text-gray-900 tracking-wide xl:text-xs 2xl:text-base lg:text-center md:text-xs md:text-center">Your Role
                         <span class="block text-lg font-semibold xl:text-sm 2xl:text-lg lg:text-sm md:text-xs">
-                            @if (!empty($user->getRoleNames()))
-                            @foreach ($user->getRoleNames() as $name )
-                            {{ $name }}
+                            @foreach (Auth()->user()->roles as $role )
+                                {{ $role->name }}
                             @endforeach
-                            @endif
                         </span>
                     </h1>
 
-                </div>
+                </a>
 
                 <div class="w-full m-5 rounded-lg bg-gradient-to-tl from-violet-400 to-sky-500 xl:px-5 xl:py-5 2xl:px-10 2xl:py-5 flex lg:p-2">
                     <div class="flex-1 text-gray-900 ">
@@ -58,7 +55,7 @@
 
 
 
-                <div class="w-full m-5 rounded-lg  bg-gradient-to-tl from-red-500 to-pink-400 xl:px-5  xl:py-5 2xl:px-10 2xl:py-5 flex">
+                <a href={{route('User-dashboard.my-proposal')}} class="w-full m-5 rounded-lg  hover:from-red-400 hover:to-pink-500  bg-gradient-to-tl from-red-500 to-pink-400 xl:px-5  xl:py-5 2xl:px-10 2xl:py-5 flex">
 
                     <div class="flex-1 text-gray-900">
 
@@ -69,10 +66,9 @@
                     <div class="flex items-center justify-center">
                         <img src="{{ asset('/img/proposal-paper.png') }}" class="2xl:w-[5rem] xl:w-16 xl:h-14 2xl:h-[5rem]">
                     </div>
+                </a>
 
-                </div>
-
-                <a href={{ route('points-system.index') }} class="text-gray-900 w-full m-5 rounded-lg  bg-gradient-to-tl from-sky-500 to-sky-400 xl:px-5  xl:py-5 2xl:px-10 2xl:py-5 flex ">
+                <a href={{ route('points-system.index') }} class="text-gray-900 w-full m-5 rounded-lg hover:from-sky-600 hover:to-sky-500  bg-gradient-to-tl from-sky-500 to-sky-400 xl:px-5  xl:py-5 2xl:px-10 2xl:py-5 flex ">
                     <div class="flex-1">
                         <span class="block text-2xl font-medium xl:text-4xl 2xl:text-6xl  flex-1"> @if ($latestYearPoints == null) 0 @else {{ $latestYearPoints->total_points }} @endif</span>
                         <h1 class="font-thick  tracking-wide xl:text-xs 2xl:text-sm">Total Points</h1>
@@ -128,11 +124,10 @@
                         </x-alpine-modal>
                     </div>
 
+
                     <div id="filtered-data">
                         @include('user.dashboard.user-dashboard._dashboard')
                     </div>
-
-
 
                 </div>
                 <x-messages/>

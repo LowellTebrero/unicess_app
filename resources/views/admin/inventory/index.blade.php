@@ -6,9 +6,9 @@
 
 <x-admin-layout>
 
-    <div class="rounded-xl mt-5 m-8 bg-white min-h-[87vh] relative">
+    <div class="rounded-xl m-8 bg-white min-h-[87vh]  ">
 
-        <div class="p-4 flex justify-between">
+        <div class="p-4 flex justify-between ">
             <h1 class="text-2xl  font-semibold text-gray-700 tracking-wider">Inventory Section</h1>
             <select id="myDropdown" class="xl:text-xs border-slate-500 rounded-lg">
                 @foreach ($inventory as $invent )
@@ -69,6 +69,7 @@
         </div>
 
         @elseif ($invent->number == 3)
+       
         <div class="px-5 flex justify-between space-x-2">
             <div>
                 <select class="xl:text-xs border-slate-500 rounded-lg" id="MySort">
@@ -97,9 +98,12 @@
         </div>
         </div>
 
-        <div id="filtered-data">
-            @include('admin.inventory.index-filter._all-files-medias')
+         <div class="overflow-y-scroll h-[70vh]">
+            <div id="filtered-data">
+                @include('admin.inventory.index-filter._all-files-medias')
+            </div>
         </div>
+
         @elseif ($invent->number == 4)
 
         <div class="px-5 flex justify-between space-x-2">
@@ -120,8 +124,10 @@
         </div>
         </div>
 
-        <div id="filtered-data">
-            @include('admin.inventory.index-filter._proposal-medias')
+        <div class="overflow-y-scroll h-[70vh]">
+            <div id="filtered-data">
+                @include('admin.inventory.index-filter._proposal-medias')
+            </div>
         </div>
         @endif
         @endforeach

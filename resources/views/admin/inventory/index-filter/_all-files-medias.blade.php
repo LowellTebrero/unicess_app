@@ -20,7 +20,7 @@
                     @foreach ($medias as $media )
                     <tr class="hover:bg-gray-100 dark:hover:bg-gray-200">
 
-                        <td class="px-6 py-4 whitespace-nowrap text-xs font-medium text-gray-800 ">{{  Str::limit($media->file_name, 120) }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-xs font-medium text-gray-800 ">{{  Str::limit($media->file_name, 70) }}</td>
                         {{--  <td class="px-6 py-4 whitespace-nowrap text-xs text-gray-800 ">{{ $media->mime_type }}</td>  --}}
                         <td class="px-6 py-4 whitespace-nowrap text-xs text-gray-800 ">{{ $media->human_readable_size }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-xs text-gray-800 ">{{ $media->created_at }}</td>

@@ -18,23 +18,14 @@ class UserPointFilterController extends Controller
 
         $selectedYear = $request->input('selected_value');
         $evaluations = Evaluation::where('user_id', $id)->whereYear('created_at', $selectedYear)->get();
-
         $proposals = ProposalMember::where('user_id', $id)->whereYear('created_at', $selectedYear)->get();
-
         $latestYearPoints = Evaluation::select('created_at', 'total_points')->latest('created_at')
         ->where('user_id', $id)->whereYear('created_at', $selectedYear)->first();
 
-
-        $cesos = CesoRole::whereYear('created_at', '>=', $selectedYear)
-        // ->whereYear('created_at', '<=', $endYear)
-        ->get();
-
+        $cesos = CesoRole::whereYear('created_at', '>=', $selectedYear)->get();
         $ceso_roles = CesoRole::all();
-
         $status = EvaluationStatus::select('status')->get();
-
         $evaluation_status = Evaluation::select(DB::raw('YEAR(created_at) year'),'status')->get();
-
 
 
         $data = [

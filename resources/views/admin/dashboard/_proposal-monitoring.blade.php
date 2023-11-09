@@ -1,10 +1,10 @@
-<div class="bg-white 2xl:w-[25rem] xl:w-[15rem] lg:w-[16rem]">
+<div class="xl:bg-white 2xl:w-[25rem] xl:w-[15rem] w-full">
 
     {{--  Proposal Summary  --}}
-    <div class="flex flex-col p-5 mt-12 ">
+    <div class="flex flex-col p-5 mt-0">
         <h1 class="text-gray-700 xl:text-sm 2xl:text-[1.1rem] tracking-wider font-medium">Proposal Monitoring
         </h1>
-        <div class="justify-between flex mt-3 flex-col  space-y-5">
+        <div class="justify-between flex mt-3 xl:mt-3 xl:flex-col xl:space-y-5 xl:space-x-0 flex-col sm:flex-row sm:space-y-0 space-y-2 sm:space-x-4">
 
             <button
                 class="border border-gray-400 min-h-[8vh] bg-gradient-to-r from-green-200 to-green-500  w-full rounded-xl p-5  flex space-x-5 items-center relative overflow-hidden  duration-100"

@@ -174,7 +174,7 @@
 
                         <x-alpine-modal>
                             <x-slot name="scripts">
-                                <div class="flex items-center flex-col p-4 space-y-3  " target="__blank">
+                                <div class="flex items-center flex-col p-4 space-y-3" target="__blank">
                                     <div>
                                         @if ($mediaLibrary->mime_type == 'image/jpeg' || $mediaLibrary->mime_type == 'image/png' || $mediaLibrary->mime_type == 'image/jpg')
                                         <img src="{{asset('img/image-icon.png') }}" class="xl:w-[3rem]" width="30">
@@ -187,7 +187,7 @@
                                         @endif
                                     </div>
 
-                                    <div class="text-xs text-left">
+                                    <div class="text-[.7rem] text-left">
                                     @if (strlen($mediaLibrary->file_name) <= 10)
                                     <span>{{ Str::limit($mediaLibrary->file_name, 20) }} {{ substr($mediaLibrary->file_name, -$maxLength) }}</span>
                                     @else

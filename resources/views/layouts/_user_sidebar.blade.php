@@ -1,4 +1,4 @@
-    <div class="h-[100vh] bg-gradient-to-t from-blue-500 to-blue-800">
+    <div class="h-[100vh] bg-gradient-to-t from-blue-500 to-blue-800 fixed xl:w-[12rem] 2xl:w-[14rem]">
 
         <div class="flex items-center py-3 justify-between px-4 xl:px-0 xl:justify-center space-x-2">
             <!-- Logo -->

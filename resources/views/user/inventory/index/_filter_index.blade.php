@@ -7,7 +7,7 @@
                             @if ($proposal->id == $prop->proposal_id)
                                     <div class="bg-slate-100 shadow rounded-md hover:bg-slate-200 p-2 flex m-3 relative">
 
-                                        <a class=" block  w-[10rem] text-[.7rem]"
+                                        <a class="block  w-[10rem] text-[.7rem]"
                                             href={{ route('inventory.show', $proposal->id) }}>
                                             <svg class="fill-blue-500 hover:fill-blue-600" xmlns="http://www.w3.org/2000/svg" height="55"
                                                 viewBox="0 96 960 960" width="55">
@@ -142,10 +142,10 @@
                 <div class="flex flex-wrap relative px-4">
 
                     <div class="flex flex-col w-full">
-                          <div class="p-2">
+                          <div class="overflow-x-auto h-[80vh]">
                               <table class="w-full">
                                 <thead>
-                                  <tr>
+                                  <tr class="sticky top-0 bg-white z-20">
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Created</th>
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Uploader</th>
