@@ -28,7 +28,8 @@ class DashboardController extends Controller
         return view('admin.dashboard.upload-proposal', compact('programs', 'members','ceso_roles', 'locations','parts_names'  ));
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
        $request->validate([
 
             'program_id' => 'required',
@@ -36,13 +37,15 @@ class DashboardController extends Controller
                 return in_array(request()->ceso_role_id,
                 ['Facilitator/Moderator','Reactor/Panel member','Technical Assistance/Consultancy','Resource Speaker/Trainer', 'nullable']);
             }),
-            'project_title' => ['required', 'string', 'min:6' ,Rule::unique('proposals')],
+            'project_title' => ['regex:/^[^<>?:|\/"*]+$/','required','min:6' ,Rule::unique('proposals')],
             'started_date' => 'required',
             'finished_date' => 'required',
             'proposal_pdf' => "required|mimes:pdf|max:10048",
             'special_order_pdf' => "required|mimes:pdf|max:10048",
 
-           ]);
+           ],  [
+            'project_title.regex' => 'Invalid characters: \ / : * ? " < > |',
+        ]);
 
 
         $post = new Proposal();
@@ -64,44 +67,42 @@ class DashboardController extends Controller
         $post->save();
 
 
-        if($request->leader){
 
-        for($i=0; $i < count($request->leader); $i++){
-
+        if($request->leader_id){
 
             $leadersave = [
-                        'proposal_id' => $post->id,
-                        'user_id'=> $request->leader[$i]['id'],
-                        'leader_member_type' => $request->input('leader_member_type'),
-                        'location_id' => $request->input('location_id'),
-                        'created_at' => Carbon::now(),
-                        'updated_at' => Carbon::now()
-                        ];
-
+                'proposal_id' => $post->id,
+                'user_id'=> $request->input('leader_id'),
+                'leader_member_type' => $request->input('leader_member_type'),
+                'location_id' => $request->input('location_id'),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ];
 
             DB::table('proposal_members')->insert($leadersave);
         };
-        }
-
-        if($request->member){
-
-            for($i=0; $i < count($request->member); $i++){
-
-                $datasave = [
-                            'proposal_id' => $post->id,
-                            'user_id'=> $request->member[$i]['id'],
-                            'member_type' => $request->member[$i]['type'],
-                            'created_at' => Carbon::now(),
-                            'updated_at' => Carbon::now()
-                            ];
 
 
-                DB::table('proposal_members')->insert($datasave);
+        if($request->member !== null){
+
+            foreach ($request->member as $item) {
+
+            $model = new ProposalMember();
+            $model->proposal_id = $post->id;
+            $model->user_id = $item['id'];
+            $model->member_type = $item['type'];
+            $model->save();
             }
+
+            ProposalMember::whereNull('user_id')->where('proposal_id', $post->id)->delete();
+
         }
 
-        return redirect(route('admin.dashboard.index'))->with('message', 'Proposal Uploaded Successfully');
+        flash()->addSuccess('Proposal Uploaded Successfully.');
+
+        return redirect(route('admin.dashboard.index'));
     }
+
 
 
 

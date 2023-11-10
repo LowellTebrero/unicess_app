@@ -6,10 +6,10 @@
 
 <x-admin-layout>
 
-    <div class="rounded-xl m-8 bg-white min-h-[87vh]  ">
+    <div class="rounded-xl m-8 bg-white xl:min-h-[84vh] 2xl:min-h-[87vh]  ">
 
-        <div class="p-4 flex justify-between ">
-            <h1 class="text-2xl  font-semibold text-gray-700 tracking-wider">Inventory Section</h1>
+        <div class="p-4 py-3 flex justify-between ">
+            <h1 class="2xl:text-2xl  font-semibold text-gray-700 tracking-wider text-lg">Inventory Section</h1>
             <select id="myDropdown" class="xl:text-xs border-slate-500 rounded-lg">
                 @foreach ($inventory as $invent )
                 <option value="1" {{ old('1', $invent->number) == '1' ? 'selected' : '' }}>Faculty Medium Icon</option>
@@ -69,7 +69,7 @@
         </div>
 
         @elseif ($invent->number == 3)
-       
+
         <div class="px-5 flex justify-between space-x-2">
             <div>
                 <select class="xl:text-xs border-slate-500 rounded-lg" id="MySort">

@@ -19,7 +19,7 @@ class UserShow extends Component
     // protected $paginationTheme = 'bootstrap';
 
     public $search = "";
-    public $paginate = 15;
+    public $paginate = 13;
     public $selectedFaculty = null;
     public $selectedRole = null;
     public $authorizing = "";
@@ -159,7 +159,7 @@ class UserShow extends Component
     {
       return view('livewire.user-show', [
             'users' => User::with(['faculty'])
-            ->with(['role'])
+            ->with(['role'])->whereNot('name', 'Administrator')
             ->search(trim($this->search))
             ->when($this->selectedFaculty, function ($query){
             $query->where('faculty_id', $this->selectedFaculty);
@@ -170,7 +170,7 @@ class UserShow extends Component
             ->when($this->authorizing, function ($query){
             $query->where('authorize', $this->authorizing);
             })
-            ->orderBy('authorize', 'asc')
+            ->orderBy('first_name', 'asc')
             ->paginate($this->paginate),
             'faculties' => Faculty::orderBy('name')->pluck('name', 'id')->prepend('All Faculties', ''),
             'roled' => Role::orderBy('name')->pluck('name', 'id')->prepend('All Role', '')

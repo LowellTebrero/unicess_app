@@ -75,5 +75,7 @@ Route::get('/proposal/search-my-proposal/{id}', [AllProposalController::class, '
 Route::get('/filter-my-proposal', [AllProposalController::class, 'MyProposal'])->name('filter.proposal');
 
 Route::get('/filter-points', [AdminFilterController::class, 'filter_points'])->name('filter.points');
+Route::get('/filter-search-points', [AdminFilterController::class, 'filter_searchPoints'])->name('filter.search-points');
 Route::get('/filter-evaluation', [AdminFilterController::class, 'filter_evaluation'])->name('filter.evaluation');
+Route::get('/search-evaluation', [AdminFilterController::class, 'filter_searchEvaluation'])->name('filter.search-evaluation');
 

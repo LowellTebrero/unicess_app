@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
+use App\Models\AdminYear;
 use App\Models\Evaluation;
 use Illuminate\Http\Request;
+use App\Models\ProposalMember;
 use App\Models\EvaluationStatus;
 use App\Http\Controllers\Controller;
-use App\Models\ProposalMember;
 
 class EvaluationController extends Controller
 {
@@ -15,12 +16,13 @@ class EvaluationController extends Controller
 
         $evaluations = Evaluation::with('users')->with('evaluationfile')->get();
         $currentYear = date('Y');
-        $previousYear = $currentYear + 1;
         $id = 1;
         $toggle = EvaluationStatus::findorFail($id);
-        $latestData = Evaluation::whereYear('created_at', '>=', $currentYear)->whereYear('created_at', '<=', $previousYear)->get();
+        $years = AdminYear::orderBy('year', 'DESC')->pluck('year');
+        $latestData = Evaluation::whereYear('created_at', $currentYear)->get();
+        $users = User::with('evaluation')->get();
 
-        return view('admin.evaluation.index', compact( 'latestData','currentYear', 'previousYear', 'evaluations', 'toggle'));
+        return view('admin.evaluation.index', compact( 'latestData','currentYear',  'evaluations', 'toggle' ,'years' ,'users'));
     }
 
 
@@ -38,31 +40,31 @@ class EvaluationController extends Controller
 
     }
 
-    public function filters(Request $request){
+    // public function filters(Request $request){
 
-        $selectedYear = $request->input('year');
+    //     $selectedYear = $request->input('year');
 
-        $currentYear = date('Y');
-        $previousYear = $currentYear + 1;
+    //     $currentYear = date('Y');
+    //     $previousYear = $currentYear + 1;
 
-        [$startYear, $endYear] = explode('-', $selectedYear);
+    //     [$startYear, $endYear] = explode('-', $selectedYear);
 
-        $currentYear = $startYear;
-        $previousYear = $endYear;
+    //     $currentYear = $startYear;
+    //     $previousYear = $endYear;
 
-        $latestYear = Evaluation::selectRaw('YEAR(created_at) as year')->orderByDesc('created_at')->groupBy('year')->pluck('year')->first();
-        $latestData = Evaluation::whereYear('created_at', $startYear)->get();
+    //     $latestYear = Evaluation::selectRaw('YEAR(created_at) as year')->orderByDesc('created_at')->groupBy('year')->pluck('year')->first();
+    //     $latestData = Evaluation::whereYear('created_at', $startYear)->get();
 
 
-        $evaluations = Evaluation::whereYear('created_at', '>=', $startYear)
-        ->whereYear('created_at', '<=', $endYear)
-        ->with('users')->get();
+    //     $evaluations = Evaluation::whereYear('created_at', '>=', $startYear)
+    //     ->whereYear('created_at', '<=', $endYear)
+    //     ->with('users')->get();
 
-        $id = 1;
-        $toggle = EvaluationStatus::findOrFail($id);
+    //     $id = 1;
+    //     $toggle = EvaluationStatus::findOrFail($id);
 
-        return view('admin.evaluation.index', compact( 'latestData','currentYear', 'previousYear', 'evaluations', 'toggle'));
-    }
+    //     return view('admin.evaluation.index', compact( 'latestData','currentYear', 'previousYear', 'evaluations', 'toggle'));
+    // }
 
     public function show($id, $year){
 

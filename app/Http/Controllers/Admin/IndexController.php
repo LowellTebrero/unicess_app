@@ -28,14 +28,14 @@ use Illuminate\Support\Facades\Notification;
         $projectProposal = Proposal::where('authorize', 'pending')->count();
         $ongoingProposal = Proposal::where('authorize', 'ongoing')->count();
         $finishedProposal = Proposal::where('authorize', 'finished')->count();
-        $allProposal = Proposal::orderBy('authorize', 'desc')->with('programs')->with('proposal_members')->get();
+        $allProposal = Proposal::orderBy('created_at', 'desc')->with('programs')->with('proposal_members')->get();
         $pendingAccount = User::where('authorize', 'pending')->count();
         $totalAccount = DB::table('users')->select('id')->count();
         $totalProposal = DB::table('proposals')->select('id')->count();
         $getCountProposals = DB::table('proposals')->whereDate('created_at', Carbon::today())->count();
         $getCountUsers = DB::table('users')->whereDate('created_at', Carbon::today())->count();
         $programs = Program::orderBy('program_name')->pluck('program_name', 'id')->prepend('Select Program', '');
-        $evaluation = Evaluation::where('status', 'evaluated')->whereYear('created_at', date('Y'))->count();
+        $evaluation = Evaluation::whereYear('created_at', date('Y'))->count();
         // dd($evaluation);
         // $proposal_member = ProposalMember::leftJoin('users', 'proposal_members.user_id', '=', 'users.id')
         // ->whereNotNull(['users.faculty_id'])

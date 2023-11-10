@@ -110,6 +110,12 @@
                 @if ($evaluation->facilitator !== null)
                 <h1>Facilitator: {{ $evaluation->facilitator }} points</h1>
                 @endif
+                @if ($evaluation->facilitator !== null)
+                <h1>Facilitator: {{ $evaluation->facilitator }} points</h1>
+                @endif
+                @if ($evaluation->member !== null)
+                <h1>Member: {{ $evaluation->member }} points</h1>
+                @endif
                 @endforeach
             </div>
         </div>

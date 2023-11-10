@@ -9,10 +9,10 @@
         }
     </style>
 
-    <section class="bg-white mt-5  m-8 rounded-xl min-h-[87vh] ">
+    <section class="bg-white mt-5  m-8 rounded-xl 2xl:min-h-[87vh] xl:min-h-[70vh]">
 
         <div class="flex justify-between items-center p-4 ">
-            <h1 class="text-2xl font-semibold text-slate-700">Upload Proposal <span class="text-red-500 text-xs tracking-wide font-light"> * required fields</span></h1>
+            <h1 class="2xl:text-2xl text-lg font-semibold text-slate-700">Upload Proposal <span class="text-red-500 text-xs tracking-wide font-light"> * required fields</span></h1>
             <a href="/User-dashboard" class="text-red-500 text-xl font-medium focus:bg-gray-300 focus:rounded">
                 <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -34,7 +34,7 @@
         @csrf
 
         <div class="w-full mx-auto xl:w-3/4 rounded-lg">
-            <div class="flex space-y-7 flex-col  w-full">
+            <div class="flex space-y-5 flex-col  w-full">
                 <div class="w-full">
                     <label class="xl:text-xs block text-slate-700 text-sm font-medium mb-2 2xl:text-sm" for="program_id">Program Name <span class="text-red-500">*</span></label>
                     <select id="program_id" class="rounded-md xl:text-xs w-full border-zinc-300  py-2 px-3" name="program_id" value="{{ old('program_id') }}" required>
@@ -51,13 +51,13 @@
 
                 <div class="xl:flex xl:justify-between mt-4 space-x-4 w-full">
                     <div class="mb-4 w-full">
-                        <label class="xl:text-xs block text-slate-700 text-sm font-medium mb-2">PROJECT PROPOSAL PDF <span class="text-red-500">*</span></label>
+                        <label class="xl:text-xs block text-slate-700 text-sm font-medium mb-2">PROJECT PROPOSAL (PDF) <span class="text-red-500">*</span></label>
                         <input onchange="checkInputs()"  class="bg-white border-zinc-300 xl:text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-700 leading-tight focus:outline-none" name="proposal_pdf" id="proposal_pdf" type="file" required>
                         @error('proposal_pdf') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
                     </div>
 
                     <div class="mb-4 w-full">
-                        <label class="xl:text-xs block text-slate-700 text-sm font-medium mb-2">SPECIAL ORDER PDF <span class="text-red-500">*</span></label>
+                        <label class="xl:text-xs block text-slate-700 text-sm font-medium mb-2">SPECIAL ORDER (PDF) <span class="text-red-500">*</span></label>
                         <input onchange="checkInputs()" class="bg-white border-zinc-300 xl:text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-700 leading-tight focus:outline-none" name="special_order_pdf" id="special_order_pdf" type="file" required>
                         @error('special_order_pdf') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
                     </div>
@@ -69,13 +69,13 @@
 
                 <div class="flex space-x-5 w-full">
                     <div class="w-full">
-                        <label class="xl:text-xs block text-slate-700 text-sm font-medium mb-2 2xl:text-sm">Started Date  <span class="text-red-500">*</span></label>
+                        <label class="xl:text-xs block text-slate-700 text-sm font-medium 2xl:text-sm">Started Date  <span class="text-red-500">*</span></label>
                         <input required class="border-zinc-300 xl:text-xs  appearance-none border  rounded w-full py-2 px-3 text-slate-700 mb-3 leading-tight focus:outline-none" value="{{ old('started_date') }}" name="started_date" id="started_date" type="date">
                         @error('started_date') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
                     </div>
 
                     <div class="w-full">
-                        <label class="xl:text-xs block text-slate-700 text-sm font-medium mb-2 2xl:text-sm"> Ended Date  <span class="text-red-500">*</span></label>
+                        <label class="xl:text-xs block text-slate-700 text-sm font-medium 2xl:text-sm"> Ended Date  <span class="text-red-500">*</span></label>
                         <input required class="border-zinc-300 xl:text-xs  appearance-none border  rounded w-full py-2 px-3 text-slate-700 mb-3 leading-tight focus:outline-none" value="{{ old('finished_date') }}" name="finished_date" id="finished_date" type="date">
                         @error('finished_date') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
                     </div>

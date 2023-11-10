@@ -4,7 +4,7 @@
     </style>
 
     <section class="flex min-h-full flex-col-reverse xl:flex-row  xl:justify-between overflow-hidden  ">
-        <div class="xl:px-8 flex 2xl:w-full w-full xl:w-[56rem] flex-col  p-4">
+        <div class="xl:px-4 2xl:px-8 flex 2xl:w-full w-full xl:w-[56rem] flex-col  p-4">
             {{--  <div class="p-4 px-5 flex  bg-white rounded-xl min-h-[12vh] shadow">
 
             </div>  --}}
