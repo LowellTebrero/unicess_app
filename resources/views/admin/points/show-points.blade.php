@@ -3,7 +3,7 @@
     <section class="rounded-lg shadow bg-white  mt-5  m-8 text-slate-700 xl:min-h-[84vh] 2xl:min-h-[87vh]">
 
         <div class="flex justify-between p-5 py-3">
-            <h1 class="tracking-wider font-semibold 2xl:text-2xl text-lg"> User Points Overview </h1>
+            <h1 class="tracking-wider font-semibold 2xl:text-2xl text-lg"> User Evaluation Points Overview </h1>
             <a href={{ route('admin.points.index') }} class=" text-red-500 px-2 py-1 rounded-lg font-medium">
                 <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />

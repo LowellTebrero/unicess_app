@@ -1,4 +1,4 @@
-<section class="flex min-h-[15vh] rounded-xl w-full flex-col space-y-4  lg:flex-row  xl:flex-row lg:space-x-6 lg:space-y-0 xl:space-x-5 2xl:space-x-8 mt-5 text-white sm:flex-row sm:space-x-4 md:flex-row md:space-x-4 md:space-y-0 sm:space-y-0 sm:w-full">
+<section class="flex min-h-[15vh] rounded-xl w-full flex-col space-y-4  lg:flex-row  xl:flex-row lg:space-x-6 lg:space-y-0 xl:space-x-5 2xl:space-x-8 mt-2 text-white sm:flex-row sm:space-x-4 md:flex-row md:space-x-4 md:space-y-0 sm:space-y-0 sm:w-full">
 
     <div class="bg-white w-full text-gray-700 rounded-xl hover:bg-slate-100 transition-all flex justify-between items-center p-4 sm:p-0 sm:px-4 md:px-6 px-8 xl:px-10 shadow relative">
         <div class="">
@@ -71,7 +71,5 @@
             <path fill="currentColor"
                 d="M4 4v18h16v2H4c-1.1 0-2-.9-2-2V4h2m11 3h5.5L15 1.5V7M8 0h8l6 6v12c0 1.11-.89 2-2 2H8a2 2 0 0 1-2-2V2c0-1.11.89-2 2-2m9 16v-2H8v2h9m3-4v-2H8v2h12Z" />
         </svg>
-
     </a>
-
 </section>

@@ -1,9 +1,10 @@
 
-<div class="overflow-hidden rounded-lg border border-gray-200 shadow-sm m-8">
+<div class="rounded-lg border border-gray-200 shadow-sm m-8 overflow-x-auto h-[70vh]">
     <table class="w-full border-collapse bg-white text-left text-sm text-gray-500 xl:text-xs 2xl:text-sm">
         <thead class="bg-gray-50">
-            <tr>
+            <tr class="sticky top-0 bg-gray-200 z-20">
                 <th scope="col" class="px-6 py-4 font-medium ">Project Title</th>
+                <th scope="col" class="px-6 py-4 font-medium ">Members</th>
                 <th scope="col" class="px-6 py-4 font-medium ">Status</th>
                 <th scope="col" class="px-6 py-4 font-medium ">Uploaded</th>
 
@@ -26,7 +27,7 @@
 
                                 <x-slot name="scripts">
                                     <span class="text-xs font-medium text-gray-900 tracking-wider">
-                                      
+
                                         {{ Str::limit($proposal->project_title, 70) }}
                                     </span>
                                 </x-slot>
@@ -47,6 +48,15 @@
                     @endif
                 @endforeach
 
+            </td>
+
+            <td class="px-4 py-4 text-sm whitespace-nowrap ">
+                <div class="flex items-center">
+                    @foreach ($proposal->proposal_members as $props )
+                        <img class="object-cover w-6 h-6 -mx-1 border-2 border-white bg-white rounded-full  shrink-0" src="{{ (!empty($props->user->avatar))? url('upload/image-folder/profile-image/'. $props->user->avatar): url('upload/profile.png') }}" alt="">
+                    @endforeach
+                    {{--  <p class="flex items-center justify-center w-6 h-6 -mx-1 text-xs text-blue-600 bg-blue-100 border-2 border-white rounded-full">+4</p>  --}}
+                </div>
             </td>
 
             <td class="px-6 py-4">

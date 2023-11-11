@@ -9,6 +9,12 @@
 
 }
 
+.proposal-sidebar.active {
+    width: 15rem;
+    visibility: visible;
+
+}
+
 @media screen and (max-width: 300) {
 
     .sidebar {
@@ -43,6 +49,19 @@
     }
     .logo {
         display: none;
+    }
+
+}
+
+@media screen and (max-width: 1279px) {
+
+    .proposal-sidebar {
+        visibility: hidden;
+        width: 0rem;
+        position: fixed;
+        z-index: 40;
+        min-height: 79vh;
+
     }
 
 }

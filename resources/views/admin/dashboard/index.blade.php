@@ -3,8 +3,8 @@
         [x-cloak] { display: none}
     </style>
 
-    <section class="flex min-h-full flex-col-reverse xl:flex-row  xl:justify-between overflow-hidden  ">
-        <div class="xl:px-4 2xl:px-8 flex 2xl:w-full w-full xl:w-[56rem] flex-col  p-4">
+    <section class="flex min-h-full flex-col-reverse xl:flex-row  xl:justify-between overflow-hidden">
+        <div class="xl:px-4 2xl:px-8 flex w-full flex-col p-4">
             {{--  <div class="p-4 px-5 flex  bg-white rounded-xl min-h-[12vh] shadow">
 
             </div>  --}}
@@ -14,15 +14,22 @@
 
             {{--  Proposal Dashboard  --}}
 
-            <section class="w-full flex-col h-full mb-6 space-y-4 flex 2xl:p-8 lg:flex-row xl:px-0 xl:flex-row lg:space-x-6 lg:space-y-0 xl:space-x-8 mt-7 bg-white 2xl:shadow rounded-xl text-white sm:flex-col md:flex-col md:space-x-0 md:space-y-4 sm:space-y-4 sm:w-full xl:shadow-none">
+            <section class="w-full flex-col h-full flex mt-5 bg-white 2xl:shadow rounded-xl text-white sm:w-full xl:shadow-none">
 
-                <div class="flex flex-col justify-center h-full w-full ">
-                    <!-- Table -->
-                    <div class="w-full  mx-auto bg-white  rounded-md border border-gray-200 h-full">
-                        <header class="px-5 sm:px-2 py-4 border-b border-gray-100 flex justify-between">
+                <div class="flex justify-between items-center p-4 pb-2">
+                    <h2 class="font-semibold text-gray-600 2xl:text-sm xl:text-xs xl:mr-2 text-xs hidden md:block">Proposal Dashboard</h2>
+                     {{--  Create Proposal   --}}
+                    <a href={{ route('admin.dashboard.create') }} class="text-white bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 focus:text-[.8rem] transition-all rounded-lg xl:text-xs px-3 py-2 2xl:text-sm text-sm md:w-[10rem] w-full">+ Upload Proposal</a>
+                </div>
+
+                <div class="flex flex-col justify-center h-full w-full">
+
+                    <hr>
+                    <div class="w-full mx-auto bg-white p-2 pt-0  2xl:rounded-md  border-gray-200 h-full">
+                        <header class="px-5 sm:px-2 pb-4 py-2 border-b border-gray-100 flex justify-between">
                             <div class="flex flex-col sm:flex-row  md:flex-row sm:justify-between space-y-2 sm:space-y-0 space-x-0  w-full">
                                 <div class="flex sm:space-x-2 space-x-0  items-center">
-                                    <h2 class="font-semibold text-gray-600 2xl:text-sm xl:text-xs xl:mr-2 text-xs hidden md:block">Proposal Dashboard</h2>
+
                                     <select class="text-xs rounded border border-gray-300 text-gray-700" id="myDropdown" name="authorize_name">
                                         <option {{ '' == request('authorize_name') ? 'selected ' : '' }} value="">Select Status</option>
                                         <option {{ 'pending' == request('authorize_name') ? 'selected ' : '' }} value="pending">Pending</option>
@@ -30,20 +37,19 @@
                                         <option {{ 'finished' == request('authorize_name') ? 'selected ' : '' }} value="finished">Finished</option>
                                     </select>
                                     <input id="searchInput"  class=" text-xs rounded border border-gray-300 2xl:w-[20rem] sm:w-[15rem] w-full text-gray-700" type="text" placeholder="Search Proposal Title...">
-                                </div>
-
-                                {{--  Create Proposal   --}}
-                                <div class="space-x-2 flex ">
-                                    <a href={{ route('admin.dashboard.create') }} class="text-white bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 focus:text-[.8rem] transition-all rounded-lg xl:text-xs px-3 py-2 2xl:text-sm text-sm w-full">+ Upload Proposal</a>
-                                    <div id="wrapper" class="flex items-center transition-all">
-                                        <a href="" type="submit" class="" id="deleteAllSelected" style="display: none" onclick="return confirm('Are you sure?')">
-                                            <svg class="fill-red-500" xmlns="http://www.w3.org/2000/svg" height="30"
-                                            viewBox="0 96 960 960" width="30">
+                                    <div id="wrapper" class="flex items-center transition-all px-2 py-1 rounded bg-red-500 ">
+                                        <a href="" type="submit" id="deleteAllSelected" class="flex items-center space-x-2 text-xs">
+                                            Delete proposal
+                                            <svg class="fill-white" xmlns="http://www.w3.org/2000/svg" height="15"
+                                            viewBox="0 96 960 960" width="15">
                                             <path d="M261 936q-24.75 0-42.375-17.625T201 876V306h-41v-60h188v-30h264v30h188v60h-41v570q0 24-18 42t-42 18H261Zm438-630H261v570h438V306ZM367 790h60V391h-60v399Zm166 0h60V391h-60v399ZM261 306v570-570Z" />
                                             </svg>
                                         </a>
                                     </div>
                                 </div>
+
+
+
                             </div>
                         </header>
 
@@ -77,6 +83,7 @@
         })
 
         $(document).ready(function () {
+
             $('#myDropdown').on('change', function () {
                 var selectedValue = $(this).val();
                 var query =  $('#searchInput').val();
@@ -94,8 +101,12 @@
 
                 }
                 });
+
+
             });
-            });
+
+
+        });
 
 
 
@@ -142,38 +153,37 @@
             });
 
             if (confirm('Are you sure?')) {
-            $.ajax({
-                url: "{{ route('admin.dashboard.delete-project-proposal') }}",
-                type: "DELETE",
-                data: {
-                    ids:all_ids,
-                    _token:'{{ csrf_token() }}'
-                },
-                success:function(response){
-                    $.each(all_ids,function(key,val){
-                        $('#proposal_id'+ val).remove();
-                    })
-                }
-            });
-        };
+                $.ajax({
+                    url: "{{ route('admin.dashboard.delete-project-proposal') }}",
+                    type: "DELETE",
+                    data: {
+                        ids:all_ids,
+                        _token:'{{ csrf_token() }}'
+                    },
+                    success:function(response){
+                        $.each(all_ids,function(key,val){
+                            $('#proposal_id'+ val).remove();
+                        })
+                    }
+                });
+            };
         });
 
-
-          $(document).ready(function() {
+        $(document).ready(function() {
 
             $("#checkbox_ids, #select_all_ids ").on("change", function() {
 
               if ($(this).is(":checked") || $("#select_all_ids").is(":checked") ) {
                 // Checkbox is checked, perform your action here
-                $("#wrapper").css("display", "block");
-                $("#deleteAllSelected").css("display", "block");
+               // $("#wrapper").css("display", "block");
+               // $("#deleteAllSelected").css("display", "block");
                 // You can do other things here, like making an AJAX request
               } else {
                 // Checkbox is unchecked
 
-                $("#wrapper").css("display", "none");
-                $("#deleteAllSelected").css("display", "none");
-                $("#deleteAllSelected").css("margin-top", "4%");
+               // $("#wrapper").css("display", "none");
+               // $("#deleteAllSelected").css("display", "none");
+               // $("#deleteAllSelected").css("margin-top", "4%");
                 // You can do other things here as well
               }
             });

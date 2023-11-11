@@ -1,14 +1,14 @@
 <div class="flex justify-evenly 2xl:space-x-5 xl:space-x-2 p-5 xl:text-xs ">
 
     <div class="flex flex-col w-full">
-        <div class="-m-1.5 overflow-x-auto">
+        <div class="-m-1.5">
         <div class="p-1.5 min-w-full inline-block align-middle">
-            <div class="overflow-hidden">
+            <div class="overflow-x-auto xl:h-[60vh] 2xl:h-[70vh]">
                 <table class="min-w-full divide-y divide-gray-200 ">
                 <thead>
-                <tr>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
-                    {{--  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Type</th>  --}}
+                <tr class="sticky top-0 bg-gray-100 z-20">
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>           
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Members</th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">created</th>
                     <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Action</th>
@@ -26,11 +26,24 @@
                             {{  Str::limit($proposal->project_title, 120) }}
                             </a>
                         </td>
+
+                        <td class="px-4 py-4 text-sm whitespace-nowrap ">
+                            <div class="flex items-center">
+                                @foreach ($proposal->proposal_members as $props )
+                                    <img class="object-cover w-6 h-6 -mx-1 border-2 border-white bg-white rounded-full  shrink-0" src="{{ (!empty($props->user->avatar))? url('upload/image-folder/profile-image/'. $props->user->avatar): url('upload/profile.png') }}" alt="">
+                                @endforeach
+                                {{--  <p class="flex items-center justify-center w-6 h-6 -mx-1 text-xs text-blue-600 bg-blue-100 border-2 border-white rounded-full">+4</p>  --}}
+                            </div>
+                        </td>
+
                         <td class="px-6 py-4 whitespace-nowrap text-xs text-gray-800">
                             <a href={{route('admin.inventory.show-inventory', $proposal->id)}}>
                             {{ $proposal->authorize}}
                             </a>
                         </td>
+
+                       
+
                         <td class="px-6 py-4 whitespace-nowrap text-xs text-gray-800">
                             <a href={{route('admin.inventory.show-inventory', $proposal->id)}}>
                             {{ $proposal->created_at }}
@@ -47,7 +60,7 @@
 
                                                 <x-slot name="scripts">
                                                     <div class="flex" target="__blank">
-                                                        <img src="{{ asset('img/pdf.png') }}" class="xl:w-[2rem]">
+                                                        <img src="{{ asset('img/pdf.png') }}" class="xl:w-[2rem]" width="30">
                                                     </div>
                                                 </x-slot>
 

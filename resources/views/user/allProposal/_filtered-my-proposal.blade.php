@@ -1,8 +1,8 @@
 
-<div class="overflow-hidden rounded-lg border border-gray-200 shadow-sm m-8">
+<div class=" rounded-lg border border-gray-200 shadow-sm m-8 overflow-x-auto h-[70vh]">
     <table class="w-full border-collapse bg-white text-left text-sm text-gray-500 xl:text-xs 2xl:text-sm">
         <thead class="bg-gray-50">
-            <tr>
+            <tr class="sticky top-0 bg-gray-200 z-20">
                 <th scope="col" class="px-6 py-4 font-medium ">Project Title</th>
                 <th scope="col" class="px-6 py-4 font-medium ">Status</th>
                 <th scope="col" class="px-6 py-4 font-medium ">Uploaded</th>
@@ -12,7 +12,6 @@
         <tbody class="divide-y divide-gray-100 border-t border-gray-100" id="searchResults">
             @foreach ($myproposal as $proposal )
             @foreach ($proposal->proposal_members as $prop )
-
             @if ($proposal->id == $prop->proposal_id)
 
         <tr class="hover:bg-gray-50">
@@ -27,8 +26,7 @@
 
                             <x-slot name="scripts">
                                 <span class="text-xs font-medium text-gray-900 tracking-wider">
-                                     
-                                   
+                                    {{ Str::limit($proposal->project_title, 70) }}
                                 </span>
                             </x-slot>
 

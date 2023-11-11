@@ -11,13 +11,11 @@
 
     </style>
 
-    <section class="m-8 text-slate-700 relative mt-5 bg-white rounded-lg  min-h-[87vh]">
-        <div class="flex justify-between sticky  left-0 items-center p-8">
+    <section class="m-8 text-slate-700 relative mt-5 bg-white rounded-lg min-h-[85vh] 2xl:min-h-[87vh]">
+        <div class="flex justify-between sticky  left-0 items-center p-5 py-3">
             <div>
-                <h1 class="text-2xl font-semibold tracking-wider">Evaluation Points Overview <button data-tooltip-target="tooltip-right3" data-tooltip-placement="bottom" class="inline-block" type="button"><img src="{{ asset('img/i.png') }}" width="18" alt=""></button></h1>
-
+                <h1 class="2xl:text-2xl text-lg font-semibold tracking-wider">Evaluation Points Overview <button data-tooltip-target="tooltip-right3" data-tooltip-placement="bottom" class="inline-block" type="button"><img src="{{ asset('img/i.png') }}" width="18" alt=""></button></h1>
             </div>
-
             <select name="myDropdown" id="myDropdown" class="xl:text-sm border-slate-500 rounded-lg">
                 @foreach ($years as $year )
                 <option value="{{ $year }}">{{ $year }}</option>

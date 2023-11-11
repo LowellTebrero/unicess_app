@@ -18,24 +18,24 @@
 
         <hr>
 
-        <div class="flex flex-col relative  px-4">
+        <div class="flex flex-col relative  px-4 min-h-[80vh]">
 
-            <div class="my-5 flex justify-end px-4">
-                <select id="filter_faculty_id" type="text"  class="xl:text-xs form-control rounded-md text-slate-700 border-slate-500">
+            {{--  <div class="my-5 flex justify-end px-4">
+                <select id="filter_faculty_id" type="text"  class="text-xs form-control rounded-md text-slate-700 border-slate-500">
                     @foreach ($allFaculty as $id => $name )
                         <option {{ $id == request('faculty_id') ? 'selected' : '' }} value="{{ $id }}">{{ $name }}</option>
                     @endforeach
                 </select>
-            </div>
+            </div>  --}}
 
-            <div class="flex flex-row space-x-5 mt-4 ">
+            <div class="flex flex-row gap-4 col-2 mt-4 px-4 justify-center flex-wrap">
                 @forelse ($proposalID as $proposal )
                     @if ($programID->id === $proposal->program_id)
-                        <div class="flex xl:w-[20rem] bg-yellow-100 shadow-md rounded-xl relative hover:bg-yellow-200">
+                        <div class="flex w-[17rem] bg-yellow-100  shadow-md rounded-xl relative hover:bg-yellow-200">
 
-                            <a class=" p-3 rounded-lg w-full flex items-center" href={{ route('admin.inventory.show-inventory', $proposal->id) }}>
+                            <a class="p-3 rounded-lg w-full flex items-center" href={{ route('admin.inventory.show-inventory', $proposal->id) }}>
                                 <svg class="fill-yellow-400 mr-3" xmlns="http://www.w3.org/2000/svg" height="55" viewBox="0 96 960 960" width="55"><path d="M141 896q-24 0-42-18.5T81 836V316q0-23 18-41.5t42-18.5h280l60 60h340q23 0 41.5 18.5T881 376v460q0 23-18.5 41.5T821 896H141Z"/></svg>
-                                <h1 class="xl:text-xs text-gray-500 block"> Project Title: <span class="block xl:text-[.7rem] text-black font-medium">{{ Str::limit($proposal->project_title, 40) }}</span> </h1>
+                                <h1 class="text-xs text-gray-500 block"> <span class="block xl:text-[.7rem] text-black font-medium">{{ Str::limit($proposal->project_title, 40) }}</span> </h1>
                             </a>
 
                             <div class="absolute top-0 right-2 z-100">

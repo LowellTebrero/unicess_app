@@ -6,14 +6,30 @@
 
 <x-admin-layout>
 
-    <div class="rounded-xl m-8 bg-white xl:min-h-[84vh] 2xl:min-h-[87vh]  ">
+    <div class="rounded-xl m-8 bg-white xl:min-h-[84vh] 2xl:min-h-[87vh]">
 
-        <div class="p-4 py-3 flex justify-between ">
-            <h1 class="2xl:text-2xl  font-semibold text-gray-700 tracking-wider text-lg">Inventory Section</h1>
+        <div class="p-4 py-3 flex justify-between">
+            <div class="flex space-x-1 items-center">
+                <h1 class="2xl:text-2xl font-semibold text-gray-700 tracking-wider text-lg">Inventory Section</h1>
+                <h1>
+
+                    @foreach ($inventory as $invent )
+                    @if ($invent->number == '1' ||$invent->number == '2' )
+                    (Program)
+                    @elseif ($invent->number == '3')
+                    (Files)
+                    @elseif ($invent->number == '4')
+                   (Poposals)
+                    @endif
+                    @endforeach
+                </h1>
+
+            </div>
+
             <select id="myDropdown" class="xl:text-xs border-slate-500 rounded-lg">
                 @foreach ($inventory as $invent )
-                <option value="1" {{ old('1', $invent->number) == '1' ? 'selected' : '' }}>Faculty Medium Icon</option>
-                <option value="2" {{ old('2', $invent->number) == '2' ? 'selected' : '' }}>Faculty Tiles</option>
+                <option value="1" {{ old('1', $invent->number) == '1' ? 'selected' : '' }}>Program Icon</option>
+                <option value="2" {{ old('2', $invent->number) == '2' ? 'selected' : '' }}>Program Tiles</option>
                 <option value="3" {{ old('3', $invent->number) == '3' ? 'selected' : '' }}>Files</option>
                 <option value="4" {{ old('4', $invent->number) == '4' ? 'selected' : '' }}>Proposals</option>
                 @endforeach
@@ -72,21 +88,21 @@
 
         <div class="px-5 flex justify-between space-x-2">
             <div>
-                <select class="xl:text-xs border-slate-500 rounded-lg" id="MySort">
-                   <option value="desc">A-Z</option>
-                   <option value="asc">Z-A</option>
+                <select class="text-xs border-slate-500 rounded-lg" id="MySort">
+                   <option value="asc">A-Z</option>
+                   <option value="desc">Z-A</option>
                 </select>
             </div>
             <div>
-            <input type="text"  class="xl:text-xs border-slate-500 rounded-lg w-[20rem]" placeholder="Search name..." id="searchInput">
-            <select class="xl:text-xs border-slate-500 rounded-lg" id="MyYear">
+            <input type="text"  class="text-xs border-slate-500 rounded-lg w-[20rem]" placeholder="Search name..." id="searchInput">
+            <select class="text-xs border-slate-500 rounded-lg" id="MyYear">
                 <option {{ '' == request('selected_value') ? 'selected ' : '' }} value="">Select Year</option>
                 @foreach ($years as $year )
                 <option value="{{ $year }}">{{ $year }}</option>
                 @endforeach
             </select>
 
-            <select id="myFiles" class="xl:text-xs border-slate-500 rounded-lg">
+            <select id="myFiles" class="text-xs border-slate-500 rounded-lg">
                 <option value="">Select File</option>
                 <option value="proposalPdf">Proposal</option>
                 <option value="MoaPDF">MOA</option>
@@ -98,19 +114,19 @@
         </div>
         </div>
 
-         <div class="overflow-y-scroll h-[70vh]">
+
             <div id="filtered-data">
                 @include('admin.inventory.index-filter._all-files-medias')
             </div>
-        </div>
+
 
         @elseif ($invent->number == 4)
 
         <div class="px-5 flex justify-between space-x-2">
             <div>
                 <select class="xl:text-xs border-slate-500 rounded-lg" id="MySort">
-                   <option value="desc">A-Z</option>
-                   <option value="asc">Z-A</option>
+                   <option value="asc">A-Z</option>
+                   <option value="desc">Z-A</option>
                 </select>
             </div>
             <div>
@@ -124,11 +140,11 @@
         </div>
         </div>
 
-        <div class="overflow-y-scroll h-[70vh]">
+
             <div id="filtered-data">
                 @include('admin.inventory.index-filter._proposal-medias')
             </div>
-        </div>
+
         @endif
         @endforeach
     </div>

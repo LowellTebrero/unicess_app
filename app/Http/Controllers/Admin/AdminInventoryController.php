@@ -23,8 +23,8 @@ class AdminInventoryController extends Controller
         $proposal = DB::table('proposals')->select('program_id', DB::raw('count(*) as qty'))->groupBy('program_id')->get();
         $inventory = CustomizeAdminInventory::where('id', 1)->get();
         $years = AdminYear::orderBy('year', 'DESC')->pluck('year');
-        $medias = Media::orderBy('file_name', 'DESC')->get();
-        $proposals = Proposal::orderBy('created_at', 'DESC')->get();
+        $medias = Media::orderBy('file_name', 'ASC')->get();
+        $proposals = Proposal::orderBy('created_at', 'ASC')->get();
 
         return view('admin.inventory.index', compact('program' , 'proposal', 'inventory', 'medias', 'years', 'proposals'));
     }
@@ -78,7 +78,7 @@ class AdminInventoryController extends Controller
                 }})
             ->when($query, function ($querys) use ($query) {
                 return $querys->where('file_name', 'like', "%$query%");
-            })->orderBy('file_name', 'DESC')->get();
+            })->orderBy('file_name', 'ASC')->get();
 
 
             return view('admin.inventory.index-filter._all-files-medias', compact('program' , 'proposal', 'inventory', 'medias', 'years'));
@@ -102,7 +102,7 @@ class AdminInventoryController extends Controller
         ->where(function ($query) {
             if($companyId = request('year')){
                 $query->whereYear('created_at', $companyId);}})
-        ->orderBy('file_name', 'DESC')->get();
+        ->orderBy('file_name', 'ASC')->get();
 
 
         return view('admin.inventory.index-filter._all-files-medias', compact('program' , 'proposal', 'inventory', 'medias', 'years'));
@@ -126,7 +126,7 @@ class AdminInventoryController extends Controller
                         ->where(function ($query) {
                             if($companyId = request('selected_value')){
                                 $query->where('collection_name', $companyId);}})
-                                    ->orderBy('file_name', 'DESC')->get();
+                                    ->orderBy('file_name', 'ASC')->get();
 
 
         return view('admin.inventory.index-filter._all-files-medias', compact('program' , 'proposal', 'inventory', 'medias', 'years'));

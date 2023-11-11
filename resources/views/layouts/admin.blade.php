@@ -34,7 +34,6 @@
 
             {{--  Sidebar Section  --}}
             <div class="sidebar xl:w-[10rem] 2xl:w-[14rem] sticky top-0 left-0 transition-all h-full">
-
                 @include('layouts._admin_sidebar')
             </div>
 

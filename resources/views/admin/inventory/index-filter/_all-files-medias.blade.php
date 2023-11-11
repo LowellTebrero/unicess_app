@@ -1,14 +1,12 @@
 <div class="flex justify-evenly 2xl:space-x-5 xl:space-x-2 p-5 xl:text-xs ">
-
     <div class="flex flex-col w-full">
-        <div class="-m-1.5 overflow-x-auto">
+        <div class="-m-1.5 ">
         <div class="p-1.5 min-w-full inline-block align-middle">
-            <div class="overflow-hidden">
+            <div class="overflow-x-auto xl:h-[60vh] 2xl:h-[70vh]">
                 <table class="min-w-full divide-y divide-gray-200 ">
                 <thead>
-                <tr>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
-                    {{--  <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Type</th>  --}}
+                <tr class="sticky top-0 bg-gray-100 z-20">
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>              
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Size</th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">created</th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Action</th>

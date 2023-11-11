@@ -1,6 +1,6 @@
 
 
-<div class="rounded-lg border border-gray-200 shadow-sm m-5 mt-7 overflow-x-auto xl:h-[70vh] 2xl:h-[75vh]">
+<div class="rounded-lg border border-gray-200 shadow-sm m-5 mt-7 overflow-x-auto h-[70vh] 2xl:h-[75vh]">
     <table class="w-full border-collapse bg-white text-left text-sm text-gray-500 xl:text-xs 2xl:text-sm">
         <thead class="bg-gray-50">
             <tr class="sticky top-0 bg-gray-50 z-20">

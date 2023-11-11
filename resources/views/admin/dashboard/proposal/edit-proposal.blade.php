@@ -1,7 +1,5 @@
     <style>
-        [x-cloak] {
-            display: none
-        }
+        [x-cloak] { display: none }
         form button:disabled,
         form button[disabled] {
             border: 1px solid #999999;
@@ -10,17 +8,21 @@
         }
     </style>
 
+    @php
+    $maxLength = 18; // Adjust the maximum length as needed
+    @endphp
+
     <x-admin-layout>
 
-        <section class="bg-white shadow rounded-xl m-8 mt-5 2xl:min-h-[80vh] overflow-hidden ">
+        <section class="bg-white shadow rounded-xl m-8 mt-5 2xl:min-h-[87vh]">
 
             @if ($proposals->authorize == 'pending')
-            <div class="flex justify-between p-3 bg-red-200">
-                <div class="flex space-x-8 font-medium text-gray-700">
-                    <h1 class="xl:text-sm tracking-wider">Uploaded:
+            <div class="flex  justify-between p-3 bg-red-200">
+                <div class="flex flex-col sm:flex-row sm:space-x-8 font-medium text-gray-700">
+                    <h1 class="text-[.7rem] xl:text-sm tracking-wider">Uploaded:
                         {{ \Carbon\Carbon::parse($proposals->created_at)->format('F-d-Y') }}</h1>
-                    <h1 class="xl:text-sm tracking-wider">Status: {{ $proposals->authorize }}</h1>
-                    <h1 class="xl:text-sm tracking-wider">Proposal ID: {{ $proposals->id }}</h1>
+                    <h1 class="text-[.7rem] xl:text-sm tracking-wider">Status: {{ $proposals->authorize }}</h1>
+                    <h1 class="text-[.7rem] xl:text-sm tracking-wider">Proposal ID: {{ $proposals->id }}</h1>
 
                 </div>
                 <a class="text-black text-xl focus:bg-red-500 focus:text-white hover:bg-red-400 font-medium  px-2 py-2 rounded" href={{ route('admin.dashboard.index') }}>
@@ -35,10 +37,10 @@
 
             <div class="flex justify-between p-3 bg-blue-200">
                 <div class="flex space-x-8 font-medium text-gray-700">
-                    <h1 class="xl:text-sm tracking-wider">Uploaded:
+                    <h1 class="text-xs xl:text-sm tracking-wider">Uploaded:
                         {{ \Carbon\Carbon::parse($proposals->created_at)->format('F-d-Y') }}</h1>
-                    <h1 class="xl:text-sm tracking-wider">Status: {{ $proposals->authorize }}</h1>
-                    <h1 class="xl:text-sm tracking-wider">Proposal ID: {{ $proposals->id }}</h1>
+                    <h1 class="text-xs xl:text-sm tracking-wider">Status: {{ $proposals->authorize }}</h1>
+                    <h1 class="text-xs xl:text-sm tracking-wider">Proposal ID: {{ $proposals->id }}</h1>
 
                 </div>
                  <a class="text-black text-xl focus:bg-blue-500 focus:text-white hover:bg-blue-400 font-medium  px-2 py-2 rounded" href={{ route('admin.dashboard.index') }}>
@@ -52,10 +54,10 @@
             @elseif ($proposals->authorize == 'finished')
             <div class="flex justify-between p-3 bg-green-200">
                 <div class="flex space-x-8 font-medium text-gray-700">
-                    <h1 class="xl:text-sm tracking-wider">Uploaded:
+                    <h1 class="text-xs xl:text-sm tracking-wider">Uploaded:
                         {{ \Carbon\Carbon::parse($proposals->created_at)->format('F-d-Y') }}</h1>
-                    <h1 class="xl:text-sm tracking-wider">Status: {{ $proposals->authorize }}</h1>
-                    <h1 class="xl:text-sm tracking-wider">Proposal ID: {{ $proposals->id }}</h1>
+                    <h1 class="text-xs xl:text-sm tracking-wider">Status: {{ $proposals->authorize }}</h1>
+                    <h1 class="text-xs xl:text-sm tracking-wider">Proposal ID: {{ $proposals->id }}</h1>
 
                 </div>
                  <a class="text-black text-xl focus:bg-green-500 focus:text-white hover:bg-green-400 font-medium  px-2 py-2 rounded" href={{ route('admin.dashboard.index') }}>
@@ -70,29 +72,28 @@
             <hr>
 
             {{--  Wrapper  --}}
-            <div class="flex 2xl:min-h-[75vh] xl:min-h-[75vh] ">
+            <div class="xl:flex min-h-[79vh]">
 
                 {{--  Container-1  --}}
-
-
-                <div class="2xl:w-1/4 xl:w-[20rem]  px-5 py-2 border-r ">
+                <div class="proposal-sidebar shadow-2xl transition-all xl:relative text-xs  bg-slate-100 xl:bg-white xl:shadow-none   2xl:w-1/4 xl:w-[20rem] px-5 py-2 xl:border-r pt-7 xl:pt-5">
+                    <button class="xl:hidden block absolute top-2 right-2 leftclose-button text-red-500">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                    </button>
 
                     <div class="flex flex-col space-y-2 mb-4">
                         <div class="w-full">
                             <div class="w-full">
-                                <label class="block text-gray-700 text-sm font-semibold xl:text-[.7rem]"
-                                    > Project Proposal Title:</label>
-                                <h1
-                                    class=" xl:text-xs appearance-none rounded w-full py-1  text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                <label class="block text-gray-700 text-[.7rem] font-semibold xl:text-[.7rem]"> Project Proposal Title:</label>
+                                <h1 class="xl:text-xs text-[.7rem] appearance-none rounded w-full py-1  text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                                     {{ $proposals->project_title }}</h1>
                             </div>
                         </div>
 
-                        <div class="w-full">
-                            <label class="block text-gray-700 text-sm font-semibold xl:text-[.7rem]"
-                                > Program Name:</label>
-                            <h1
-                                class=" xl:text-xs appearance-none rounded w-full  text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        <div class="w-full ">
+                            <label class="block text-gray-700 xl:text-xs text-[.7rem] font-semibold "> Program Name:</label>
+                            <h1 class="xl:text-xs text-[.7rem] appearance-none rounded w-full  text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                                 {{ $proposals->programs->program_name }}</h1>
                         </div>
 
@@ -103,44 +104,42 @@
                         <div class="w-full">
 
                             <div class="w-full">
-                                <label class="block text-gray-700 text-sm font-semibold xl:text-[.7rem]"
+                                <label class="block text-gray-700 font-semibold xl:text-xs text-[.7rem]"
                                     >Started Date:</label>
                                 <h1
-                                    class=" xl:text-xs appearance-none rounded w-full  text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                    class="xl:text-xs text-[.7rem] appearance-none rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                                     {{ \Carbon\Carbon::parse($proposals->started_date)->format('F-d-Y') }}</h1>
                             </div>
                         </div>
 
                         <div class="w-full">
                             <div class="w-full">
-                                <label class="block text-gray-700 text-sm font-semibold xl:text-[.7rem]"
-                                    >Ended Date:</label>
+                                <label class="block text-gray-700 font-semibold xl:text-xs text-[.7rem]">Ended Date:</label>
                                 <h1
-                                    class=" xl:text-xs appearance-none rounded w-full  text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                    class="xl:text-xs text-[.7rem] appearance-none rounded w-full  text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                                     {{ \Carbon\Carbon::parse($proposals->finished_date)->format('F-d-Y') }}</h1>
                             </div>
                         </div>
                     </div>
 
-                    <div class="flex 2xl:space-x-3 xl:space-y-3 xl:mb-2 2xl:space-y-0  xl:flex-col 2xl:flex-row ">
+                    <div class="flex 2xl:space-x-3 xl:space-y-3 xl:mb-2 2xl:space-y-0  xl:flex-col 2xl:flex-row">
                         <div class="w-full">
 
-                            <label class="block text-gray-700 text-sm font-semibold  xl:text-[.7rem]"
-                                >Project Leader</label>
+                            <label class="block text-gray-700 font-semibold xl:text-xs text-[.7rem]">Project Leader</label>
                             @foreach ($proposals->proposal_members as $proposal_mem)
                                 <h1
-                                    class=" xl:text-xs appearance-none rounded w-full  text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                    class=" xl:text-xs text-[.7rem] appearance-none rounded w-full  text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                                     {{ $proposal_mem->leader_member_type != null ? $proposal_mem->user->name : '' }}
                                 </h1>
                             @endforeach
                         </div>
                         <div class="w-full">
 
-                            <label class="block text-gray-700 text-sm font-semibold  xl:text-[.7rem]"
+                            <label class="block text-gray-700  font-semibold xl:text-xs text-[.7rem]"
                                 >Role of Leader:</label>
                             @foreach ($proposals->proposal_members as $proposal_mem)
                                 <h1
-                                    class=" xl:text-xs appearance-none rounded w-full  text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                    class="xl:text-xs text-[.7rem] appearance-none rounded w-full  text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                                     {{ $proposal_mem->leader_member_type != null ? $proposal_mem->ceso_role->role_name : '' }}
                                 </h1>
                             @endforeach
@@ -148,13 +147,22 @@
                     </div>
 
 
-                    <div class="mb-2 w-full">
-                        <label class=" text-gray-700 text-sm font-semibold xl:text-[.7rem]">Project Members</label>
+                    <div class="mb-2 mt-5 xl:mt-0 w-full overflow-x-auto h-[25vh]">
+                        <div class="w-full sticky top-0 z-10 bg-gray-100 xl:bg-white">
+                            <label class="text-gray-700 font-semibold xl:text-xs text-[.7rem] ">Project Members</label>
+                        </div>
+
                             @foreach ($proposals->proposal_members as $proposal_mem)
                             <div class="pb-2">
                                 @if ($proposal_mem->member_type !== null)
-                                    <h1 class="xl:text-[.7rem] font-medium text-gray-700 tracking-wider "> Name: <span class="font-light">{{ $proposal_mem->member_type !== null ? $proposal_mem->user->name : '' }}</span><h1
-                                    <h1 class="xl:text-[.7rem] font-medium text-gray-700 tracking-wider "> Type: <span class="font-light">{{ $proposal_mem->member_type }}</span></h1>
+                                <div>
+                                    <h1 class="xl:text-xs text-[.6rem] font-medium text-gray-700 tracking-wider"> Name:</h1>
+                                    <span class="font-light xl:text-xs text-[.7rem]">{{ $proposal_mem->member_type !== null ? $proposal_mem->user->name : '' }}</span>
+                                </div>
+                                <div>
+                                    <h1 class="xl:text-xs text-[.6rem] font-medium text-gray-700 tracking-wider"> Type:</h1>
+                                    <span class="font-light xl:text-xs text-[.7rem]">{{ $proposal_mem->member_type }}</span>
+                                </div>
                                 @endif
                             </div>
                             @endforeach
@@ -163,22 +171,9 @@
 
 
                     <div class=" flex flex-col">
-                        <div class="py-2">
-
-                            <h1 class="text-slate-500 tracking-wide text-sm  xl:text-[.7rem]">Note:</h1>
-                            <h1 class="text-slate-500 tracking-wide text-sm  xl:text-[.7rem]">You must change the
-                                status
-                                first before proceeding to approve, from pending to ongoing if your going to approve
-                                the
-                                project proposal.</h1>
-
-                        </div>
-
-                        <div class="flex flex-col">
-                            <label class="text-gray-700 text-sm font-bold mb-2  xl:text-xs" for="">Change status
-                                here:</label>
-
-                            <select id="myDropdown" class="xl:text-xs border-slate-500   rounded-lg">
+                        <div class="flex flex-col text-xs">
+                            <label class="text-gray-700 font-bold mb-2 xl:text-xs text-[.7rem]">Change status here:</label>
+                            <select id="myDropdown" class="xl:text-xs text-[.7rem] border-slate-500 rounded-lg">
                                 <option value="pending"
                                     {{ old('pending', $proposals->authorize) == 'pending' ? 'selected' : '' }}>Pending
                                 </option>
@@ -194,7 +189,7 @@
                 </div>
 
                 {{--  Container-2  --}}
-                <div class="w-full flex flex-col relative">
+                <div class="w-full min-h-[77vh]  flex flex-col relative">
 
                     <div class="bg-gray-100 h-full absolute z-30 right-0 bg-opacity-40 flex items-end justify-end transition-all" id="mySidebar">
                         <div class="h-full w-[0rem] bg-gray-700 transition-all" id="subSidebar">
@@ -209,7 +204,7 @@
                                     <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = true">
 
                                         <!-- Trigger for Modal -->
-                                        <button class="px-2 py-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 xl:text-[.8rem] 2xl:text-xs xl:text-xs space-x-2 flex" type="button" @click="showModal = true">
+                                        <button class="px-2 py-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 text-xs xl:text-[.8rem] 2xl:text-xs xl:text-xs space-x-2 flex" type="button" @click="showModal = true">
                                             <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="17"
                                             height="17" viewBox="0 0 16 16">
                                             <g fill="currentColor">
@@ -234,7 +229,11 @@
                                                 <!-- Title / Close-->
                                                 <div class="flex items-center justify-between px-4 rounded-tl rounded-tr bg-blue-700 py-4 ">
                                                     <h5 class="text-white max-w-none text-sm tracking-wider">Upload file</h5>
-                                                    <button type="button" class=" z-50 cursor-pointer text-red-500 font-medium text-md px-2 rounded-xl border border-red-500 bg-red-50 " @click="showModal = false" onClick="window.location.reload()">< Back</button>
+                                                    <button type="button" class=" z-50 cursor-pointer text-red-500 font-medium text-md px-1 rounded hover:bg-blue-600 focus:bg-blue-800 " @click="showModal = false" onClick="window.location.reload()">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                        </svg>
+                                                    </button>
                                                 </div>
                                                 <hr>
 
@@ -283,7 +282,7 @@
                                         </div>
                                     </div>
 
-                                    <a class="border-blue-600 bg-white border px-2 py-2 rounded-xl text-blue-600 xl:text-[.8rem] 2xl:text-xs xl:text-xs flex"
+                                    <a class="border-blue-600 bg-white border px-2 py-2 rounded-xl text-blue-600 text-xs  2xl:text-xs  flex"
                                         href={{ url('download', $proposal->id) }}>
                                         <svg class="fill-blue-600 mr-1" xmlns="http://www.w3.org/2000/svg" height="15"
                                             viewBox="0 96 960 960" width="20">
@@ -296,7 +295,7 @@
                                     <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = true">
 
                                         <!-- Trigger for Modal -->
-                                        <button class="px-2 py-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 xl:text-[.8rem] 2xl:text-xs xl:text-xs space-x-2 flex" type="button" @click="showModal = true">
+                                        <button class="px-2 py-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 2xl:text-xs text-xs space-x-2 flex" type="button" @click="showModal = true">
                                             <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 32 32"><path fill="currentColor" d="M12 12h2v12h-2zm6 0h2v12h-2z"/><path fill="currentColor" d="M4 6v2h2v20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8h2V6zm4 22V8h16v20zm4-26h8v2h-8z"/></svg>
                                              Delete this Proposal
                                         </button>
@@ -351,7 +350,7 @@
                                     <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = true">
 
                                         <!-- Trigger for Modal -->
-                                        <button class="px-2 py-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 xl:text-[.8rem] 2xl:text-xs xl:text-xs space-x-2 flex" type="button" @click="showModal = true">
+                                        <button class="px-2 py-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 2xl:text-xs text-xs space-x-2 flex" type="button" @click="showModal = true">
                                             <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="17"
                                             height="17" viewBox="0 0 16 16">
                                             <g fill="currentColor">
@@ -557,521 +556,149 @@
                                                             <button @click="showModal = false"  type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
                                                         </div>
                                                     </form>
-
-
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
-
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
 
-                    <div class="absolute top-2 right-5 pr-4 text-lg">
+                    <div class="flex justify-between px-4 py-2 text-lg ">
+                        <button class="leftbtn-slide block xl:hidden">☰</button>
+                        <button>&nbsp;</button>
                         <button class="openbtn" onclick="openNav()">☰</button>
                     </div>
 
-                    <div class="flex px-5 py-3 xl:flex-wrap 2xl:flex-nowrap mt-12 relative">
+                    {{--  Media  --}}
+                    <div class="overflow-x-auto h-[75vh] 2xl:h-[77vh]">
+                        <div class="flex py-3 items-center flex-wrap px-2">
+                            @foreach ($proposals->medias as $mediaLibrary)
+                            @if ((!empty($mediaLibrary->model_id)) && (!empty($mediaLibrary->collection_name)))
 
-                        {{--  Proposal PDF  --}}
-                        @foreach ($proposals->medias as $mediaLibrary)
-                            @if (!empty($mediaLibrary->model_id) && !empty($mediaLibrary->collection_name == 'proposalPdf'))
-                                <div data-tooltip-target="tooltip-proposal" type="button"
-                                    class="bg-white  flex w-full 2xl:w-1/4 xl:w-2/5 shadow-md rounded-lg hover:bg-slate-200 transition-all m-2 relative">
-
-                                    <x-alpine-modal>
-
-                                        <x-slot name="scripts">
-                                            <div class="flex p-5 xl:p-3 2xl:p-5 w-full" target="__blank">
-                                                <div>
-                                                <img src="{{ asset('img/pdf.png') }}" class="2xl:w-[2.5rem]"
-                                                    width="30" alt="">
-                                                </div>
-
-                                                <div class="text-xs ml-2 text-left">
-                                                    <span
-                                                        class="">{{ Str::limit($mediaLibrary->file_name, 16) }}</span>
-                                                    <span
-                                                        class="block">{{ $mediaLibrary->human_readable_size }}</span>
-                                                </div>
-
-                                            </div>
-                                        </x-slot>
-
-                                        <x-slot name="title">
-                                            <span class="">{{ Str::limit($mediaLibrary->file_name) }}</span>
-                                        </x-slot>
-
-                                        <div class="w-[50rem]">
-                                            <iframe class=" 2xl:w-[100%] drop-shadow mt-2 w-full h-[80vh]"
-                                                src="{{ $proposals->getFirstMediaUrl('proposalPdf') }}"
-                                                width=""></iframe>
-                                        </div>
-                                    </x-alpine-modal>
-
-
-                                    <x-tooltip-modal>
-                                        <a href={{ url('downloads-pdf', $proposals->id) }}
-                                            class="block text-xs px-2 py-2 hover:text-black"
-                                            x-data="{ dropdownMenu: false }">Download</a>
-
-                                        <form
-                                            action="{{ route('admin.proposal.delete-media-proposal', $mediaLibrary->id) }}"
-                                            method="POST" enctype="multipart/form-data"
-                                            onsubmit="return confirm ('Are you sure?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="block text-slate-800 text-xs px-2  hover:text-black"
-                                                type="submit">
-                                                Delete
-                                            </button>
-                                        </form>
-                                    </x-tooltip-modal>
-                                </div>
-
-                                <div id="tooltip-proposal" role="tooltip"
-                                    class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                                    <span class="text-xs">{{ $mediaLibrary->file_name }}</span>
-                                    <div class="tooltip-arrow" data-popper-arrow></div>
-                                </div>
-                            @endif
-                        @endforeach
-
-
-
-
-                        {{--  Special Order PDF  --}}
-                        @foreach ($proposals->medias as $mediaLibrary)
-                            @if (!empty($mediaLibrary->model_id) && !empty($mediaLibrary->collection_name == 'specialOrderPdf'))
-                                <div data-tooltip-target="tooltip-special_order" type="button"
-                                    class="bg-white  flex w-full 2xl:w-1/4 xl:w-2/5 shadow-md rounded-lg hover:bg-slate-200 transition-all m-2 relative">
+                                <div data-tooltip-target="tooltip-proposal" type="button" class="bg-white w-[10rem] sm:w-[10rem] xl:w-[10rem] xl:min-h-[14vh] shadow-md rounded-lg hover:bg-slate-100 transition-all m-2 relative">
 
                                     <x-alpine-modal>
-
                                         <x-slot name="scripts">
-                                            <div class="flex p-5 xl:p-3 2xl:p-5 w-full" target="__blank">
+                                            <div class="flex items-center flex-col p-4 space-y-3" target="__blank">
                                                 <div>
-                                                <img src="{{ asset('img/pdf.png') }}" class="2xl:w-[2.5rem]"
-                                                    width="30" alt="">
+                                                    @if ($mediaLibrary->mime_type == 'image/jpeg' || $mediaLibrary->mime_type == 'image/png' || $mediaLibrary->mime_type == 'image/jpg')
+                                                    <img src="{{asset('img/image-icon.png') }}" class="w-[3rem]" width="30">
+                                                    @elseif ($mediaLibrary->mime_type == 'text/plain')
+                                                    <img src="{{asset('img/text-document.png') }}" class="w-[3rem]" width="30">
+                                                    @elseif ($mediaLibrary->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+                                                    <img src="{{asset('img/docx.png')}}" class="w-[3rem]" width="30">
+                                                    @else
+                                                    <img src="{{asset('img/pdf.png')}}" class="w-[3rem]" width="30">
+                                                    @endif
                                                 </div>
 
-                                                <div class="text-xs ml-2 text-left">
-                                                    <span
-                                                        class="">{{ Str::limit($mediaLibrary->file_name, 16) }}</span>
-                                                    <span
-                                                        class="block">{{ $mediaLibrary->human_readable_size }}</span>
-                                                </div>
-
-                                            </div>
-                                        </x-slot>
-
-                                        <x-slot name="title">
-                                            <span class="">{{ Str::limit($mediaLibrary->file_name) }}</span>
-                                        </x-slot>
-
-                                        <div class="w-[50rem]">
-                                            <iframe class=" 2xl:w-[100%] drop-shadow mt-2 w-full h-[80vh]"
-                                                src="{{ $proposals->getFirstMediaUrl('specialOrderPdf') }}"
-                                                width=""></iframe>
-                                        </div>
-                                    </x-alpine-modal>
-
-
-                                    <x-tooltip-modal>
-                                        <a href={{ url('downloads-pdf', $proposals->id) }}
-                                            class="block text-xs px-2 py-2 hover:text-black"
-                                            x-data="{ dropdownMenu: false }">Download</a>
-
-                                        <form
-                                            action="{{ route('admin.proposal.delete-media-proposal', $mediaLibrary->id) }}"
-                                            method="POST" enctype="multipart/form-data"
-                                            onsubmit="return confirm ('Are you sure?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="block text-slate-800 text-xs px-2  hover:text-black"
-                                                type="submit">
-                                                Delete
-                                            </button>
-                                        </form>
-                                    </x-tooltip-modal>
-                                </div>
-
-                                <div id="tooltip-special_order" role="tooltip"
-                                    class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                                    <span class="text-xs">{{ $mediaLibrary->file_name }}</span>
-                                    <div class="tooltip-arrow" data-popper-arrow></div>
-                                </div>
-                            @endif
-                        @endforeach
-
-
-
-
-                        {{--  Moa PDF  --}}
-                        @foreach ($proposals->medias as $mediaLibrary)
-                            @if (!empty($mediaLibrary->model_id) && !empty($mediaLibrary->collection_name == 'MoaPDF'))
-                                <div data-tooltip-target="tooltip-moa"
-                                    class="bg-white  flex w-full 2xl:w-1/4 xl:w-2/5 shadow-md rounded-lg hover:bg-slate-200 transition-all m-2 relative">
-
-                                    <x-alpine-modal>
-
-                                        <x-slot name="scripts">
-                                            <div class="flex p-5 xl:p-3 2xl:p-5 w-full" target="__blank">
-                                                <div>
-                                                <img src="{{ asset('img/pdf.png') }}" class="2xl:w-[2.5rem]"
-                                                    width="30" alt="">
-                                                </div>
-
-                                                <div class="text-xs ml-2 text-left">
-                                                    <span
-                                                        class="">{{ Str::limit($mediaLibrary->file_name, 16) }}</span>
-                                                    <span
-                                                        class="block">{{ $mediaLibrary->human_readable_size }}</span>
+                                                <div class="text-[.7rem] text-left">
+                                                @if (strlen($mediaLibrary->file_name) <= 10)
+                                                <span>{{ Str::limit($mediaLibrary->file_name, 20) }} {{ substr($mediaLibrary->file_name, -$maxLength) }}</span>
+                                                @else
+                                                <span>{{ Str::limit($mediaLibrary->file_name, 15) }} {{ substr($mediaLibrary->file_name, -$maxLength) }}</span>
+                                                @endif
                                                 </div>
                                             </div>
                                         </x-slot>
 
                                         <x-slot name="title">
-                                            <span class="">{{ Str::limit($mediaLibrary->file_name) }}</span>
+                                            <span>{{ Str::limit($mediaLibrary->file_name) }}</span>
                                         </x-slot>
 
                                         <div class="w-[50rem]">
-                                            <iframe class=" 2xl:w-[100%] drop-shadow mt-2 w-full h-[80vh]"
-                                                src="{{ $proposals->getFirstMediaUrl('MoaPDF') }}"
-                                                width=""></iframe>
-                                        </div>
-                                    </x-alpine-modal>
-
-
-
-                                    <x-tooltip-modal>
-
-                                        <a href={{ url('downloads-moa', $proposals->id) }}
-                                            class="block text-xs px-2 py-2 hover:text-black"
-                                            x-data="{ dropdownMenu: false }">Download</a>
-                                        <form
-                                            action="{{ route('admin.proposal.delete-media-proposal', $mediaLibrary->id) }}"
-                                            method="POST" enctype="multipart/form-data"
-                                            onsubmit="return confirm ('Are you sure?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="block text-slate-800 text-xs px-2 hover:text-black"
-                                                type="submit">
-                                                Delete
-                                            </button>
-                                        </form>
-                                    </x-tooltip-modal>
-                                </div>
-                                <div id="tooltip-moa" role="tooltip"
-                                    class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                                    <span class="text-xs">{{ $mediaLibrary->file_name }}</span>
-                                    <div class="tooltip-arrow" data-popper-arrow></div>
-                                </div>
-                            @endif
-                        @endforeach
-
-
-
-                        {{--  Office Order PDF  --}}
-                        @foreach ($proposals->medias as $mediaLibrary)
-                            @if (!empty($mediaLibrary->model_id) && !empty($mediaLibrary->collection_name == 'officeOrder'))
-                                <div data-tooltip-target="tooltip-office"
-                                    class="bg-white  flex w-full 2xl:w-1/4 xl:w-2/5 shadow-md rounded-lg hover:bg-slate-200  transition-all m-2 relative">
-
-                                    <x-alpine-modal>
-                                        <x-slot name="scripts">
-                                            <div class="flex p-5 xl:p-3 2xl:p-5  w-full">
-                                                <div>
-                                                <img src="{{ asset('img/pdf.png') }}" class="2xl:w-[2.5rem]"
-                                                    width="30" alt="">
-                                                </div>
-
-                                                <div class="text-xs ml-2 text-left">
-                                                    <span
-                                                        class="">{{ Str::limit($mediaLibrary->file_name, 16) }}</span>
-                                                    <span
-                                                        class="block">{{ $mediaLibrary->human_readable_size }}</span>
-                                                </div>
+                                            {{--  <iframe class=" 2xl:w-[100%] drop-shadow mt-2 w-full h-[80vh]" src="{{ $proposals->getFirstMediaUrl('proposalPdf') }}"></iframe>  --}}
+                                            @if ($mediaLibrary->mime_type == 'image/jpeg' || $mediaLibrary->mime_type == 'image/png' || $mediaLibrary->mime_type == 'image/jpg')
+                                            <div><img class="shadow w-full " src="{{  $mediaLibrary->getUrl() }}"></div>
+                                            @elseif ($mediaLibrary->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+                                            <div class="p-5 flex items-center flex-col">
+                                                <h1 class="text-center">This file format does not support viewing download only.</h1>
+                                                <a href={{ url('download-media', $mediaLibrary->id) }} class="text-sm hover:text-red-600 text-red-500">Click here to download</a>
                                             </div>
-                                        </x-slot>
 
-                                        <x-slot name="title">
-                                            <span class="">{{ Str::limit($mediaLibrary->file_name) }}</span>
-                                        </x-slot>
-
-                                        <div class="w-[50rem]">
-                                            <iframe class=" 2xl:w-[100%] drop-shadow mt-2 w-full h-[80vh]"
-                                                src="{{ $proposals->getFirstMediaUrl('officeOrder') }}"
-                                                width=""></iframe>
+                                            @else
+                                                <div><iframe class="shadow mt-2 w-full h-[80vh]" src="{{  $mediaLibrary->getUrl() }}"></iframe></div>
+                                            @endif
                                         </div>
                                     </x-alpine-modal>
 
+                                    <input type="checkbox" id="checkboxes" class="absolute right-0 top-1" style="opacity: 0%">
+                                    <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = false" class="absolute right-0 top-1">
 
-                                    <x-tooltip-modal>
+                                        <!-- Modal -->
+                                        <div class="fixed inset-0 z-50  flex items-center justify-center overflow-auto bg-black bg-opacity-50" x-show="showModal">
 
-                                        <a href={{ url('downloads-office', $proposals->id) }}
-                                            class="block text-xs px-2 py-2 hover:text-black"
-                                            x-data="{ dropdownMenu: false }">Download</a>
+                                            <!-- Modal inner -->
+                                            <div class="w-1/4 py-4 text-left bg-white rounded-lg shadow-lg" x-show="showModal"
+                                                x-transition:enter="motion-safe:ease-out duration-300"
+                                                x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
+                                                x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                                                x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" @click.away="showModal = true">
 
-                                        <form
-                                            action="{{ route('admin.proposal.delete-media-proposal', $mediaLibrary->id) }}"
-                                            method="POST" enctype="multipart/form-data"
-                                            onsubmit="return confirm ('Are you sure?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="block text-slate-800 text-xs px-2  hover:text-black"
-                                                type="submit">
-                                                Delete
-                                            </button>
-                                        </form>
-                                    </x-tooltip-modal>
+                                                <!-- Title / Close-->
+                                                <div class="flex items-center justify-between px-4 py-1">
+                                                    <h5 class="mr-3 text-black max-w-none text-xs">Rename file</h5>
+                                                    <button type="button" class="z-50 cursor-pointer text-red-500 hover:bg-gray-200 rounded px-2 py-1 text-xl font-semibold" @click="showModal = false">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                                <hr>
 
-                                </div>
-                                <div id="tooltip-office" role="tooltip"
-                                    class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                                    <span class="text-xs">{{ $mediaLibrary->file_name }}</span>
-                                    <div class="tooltip-arrow" data-popper-arrow></div>
-                                </div>
-                            @endif
-                        @endforeach
-
-
-                        {{--  Travel Order PDF  --}}
-                        @foreach ($proposals->medias as $mediaLibrary)
-                            @if (!empty($mediaLibrary->model_id) && !empty($mediaLibrary->collection_name == 'travelOrder'))
-                                <div data-tooltip-target="tooltip-travel"
-                                    class="bg-white  flex w-full 2xl:w-1/4 xl:w-2/5 shadow-md rounded-lg hover:bg-slate-200  transition-all m-2 relative">
-
-
-                                    <x-alpine-modal>
-                                        <x-slot name="scripts">
-                                            <div class="flex p-5 xl:p-3 2xl:p-5  w-full">
+                                                <!-- content -->
                                                 <div>
-                                                <img src="{{ asset('img/pdf.png') }}" class="2xl:w-[2.5rem]"
-                                                    width="30" alt="">
-                                                </div>
+                                                    <form action="{{route('inventory-rename-media', $mediaLibrary->id)}}" method="POST">
+                                                        @csrf @method('PUT')
 
-                                                <div class="text-xs ml-2 text-left">
-                                                    <span
-                                                        class="">{{ Str::limit($mediaLibrary->file_name, 16) }}</span>
-                                                    <span
-                                                        class="block">{{ $mediaLibrary->human_readable_size }}</span>
-                                                </div>
-                                            </div>
-                                        </x-slot>
+                                                        <div class="flex flex-col items-center pt-5 px-4">
+                                                        <input type="text" value="{{ $mediaLibrary->file_name }}" name="file_name" class=" w-full rounded">
 
-                                        <x-slot name="title">
-                                            <span class="">{{ Str::limit($mediaLibrary->file_name) }}</span>
-                                        </x-slot>
-
-                                        <div class="w-[50rem]">
-                                            <iframe class=" 2xl:w-[100%] drop-shadow mt-2 w-full h-[80vh]"
-                                                src="{{ $proposals->getFirstMediaUrl('travelOrder') }}"
-                                                width=""></iframe>
-                                        </div>
-                                    </x-alpine-modal>
-
-
-                                    <x-tooltip-modal>
-                                        <a href={{ url('downloads-travel', $proposals->id) }}
-                                            class="block text-xs px-2 py-2 hover:text-black"
-                                            x-data="{ dropdownMenu: false }">Download</a>
-
-                                        <form
-                                            action="{{ route('admin.proposal.delete-media-proposal', $mediaLibrary->id) }}"
-                                            method="POST" enctype="multipart/form-data"
-                                            onsubmit="return confirm ('Are you sure?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="block text-slate-800 text-xs px-2  hover:text-black"
-                                                type="submit">
-                                                Delete
-                                            </button>
-                                        </form>
-                                    </x-tooltip-modal>
-                                </div>
-                                <div id="tooltip-travel" role="tooltip"
-                                    class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                                    <span class="text-xs">{{ $mediaLibrary->file_name }}</span>
-                                    <div class="tooltip-arrow" data-popper-arrow></div>
-                                </div>
-                            @endif
-                        @endforeach
-                    </div>
-
-                    {{--  Other Files   --}}
-                    <div>
-                        <div class=" mt-10 py-10 px-5">
-                            @if ($proposal->getFirstMediaUrl('otherFile') == !null)
-                                <h1 class="text-slate-500 text-sm">Additional files, (e.g. attendance) :</h1>
-                            @endif
-
-                            <div class="flex flex-wrap">
-                                @foreach ($proposal->getMedia('otherFile') as $image)
-                                    <div
-                                        class="bg-white flex w-full 2xl:w-52 xl:w-2/5 shadow-md rounded-lg hover:bg-slate-200  transition-all m-2 relative">
-
-
-
-                                        {{--  Modal Starts here  --}}
-                                        <div x-cloak x-data="{ 'showModal': false }" @keydown.escape="showModal = false" class="absolute right-0 top-1">
-
-                                            <!-- Modal -->
-                                            <div class="fixed inset-0 z-50  flex items-center justify-center overflow-auto bg-black bg-opacity-50"
-                                                x-show="showModal">
-
-                                                <!-- Modal inner -->
-                                                <div class="w-1/4 py-4 text-left bg-white rounded-lg shadow-lg"
-                                                    x-show="showModal"
-                                                    x-transition:enter="motion-safe:ease-out duration-300"
-                                                    x-transition:enter-start="opacity-0 scale-90"
-                                                    x-transition:enter-end="opacity-100 scale-100"
-                                                    x-transition:leave="ease-in duration-200"
-                                                    x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
-                                                    x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                                                    @click.away="showModal = true">
-
-                                                    <!-- Title / Close-->
-                                                    <div class="flex items-center justify-between px-4 py-1">
-                                                        <h5 class="mr-3 text-black max-w-none text-xs">Rename file</h5>
-                                                        <button type="button" class=" z-50 cursor-pointer text-red-500 text-xl font-semibold" @click="showModal = false">X</button>
+                                                        <button type="submit" class="p-2 bg-blue-500 rounded mt-5 text-white">Rename</button>
                                                     </div>
-                                                    <hr>
-
-                                                    <!-- content -->
-                                                    <div class="">
-
-
-                                                        <form
-                                                            action="{{ route('admin.proposal.rename-ongoing-proposal', $image->id) }}"
-                                                            method="POST">
-                                                            @csrf @method('PUT')
-
-                                                            <div class="flex flex-col items-center pt-5 px-4">
-                                                                <input type="text" value="{{ $image->file_name }}"
-                                                                    name="file_name" class=" w-full rounded">
-                                                                <div
-                                                                    class="flex items-center justify-center space-x-3">
-                                                                    <button type="button"
-                                                                        class="border-blue-500 border px-2 mt-5 py-1 rounded-lg text-blue-500 z-50 cursor-pointer  text-lg "
-                                                                        @click="showModal = false">Cancel</button>
-                                                                    <button type="submit"
-                                                                        class="p-2 bg-blue-500 rounded-lg mt-5 text-white">Rename</button>
-                                                                </div>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-
-                                            {{--  Dropdown Button  --}}
-                                            <div x-cloak x-data="{ dropdownMenu: false }" class=" absolute right-0">
-                                                <!-- Dropdown toggle button -->
-                                                <button @click="dropdownMenu = ! dropdownMenu"
-                                                    class="flex items-center p-2   rounded-md">
-                                                    <svg class="absolute hover:fill-blue-500 top-2 right-0 fill-slate-700"
-                                                        xmlns="http://www.w3.org/2000/svg" height="24"
-                                                        viewBox="0 96 960 960" width="24">
-                                                        <path
-                                                            d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z" />
-                                                    </svg>
-                                                </button>
-                                                <!-- Dropdown list -->
-                                                <div x-show="dropdownMenu"
-                                                    class="z-50 absolute right-[-5] py-2 mt-2 bg-white rounded-md shadow-xl w-32"
-                                                    x-on:keydown.escape.window="dropdownMenu = false"
-                                                    @click.away="dropdownMenu = false"
-                                                    @click="dropdownMenu = ! dropdownMenu"
-                                                    x-transition:enter="motion-safe:ease-out duration-100"
-                                                    x-transition:enter-start="opacity-0 scale-90"
-                                                    x-transition:enter-end="opacity-100 scale-100"
-                                                    x-transition:leave="ease-in duration-200"
-                                                    x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
-                                                    x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
-
-
-                                                    <button class="text-xs px-2" type="button"
-                                                        @click="showModal = true">Rename</button>
-                                                    <a href={{ route('admin.proposal.download-media-files', $image->id) }}
-                                                        class="block text-xs px-2 py-2 hover:text-black"
-                                                        x-data="{ dropdownMenu: false }">Download</a>
-
-                                                    <form
-                                                        action="{{ route('admin.proposal.delete-media-proposal', $image->id) }}"
-                                                        method="POST" enctype="multipart/form-data"
-                                                        onsubmit="return confirm ('Are you sure?')">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button
-                                                            class="block text-slate-800 text-xs px-2  hover:text-black"
-                                                            type="submit">
-                                                            Delete
-                                                        </button>
                                                     </form>
                                                 </div>
                                             </div>
                                         </div>
 
 
-
-                                        <x-alpine-modal>
-
-                                            <x-slot name="scripts">
-                                                <div class="flex p-5 xl:p-3 2xl:p-5  w-full">
-
-                                                    @if ($image->mime_type == 'image/jpeg' || $image->mime_type == 'image/png' || $image->mime_type == 'image/jpg')
-                                                        <img src="{{ asset('img/image-icon.png') }}"
-                                                            class="2xl:w-[2.5rem]" width="30" alt="">
-                                                    @else
-                                                        <img src="{{ asset('img/pdf.png') }}" class="2xl:w-[2.5rem]"
-                                                            width="30" alt="">
-                                                    @endif
-
-                                                    <div class="text-xs ml-2 text-left">
-                                                        <span
-                                                            class="xl:text-[.7rem] 2xl:text-xs">{{ Str::limit($image->file_name, 15) }}</span>
-                                                        <span class="block">{{ $image->human_readable_size }}</span>
-                                                    </div>
-                                                </div>
+                                        <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0">
+                                            <!-- Dropdown toggle button -->
+                                            <button @click="dropdownMenu = ! dropdownMenu" class="flex items-center p-2 rounded-md">
+                                                <svg class="absolute hover:fill-blue-500 top-2 right-0 fill-slate-700" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z"/></svg>
+                                            </button>
+                                            <!-- Dropdown list -->
+                                            <div x-show="dropdownMenu" class="z-50 absolute right-[-5] py-2 mt-2 bg-white rounded-md shadow-xl w-32 space-y-2" x-on:keydown.escape.window="dropdownMenu = false"  @click.away="dropdownMenu = false" @click="dropdownMenu = ! dropdownMenu"
+                                                x-transition:enter="motion-safe:ease-out duration-100" x-transition:enter-start="opacity-0 scale-90"
+                                                x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-200"
+                                                x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                                                x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
 
 
+                                                <button class="text-xs px-2 hover:bg-gray-200 w-full text-left" type="button" @click="showModal = true">Rename</button>
 
-                                            </x-slot>
-
-                                            <x-slot name="title">
-                                                <span
-                                                    class="xl:text-[.7rem] 2xl:text-xs">{{ Str::limit($image->file_name) }}</span>
-                                            </x-slot>
+                                                <a href={{ url('download-media', $mediaLibrary->id) }} class="block text-xs px-2 hover:text-black hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
 
 
-                                            <div class="w-[50rem]">
-                                                @if ($image->mime_type == 'image/jpeg' || $image->mime_type == 'image/png' || $image->mime_type == 'image/jpg')
-                                                    <div class="">
-                                                        <img class="shadow w-full " src="{{ $image->getUrl() }}">
-                                                    </div>
-                                                @else
-                                                    <div>
-                                                        <iframe class="shadow mt-2 w-full h-[80vh]"
-                                                            src="{{ $image->getUrl() }}"></iframe>
-                                                    </div>
-                                                @endif
+                                                {{--  <form action="{{ route('admin.proposal.delete-media-proposal', $mediaLibrary->id) }}" method="POST" enctype="multipart/form-data" onsubmit="return confirm ('Are you sure?')" >
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="block text-slate-800 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="submit">Delete</button>
+                                                </form>  --}}
+
+                                                 <button class="block text-slate-800 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="submit" id="deleteButton">Delete</button>
+
                                             </div>
-                                        </x-alpine-modal>
+                                        </div>
                                     </div>
-                                @endforeach
-                            </div>
+                                </div>
 
+                            @endif
+                            @endforeach
                         </div>
-
                     </div>
-
                 </div>
 
             </div>
@@ -1081,6 +708,27 @@
         <x-messages />
 
         <script>
+
+            $(document).ready(function() {
+
+                $("#deleteButton").click(function(){
+                      $("#checkboxes").css("opacity", "100%");
+                })
+            });
+
+
+                let leftbutton = document.querySelector(".leftbtn-slide")
+                let leftsidebar = document.querySelector(".proposal-sidebar")
+                let leftclosebutton = document.querySelector(".leftclose-button")
+
+                leftbutton.addEventListener('click',() => {
+                    leftsidebar.classList.toggle('active');
+                });
+
+                leftclosebutton.addEventListener('click',() => {
+                    leftsidebar.classList.remove('active');
+                });
+
                 function openNav() {
                     document.getElementById("mySidebar").style.width = "100%";
                     document.getElementById("subSidebar").style.width = "15rem";
@@ -1089,7 +737,6 @@
 
                 function closeNav() {
                     document.getElementById("mySidebar").style.width = "0";
-
                     document.getElementById("subSidebar").style.width = "0";
                     document.getElementById("sidebar-title").style.display= "none";
                 }

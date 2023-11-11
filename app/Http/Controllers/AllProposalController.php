@@ -15,10 +15,9 @@ class AllProposalController extends Controller
         $proposalmember = ProposalMember::with('proposal')->get();
         $allproposal = CustomizeUserAllProposal::where('id', 1)->get();
         $years = AdminYear::orderBy('year', 'DESC')->pluck('year');
-        $proposals = Proposal::orderBy('created_at', 'asc')->get();
+        $proposals = Proposal::with('proposal_members')->orderBy('created_at', 'asc')->get();
         $myproposal = Proposal::with(['proposal_members' => function ($query) {
         $query->where('user_id', auth()->user()->id); }])->get();
-
         return view('user.allProposal.index', compact('proposals','myproposal', 'allproposal',  'years', 'proposalmember'));
     }
 
@@ -27,7 +26,7 @@ class AllProposalController extends Controller
 
         $query = $request->input('selectedValue2');
 
-        $proposals = Proposal::orderBy('created_at', 'desc')
+        $proposals = Proposal::with('proposal_members')->orderBy('created_at', 'desc')
         ->when($query, function ($querys) use ($query) {
             return $querys->where('project_title', 'like', "%$query%");
         })
@@ -72,7 +71,7 @@ class AllProposalController extends Controller
 
         $query = $request->input('query');
 
-        $proposals = Proposal::where(function ($query) {
+        $proposals = Proposal::with('proposal_members')->where(function ($query) {
             if($Year = request('selectedValue')){
                 $query->whereYear('created_at', $Year);
             }})
