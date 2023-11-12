@@ -138,11 +138,12 @@
 
         });
 
-        $(function(e){
+       $(function(e){
             $("#select_all_ids").click(function(){
                 $('.checkbox_ids').prop('checked', $(this).prop('checked'));
             })
         });
+
 
         $('#deleteAllSelected').click(function(e){
             e.preventDefault();

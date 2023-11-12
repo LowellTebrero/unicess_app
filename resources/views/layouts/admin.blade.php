@@ -33,7 +33,7 @@
     <section class="flex w-full relative min-h-[100vh]">
 
             {{--  Sidebar Section  --}}
-            <div class="sidebar xl:w-[10rem] 2xl:w-[14rem] sticky top-0 left-0 transition-all h-full">
+            <div class="sidebar xl:w-[10rem] 2xl:w-[14rem] sticky top-0 left-0 transition-all h-full ">
                 @include('layouts._admin_sidebar')
             </div>
 

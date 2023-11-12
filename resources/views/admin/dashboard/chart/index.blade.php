@@ -1,22 +1,27 @@
 <x-admin-layout>
 
-    <section class="mt-16 mx-8">
+    <section class="mt-8 m-5 rounded-lg bg-white min-h-[87vh]">
 
-    <div class="pl-12 flex justify-between">
+    <div class="p-4 flex justify-between">
         <h1 class="text-xl font-medium tracking-wider text-slate-700">Proposal Chart Overview</h1>
-
-
+        <a href={{ route('admin.dashboard.index') }} class="hover:bg-gray-200 focus:bg-red-200 rounded px-2 py-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </a>
     </div>
+    <hr>
 
-    <div class="flex">
-    <div  class=" p-12 w-full">
-        <canvas id="Chart"></canvas>
-    </div>
+    <div class="flex 2xl:flex-row flex-col p-5 space-x-5 bg-slate-100 m-5 rounded-lg">
 
-    <div class="w-full p-12">
-        {!! $chart->container() !!}
-        {!! $chart->script() !!}
-    </div>
+        <div class=" 2xl:w-1/2">
+            <canvas id="Chart"></canvas>
+        </div>
+
+        <div class="2xl:w-1/2">
+            {!! $chart->container() !!}
+            {!! $chart->script() !!}
+        </div>
     </div>
 
 

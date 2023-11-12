@@ -141,6 +141,8 @@ Route::middleware(['auth', 'role:admin'])->name('admin.')->prefix('admin')->grou
         Route::get('/dashboard/user-proposal/{id}','checkProposal')->name('dashboard.edit-proposal');
         Route::put('/update-user-proposal/{id}',  'updateDetails')->name('dashboard.update-project-details');
         Route::delete('/delete-user-proposal',  'DeleteProposal')->name('dashboard.delete-project-proposal');
+        Route::delete('/delete-user-media',  'DeleteMedia')->name('dashboard.delete-user-media');
+        Route::get('/dashboard-chart',  'chart')->name('dashboard.chart-index');
     });
 
 
@@ -154,7 +156,7 @@ Route::middleware(['auth', 'role:admin'])->name('admin.')->prefix('admin')->grou
 
     Route::controller(ProjectProposalController::class)->group(function () {
         Route::put('/rename/files/{id}','RenameFile')->name('proposal.rename-ongoing-proposal');
-        Route::delete('/delete-Mediafile/{id}','deleteMedia')->name('proposal.delete-media-proposal');
+        Route::delete('/delete-Mediafile','deleteMedia')->name('proposal.delete-media-proposal');
 
         Route::get('/project/{id}','showFaculty')->name('proposal.show_faculty');
         Route::get('download-media/{id}','DownloadMedia')->name('proposal.download-media-files');
@@ -183,7 +185,7 @@ Route::middleware(['auth', 'role:admin'])->name('admin.')->prefix('admin')->grou
         Route::get('/adminfilter','AdminPointsfilter')->name('points.AdminPointsfilter');
     });
 
-    Route::get('/chart', [ChartController::class, 'index'])->name('chart.index');
+
     Route::get('/edit-toggle/{id}', [ToggleController::class, 'edit'])->name('edit.submit');
 
     Route::get('/template-index',[OtherSettingsController::class, 'index'])->name('template.index');

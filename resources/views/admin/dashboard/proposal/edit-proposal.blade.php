@@ -1,3 +1,4 @@
+
     <style>
         [x-cloak] { display: none }
         form button:disabled,
@@ -567,7 +568,14 @@
 
                     <div class="flex justify-between px-4 py-2 text-lg ">
                         <button class="leftbtn-slide block xl:hidden">☰</button>
-                        <button>&nbsp;</button>
+                        <div class="flex space-x-2">
+                            <button>&nbsp;</button>
+                            <button class="text-xs rounded text-white px-2 py-1 bg-red-500" id="YesDelete" style="display: none">Delete</button>
+                            {{--  <input type="checkbox" name="" id="selectAll">  --}}
+                            <button class="text-xs rounded text-white px-2 py-1 bg-red-500" id="selectAll" style="display: none">Select all</button>
+                            <button class="text-xs rounded text-white px-2 py-1 bg-red-500" id="cancelButton" style="display: none">Cancel</button>
+                        </div>
+
                         <button class="openbtn" onclick="openNav()">☰</button>
                     </div>
 
@@ -577,7 +585,7 @@
                             @foreach ($proposals->medias as $mediaLibrary)
                             @if ((!empty($mediaLibrary->model_id)) && (!empty($mediaLibrary->collection_name)))
 
-                                <div data-tooltip-target="tooltip-proposal" type="button" class="bg-white w-[10rem] sm:w-[10rem] xl:w-[10rem] xl:min-h-[14vh] shadow-md rounded-lg hover:bg-slate-100 transition-all m-2 relative">
+                                <div data-tooltip-target="tooltip-proposal" type="button" class="bg-white w-[10rem] sm:w-[10rem] xl:w-[10rem] xl:min-h-[14vh] shadow-md rounded-lg hover:bg-slate-100 transition-all m-2 relative" id="proposal_id{{ $mediaLibrary->id }}">
 
                                     <x-alpine-modal>
                                         <x-slot name="scripts">
@@ -624,8 +632,9 @@
                                         </div>
                                     </x-alpine-modal>
 
-                                    <input type="checkbox" id="checkboxes" class="absolute right-0 top-1" style="opacity: 0%">
-                                    <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = false" class="absolute right-0 top-1">
+                                    {{--  <input type="checkbox" id="checkboxes" class="absolute right-0 top-1" style="opacity: 0%">  --}}
+                                    <input type="checkbox" class="hidden-checkbox absolute top-1 right-2"  style="display:none;" name="ids" value="{{ $mediaLibrary->id }}">
+                                    <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = false" class="absolute right-0 top-1 ">
 
                                         <!-- Modal -->
                                         <div class="fixed inset-0 z-50  flex items-center justify-center overflow-auto bg-black bg-opacity-50" x-show="showModal">
@@ -666,8 +675,8 @@
 
                                         <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0">
                                             <!-- Dropdown toggle button -->
-                                            <button @click="dropdownMenu = ! dropdownMenu" class="flex items-center p-2 rounded-md">
-                                                <svg class="absolute hover:fill-blue-500 top-2 right-0 fill-slate-700" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z"/></svg>
+                                            <button @click="dropdownMenu = ! dropdownMenu" class="tooltipButton  flex items-center p-2 rounded-md" style="display: block">
+                                                <svg class=" absolute hover:fill-blue-500 top-2 right-0 fill-slate-700" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z"/></svg>
                                             </button>
                                             <!-- Dropdown list -->
                                             <div x-show="dropdownMenu" class="z-50 absolute right-[-5] py-2 mt-2 bg-white rounded-md shadow-xl w-32 space-y-2" x-on:keydown.escape.window="dropdownMenu = false"  @click.away="dropdownMenu = false" @click="dropdownMenu = ! dropdownMenu"
@@ -688,7 +697,7 @@
                                                     <button class="block text-slate-800 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="submit">Delete</button>
                                                 </form>  --}}
 
-                                                 <button class="block text-slate-800 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="submit" id="deleteButton">Delete</button>
+                                                 <button class="deleteAllButton block text-slate-800 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="submit" id="deleteAllButton">Delete</button>
 
                                             </div>
                                         </div>
@@ -707,14 +716,157 @@
 
         <x-messages />
 
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <!-- Toastr -->
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+
+
+
+
         <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                // Get the toggle all button
+                var toggleAllButton = document.getElementById('selectAll');
 
-            $(document).ready(function() {
+                var deleteSelectedButton = document.getElementById('YesDelete');
 
-                $("#deleteButton").click(function(){
-                      $("#checkboxes").css("opacity", "100%");
-                })
+                // Get all checkboxes inside the foreach loop
+                var checkboxes = document.querySelectorAll('.hidden-checkbox');
+
+                // Add click event listener to the toggle all button
+                toggleAllButton.addEventListener('click', function () {
+                    // Check if all checkboxes are checked
+
+                    var allChecked = Array.from(checkboxes).every(function (checkbox) {
+                        return checkbox.checked;
+                    });
+
+                    // If all checkboxes are checked, reset all checkboxes; otherwise, check all checkboxes
+                    checkboxes.forEach(function (checkbox) {
+                        checkbox.checked = !allChecked;
+                    });
+                });
+
+
+                deleteSelectedButton.addEventListener('click', function () {
+                    // Filter out the checked checkboxes
+                    var checkedCheckboxes = Array.from(document.querySelectorAll('.hidden-checkbox:checked'));
+
+                    // Create an array to store the IDs of checked checkboxes
+                    var all_ids = checkedCheckboxes.map(function (checkbox) {
+                        return checkbox.value;
+                    });
+
+
+                    if (all_ids.length > 0 ) {
+                        // Perform deletion logic for the checked checkboxes
+                        if (confirm('Are you sure you want to delete?')) {
+
+                            $.ajax({
+                                url: "{{ route('admin.proposal.delete-media-proposal') }}",
+                                type: "DELETE",
+                                data: {
+                                    ids: all_ids,
+                                    _token: '{{ csrf_token() }}'
+                                },
+                                success: function (response) {
+                                    checkedCheckboxes.forEach(function (checkbox) {
+                                        // Replace 'proposal_id' with the appropriate ID prefix
+                                        $('#proposal_id' + checkbox.value).remove();
+                                    });
+                                    if (response.success) {
+                                        toastr.success(response.success);
+                                        // Additional logic if needed
+                                    } else if (response.error) {
+                                        toastr.error(response.error);
+                                        // Additional error handling logic
+                                    }
+                                },
+                                error: function (error) {
+                                    console.log(error);
+                                    toastr.error('Error in AJAX request');
+                                }
+                            });
+                        };
+
+
+                    } else {
+                        toastr.warning('No checkboxes are selected for deletion.');
+                    }
+
+                });
+
+
             });
+
+            document.addEventListener('DOMContentLoaded', function () {
+                // Get the delete all button
+                var deleteAllButton = document.querySelectorAll('.deleteAllButton');
+
+                deleteAllButton.forEach(function (button) {
+
+                    button.addEventListener('click', function () {
+
+                        var hiddenCheckboxes = document.querySelectorAll('.hidden-checkbox');
+                        var tooltipButton = document.querySelectorAll('.tooltipButton');
+                        document.getElementById("cancelButton").style.display = "block";
+                        document.getElementById("YesDelete").style.display = "block";
+                        document.getElementById("selectAll").style.display = "block";
+
+                        hiddenCheckboxes.forEach(function (checkbox) {
+                            if (checkbox.style.display === 'none' || checkbox.style.display === '') {
+                                checkbox.style.display = 'block';
+                            } else {
+                                checkbox.style.display = 'none';
+                            }
+                        });
+
+                        tooltipButton.forEach(function (button) {
+                            if (button.style.display === 'block' ) {
+                                button.style.display = 'none';
+                            } else {
+                                button.style.display = 'block';
+                            }
+                        });
+                    });
+                });
+
+                var cancelButton = document.getElementById('cancelButton');
+
+                cancelButton.addEventListener('click', function () {
+
+                    var hiddenCheckbox = document.querySelectorAll('.hidden-checkbox');
+                    var tooltipButtons = document.querySelectorAll('.tooltipButton');
+
+                    hiddenCheckbox.forEach(function (checkbox) {
+                        if (checkbox.style.display === 'block' ) {
+                            checkbox.style.display = 'none';
+                        } else {
+                            checkbox.style.display = 'block';
+                        }
+                    });
+
+                    cancelButton.style.display = "none";
+                    document.getElementById("YesDelete").style.display = "none";
+                    document.getElementById("selectAll").style.display = "none";
+
+                    tooltipButtons.forEach(function (button) {
+                        if (button.style.display === 'none' ) {
+                            button.style.display = 'block';
+                        } else {
+                            button.style.display = 'none';
+                        }
+                    });
+
+                });
+
+
+            });
+
+
 
 
                 let leftbutton = document.querySelector(".leftbtn-slide")

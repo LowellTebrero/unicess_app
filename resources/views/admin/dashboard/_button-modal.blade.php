@@ -46,7 +46,7 @@
         </svg>
     </div>
 
-    <a href="{{ route('admin.chart.index') }}"
+    <a href="{{ route('admin.dashboard.chart-index') }}"
         class="bg-white w-full text-gray-700 rounded-xl  hover:bg-slate-100 transition-all flex justify-between items-center p-4 sm:p-0 sm:px-4 md:px-6 px-8 xl:px-10 shadow relative">
 
 
