@@ -31,7 +31,7 @@
                 <option value="1" {{ old('1', $invent->number) == '1' ? 'selected' : '' }}>Program Icon</option>
                 <option value="2" {{ old('2', $invent->number) == '2' ? 'selected' : '' }}>Program Tiles</option>
                 <option value="3" {{ old('3', $invent->number) == '3' ? 'selected' : '' }}>Files</option>
-                <option value="4" {{ old('4', $invent->number) == '4' ? 'selected' : '' }}>Proposals</option>
+                {{--  <option value="4" {{ old('4', $invent->number) == '4' ? 'selected' : '' }}>Proposals</option>  --}}
                 @endforeach
             </select>
 

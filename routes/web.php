@@ -143,6 +143,9 @@ Route::middleware(['auth', 'role:admin'])->name('admin.')->prefix('admin')->grou
         Route::delete('/delete-user-proposal',  'DeleteProposal')->name('dashboard.delete-project-proposal');
         Route::delete('/delete-user-media',  'DeleteMedia')->name('dashboard.delete-user-media');
         Route::get('/dashboard-chart',  'chart')->name('dashboard.chart-index');
+        Route::get('/dashboard-filter-status',  'FilterStatus')->name('dashboard.filter-status');
+        Route::get('/dashboard-search-data',  'SearchData')->name('dashboard.search-data');
+        Route::get('/dashboard-filter-year',  'FilterYears')->name('dashboard.filter-year');
     });
 
 

@@ -16,11 +16,7 @@
                     <th class="p-2 whitespace-nowrap">
                         <div class="font-semibold text-center">Status</div>
                     </th>
-                    <th class="p-2 whitespace-nowrap">
-                        <div class="font-semibold text-center">
-                            <input type="checkbox" name="" id="select_all_ids">
-                        </div>
-                    </th>
+
                 </tr>
             </thead>
 
@@ -28,7 +24,7 @@
             <tbody class="text-xs divide-y divide-gray-100 ">
 
                 @foreach ($allProposal as $proposal)
-                    <tr id="proposal_id{{ $proposal->id }}" class="hover:bg-gray-100">
+                    <tr class="hover:bg-gray-100">
                         <td class="p-3 whitespace-nowrap hidden 2xl:block">
                             <a href={{ route('admin.dashboard.edit-proposal', $proposal->id) }}>
                             <div class="flex items-center">
@@ -76,11 +72,7 @@
                             @endif
                             </a>
                         </td>
-                        <td class="p-3 whitespace-nowrap">
-                            <div class="text-center text-gray-700 2xl:text-sm xl:text-[.6rem]">
-                              <input type="checkbox" name="ids" class="checkbox_ids" id="checkbox_ids" value="{{ $proposal->id }}">
-                            </div>
-                        </td>
+
                     </tr>
                 @endforeach
             </tbody>

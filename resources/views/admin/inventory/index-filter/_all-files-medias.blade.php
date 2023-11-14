@@ -6,10 +6,10 @@
                 <table class="min-w-full divide-y divide-gray-200 ">
                 <thead>
                 <tr class="sticky top-0 bg-gray-100 z-20">
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>              
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Size</th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">created</th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Action</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
+                    <th scope="col" class="px-6 pr-0 py-3 text-left text-xs font-medium text-gray-500 uppercase w-[7rem]">Size</th>
+                    <th scope="col" class="px-6 pr-0 py-3 text-left text-xs font-medium text-gray-500 uppercase w-[10rem]">created</th>
+                    <th scope="col" class="text-left text-xs font-medium text-gray-500 uppercase w-[5rem]">Action</th>
                 </tr>
                 </thead>
 
@@ -18,17 +18,14 @@
                     @foreach ($medias as $media )
                     <tr class="hover:bg-gray-100 dark:hover:bg-gray-200">
 
-                        <td class="px-6 py-4 whitespace-nowrap text-xs font-medium text-gray-800 ">{{  Str::limit($media->file_name, 70) }}</td>
-                        {{--  <td class="px-6 py-4 whitespace-nowrap text-xs text-gray-800 ">{{ $media->mime_type }}</td>  --}}
-                        <td class="px-6 py-4 whitespace-nowrap text-xs text-gray-800 ">{{ $media->human_readable_size }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-xs text-gray-800 ">{{ $media->created_at }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-left text-xs font-medium">
-                                <div data-tooltip-target="tooltip-proposal" type="button" class="relative ">
+                        <td class="px-6 py-4 whitespace-nowrap text-xs font-medium text-gray-800">
+                            <div data-tooltip-target="tooltip-proposal" type="button" class="relative ">
 
-                                    <x-alpine-modal>
+                                <x-alpine-modal>
 
-                                        <x-slot name="scripts">
+                                    <x-slot name="scripts">
 
+                                        <div class="flex items-center space-x-2">
                                             <div class="flex" target="__blank">
                                                 @if ($media->mime_type == 'image/jpeg' || $media->mime_type == 'image/png' || $media->mime_type == 'image/jpg')
                                                 <img src="{{ asset('img/image-icon.png') }}"
@@ -37,38 +34,49 @@
                                                 <img src="{{ asset('img/pdf.png') }}" class="2xl:w-[2rem]"
                                                     width="30" alt="">
                                             @endif
-
-
-
                                             </div>
-                                        </x-slot>
+                                            <div>
+                                                {{  Str::limit($media->file_name, 70) }}
+                                            </div>
 
-                                        <x-slot name="title">
-                                            <span class="">{{ Str::limit($media->file_name) }}</span>
-                                        </x-slot>
+                                         </div>
+                                    </x-slot>
 
-                                        <div class="w-[50rem]">
-                                            <iframe class=" 2xl:w-[100%] drop-shadow mt-2 w-full h-[80vh]"
-                                                src="{{ $media->getUrl()}}"></iframe>
-                                        </div>
-                                    </x-alpine-modal>
+                                    <x-slot name="title">
+                                        <span class="">{{ Str::limit($media->file_name) }}</span>
+                                    </x-slot>
 
-                                    <div class="absolute top-0 right-0">
-                                        <x-tooltip-modal>
-                                            <a href={{ route('admin.inventory.admin-download-media', $media->id) }} class="block text-xs px-2 py-2 hover:text-black" x-data="{dropdownMenu: false}">Download</a>
-
-
-                                            {{--  <form action="{{ route('admin.proposal.delete-media-proposal', $mediaLibrary->id) }}" method="POST" enctype="multipart/form-data" onsubmit="return confirm ('Are you sure?')" >
-                                                @csrf
-                                                @method('DELETE')
-                                            <button class="block text-slate-800 text-xs px-2 hover:text-black" type="submit">
-                                                Delete
-                                            </button>
-                                            </form>  --}}
-                                        </x-tooltip-modal>
+                                    <div class="w-[50rem]">
+                                        <iframe class=" 2xl:w-[100%] drop-shadow mt-2 w-full h-[80vh]"
+                                            src="{{ $media->getUrl()}}"></iframe>
                                     </div>
+                                </x-alpine-modal>
 
+
+                            </div>
+                        </td>
+                        {{--  <td class="px-6 py-4 whitespace-nowrap text-xs text-gray-800 ">{{ $media->mime_type }}</td>  --}}
+                        <td class="px-6 py-4 pr-0 whitespace-nowrap text-xs text-gray-800 ">{{ $media->human_readable_size }}</td>
+                        <td class="px-6 py-4 pr-0 whitespace-nowrap text-xs text-gray-800 ">{{ $media->created_at }}</td>
+                        <td class="whitespace-nowrap text-left text-xs font-medium relative">
+
+                            <div data-tooltip-target="tooltip-proposal" type="button" class="relative ">
+
+                                   <div class="absolute right-10 bottom-5">
+                                    <x-tooltip-modal>
+                                        <a href={{ route('admin.inventory.admin-download-media', $media->id) }} class="block text-xs px-2 py-2 hover:text-black" x-data="{dropdownMenu: false}">Download</a>
+
+
+                                        {{--  <form action="{{ route('admin.proposal.delete-media-proposal', $mediaLibrary->id) }}" method="POST" enctype="multipart/form-data" onsubmit="return confirm ('Are you sure?')" >
+                                            @csrf
+                                            @method('DELETE')
+                                        <button class="block text-slate-800 text-xs px-2 hover:text-black" type="submit">
+                                            Delete
+                                        </button>
+                                        </form>  --}}
+                                    </x-tooltip-modal>
                                 </div>
+                            </div>
                         </td>
                     </tr>
                 @endforeach

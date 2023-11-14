@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\ToggleController;
 use App\Http\Controllers\UserPointFilterController;
 use App\Http\Controllers\Admin\EvaluationController;
 use App\Http\Controllers\Admin\AdminFilterController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\CustomizeAdminInventoryController;
 use App\Http\Controllers\CustomizeUsersAllProposalController;
 use App\Http\Controllers\UserFilterEvaluationController;
@@ -79,3 +80,5 @@ Route::get('/filter-search-points', [AdminFilterController::class, 'filter_searc
 Route::get('/filter-evaluation', [AdminFilterController::class, 'filter_evaluation'])->name('filter.evaluation');
 Route::get('/search-evaluation', [AdminFilterController::class, 'filter_searchEvaluation'])->name('filter.search-evaluation');
 
+
+Route::post('/dashboard-customize/{id}', [DashboardController::class, 'updateData'])->name('dashboard.update-customize');

@@ -15,7 +15,7 @@
         <hr>
 
         <div class="p-4 ">
-                <div class="flex w-full justify-between p-5">
+                <div class="flex w-full justify-between p-5 pt-0">
                     <div>
                         <img src="{{ asset('img/track.svg') }}" width="300">
 

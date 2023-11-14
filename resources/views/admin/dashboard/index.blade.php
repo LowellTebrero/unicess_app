@@ -37,15 +37,7 @@
                                         <option {{ 'finished' == request('authorize_name') ? 'selected ' : '' }} value="finished">Finished</option>
                                     </select>
                                     <input id="searchInput"  class=" text-xs rounded border border-gray-300 2xl:w-[20rem] sm:w-[15rem] w-full text-gray-700" type="text" placeholder="Search Proposal Title...">
-                                    <div id="wrapper" class="flex items-center transition-all px-2 py-1 rounded bg-red-500 ">
-                                        <a href="" type="submit" id="deleteAllSelected" class="flex items-center space-x-2 text-xs">
-                                            Delete proposal
-                                            <svg class="fill-white" xmlns="http://www.w3.org/2000/svg" height="15"
-                                            viewBox="0 96 960 960" width="15">
-                                            <path d="M261 936q-24.75 0-42.375-17.625T201 876V306h-41v-60h188v-30h264v30h188v60h-41v570q0 24-18 42t-42 18H261Zm438-630H261v570h438V306ZM367 790h60V391h-60v399Zm166 0h60V391h-60v399ZM261 306v570-570Z" />
-                                            </svg>
-                                        </a>
-                                    </div>
+
                                 </div>
 
 
@@ -137,58 +129,6 @@
             });
 
         });
-
-       $(function(e){
-            $("#select_all_ids").click(function(){
-                $('.checkbox_ids').prop('checked', $(this).prop('checked'));
-            })
-        });
-
-
-        $('#deleteAllSelected').click(function(e){
-            e.preventDefault();
-            var all_ids = [];
-
-            $('input:checkbox[name=ids]:checked').each(function(){
-                all_ids.push($(this).val());
-            });
-
-            if (confirm('Are you sure?')) {
-                $.ajax({
-                    url: "{{ route('admin.dashboard.delete-project-proposal') }}",
-                    type: "DELETE",
-                    data: {
-                        ids:all_ids,
-                        _token:'{{ csrf_token() }}'
-                    },
-                    success:function(response){
-                        $.each(all_ids,function(key,val){
-                            $('#proposal_id'+ val).remove();
-                        })
-                    }
-                });
-            };
-        });
-
-        $(document).ready(function() {
-
-            $("#checkbox_ids, #select_all_ids ").on("change", function() {
-
-              if ($(this).is(":checked") || $("#select_all_ids").is(":checked") ) {
-                // Checkbox is checked, perform your action here
-               // $("#wrapper").css("display", "block");
-               // $("#deleteAllSelected").css("display", "block");
-                // You can do other things here, like making an AJAX request
-              } else {
-                // Checkbox is unchecked
-
-               // $("#wrapper").css("display", "none");
-               // $("#deleteAllSelected").css("display", "none");
-               // $("#deleteAllSelected").css("margin-top", "4%");
-                // You can do other things here as well
-              }
-            });
-          });
 
 
     </script>

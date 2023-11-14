@@ -33,7 +33,7 @@ class ProjectProposalController extends Controller
 
         if ($proposalDelete) {
             // Flash a success message
-            return response()->json(['success' => 'File has been deleted']);
+            return response()->json(['success' => 'Deleted Successfully']);
         } else {
             // Flash an error message
             return response()->json(['error' => 'Error deleting file'], 500);

@@ -8,6 +8,7 @@ use App\Models\Program;
 use App\Models\CesoRole;
 use App\Models\Location;
 use App\Models\Proposal;
+use App\Models\AdminYear;
 use Illuminate\Http\Request;
 use App\Charts\ProposalChart;
 use App\Models\ProposalMember;
@@ -15,6 +16,7 @@ use Illuminate\Validation\Rule;
 use App\Models\ParticipationName;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\CustomizeAdminProposal;
 
 class DashboardController extends Controller
 {
@@ -186,10 +188,17 @@ class DashboardController extends Controller
     }
 
 
-
-
     public function chart(Request $request){
 
+        $customizes = CustomizeAdminProposal::where('id', 1)->get();
+        $statusCount = Proposal::select('authorize')->whereYear('created_at', date('Y'))->count();
+        $pendingCount = Proposal::where('authorize','pending')->whereYear('created_at', date('Y'))->count();
+        $ongoingCount = Proposal::where('authorize' ,'ongoing')->whereYear('created_at', date('Y'))->count();
+        $finishedCount = Proposal::where('authorize' ,'finished')->whereYear('created_at', date('Y'))->count();
+
+        $allProposal = Proposal::orderBy('created_at', 'desc')->with('programs')->with('proposal_members')->whereYear('created_at', date('Y'))->get();
+
+        $years = AdminYear::orderBy('year', 'DESC')->pluck('year');
 
         $users = Proposal::select(DB::raw("COUNT(*) as count"),
         DB::raw("MONTHNAME(created_at) as month_name"))
@@ -206,22 +215,262 @@ class DashboardController extends Controller
         ->groupBy(DB::raw("name"))
         ->pluck('count','name');
 
+        $programLabel = $proposals->keys();
+        $programData = $proposals->values();
+
         $proposals->keys();
         $proposals->values();
 
 
-        $chart = new ProposalChart;
-        $chart->labels($proposals->keys());
-        $chart->dataset('Proposals Program name', 'pie', $proposals->values())->backgroundColor([
-            'rgba(234,27,27,10)', 'rgba(27,135,234,10)', 'rgba(255,199,0,10)', 'green', 'violet', 'brown', 'orange', 'pink'
-        ]);
-
-        return view('admin.dashboard.chart.index',compact( 'labels','data','chart'));
+        return view('admin.dashboard.chart.index',compact( 'programLabel', 'programData', 'statusCount', 'pendingCount', 'ongoingCount', 'finishedCount',
+            'labels','data','customizes', 'allProposal', 'years'));
     }
 
 
 
 
 
+    public function updateData(Request $request, $id){
+        // Find the model instance you want to update
+        $model = CustomizeAdminProposal::find($id);
+
+        if (!$model) {
+            return response()->json(['message' => 'Model not found'], 404);
+        }
+
+        // Update the model attributes based on the dropdown value
+        $model->number = $request->input('selected_value');
+        $model->save();
+
+        return response()->json(['message' => 'Data updated successfully']);
+    }
+
+
+    public function FilterStatus(Request $request)
+    {
+        $query = $request->input('query');
+
+            $customizes = CustomizeAdminProposal::where('id', 1)->get();
+
+            $statusCount = Proposal::select('authorize')
+            ->where(function ($query) {
+                if($year = request('year')){
+                $query->whereYear('created_at', $year);
+            }})->count();
+
+            $pendingCount = Proposal::where('authorize','pending')
+            ->where(function ($query) {
+            if($year = request('year')){
+            $query->whereYear('created_at', $year);
+            }})->count();
+
+            $ongoingCount = Proposal::where('authorize' ,'ongoing')
+            ->where(function ($query) {
+            if($year = request('year')){
+            $query->whereYear('created_at', $year);
+            }})->count();
+
+            $finishedCount = Proposal::where('authorize' ,'finished')
+            ->where(function ($query) {
+            if($year = request('year')){
+            $query->whereYear('created_at', $year);
+            }})->count();
+
+            $years = AdminYear::orderBy('year', 'DESC')->pluck('year');
+
+            $users = Proposal::select(DB::raw("COUNT(*) as count"),
+            DB::raw("MONTHNAME(created_at) as month_name"))
+            ->groupBy(DB::raw("month_name"))
+            ->orderBy('created_at','ASC')
+            ->pluck('count','month_name');
+
+            $labels = $users->keys();
+        $data = $users->values();
+
+
+        $proposals = Proposal::leftJoin('programs', 'proposals.program_id', '=', 'programs.id')
+            ->select(DB::raw("COUNT(*) as count"), 'programs.program_name as name')
+            ->groupBy(DB::raw("name"))
+            ->pluck('count','name');
+
+            $programLabel = $proposals->keys();
+            $programData = $proposals->values();
+
+            $proposals->keys();
+        $proposals->values();
+
+
+        $allProposal = Proposal::orderBy('authorize', 'desc')->with('programs')->with('proposal_members')
+
+        ->when($query, function ($querys) use ($query) {
+            return $querys->where('project_title', 'like', "%$query%")
+            ->orWhere('authorize', 'like', "%$query%")
+            ->orWhere('created_at', 'like', "%$query%");
+        })
+        ->where(function ($query) {
+            if($year = request('year')){
+            $query->whereYear('created_at', $year);
+        }})
+        ->where(function ($query) {
+                if($companyId = request('status')){
+                    $query->where('authorize', $companyId);
+        }})->get();
+
+
+
+        return view('admin.dashboard.chart.filter_index._index-dashboard',compact( 'programLabel', 'programData', 'statusCount', 'pendingCount', 'ongoingCount', 'finishedCount',
+            'labels','data','customizes', 'allProposal', 'years'));
+    }
+
+    public function SearchData(Request $request)
+    {
+        $query = $request->input('query');
+
+            $customizes = CustomizeAdminProposal::where('id', 1)->get();
+
+            $statusCount = Proposal::select('authorize')
+            ->where(function ($query) {
+                if($year = request('year')){
+                $query->whereYear('created_at', $year);
+            }})->count();
+
+            $pendingCount = Proposal::where('authorize','pending')
+            ->where(function ($query) {
+            if($year = request('year')){
+            $query->whereYear('created_at', $year);
+            }})->count();
+
+            $ongoingCount = Proposal::where('authorize' ,'ongoing')
+            ->where(function ($query) {
+            if($year = request('year')){
+            $query->whereYear('created_at', $year);
+            }})->count();
+
+            $finishedCount = Proposal::where('authorize' ,'finished')
+            ->where(function ($query) {
+            if($year = request('year')){
+            $query->whereYear('created_at', $year);
+            }})->count();
+
+            $years = AdminYear::orderBy('year', 'DESC')->pluck('year');
+
+            $users = Proposal::select(DB::raw("COUNT(*) as count"),
+            DB::raw("MONTHNAME(created_at) as month_name"))
+            ->groupBy(DB::raw("month_name"))
+            ->orderBy('created_at','ASC')
+            ->pluck('count','month_name');
+
+            $labels = $users->keys();
+        $data = $users->values();
+
+
+        $proposals = Proposal::leftJoin('programs', 'proposals.program_id', '=', 'programs.id')
+            ->select(DB::raw("COUNT(*) as count"), 'programs.program_name as name')
+            ->groupBy(DB::raw("name"))
+            ->pluck('count','name');
+
+            $programLabel = $proposals->keys();
+            $programData = $proposals->values();
+
+            $proposals->keys();
+        $proposals->values();
+
+
+        $allProposal = Proposal::orderBy('authorize', 'desc')->with('programs')->with('proposal_members')
+        ->where(function ($query) {
+            if($companyId = request('status')){
+                $query->where('authorize', $companyId);
+        }})->where(function ($query) {
+            if($year = request('year')){
+            $query->whereYear('created_at', $year);
+        }})
+        ->when($query, function ($querys) use ($query) {
+            return $querys->where('project_title', 'like', "%$query%")
+            ->orWhere('authorize', 'like', "%$query%")
+            ->orWhere('created_at', 'like', "%$query%");
+        })->get();
+
+
+
+        return view('admin.dashboard.chart.filter_index._index-dashboard',compact( 'programLabel', 'programData', 'statusCount', 'pendingCount', 'ongoingCount', 'finishedCount',
+            'labels','data','customizes', 'allProposal', 'years'));
+    }
+
+
+    public function FilterYears(Request $request)
+    {
+        $query = $request->input('query');
+
+            $customizes = CustomizeAdminProposal::where('id', 1)->get();
+
+            $statusCount = Proposal::select('authorize')
+            ->where(function ($query) {
+                if($year = request('year')){
+                $query->whereYear('created_at', $year);
+            }})->count();
+
+            $pendingCount = Proposal::where('authorize','pending')
+            ->where(function ($query) {
+            if($year = request('year')){
+            $query->whereYear('created_at', $year);
+            }})->count();
+
+            $ongoingCount = Proposal::where('authorize' ,'ongoing')
+            ->where(function ($query) {
+            if($year = request('year')){
+            $query->whereYear('created_at', $year);
+            }})->count();
+
+            $finishedCount = Proposal::where('authorize' ,'finished')
+            ->where(function ($query) {
+            if($year = request('year')){
+            $query->whereYear('created_at', $year);
+            }})->count();
+
+            $years = AdminYear::orderBy('year', 'DESC')->pluck('year');
+
+            $users = Proposal::select(DB::raw("COUNT(*) as count"),
+            DB::raw("MONTHNAME(created_at) as month_name"))
+            ->groupBy(DB::raw("month_name"))
+            ->orderBy('created_at','ASC')
+            ->pluck('count','month_name');
+
+            $labels = $users->keys();
+        $data = $users->values();
+
+
+        $proposals = Proposal::leftJoin('programs', 'proposals.program_id', '=', 'programs.id')
+            ->select(DB::raw("COUNT(*) as count"), 'programs.program_name as name')
+            ->groupBy(DB::raw("name"))
+            ->pluck('count','name');
+
+            $programLabel = $proposals->keys();
+            $programData = $proposals->values();
+
+            $proposals->keys();
+        $proposals->values();
+
+
+        $allProposal = Proposal::orderBy('authorize', 'desc')->with('programs')->with('proposal_members')
+        ->where(function ($query) {
+            if($companyId = request('status')){
+                $query->where('authorize', $companyId);
+        }})
+        ->when($query, function ($querys) use ($query) {
+            return $querys->where('project_title', 'like', "%$query%")
+            ->orWhere('authorize', 'like', "%$query%")
+            ->orWhere('created_at', 'like', "%$query%");
+        })
+        ->where(function ($query) {
+            if($year = request('year')){
+            $query->whereYear('created_at', $year);
+        }})
+        ->get();
+
+
+
+        return view('admin.dashboard.chart.filter_index._index-dashboard',compact( 'programLabel', 'programData', 'statusCount', 'pendingCount', 'ongoingCount', 'finishedCount',
+            'labels','data','customizes', 'allProposal', 'years'));
+    }
 
 }
