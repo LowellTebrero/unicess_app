@@ -6,10 +6,11 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
+use App\Notifications\UserFollowNotification;
 use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
 use Laravel\Socialite\Facades\Socialite;
-
+use Illuminate\Support\Facades\Notification;
 class ProviderController extends Controller
 {
 
@@ -42,7 +43,7 @@ class ProviderController extends Controller
             }
 
         }else{
-            $newUser = User::create([
+            $user = User::create([
                 'name' => $user->name,
                 'email' => $user->email,
                 'provider_id' =>  $user->id,
@@ -51,24 +52,28 @@ class ProviderController extends Controller
 
 
             ]);
-            $newUser->email_verified_at = date('Y-m-d H:i:s');
-            $newUser->save();
+            $user->email_verified_at = date('Y-m-d H:i:s');
+            $user->save();
 
 
 
-            if($newUser->hasRole('Faculty extensionist')){
-                ($newUser->removeRole('Faculty extensionist'));
-            }elseif($newUser->hasRole('admin')){
-                $newUser->removeRole('admin');
+            if($user->hasRole('Faculty extensionist')){
+                ($user->removeRole('Faculty extensionist'));
+            }elseif($user->hasRole('admin')){
+                $user->removeRole('admin');
             }
 
-            $newUser->assignRole('New User');
+            $user->assignRole('New User');
 
-            Auth::login($newUser, true);
+            Auth::login($user, true);
+
+            $admin = User::whereHas('roles', function ($query) { $query->where('id', 1); })->get();
+
+            Notification::send($admin, new UserFollowNotification($user));
 
         }
 
-        if($newUser->hasRole('New User') || $existingUser->hasRole('New User')){
+        if($user->hasRole('New User') || $existingUser->hasRole('New User')){
             flash()->addSuccess('Account Registered.');
             return redirect()->to(route('auth.welcome-user'));
         }

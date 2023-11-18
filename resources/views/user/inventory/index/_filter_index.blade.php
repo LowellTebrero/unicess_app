@@ -1,7 +1,7 @@
 
 @foreach ($inventory as $invent )
                 @if ($invent->number == 1)
-                    <div class="flex p-5 flex-wrap">
+                    <div class="flex p-5 px-2 xl:px-3 2xl:px-4 flex-wrap">
                         @foreach ($proposals as $proposal )
                         @foreach ($proposal->proposal_members as $prop )
                             @if ($proposal->id == $prop->proposal_id)
@@ -142,14 +142,14 @@
                 <div class="flex flex-wrap relative px-4">
 
                     <div class="flex flex-col w-full">
-                          <div class="overflow-x-auto h-[80vh]">
+                          <div class="overflow-x-auto xl:h-[74vh] 2xl:h-[80vh]">
                               <table class="w-full">
                                 <thead>
                                   <tr class="sticky top-0 bg-white z-20">
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Created</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Uploader</th>
-                                    <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase"></th>
+                                    <th scope="col" class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase">Uploader</th>
+                                    <th scope="col" class="py-3 text-right text-xs font-medium text-gray-500 uppercase"></th>
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -160,7 +160,7 @@
                                     @if ($proposal->id == $prop->proposal_id)
 
                                             <tr class="hover:bg-gray-200 ">
-                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800  w-[1/4]">
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-600  w-[1/4]">
                                                     <a href={{ route('inventory.show', $proposal->id) }}>
                                                     <div class="flex items-center space-x-2">
                                                         <svg class="fill-blue-500 hover:fill-blue-600" xmlns="http://www.w3.org/2000/svg" height="40"
@@ -173,18 +173,18 @@
                                                 </a>
                                                 </td>
 
-                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 ">
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 ">
                                                     <a href={{ route('inventory.show', $proposal->id) }}>
-                                                    <h1 class="text-sm">{{ $proposal->created_at }}</h1>
+                                                    <h1 class="text-xs">{{ \Carbon\Carbon::parse($proposal->created_at)->format("M d, Y")}}</h1>
                                                     </a>
                                                 </td>
 
-                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 relative">
+                                                <td class="px-2 py-4 whitespace-nowrap text-sm text-gray-700 relative">
                                                     <a href={{ route('inventory.show', $proposal->id) }}>
                                                     <h1 class="text-xs">{{ $proposal->user->name }}</h1>
                                                     </a>
                                                 </td>
-                                                <td class="px-6 py-4 whitespace-nowrap text-left text-sm text-gray-800 relative">
+                                                <td class="py-4 whitespace-nowrap text-left  text-gray-700 relative">
                                                     <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = false" class="absolute top-4 left-0 ">
 
                                                         <!-- Modal -->
@@ -242,8 +242,6 @@
                                                                             <label class="text-xs text-gray-700 font-semibold tracking-wider">Finished date:</label>
                                                                             <h1 class="text-xs tracking-wider">{{ \Carbon\Carbon::parse($proposal->finished_date)->format('l,  F d, Y ')}}</h1>
                                                                         </div>
-
-
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -280,7 +278,7 @@
 
                                                         <div x-cloak x-data="{dropdownMenu: false}">
                                                             <!-- Dropdown toggle button -->
-                                                            <button @click="dropdownMenu = ! dropdownMenu" class="flex items-center p-2 rounded-md absolute top-0 right-0">
+                                                            <button @click="dropdownMenu = ! dropdownMenu" class="flex items-center p-2 rounded-md absolute top-0 right-5">
                                                                 <svg class="absolute hover:fill-blue-500 top-2 left-0 fill-slate-700" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z"/></svg>
                                                             </button>
                                                             <!-- Dropdown list -->

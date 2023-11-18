@@ -6,14 +6,16 @@ use App\Models\User;
 use App\Models\Faculty;
 use App\Models\Proposal;
 use App\Models\AdminYear;
+use App\Models\Evaluation;
 use App\Models\UserFaculty;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use App\Models\CustomizeAdminUserData;
-use App\Models\Evaluation;
+use App\Notifications\UserAuthorizeNotification;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\Notification;
 use App\Notifications\UserFollowNotification;
 
 class UserController extends Controller
@@ -24,8 +26,12 @@ class UserController extends Controller
         return view ('admin.users.main');
     }
 
-    public function show(User $user)
+    public function show(User $user, $user_id)
     {
+        if($user_id){
+            auth()->user()->unreadNotifications->where('id', $user_id)->markAsRead();
+        }
+
         $toggle = User::where('id', $user->id)->first();
         $years = AdminYear::orderBy('year', 'DESC')->pluck('year');
         $customs = CustomizeAdminUserData::where('id', 1)->get();
@@ -33,6 +39,8 @@ class UserController extends Controller
         $proposals = Proposal::with(['proposal_members' => function ($query) use ($user) {
         $query->where('user_id', $user->id);
         }])->whereYear('created_at', date('Y'))->orderBy('created_at', 'DESC')->get();
+
+
 
         return view ('admin.users.role', compact('user',  'toggle', 'proposals', 'years', 'customs', 'evaluations'));
     }
@@ -78,6 +86,10 @@ class UserController extends Controller
         $toggle->update([
             'authorize' => $request->input('state') ? 'checked' : 'close',
         ]);
+
+        $users = User::where('id', $id)->get();
+
+        Notification::send($users, new UserAuthorizeNotification($toggle));
 
 
 

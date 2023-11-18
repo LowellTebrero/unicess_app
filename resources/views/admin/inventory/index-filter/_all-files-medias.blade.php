@@ -1,8 +1,8 @@
-<div class="flex justify-evenly 2xl:space-x-5 xl:space-x-2 p-5 xl:text-xs ">
+<div class="flex justify-evenly 2xl:space-x-5 xl:space-x-2 p-5 pb-0 xl:text-xs ">
     <div class="flex flex-col w-full">
-        <div class="-m-1.5 ">
-        <div class="p-1.5 min-w-full inline-block align-middle">
-            <div class="overflow-x-auto xl:h-[60vh] 2xl:h-[70vh]">
+        <div class="">
+        <div class="min-w-full inline-block align-middle">
+            <div class="overflow-x-auto xl:h-[65vh] 2xl:h-[70vh] border">
                 <table class="min-w-full divide-y divide-gray-200 ">
                 <thead>
                 <tr class="sticky top-0 bg-gray-100 z-20">

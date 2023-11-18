@@ -4,7 +4,7 @@
         [x-cloak] {display: none}
     </style>
 
-    <section class="m-8 rounded-lg text-slate-700 relative mt-5 xl:min-h-[85vh] 2xl:min-h-[87vh]  bg-white">
+    <section class="m-8  rounded-lg  relative mt-5 xl:min-h-[85vh] 2xl:min-h-[87vh]  bg-white text-gray-700">
 
 
         @foreach ($allproposal as $proposal )
@@ -13,20 +13,20 @@
 
                 <div class="flex justify-between p-4 flex-col space-y-2 lg:space-y-0  lg:flex-row">
                     <div>
-                        <h1 class="xl:text-xl font-semibold tracking-wider md:text-lg text-base">List of Project Proposal </h1>
+                        <h1 class="xl:text-lg font-medium tracking-wider md:text-lg text-base">List of Project Proposal </h1>
                     </div>
 
                     <div class="sm:space-x-2 space-y-2 md:space-y-0 lg:flex-row text-xs">
-                        <input type="text" id="searchInput" class="rounded xl:text-sm text-xs w-full  sm:w-[15rem] md:w-[20rem]" placeholder="Search Proposal Title...">
+                        <input type="text" id="searchInput" class="rounded text-xs border-gray-300 w-full  sm:w-[15rem] md:w-[20rem]" placeholder="Search Proposal Title...">
 
-                        <select name="MyAllDropdown" id="MyAllDropdown" class="xl:text-sm text-xs border-slate-500 rounded w-full 2xl:w-[7rem] sm:w-[8rem]">
+                        <select name="MyAllDropdown" id="MyAllDropdown" class="text-xs border-gray-300 rounded w-full 2xl:w-[7rem] sm:w-[8rem]">
                             <option value="">All Year</option>
                                 @foreach ($years as $year )
                             <option value="{{ $year }}">{{ $year }}</option>
                             @endforeach
                         </select>
 
-                        <select name="Proposal" id="Proposal" class="xl:text-sm text-xs border-slate-500 rounded w-full 2xl:w-[8.5rem] sm:w-[8rem]">
+                        <select name="Proposal" id="Proposal" class="text-xs border-gray-300 rounded w-full 2xl:w-[8.5rem] sm:w-[8rem]">
                         @foreach ($allproposal as $proposal )
                         <option value="1" {{ old('1', $proposal->number) == '1' ? 'selected' : '' }}>All Proposal</option>
                         <option value="2" {{ old('2', $proposal->number) == '2' ? 'selected' : '' }}>My Proposal</option>
@@ -50,16 +50,16 @@
                     </div>
 
                     <div class="space-x-2">
-                        <input type="text" id="searchMyInput" class="rounded xl:text-sm text-xs" placeholder="Search Proposal Title...">
+                        <input type="text" id="searchMyInput" class="rounded text-xs border-gray-300 text-gray-600" placeholder="Search Proposal Title...">
 
-                        <select name="myProposalDropdown" id="myProposalDropdown" class="xl:text-sm text-xs border-slate-500 rounded">
+                        <select name="myProposalDropdown" id="myProposalDropdown" class="text-xs text-gray-600 border-gray-300 rounded">
                             <option value="">Select Year</option>
                             @foreach ($years as $year )
                                     <option value="{{ $year }}">{{ $year }}</option>
                             @endforeach
                     </select>
 
-                        <select name="Proposal" id="Proposal" class="xl:text-sm text-xs border-slate-500 rounded">
+                        <select name="Proposal" id="Proposal" class="text-xs border-gray-300 text-gray-600 rounded">
                         @foreach ($allproposal as $proposal )
                         <option value="1" {{ old('1', $proposal->number) == '1' ? 'selected' : '' }}>All Proposal</option>
                         <option value="2" {{ old('2', $proposal->number) == '2' ? 'selected' : '' }}>My Proposal</option>

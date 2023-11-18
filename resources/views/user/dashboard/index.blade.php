@@ -15,14 +15,14 @@
 
         @hasanyrole('Faculty extensionist|Extension coordinator')
 
-            <div class="mx-10 mt-5 mb-4">
-                <h1 class="tracking-wider 2xl:text-2xl text-slate-800 font-medium">Hi, {{ Auth()->user()->name }}</h1>
+            <div class="mx-10 mt-5  text-slate-700">
+                <h1 class="tracking-wider 2xl:text-2xl font-medium">Hi, {{ Auth()->user()->name }}</h1>
                 <div class="flex ">
                     <span class="tracking-wider text-sm">{{  date('D M d, Y') }} </span>
                 </div>
             </div>
 
-            <section class="mx-5 flex xl:flex-row flex-col md:flex-row justify-between 2xl:h-48 xl:h-36 lg:h-[25vh]  text-gray-700">
+            <section class="mx-5 flex xl:flex-row flex-col md:flex-row justify-between 2xl:h-48 xl:h-36 lg:h-[25vh] text-gray-700">
 
                 <a href={{ route('User-dashboard.profile') }} class="w-full m-5 rounded-lg hover:border hover:border-teal-400 hover:from-cyan-300 hover:to-sky-200 bg-gradient-to-tl from-cyan-400 to-sky-300 md:p-2 xl:px-5 2xl:px-10 2xl:py-9 xl:py-5 flex flex-col xl:flex-row lg:pt-3 xl:p-0 items-center">
                     @if($user->gender == 'Female')
@@ -32,7 +32,7 @@
                     @else
                     <img src="{{ asset('/upload/profile.png') }}" class="2xl:w-24 xl:mr-5 2xl:mr-8  xl:w-16 xl:h-12 2xl:h-20 w-16 lg:w-[4rem]">
                     @endif
-                    <h1 class="font-thick text-gray-900 tracking-wide xl:text-xs 2xl:text-base lg:text-center md:text-xs md:text-center">Your Role
+                    <h1 class="font-thick text-gray-700 tracking-wide xl:text-xs 2xl:text-base lg:text-center md:text-xs md:text-center">Your Role
                         <span class="block text-lg font-semibold xl:text-sm 2xl:text-lg lg:text-sm md:text-xs">
                             @foreach (Auth()->user()->roles as $role )
                                 {{ $role->name }}
@@ -43,7 +43,7 @@
                 </a>
 
                 <div class="w-full m-5 rounded-lg bg-gradient-to-tl from-violet-400 to-sky-500 xl:px-5 xl:py-5 2xl:px-10 2xl:py-5 flex lg:p-2">
-                    <div class="flex-1 text-gray-900 ">
+                    <div class="flex-1 text-gray-800 ">
                         <span class="block text-2xl font-medium xl:text-4xl 2xl:text-6xl  flex-1 lg:text-5xl">{{$counts}}</span>
                         <h1 class="font-thick  tracking-wide xl:text-xs 2xl:text-sm lg:text-xs">Completed Proposal</h1>
                     </div>
@@ -57,7 +57,7 @@
 
                 <a href={{route('User-dashboard.my-proposal')}} class="w-full m-5 rounded-lg  hover:from-red-400 hover:to-pink-500  bg-gradient-to-tl from-red-500 to-pink-400 xl:px-5  xl:py-5 2xl:px-10 2xl:py-5 flex">
 
-                    <div class="flex-1 text-gray-900">
+                    <div class="flex-1 text-gray-800">
 
                         <span class="block text-2xl font-medium xl:text-4xl 2xl:text-6xl  flex-1">{{$second}}</span>
                         <h1 class="font-thick  tracking-wide xl:text-xs 2xl:text-sm">Total Proposal</h1>
@@ -68,7 +68,7 @@
                     </div>
                 </a>
 
-                <a href={{ route('points-system.index') }} class="text-gray-900 w-full m-5 rounded-lg hover:from-sky-600 hover:to-sky-500  bg-gradient-to-tl from-sky-500 to-sky-400 xl:px-5  xl:py-5 2xl:px-10 2xl:py-5 flex ">
+                <a href={{ route('points-system.index') }} class="text-gray-800 w-full m-5 rounded-lg hover:from-sky-600 hover:to-sky-500  bg-gradient-to-tl from-sky-500 to-sky-400 xl:px-5  xl:py-5 2xl:px-10 2xl:py-5 flex ">
                     <div class="flex-1">
                         <span class="block text-2xl font-medium xl:text-4xl 2xl:text-6xl  flex-1"> @if ($latestYearPoints == null) 0 @else {{ $latestYearPoints->total_points }} @endif</span>
                         <h1 class="font-thick  tracking-wide xl:text-xs 2xl:text-sm">Total Points</h1>
@@ -81,7 +81,7 @@
 
             </section>
 
-            <section class="mx-10 my-5 xl:space-y-4 ">
+            <section class="mx-10 my-5 xl:space-y-4 text-gray-700">
 
                 <div class="relative overflow-x-auto rounded-lg shadow bg-white">
 

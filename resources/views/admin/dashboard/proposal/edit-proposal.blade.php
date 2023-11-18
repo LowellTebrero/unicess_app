@@ -15,10 +15,10 @@
 
     <x-admin-layout>
 
-        <section class="bg-white shadow rounded-xl m-8 mt-5 2xl:min-h-[87vh]">
+        <section class="bg-white shadow rounded-xl m-8 mt-5 2xl:min-h-[87vh] text-gray-600">
 
             @if ($proposals->authorize == 'pending')
-            <div class="flex  justify-between p-3 bg-red-200">
+            <div class="flex justify-between p-3 bg-red-200 rounded-tl rounded-tr">
                 <div class="flex flex-col sm:flex-row sm:space-x-8 font-medium text-gray-700">
                     <h1 class="text-[.7rem] xl:text-sm tracking-wider">Uploaded:
                         {{ \Carbon\Carbon::parse($proposals->created_at)->format('F-d-Y') }}</h1>
@@ -36,7 +36,7 @@
 
             @elseif ($proposals->authorize == 'ongoing')
 
-            <div class="flex justify-between p-3 bg-blue-200">
+            <div class="flex justify-between p-3 bg-blue-200 rounded-tl rounded-tr">
                 <div class="flex space-x-8 font-medium text-gray-700">
                     <h1 class="text-xs xl:text-sm tracking-wider">Uploaded:
                         {{ \Carbon\Carbon::parse($proposals->created_at)->format('F-d-Y') }}</h1>
@@ -53,7 +53,7 @@
             </div>
 
             @elseif ($proposals->authorize == 'finished')
-            <div class="flex justify-between p-3 bg-green-200">
+            <div class="flex justify-between p-3 bg-green-200 rounded-tl rounded-tr">
                 <div class="flex space-x-8 font-medium text-gray-700">
                     <h1 class="text-xs xl:text-sm tracking-wider">Uploaded:
                         {{ \Carbon\Carbon::parse($proposals->created_at)->format('F-d-Y') }}</h1>
@@ -93,7 +93,7 @@
                         </div>
 
                         <div class="w-full ">
-                            <label class="block text-gray-700 xl:text-xs text-[.7rem] font-semibold "> Program Name:</label>
+                            <label class="block text-gray-700 xl:text-xs text-[.7rem] font-semibold"> Program Name:</label>
                             <h1 class="xl:text-xs text-[.7rem] appearance-none rounded w-full  text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                                 {{ $proposals->programs->program_name }}</h1>
                         </div>
@@ -158,11 +158,11 @@
                                 @if ($proposal_mem->member_type !== null)
                                 <div>
                                     <h1 class="xl:text-xs text-[.6rem] font-medium text-gray-700 tracking-wider"> Name:</h1>
-                                    <span class="font-light xl:text-xs text-[.7rem]">{{ $proposal_mem->member_type !== null ? $proposal_mem->user->name : '' }}</span>
+                                    <span class="font-light 2xl:text-xs text-[.7rem]">{{ $proposal_mem->member_type !== null ? $proposal_mem->user->name : '' }}</span>
                                 </div>
                                 <div>
                                     <h1 class="xl:text-xs text-[.6rem] font-medium text-gray-700 tracking-wider"> Type:</h1>
-                                    <span class="font-light xl:text-xs text-[.7rem]">{{ $proposal_mem->member_type }}</span>
+                                    <span class="font-light 2xl:text-xs text-[.7rem]">{{ $proposal_mem->member_type }}</span>
                                 </div>
                                 @endif
                             </div>

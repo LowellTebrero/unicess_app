@@ -1,8 +1,8 @@
 <x-app-layout>
     <style> [x-cloak] { display: none}</style>
-    <section class="m-8 min-h-[87vh] bg-white mt-5  rounded-lg shadow text-slate-700">
+    <section class="m-8 h-[85vh] 2xl:min-h-[87vh] bg-white mt-5  rounded-lg shadow text-slate-700">
 
-        <div class=" flex justify-between p-5">
+        <div class="flex justify-between p-5 py-3">
             <h1 class="text-sm  tracking-wide">{{ $proposals->project_title }}</h1>
             <a href={{ route('User-dashboard.index') }} class="text-red-500 text-lg font-medium dynamic-link hover:bg-gray-200 rounded focus:bg-red-200">
                 <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none"
@@ -14,12 +14,12 @@
 
         <hr>
 
-        <div class="p-4 ">
-                <div class="flex w-full justify-between p-5 pt-0">
+        <div class="p-4">
+                <div class="flex w-full justify-between p-5 py-0">
                     <div>
                         <img src="{{ asset('img/track.svg') }}" width="300">
 
-                        <div class=" text-xs flex flex-row justify-between pt-2 ">
+                        <div class=" text-xs flex flex-row justify-between pt-2 text-gray-600">
                             <div class="flex flex-col">
                                 <h1>Uploaded at</h1>
                                 <h1>{{ $proposal->created_at->format('M. d, Y') }}</h1>
@@ -37,7 +37,7 @@
                         </div>
                     </div>
 
-                    <div class="flex space-y-2 xl:text-xs text-sm tracking-wider text-gray-600 flex-col  items-end ">
+                    <div class="flex space-y-2 text-xs tracking-wider text-gray-600 flex-col  items-end ">
                         <h1>Proposal ID: {{ $proposal->id }}</h1>
                         <h1>Status: {{ strtoupper($proposal->authorize) }}</h1>
                         @include('user.dashboard.show-user._see-details-show-user-proposal')
@@ -47,7 +47,7 @@
 
 
 
-                <div class="mt-4 m-5 min-h-[50vh] bg-gray-200 space-y-2 text-sm tracking-wider rounded">
+                <div class="m-5 2xl:min-h-[40vh] bg-gray-200 space-y-2 text-sm tracking-wider rounded">
 
                     <div class="flex justify-between py-2 px-4  tracking-wide bg-gray-600 text-white">
                         <h1>Time</h1>
@@ -55,59 +55,20 @@
 
                     </div>
 
-                    <div class="px-4 space-y-1">
-                        <div class="flex justify-between w-full  xl:text-[.7rem] 2xl:text-[.8rem]">
+                    <div class="px-4 space-y-1 overflow-x-auto h-[48vh] 2xl:h-[50vh]">
+                        <div class="flex justify-between w-full text-[.7rem] 2xl:text-[.8rem]">
                             <h1>{{ $proposal->created_at }} </h1>
                             <h1> Proposal uploaded</h1>
-
                         </div>
-
-                        <div class="flex justify-between w-full xl:text-[.7rem] 2xl:text-[.8rem] ">
-                            @foreach ($proposal->medias as $mediaLibrary)
-                                @if (!empty($mediaLibrary->model_id) && !empty($mediaLibrary->collection_name == 'proposalPdf'))
-                                    <span class="block">{{ $mediaLibrary->created_at }}</span>
-                                    <h1>{{ Str::limit($mediaLibrary->file_name) }} file uploaded</h1>
-                                @endif
-                            @endforeach
-                        </div>
-
-                        <div class="flex justify-between w-full  xl:text-[.7rem] 2xl:text-[.8rem]">
-                            @foreach ($proposal->medias as $mediaLibrary)
-                                @if (!empty($mediaLibrary->model_id) && !empty($mediaLibrary->collection_name == 'specialOrderPdf'))
-                                    <span class="block">{{ $mediaLibrary->created_at }}</span>
-                                    <h1>{{ Str::limit($mediaLibrary->file_name) }} file uploaded</h1>
-                                @endif
-                            @endforeach
-                        </div>
-
 
                         @foreach ($proposal->medias as $mediaLibrary)
-                            @if (!empty($mediaLibrary->model_id) && !empty($mediaLibrary->collection_name == 'MoaPDF'))
-                                <div class="flex justify-between w-full xl:text-[.7rem] 2xl:text-[.8rem]">
-                                    <span class="block">{{ $mediaLibrary->created_at }}</span>
-                                    <h1>{{ Str::limit($mediaLibrary->file_name) }} file uploaded</h1>
-                                </div>
-                            @elseif(!empty($mediaLibrary->model_id) && !empty($mediaLibrary->collection_name == 'officeOrder'))
-                                <div class="flex justify-between w-full xl:text-[.7rem] 2xl:text-[.8rem] ">
-                                    <span class="block">{{ $mediaLibrary->created_at }}</span>
-                                    <h1>{{ Str::limit($mediaLibrary->file_name) }} file uploaded</h1>
-                                </div>
-                            @elseif (!empty($mediaLibrary->model_id) && !empty($mediaLibrary->collection_name == 'travelOrder'))
-                                <div class="flex justify-between w-full xl:text-[.7rem] 2xl:text-[.8rem] ">
-                                    <span class="block">{{ $mediaLibrary->created_at }}</span>
-                                    <h1>{{ Str::limit($mediaLibrary->file_name) }} file uploaded</h1>
-                                </div>
-                            @elseif (!empty($mediaLibrary->model_id) && !empty($mediaLibrary->collection_name == 'otherFile'))
-                                <div class="flex justify-between w-full xl:text-[.7rem] 2xl:text-[.8rem] ">
-                                    <span class="block">{{ $mediaLibrary->created_at }}</span>
-                                    <h1>{{ Str::limit($mediaLibrary->file_name) }} file uploaded</h1>
-                                </div>
-                            @endif
+                        @if (!empty($mediaLibrary->model_id) && !empty($mediaLibrary->collection_name))
+                        <div class="flex justify-between w-full text-[.7rem] 2xl:text-[.8rem] ">
+                            <span class="block">{{ $mediaLibrary->created_at }}</span>
+                            <h1>{{ Str::limit($mediaLibrary->file_name, 90) }} file uploaded</h1>
+                        </div>
+                        @endif
                         @endforeach
-
-
-                    </div>
-
                 </div>
 
 

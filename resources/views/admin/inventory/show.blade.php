@@ -20,13 +20,7 @@
 
         <div class="flex flex-col relative  px-4 min-h-[80vh]">
 
-            {{--  <div class="my-5 flex justify-end px-4">
-                <select id="filter_faculty_id" type="text"  class="text-xs form-control rounded-md text-slate-700 border-slate-500">
-                    @foreach ($allFaculty as $id => $name )
-                        <option {{ $id == request('faculty_id') ? 'selected' : '' }} value="{{ $id }}">{{ $name }}</option>
-                    @endforeach
-                </select>
-            </div>  --}}
+          
 
             <div class="flex flex-row gap-4 col-2 mt-4 px-4 justify-center flex-wrap">
                 @forelse ($proposalID as $proposal )

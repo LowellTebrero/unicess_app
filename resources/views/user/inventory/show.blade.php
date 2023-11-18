@@ -16,7 +16,7 @@
       <?php flash()->addError($error); ?>
     @endforeach
     @endif
-        <section class="bg-white shadow rounded-xl min-h-[87vh] overflow-hidden m-8 mt-5 relative">
+        <section class="bg-white shadow rounded-xl min-h-[87vh] overflow-hidden m-8 mt-5 relative text-gray-700">
 
             <div class="bg-blue-200 bg-opacity-40 h-full absolute  z-10" id="mySidebar">
                 <div class="w-[0rem] bg-gray-600 h-full transition-all" id="subSidebar">

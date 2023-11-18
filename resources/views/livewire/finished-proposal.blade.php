@@ -54,19 +54,19 @@
                     <tr class="hover:bg-gray-200">
 
                         <td class="p-2 whitespace-nowrap">
-                            <a href={{ route('admin.dashboard.edit-proposal', $proposal->id) }}>
+                            <a href={{ route('admin.dashboard.edit-proposal', ['id' => $proposal->id, 'notification' => $proposal->id ]) }}>
                                 <div class="text-left text-[.7rem] text-gray-500">{{ $proposal->created_at->diffForHumans() }}</div>
                             </a>
                         </td>
 
                         <td class="p-2 whitespace-nowrap">
-                            <a href={{ route('admin.dashboard.edit-proposal', $proposal->id) }}>
+                            <a href={{ route('admin.dashboard.edit-proposal', ['id' => $proposal->id, 'notification' => $proposal->id ]) }}>
                             <div class="text-left font-medium text-gray-500">{{ Str::limit($proposal->project_title, 90) }}</div>
                             </a>
                         </td>
 
                         <td class="p-2 whitespace-nowrap">
-                            <a href={{ route('admin.dashboard.edit-proposal', $proposal->id) }}>
+                            <a href={{ route('admin.dashboard.edit-proposal', ['id' => $proposal->id, 'notification' => $proposal->id ]) }}>
                             <div class="text-left font-medium text-gray-500">{{ \Carbon\Carbon::parse($proposal->created_at)->format('M d, Y,  g:i:s A')}}</div>
                             </a>
                         </td>

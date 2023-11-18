@@ -54,6 +54,7 @@ Route::controller(PostController::class)->group(function () {
     Route::get('/dashboard', 'index')->middleware(['auth', 'verified'])->name('dashboard');
     Route::get('/proposal', 'proposal')->middleware(['auth', 'verified'])->name('proposal');
     Route::get('/mark-as-read/{id}', 'markasread')->name('markasread');
+    Route::get('/mark-all-as-read', 'markAllAsRead')->name('markallsread');
 });
 
 Route::controller(ProviderController::class)->group(function () {
@@ -73,7 +74,7 @@ Route::controller(LnuAdditionalController::class)->group(function () {
 
 
 // Route for Admin
-Route::middleware(['auth', 'role:admin'])->name('admin.')->prefix('admin')->group(function(){
+Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group(function(){
 
     Route::controller(IndexController::class)->group(function () {
         Route::get('/',  'index')->name('dashboard.index');
@@ -100,7 +101,7 @@ Route::middleware(['auth', 'role:admin'])->name('admin.')->prefix('admin')->grou
         Route::get('/main','mainIndex')->name('users.main');
         Route::get('/search','searchUser')->name('users.search');
         Route::get('/users','index')->name('users.index');
-        Route::get('/users/{user}','show')->name('users.show');
+        Route::get('/users/{user}/{user_id}','show')->name('users.show');
         Route::patch('/users/{id}','update')->name('users.update');
         Route::delete('/users/{user}','destroy')->name('users.destroy');
         Route::post('/users/{user}/roles','assignRole')->name('users.roles');
@@ -138,7 +139,7 @@ Route::middleware(['auth', 'role:admin'])->name('admin.')->prefix('admin')->grou
     Route::controller(DashboardController::class)->group(function () {
         Route::get('/upload','create')->name('dashboard.create');
         Route::post('/post-upload','store')->name('dashboard.store');
-        Route::get('/dashboard/user-proposal/{id}','checkProposal')->name('dashboard.edit-proposal');
+        Route::get('/dashboard/user-proposal/{id}/{notification}','checkProposal')->name('dashboard.edit-proposal');
         Route::put('/update-user-proposal/{id}',  'updateDetails')->name('dashboard.update-project-details');
         Route::delete('/delete-user-proposal',  'DeleteProposal')->name('dashboard.delete-project-proposal');
         Route::delete('/delete-user-media',  'DeleteMedia')->name('dashboard.delete-user-media');
@@ -150,7 +151,7 @@ Route::middleware(['auth', 'role:admin'])->name('admin.')->prefix('admin')->grou
 
 
     Route::controller(EvaluationController::class)->group(function () {
-        Route::get('/evaluation','index')->name('evaluation.index');
+        Route::get('/evaluation-index','index')->name('evaluation.index');
         Route::get('/evaluation/{id}/{year}', 'show')->name('evaluation.show');
         Route::patch('/evaluation-update/{id}', 'update')->name('evaluation.update');
         Route::get('/filters','filters')->name('evaluation.filters');
@@ -269,7 +270,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/makefile',  'fileIndex')->name('index-file');
         Route::get('/find',  'tagsInput')->name('api.skills');
         Route::post('/post-file',  'createDirecrotory')->name('post-index-file');
-        Route::get('/Proposal-mark-as-read/{id}',  'Proposalmarkasread')->name('Proposalmarkasread');
         Route::get('/proposal/dashboard-search/{id}',  'search')->name('proposal.user-dashboard-search');
         Route::get('/proposal/dashboard-filter/{id}',  'filter')->name('proposal.user-dashboard-filter');
         Route::resource('/User-dashboard',ProposalController::class);

@@ -6,13 +6,12 @@
 
 <x-admin-layout>
 
-    <div class="rounded-xl m-8 bg-white xl:min-h-[84vh] 2xl:min-h-[87vh]">
+    <div class="rounded-xl m-8 bg-white min-h-[85vh] 2xl:min-h-[87vh]">
 
-        <div class="p-4 py-3 flex justify-between">
+        <div class="p-4 py-2 flex justify-between">
             <div class="flex space-x-1 items-center">
                 <h1 class="2xl:text-2xl font-semibold text-gray-700 tracking-wider text-lg">Inventory Section</h1>
                 <h1>
-
                     @foreach ($inventory as $invent )
                     @if ($invent->number == '1' ||$invent->number == '2' )
                     (Program)

@@ -1,8 +1,19 @@
 @auth
 @php
-$id = Auth::user()->id;$user = App\Models\User::find($id);
+$id = Auth::user()->id;
+$user = App\Models\User::find($id);
+$usernotification = Illuminate\Support\Facades\DB::table('notifications')->get();
+$note = Illuminate\Support\Facades\DB::table('notifications')->where('read_at', NULL)->count();
+
 @endphp
 @endauth
+
+
+@php
+$notifs = auth()->user()->unreadNotifications->count();
+$notifications = auth()->user()->unreadNotifications;
+
+@endphp
 
 <nav x-data="{ open: false }" class="bg-blue-800 border-b border-blue-900  sticky top-0 z-50">
 
@@ -21,11 +32,14 @@ $id = Auth::user()->id;$user = App\Models\User::find($id);
                     </div>  --}}
 
                     <!-- Navigation Links -->
-                    {{--  <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
+                    @if (Auth()->user()->authorize == 'pending')
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-5 sm:flex">
                         <x-nav-link class="text-white home" :href="route('lnu')" :active="request()->routeIs('lnu')">
                             {{ __('Home') }}
                         </x-nav-link>
-                    </div>  --}}
+                    </div>
+                    @endif
+
                     @role('admin')
                      <div class="text-white mt-2 ml-6">
                         <h1 class="tracking-wider text-sm font-medium">Welcome, {{ Auth()->user()->name }} </h1>
@@ -36,65 +50,170 @@ $id = Auth::user()->id;$user = App\Models\User::find($id);
                 </div>
 
                 {{--  Authenticated Dropdown  --}}
-                <!-- Settings Dropdown -->
                 @auth
 
                 <div class="flex">
-
-                @role('admin')
-                <div class="hidden sm:flex sm:items-center sm:ml-6">
-                    <x-dropdown align="right" width="48" class="">
-                        @php
-                        $notifs = auth()->user()->unreadNotifications->count();
-                        $notifications = auth()->user()->unreadNotifications;
-                        @endphp
-
-                        <x-slot name="trigger">
-
-                            <button class=" mt-2 relative inline-flex items-center   border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-800 hover:text-yellow-500 focus:outline-none transition ease-in-out duration-150">
-                                <h1 class="text-red-500 font-black absolute z-10 right-1 top-0">{{ $notifs }}</h1>
-                                <svg class="fill-white" xmlns="http://www.w3.org/2000/svg" height="25" viewBox="0 96 960 960" width="30"><path d="M160 856v-60h84V490q0-84 49.5-149.5T424 258v-29q0-23 16.5-38t39.5-15q23 0 39.5 15t16.5 38v29q81 17 131 82.5T717 490v306h83v60H160Zm320 120q-32 0-56-23.5T400 896h160q0 33-23.5 56.5T480 976Z"/></svg>
-                            </button>
-
-                        </x-slot>
-
-                        <x-slot name="content">
-
-
-
-                            <div class="flex flex-col drop-shadow-lg backdrop-blur-sm  px-3 h-[30vh] overflow-y-auto overflow-x-hidden relative">
-
-
-                                <div class="sticky top-0 ">
-                                    <h1 class="font-semibold  mb-3 text-sm text-gray-800">Notifications</h1>
-                                </div>
-
-
-                                @forelse (auth()->user()->unreadnotifications as $notification )
-
-                                <hr class="">
-
-
-                                <h1 class="text-xs"> {{ $notification->data['email'] }}
-                                    <span class="text-[.7rem] text-gray-500 inline-block">New account:</span>
-                                    <span class="text-[.6rem] font-thin text-gray-500 inline-block">{{ $notification->created_at->diffForHumans() }}</span>
-                                </h1>
-
-
-                                <a class="text-blue-500  text-[.7rem] py-2 " href={{ route('markasread', $notification->id) }} data-id="{{ $notification->id }}">
-                                    Mark as read
-                                </a>
-
-                                @empty
-
-                                <h1 class="text-center">No notifications</h1>
-                                @endforelse
+                    @role('admin')
+                        <div class="relative" x-data="{ open: false }" @click.outside="open = false" @close.stop="open = false">
+                            <div @click="open = ! open">
+                                <button class="mt-4 relative ">
+                                    @if ($notifs > 0)
+                                    <h1 class="text-red-500 text-[.2rem] rounded-full  px-1 pt-1 font-semibold absolute z-10 right-0 top-2 bg-red-500">{{ $notifs }}</h1>
+                                    @endif
+                                    <svg class="mt-1 fill-white hover:fill-slate-200" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path  d="M20 17h2v2H2v-2h2v-7a8 8 0 1 1 16 0v7ZM9 21h6v2H9v-2Z"/></svg>
+                                </button>
                             </div>
 
-                        </x-slot>
-                    </x-dropdown>
-                </div>
-                @endrole
+                            <div x-show="open"
+                                    x-transition:enter="transition ease-out duration-200"
+                                    x-transition:enter-start="transform opacity-0 scale-95"
+                                    x-transition:enter-end="transform opacity-100 scale-100"
+                                    x-transition:leave="transition ease-in duration-75"
+                                    x-transition:leave-start="transform opacity-100 scale-100"
+                                    x-transition:leave-end="transform opacity-0 scale-95"
+                                    class="absolute z-50 mt-2  rounded-md shadow-lg origin-top-right right-0"
+                                    style="display: none;"
+                                    @click="open = false">
+
+                                <div class="rounded-md ring-1 ring-black ring-opacity-5 overflow-hidden overflow-y-auto h-[50vh]">
+                                    <div class="flex flex-col drop-shadow-lg w-[20rem] rounded  relative">
+
+
+                                        <div class="p-2 sticky top-0 bg-white z-10 flex justify-between items-center">
+                                            <h1 class="font-semibold text-sm text-gray-600">Notifications</h1>
+                                            <a href={{ route('markallsread') }} class="text-[.7rem] text-gray-700">Mark all as read</a>
+                                        </div>
+
+                                        @foreach (auth()->user()->notifications as $notification )
+                                            <hr>
+
+                                            @foreach($notification->data as $key => $value)
+
+                                                <div class="overflow-hidden">
+
+                                                    @if (($key == 'id' ) == !null )
+                                                    <a href={{ route('admin.dashboard.edit-proposal',  ['id' => $value, 'notification' => $notification->id ] ) }} data-id="{{ $notification->id }}" class="absolute opacity-0  h-[10vh] sm:h-[10vh] md:h-[10vh]  2xl:h-[8.5vh]  w-full">
+                                                    </a>
+                                                    @endif
+
+                                                    @if (($key == 'project_title' ) == !null )
+                                                        <div class="px-4 py-2 flex  {{ $notification->read_at == NULL ? 'bg-teal-50' : 'bg-white' }}">
+                                                            <div class="mt-2 mr-2">
+                                                                  <svg class="fill-teal-500" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 36 36"><path  d="M31 34H13a1 1 0 0 1-1-1V11a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v22a1 1 0 0 1-1 1Zm-17-2h16V12H14Z" class="clr-i-outline clr-i-outline-path-1"/><path fill="currentColor" d="M16 16h12v2H16z" class="clr-i-outline clr-i-outline-path-2"/><path fill="currentColor" d="M16 20h12v2H16z" class="clr-i-outline clr-i-outline-path-3"/><path fill="currentColor" d="M16 24h12v2H16z" class="clr-i-outline clr-i-outline-path-4"/><path fill="currentColor" d="M6 24V4h18V3a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v22a1 1 0 0 0 1 1h1Z" class="clr-i-outline clr-i-outline-path-5"/><path fill="currentColor" d="M10 28V8h18V7a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v22a1 1 0 0 0 1 1h1Z" class="clr-i-outline clr-i-outline-path-6"/><path fill="none" d="M0 0h36v36H0z"/></svg>
+                                                            </div>
+                                                            <div>
+                                                                <span class="text-[.7rem] font-semibold tracking-wider text-gray-900 inline-block">New Uploaded Proposal:</span>
+                                                                <h1 class="text-[.7rem] text-gray-700"> {{Str::limit($value, 80) }}</h1>
+                                                                <span class="text-[.7rem] font-thin text-gray-400 inline-block">{{ $notification->created_at->diffForHumans() }}</span>
+                                                            </div>
+                                                        </div>
+                                                    @endif
+                                                </div>
+
+                                                <div>
+
+                                                    @if (($key == 'user_id' ) == !null )
+                                                    <a href={{ route('admin.users.show',  ['user' => $value, 'user_id' => $notification->id ] ) }} data-id="{{ $notification->id }}" class="absolute opacity-0  h-[10vh] sm:h-[10vh] md:h-[10vh]  2xl:h-[8.5vh]  w-full">
+
+                                                    </a>
+                                                    @endif
+
+                                                    @if (($key == 'email' ) == !null )
+                                                        <div class="px-4 py-2 flex hover:bg-teal-100 {{ $notification->read_at == NULL ? 'bg-teal-50' : 'bg-white' }}">
+                                                            <div class="mr-2">
+                                                                  <svg class="fill-teal-500" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512"><path d="M256 256c52.805 0 96-43.201 96-96s-43.195-96-96-96-96 43.201-96 96 43.195 96 96 96zm0 48c-63.598 0-192 32.402-192 96v48h384v-48c0-63.598-128.402-96-192-96z" /></svg>
+                                                            </div>
+                                                            <div>
+                                                                <span class="text-[.7rem] font-semibold tracking-wider text-gray-900 inline-block">New Account registered:</span>
+                                                                <h1 class="text-[.7rem] text-gray-700"> {{Str::limit($value, 80) }}</h1>
+                                                                <span class="text-[.7rem] font-thin text-gray-400 inline-block">{{ $notification->created_at->diffForHumans() }}</span>
+                                                            </div>
+                                                        </div>
+                                                    @endif
+                                                </div>
+
+                                            @endforeach
+                                    @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endrole
+
+                    @hasrole(['New User', 'Extension coordinator' , 'Faculty extensionist'])
+
+                    <div class="relative" x-data="{ open: false }" @click.outside="open = false" @close.stop="open = false">
+                        <div @click="open = ! open">
+                            <button class="mt-4 relative ">
+                                @if ($notifs > 0)
+                                <h1 class="text-red-500 text-[.2rem] rounded-full  px-1 pt-1 font-semibold absolute z-10 right-0 top-2 bg-red-500">{{ $notifs }}</h1>
+                                @endif
+
+                                <svg class="mt-1 fill-white hover:fill-slate-200" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path  d="M20 17h2v2H2v-2h2v-7a8 8 0 1 1 16 0v7ZM9 21h6v2H9v-2Z"/></svg>
+                            </button>
+                        </div>
+
+                        <div x-show="open"
+                            x-transition:enter="transition ease-out duration-200"
+                            x-transition:enter-start="transform opacity-0 scale-95"
+                            x-transition:enter-end="transform opacity-100 scale-100"
+                            x-transition:leave="transition ease-in duration-75"
+                            x-transition:leave-start="transform opacity-100 scale-100"
+                            x-transition:leave-end="transform opacity-0 scale-95"
+                            class="absolute z-50 mt-2  origin-top-right right-0"
+                            style="display: none;"
+                            @click="open = false">
+                                <div class="rounded-md  overflow-hidden overflow-y-auto h-[50vh]">
+                                    <div class="flex ring-1 ring-black ring-opacity-5 flex-col drop-shadow-lg w-[20rem] rounded  relative  ">
+
+                                        <div class="p-2 sticky top-0 bg-white z-10 flex justify-between items-center">
+                                            <h1 class="font-semibold text-sm text-gray-600">Notifications</h1>
+                                            <a href={{ route('markallsread') }} class="text-[.7rem] text-gray-700">Mark all as read</a>
+                                        </div>
+
+                                        {{--  {{ dd($notifications) }}  --}}
+                                        @forelse (auth()->user()->notifications as $notification)
+
+                                        <hr>
+
+                                        @foreach($notification->data as $key => $value)
+                                            <div class="hover:bg-gray-200">
+
+                                                @if (($key == 'authorize') == !null )
+                                                    <div class="pb-3 px-4 flex  {{ $notification->read_at == NULL ? 'bg-teal-50' : 'bg-white' }}">
+                                                        <div class="mt-2 mr-2">
+                                                            <svg class="fill-teal-500" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path  d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4s-4 1.79-4 4s1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                                                        </div>
+                                                        <div>
+                                                            @if ($value == 'close')
+                                                                    <span class="text-[.7rem] font-semibold tracking-wider text-gray-900 inline-block">Account Update:</span>
+                                                                    <h1 class="text-[.7rem] text-gray-700">Your Account has been declined by admin</h1>
+                                                                    <span class="text-[.7rem] font-thin text-gray-400 inline-block">{{ $notification->created_at->diffForHumans() }}</span>
+                                                                @elseif ($value == 'checked')
+                                                                    <span class="text-[.7rem] font-semibold tracking-wider text-gray-900 inline-block">Account Update:</span>
+                                                                    <h1 class="text-[.7rem] text-gray-700">Your Account has been approved by admin</h1>
+                                                                    <span class="text-[.7rem] font-thin text-gray-400 inline-block">{{ $notification->created_at->diffForHumans() }}</span>
+                                                            @endif
+
+                                                        </div>
+                                                    </div>
+
+                                                @endif
+                                            </div>
+                                        @endforeach
+
+                                        {{--  <a class="text-blue-500  text-[.7rem] py-2 " href={{ route('markasread', $notification->id) }} data-id="{{ $notification->id }}">
+                                                Mark as read
+                                            </a>  --}}
+
+                                        @empty
+                                        <h1 class="text-center">No notifications</h1>
+                                        @endforelse
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endhasrole
 
                 <div class="hidden sm:flex sm:items-center sm:ml-6">
                     <x-dropdown align="right" width="48">

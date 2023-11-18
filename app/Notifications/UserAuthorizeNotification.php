@@ -7,18 +7,18 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class ProposalNotification extends Notification
+class UserAuthorizeNotification extends Notification
 {
     use Queueable;
-    public $post;
+    public $toggle;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($post)
+    public function __construct($toggle)
     {
-        $this->post = $post;
+        $this->toggle = $toggle;
     }
 
     /**
@@ -32,12 +32,25 @@ class ProposalNotification extends Notification
         return ['database'];
     }
 
+    /**
+     * Get the mail representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return \Illuminate\Notifications\Messages\MailMessage
+     */
 
+
+    /**
+     * Get the array representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return array
+     */
     public function toArray($notifiable)
     {
         return [
-            'id' => $this->post->id,
-            'project_title' => $this->post->project_title,
+            'authorize_id' => $this->toggle->id,
+            'authorize' => $this->toggle->authorize,
         ];
     }
 }

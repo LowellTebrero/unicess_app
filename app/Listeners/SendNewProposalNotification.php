@@ -28,10 +28,10 @@ class SendNewProposalNotification
      */
     public function handle($event)
     {
-        $partners = User::whereHas('roles', function ($query) {
-            $query->where('id', 5);
+        $admin = User::whereHas('roles', function ($query) {
+            $query->where('id', 1);
         })->get();
 
-    Notification::send($partners, new ProposalNotification($event->proposals));
+    // Notification::send($admin, new ProposalNotification($event->proposal));
     }
 }

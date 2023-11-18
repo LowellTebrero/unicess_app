@@ -1,6 +1,6 @@
 <x-admin-layout>
 
-    <section class="mt-8 m-5 rounded-lg bg-white min-h-[87vh]">
+    <section class="mt-8 m-5 rounded-lg bg-white  min-h-[85vh] 2xl:min-h-[87vh]">
 
         <header class="p-4 py-2 flex justify-between items-center">
             <h1 class="text-lg font-medium tracking-wider text-slate-700">Proposal Overview</h1>
@@ -22,13 +22,20 @@
                 </div>
 
 
-                <div class="flex 2xl:flex-row flex-col space-x-1  m-5 mt-5 rounded-lg">
+                <div class="flex xl:flex-row flex-col space-x-1  m-5 mt-5 rounded-lg  xl:w-11/12 2xl:w-auto ">
                     <div class="xl:w-1/2">
-                        <canvas id="myChart" width="300" height="150"></canvas>
+                        <h1 class="text-sm tracking-wider pl-5">Count of Uploaded Proposal By Month</h1>
+                        <div class="p-5">
+                            <canvas id="myChart" width="500" height="200"></canvas>
+                        </div>
+
                     </div>
 
-                    <div class="xl:w-1/2">
-                        <canvas id="myCharts" width="300" height="150"></canvas>
+                    <div class="xl:w-1/2 pl-5">
+                        <h1 class="text-sm tracking-wider">Count of Used Program</h1>
+                        <div class="p-5">
+                            <canvas id="myCharts" width="500" height="200"></canvas>
+                        </div>
                         {{--  {!! $chart->container() !!}
                         {!! $chart->script() !!}  --}}
                     </div>
@@ -37,12 +44,13 @@
 
             @elseif ($customize->number == 2 )
 
-                <div class="flex 2xl:flex-col flex-col pt-0 space-x-5 2xl:space-x-0  m-5 mt-0 rounded-lg ">
+                <div class="flex 2xl:flex-col flex-col pt-0  m-5 mt-0 rounded-lg ">
 
-                    <div class="flex justify-between  py-2 space-x-2">
+                    <div class="flex justify-between  py-2  ">
 
-                        <div id="wrapper" class=" flex items-center transition-all px-2 py-1 rounded border ">
-                            <button  class="flex items-center space-x-2 text-xs" id="YesDelete">
+
+                        <div id="wrapper" class="flex items-center transition-all px-2 py-1 rounded border ">
+                            <button class="flex items-center space-x-2 text-xs text-gray-700" id="YesDelete">
                                 Delete proposal
                                 <svg class="fill-gray-500" xmlns="http://www.w3.org/2000/svg" height="15"
                                 viewBox="0 96 960 960" width="15">
@@ -50,6 +58,7 @@
                                 </svg>
                             </button>
                         </div>
+
                         <div>
                             <input id="searchInput"  class=" text-xs rounded border border-gray-300 2xl:w-[20rem] sm:w-[15rem] w-full text-gray-700" type="text" placeholder="Search Proposal Title...">
                             <select class="text-xs rounded border border-gray-300 text-gray-700" id="MyYear">
@@ -77,9 +86,6 @@
 
                     </div>
                     <hr>
-
-
-
                     <div id="filtered-data">
                         @include('admin.dashboard.chart.filter_index._index-dashboard')
                     </div>
@@ -144,11 +150,11 @@
 
                 const ctxx = document.getElementById('myCharts');
                 const myCharts = new Chart(ctxx, {
-                    type: 'doughnut',
+                    type: 'horizontalBar',
                     data: {
                         labels: labels,
                         datasets: [{
-                            label: 'Month of Uploaded of Proposal',
+                            label: 'Count of Program',
                             data: users,
                             backgroundColor: [
                                 'rgba(255, 99, 132, 0.2)',
@@ -169,6 +175,27 @@
                             borderWidth: 1,
 
                         }]
+                    },
+                    options: {
+                        scales: {
+                            x: {
+                                beginAtZero: true
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: true,
+                                position: 'top',
+                                labels: {
+                                    color: 'black'
+                                }
+                            },
+                            title: {
+                                display: true,
+                                text: 'User Registration Count per Month',
+                                color: 'black'
+                            }
+                        }
                     }
                 });
             }, true);

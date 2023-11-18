@@ -20,16 +20,7 @@ class Proposal extends Model implements HasMedia
     use InteractsWithMedia;
     use Notifiable;
 
-    protected $fillable = [
-        'user_id',
-        'program_id',
-        'started_date' ,
-        'finished_date',
-        'project_title',
-        'authorize',
-
-
-    ];
+    protected $guarded = [];
 
     public function programs():BelongsTo
     {

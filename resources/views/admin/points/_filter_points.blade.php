@@ -1,15 +1,14 @@
 
-
-<div class="rounded-lg border border-gray-200 shadow-sm m-5 mt-7 overflow-x-auto h-[70vh] 2xl:h-[75vh]">
+<div class="rounded-lg border border-gray-200 shadow-sm m-5 mt-7 overflow-x-auto h-[70vh] 2xl:h-[75vh] text-gray-700">
     <table class="w-full border-collapse bg-white text-left text-sm text-gray-500 xl:text-xs 2xl:text-sm">
         <thead class="bg-gray-50">
             <tr class="sticky top-0 bg-gray-50 z-20">
-                <th scope="col" class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-2 py-4 font-medium text-gray-900">Username</th>
-                <th scope="col" class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-2 py-4 font-medium text-gray-900">Role Name</th>
-                <th scope="col" class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-2 py-4 font-medium text-gray-900">Faculty Name</th>
-                <th scope="col" class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-2 py-4 font-medium text-gray-900">Total Proposal</th>
-                <th scope="col" class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-2 py-4 font-medium text-gray-900">Created</th>
-                <th scope="col" class="px-4 xl:pl-4 xl:px-2 2xl:px-4 2xl:pl-2 py-4 font-medium text-gray-900">Points</th>
+                <th scope="col" class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-2 py-4 font-medium text-gray-600">Username</th>
+                <th scope="col" class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-2 py-4 font-medium text-gray-600">Role Name</th>
+                <th scope="col" class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-2 py-4 font-medium text-gray-600">Faculty Name</th>
+                <th scope="col" class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-2 py-4 font-medium text-gray-600">Total Proposal</th>
+                <th scope="col" class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-2 py-4 font-medium text-gray-600">Created</th>
+                <th scope="col" class="px-4 xl:pl-4 xl:px-2 2xl:px-4 2xl:pl-2 py-4 font-medium text-gray-600">Points</th>
             </tr>
         </thead>
 
@@ -69,7 +68,7 @@
 
             <td class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-2 py-4">
                 <a href="{{ route('admin.points.show',  ['id' => $latestDatas->users->id, 'year' => $currentYear]) }}">
-                <div class="flex gap-2 text-black">
+                <div class="flex gap-2 text-gray-800">
                    @if ($latestDatas->total_points > 0)
                    {{ $latestDatas->total_points }}
                    @else

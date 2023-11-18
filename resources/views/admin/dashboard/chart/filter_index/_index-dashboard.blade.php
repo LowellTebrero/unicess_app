@@ -31,7 +31,7 @@
                     <div class="font-semibold text-left">Project Title</div>
                 </th>
 
-                <th class="p-2 whitespace-nowrap hidden sm:block w-[5rem]">
+                <th class="p-2 whitespace-nowrap hidden sm:block 2xl:w-[5rem]">
                     <div class="font-semibold text-left">Uploaded</div>
                 </th>
                 <th class="p-2 whitespace-nowrap">
@@ -66,13 +66,20 @@
                     <td class="p-3 whitespace-nowrap">
                         <a href={{ route('admin.dashboard.edit-proposal', $proposal->id) }}>
                         <div
-                            class="text-left text-gray-700 xl:text-[.7rem]">
+                            class="text-left text-gray-700 xl:text-[.7rem] flex items-center space-x-1">
+                            <svg class="fill-yellow-400" xmlns="http://www.w3.org/2000/svg" height="30"
+                                viewBox="0 96 960 960" width="30">
+                                <path d="M141 896q-24 0-42-18.5T81 836V316q0-23 18-41.5t42-18.5h280l60 60h340q23 0 41.5 18.5T881 376v460q0 23-18.5 41.5T821 896H141Z" />
+                            </svg>
+                            <div>
                                 {{ Str::limit($proposal->project_title, 80) }}
+                            </div>
+
                         </div>
                         </a>
                     </td>
 
-                    <td class="p-3 whitespace-nowrap  hidden sm:block w-[5rem]">
+                    <td class="p-3 whitespace-nowrap  hidden sm:block 2xl:w-[5rem]">
                         <a href={{ route('admin.dashboard.edit-proposal', $proposal->id) }}>
                         <div class="text-left text-gray-700  xl:text-[.7rem]">
                            {{ \Carbon\Carbon::parse($proposal->created_at)->format('M d, Y,  g:i:s A')}}

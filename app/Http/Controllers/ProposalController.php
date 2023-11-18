@@ -21,6 +21,8 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use App\Models\TemporaryEvaluationFile;
+use App\Notifications\ProposalNotification;
+use Illuminate\Support\Facades\Notification;
 
 
 
@@ -75,6 +77,8 @@ class ProposalController extends Controller
         $locations = Location::orderBy('location_name')->pluck('location_name', 'id')->prepend('Select Location', '');
         $parts_names = ParticipationName::orderBy('participation_name')->pluck('participation_name', 'id')->prepend('Select Participation', '');
 
+
+
         return view('user.dashboard.create', compact('programs', 'members','ceso_roles', 'locations','parts_names'  ));
     }
 
@@ -116,6 +120,9 @@ class ProposalController extends Controller
 
         $post->save();
 
+        $admin = User::whereHas('roles', function ($query) { $query->where('id', 1);})->get();
+
+        Notification::send($admin, new ProposalNotification($post));
 
 
         if($request->leader_id){
@@ -149,6 +156,10 @@ class ProposalController extends Controller
         }
 
         flash()->addSuccess('Proposal Uploaded Successfully.');
+
+
+
+
 
         return redirect(route('User-dashboard.index'));
     }

@@ -26,7 +26,7 @@
                 <div class="flex space-x-2">
                     <span class="block xl:text-5xl 2xl:text-6xl text-4xl font-medium">{{ $pendingAccount }}</span>
 
-                <div class=" flex flex-col ">
+                <div class="flex flex-col">
                     @if ($getCountUsers > 0)
                     <span class="text-green-500">{{ $getCountUsers }} % </span>
                     <span class="text-xs text-green-500">of today</span>

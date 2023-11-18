@@ -59,6 +59,7 @@ class Article extends Component
 
     public function render()
     {
+
         $this->features = Feature::orderBy('updated_at', 'desc')->get();
         return view('livewire.article');
     }

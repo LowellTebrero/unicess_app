@@ -166,7 +166,7 @@
             $maxLength = 18; // Adjust the maximum length as needed
             @endphp
 
-     
+
             @foreach ($proposals->medias as $mediaLibrary)
                 @if ((!empty($mediaLibrary->model_id)) && (!empty($mediaLibrary->collection_name)))
 

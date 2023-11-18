@@ -1,6 +1,6 @@
 <x-admin-layout>
 
-    <section class="text-gray-700 2xl:min-h-[87vh] m-8 mt-5  bg-white rounded-xl shadow">
+    <section class="text-gray-700 min-h-[85vh] 2xl:min-h-[87vh] m-8 mt-5  bg-white rounded-xl shadow">
 
         <div class="flex justify-between p-5 py-4">
             <div>
@@ -17,8 +17,8 @@
             </div>
 
             <div>
-                <input type="text" placeholder="Search name and email..." class="xl:text-sm border-slate-500 rounded-lg text-xs" id="searchInput">
-                <select name="myDropdown" id="myDropdown" class="xl:text-sm border-slate-500 rounded-lg text-xs">
+                <input type="text" placeholder="Search name and email..." class="xl:text-xs border-slate-400 rounded-lg text-sm" id="searchInput">
+                <select name="myDropdown" id="myDropdown" class="xl:text-xs border-slate-400 rounded-lg text-sm">
                     @foreach ($years as $year )
                         <option value="{{ $year }}" @if ($year == date('Y')) selected="selected" @endif>{{ $year }}</option>
                     @endforeach

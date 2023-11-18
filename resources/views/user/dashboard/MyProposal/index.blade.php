@@ -11,12 +11,12 @@
         </header>
         <hr>
 
-        <div class="p-10 rounded bg-gray-100 m-8">
+        <div class="rounded m-8">
             <div class="flex justify-end">
 
                 <div>
-                    <input type="text" class="lg:text-xs xl:text-sm rounded" placeholder="Search Project title..." id="searchInput">
-                    <select class="lg:text-xs xl:text-sm rounded" id="Year" >
+                    <input type="text" class="text-xs rounded border-gray-400 text-gray-700" placeholder="Search Project title..." id="searchInput">
+                    <select class="text-xs rounded text-gray-500 border-gray-400" id="Year" >
                          <option value="">All Year</option>
                         @foreach ($years as $year )
                             <option value="{{$year}}" @if ($year == date('Y')) selected="selected" @endif >{{ $year }}</option>

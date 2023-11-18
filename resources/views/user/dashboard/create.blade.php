@@ -9,10 +9,10 @@
         }
     </style>
 
-    <section class="bg-white mt-5  m-8 rounded-xl 2xl:min-h-[87vh] xl:min-h-[70vh]">
+    <section class="mt-5 m-8 rounded-xl 2xl:h-[87vh] h-[85vh] bg-white text-gray-700">
 
         <div class="flex justify-between items-center p-4 ">
-            <h1 class="2xl:text-2xl text-lg font-semibold text-slate-700">Upload Proposal <span class="text-red-500 text-xs tracking-wide font-light"> * required fields</span></h1>
+            <h1 class="2xl:text-2xl text-lg font-semibold text-slate-600">Upload Proposal <span class="text-red-500 text-xs tracking-wide font-light"> * required fields</span></h1>
             <a href="/User-dashboard" class="text-red-500 text-xl font-medium focus:bg-gray-300 focus:rounded">
                 <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -30,61 +30,60 @@
         @endif
 
 
-        <form class="pb-8 pt-2  p-7 xl:mt-2 2xl:mt-12" action="{{ route('User-dashboard.store') }}" method="POST" enctype="multipart/form-data">
+        <form class="pt-2 px-5 2xl:px-10 xl:mt-2 2xl:mt-5 h-[75vh] 2xl:h-[78vh]" action="{{ route('User-dashboard.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
-        <div class="w-full mx-auto xl:w-3/4 rounded-lg">
-            <div class="flex space-y-5 flex-col  w-full">
-                <div class="w-full">
-                    <label class="xl:text-xs block text-slate-700 text-sm font-medium mb-2 2xl:text-sm" for="program_id">Program Name <span class="text-red-500">*</span></label>
+        <div class="w-full mx-auto pt-4 rounded-lg relative h-full">
+            <div class="flex space-x-4 flex-row  w-full">
+                <div class="w-1/2">
+                    <label class="xl:text-xs block text-slate-600 text-sm font-medium mb-2 2xl:text-sm" for="program_id">Program Name <span class="text-red-500">*</span></label>
                     <select id="program_id" class="rounded-md xl:text-xs w-full border-zinc-300  py-2 px-3" name="program_id" value="{{ old('program_id') }}" required>
                         @foreach ($programs as $id => $program_name ) <option value="{{ $id }}" @if ($id == old('program_id')) selected="selected" @endif >{{ $program_name }}</option> @endforeach
                     </select>
                     @error('program_id') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
                 </div>
 
-                <div class=" w-full">
-                    <label class="xl:text-xs block text-slate-700 text-sm font-medium mb-2 2xl:text-sm" for="project_title">Proposal Title <span class="text-red-500">*</span></label>
-                    <input class="border-zinc-300 xl:text-xs  appearance-none border rounded w-full  py-2 px-3 text-slate-700 leading-tight focus:outline-none" name="project_title" id="project_title" type="text" value="{{ old('project_title') }}" placeholder="project title" required>
+                <div class="w-full">
+                    <label class="xl:text-xs block text-slate-600 text-sm font-medium mb-2 2xl:text-sm" for="project_title">Proposal Title <span class="text-red-500">*</span></label>
+                    <input class="border-zinc-300 xl:text-xs  appearance-none border rounded w-full  py-2 px-3 text-slate-600 leading-tight focus:outline-none" name="project_title" id="project_title" type="text" value="{{ old('project_title') }}" placeholder="project title" required>
                     @error('project_title') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
                 </div>
-
-                <div class="xl:flex xl:justify-between mt-4 space-x-4 w-full">
-                    <div class="mb-4 w-full">
-                        <label class="xl:text-xs block text-slate-700 text-sm font-medium mb-2">PROJECT PROPOSAL (PDF) <span class="text-red-500">*</span></label>
-                        <input onchange="checkInputs()"  class="bg-white border-zinc-300 xl:text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-700 leading-tight focus:outline-none" name="proposal_pdf" id="proposal_pdf" type="file" required>
-                        @error('proposal_pdf') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
-                    </div>
-
-                    <div class="mb-4 w-full">
-                        <label class="xl:text-xs block text-slate-700 text-sm font-medium mb-2">SPECIAL ORDER (PDF) <span class="text-red-500">*</span></label>
-                        <input onchange="checkInputs()" class="bg-white border-zinc-300 xl:text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-700 leading-tight focus:outline-none" name="special_order_pdf" id="special_order_pdf" type="file" required>
-                        @error('special_order_pdf') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
-                    </div>
-                </div>
-
             </div>
 
-            <div class="flex space-y-4 flex-col  w-full">
+            <div class="xl:flex xl:justify-between mt-4 space-x-4 w-full">
+                <div class="mb-4 w-full">
+                    <label class="xl:text-xs block text-slate-600 text-sm font-medium mb-2">PROJECT PROPOSAL (PDF) <span class="text-red-500">*</span></label>
+                    <input onchange="checkInputs()"  class="bg-white border-zinc-300 xl:text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none" name="proposal_pdf" id="proposal_pdf" type="file" required>
+                    @error('proposal_pdf') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
+                </div>
+
+                <div class="mb-4 w-full">
+                    <label class="xl:text-xs block text-slate-600 text-sm font-medium mb-2">SPECIAL ORDER (PDF) <span class="text-red-500">*</span></label>
+                    <input onchange="checkInputs()" class="bg-white border-zinc-300 xl:text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none" name="special_order_pdf" id="special_order_pdf" type="file" required>
+                    @error('special_order_pdf') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
+                </div>
+            </div>
+
+            <div class="flex space-y-4 flex-col w-full">
 
                 <div class="flex space-x-5 w-full">
                     <div class="w-full">
-                        <label class="xl:text-xs block text-slate-700 text-sm font-medium 2xl:text-sm">Started Date  <span class="text-red-500">*</span></label>
-                        <input required class="border-zinc-300 xl:text-xs  appearance-none border  rounded w-full py-2 px-3 text-slate-700 mb-3 leading-tight focus:outline-none" value="{{ old('started_date') }}" name="started_date" id="started_date" type="date">
+                        <label class="xl:text-xs block text-slate-600 text-sm font-medium 2xl:text-sm">Started Date<span class="text-red-500">*</span></label>
+                        <input required class="border-zinc-300 xl:text-xs  appearance-none border  rounded w-full py-2 mt-2 px-3 text-slate-600  leading-tight focus:outline-none" value="{{ old('started_date') }}" name="started_date" id="started_date" type="date">
                         @error('started_date') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
                     </div>
 
                     <div class="w-full">
-                        <label class="xl:text-xs block text-slate-700 text-sm font-medium 2xl:text-sm"> Ended Date  <span class="text-red-500">*</span></label>
-                        <input required class="border-zinc-300 xl:text-xs  appearance-none border  rounded w-full py-2 px-3 text-slate-700 mb-3 leading-tight focus:outline-none" value="{{ old('finished_date') }}" name="finished_date" id="finished_date" type="date">
-                        @error('finished_date') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
+                        <label class="xl:text-xs block text-slate-600 text-sm font-medium 2xl:text-sm">Ended Date<span class="text-red-500">*</span></label>
+                        <input required class="border-zinc-300 xl:text-xs appearance-none border  rounded w-full py-2 mt-2 px-3 text-slate-600  leading-tight focus:outline-none" value="{{ old('finished_date') }}" name="finished_date" id="finished_date" type="date">
+                        @error('finished_date') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                     </div>
                 </div>
 
                 <div class="flex space-x-4 w-full ">
 
                     <div class="w-full">
-                        <label class="xl:text-xs block text-slate-700 text-sm font-medium mb-2 2xl:text-sm">Project leader</label>
+                        <label class="xl:text-xs block text-slate-600 text-sm font-medium mb-2 2xl:text-sm">Project leader</label>
                         <select name="leader_id" class="rounded-md xl:text-xs w-full  border-zinc-300" value="{{ old('leader_id') }}" id="leader" onchange="RequiredGet(this)">
                             @foreach ($members as $id => $name ) <option value="{{ $id }}">{{ $name }}</option>@endforeach
                         </select>
@@ -92,7 +91,7 @@
                     </div>
 
                     <div class="w-full">
-                        <label class="xl:text-xs block text-slate-700 text-sm font-medium mb-2 2xl:text-sm">Role of Leader</label>
+                        <label class="xl:text-xs block text-slate-600 text-sm font-medium mb-2 2xl:text-sm">Role of Leader</label>
                         <select onchange="yesnoCheck(this)" id="leader_member_type" name="leader_member_type" value="{{ old('leader_member_type') }}" class="rounded-md xl:text-xs w-full border-zinc-300">
                             @foreach ($ceso_roles as $id => $role_name )
                             <option value="{{ $id }}"  @if ($id == old('leader_member_type'))
@@ -105,7 +104,7 @@
                     </div>
 
                     <div class="w-full">
-                        <label class="xl:text-xs block text-slate-700 text-sm font-medium mb-2 2xl:text-sm">Location</label>
+                        <label class="xl:text-xs block text-slate-600 text-sm font-medium mb-2 2xl:text-sm">Location</label>
                         <select id="location_id" type="text"  class="rounded-md xl:text-xs w-full border-zinc-300 " name="location_id" value="{{ old('location_id') }}">
                             @foreach ($locations as $id => $location_name )
                             <option value="{{ $id }}"
@@ -119,40 +118,41 @@
                     </div>
                 </div>
 
-                <div class="w-full overflow-x-auto h-[15vh]">
+                <div class="w-full overflow-x-auto xl:h-[22vh] 2xl:h-[30vh]">
 
                     <table id="table" class="w-full">
                         <thead>
-                        <tr class="text-sm text-gray-500">
-                            <th class="xl:text-xs  text-slate-700 text-sm font-medium mb-2 2xl:text-sm text-left">Member Name</th>
-                            <th class="xl:text-xs  text-slate-700 text-sm font-medium mb-2 2xl:text-sm text-left">Member Type</th>
-                            <th class="xl:text-xs  text-slate-700 text-sm font-medium mb-2 2xl:text-sm text-left">Action</th>
+                        <tr class="text-sm text-gray-500 sticky top-0 bg-white">
+                            <th class="xl:text-xs  text-slate-600 text-sm font-medium mb-2 2xl:text-sm text-left">Member Name</th>
+                            <th class="xl:text-xs  text-slate-600 text-sm font-medium mb-2 2xl:text-sm text-left">Member Type</th>
+                            <th class="xl:text-xs  text-slate-600 text-sm font-medium mb-2 2xl:text-sm text-left">Action</th>
                         </tr>
                         </thead>
 
                         <tbody>
                         <tr>
-                            <td class="pr-4">
+                            <td class="pr-4 xl:w-[21rem] 2xl:w-[30rem]">
                                 <select name="member[0][id]" class="rounded-md xl:text-xs w-full border-zinc-300" id="member" required>
                                     @foreach ($members as $id => $name ) <option value="{{ $id }}" @if ($id == old('member_id[0][id]')) selected="selected" @endif >{{ $name }}</option> @endforeach
                                 </select>
                             </td>
 
-                            <td class="pr-4">
+                            <td class="pr-4  xl:w-[21rem] 2xl:w-[30rem]">
                                 <select name="member[0][type]" class="rounded-md xl:text-xs w-full border-zinc-300">
                                     @foreach ($parts_names as $id => $name ) <option value="{{ $name }}" @if ($id == old('member[0][type]')) selected="selected" @endif >{{ $name }}</option> @endforeach
                                 </select>
                             </td>
 
-                            <td>
-                                <button name="add" id="add" type="button" class="w-full bg-slate-500 rounded text-white px-2 py-1  text-sm xl:text-xs  border-zinc-300">Add more</button>
+                            <td class="">
+                                <button name="add" id="add" type="button" class="w-full bg-slate-500 rounded-md text-white px-2 py-2  text-sm xl:text-xs  border-zinc-300">Add more user</button>
                             </td>
                         </tr>
                     </tbody>
                     </table>
                 </div>
             </div>
-            <div class="mt-5">
+
+            <div class="absolute bottom-2 left-0 xl:bottom-7">
                 <button class="bg-blue-500 rounded-lg text-white 2xl:text-base xl:text-sm font-medium py-2 px-4 mt-4 focus:outline-none" type="submit">
                     Submit Proposal
                 </button>
@@ -161,8 +161,6 @@
 
 
         </form>
-
-        <x-messages/>
 
 
     </section>

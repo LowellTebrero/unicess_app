@@ -60,6 +60,13 @@ class PostController extends Controller
         return back();
     }
 
+    public function markAllAsRead()
+
+    {
+        auth()->user()->unreadNotifications->markAsRead();
+        return back();
+    }
+
 
 
 }

@@ -25,7 +25,7 @@
                 <div class="flex flex-col justify-center h-full w-full">
 
                     <hr>
-                    <div class="w-full mx-auto bg-white p-2 pt-0  2xl:rounded-md  border-gray-200 h-full">
+                    <div class="w-full mx-auto bg-white p-2 pt-0  2xl:rounded-md  border-gray-200 h-full rounded-lg">
                         <header class="px-5 sm:px-2 pb-4 py-2 border-b border-gray-100 flex justify-between">
                             <div class="flex flex-col sm:flex-row  md:flex-row sm:justify-between space-y-2 sm:space-y-0 space-x-0  w-full">
                                 <div class="flex sm:space-x-2 space-x-0  items-center">

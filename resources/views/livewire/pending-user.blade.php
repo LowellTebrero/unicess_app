@@ -61,7 +61,7 @@
 
                                 <td class="p-2 whitespace-nowrap flex flex-row justify-center items-center space-x-2">
 
-                                    <a href={{ route('admin.users.show', $pendinguser->id) }} class="text-blue-400 mb-1">Edit</a>
+                                    <a href={{ route('admin.users.show', ['user' => $pendinguser->id, 'user_id' => $pendinguser->id ] ) }} class="text-blue-400 mb-1">Edit</a>
                                 </td>
 
                             </tr>

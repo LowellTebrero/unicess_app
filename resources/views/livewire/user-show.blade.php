@@ -1,13 +1,12 @@
-
-    <div class="bg-white shadow-lg rounded-lg xl:min-h-[85vh] 2xl:min-h-[87vh]  m-8 mt-5">
-        <div class="py-4 flex justify-between 2xl:px-8 px-4">
+<div class="bg-white shadow-lg rounded-lg  min-h-[85vh] 2xl:min-h-[87vh] m-8 text-gray-700">
+        <div class="py-2 flex justify-between 2xl:px-8 px-4">
             <h4 class="tracking-wider 2xl:text-2xl font-semibold text-gray-700 text-lg">Account Overview</h4>
 
-            <div class="text-sm ">
+            <div class="text-sm">
                 <input type="text" name="search" wire:model.debounce.500ms="search" id="search"
-                    class="xl:text-xs border-slate-500 rounded  2xl:w-[20rem]  2xl:text-sm" placeholder="Search...">
+                    class="xl:text-xs  rounded 2xl:w-[20rem] 2xl:text-sm border-slate-400" placeholder="Search...">
 
-                <select name="" id="" class="text-xs 2xl:text-sm xl:text-[.6rem] rounded"
+                <select class="text-xs 2xl:text-sm xl:text-xs rounded border-slate-400"
                     wire:model="selectedFaculty">
                     @foreach ($faculties as $id => $name)
                         <option value="{{ $id }}">{{ $name }}</option>
@@ -15,14 +14,14 @@
                 </select>
 
                 <select wire:model="authorizing" name="authorizing" id="authorizing"
-                    class="text-xs xl:text-[.6rem]  2xl:text-sm rounded">
+                    class="text-xs xl:text-xs border-slate-400 2xl:text-sm rounded">
                     <option value="">All Authorize</option>
                     <option value="pending">Pending</option>
                     <option value="checked">Approved</option>
                     <option value="close">Declined</option>
                 </select>
 
-                <select wire:model="paginate" name="paginate" id="paginate" class="text-xs xl:text-[.7rem] rounded  2xl:text-sm">
+                <select wire:model="paginate" name="paginate" id="paginate" class="text-xs xl:text-xs rounded  2xl:text-sm border-slate-400">
                     <option value="13">13</option>
                     <option value="50">50</option>
                     <option value="70">70</option>
@@ -31,11 +30,11 @@
         </div>
         <hr>
 
-        <div class="overflow-x-auto p-2 xl:px-4 2xl:px-8  2xl:h-[75vh] ">
+        <div class="overflow-x-auto p-2 xl:px-4 2xl:px-8 h-[70vh] 2xl:h-[75vh] ">
             <table class="table-auto w-full border-collapse">
 
-                <thead class="text-[.7rem] text-gray-800 uppercase bg-slate-200">
-                    <tr>
+                <thead class="text-[.7rem] text-gray-700 uppercase">
+                    <tr class="sticky top-0 bg-gray-200 w-full">
                         <th class="p-2 whitespace-nowrap text-left">First Name</th>
                         <th class="p-2 whitespace-nowrap text-left">Last Name</th>
                         <th class="p-2 whitespace-nowrap text-left">Email</th>
@@ -52,28 +51,28 @@
                         <tr class="text-xs 2xl:text-sm  hover:bg-slate-200 border-b  dark:border-gray-500 text-gray-600">
 
                             <td class="p-3 whitespace-nowrap">
-                                <a href={{ route('admin.users.show', $user->id) }}>
+                                <a href={{ route('admin.users.show', ['user' => $user->id, 'user_id' =>  $user->id ]) }}>
                                 <div class="text-left">
                                     <div>{{ $user->first_name == null ? '----------' : $user->first_name }}</div>
                                 </div>
                                 </a>
                             </td>
                             <td class="p-3 whitespace-nowrap">
-                                   <a href={{ route('admin.users.show', $user->id) }}>
+                                   <a href={{ route('admin.users.show',  ['user' => $user->id, 'user_id' =>  $user->id ]) }}>
                                 <div class="text-left">
                                     <div>{{ $user->last_name == null ? '----------' : $user->last_name }}</div>
                                 </div>
                                    </a>
                             </td>
                             <td class="p-3 whitespace-nowrap">
-                                   <a href={{ route('admin.users.show', $user->id) }}>
+                                   <a href={{ route('admin.users.show',  ['user' => $user->id, 'user_id' =>  $user->id ]) }}>
                                 <div class="text-left">
                                     <div> {{ Str::limit($user->email == null ? '----------' : $user->email) }}</div>
                                 </div>
                                    </a>
                             </td>
                             <td class="p-3 whitespace-nowrap">
-                                   <a href={{ route('admin.users.show', $user->id) }}>
+                                   <a href={{ route('admin.users.show',  ['user' => $user->id, 'user_id' =>  $user->id ]) }}>
                                 <div class="text-left">
                                     <div> {{ $user->faculty == null ? '----------' : $user->faculty->name }}</div>
                                 </div>
@@ -81,7 +80,7 @@
                             </td>
 
                             <td>
-                                <a href={{ route('admin.users.show', $user->id) }}>
+                                <a href={{ route('admin.users.show',  ['user' => $user->id, 'user_id' =>  $user->id ]) }}>
                                 <div class="text-left">
                                     @if (!empty($user->getRoleNames()))
                                         @foreach ($user->getRoleNames() as $name)
@@ -92,12 +91,12 @@
                                 </a>
                             </td>
                             <td>
-                                <a href={{ route('admin.users.show', $user->id) }}>
+                                <a href={{ route('admin.users.show',  ['user' => $user->id, 'user_id' =>  $user->id ]) }}>
                                 <div class="text-left">
                                     @if ($user->authorize == 'pending')
                                         <span class="text-red-600">pending</span>
                                     @elseif($user->authorize == 'checked')
-                                        <span class="text-green-500">approved</span>
+                                        <span class="text-green-400">approved</span>
                                     @else
                                         <span class="text-red-300">declined</span>
                                     @endif
@@ -133,6 +132,5 @@
         </div>
         <div class="px-4 pb-2">{{ $users->links() }}</div>
     </div>
-
 <x-messages/>
 </div>

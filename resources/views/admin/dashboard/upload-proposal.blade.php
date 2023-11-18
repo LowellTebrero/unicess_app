@@ -9,7 +9,7 @@
         }
     </style>
 
-    <section class="bg-white mt-5  m-8 rounded-xl 2xl:min-h-[87vh] xl:min-h-[70vh]">
+    <section class="bg-white mt-5 m-8 rounded-xl 2xl:min-h-[87vh] h-[85vh] text-gray-600">
 
         <div class="flex justify-between items-center p-4 ">
             <h1 class="2xl:text-2xl text-lg font-semibold text-slate-700">Upload Proposal <span class="text-red-500 text-xs tracking-wide font-light"> * required fields</span></h1>

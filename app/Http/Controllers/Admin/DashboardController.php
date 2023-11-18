@@ -110,8 +110,10 @@ class DashboardController extends Controller
 
 
        //  Edit Proposal
-    public function checkProposal($id)
+    public function checkProposal(Request $request, $id, $notification )
     {
+
+
         $proposal = Proposal::where('id', $id)->first();
         $proposals = Proposal::where('id', $id)->first();
         $program = Program::orderBy('program_name')->pluck('program_name', 'id')->prepend('Select Program', '');
@@ -119,6 +121,10 @@ class DashboardController extends Controller
         $ceso_roles = CesoRole::orderBy('role_name')->pluck('role_name', 'id')->prepend('Select Role', '');
         $locations = Location::orderBy('location_name')->pluck('location_name', 'id')->prepend('Select Location', '');
         $parts_names = ParticipationName::orderBy('participation_name')->pluck('participation_name', 'id');
+
+        if($notification){
+            auth()->user()->unreadNotifications->where('id', $notification)->markAsRead();
+        }
         return view('admin.dashboard.proposal.edit-proposal', compact('proposal','proposals', 'program', 'members', 'ceso_roles', 'locations', 'parts_names'));
     }
 

@@ -20,7 +20,7 @@
 
 <x-admin-layout>
 
-    <div class="bg-white rounded-lg shadow mt-5 m-8 h-[87vh] relative">
+    <div class="bg-white rounded-lg shadow mt-5 m-8 h-[87vh] relative text-gray-700">
 
         <div class="p-4 px-6 pl-8 text-gray-900 flex  justify-between">
             <h1 class="text-gray-600 xl:text-sm 2xl:text-xl tracking-wider font-semibold">Account details</h1>
@@ -32,22 +32,23 @@
         </div>
         <hr>
 
-        <div class="min-h-[12vh] bg-gradient-to-r
+        <div class="min-h-[7vh] xl:min-h-[10vh] 2xl:min-h-[12vh] bg-gradient-to-r
         from-slate-400
         via-slate-300
         to-slate-200
         background-animate">
         </div>
 
-        <div class="w-40 absolute top-28 left-12 z-20">
+        <div class="w-32 2xl:w-40 absolute top-20 xl:top-28 left-12 z-20 ">
             <img class="rounded-full border-8 border-white bg-white" id="showImage"
             src="{{ !empty($user->avatar) ? url('upload/image-folder/profile-image/' . $user->avatar) : url('upload/profile.png') }}">
-
         </div>
-        <div class=" min-h-[12vh] flex justify-end relative">
-            <div class="left-[14rem]  top-4 absolute ">
+
+
+        <div class="xl:min-h-[8vh] min-h-[7vh]  2xl:min-h-[12vh] flex justify-end relative">
+            <div class="left-[12rem] xl:left-[14rem] top-4 absolute ">
                 <div class="flex space-x-1  items-center">
-                    <h1 class="text-lg font-medium tracking-wider">{{ $user->name }} </h1>
+                    <h1 class="text-sm xl:text-lg font-medium tracking-wider">{{ $user->name }} </h1>
                     @if ($user->email_verified_at == '')
                         <h1 class="text-xs text-red-400">email unverified</h1>
                     @else
@@ -61,7 +62,7 @@
 
                 </div>
 
-                 <span class="text-sm">
+                 <span class="text-xs lg:text-sm">
                  @if ($user->roles)
                     @foreach ($user->roles as $user_role)
                     {{ $user_role->name }}
@@ -79,7 +80,7 @@
                         {{ $toggle->authorize === 'checked' ? 'checked' : '' }} id="toggle" />
                     <span class="toggle-slider"></span>
                 </label>
-                <h1 class="text-lg flex justify-between font-medium xl:text-sm ">
+                <h1 class="text-xs flex justify-between font-medium xl:text-sm">
                     @if ($user->authorize == 'pending')
                         <span class="text-red-500 text-lg xl:text-sm">Pending</span>
                     @elseif ($user->authorize == 'checked')
@@ -91,61 +92,70 @@
             </div>
         </div>
 
-        <div class=" min-h-[55vh] flex space-x-8 p-7 pt-0 ">
-            <div class="shadow-md bg-gray-100 rounded-lg w-[30rem] p-5">
+        <div class="lg:space-x-0 lg:space-y-3 xl:space-x-4 xl:space-y-0 flex-col xl:flex-row 2xl:space-x-8 2xl:p-7 p-4 xl:p-4 2xl:pt-0 pt-0 flex text-gray-700">
+            <div class="shadow-md flex space-y-0 xl:space-x-0 xl:space-y-4 flex-row xl:flex-col bg-gray-100 rounded-lg 2xl:w-[30rem] xl:w-[20rem] xl:p-4 p-2 2xl:p-5 space-x-3 lg:space-x-4">
 
-                <div class="bg-white min-h-[20vh] rounded p-4 space-y-3">
+                <div class="bg-white full rounded p-4 lg:space-y-1 xl:space-y-2 w-full ">
                     <div class="flex justify-between items-center">
-                        <h1 class="tracking-wider">Basic Information</h1>
-                      <h1 class="text-[.7rem] tracking-wider"> Joined: {{ $user->created_at->diffForHumans() }}</h1>
+                        <h1 class="tracking-wider 2xl:text-lg text-sm">Basic Information</h1>
+                      <h1 class="2xl:text-[.7rem] text-[.6rem] tracking-wider"> Joined: {{ $user->created_at->diffForHumans() }}</h1>
                     </div>
 
                     <hr>
-                    <h1 class="text-[.8rem] tracking-wider"> Email: {{ $user->email }}</h1>
-                    <h1 class="text-[.8rem] tracking-wider"> First name:   {{ $user->first_name == null ? 'N/A' : $user->first_name }}</h1>
-                    <h1 class="text-[.8rem] tracking-wider"> Middle name:   {{ $user->middle_name == null ? 'N/A' : $user->middle_name }}</h1>
-                    <h1 class="text-[.8rem] tracking-wider"> Last name:  {{ $user->last_name == null ? 'N/A' : $user->last_name }}</h1>
-                    <h1 class="text-[.8rem] tracking-wider"> Suffix:    {{ $user->suffix == null ? 'N/A' : $user->suffix }}</h1>
-                    <h1 class="text-[.8rem] tracking-wider"> Gender:    {{ $user->gender == null ? 'N/A' : $user->gender }}</h1>
+                    <h1 class="text-[.6rem] xl:text-xs tracking-wider"> Email: {{ $user->email }}</h1>
+                    <h1 class="text-[.6rem] xl:text-xs tracking-wider"> First name: {{ $user->first_name == null ? 'N/A' : $user->first_name }}</h1>
+                    <h1 class="text-[.6rem] xl:text-xs tracking-wider"> Middle name: {{ $user->middle_name == null ? 'N/A' : $user->middle_name }}</h1>
+                    <h1 class="text-[.6rem] xl:text-xs tracking-wider"> Last name:  {{ $user->last_name == null ? 'N/A' : $user->last_name }}</h1>
+                    <h1 class="text-[.6rem] xl:text-xs tracking-wider"> Suffix:    {{ $user->suffix == null ? 'N/A' : $user->suffix }}</h1>
+                    <h1 class="text-[.6rem] xl:text-xs tracking-wider"> Gender:    {{ $user->gender == null ? 'N/A' : $user->gender }}</h1>
 
                 </div>
 
-                <div class="bg-white mt-5 min-h-[20vh] rounded p-4 space-y-2">
-                    <h1 class="tracking-wider">Contact Information</h1>
+                <div class="bg-white lg:mt-5 h-full rounded p-4 lg:space-y-1 xl:space-y-2 w-full">
+                    <h1 class="tracking-wider text-sm 2xl:text-base">Contact Information</h1>
                     <hr>
-                    <h1 class="text-[.8rem] tracking-wider"> Contact no.:  {{ $user->contact_number == null ? 'N/A' : $user->contact_number }}</h1>
-                    <h1 class="text-[.8rem] tracking-wider"> Province:   {{ $user->province == null ? 'N/A' : $user->province }}</h1>
-                    <h1 class="text-[.8rem] tracking-wider"> City:   {{ $user->city == null ? 'N/A' : $user->city }}</h1>
-                    <h1 class="text-[.8rem] tracking-wider"> Barangay:  {{ $user->barangay == null ? 'N/A' : $user->barangay }}</h1>
-                    <h1 class="text-[.8rem] tracking-wider"> Address:    {{ $user->address == null ? 'N/A' : $user->address }}</h1>
-                    <h1 class="text-[.8rem] tracking-wider"> Zipcode:    {{ $user->zipcode == null ? 'N/A' : $user->zipcode }}</h1>
+                    <h1 class="text-[.6rem] xl:text-xs tracking-wider"> Contact no.:  {{ $user->contact_number == null ? 'N/A' : $user->contact_number }}</h1>
+                    <h1 class="text-[.6rem] xl:text-xs tracking-wider"> Province:   {{ $user->province == null ? 'N/A' : $user->province }}</h1>
+                    <h1 class="text-[.6rem] xl:text-xs tracking-wider"> City:   {{ $user->city == null ? 'N/A' : $user->city }}</h1>
+
+                    <div class="">
+                        <h1 class="text-[.6rem] xl:text-xs tracking-wider">Barangay:  {{ $user->barangay == null ? 'N/A' : $user->barangay }}</h1>
+                    </div>
+
+                     {{--  <div class="overflow-x-scroll overflow-hidden">  --}}
+                        {{--  <div class=" w-[40rem]">  --}}
+                            <h1 class="text-[.6rem] xl:text-xs tracking-wider"> Address:  {{ $user->address == null ? 'N/A' : $user->address }}</h1>
+                        {{--  </div>  --}}
+
+                    {{--  </div>  --}}
+                    <h1 class="text-[.6rem] xl:text-xs tracking-wider"> Zipcode:    {{ $user->zipcode == null ? 'N/A' : $user->zipcode }}</h1>
 
                 </div>
             </div>
 
 
-            <div class="shadow-md bg-gray-100 rounded-lg flex-auto w-64 p-5">
+            <div class="shadow-md bg-gray-100 rounded-lg flex-auto lg:w-auto xl:w-56 2xl:w-64 2xl:p-5 p-2 xl:p-4 ">
                 @foreach ($customs as $custom )
                     @if ($custom->number == '1')
-                    <div class="bg-white rounded min-h-[50vh] p-4">
+                    <div class="bg-white rounded p-4">
                         <div class="flex justify-between items-center mb-1">
-                           <h1 class="tracking-wider">Proposal Overview</h1>
+                           <h1 class="tracking-wider text-[.7rem] 2xl:text-base">Proposal</h1>
                            <div>
-                               <input type="text" id="searchInput" class="text-xs border-gray-400 rounded-md w-[20rem]" placeholder="Search proposal title...">
-                               <select  class="text-xs border-gray-400 rounded-md" id="Years">
+                               <input type="text" id="searchInput" class="text-xs border-gray-200 rounded-md  xl:w-[12rem] 2xl:w-auto" placeholder="Search proposal title...">
+                               <select  class="text-xs border-gray-200 rounded-md text-gray-700" id="Years">
                                    <option value="">All Year</option>
                                    @foreach ($years as $year )
                                        <option value="{{ $year }}" @if ($year == date('Y')) selected="selected" @endif>{{ $year }}</option>
                                    @endforeach
                                </select>
-                               <select  class="text-xs border-gray-400 rounded-md" id="Status">
+                               <select  class="text-xs border-gray-200 rounded-md text-gray-700" id="Status">
                                    <option value=""> Status</option>
                                    <option value="pending">Pending</option>
                                    <option value="ongoing">Ongoing</option>
                                    <option value="finished">Finished</option>
                                </select>
 
-                               <select  class="text-xs border-gray-400 rounded-md" id="Customize">
+                               <select  class="text-xs border-gray-200 text-gray-700 rounded-md" id="Customize">
                                 @foreach ($customs as $custom )
                                 <option value="1" {{ old('1', $custom->number) == '1' ? 'selected' : '' }}>Proposal</option>
                                 <option value="2" {{ old('2', $custom->number) == '2' ? 'selected' : '' }}>Evaluation</option>
@@ -161,7 +171,7 @@
                    </div>
                    @elseif ($custom->number == '2')
 
-                   <div class="bg-white rounded min-h-[50vh] p-4">
+                   <div class="bg-white rounded p-4 h-full">
                     <div class="flex justify-between items-center mb-1">
                        <h1 class="tracking-wider">Evaluation Overview</h1>
                        <div>
@@ -177,7 +187,7 @@
                                <option value="evaluated">Validated</option>
                             </select>
 
-                           <select  class="text-xs border-gray-400 rounded-md" id="Customize">
+                           <select  class="text-xs border-gray-200 rounded-md" id="Customize">
                             @foreach ($customs as $custom )
                             <option value="1" {{ old('1', $custom->number) == '1' ? 'selected' : '' }}>Proposal</option>
                             <option value="2" {{ old('2', $custom->number) == '2' ? 'selected' : '' }}>Evaluation</option>

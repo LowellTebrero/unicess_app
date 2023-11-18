@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
     {
 
 
+        // $this->call(CustomizeSeeder::class);
         // $this->call(RoleandPermissionSeeder::class);
         // $this->call(ProgramSeeder::class);
         // $this->call(FacultySeeder::class);
@@ -27,7 +28,8 @@ class DatabaseSeeder extends Seeder
         // $this->call(LocationSeeder::class);
         // $this->call(ParticipationNameSeeder::class);
         // $this->call(YearSeeder::class);
-         $this->call(AdminSeeder::class);
+
+        //  $this->call(AdminSeeder::class);
 
 
 

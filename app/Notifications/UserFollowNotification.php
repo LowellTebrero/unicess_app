@@ -57,7 +57,7 @@ class UserFollowNotification extends Notification
     {
         return [
 
-            'first_name' => $this->user->first_name,
+            'user_id' => $this->user->id,
             'email' => $this->user->email,
         ];
     }

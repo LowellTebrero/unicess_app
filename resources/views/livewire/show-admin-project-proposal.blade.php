@@ -1,6 +1,4 @@
 
-
-
     <div class="flex flex-col w-full bg-white drop-shadow-md rounded-md p-5">
 
         <div class="bg-white p-10 w-full flex justify-between">

@@ -9,9 +9,9 @@
     </style>
 
 
-    <section class="mt-5 m-8 rounded-lg 2xl:min-h-[87vh] xl:min-h-[85vh] relative bg-white">
+    <section class="mt-5 m-8 rounded-lg 2xl:min-h-[86vh] xl:min-h-[85vh] relative bg-white text-gray-700">
         <header class="p-4 flex justify-between">
-            <h1>User Profile</h1>
+            <h1 class="text-xl font-medium tracking-wider">User Profile</h1>
             <a href={{ route('User-dashboard.index') }} class="focus:bg-red-100 rounded-md px-2 py-1 hover:bg-gray-200 text-red-500">
                 <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -51,7 +51,7 @@
             </div>
         </div>
 
-        <div class="flex space-x-8 p-7 pt-0">
+        <div class="flex space-x-8 p-7 pt-0 ">
 
             <div class="shadow-md bg-gray-100 rounded-lg flex-auto w-64 p-5">
             </div>
@@ -61,7 +61,7 @@
                     <h1 class="text-xs">With {{ Auth()->user()->faculty->name, }}</h1>
                     <input type="text" placeholder="Search name..." class="text-xs rounded">
                 </div>
-                <div class="overflow-y-scroll 2xl:h-[46.5vh] xl:h-[40vh]">
+                <div class="overflow-y-scroll 2xl:h-[46vh] xl:h-[40vh]">
                 <table class="min-w-full divide-y divide-gray-200 ">
                     <thead>
                       <tr>
