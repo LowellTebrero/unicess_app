@@ -4,7 +4,7 @@
 
 <x-admin-layout>
 
-    <section class="mt-5 m-8 bg-white rounded-xl min-h-[87vh]">
+    <section class="mt-5 m-8 bg-white rounded-xl min-h-[85vh] 2xl:min-h-[87vh]">
 
 
         <div class="w-full flex justify-between p-4">
@@ -18,29 +18,27 @@
 
         <hr>
 
-        <div class="flex flex-col relative  px-4 min-h-[80vh]">
+        <div class="flex flex-col relative  px-4 ">
 
-          
-
-            <div class="flex flex-row gap-4 col-2 mt-4 px-4 justify-center flex-wrap">
+            <div class="flex flex-row gap-4 col-2 mt-4 px-4 justify-center flex-wrap text-gray-700">
                 @forelse ($proposalID as $proposal )
                     @if ($programID->id === $proposal->program_id)
-                        <div class="flex w-[17rem] bg-yellow-100  shadow-md rounded-xl relative hover:bg-yellow-200">
+                        <div class="flex w-[17rem] bg-slate-100  shadow-md rounded-xl relative hover:bg-slate-200">
 
                             <a class="p-3 rounded-lg w-full flex items-center" href={{ route('admin.inventory.show-inventory', $proposal->id) }}>
                                 <svg class="fill-yellow-400 mr-3" xmlns="http://www.w3.org/2000/svg" height="55" viewBox="0 96 960 960" width="55"><path d="M141 896q-24 0-42-18.5T81 836V316q0-23 18-41.5t42-18.5h280l60 60h340q23 0 41.5 18.5T881 376v460q0 23-18.5 41.5T821 896H141Z"/></svg>
-                                <h1 class="text-xs text-gray-500 block"> <span class="block xl:text-[.7rem] text-black font-medium">{{ Str::limit($proposal->project_title, 40) }}</span> </h1>
+                                <h1 class="text-xs text-gray-500 block"> <span class="block xl:text-[.7rem] text-gray-700 font-medium">{{ Str::limit($proposal->project_title, 40) }}</span> </h1>
                             </a>
 
                             <div class="absolute top-0 right-2 z-100">
 
                                 <x-tooltip-modal>
-                                    <a href={{ url('download', $proposal->id) }} class="block text-xs px-2 py-2 hover:text-black" x-data="{dropdownMenu: false}" >Download as zip</a>
-                                    <button  class="block text-slate-800 text-xs px-2 py-2 hover:text-black">Properties</button>
+                                    <a href={{ url('download', $proposal->id) }} class="block text-xs px-2 py-2 hover:text-black hover:bg-gray-200" x-data="{dropdownMenu: false}" >Download as zip</a>
+                                    <button  class="block text-gray-700 text-xs px-2 py-2 hover:text-black hover:bg-gray-200 w-full text-left">Properties</button>
                                     <form action="{{ route('admin.proposal.delete-project-proposal', $proposal->id) }}" method="POST" onsubmit="return confirm ('Are you sure?')">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="text-xs ml-1 p-1">
+                                        <button type="submit" class="text-xs pl-2 p-1 hover:bg-gray-200 w-full text-left">
                                             Delete Proposal
                                         </button>
                                         </form>

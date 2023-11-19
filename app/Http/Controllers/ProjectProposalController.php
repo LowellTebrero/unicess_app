@@ -21,15 +21,27 @@ class ProjectProposalController extends Controller
     // Delete Media
     public function deleteMedia(Request $request)
     {
-
-        $ids = $request->ids;
-        // $proposalDelete = Media::where('id', $ids)->first();
-        // $proposalDelete->delete();
-
         $ids = $request->ids;
         $proposalDelete =  Media::destroy($ids);
 
 
+
+        if ($proposalDelete) {
+            // Flash a success message
+            return response()->json(['success' => 'Deleted Successfully']);
+        } else {
+            // Flash an error message
+            return response()->json(['error' => 'Error deleting file'], 500);
+        }
+
+    }
+    // Delete in Proposal Chart
+    public function DeleteProposalFolder(Request $request)
+    {
+
+        $ids = $request->ids;
+        DB::table('notifications')->whereJsonContains('data->proposal_id', $ids)->delete();
+        $proposalDelete =  Proposal::destroy($ids);
 
         if ($proposalDelete) {
             // Flash a success message

@@ -23,6 +23,8 @@ use Illuminate\Support\Facades\File;
 use App\Models\TemporaryEvaluationFile;
 use App\Notifications\ProposalNotification;
 use Illuminate\Support\Facades\Notification;
+use App\Notifications\UserTagProposalNotification;
+use App\Notifications\UserTagRemoveProposalNotification;
 
 
 
@@ -127,16 +129,17 @@ class ProposalController extends Controller
 
         if($request->leader_id){
 
-            $leadersave = [
-                'proposal_id' => $post->id,
-                'user_id'=> $request->input('leader_id'),
-                'leader_member_type' => $request->input('leader_member_type'),
-                'location_id' => $request->input('location_id'),
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ];
+            $model = new ProposalMember();
+            $model->proposal_id = $post->id;
+            $model->user_id = $request->input('leader_id');
+            $model->leader_member_type = $request->input('leader_member_type');
+            $model->location_id = $request->input('location_id');
+            $model->save();
 
-            DB::table('proposal_members')->insert($leadersave);
+            $users = User::where('id', $request->leader_id)->get();
+            Notification::send($users, new UserTagProposalNotification($model));
+
+
         };
 
 
@@ -149,6 +152,31 @@ class ProposalController extends Controller
             $model->user_id = $item['id'];
             $model->member_type = $item['type'];
             $model->save();
+
+
+            $users = User::where('id', $item['id'])->get();
+            Notification::send($users, new UserTagProposalNotification($model));
+
+
+            $duplicateCount = DB::table('notifications')
+            ->whereJsonContains('data->tag_id', $item['id'])
+            ->whereJsonContains('data->proposal_id', $post->id)
+            ->count();
+
+            if ($duplicateCount > 1) {
+                // Use the offset method to skip the first occurrence
+                $firstDuplicate = DB::table('notifications')
+                ->whereJsonContains('data->tag_id', $item['id'])
+                ->whereJsonContains('data->proposal_id', $post->id)
+                ->offset(1)
+                ->first();
+
+                // Delete the second occurrence of duplicated data
+                DB::table('notifications')->where('id', $firstDuplicate->id)->delete();
+
+            }
+
+
             }
 
             ProposalMember::whereNull('user_id')->where('proposal_id', $post->id)->delete();
@@ -156,8 +184,6 @@ class ProposalController extends Controller
         }
 
         flash()->addSuccess('Proposal Uploaded Successfully.');
-
-
 
 
 
@@ -214,8 +240,6 @@ class ProposalController extends Controller
     {
         $proposals = Proposal::where('id', $id)->first();
 
-        // dd($request);
-
         $request->validate([
             'program_id' => 'required',
             'project_title' => 'required',
@@ -223,9 +247,7 @@ class ProposalController extends Controller
             'finished_date' => 'required',
         ]);
 
-
-
-      $proposed = Proposal::where('id', $proposals->id)->update([
+        Proposal::where('id', $proposals->id)->update([
 
             'program_id' => $request->program_id,
             'project_title' => $request->project_title,
@@ -233,17 +255,21 @@ class ProposalController extends Controller
             'finished_date' =>  $request->finished_date,
         ]);
 
-        if ($proposed) {
 
-        if($request->leader_id !== null){
+            if($request->leader_id !== null){
 
-            ProposalMember::whereNotNull('leader_member_type')->where('proposal_id', $proposals->id)->delete();
-            ProposalMember::whereNotNull('leader_member_type')->where('proposal_id', $proposals->id)->create([
-                    'proposal_id' => $proposals->id,
-                    'user_id'=> $request->leader_id,
-                    'leader_member_type' => $request->leader_member_type,
-                    'location_id' => $request->location_id,
-                ]);
+             ProposalMember::whereNotNull('leader_member_type')->where('proposal_id', $proposals->id)->delete();
+
+             $model = new ProposalMember();
+             $model->proposal_id = $proposals->id;
+             $model->user_id = $request->input('leader_id');
+             $model->leader_member_type = $request->input('leader_member_type');
+             $model->location_id = $request->input('location_id');
+             $model->save();
+
+             $users = User::where('id', $request->input('leader_id'))->get();
+             Notification::send($users, new UserTagProposalNotification($model));
+
             }else{
                 ProposalMember::whereNotNull('leader_member_type')->where('proposal_id', $proposals->id)->delete();
             }
@@ -251,6 +277,41 @@ class ProposalController extends Controller
             if($request->member !== null){
 
                 ProposalMember::whereNotNull('member_type')->where('proposal_id', $proposals->id)->delete();
+
+                foreach ($request->member as $item) {
+
+
+
+                        //  $ifTrue = DB::table('notifications')
+                        //     ->where('notifiable_id',(int)$item['id'])
+                        //      ->whereJsonContains('data->proposal_id', $proposals->id)
+                        //       ->get();
+
+                        //      $propmem =  ProposalMember::where('user_id', '!=' ,(int)$item['id'])->where('proposal_id', $proposals->id)->get();
+
+                        //     if($ifTrue && $propmem){
+
+                        //         DB::table('notifications')
+                        //         ->where('notifiable_id','!=',(int)$item['id'])
+                        //          ->whereJsonContains('data->proposal_id', $proposals->id)
+                        //         ->delete();
+                        //       }
+
+                        // if($ifTrue){
+                        //     // $user = (int)$item['id'];
+                        //     // $users = User::where('id', $item['id'])->get();
+                        //     // Notification::send($users, new UserTagRemoveProposalNotification($user));
+                        //     dd(true);
+                        // }else{
+                        //     dd(false);
+                        // }
+
+                        // DB::table('notifications')
+                        // ->where('notifiable_id','!=',(int)$item['id'])
+                        // ->whereJsonContains('data->proposal_id', $proposals->id)
+                    // ->delete();
+                }
+
                 foreach ($request->member as $item) {
 
                     $model = new ProposalMember();
@@ -258,20 +319,100 @@ class ProposalController extends Controller
                     $model->user_id = $item['id'];
                     $model->member_type = $item['type'];
                     $model->save();
+
+                    $ifExists =  DB::table('notifications')->where('notifiable_id',(int)$item['id'])->whereJsonContains('data->proposal_id', $proposals->id)->exists();
+
+                    if(!$ifExists){
+                        $users = User::where('id', $item['id'])->get();
+                        Notification::send($users, new UserTagProposalNotification($model));
+                    }
+
+                    if($ifExists){
+                        DB::table('notifications')
+                        ->where('notifiable_id','!=',(int)$item['id'])
+                        ->whereJsonContains('data->proposal_id', $proposals->id)
+                        ->delete();
+                    }
+
+
+                    $duplicateCount = DB::table('notifications')
+                    ->whereJsonContains('data->tag_id', $item['id'])
+                    ->whereJsonContains('data->proposal_id', $proposals->id)
+                    ->count();
+
+                    if ($duplicateCount > 1) {
+                        // Use the offset method to skip the first occurrence
+                        $firstDuplicate = DB::table('notifications')
+                        ->whereJsonContains('data->tag_id', $item['id'])
+                        ->whereJsonContains('data->proposal_id', $proposals->id)
+                        ->offset(1)
+                        ->first();
+
+                        // Delete the second occurrence of duplicated data
+                        DB::table('notifications')->where('id', $firstDuplicate->id)->delete();
+
+                    }
                 }
 
-                }else {
-                    ProposalMember::whereNotNull('member_type')->where('proposal_id', $proposals->id)->delete();
-                }
+
+                // foreach ($request->member as $item) {
+
+                    //     $propmem = ProposalMember::whereNotNull('member_type')->where('user_id', $item['id'])->get();
+
+                    //     dd($propmem);
 
 
-            app('flasher')->addSuccess('Your account has been re-activated.');
+                    //     $ifTrue = DB::table('notifications')->whereJsonContains('data->proposal_id', $proposals->id)->exists();
 
 
-            return back();
-        }
+                    //     if($propmem && $ifTrue){
 
-        app('flasher')->addError('Your account has been re-activated.');
+                    //         $notific = DB::table('notifications')
+                    //         ->whereJsonContains('data->proposal_id', $proposals->id)
+                    //         ->where('notifiable_id','!=',$item['id'])
+                    //         ->get();
+
+                    //         dd($notific);
+                    //         // foreach($notific as $notif){
+
+                    //         //     $users = User::where('id', $notif->notifiable_id)->get();
+
+                    //         //     $user = $proposals->id;
+                    //         //     Notification::send($users, new UserTagRemoveProposalNotification($user));
+                    //         // }
+
+
+                    //         //   DB::table('notifications')
+                    //         //  ->where('notifiable_id','!=',(int)$item['id'])
+                    //         //  ->whereJsonContains('data->proposal_id', $proposals->id)
+                    //         //  ->delete();
+
+
+
+                    //     }else{
+
+                    //     }
+
+
+                    //     // if($propmem && $ifTrue ){
+                    //     //     $users = User::where('id', $item['id'])->get();
+                    //     //
+                    //     //     Notification::send($users, new UserTagRemoveProposalNotification($user));
+                    //     // }
+                // }
+
+            }else {
+                ProposalMember::whereNotNull('member_type')->where('proposal_id', $proposals->id)->delete();
+                DB::table('notifications')->whereJsonContains('data->proposal_id', $proposals->id)->delete();
+            }
+
+
+            // foreach ($request->member as $item) {
+            //     DB::table('notifications')->where('notifiable_id','!=',(int)$item['id'])->whereJsonContains('data->proposal_id', $proposals->id)->delete();
+            // }
+
+            app('flasher')->addSuccess('Updated Successfully.');
+
         return back();
     }
 

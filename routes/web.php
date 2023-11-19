@@ -161,6 +161,7 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
     Route::controller(ProjectProposalController::class)->group(function () {
         Route::put('/rename/files/{id}','RenameFile')->name('proposal.rename-ongoing-proposal');
         Route::delete('/delete-Mediafile','deleteMedia')->name('proposal.delete-media-proposal');
+        Route::delete('/delete-proposal-folder','DeleteProposalFolder')->name('proposal.delete-folder-proposal');
 
         Route::get('/project/{id}','showFaculty')->name('proposal.show_faculty');
         Route::get('download-media/{id}','DownloadMedia')->name('proposal.download-media-files');

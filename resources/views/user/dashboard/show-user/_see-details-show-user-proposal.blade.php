@@ -115,6 +115,7 @@
                 <div class="relative w-full max-w-2xl max-h-full">
                     <!-- Modal content -->
                     <div class="relative bg-white rounded-lg shadow min-h-[70vh]">
+
                         <form action={{ route('User-dashboard.update-project-details', $proposal->id) }} method="POST">
                             @csrf @method('PUT')
                         <!-- Modal header -->

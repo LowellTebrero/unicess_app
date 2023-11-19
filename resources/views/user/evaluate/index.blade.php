@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    <section class="m-8  rounded-lg text-slate-700 relative mt-5 bg-white min-h-[87vh]">
+    <section class="m-8  rounded-lg text-slate-700 relative mt-5 min-h-[85vh] bg-white 2xl:min-h-[87vh]">
 
         <div class=" flex justify-between p-8 flex-col sm:flex-row">
             <h1 class="xl:text-2xl sm:text-lg text-[.9rem] font-semibold tracking-wider">Evaluation overview <button data-tooltip-target="tooltip-right3" data-tooltip-placement="bottom" class="inline-block" type="button"><img src="{{ asset('img/i.png') }}" width="18" alt=""></button></h1>

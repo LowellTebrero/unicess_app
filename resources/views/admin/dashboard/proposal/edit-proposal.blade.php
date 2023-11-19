@@ -15,10 +15,10 @@
 
     <x-admin-layout>
 
-        <section class="bg-white shadow rounded-xl m-8 mt-5 2xl:min-h-[87vh] text-gray-600">
+        <section class="bg-white shadow rounded-xl m-8 mt-5 xl:min-h-[85vh] 2xl:min-h-[87vh] text-gray-600">
 
             @if ($proposals->authorize == 'pending')
-            <div class="flex justify-between p-3 bg-red-200 rounded-tl rounded-tr">
+            <div class="flex justify-between p-2 2xl:p-3 bg-red-200 rounded-tl rounded-tr">
                 <div class="flex flex-col sm:flex-row sm:space-x-8 font-medium text-gray-700">
                     <h1 class="text-[.7rem] xl:text-sm tracking-wider">Uploaded:
                         {{ \Carbon\Carbon::parse($proposals->created_at)->format('F-d-Y') }}</h1>
@@ -36,7 +36,7 @@
 
             @elseif ($proposals->authorize == 'ongoing')
 
-            <div class="flex justify-between p-3 bg-blue-200 rounded-tl rounded-tr">
+            <div class="flex justify-between p-2 2xl:p-3 bg-blue-200 rounded-tl rounded-tr">
                 <div class="flex space-x-8 font-medium text-gray-700">
                     <h1 class="text-xs xl:text-sm tracking-wider">Uploaded:
                         {{ \Carbon\Carbon::parse($proposals->created_at)->format('F-d-Y') }}</h1>
@@ -53,7 +53,7 @@
             </div>
 
             @elseif ($proposals->authorize == 'finished')
-            <div class="flex justify-between p-3 bg-green-200 rounded-tl rounded-tr">
+            <div class="flex justify-between p-2 2xl:p-3 bg-green-200 rounded-tl rounded-tr">
                 <div class="flex space-x-8 font-medium text-gray-700">
                     <h1 class="text-xs xl:text-sm tracking-wider">Uploaded:
                         {{ \Carbon\Carbon::parse($proposals->created_at)->format('F-d-Y') }}</h1>
@@ -73,10 +73,10 @@
             <hr>
 
             {{--  Wrapper  --}}
-            <div class="xl:flex min-h-[79vh]">
+            <div class="xl:flex">
 
                 {{--  Container-1  --}}
-                <div class="proposal-sidebar shadow-2xl transition-all xl:relative text-xs  bg-slate-100 xl:bg-white xl:shadow-none   2xl:w-1/4 xl:w-[20rem] px-5 py-2 xl:border-r pt-7 xl:pt-5">
+                <div class="proposal-sidebar shadow-2xl transition-all xl:relative text-xs  bg-slate-100 xl:bg-white xl:shadow-none rounded-lg  2xl:w-1/4 xl:w-[20rem] px-5 py-2 xl:border-r pt-7  xl:pt-2">
                     <button class="xl:hidden block absolute top-2 right-2 leftclose-button text-red-500">
                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -171,7 +171,7 @@
 
 
 
-                    <div class=" flex flex-col">
+                    <div class="flex flex-col">
                         <div class="flex flex-col text-xs">
                             <label class="text-gray-700 font-bold mb-2 xl:text-xs text-[.7rem]">Change status here:</label>
                             <select id="myDropdown" class="xl:text-xs text-[.7rem] border-slate-500 rounded-lg">
@@ -190,7 +190,7 @@
                 </div>
 
                 {{--  Container-2  --}}
-                <div class="w-full min-h-[77vh]  flex flex-col relative">
+                <div class="w-full flex flex-col relative">
 
                     <div class="bg-gray-100 h-full absolute z-30 right-0 bg-opacity-40 flex items-end justify-end transition-all" id="mySidebar">
                         <div class="h-full w-[0rem] bg-gray-700 transition-all" id="subSidebar">
@@ -566,7 +566,7 @@
                         </div>
                     </div>
 
-                    <div class="flex justify-between px-4 py-2 text-lg ">
+                    <div class="flex justify-between px-4 2xl:py-2 xl:py-1 text-lg ">
                         <button class="leftbtn-slide block xl:hidden">☰</button>
                         <div class="flex space-x-2">
                             <button>&nbsp;</button>
@@ -580,7 +580,7 @@
                     </div>
 
                     {{--  Media  --}}
-                    <div class="overflow-x-auto h-[75vh] 2xl:h-[77vh]">
+                    <div class="overflow-x-auto h-[74vh] 2xl:h-[77vh]">
                         <div class="flex py-3 items-center flex-wrap px-2">
                             @foreach ($proposals->medias as $mediaLibrary)
                             @if ((!empty($mediaLibrary->model_id)) && (!empty($mediaLibrary->collection_name)))

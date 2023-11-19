@@ -71,12 +71,12 @@ $notifications = auth()->user()->unreadNotifications;
                                     x-transition:leave="transition ease-in duration-75"
                                     x-transition:leave-start="transform opacity-100 scale-100"
                                     x-transition:leave-end="transform opacity-0 scale-95"
-                                    class="absolute z-50 mt-2  rounded-md shadow-lg origin-top-right right-0"
+                                    class="absolute z-50 mt-2  rounded-md origin-top-right right-0"
                                     style="display: none;"
                                     @click="open = false">
 
-                                <div class="rounded-md ring-1 ring-black ring-opacity-5 overflow-hidden overflow-y-auto h-[50vh]">
-                                    <div class="flex flex-col drop-shadow-lg w-[20rem] rounded  relative">
+                                    <div class="rounded-md drop-shadow-lg overflow-hidden overflow-y-auto h-[50vh]">
+                                        <div class="flex flex-col  w-[20rem] rounded  relative ring-1 ring-black ring-opacity-5">
 
 
                                         <div class="p-2 sticky top-0 bg-white z-10 flex justify-between items-center">
@@ -163,8 +163,9 @@ $notifications = auth()->user()->unreadNotifications;
                             class="absolute z-50 mt-2  origin-top-right right-0"
                             style="display: none;"
                             @click="open = false">
-                                <div class="rounded-md  overflow-hidden overflow-y-auto h-[50vh]">
-                                    <div class="flex ring-1 ring-black ring-opacity-5 flex-col drop-shadow-lg w-[20rem] rounded  relative  ">
+
+                                <div class="rounded-md drop-shadow-lg overflow-hidden overflow-y-auto h-[50vh]">
+                                    <div class="flex flex-col  w-[20rem] rounded  relative ring-1 ring-black ring-opacity-5">
 
                                         <div class="p-2 sticky top-0 bg-white z-10 flex justify-between items-center">
                                             <h1 class="font-semibold text-sm text-gray-600">Notifications</h1>
@@ -197,8 +198,22 @@ $notifications = auth()->user()->unreadNotifications;
 
                                                         </div>
                                                     </div>
-
                                                 @endif
+
+                                                @if (($key == 'tag_id') == !null )
+                                                <div class="pb-3 px-4 flex  {{ $notification->read_at == NULL ? 'bg-teal-50' : 'bg-white' }}">
+                                                    <div class="mt-2 mr-2">
+                                                        <svg class="fill-teal-500" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path  d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4s-4 1.79-4 4s1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                                                    </div>
+                                                    <div>
+                                                        <span class="text-[.7rem] font-semibold tracking-wider text-gray-900 inline-block">Proposal Update:</span>
+                                                        <h1 class="text-[.7rem] text-gray-700">Proposal has been updated.</h1>
+                                                        <span class="text-[.7rem] font-thin text-gray-400 inline-block">{{ $notification->created_at->diffForHumans() }}</span>
+
+                                                    </div>
+                                                </div>
+                                            @endif
+
                                             </div>
                                         @endforeach
 

@@ -381,7 +381,7 @@
                     if (confirm('Are you sure you want to delete?')) {
 
                         $.ajax({
-                            url: "{{ route('admin.proposal.delete-media-proposal') }}",
+                            url: "{{ route('admin.proposal.delete-folder-proposal') }}",
                             type: "DELETE",
                             data: {
                                 ids: all_ids,

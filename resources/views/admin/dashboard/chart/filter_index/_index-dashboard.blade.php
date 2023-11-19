@@ -51,7 +51,7 @@
             @foreach ($allProposal as $proposal)
                 <tr id="proposal_id{{ $proposal->id }}" class="hover:bg-gray-100">
                     {{--  <td class="p-3 pr-0 whitespace-nowrap hidden 2xl:block ">
-                        <a href={{ route('admin.dashboard.edit-proposal', $proposal->id) }}>
+                    <a href={{ route('admin.dashboard.edit-proposal', ['id' => $proposal->id, 'notification' => $proposal->id ]) }}>
                             <div class="relative flex items-center">
                                 <div class="flex-shrink-0 mr-2 sm:mr-3">
                                     <img class="rounded-full" src="{{ !empty($proposal->user->avatar) ? url('upload/image-folder/profile-image/' . $proposal->user->avatar) : url('upload/profile.png') }}"
@@ -64,7 +64,7 @@
                         </a>
                     </td>  --}}
                     <td class="p-3 whitespace-nowrap">
-                        <a href={{ route('admin.dashboard.edit-proposal', $proposal->id) }}>
+                    <a href={{ route('admin.dashboard.edit-proposal', ['id' => $proposal->id, 'notification' => $proposal->id ]) }}>
                         <div
                             class="text-left text-gray-700 xl:text-[.7rem] flex items-center space-x-1">
                             <svg class="fill-yellow-400" xmlns="http://www.w3.org/2000/svg" height="30"
@@ -80,14 +80,14 @@
                     </td>
 
                     <td class="p-3 whitespace-nowrap  hidden sm:block 2xl:w-[5rem]">
-                        <a href={{ route('admin.dashboard.edit-proposal', $proposal->id) }}>
+                    <a href={{ route('admin.dashboard.edit-proposal', ['id' => $proposal->id, 'notification' => $proposal->id ]) }}>
                         <div class="text-left text-gray-700  xl:text-[.7rem]">
                            {{ \Carbon\Carbon::parse($proposal->created_at)->format('M d, Y,  g:i:s A')}}
                         </div>
                         </a>
                     </td>
                     <td class="p-3 whitespace-nowrap">
-                        <a href={{ route('admin.dashboard.edit-proposal', $proposal->id) }}>
+                    <a href={{ route('admin.dashboard.edit-proposal', ['id' => $proposal->id, 'notification' => $proposal->id ]) }}>
                         @if ($proposal->authorize == 'pending')
                             <div
                                 class="text-md text-center text-gray-500 xl:text-[.8rem] ">
