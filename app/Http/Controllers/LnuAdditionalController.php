@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AdminEvent;
 use App\Models\Latest;
 use App\Models\Feature;
 use App\Models\NewsUpdate;
@@ -12,7 +13,7 @@ class LnuAdditionalController extends Controller
 
     public function lnuEvent(){
 
-        $events = Latest::orderBy('description', 'asc')->get();
+        $events = AdminEvent::orderBy('description', 'asc')->get();
         return view('lnu-additional-partials.event-additionals', compact('events'));
     }
     public function lnuNews(){
@@ -32,7 +33,7 @@ class LnuAdditionalController extends Controller
 
     public function showEvent($id){
 
-        $events = Latest::where('id', $id)->firstorFail();
+        $events = AdminEvent::where('id', $id)->firstorFail();
         return view('lnu-additional-partials.lnu-show-details.show-event', compact('events'));
     }
 

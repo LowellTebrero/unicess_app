@@ -1,46 +1,41 @@
 <x-admin-layout>
-    <div class="py-12 w-full ">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+    <section class="mt-5 m-8  2xl:min-h-[87vh] bg-white rounded-lg min-h-[85vh]">
 
-                <!-- component -->
-                <!-- This is an example component -->
-                <div class="max-w-full mx-auto p-10">
-                    <div class="p-6 text-gray-900 flex justify-between">
-                        {{ __("Admin Roles") }}
-                        <a class="bg-blue-500 p-2 rounded-lg text-white hover:bg-blue-700" href={{ route('admin.roles.create') }}>Create Role</a>
+                    <div class="p-5 py-4 text-gray-700 text-2xl tracking-wider font-semibold flex justify-between">
+                        {{ __("Name of Roles") }}
+                        {{--  <a class="bg-blue-500 p-2 rounded-lg text-white hover:bg-blue-700" href={{ route('admin.roles.create') }}>Create Role</a>  --}}
                     </div>
-
-                    <div class="flex flex-col">
+                    <hr>
+                    <div class="flex flex-col p-5 px-10">
                     <div class="overflow-x-auto shadow-md sm:rounded-lg">
                         <div class="inline-block min-w-full align-middle">
                             <div class="overflow-hidden ">
-                                <table class="min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-700">
-                                    <thead class="bg-gray-100 dark:bg-gray-700">
+                                <table class="min-w-full divide-y divide-gray-200 table-fixed ">
+                                    <thead class="bg-gray-100">
                                         <tr>
-                                            <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
-                                                Product Name
+                                            <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
+                                                Role Name
                                             </th>
-                                            <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
+                                            <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase">
                                                 Options
                                             </th>
 
 
                                         </tr>
                                     </thead>
-                                    <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
+                                    <tbody class="bg-white divide-y divide-gray-200 ">
                                         @foreach ($roles as $role )
 
-                                        <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
-                                            <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $role->name }}</td>
-                                            <td class="flex space-x-3 items-center py-5 ">
-                                                <a class="text-blue-500" href={{ route('admin.roles.edit', $role->id) }}>Edit</a>
+                                        <tr class="hover:bg-gray-100 ">
+                                            <td class="py-4 px-6 text-sm font-medium text-gray-700 whitespace-nowrap tracking-wider">{{ $role->name }}</td>
+                                            <td class="text-left py-3 px-6">
+                                                <a class=" text-blue-500 text-sm" href={{ route('admin.roles.edit', $role->id) }}>Edit Role</a>
 
-                                                <form action="{{ route('admin.roles.destroy', $role->id) }}" method="POST" onsubmit="return confirm ('Are you sure?')">
+                                                {{--  <form action="{{ route('admin.roles.destroy', $role->id) }}" method="POST" onsubmit="return confirm ('Are you sure?')">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="text-red-500" href="">Delete</button>
-                                                </form>
+                                                </form>  --}}
 
                                             </td>
                                         </tr>
@@ -51,9 +46,6 @@
                         </div>
                     </div>
                 </div>
-                <x-messages/>
-            </div>
-        </div>
-    </div>
-</div>
+</section>
+<x-messages/>
 </x-admin-layout>

@@ -1,10 +1,6 @@
 <x-admin-layout>
 
-
-
-
     <div class="py-12 px-4 w-3/5  m-auto ">
-
         <div class="max-w-full mx-auto sm:px-6 lg:px-8 mt-16">
             <div class="bg-white shadow-sm sm:rounded-lg drop-shadow-lg h-3/4">
 
@@ -16,9 +12,6 @@
 
                     </div>
                     <hr>
-
-
-
 
 
                     <div class="w-full p-5 drop-shadow-md">

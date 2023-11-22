@@ -467,63 +467,59 @@
         });
     </script>
 
-
-
-
-
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('#avatar').change(function(e) {
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                $('#showImage').attr('src', e.target.result).css('width', '500px').css('heigth',
-                    '500px');
-            }
-            reader.readAsDataURL(e.target.files['0']);
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#avatar').change(function(e) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#showImage').attr('src', e.target.result).css('width', '500px').css('heigth',
+                        '500px');
+                }
+                reader.readAsDataURL(e.target.files['0']);
+            });
         });
-    });
 
 
 
-    function yesnoCheck(answer) {
+        function yesnoCheck(answer) {
 
-        console.log(answer.value)
-        if (answer.value == 'Faculty extensionist' || answer.value == 'Extension coordinator') {
-            document.getElementById('facultyId').style.display = 'block';
-            document.getElementById('partnersId').style.display = 'none';
-            document.getElementById('submit').style.display = 'block';
-            document.getElementById('partners_id').style.display = '<option></option>';
-            document.getElementById('partners_id').value = "";
-            document.getElementById('faculty_id').innerHTML =
-                '@foreach ($faculties as $id => $name) <option value="{{ $id }}" @if ($id == old('faculty_id')) selected="selected" @endif >{{ $name }}</option> @endforeach';
+            console.log(answer.value)
+            if (answer.value == 'Faculty extensionist' || answer.value == 'Extension coordinator') {
+                document.getElementById('facultyId').style.display = 'block';
+                document.getElementById('partnersId').style.display = 'none';
+                document.getElementById('submit').style.display = 'block';
+                document.getElementById('partners_id').style.display = '<option></option>';
+                document.getElementById('partners_id').value = "";
+                document.getElementById('faculty_id').innerHTML =
+                    '@foreach ($faculties as $id => $name) <option value="{{ $id }}" @if ($id == old('faculty_id')) selected="selected" @endif >{{ $name }}</option> @endforeach';
 
-         } else if (answer.value == 'Partners/Linkages') {
-            document.getElementById('partnersId').style.display = 'block';
-            document.getElementById('submit').style.display = 'block';
-            document.getElementById('facultyId').style.display = 'none';
-            document.getElementById('faculty_id').innerHTML = '<option></option>';
-            document.getElementById('faculty_id').value = "";
+            } else if (answer.value == 'Partners/Linkages') {
+                document.getElementById('partnersId').style.display = 'block';
+                document.getElementById('submit').style.display = 'block';
+                document.getElementById('facultyId').style.display = 'none';
+                document.getElementById('faculty_id').innerHTML = '<option></option>';
+                document.getElementById('faculty_id').value = "";
 
-        } else {
-            document.getElementById('facultyId').style.display = 'none';
-            document.getElementById('submit').style.display = 'none';
-            document.getElementById('faculty_id').innerHTML = '<option></option>';
-            document.getElementById('faculty_id').value = "";
-            document.getElementById('partnersId').style.display = 'none';
+            } else {
+                document.getElementById('facultyId').style.display = 'none';
+                document.getElementById('submit').style.display = 'none';
+                document.getElementById('faculty_id').innerHTML = '<option></option>';
+                document.getElementById('faculty_id').value = "";
+                document.getElementById('partnersId').style.display = 'none';
+            }
+
         }
-
-    }
-</script>
+    </script>
 
 
-{{--  Phone Number Javascript  --}}
-<script>
-    function isNumber(evt) {
-        evt = (evt) ? evt : window.event;
-        var charCode = (evt.which) ? evt.which : evt.keyCode;
-        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-            return false;
+    {{--  Phone Number Javascript  --}}
+    <script>
+        function isNumber(evt) {
+            evt = (evt) ? evt : window.event;
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+            return true;
         }
-        return true;
-    }
-</script>
+    </script>

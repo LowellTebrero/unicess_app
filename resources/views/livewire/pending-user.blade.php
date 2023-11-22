@@ -17,8 +17,8 @@
             <div class="overflow-x-auto p-5">
 
                     <table class="table-auto w-full p-5 pt-0">
-                        @foreach ($pendingAccount as $pendinguser )
-                        @if ($pendinguser)
+                        {{--  @foreach ($pendingAccount as $pendinguser )
+                        @if ($pendinguser)  --}}
                         <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50 sticky top-0">
                             <tr>
                                 <th class="p-2 whitespace-nowrap"><div class="font-semibold text-left">Created</div></th>
@@ -29,10 +29,10 @@
                             </tr>
                         </thead>
 
-                        @else
+                        {{--  @else
                         <h1 class="text-red-500">No pending User</h1>
                         @endif
-                        @endforeach
+                        @endforeach  --}}
 
                         <tbody class="text-sm divide-y divide-gray-100">
                             @forelse ($pendingAccount as $pendinguser )

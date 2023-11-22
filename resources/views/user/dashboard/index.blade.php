@@ -133,7 +133,7 @@
                 <x-messages/>
             </section>
         @endhasanyrole
-    @else
+        @elseif (Auth::user()->authorize == 'close')
 
         <div class="flex items-center justify-center h-[80vh]">
             <div class="mt-14">

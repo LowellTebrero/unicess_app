@@ -4,9 +4,9 @@
         [x-cloak] { display: none }
     </style>
 
-    <div class="py-12 xl:py-5  px-5 w-full ">
+    <div class="mt-5 m-8">
 
-        <div class=" flex py-5 px-10 justify-between ">
+        <div class="flex py-5 px-10 justify-between ">
             <h1 class="text-2xl text-slate-700">Article Dashboard</h1>
             {{--  Modal Starts here  --}}
 

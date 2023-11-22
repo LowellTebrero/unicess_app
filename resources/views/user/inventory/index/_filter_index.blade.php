@@ -161,7 +161,7 @@
 
                                             <tr class="hover:bg-gray-200 ">
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-600  w-[1/4]">
-                                                    <a href={{ route('inventory.show', $proposal->id) }}>
+                                                    <a href={{ route('inventory.show', ['id' => $proposal->id, 'notification' => $proposal->id ]) }}>
                                                     <div class="flex items-center space-x-2">
                                                         <svg class="fill-blue-500 hover:fill-blue-600" xmlns="http://www.w3.org/2000/svg" height="40"
                                                         viewBox="0 96 960 960" width="40">
@@ -174,13 +174,13 @@
                                                 </td>
 
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 ">
-                                                    <a href={{ route('inventory.show', $proposal->id) }}>
+                                                    <a href={{ route('inventory.show', ['id' => $proposal->id, 'notification' => $proposal->id ]) }}>
                                                     <h1 class="text-xs">{{ \Carbon\Carbon::parse($proposal->created_at)->format("M d, Y")}}</h1>
                                                     </a>
                                                 </td>
 
                                                 <td class="px-2 py-4 whitespace-nowrap text-sm text-gray-700 relative">
-                                                    <a href={{ route('inventory.show', $proposal->id) }}>
+                                                    <a href={{ route('inventory.show', ['id' => $proposal->id, 'notification' => $proposal->id ]) }}>
                                                     <h1 class="text-xs">{{ $proposal->user->name }}</h1>
                                                     </a>
                                                 </td>

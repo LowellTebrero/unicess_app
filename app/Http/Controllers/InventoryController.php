@@ -36,7 +36,7 @@ class InventoryController extends Controller
         return view('user.inventory.index', compact('inventory', 'years', 'myId', 'proposals'));
     }
 
-    public function show($id)
+    public function show($id, $notification)
     {
         $proposals = Proposal::where('id', $id)->with('medias')->with('programs')->first();
         $members = User::orderBy('name')->whereNot('name', 'Administrator')->pluck('name', 'id')->prepend('Select Username', '');
@@ -47,6 +47,10 @@ class InventoryController extends Controller
         $proposal = Proposal::where('id', $id)->with('programs')->where('authorize', 'finished')->first();
         $proposal_member = ProposalMember::where('user_id', auth()->user()->id)->first();
         $program = Program::orderBy('program_name')->pluck('program_name', 'id')->prepend('Select Program', '');
+
+        if($notification){
+            auth()->user()->unreadNotifications->where('id', $notification)->markAsRead();
+        }
 
         return view('user.inventory.show', compact('proposals', 'proposal', 'proposal_member', 'inventory', 'program', 'members'
     ,'ceso_roles','locations', 'parts_names'));

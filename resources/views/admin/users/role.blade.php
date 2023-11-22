@@ -46,7 +46,7 @@
 
 
         <div class=" xl:min-h-[7vh] min-h-[7vh]  2xl:min-h-[12vh] flex justify-end relative">
-            <div class="left-[12rem] xl:left-[14rem] top-4 absolute ">
+            <div class="left-[12rem] xl:left-[12rem] 2xl:left-[14rem] top-4 absolute ">
                 <div class="flex space-x-1  items-center">
                     <h1 class="text-sm xl:text-lg font-medium tracking-wider">{{ $user->name }} </h1>
                     @if ($user->email_verified_at == '')

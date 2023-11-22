@@ -17,6 +17,7 @@ use App\Http\Controllers\UserFilterEvaluationController;
 use App\Http\Controllers\UpdatePendingProposalController;
 use App\Http\Controllers\DeleteTemporaryEvaluationFilesController;
 use App\Http\Controllers\EvaluateController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\ProposalController;
 use App\Http\Controllers\UploadTemporaryEvaluationFilesController;
@@ -41,6 +42,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/toggle-update/{id}', [EvaluationController::class, 'updateSystem'])->name('toggle.update');
 
 Route::post('/toggle-update/user/{id}', [UserController::class, 'updateSystem'])->name('toggle.update-user');
+
+Route::post('/toggle-update/event/{id}', [EventController::class, 'updateSystem'])->name('toggle.update-event');
 
 Route::post('/update-data/{id}', [UpdatePendingProposalController::class, 'updateData'])->name('update.data');
 

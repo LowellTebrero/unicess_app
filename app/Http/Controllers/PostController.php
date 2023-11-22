@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AdminEvent;
+use App\Models\AdminYear;
 use App\Models\Post;
 use App\Models\Feature;
 use App\Models\User;
@@ -44,7 +46,7 @@ class PostController extends Controller
     {
 
         $authorize = DB::table('users')->select('authorize')->get();
-        $slider = Latest::where('status', '1')->get();
+        $slider = AdminEvent::where('status', 'open')->get();
         $features = Feature::where('status', '1')->get();
         $newsUpdate = NewsUpdate::where('status', '1')->get();
         return view('lnu', compact('newsUpdate', 'slider', 'authorize', 'features'));
@@ -64,6 +66,16 @@ class PostController extends Controller
 
     {
         auth()->user()->unreadNotifications->markAsRead();
+        return back();
+    }
+
+    public function RemoveNotification($id)
+
+    {
+        if($id){
+            DB::table('notifications')->where('id', $id)->delete();
+
+        }
         return back();
     }
 

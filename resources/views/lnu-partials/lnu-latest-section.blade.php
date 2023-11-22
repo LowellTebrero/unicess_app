@@ -23,10 +23,10 @@
                         <!--radio buttons end-->
 
 
-                        @php $i = 1; @endphp
+                        @php $i = 'open'; @endphp
                         @foreach ($slider as $event )
 
-                        <div class="slide relative {{ $i == '1' ?  'first': '' }} w-full rounded-lg ">
+                        <div class="slide relative {{ $i == 'open' ?  'first': '' }} w-full rounded-lg ">
                             @php $i++; @endphp
                         <img id="showImage" class="rounded-lg"src="{{ (!empty($event->image))? url('upload/image-folder/event-folder/'. $event->image): url('upload/no-image.png') }}">
 

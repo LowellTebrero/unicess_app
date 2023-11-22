@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('program_id');
             $table->string('started_date');
             $table->string('finished_date');
-            $table->string('project_title');
+            $table->longtext('project_title');
             $table->string('authorize')->default('pending');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('program_id')->references('id')->on('programs')->onDelete('cascade');

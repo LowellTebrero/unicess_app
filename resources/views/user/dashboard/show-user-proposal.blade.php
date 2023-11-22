@@ -41,7 +41,7 @@
                         <h1>Proposal ID: {{ $proposal->id }}</h1>
                         <h1>Status: {{ strtoupper($proposal->authorize) }}</h1>
                         @include('user.dashboard.show-user._see-details-show-user-proposal')
-                        <a href={{ route('inventory.show', $proposal->id) }} class="bg-blue-500 px-2 py-2 rounded text-white hover:bg-blue-600">Go to Inventory</a>
+                        <a href={{ route('inventory.show', ['id' => $proposal->id, 'notification' => $proposal->id ]) }} class="bg-blue-500 px-2 py-2 rounded text-white hover:bg-blue-600">Go to Inventory</a>
                     </div>
                 </div>
 

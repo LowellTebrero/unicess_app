@@ -87,14 +87,14 @@
                         <div class="w-full">
                             <div class="w-full">
                                 <label class="block text-gray-700 text-[.7rem] font-semibold xl:text-[.7rem]"> Project Proposal Title:</label>
-                                <h1 class="xl:text-xs text-[.7rem] appearance-none rounded w-full py-1  text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                <h1 class="xl:text-[.7rem] text-[.7rem] appearance-none rounded w-full py-1  text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                                     {{ $proposals->project_title }}</h1>
                             </div>
                         </div>
 
                         <div class="w-full ">
-                            <label class="block text-gray-700 xl:text-xs text-[.7rem] font-semibold"> Program Name:</label>
-                            <h1 class="xl:text-xs text-[.7rem] appearance-none rounded w-full  text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                            <label class="block text-gray-700 xl:text-[.7rem] text-[.7rem] font-semibold"> Program Name:</label>
+                            <h1 class="xl:text-[.7rem] text-[.7rem] appearance-none rounded w-full  text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                                 {{ $proposals->programs->program_name }}</h1>
                         </div>
 
@@ -105,19 +105,19 @@
                         <div class="w-full">
 
                             <div class="w-full">
-                                <label class="block text-gray-700 font-semibold xl:text-xs text-[.7rem]"
+                                <label class="block text-gray-700 font-semibold xl:text-[.7rem] text-[.7rem]"
                                     >Started Date:</label>
                                 <h1
-                                    class="xl:text-xs text-[.7rem] appearance-none rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                    class="xl:text-[.7rem] text-[.7rem] appearance-none rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                                     {{ \Carbon\Carbon::parse($proposals->started_date)->format('F-d-Y') }}</h1>
                             </div>
                         </div>
 
                         <div class="w-full">
                             <div class="w-full">
-                                <label class="block text-gray-700 font-semibold xl:text-xs text-[.7rem]">Ended Date:</label>
+                                <label class="block text-gray-700 font-semibold xl:text-[.7rem] text-[.7rem]">Ended Date:</label>
                                 <h1
-                                    class="xl:text-xs text-[.7rem] appearance-none rounded w-full  text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                    class="xl:text-[.7rem] text-[.7rem] appearance-none rounded w-full  text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                                     {{ \Carbon\Carbon::parse($proposals->finished_date)->format('F-d-Y') }}</h1>
                             </div>
                         </div>
@@ -126,21 +126,21 @@
                     <div class="flex 2xl:space-x-3 xl:space-y-3 xl:mb-2 2xl:space-y-0  xl:flex-col 2xl:flex-row">
                         <div class="w-full">
 
-                            <label class="block text-gray-700 font-semibold xl:text-xs text-[.7rem]">Project Leader</label>
+                            <label class="block text-gray-700 font-semibold xl:text-[.7rem] text-[.7rem]">Project Leader</label>
                             @foreach ($proposals->proposal_members as $proposal_mem)
                                 <h1
-                                    class=" xl:text-xs text-[.7rem] appearance-none rounded w-full  text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                    class=" xl:text-[.7rem] text-[.7rem] appearance-none rounded w-full  text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                                     {{ $proposal_mem->leader_member_type != null ? $proposal_mem->user->name : '' }}
                                 </h1>
                             @endforeach
                         </div>
                         <div class="w-full">
 
-                            <label class="block text-gray-700  font-semibold xl:text-xs text-[.7rem]"
+                            <label class="block text-gray-700  font-semibold xl:text-[.7rem] text-[.7rem]"
                                 >Role of Leader:</label>
                             @foreach ($proposals->proposal_members as $proposal_mem)
                                 <h1
-                                    class="xl:text-xs text-[.7rem] appearance-none rounded w-full  text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                    class="xl:text-[.7rem] text-[.7rem] appearance-none rounded w-full  text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                                     {{ $proposal_mem->leader_member_type != null ? $proposal_mem->ceso_role->role_name : '' }}
                                 </h1>
                             @endforeach
@@ -150,31 +150,29 @@
 
                     <div class="mb-2 mt-5 xl:mt-0 w-full overflow-x-auto h-[25vh]">
                         <div class="w-full sticky top-0 z-10 bg-gray-100 xl:bg-white">
-                            <label class="text-gray-700 font-semibold xl:text-xs text-[.7rem] ">Project Members</label>
+                            <label class="text-gray-700 font-semibold xl:text-[.7rem] text-[.7rem] ">Project Members</label>
                         </div>
 
                             @foreach ($proposals->proposal_members as $proposal_mem)
                             <div class="pb-2">
                                 @if ($proposal_mem->member_type !== null)
                                 <div>
-                                    <h1 class="xl:text-xs text-[.6rem] font-medium text-gray-700 tracking-wider"> Name:</h1>
-                                    <span class="font-light 2xl:text-xs text-[.7rem]">{{ $proposal_mem->member_type !== null ? $proposal_mem->user->name : '' }}</span>
+                                    <h1 class="xl:text-[.7rem] text-[.6rem] font-medium text-gray-700 tracking-wider"> Name:</h1>
+                                    <span class="font-light 2xl:text-xs xl:text-[.7rem] text-[.7rem]">{{ $proposal_mem->member_type !== null ? $proposal_mem->user->name : '' }}</span>
                                 </div>
                                 <div>
-                                    <h1 class="xl:text-xs text-[.6rem] font-medium text-gray-700 tracking-wider"> Type:</h1>
-                                    <span class="font-light 2xl:text-xs text-[.7rem]">{{ $proposal_mem->member_type }}</span>
+                                    <h1 class="xl:text-[.7rem] text-[.6rem] font-medium text-gray-700 tracking-wider"> Type:</h1>
+                                    <span class="font-light 2xl:text-xs  xl:text-[.7rem] text-[.7rem]">{{ $proposal_mem->member_type }}</span>
                                 </div>
                                 @endif
                             </div>
                             @endforeach
                     </div>
 
-
-
                     <div class="flex flex-col">
                         <div class="flex flex-col text-xs">
-                            <label class="text-gray-700 font-bold mb-2 xl:text-xs text-[.7rem]">Change status here:</label>
-                            <select id="myDropdown" class="xl:text-xs text-[.7rem] border-slate-500 rounded-lg">
+                            <label class="text-gray-700 font-semibold tracking-wider mb-2 xl:text-[.7rem] text-[.7rem]">Change status here:</label>
+                            <select id="myDropdown" class="xl:text-[.7rem] text-[.7rem] border-slate-500 rounded-lg">
                                 <option value="pending"
                                     {{ old('pending', $proposals->authorize) == 'pending' ? 'selected' : '' }}>Pending
                                 </option>
@@ -592,13 +590,13 @@
                                             <div class="flex items-center flex-col p-4 space-y-3" target="__blank">
                                                 <div>
                                                     @if ($mediaLibrary->mime_type == 'image/jpeg' || $mediaLibrary->mime_type == 'image/png' || $mediaLibrary->mime_type == 'image/jpg')
-                                                    <img src="{{asset('img/image-icon.png') }}" class="w-[3rem]" width="30">
+                                                    <img src="{{asset('img/image-icon.png') }}" class="xl:w-[2.5rem] w-[3rem]" width="30">
                                                     @elseif ($mediaLibrary->mime_type == 'text/plain')
-                                                    <img src="{{asset('img/text-document.png') }}" class="w-[3rem]" width="30">
+                                                    <img src="{{asset('img/text-document.png') }}" class="xl:w-[2.5rem] w-[3rem]" width="30">
                                                     @elseif ($mediaLibrary->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-                                                    <img src="{{asset('img/docx.png')}}" class="w-[3rem]" width="30">
+                                                    <img src="{{asset('img/docx.png')}}" class="xl:w-[2.5rem] w-[3rem]" width="30">
                                                     @else
-                                                    <img src="{{asset('img/pdf.png')}}" class="w-[3rem]" width="30">
+                                                    <img src="{{asset('img/pdf.png')}}" class="xl:w-[2.5rem] w-[3rem]" width="30">
                                                     @endif
                                                 </div>
 
@@ -689,13 +687,6 @@
                                                 <button class="text-xs px-2 hover:bg-gray-200 w-full text-left" type="button" @click="showModal = true">Rename</button>
 
                                                 <a href={{ url('download-media', $mediaLibrary->id) }} class="block text-xs px-2 hover:text-black hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
-
-
-                                                {{--  <form action="{{ route('admin.proposal.delete-media-proposal', $mediaLibrary->id) }}" method="POST" enctype="multipart/form-data" onsubmit="return confirm ('Are you sure?')" >
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button class="block text-slate-800 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="submit">Delete</button>
-                                                </form>  --}}
 
                                                  <button class="deleteAllButton block text-slate-800 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="submit" id="deleteAllButton">Delete</button>
 

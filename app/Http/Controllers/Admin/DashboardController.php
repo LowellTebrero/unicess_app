@@ -112,8 +112,6 @@ class DashboardController extends Controller
        //  Edit Proposal
     public function checkProposal(Request $request, $id, $notification )
     {
-
-
         $proposal = Proposal::where('id', $id)->first();
         $proposals = Proposal::where('id', $id)->first();
         $program = Program::orderBy('program_name')->pluck('program_name', 'id')->prepend('Select Program', '');

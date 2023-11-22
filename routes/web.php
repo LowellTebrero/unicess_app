@@ -55,6 +55,7 @@ Route::controller(PostController::class)->group(function () {
     Route::get('/proposal', 'proposal')->middleware(['auth', 'verified'])->name('proposal');
     Route::get('/mark-as-read/{id}', 'markasread')->name('markasread');
     Route::get('/mark-all-as-read', 'markAllAsRead')->name('markallsread');
+    Route::delete('/remove-notification/{id}', 'RemoveNotification')->name('remove-notification');
 });
 
 Route::controller(ProviderController::class)->group(function () {
@@ -121,6 +122,7 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
         Route::patch('/events/update/{id}','update')->name('other-events-ceso-update-events');
         Route::post('events/store','store')->name('other-events-ceso-store-events');
         Route::get('/events/edit/{id}','edit')->name('other-events-ceso-edit-events');
+        Route::get('/events-create','create')->name('other-events-ceso-create-events');
         Route::delete('/events/delete/{id}','delete')->name('other-events-ceso-delete-events');
     });
 
@@ -199,6 +201,8 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
     Route::post('/year-post',[OtherSettingsController::class, 'yearPost'])->name('yearpost.upload');
     Route::post('/faculty-post',[OtherSettingsController::class, 'facultyPost'])->name('facultypost.upload');
 
+    Route::post('/tasks/update-status', [EventController::class, 'updateStatus'])->name('tasks.update-status');
+
 });
 
 
@@ -244,7 +248,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/downloads-medias/{id}','DownloadMedias')->name('inventory-download-media');
         Route::delete('/delete-medias/{id}','deleteMedias')->name('inventory-delete-media');
         Route::get('/inventory','index')->name('inventory.index');
-        Route::get('/inventory/{id}','show')->name('inventory.show');
+        Route::get('/inventory/{id}/{notification}','show')->name('inventory.show');
         Route::get('/downloads-moa/{id}','downloadsMoa');
         Route::get('/downloads-pdf/{id}','downloadsPdf');
         Route::get('/downloads-special-order/{id}','downloadsSpecialOrder');

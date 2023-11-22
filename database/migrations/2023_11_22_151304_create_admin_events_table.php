@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('latests', function (Blueprint $table) {
+        Schema::create('admin_events', function (Blueprint $table) {
             $table->id();
             $table->string('title')->nullable();
             $table->longtext('description')->nullable();
             $table->string('image')->nullable();
-            $table->string('status')->default(1);
+            $table->string('status')->default('close');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('latests');
+        Schema::dropIfExists('admin_events');
     }
 };

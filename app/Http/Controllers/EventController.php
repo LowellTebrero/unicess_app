@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Latest;
+use App\Models\AdminEvent;
+use App\Models\AdminYear;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\File;
+use Intervention\Image\Facades\Image;
 
 class EventController extends Controller
 {
@@ -13,8 +15,13 @@ class EventController extends Controller
     // Show all
     public function index()
     {
-        $event = Latest::all();
+        $event = AdminEvent::all();
         return view('admin.other-events.ceso-events', compact('event'));
+    }
+
+    public function create(){
+
+        return view('admin.other-events.ceso-create-events');
     }
 
     // Post Event
@@ -23,12 +30,12 @@ class EventController extends Controller
         {
             $request->validate([
 
-                'title' => 'required|unique:latests|max:255',
+                'title' => 'required|unique:admin_events|max:255',
                 'description' => 'required',
                 'image' => 'required','mimes:jpg,png,jpeg', 'max:5048']);
 
                 $image = $request->image;
-                $filename = $request->title.'.'. $image->getClientOriginalExtension();
+                $filename = Str::limit($request->title, 15).'.'. $image->getClientOriginalExtension();
                 $resize_image = Image::make($image->getRealPath());
                 $resize_image->resize(600, 500);
                 $resize_image->save(public_path('upload/image-folder/event-folder/'. $filename));
@@ -37,11 +44,10 @@ class EventController extends Controller
                     unlink($resize_image);
                 }
 
-                $events = new Latest();
+                $events = new AdminEvent();
                 $events->title = $request->title;
                 $events->description = $request->description;
                 $events->image = $filename;
-                $events->status = $request->input('status') == true ? '1': '0';
                 $events->save();
 
             return redirect(route('admin.other-events-ceso-events'))->with('message', 'Events add successfully');
@@ -55,7 +61,7 @@ class EventController extends Controller
     // Edit Events
     public function edit($id)
     {
-        $latestEvents = Latest::where('id', $id)->first();
+        $latestEvents = AdminEvent::where('id', $id)->first();
 
         return view('admin.other-events.edit-ceso-events', compact('latestEvents'));
         // End method
@@ -81,22 +87,22 @@ class EventController extends Controller
                     unlink($resize_image);
                 }
 
-                Latest::where('id', $id)->update([
+                AdminEvent::where('id', $id)->update([
 
                     'title' => $request->title,
                     'description' => $request->description,
                     'image' => $filename,
-                    'status' => $request->input('status') == true ? '1': '0'
+                    'status' => $request->input('status') == true ? 'Visible': 'Hidden'
                 ]);
 
                 return redirect(route('admin.other-events-ceso-events'))->with('message', 'event  updated with image successfully');
             }else {
 
-                Latest::where('id', $id)->update([
+                AdminEvent::where('id', $id)->update([
 
                     'title' => $request->title,
                     'description' => $request->description,
-                    'status' => $request->input('status') == true ? '1': '0'
+                    'status' => $request->input('status') == true ? 'Visible': 'Hidden'
 
                 ]);
 
@@ -108,7 +114,7 @@ class EventController extends Controller
     public function delete($id)
     {
 
-        $event = Latest::find($id);
+        $event = AdminEvent::find($id);
         $destination = public_path(('upload/image-folder/event-folder/'. $event->image));
         if(File::exists($destination))
         {
@@ -116,7 +122,34 @@ class EventController extends Controller
         }
         $event->delete();
 
-
-        return redirect(route('admin.other-events-ceso-events'))->with('message', 'Post has been deleted');
+        flash()->addSuccess('Delete Successfully.');
+        return redirect(route('admin.other-events-ceso-events'));
     }
+
+    public function updateSystem(Request $request, $id)
+    {
+        // Find the record in the database
+        $toggle = AdminEvent::findOrFail($id);
+
+        // Toggle the data in the table based on the current state
+        $toggle->update([
+            'status' => $request->input('state') ? 'checked' : 'close',
+        ]);
+
+        return response()->json(['success' => true]);
+
+    }
+
+
+    public function updateStatus(Request $request)
+    {
+        $taskId = $request->input('task_id');
+        $status = $request->input('status');
+
+        $task = AdminEvent::find($taskId);
+        $task->update(['status' => $status]);
+
+        return response()->json(['message' => 'Status updated successfully']);
+    }
+
 }

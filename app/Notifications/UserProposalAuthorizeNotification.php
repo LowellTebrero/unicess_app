@@ -7,18 +7,18 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class UserTagRemoveProposalNotification extends Notification
+class UserProposalAuthorizeNotification extends Notification
 {
     use Queueable;
-    public $user;
+    public $model;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($user)
+    public function __construct($model)
     {
-        $this->user = $user;
+        $this->model = $model;
     }
 
     /**
@@ -50,8 +50,9 @@ class UserTagRemoveProposalNotification extends Notification
     {
         return [
 
-            'remove_proposal_id' => $this->user->proposal_id,
-            'message' => 'Remove',
+            'proposal_status_id' => $this->model->id,
+            'proposal_status' => $this->model->authorize,
+            'proposal_status_title' => $this->model->project_title,
         ];
     }
 }

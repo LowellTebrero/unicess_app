@@ -5,11 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Latest extends Model
+class AdminEvent extends Model
 {
     use HasFactory;
-
-    // For Latest Events
 
     protected $fillable = ['title','description','image', 'status'];
 }

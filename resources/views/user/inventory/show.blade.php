@@ -1,5 +1,6 @@
 <x-app-layout>
-@hasanyrole('Faculty extensionist|Extension coordinator')
+@if (Auth::user()->authorize == 'checked')
+  @hasanyrole('Faculty extensionist|Extension coordinator')
     <style>
         [x-cloak] { display: none }
         .upload-form button:disabled,
@@ -354,7 +355,6 @@
 
         </section>
 
-
         <script>
 
 
@@ -461,4 +461,20 @@
         <h1>404 Error</h1>
 
     @endrole
+
+    @elseif (Auth::user()->authorize == 'close')
+
+    <div class="flex items-center justify-center h-[80vh]">
+        <div class="mt-14">
+        <iframe src="https://embed.lottiefiles.com/animation/133760"></iframe>
+        </div>
+        <h1 class="text-2xl text-slate-700 font-bold">
+            <span> <img src="{{ asset('img/caution-1.png') }}" class="xl:w-[4rem] " width="200" alt=""></span>
+            Your account has been declined for some reason, <br> the admin is reviewing your account details
+            <span class="block text-lg mt-3 font-medium">Here are the hint to get authorize:</span>
+            <span class="block text-sm mt-1 font-medium ml-3"><li>Select your role</li></span>
+            <span class="block text-sm mt-1 font-medium ml-3"><li>Fill out your Profile Information</li></span>
+        </h1>
+    </div>
+@endif
 </x-app-layout>
