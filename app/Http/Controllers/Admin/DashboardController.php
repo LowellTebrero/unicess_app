@@ -204,11 +204,19 @@ class DashboardController extends Controller
 
         $years = AdminYear::orderBy('year', 'DESC')->pluck('year');
 
-        $users = Proposal::select(DB::raw("COUNT(*) as count"),
-        DB::raw("MONTHNAME(created_at) as month_name"))
-        ->groupBy(DB::raw("MONTHNAME(created_at)"))
-        ->orderBy(DB::raw("MONTH(created_at)"))
+        // $users = Proposal::select(DB::raw("COUNT(*) as count"),
+        // DB::raw("MONTHNAME(created_at) as month_name"))
+        // ->groupBy(DB::raw("month_name"))
+        // ->orderBy('created_at','ASC')
+        // ->pluck('count','month_name');
+
+
+        $users = Proposal::selectRaw("COUNT(*) as count, MONTHNAME(created_at) as month_name")
+        ->groupByRaw("MONTHNAME(created_at)")
+        ->orderByRaw("MONTH(created_at)")
         ->pluck('count', 'month_name');
+
+        dd($users);
 
         $labels = $users->keys();
         $data = $users->values();
