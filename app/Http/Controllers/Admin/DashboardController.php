@@ -208,7 +208,7 @@ class DashboardController extends Controller
         DB::raw("MONTHNAME(created_at) as month_name"))
         ->groupBy(DB::raw("MONTHNAME(created_at)"))
         ->orderBy(DB::raw("MONTH(created_at)"))
-        ->pluck('count','month_name');
+        ->pluck('count', 'month_name');
 
         $labels = $users->keys();
         $data = $users->values();
