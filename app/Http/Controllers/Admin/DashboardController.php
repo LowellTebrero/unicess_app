@@ -204,19 +204,18 @@ class DashboardController extends Controller
 
         $years = AdminYear::orderBy('year', 'DESC')->pluck('year');
 
-        // $users = Proposal::select(DB::raw("COUNT(*) as count"),
-        // DB::raw("MONTHNAME(created_at) as month_name"))
+        $users = Proposal::select(DB::raw("COUNT(*) as count"),  DB::raw("MONTHNAME(created_at) as month_name"))
         // ->groupBy(DB::raw("month_name"))
-        // ->orderBy('created_at','ASC')
-        // ->pluck('count','month_name');
+        ->orderBy('created_at','ASC')
+        ->pluck('count','month_name');
 
 
 
 
+        // dd($users);
 
-
-        // $labels = $users->keys();
-        // $data = $users->values();
+        $labels = $users->keys();
+        $data = $users->values();
 
 
         $proposals = Proposal::leftJoin('programs', 'proposals.program_id', '=', 'programs.id')
@@ -231,9 +230,8 @@ class DashboardController extends Controller
         $proposals->values();
 
 
-        // 'labels','data'
         return view('admin.dashboard.chart.index',compact( 'programLabel', 'programData', 'statusCount', 'pendingCount', 'ongoingCount', 'finishedCount',
-            'customizes', 'allProposal', 'years'));
+            'labels','data','customizes', 'allProposal', 'years'));
     }
 
 
