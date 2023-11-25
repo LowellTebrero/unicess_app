@@ -212,7 +212,7 @@ class DashboardController extends Controller
 
 
 
-        dd($users);
+        // dd($users);
 
         $labels = $users->keys();
         $data = $users->values();
