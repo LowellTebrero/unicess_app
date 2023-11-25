@@ -1,23 +1,26 @@
 <section class="flex min-h-[15vh] rounded-xl w-full flex-col space-y-4  lg:flex-row  xl:flex-row lg:space-x-6 lg:space-y-0 xl:space-x-5 2xl:space-x-8 mt-2 text-white sm:flex-row sm:space-x-4 md:flex-row md:space-x-4 md:space-y-0 sm:space-y-0 sm:w-full">
 
-    <div class="bg-white w-full text-gray-700 rounded-xl  hover:bg-slate-100 transition-all flex justify-between items-center p-4 sm:p-0 sm:px-4 md:px-6 px-8 xl:px-10 shadow relative hover:border hover:border-teal-300">
+    <a href={{ route('admin.dashboard.member-request') }} class="bg-white w-full text-gray-700 rounded-xl  hover:bg-slate-100 transition-all flex justify-between items-center p-4 sm:p-0 sm:px-4 md:px-6 px-8 xl:px-10 shadow relative hover:border hover:border-teal-300">
         <div>
-            <div class=" flex items-end">
-                <span class="block  xl:text-5xl 2xl:text-6xl text-4xl font-medium">{{ $evaluation }}</span>
+            <div class="flex space-x-2">
+                <span class="block  xl:text-5xl 2xl:text-6xl text-4xl font-medium">{{ $proposalrequest }}</span>
 
-                <div class="flex items-center space-x-2">
-                    <span class="text-sm">Out of</span>
-                    <span class="block  text-2xl font-medium mb-1">{{ $totalAccount }}</span>
+                <div class="flex flex-col">
+                    @if ($getCountpropreq > 0)
+                    <span class="text-green-500">{{ $getCountpropreq }} % </span>
+                    <span class="text-xs text-green-500">of today</span>
+                    @elseif ($getCountpropreq <= 0)
+                    <span class="text-red-400">{{ $getCountpropreq }} % </span>
+                    <span class="text-xs text-red-400">of today</span>
+                    @endif
                 </div>
             </div>
-            <h1 class="xl:text-[.7rem] 2xl:text-sm text-xs">Submitted Evaluaton form </h1>
+            <h1 class="xl:text-[.7rem] 2xl:text-sm text-xs">Request for proposal member </h1>
+            {{--  Request for proposal member  --}}
         </div>
-        <svg class="xl:w-[2rem] 2xl:w-[5rem] lg:w-[3rem] sm:w-[2rem] sm:absolute sm:top-2 sm:right-5 lg:relative xl:absolute xl:top-2 xl:right-7 2xl:sticky" xmlns="http://www.w3.org/2000/svg" width="55" height="55"
-            viewBox="0 0 256 256">
-            <path fill="currentColor"
-                d="M64.12 147.8a4 4 0 0 1-4 4.2H16a8 8 0 0 1-7.8-6.17a8.35 8.35 0 0 1 1.62-6.93A67.79 67.79 0 0 1 37 117.51a40 40 0 1 1 66.46-35.8a3.94 3.94 0 0 1-2.27 4.18A64.08 64.08 0 0 0 64 144c0 1.28 0 2.54.12 3.8Zm182-8.91A67.76 67.76 0 0 0 219 117.51a40 40 0 1 0-66.46-35.8a3.94 3.94 0 0 0 2.27 4.18A64.08 64.08 0 0 1 192 144c0 1.28 0 2.54-.12 3.8a4 4 0 0 0 4 4.2H240a8 8 0 0 0 7.8-6.17a8.33 8.33 0 0 0-1.63-6.94Zm-89 43.18a48 48 0 1 0-58.37 0A72.13 72.13 0 0 0 65.07 212A8 8 0 0 0 72 224h112a8 8 0 0 0 6.93-12a72.15 72.15 0 0 0-33.74-29.93Z" />
-        </svg>
-    </div>
+
+        <svg class="xl:w-[2rem] 2xl:w-[5rem] lg:w-[3rem] sm:w-[2rem] sm:absolute sm:top-2 sm:right-5 lg:relative xl:absolute xl:top-2 xl:right-7 2xl:sticky" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 16 16"><path fill="#374151" d="M9 1v3.5A1.5 1.5 0 0 0 10.5 6H14v7.5a1.5 1.5 0 0 1-1.5 1.5H8.19c.202-.346.27-.769.16-1.179C9.952 13.634 11 12.088 11 10.5a5.5 5.5 0 0 0-7-5.293V2.5A1.5 1.5 0 0 1 5.5 1H9ZM6.862 14.79A4.5 4.5 0 1 1 10 10.5c0 1.301-.89 2.34-1.98 2.34c-.302 0-.56-.07-.776-.2a1.372 1.372 0 0 1-.406-.379a1.82 1.82 0 0 1-.586.423c-.225.1-.477.156-.752.156a1.818 1.818 0 0 1-1.5-.772c-.31-.422-.48-.977-.48-1.568c0-.59.17-1.146.48-1.568c.344-.47.859-.772 1.5-.772a1.815 1.815 0 0 1 .97.273a.513.513 0 0 1 .085-.112a.54.54 0 0 1 .92.305l.005.074v1.8c0 .895.202 1.26.54 1.26c.453 0 .9-.521.9-1.26a3.404 3.404 0 0 0-.634-1.983a3.434 3.434 0 0 0-1.794-1.29A3.42 3.42 0 0 0 4 7.425a3.42 3.42 0 0 0 2.335 6.392l.2-.057l.14-.048a.54.54 0 0 1 .44.984l-.068.03l-.185.063ZM4.6 10.5c0 .717.38 1.26.9 1.26s.9-.543.9-1.26s-.38-1.26-.9-1.26s-.9.543-.9 1.26ZM10 1.25V4.5a.5.5 0 0 0 .5.5h3.25L10 1.25Zm-2.169 9.567l.002-.002Z"/></svg>
+    </a>
 
     <div class="hover:border hover:border-teal-300 bg-white w-full text-gray-700 rounded-xl  hover:bg-slate-100 transition-all flex justify-between items-center p-4 sm:p-0 sm:px-4 md:px-6 px-8 xl:px-10 shadow relative"
         type="button" x-data="{}" x-on:click="window.livewire.emitTo('pending-user', 'show')">
@@ -31,8 +34,8 @@
                     <span class="text-green-500">{{ $getCountUsers }} % </span>
                     <span class="text-xs text-green-500">of today</span>
                     @elseif ($getCountUsers <= 0)
-                    <span class="text-red-500">{{ $getCountUsers }} % </span>
-                    <span class="text-xs text-red-500">of today</span>
+                    <span class="text-red-400">{{ $getCountUsers }} % </span>
+                    <span class="text-xs text-red-400">of today</span>
                     @endif
                 </div>
                 </div>
@@ -58,17 +61,19 @@
                 <span class="text-green-500">{{ $getCountProposals }} % </span>
                 <span class="text-xs text-green-500">of today</span>
                 @elseif ($getCountProposals <= 0)
-                <span class="text-red-500">{{ $getCountProposals }} % </span>
-                <span class="text-xs text-red-500">of today</span>
+                <span class="text-red-400">{{ $getCountProposals }} % </span>
+                <span class="text-xs text-red-400">of today</span>
                 @endif
             </div>
             </div>
             <h1 class="xl:text-[.7rem] 2xl:text-sm text-xs">Total of proposals</h1>
         </div>
 
-        <svg class="xl:w-[2rem] 2xl:w-[5rem] lg:w-[3rem] sm:w-[2rem] sm:absolute sm:top-2 sm:right-5 lg:relative xl:absolute xl:top-2 xl:right-7 2xl:sticky" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24">
+        {{--  <svg class="xl:w-[2rem] 2xl:w-[5rem] lg:w-[3rem] sm:w-[2rem] sm:absolute sm:top-2 sm:right-5 lg:relative xl:absolute xl:top-2 xl:right-7 2xl:sticky" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24">
             <path fill="currentColor"
                 d="M4 4v18h16v2H4c-1.1 0-2-.9-2-2V4h2m11 3h5.5L15 1.5V7M8 0h8l6 6v12c0 1.11-.89 2-2 2H8a2 2 0 0 1-2-2V2c0-1.11.89-2 2-2m9 16v-2H8v2h9m3-4v-2H8v2h12Z" />
-        </svg>
+        </svg>  --}}
+
+        <svg class="xl:w-[2rem] 2xl:w-[5rem] lg:w-[3rem] sm:w-[2rem] sm:absolute sm:top-2 sm:right-5 lg:relative xl:absolute xl:top-2 xl:right-7 2xl:sticky" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 512 512"><path fill="#374151" d="M428 224H288a48 48 0 0 1-48-48V36a4 4 0 0 0-4-4h-92a64 64 0 0 0-64 64v320a64 64 0 0 0 64 64h224a64 64 0 0 0 64-64V228a4 4 0 0 0-4-4Zm-92 160H176a16 16 0 0 1 0-32h160a16 16 0 0 1 0 32Zm0-80H176a16 16 0 0 1 0-32h160a16 16 0 0 1 0 32Z"/><path fill="#374151" d="M419.22 188.59L275.41 44.78a2 2 0 0 0-3.41 1.41V176a16 16 0 0 0 16 16h129.81a2 2 0 0 0 1.41-3.41Z"/></svg>
     </a>
 </section>

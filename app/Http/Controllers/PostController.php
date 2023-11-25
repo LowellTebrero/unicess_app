@@ -47,7 +47,7 @@ class PostController extends Controller
 
         $authorize = DB::table('users')->select('authorize')->get();
         $slider = AdminEvent::where('status', 'open')->get();
-        $features = Feature::where('status', '1')->get();
+        $features = Feature::where('status', 'open')->get();
         $newsUpdate = NewsUpdate::where('status', '1')->get();
         return view('lnu', compact('newsUpdate', 'slider', 'authorize', 'features'));
     }

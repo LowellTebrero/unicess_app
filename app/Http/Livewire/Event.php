@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\AdminEvent;
 use App\Models\Latest;
 use Livewire\Component;
 use Intervention\Image\ImageManager;
@@ -32,7 +33,7 @@ class Event extends Component
             'image' => 'image|required|mimes:jpg,png,jpeg| max:5048']
         );
 
-        $event = new Latest();
+        $event = new AdminEvent();
 
         $this->image->store('photos');
         $imagehash = $this->title.'.'.$this->image->getClientOriginalExtension();
@@ -55,7 +56,7 @@ class Event extends Component
 
     public function render()
     {
-        $this->latests = Latest::orderBy('updated_at', 'desc')->get();
+        $this->latests = AdminEvent::orderBy('updated_at', 'desc')->get();
         return view('livewire.event');
     }
 }

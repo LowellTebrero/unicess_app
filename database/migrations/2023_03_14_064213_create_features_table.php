@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('title');
             $table->longText('description');
             $table->string('feature_image');
-            $table->string('status')->default(1);
+            $table->string('status')->default('close');
             $table->timestamps();
         });
     }

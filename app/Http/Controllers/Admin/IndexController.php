@@ -12,6 +12,7 @@ use App\Charts\ProposalChart;
 use App\Models\ProposalMember;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\ProposalRequest;
 use App\Notifications\ProposalNotification;
 use Illuminate\Support\Facades\Notification;
 
@@ -34,32 +35,18 @@ use Illuminate\Support\Facades\Notification;
         $totalProposal = DB::table('proposals')->select('id')->count();
         $getCountProposals = DB::table('proposals')->whereDate('created_at', Carbon::today())->count();
         $getCountUsers = DB::table('users')->whereDate('created_at', Carbon::today())->count();
+        $getCountpropreq = DB::table('proposal_requests')->whereDate('created_at', Carbon::today())->count();
         $programs = Program::orderBy('program_name')->pluck('program_name', 'id')->prepend('Select Program', '');
         $evaluation = Evaluation::whereYear('created_at', date('Y'))->count();
-        // dd($evaluation);
-        // $proposal_member = ProposalMember::leftJoin('users', 'proposal_members.user_id', '=', 'users.id')
-        // ->whereNotNull(['users.faculty_id'])
-        // ->select('users.first_name', DB::raw('SUM(points) as total'))
-        // ->groupBy('users.first_name')
-        // ->orderBy('total', 'desc')
-        // ->limit(8)
-        // ->pluck('total', 'users.first_name');
-
-
-        // $chart3 = new ProposalChart;
-        // $chart3->labels($proposal_member->keys());
-
-        // $chart3->dataset('Top 8 User Points', 'bar', $proposal_member->values())->backgroundColor([
-        //     "#FFD600","#E6E6E6","#F4A460","#DE965A","#CE8B54","#CE8B54","#C38451", "#C38451", "#B97C4D", "#B97C4D",
-        //   ], );
-
+        $proposalrequest = ProposalRequest::whereYear('created_at', date('Y'))->count();
 
         $currentYear = date('Y');
         $previousYear = $currentYear + 1;
 
         return view('admin.dashboard.index', compact('projectProposal', 'allProposal', 'getCountProposals', 'getCountUsers',
              'pendingAccount', 'totalAccount', 'ongoingProposal', 'currentYear' , 'previousYear',
-             'finishedProposal', 'totalProposal', 'programs', 'evaluation' ));
+             'finishedProposal', 'totalProposal', 'programs', 'evaluation', 'proposalrequest'
+            ,'getCountpropreq' ));
     }
 
     public function store(Request $request)
@@ -128,7 +115,6 @@ use Illuminate\Support\Facades\Notification;
 
         return redirect(route('admin.dashboard.index'))->with('message', 'Proposal created successfully');
     }
-
 
     public function search(Request $request)
     {

@@ -14,11 +14,28 @@
                 @csrf
                 @method('PATCH')
 
-                <div class="mb-4">
+                <div class="flex space-x-4 ">
+                <div class="mb-4 w-full">
                     <label class="block text-gray-600 text-sm font-medium mb-2">Event Title:</label>
                     <input class="xl:text-sm appearance-none border border-slate-300 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="title" name="title" type="text" placeholder=""
                     value = "{{$latestEvents->title}}">
                     @error('title') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                </div>
+
+                <div class="xl:flex items-center">
+
+                    <div class="mb-4">
+                        <label class="block text-gray-600 text-sm font-semibold tracking-wider mb-2" for="description">Image</label>
+                        <input type="file" id="image" class="shadow appearance-none border rounded xl:text-xs  px-3 text-gray-700 leading-tight"  name="image"
+                        value="{{$latestEvents->image}}">
+                        @error('image') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div class="p-2 w-48 xl:w-16 ">
+                        <img id="showImage" src="{{ (!empty($latestEvents->image))? url('upload/image-folder/event-folder/'. $latestEvents->image): url('upload/no-image.png') }}" alt="">
+                    </div>
+                </div>
+
                 </div>
 
                 <div class="mb-4">
@@ -31,22 +48,7 @@
                     @error('description') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>
 
-                <div class="xl:flex xl:justify-between">
 
-                    <div class="xl:flex items-center">
-
-                        <div class="mb-4">
-                            <label class="block text-gray-700 text-sm font-bold mb-2" for="description">Image</label>
-                            <input type="file" id="image" class="shadow appearance-none border rounded xl:text-xs  px-3 text-gray-700 leading-tight"  name="image"
-                            value="{{$latestEvents->image}}">
-                            @error('image') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-                        </div>
-
-                        <div class="p-2 w-48 xl:w-16 ">
-                            <img id="showImage" src="{{ (!empty($latestEvents->image))? url('upload/image-folder/event-folder/'. $latestEvents->image): url('upload/no-image.png') }}" alt="">
-                        </div>
-                    </div>
-                </div>
 
                 <div class="mt-5">
                     <button class=" bg-blue-500 hover:bg-blue-700 text-white font-semibold tracking-wider py-2 px-4 rounded-lg" type="submit">

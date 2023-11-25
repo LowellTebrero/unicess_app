@@ -7,7 +7,6 @@
 
     <section class="m-8  rounded-lg  relative mt-5 xl:min-h-[85vh] 2xl:min-h-[87vh]  bg-white text-gray-700">
 
-
         @foreach ($allproposal as $proposal )
 
             @if ($proposal->number == 1)
@@ -18,6 +17,7 @@
                     </div>
 
                     <div class="sm:space-x-2 space-y-2 md:space-y-0 lg:flex-row text-xs">
+                        <a href={{ route('allProposal.request-proposal-index') }} class="bg-blue-500 text-white px-2 rounded py-1">Send Request</a>
                         <input type="text" id="searchInput" class="rounded text-xs border-gray-300 w-full  sm:w-[15rem] md:w-[20rem]" placeholder="Search Proposal Title...">
 
                         <select name="MyAllDropdown" id="MyAllDropdown" class="text-xs border-gray-300 rounded w-full 2xl:w-[7rem] sm:w-[8rem]">

@@ -26,7 +26,7 @@
             @endrole
 
             @hasanyrole('Faculty extensionist|Extension coordinator')
-                <x-custom-nav-link :href="route('allProposal.index')" :active="request()->routeIs('allProposal.index')" class="dynamic-link">
+                <x-custom-nav-link :href="route('allProposal.index')" :active="request()->routeIs('allProposal*')" class="dynamic-link">
                     <svg class="fill-white mr-2" xmlns="http://www.w3.org/2000/svg" height="35"
                         viewBox="0 -960 960 960" width="30">
                         <path

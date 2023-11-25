@@ -44,6 +44,7 @@ class ProposalController extends Controller
      */
     public function index(Request $request)
     {
+        $userId = Auth::id();
         $user = Auth::user();
         $currentYear = date('Y');
         $Temporary = TemporaryEvaluationFile::all();
@@ -52,8 +53,6 @@ class ProposalController extends Controller
         $query->select('proposal_id')->where('user_id', auth()->user()->id)->distinct();
         }])->orderBy('created_at', 'DESC')->whereYear('created_at', date('Y'))->get();
 
-
-        $userId = Auth::id();
 
         $programs = Program::orderBy('program_name')->pluck('program_name', 'id')->prepend('Select Program', '');
         $locations = Location::orderBy('location_name')->pluck('location_name', 'id')->prepend('Select Location', '');

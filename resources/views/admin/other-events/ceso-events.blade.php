@@ -11,78 +11,8 @@
         </div>
         <hr>
 
-
-        {{--  <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = false">
-
-            <!-- Trigger for Modal -->
-            <button type="button" @click="showModal = true">
-                <h1 class="text-sm bg-blue-600 px-2 py-2 rounded-md text-white xl:text-[.8rem] 2xl:text-sm xl:text-xs flex">+ Create Event</h1>
-            </button>
-
-            <!-- Modal -->
-            <div class="fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-black bg-opacity-80" x-show="showModal">
-
-                <!-- Modal inner -->
-                <div class="py-4 text-left bg-white rounded-lg shadow-lg" x-show="showModal"
-                    x-transition:enter="motion-safe:ease-out duration-300"
-                    x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
-                    x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
-                    x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" @click.away="showModal = false">
-
-                    <!-- Title / Close-->
-                    <div class="flex items-center justify-between px-4 py-1">
-                        <h5 class="mr-3 text-black max-w-none text-xs">Create Event</h5>
-                        <button type="button" class="z-50 cursor-pointer text-red-500 text-xl font-semibold focus:bg-gray-300 focus:rounded" @click="showModal = false">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                        </button>
-                    </div>
-                    <hr>
-
-                     <!-- content -->
-                    <div class="flex items-center justify-center">
-                        <div class="m-12">
-                            <form action="{{route('admin.other-events-ceso-store-events')}}" method="POST" enctype="multipart/form-data">
-                            @csrf
-
-                                <div class="mb-4">
-                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="title">
-                                    Title
-                                    </label>
-                                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="title" name="title" type="text" placeholder="">
-                                    @error('title') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-                                </div>
-
-                                <div class="mb-4">
-                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="title">Description</label>
-                                    <textarea id="editor" class="w-[50rem] h-52" name="description"></textarea>
-                                    @error('description') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-                                </div>
-
-
-
-                                <div class="mb-6">
-                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="description">Image</label>
-                                    <input type="file" class="appearance-none border rounded  py-2 px-3 text-xs text-gray-700" name="image">
-                                    @error('image') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-                                </div>
-
-                                <div class="flex items-center justify-between">
-                                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-                                        Create Event
-                                    </button>
-
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>  --}}
-
         <div class="p-5">
-            <a href={{ route('admin.other-events-ceso-create-events') }} class="bg-blue-500 text-sm rounded-lg px-3 py-1 text-white">+ Create Event</a>
+            <a href={{ route('admin.other-events-ceso-create-events') }} class="bg-blue-500 text-sm rounded-lg px-3 py-2 text-white">+ Create Event</a>
         </div>
 
             @if ($event->isEmpty())
@@ -146,7 +76,7 @@
                                 <td class="p-3 whitespace-nowrap w-[3rem]">
                                     <a href="{{ route('admin.other-events-ceso-edit-events', $latest->id) }}">
                                     <div class="text-left text-gray-700">
-                                        <img class="rounded-lg" id="showImage"  src="{{ (!empty($latest->image))? url('upload/image-folder/event-folder/'. $latest->image): url('upload/no-image.png') }}" width="30"  alt="">
+                                        <img class="rounded-lg" id="showImage"  src="{{ (!empty($latest->image))? url('upload/image-folder/event-folder/'. $latest->image): url('upload/no-image.png') }}">
                                     </div>
                                     </a>
                                 </td>
@@ -183,46 +113,6 @@
             </div>
             @endif
 
-            {{--  <div class="items-center border">
-                    <table class="w-full">
-                        <thead class="border-b">
-                        @endif
-                    </thead>
-                    <tbody >
-                        @foreach ($event as $latest )
-                        <tr class="border-b w-full">
-                            <td class="px-3 py-4 whitespace-nowrap text-xs w-32 font-medium text-gray-900 xl:text-[.6rem]"> {{ $latest->updated_at->diffForHumans() }}</td>
-                            <td class=" py-4 whitespace-nowrap  w-52 text-sm font-medium text-gray-900 xl:text-[.7rem]"> {{Str::limit($latest->title, 20)}}</td>
-                            <td class="text-sm text-gray-900 font-light xl:w-96 2xl:w-1/2   py-4 whitespace-nowrap xl:text-[.7rem]">{!! Str::limit($latest->description, 60) !!}</td>
-                            <td class="text-sm text-green-600 font-light  w-32 py-4 whitespace-nowrap xl:text-[.7rem]">
-                                @if ($latest->status == '0')
-                                        <span class="text-red-500">hidden</span>
-                                @else
-                                    visible
-                                @endif
-                            </td>
-                            <td class="text-sm text-gray-900 font-light pr-5  py-3 whitespace-nowrap w-16">
-                                <img class="rounded-2xl " id="showImage" src="{{ (!empty($latest->image))? url('upload/image-folder/event-folder/'. $latest->image): url('upload/no-image.png') }}"   alt="">
-                            </td>
-
-                            <td class="text-sm text-blue-500 font-light  py-4 my-auto whitespace-nowrap flex  mt-2 ">
-                                <a href="{{ route('admin.other-events-ceso-edit-events', $latest->id) }}"> Edit</a>
-                                <form action="{{ route('admin.other-events-ceso-delete-events', $latest->id) }}" method="POST" onsubmit="return confirm ('Are you sure?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="text-red-500">
-                                        <svg class="fill-red-500" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 96 960 960" width="30"><path d="M261 936q-24.75 0-42.375-17.625T201 876V306h-41v-60h188v-30h264v30h188v60h-41v570q0 24-18 42t-42 18H261Zm438-630H261v570h438V306ZM367 790h60V391h-60v399Zm166 0h60V391h-60v399ZM261 306v570-570Z"/></svg>
-                                    </button>
-                                </form>
-                            </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                    </table>
-                </div>  --}}
-
-
-    <x-messages/>
     </section>
 
     @section('scripts')

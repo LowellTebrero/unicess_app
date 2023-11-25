@@ -197,7 +197,7 @@ class InventoryController extends Controller
             foreach ($images as $image) {
                 $proposals->addMedia($image)->usingName('other')->toMediaCollection('otherFile');
             }
-        }
+         }
          $proposals->update();
          app('flasher')->addSuccess('Files successfully updated.');
          return back();

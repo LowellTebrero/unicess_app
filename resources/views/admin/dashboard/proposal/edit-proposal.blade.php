@@ -392,7 +392,7 @@
 
                                                         <form action={{ route('admin.dashboard.update-project-details', $proposal->id ) }} method="POST">
                                                             @csrf @method('PUT')
-                                                        <!-- Modal header -->
+
 
                                                         <!-- Modal body -->
                                                         <div class="p-6 space-y-6">

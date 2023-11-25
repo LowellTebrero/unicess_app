@@ -18,6 +18,7 @@ use App\Http\Controllers\UpdatePendingProposalController;
 use App\Http\Controllers\DeleteTemporaryEvaluationFilesController;
 use App\Http\Controllers\EvaluateController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\FeatureController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\ProposalController;
 use App\Http\Controllers\UploadTemporaryEvaluationFilesController;
@@ -44,6 +45,7 @@ Route::post('/toggle-update/{id}', [EvaluationController::class, 'updateSystem']
 Route::post('/toggle-update/user/{id}', [UserController::class, 'updateSystem'])->name('toggle.update-user');
 
 Route::post('/toggle-update/event/{id}', [EventController::class, 'updateSystem'])->name('toggle.update-event');
+
 
 Route::post('/update-data/{id}', [UpdatePendingProposalController::class, 'updateData'])->name('update.data');
 

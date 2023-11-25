@@ -50,13 +50,12 @@ class EventController extends Controller
                 $events->image = $filename;
                 $events->save();
 
-            return redirect(route('admin.other-events-ceso-events'))->with('message', 'Events add successfully');
+
+            flash()->addSuccess('Event Uploded Successfully.');
+            return redirect(route('admin.other-events-ceso-events'));
             // End method
-
-
         }
     }
-
 
     // Edit Events
     public function edit($id)
@@ -92,9 +91,10 @@ class EventController extends Controller
                     'title' => $request->title,
                     'description' => $request->description,
                     'image' => $filename,
-                    'status' => $request->input('status') == true ? 'Visible': 'Hidden'
+
                 ]);
 
+                  flash()->addSuccess('Event Updated Successfully.');
                 return redirect(route('admin.other-events-ceso-events'))->with('message', 'event  updated with image successfully');
             }else {
 
@@ -102,10 +102,11 @@ class EventController extends Controller
 
                     'title' => $request->title,
                     'description' => $request->description,
-                    'status' => $request->input('status') == true ? 'Visible': 'Hidden'
+
 
                 ]);
 
+                flash()->addSuccess('Event Updated Successfully.');
                 return redirect(route('admin.other-events-ceso-events'))->with('message', 'event without image updated successfully');
             }
 
@@ -126,19 +127,6 @@ class EventController extends Controller
         return redirect(route('admin.other-events-ceso-events'));
     }
 
-    public function updateSystem(Request $request, $id)
-    {
-        // Find the record in the database
-        $toggle = AdminEvent::findOrFail($id);
-
-        // Toggle the data in the table based on the current state
-        $toggle->update([
-            'status' => $request->input('state') ? 'checked' : 'close',
-        ]);
-
-        return response()->json(['success' => true]);
-
-    }
 
 
     public function updateStatus(Request $request)

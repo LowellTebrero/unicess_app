@@ -35,6 +35,7 @@ use App\Http\Controllers\Admin\EvaluationController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\OtherSettingsController;
 use App\Http\Controllers\Admin\AdminInventoryController;
+use App\Http\Controllers\Admin\ProposalRequestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -134,6 +135,7 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
         Route::get('/features/create','create')->name('features.create');
         Route::get('/features/edit/{id}','edit')->name('features.edit');
         Route::delete('/features/delete/{id}','delete')->name('features.delete');
+        Route::post('/toggle-update-feature-status',  'UpdateToggleFeatureStatus')->name('features.update-feature-status');
 
     });
 
@@ -150,6 +152,15 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
         Route::get('/dashboard-search-data',  'SearchData')->name('dashboard.search-data');
         Route::get('/dashboard-filter-year',  'FilterYears')->name('dashboard.filter-year');
     });
+
+    Route::controller(ProposalRequestController::class)->group(function () {
+        Route::get('/member-request','index')->name('dashboard.member-request');
+        Route::get('/member-request-show/{id}/{notification}','show')->name('dashboard.member-request-show');
+
+    });
+
+
+
 
 
     Route::controller(EvaluationController::class)->group(function () {
@@ -202,6 +213,7 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
     Route::post('/faculty-post',[OtherSettingsController::class, 'facultyPost'])->name('facultypost.upload');
 
     Route::post('/tasks/update-status', [EventController::class, 'updateStatus'])->name('tasks.update-status');
+
 
 });
 
@@ -284,6 +296,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/my-proposal-filter-year/{id}',  'MyProposalFilterYear')->name('User-dashboard.my-proposal-filter-year');
     });
 
+
+    Route::controller(AllProposalController::class)->group(function () {
+        Route::get('/allProposal', 'index')->name('allProposal.index');
+        Route::get('/request-proposal-index', 'RequestIndex')->name('allProposal.request-proposal-index');
+        Route::get('/request-proposal-create', 'RequestCreate')->name('allProposal.request-proposal-create');
+        Route::post('/request-proposal-post', 'RequestPost')->name('allProposal.request-proposal-post');
+        Route::post('request-proposal','SendRequest')->name('allProposal.post');
+    });
+
         Route::get('/welcome-user',[UserWelcomeController::class, 'WelcomeUser'])->name('auth.welcome-user');
 
         Route::get('/points', [PointsController::class, 'index'])->name('points-system.index');
@@ -295,9 +316,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/filter/evaluate/index', [EvaluateController::class, 'EvaluateFilterIndex'])->name('evaluate.EvaluateFilterIndex');
         Route::get('/evaluate-pdf/{id}', [EvaluateController::class, 'evaluatePdf'])->name('evaluate-pdf');
 
-        Route::get('/allProposal', [AllProposalController::class, 'index'])->name('allProposal.index');
+
+
+
+
+
+
+
         Route::post('update-proposal/{proposal}', [SelectController::class, 'update']);
         Route::delete('/delete-uploaded-file/{id}', [EvaluateController::class, 'deleteFile']);
+
 
 
 });

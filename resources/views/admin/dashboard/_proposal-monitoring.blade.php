@@ -7,7 +7,7 @@
         <div class="justify-between flex mt-3 xl:mt-3 xl:flex-col xl:space-y-5 xl:space-x-0 flex-col sm:flex-row sm:space-y-0 space-y-2 sm:space-x-4">
 
             <button
-                class="border border-gray-400 min-h-[8vh] bg-gradient-to-r from-green-200 to-green-500  w-full rounded-xl p-5  flex space-x-5 items-center relative overflow-hidden  duration-100"
+                class="border border-gray-400 min-h-[8vh] bg-gradient-to-r from-green-200 to-green-500  w-full rounded-lg p-5  flex space-x-5 items-center relative overflow-hidden  duration-100"
                 type="button" x-data="{}"
                 x-on:click="window.livewire.emitTo('finished-proposal', 'show')">
 
@@ -22,7 +22,7 @@
             </button>
 
             <button
-                class="border border-gray-400 min-h-[8vh] bg-gradient-to-r from-sky-400 to-blue-500 w-full  rounded-xl p-5 flex space-x-5 items-center relative overflow-hidden  duration-100"
+                class="border border-gray-400 min-h-[8vh] bg-gradient-to-r from-sky-400 to-blue-500 w-full  rounded-lg p-5 flex space-x-5 items-center relative overflow-hidden  duration-100"
                 type="button" x-data="{}"
                 x-on:click="window.livewire.emitTo('ongoing-proposal', 'show')">
 
@@ -39,7 +39,7 @@
             </button>
 
             <button
-                class="border border-gray-400 min-h-[8vh] bg-gradient-to-l from-orange-600 via-orange-400 to-yellow-300   w-full rounded-2xl p-5 space-x-5   items-center relative overflow-hidden flex "
+                class="border border-gray-400 min-h-[8vh] bg-gradient-to-l from-orange-600 via-orange-400 to-yellow-300   w-full rounded-lg p-5 space-x-5   items-center relative overflow-hidden flex "
                 type="button" x-data="{}"
                 x-on:click="window.livewire.emitTo('pending-proposal', 'show')">
 
@@ -57,4 +57,31 @@
             </button>
         </div>
     </div>
+
+
+
+    <div class="p-5 mt-5 space-y-2 h-[20vh]">
+        <h1 class="tracking-wider text-gray-700 font-medium">Evaluation Request</h1>
+        <a href="" class="bg-white rounded-lg hover:bg-gray-100 hover:border-teal-300 h-[10vh] flex flex-col justify-between p-2 px-3 border relative text-gray-700">
+            <span class="flex items-center space-x-1">
+                <span class="text-[2.8rem] text-gray-600 font-medium">{{ $evaluation }}</span>
+                <span class="text-xs">Out of</span>
+                <span class="block text-gray-700  text-lg ">{{ $totalAccount }}</span>
+            </span>
+
+            <span class="text-xs text-gray-700 tracking-wider">Submitted Evaluaton form</span>
+
+            <svg class="w-[2rem] sm:absolute sm:top-2 sm:right-5 lg:relative xl:absolute xl:top-2 xl:right-7 absolute:sticky" xmlns="http://www.w3.org/2000/svg" width="55" height="55"
+            viewBox="0 0 256 256">
+            <path fill="currentColor"
+                d="M64.12 147.8a4 4 0 0 1-4 4.2H16a8 8 0 0 1-7.8-6.17a8.35 8.35 0 0 1 1.62-6.93A67.79 67.79 0 0 1 37 117.51a40 40 0 1 1 66.46-35.8a3.94 3.94 0 0 1-2.27 4.18A64.08 64.08 0 0 0 64 144c0 1.28 0 2.54.12 3.8Zm182-8.91A67.76 67.76 0 0 0 219 117.51a40 40 0 1 0-66.46-35.8a3.94 3.94 0 0 0 2.27 4.18A64.08 64.08 0 0 1 192 144c0 1.28 0 2.54-.12 3.8a4 4 0 0 0 4 4.2H240a8 8 0 0 0 7.8-6.17a8.33 8.33 0 0 0-1.63-6.94Zm-89 43.18a48 48 0 1 0-58.37 0A72.13 72.13 0 0 0 65.07 212A8 8 0 0 0 72 224h112a8 8 0 0 0 6.93-12a72.15 72.15 0 0 0-33.74-29.93Z" />
+            </svg>
+        </a>
+    </div>
+
+
+
 </div>
+
+
+

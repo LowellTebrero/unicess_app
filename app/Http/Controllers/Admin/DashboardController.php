@@ -477,4 +477,7 @@ class DashboardController extends Controller
             'labels','data','customizes', 'allProposal', 'years'));
     }
 
+
+
+
 }
