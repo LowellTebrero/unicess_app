@@ -12,9 +12,14 @@
     "src": "public/img/mission-vision.jpg"
   },
   "resources/css/app.css": {
-    "file": "assets/app-b14c6f17.css",
+    "file": "assets/app-90aee031.css",
     "isEntry": true,
     "src": "resources/css/app.css"
+  },
+  "resources/css/sidebar.css": {
+    "file": "assets/sidebar-b2f461b5.css",
+    "isEntry": true,
+    "src": "resources/css/sidebar.css"
   },
   "resources/js/app.css": {
     "file": "assets/app-3839a03e.css",
