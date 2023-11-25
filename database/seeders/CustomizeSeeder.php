@@ -7,6 +7,7 @@ use App\Models\CustomizeAdminProposal;
 use App\Models\CustomizeAdminUserData;
 use App\Models\CustomizeUserAllProposal;
 use App\Models\CustomizeUserInventory;
+use App\Models\EvaluationStatus;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -25,5 +26,6 @@ class CustomizeSeeder extends Seeder
         CustomizeUserAllProposal::create(['number' => 1 ]);
         CustomizeUserInventory::create(['number' => 1 ]);
         CustomizeUserInventory::create(['number' => 2 ]);
+        EvaluationStatus::create(['status' => 'close' ]);
     }
 }
