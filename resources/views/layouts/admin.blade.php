@@ -59,7 +59,7 @@
 
     </section>
 
-    <script>
+    {{--  <script>
         let button = document.querySelector(".btn-slide")
         let sidebar = document.querySelector(".sidebar")
         let closebutton = document.querySelector(".close-button")
@@ -71,12 +71,12 @@
         closebutton.addEventListener('click',() => {
             sidebar.classList.remove('active');
           });
-    </script>
+    </script>  --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
-    {{--  <script src="{{ asset('js/sidebar.js') }}"></script>  --}}
+    <script src="{{ asset('js/sidebar.js') }}"></script>
      <script src="{{ asset('js/proofOfFile.js') }}"></script>
 
     @yield('scripts')
