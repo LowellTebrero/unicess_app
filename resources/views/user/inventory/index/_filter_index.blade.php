@@ -8,7 +8,7 @@
                                     <div class="bg-slate-100 shadow rounded-md hover:bg-slate-200 p-2 flex m-3 relative">
 
                                         <a class="block  w-[10rem] text-[.7rem]"
-                                            href={{ route('inventory.show', $proposal->id) }}>
+                                            href={{ route('inventory.show', ['id' => $proposal->id, 'notification' => $proposal->id ]) }}>
                                             <svg class="fill-blue-500 hover:fill-blue-600" xmlns="http://www.w3.org/2000/svg" height="55"
                                                 viewBox="0 96 960 960" width="55">
                                                 <path d="M141 896q-24 0-42-18.5T81 836V316q0-23 18-41.5t42-18.5h280l60 60h340q23 0 41.5 18.5T881 376v460q0 23-18.5 41.5T821 896H141Z" />
