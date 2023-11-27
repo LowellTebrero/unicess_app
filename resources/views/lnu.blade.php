@@ -91,8 +91,7 @@
         @include('lnu-partials.lnu-footer')
         </section>
 
-        <div id="fb-root"></div>
-        <div id="fb-customer-chat" class="fb-customerchat"></div>
+
 
         <x-messages/>
         <script src="{{ asset('js/chatPlugin.js') }}"></script>

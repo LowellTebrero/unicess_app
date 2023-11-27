@@ -401,3 +401,7 @@
         </div>
     @endauth
 </nav>
+
+
+<div id="fb-root"></div>
+<div id="fb-customer-chat" class="fb-customerchat"></div>
