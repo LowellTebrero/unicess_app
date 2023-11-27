@@ -23,16 +23,12 @@
         <link href="../css/froala_style.min.css" rel="stylesheet" type="text/css" />
         <link href='https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css' rel='stylesheet' type='text/css' />
 
-        <style>
-            [x-cloak] { display: none }
-        </style>
+        <style>[x-cloak] { display: none }</style>
 
     </head>
 
     <body class="font-sans antialiased w-[100%]">
 
-        <div id="fb-root"></div>
-        <div id="fb-customer-chat" class="fb-customerchat"></div>
 
         {{--  Nav Section  --}}
         @include('layouts.navigation')
@@ -47,6 +43,8 @@
                 <span></span>
             </div>
         </div>
+
+
 
 
         {{--  Hero Section  --}}
@@ -93,6 +91,8 @@
         @include('lnu-partials.lnu-footer')
         </section>
 
+        <div id="fb-root"></div>
+        <div id="fb-customer-chat" class="fb-customerchat"></div>
 
         <x-messages/>
         <script src="{{ asset('js/chatPlugin.js') }}"></script>
