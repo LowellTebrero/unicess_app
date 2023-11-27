@@ -1,4 +1,4 @@
-@extends('layouts\lnuAdd')
+@extends('layouts.lnuAdd')
 
 @section('content')
 

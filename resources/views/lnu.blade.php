@@ -23,94 +23,85 @@
         <link href="../css/froala_style.min.css" rel="stylesheet" type="text/css" />
         <link href='https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css' rel='stylesheet' type='text/css' />
 
-        <style>
-            [x-cloak] { display: none }
-        </style>
+        <style>[x-cloak] { display: none }</style>
 
     </head>
 
     <body class="font-sans antialiased w-[100%]">
 
 
-    {{--  Nav Section  --}}
-    @include('layouts.navigation')
+        {{--  Nav Section  --}}
+        @include('layouts.navigation')
 
 
-             {{--  Pre Loader  --}}
-    <div class="loader">
-        <div class="loader-inner">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
+        {{--  Pre Loader  --}}
+        <div class="loader">
+            <div class="loader-inner">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
-    </div>
-
-
-            {{--  Hero Section  --}}
-            <section id="hero-section">
-            @include('lnu-partials.lnu-hero-section')
-            </section>
-
-            {{--  Values Section  --}}
-
-            @include('lnu-partials.lnu-values-section')
-
-
-            {{--  Lastest Section  --}}
-            <section id="events-section">
-            @include('lnu-partials.lnu-latest-section')
-            </section>
-
-            {{--  LNU About  --}}
-            <section id="about-section">
-            @include('lnu-partials.lnu-about')
-            </section>
 
 
 
-            {{--  LNU Buttons  --}}
-            <section id="button-section">
-            @include('lnu-partials.lnu-buttons')
-            </section>
+
+        {{--  Hero Section  --}}
+        <section id="hero-section">
+        @include('lnu-partials.lnu-hero-section')
+        </section>
+
+        {{--  Values Section  --}}
+        @include('lnu-partials.lnu-values-section')
+
+        {{--  Lastest Section  --}}
+        <section id="events-section">
+        @include('lnu-partials.lnu-latest-section')
+        </section>
+
+        {{--  LNU About  --}}
+        <section id="about-section">
+        @include('lnu-partials.lnu-about')
+        </section>
+
+        {{--  LNU Buttons  --}}
+        <section id="button-section">
+        @include('lnu-partials.lnu-buttons')
+        </section>
+
+        {{--  University Articles  --}}
+        <section id="article-section">
+        @include('lnu-partials.lnu-article-section')
+        </section>
+
+        {{--  University Program and Services  --}}
+        <section id="program-and-services-section">
+        @include('lnu-partials.lnu-program-services-section')
+        </section>
+
+        {{--  University Mission and Vision  --}}
+        @include('lnu-partials.lnu-mission_vision-section')
+
+        {{--  University Footer  --}}
+        @include('lnu-partials.lnu-blank')
+
+        {{--  University Footer  --}}
+        <section id="contact-section">
+        @include('lnu-partials.lnu-footer')
+        </section>
 
 
-            {{--  University Articles  --}}
-            <section id="article-section">
-            @include('lnu-partials.lnu-article-section')
-            </section>
 
-            {{--  University Program and Services  --}}
-            <section id="program-and-services-section">
-            @include('lnu-partials.lnu-program-services-section')
-            </section>
+        <x-messages/>
+        <script src="{{ asset('js/chatPlugin.js') }}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="{{ asset('js/preloader.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
-            {{--  University Mission and Vision  --}}
-            @include('lnu-partials.lnu-mission_vision-section')
-
-            {{--  University Footer  --}}
-            @include('lnu-partials.lnu-blank')
-
-            {{--  University Footer  --}}
-            <section id="contact-section">
-            @include('lnu-partials.lnu-footer')
-            </section>
-
-
-    <x-messages/>
-
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
-    integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></>
-    <script src="{{ asset('js/preloader.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-
-
-    @livewireScripts
+        @livewireScripts
 
 
     </body>
-    </html
+</html>

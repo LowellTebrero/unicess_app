@@ -63,7 +63,13 @@ class ProposalController extends Controller
         $second = ProposalMember::where('user_id', auth()->user()->id)->whereYear('created_at', date('Y'))->count();
 
         $proposalMembers = ProposalMember::with('proposal')->where('user_id', auth()->user()->id)->orderBy('created_at', 'DESC')->paginate(6);
-        $latestYearPoints = Evaluation::select(DB::raw('MAX(YEAR(created_at)) as max_year'), 'total_points')->groupBy('total_points')->latest('created_at')->where('user_id', auth()->user()->id)->whereYear('created_at', $currentYear)->first();
+
+        $latestYearPoints = Evaluation::select(DB::raw('MAX(YEAR(created_at)) as max_year'), 'total_points')
+        ->groupBy('total_points')
+        ->latest('max_year')
+        ->where('user_id', auth()->user()->id)
+        ->whereYear('created_at', $currentYear)
+        ->first();
 
         return view('user.dashboard.index',compact(
         'proposalMembers','latestYearPoints','proposals', 'user', 'counts', 'programs',
@@ -99,7 +105,7 @@ class ProposalController extends Controller
             'proposal_pdf' => "required|mimes:pdf|max:10048",
             'special_order_pdf' => "required|mimes:pdf|max:10048",
 
-           ],  [
+           ], [
             'project_title.regex' => 'Invalid characters: \ / : * ? " < > |',
         ]);
 

@@ -85,17 +85,14 @@
 
                                 <td class="p-3 whitespace-nowrap">
                                     <a href={{ route('admin.dashboard.member-request-show',  ['id' => $proposal->id, 'notification' => $proposal->id ]) }}>
-                                        <div class="text-center text-gray-600  xl:text-[.7rem]">
-                                            @foreach ($proposalMembers as $member)
-                                                @if ($proposal->user_id == $member->user_id &&  $proposal->proposal_id == $member->proposal_id)
-                                                    <label class="text-xs tracking-wider">Added Successfully</label>
-                                                @endif
-                                            @endforeach
-
-                                        </div>
+                                        @foreach ($proposalMembers as $proposalmem )
+                                            @if ($proposalmem->proposal_id == $proposal->proposal_id )
+                                            <div class="text-center text-gray-600  xl:text-[.7rem]">
+                                                <label class="text-xs tracking-wider">Added</label>
+                                            </div>
+                                            @endif
+                                        @endforeach
                                     </a>
-
-
                                 </td>
 
                             </tr>

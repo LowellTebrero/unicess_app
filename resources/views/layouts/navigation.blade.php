@@ -5,9 +5,6 @@
 @endphp
 @endauth
 
-
-
-
 <nav x-data="{ open: false }" class="bg-blue-800 border-b border-blue-900 z-40 sticky top-0">
 
         <!-- Primary Navigation Menu -->
@@ -157,7 +154,7 @@
                             </div>
                         </div>
                     </div>  --}}
-                @endrole
+                    @endrole
 
                 <div class="hidden sm:flex sm:items-center sm:ml-6">
                     <x-dropdown align="right" width="48">
@@ -322,10 +319,6 @@
                 {{ __('Register') }}
             </x-dropdown-link>
 
-
-
-
-
             </div>
         </div>
     @endguest
@@ -408,3 +401,7 @@
         </div>
     @endauth
 </nav>
+
+
+<div id="fb-root"></div>
+<div id="fb-customer-chat" class="fb-customerchat"></div>

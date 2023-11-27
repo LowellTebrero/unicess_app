@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('proposal_id')->unsigned();
-            $table->string('proposal_title');
             $table->unsignedBigInteger('leader_member_type')->nullable();
             $table->unsignedBigInteger('leader_location')->nullable();
             $table->string('member_type')->nullable();

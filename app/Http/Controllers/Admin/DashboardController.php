@@ -155,11 +155,11 @@ class DashboardController extends Controller
                     'leader_member_type' => $request->leader_member_type,
                     'location_id' => $request->location_id,
                 ]);
-            }else{
+        }else{
                 ProposalMember::whereNotNull('leader_member_type')->where('proposal_id', $proposals->id)->delete();
-            }
+        }
 
-            if($request->member !== null){
+        if($request->member !== null){
 
 
             ProposalMember::whereNotNull('member_type')->where('proposal_id', $proposals->id)->delete();
@@ -204,11 +204,15 @@ class DashboardController extends Controller
 
         $years = AdminYear::orderBy('year', 'DESC')->pluck('year');
 
-        $users = Proposal::select(DB::raw("COUNT(*) as count"),
-        DB::raw("MONTHNAME(created_at) as month_name"))
+        $users = Proposal::select(DB::raw("COUNT(*) as count"),  DB::raw("MONTHNAME(created_at) as month_name"))
         ->groupBy(DB::raw("month_name"))
-        ->orderBy('created_at','ASC')
+        ->orderBy('month_name','ASC')
         ->pluck('count','month_name');
+
+
+
+
+        // dd($users);
 
         $labels = $users->keys();
         $data = $users->values();
@@ -285,7 +289,7 @@ class DashboardController extends Controller
             $users = Proposal::select(DB::raw("COUNT(*) as count"),
             DB::raw("MONTHNAME(created_at) as month_name"))
             ->groupBy(DB::raw("month_name"))
-            ->orderBy('created_at','ASC')
+            ->orderBy('month_name','ASC')
             ->pluck('count','month_name');
 
             $labels = $users->keys();
@@ -361,7 +365,7 @@ class DashboardController extends Controller
             $users = Proposal::select(DB::raw("COUNT(*) as count"),
             DB::raw("MONTHNAME(created_at) as month_name"))
             ->groupBy(DB::raw("month_name"))
-            ->orderBy('created_at','ASC')
+            ->orderBy('month_name','ASC')
             ->pluck('count','month_name');
 
             $labels = $users->keys();
@@ -436,7 +440,7 @@ class DashboardController extends Controller
             $users = Proposal::select(DB::raw("COUNT(*) as count"),
             DB::raw("MONTHNAME(created_at) as month_name"))
             ->groupBy(DB::raw("month_name"))
-            ->orderBy('created_at','ASC')
+            ->orderBy('month_name','ASC')
             ->pluck('count','month_name');
 
             $labels = $users->keys();

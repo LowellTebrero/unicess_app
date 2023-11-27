@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\User;
+use App\Models\Proposal;
 use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -22,6 +23,9 @@ class ProposalRequest extends Model implements HasMedia
         return $this->morphMany(Media::class, 'model');
     }
 
+    public function proposal(){
+        return $this->belongsTo(Proposal::class);
+    }
 
     public function user():BelongsTo
     {

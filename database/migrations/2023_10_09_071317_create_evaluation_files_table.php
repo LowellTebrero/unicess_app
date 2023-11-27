@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('evaluation_files', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('evaluation_id')->constrained();
+            $table->unsignedBigInteger('evaluation_id');
             $table->string('chairmanship_wide')->nullable();
             $table->string('membership_unit')->nullable();
             $table->string('membership_wide')->nullable();
@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string('facilitation_national')->nullable();
             $table->string('facilitation_international')->nullable();
             $table->string('path');
+            $table->foreign('evaluation_id')->references('id')->on('evaluations')->onDelete('cascade');
             $table->timestamps();
         });
     }

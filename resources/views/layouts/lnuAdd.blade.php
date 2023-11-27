@@ -26,6 +26,7 @@
 
     <body class="font-sans antialiased">
 
+
         {{--  Nav Section  --}}
         {{--  @include('layouts.navbar-dashboard')  --}}
 
@@ -75,25 +76,8 @@
 
 
     <x-messages/>
-    <script>
-        $(document).ready(function () {
-            $('a.dynamic-link').click(function (e) {
-                e.preventDefault();
-                var url = $(this).attr('href');
-                $.ajax({
-                    url: url,
-                    type: 'GET',
-                    success: function (data) {
-                        $('#hero-section').html(data);
-                        console.log('HI')
-                    },
-                    error: function (xhr) {
-                        console.error(xhr);
-                    }
-                });
-            });
-        });
-    </script>
+
+
 
 
      <script src="{{ asset('js/preloader.js') }}"></script>
@@ -106,4 +90,4 @@
         });
     </script>
 </body>
-</html
+</html>
