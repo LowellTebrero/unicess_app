@@ -177,23 +177,28 @@
                             @if (Auth::user()->authorize == 'checked')
 
                                 @hasrole('admin')
-                                {{--  <x-dropdown-link :href="route('admin.dashboard.index')" class="dynamic-link">
-                                    {{ __('Dashboard') }}
-                                </x-dropdown-link>  --}}
+
                                 <a href={{ route('admin.dashboard.index') }}
                                 class="block w-full px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
-                                Dashboard</a>
+                                Dashboard
+                                </a>
 
                                 @else
-                                <x-dropdown-link :href="route('User-dashboard.index')" class="dynamic-link">
-                                    {{ __('Dashboard') }}
-                                </x-dropdown-link>
+                                <a href={{ route('User-dashboard.index') }}
+                                class="block w-full px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
+                                Dashboard
+                                </a>
                                 @endhasrole
 
 
-                            <x-dropdown-link :href="route('profile.partials.edit-auth-profile',$user->id)" class="dynamic-link">
+                            {{--  <x-dropdown-link :href="route('profile.partials.edit-auth-profile',$user->id)" class="dynamic-link">
                                 {{ __('Profile') }}
-                            </x-dropdown-link>
+                            </x-dropdown-link>  --}}
+
+                            <a href={{ route('profile.partials.edit-auth-profile',$user->id) }}
+                                class="block w-full px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
+                                Profile
+                            </a>
 
                             @else
 
@@ -201,9 +206,14 @@
                             {{--  @endif  --}}
 
                             {{--  @if (Auth::user()->authorize == '0')  --}}
-                            <x-dropdown-link :href="route('profile.partials.edit-auth-profile', $user->id)" class="dynamic-link">
+                            {{--  <x-dropdown-link :href="route('profile.partials.edit-auth-profile', $user->id)" class="dynamic-link">
                                 {{ __('Profile') }}
-                            </x-dropdown-link>
+                            </x-dropdown-link>  --}}
+
+                            <a href={{ route('profile.partials.edit-auth-profile', $user->id) }}
+                            class="block w-full px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out">
+                            Profile
+                            </a>
 
                             @endif
 
