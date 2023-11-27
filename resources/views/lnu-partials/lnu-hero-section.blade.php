@@ -19,4 +19,3 @@
     <div class="w-full h-full bg-gradient-to-l from-blue-800/60 via-blue-700/80  to-blue-700/20 object-cover absolute z-10"></div>
     <img src="{{ asset('img/bg.jpg') }}" class="w-full h-full object-cover absolute z-0 ">
 </main>
-
