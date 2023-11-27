@@ -5,7 +5,6 @@
 @endphp
 @endauth
 
-
 <nav x-data="{ open: false }" class="bg-blue-800 border-b border-blue-900 z-40 sticky top-0">
 
         <!-- Primary Navigation Menu -->
@@ -319,10 +318,6 @@
             <x-dropdown-link :href="route('register')" class="text-white">
                 {{ __('Register') }}
             </x-dropdown-link>
-
-
-
-
 
             </div>
         </div>

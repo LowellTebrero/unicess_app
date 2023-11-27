@@ -27,9 +27,6 @@
     <body class="font-sans antialiased">
 
 
-
-
-
         {{--  Nav Section  --}}
         {{--  @include('layouts.navbar-dashboard')  --}}
 
