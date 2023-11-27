@@ -177,9 +177,10 @@
                             @if (Auth::user()->authorize == 'checked')
 
                                 @hasrole('admin')
-                                <x-dropdown-link :href="route('admin.dashboard.index')" class="dynamic-link">
+                                {{--  <x-dropdown-link :href="route('admin.dashboard.index')" class="dynamic-link">
                                     {{ __('Dashboard') }}
-                                </x-dropdown-link>
+                                </x-dropdown-link>  --}}
+                                <a href={{ route('admin.dashboard.index') }}>AdminDashboard</a>
 
                                 @else
                                 <x-dropdown-link :href="route('User-dashboard.index')" class="dynamic-link">
@@ -291,19 +292,13 @@
                     {{ __('About') }}
                 </x-nav-link>
 
-
-
                 <x-nav-link class="text-white text-xs xl:text-sm 2xl:text-base" href="#article-section">
                     {{ __('Articles') }}
                 </x-nav-link>
 
-
-
                 <x-nav-link class="text-white text-xs xl:text-sm 2xl:text-base" href="#program-and-services-section">
                     {{ __('Program and Services') }}
                 </x-nav-link>
-
-
 
                 <x-nav-link class="text-white text-xs xl:text-sm 2xl:text-base" href="#contact-section">
                     {{ __('Contact us') }}
