@@ -4,7 +4,7 @@
             <img class="p-2 w-28 md:w-32 lg:w-80" src="{{ asset('img/logo.png') }}" alt="">
         </div>
         <div class="flex-auto  flex justify-center flex-col overflow-hidden">
-            <h1 class=" text-white text-center md:text-start text-2xl md:text-3xl lg:text-4xl xl:px-0  xl:text-4xl font-bold font-mono  drop-shadow-md p-5 2xl:text-6xl">!!!Leyte Normal University Communication Extension Services System</h1>
+            <h1 class=" text-white text-center md:text-start text-2xl md:text-3xl lg:text-4xl xl:px-0  xl:text-4xl font-bold font-mono  drop-shadow-md p-5 2xl:text-6xl">Leyte Normal University Communication Extension Services System</h1>
             <p class="text-white text-center md:text-start font-semibold drop-shadow-md p-5 xl:px-0">We are here to empower, make people and communities productive through excellent training  program and services</p>
             <a class="bg-yellow-500 p-3 mt-10 mx-5 md:text-lg md:w-1/4 lg:w-1/4 lg:text-lg  text-white font-semibold xl:text-lg xl:m-0 text-sm text-center" href="#about">Learn more</a>
 
