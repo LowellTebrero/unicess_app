@@ -102,8 +102,8 @@ class ProposalController extends Controller
             'project_title' => ['regex:/^[^<>?:|\/"*]+$/','required','min:6' ,Rule::unique('proposals')],
             'started_date' => 'required',
             'finished_date' => 'required',
-            'proposal_pdf' => "required|mimes:pdf",
-            'special_order_pdf' => "required|mimes:pdf",
+            'proposal_pdf' => "required|mimes:pdf|max:10048",
+            'special_order_pdf' => "required|mimes:pdf|max:10048",
 
            ], [
             'project_title.regex' => 'Invalid characters: \ / : * ? " < > |',
