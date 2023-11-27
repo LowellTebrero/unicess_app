@@ -17,14 +17,13 @@ class ImageController extends Controller
             'avatar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust validation rules as needed
         ]);
 
-
         $user = User::find($id);
 
 
     // Update the user's avatar URL in the database
         if($request->file('avatar')){
             $image = $request->file('avatar');
-            $filename = $user->name.'.'.$image->getClientOriginalExtension();
+            $filename = $image->hashName().'.'.$image->getClientOriginalExtension();
             $resize_image = Image::make($image->getRealPath());
             $resize_image->resize(500, 500);
             $resize_image->save(public_path('upload/image-folder/profile-image/'. $filename));
