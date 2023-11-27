@@ -84,25 +84,15 @@
 
 
                                 <td class="p-3 whitespace-nowrap">
-                                    {{--  <a href={{ route('admin.dashboard.member-request-show',  ['id' => $proposal->id, 'notification' => $proposal->id ]) }}>
-
+                                    <a href={{ route('admin.dashboard.member-request-show',  ['id' => $proposal->id, 'notification' => $proposal->id ]) }}>
                                         @foreach ($proposalMembers as $proposalmem )
                                             @if ($proposalmem->proposal_id == $proposal->proposal_id )
                                             <div class="text-center text-gray-600  xl:text-[.7rem]">
                                                 <label class="text-xs tracking-wider">Added</label>
                                             </div>
                                             @endif
-
-                                            @if($proposalmem->proposal_id !== $proposal->proposal_id || $proposalMembers->isEmpty())
-                                            <div class="text-center text-gray-600  xl:text-[.7rem]">
-                                                <label class="text-xs tracking-wider">Pending</label>
-                                            </div>
-                                            @endif
                                         @endforeach
-
-                                    </a>  --}}
-
-
+                                    </a>
                                 </td>
 
                             </tr>

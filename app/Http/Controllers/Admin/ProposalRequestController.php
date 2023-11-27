@@ -17,7 +17,6 @@ class ProposalRequestController extends Controller
 {
     public function index(){
 
-
         $proposalMembers = ProposalMember::all();
         $ProposalRequest = ProposalRequest::all();
 
