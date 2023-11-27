@@ -46,6 +46,11 @@
         </div>
     </div>
 
+    <!-- Messenger Chat plugin Code -->
+    <div id="fb-root"></div>
+
+    <!-- Your Chat plugin code -->
+    <div id="fb-customer-chat" class="fb-customerchat"></div>
 
             {{--  Hero Section  --}}
             <section id="hero-section">
@@ -99,7 +104,49 @@
 
     <x-messages/>
 
+    <script>
+        var chatbox = document.getElementById('fb-customer-chat');
+        chatbox.setAttribute("page_id", "112999950079072");
+        chatbox.setAttribute("attribution", "biz_inbox");
+      </script>
 
+      <!-- Your SDK code -->
+      <script>
+        window.fbAsyncInit = function() {
+          FB.init({
+            xfbml            : true,
+            version          : 'v18.0'
+          });
+        };
+
+        (function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+      </script>
+
+    <script>
+        $(document).ready(function () {
+            $('a.dynamic-link').click(function (e) {
+                e.preventDefault();
+                var url = $(this).attr('href');
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    success: function (data) {
+                        $('#hero-section').html(data);
+                        console.log('HI')
+                    },
+                    error: function (xhr) {
+                        console.error(xhr);
+                    }
+                });
+            });
+        });
+    </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
     integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
