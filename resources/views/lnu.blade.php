@@ -36,7 +36,7 @@
     @include('layouts.navigation')
 
 
-    {{--  Pre Loader  --}}
+             {{--  Pre Loader  --}}
     <div class="loader">
         <div class="loader-inner">
             <span></span>
@@ -45,7 +45,6 @@
             <span></span>
         </div>
     </div>
-
 
 
             {{--  Hero Section  --}}
@@ -97,27 +96,26 @@
             @include('lnu-partials.lnu-footer')
             </section>
 
-            <!-- Messenger Chat plugin Code -->
+
+    <x-messages/>
+
+    <!-- Messenger Chat plugin Code -->
     <div id="fb-root"></div>
 
     <!-- Your Chat plugin code -->
     <div id="fb-customer-chat" class="fb-customerchat"></div>
 
-    <x-messages/>
 
 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="{{ asset('js/preloader.js') }}"></script>
-    <script src="{{ asset('js/chatPlugin.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
-    integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></>
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-
 
 
     @livewireScripts
 
 
-</body>
-</html>
+    </body>
+    </html>
