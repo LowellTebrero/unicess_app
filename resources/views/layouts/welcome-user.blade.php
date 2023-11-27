@@ -16,7 +16,7 @@
     <body class="font-sans text-gray-900 antialiased ">
 
 
-        @include('layouts\navbar-dashboard')
+        @include('layouts.navbar-dashboard')
 
         <section class="w-full min-h-[64vh] flex justify-center items-center">
             {{ $slot }}
@@ -24,7 +24,7 @@
 
 
         <footer class="">
-            @include('lnu-partials\lnu-footer')
+            @include('lnu-partials.lnu-footer')
         </footer>
 
     </body>
