@@ -14,6 +14,7 @@
 
         <!-- Scripts -->
         <script src="//unpkg.com/alpinejs" defer></script>
+        <script src="{{ asset('js/chatPlugin.js') }}"></script>
         @vite(['resources/css/app.css'])
         {{--  'resources/css/preloader.css'  --}}
 
@@ -31,91 +32,78 @@
 
     <body class="font-sans antialiased w-[100%]">
 
+        <div id="fb-root"></div>
+        <div id="fb-customer-chat" class="fb-customerchat"></div>
 
-    {{--  Nav Section  --}}
-    @include('layouts.navigation')
+        {{--  Nav Section  --}}
+        @include('layouts.navigation')
 
 
-             {{--  Pre Loader  --}}
-    <div class="loader">
-        <div class="loader-inner">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
+        {{--  Pre Loader  --}}
+        <div class="loader">
+            <div class="loader-inner">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
-    </div>
 
 
-            {{--  Hero Section  --}}
-            <section id="hero-section">
-            @include('lnu-partials.lnu-hero-section')
-            </section>
+        {{--  Hero Section  --}}
+        <section id="hero-section">
+        @include('lnu-partials.lnu-hero-section')
+        </section>
 
-            {{--  Values Section  --}}
+        {{--  Values Section  --}}
+        @include('lnu-partials.lnu-values-section')
 
-            @include('lnu-partials.lnu-values-section')
+        {{--  Lastest Section  --}}
+        <section id="events-section">
+        @include('lnu-partials.lnu-latest-section')
+        </section>
 
+        {{--  LNU About  --}}
+        <section id="about-section">
+        @include('lnu-partials.lnu-about')
+        </section>
 
-            {{--  Lastest Section  --}}
-            <section id="events-section">
-            @include('lnu-partials.lnu-latest-section')
-            </section>
+        {{--  LNU Buttons  --}}
+        <section id="button-section">
+        @include('lnu-partials.lnu-buttons')
+        </section>
 
-            {{--  LNU About  --}}
-            <section id="about-section">
-            @include('lnu-partials.lnu-about')
-            </section>
+        {{--  University Articles  --}}
+        <section id="article-section">
+        @include('lnu-partials.lnu-article-section')
+        </section>
 
+        {{--  University Program and Services  --}}
+        <section id="program-and-services-section">
+        @include('lnu-partials.lnu-program-services-section')
+        </section>
 
+        {{--  University Mission and Vision  --}}
+        @include('lnu-partials.lnu-mission_vision-section')
 
-            {{--  LNU Buttons  --}}
-            <section id="button-section">
-            @include('lnu-partials.lnu-buttons')
-            </section>
+        {{--  University Footer  --}}
+        @include('lnu-partials.lnu-blank')
 
-
-            {{--  University Articles  --}}
-            <section id="article-section">
-            @include('lnu-partials.lnu-article-section')
-            </section>
-
-            {{--  University Program and Services  --}}
-            <section id="program-and-services-section">
-            @include('lnu-partials.lnu-program-services-section')
-            </section>
-
-            {{--  University Mission and Vision  --}}
-            @include('lnu-partials.lnu-mission_vision-section')
-
-            {{--  University Footer  --}}
-            @include('lnu-partials.lnu-blank')
-
-            {{--  University Footer  --}}
-            <section id="contact-section">
-            @include('lnu-partials.lnu-footer')
-            </section>
+        {{--  University Footer  --}}
+        <section id="contact-section">
+        @include('lnu-partials.lnu-footer')
+        </section>
 
 
-    <x-messages/>
+        <x-messages/>
 
-    <!-- Messenger Chat plugin Code -->
-    <div id="fb-root"></div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="{{ asset('js/preloader.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
-    <!-- Your Chat plugin code -->
-    <div id="fb-customer-chat" class="fb-customerchat"></div>
-
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="{{ asset('js/preloader.js') }}"></script>
-    <script src="{{ asset('js/chatPlugin.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-
-
-    @livewireScripts
+        @livewireScripts
 
 
     </body>
-    </html>
+</html>
