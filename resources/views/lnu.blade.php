@@ -119,5 +119,5 @@
     @livewireScripts
 
 
-    </body>
-    </html>
+</body>
+</html>
