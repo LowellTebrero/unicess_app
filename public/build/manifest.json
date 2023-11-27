@@ -16,6 +16,11 @@
     "isEntry": true,
     "src": "resources/css/app.css"
   },
+  "resources/css/lnu-additional.css": {
+    "file": "assets/lnu-additional-beae9320.css",
+    "isEntry": true,
+    "src": "resources/css/lnu-additional.css"
+  },
   "resources/css/preloader.css": {
     "file": "assets/preloader-b3a3be4e.css",
     "isEntry": true,

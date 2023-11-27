@@ -8,6 +8,7 @@ export default defineConfig({
                 "resources/css/app.css",
                 "resources/css/preloader.css",
                 "resources/css/sidebar.css",
+                "resources/css/lnu-additional.css",
                 "resources/js/app.js"
             ],
             refresh: true,
