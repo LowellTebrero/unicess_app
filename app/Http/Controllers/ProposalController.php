@@ -99,7 +99,7 @@ class ProposalController extends Controller
             'proposal_pdf' => "required|mimes:pdf|max:10048",
             'special_order_pdf' => "required|mimes:pdf|max:10048",
 
-           ],  [
+           ], [
             'project_title.regex' => 'Invalid characters: \ / : * ? " < > |',
         ]);
 

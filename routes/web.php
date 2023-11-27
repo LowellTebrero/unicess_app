@@ -156,6 +156,7 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
     Route::controller(ProposalRequestController::class)->group(function () {
         Route::get('/member-request','index')->name('dashboard.member-request');
         Route::get('/member-request-show/{id}/{notification}','show')->name('dashboard.member-request-show');
+        Route::post('/member-request-store','storeRequest')->name('dashboard.member-request-store');
 
     });
 

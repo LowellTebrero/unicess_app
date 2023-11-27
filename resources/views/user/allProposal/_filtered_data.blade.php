@@ -69,7 +69,7 @@
                     {{ \Carbon\Carbon::parse($proposal->created_at)->format("M d, Y: H:i:s")}}
                 </span>
 
-                <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = false">
+                {{--  <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = false">
 
                     <!-- Modal -->
                     <div class="fixed inset-0 z-50  flex items-center justify-center overflow-auto bg-black bg-opacity-50" x-show="showModal">
@@ -174,47 +174,17 @@
                             x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
                             x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
 
-                            {{--  If Empty this only trigger once --}}
+
                             @if ($proposalMembers->isEmpty() && $proposalRequest->isEmpty() )
                             <button type="button" @click="showModal = true">Join as member </button>
                             @endif
 
-                            @foreach ($proposalMembers as $propmem )
-                                @if ($propmem->user_id == Auth()->user()->id && $propmem->proposal_id == $proposal->id && $proposal->project_title == $propmem->proposal->project_title )
-                                <h1 class="text-xs tracking-wider px-2 w-full text-left">Already a Member</h1>
-                                @endif
-                            @endforeach
-
-
-                            @foreach ($proposalMembers as $propmem )
-                                @foreach($proposalRequest as $propreq)
-                                    @if ($propmem->proposal_id !== $proposal->id && $proposal->project_title != $propmem->proposal->project_title &&
-                                        $propreq->proposal_id !== $proposal->id && $propreq->proposal_title != $propmem->proposal->project_title )
-                                    <button type="button" @click="showModal = true">Join as </button>
-                                    @endif
-                                @endforeach
-                            @endforeach
-
-
-                            @foreach($proposalRequest as $propreq)
-
-                            {{--  @if ($propmem->user_id ===  Auth()->user()->id && $propmem->proposal_id === $proposal->id &&
-                            $propreq->user_id == Auth()->user()->id && $propreq->proposal_id == $proposal->id &&
-                            $propreq->status == 'added')
-                            <h1 class="text-xs tracking-wider px-2 w-full text-left">Already a Member</h1>
-                            @endif  --}}
-
-                            @if ($propreq->proposal_id === $proposal->id && $propreq->status == 'pending' && $proposal->project_title == $propreq->proposal_title)
-                            <h1 class="text-xs tracking-wider px-2 w-full text-left">Request Sent</h1>
-                            @endif
-
-                            @endforeach
 
 
 
                         </div>
                     </div>
-                </div>
+                </div>  --}}
             </td>
 
         </tr>
@@ -223,7 +193,7 @@
     </table>
 </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    {{--  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- Toastr -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
@@ -276,6 +246,6 @@
 
 
 
-    </script>
+    </script>  --}}
 
 

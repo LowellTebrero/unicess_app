@@ -155,11 +155,11 @@ class DashboardController extends Controller
                     'leader_member_type' => $request->leader_member_type,
                     'location_id' => $request->location_id,
                 ]);
-            }else{
+        }else{
                 ProposalMember::whereNotNull('leader_member_type')->where('proposal_id', $proposals->id)->delete();
-            }
+        }
 
-            if($request->member !== null){
+        if($request->member !== null){
 
 
             ProposalMember::whereNotNull('member_type')->where('proposal_id', $proposals->id)->delete();
