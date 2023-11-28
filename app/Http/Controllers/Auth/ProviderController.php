@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Validator;
 class ProviderController extends Controller
 {
 
@@ -19,8 +20,9 @@ class ProviderController extends Controller
         return Socialite::driver('google')->redirect();
     }
 
-    public function handleCallback(Request $request)
+    public function handleCallback()
     {
+
         try {
         $user = Socialite::driver('google')->user();
 
@@ -29,7 +31,9 @@ class ProviderController extends Controller
 
         }
 
+
         $existingUser = User::where('provider_id', $user->id)->first();
+        $existingEmail = User::where('email', $user->email)->first();
 
         if($existingUser){
             Auth::login($existingUser, true);
@@ -42,11 +46,16 @@ class ProviderController extends Controller
                 return redirect()->to(route('lnu'));
             }
 
+        }elseif($existingEmail){
+
+            $validator = Validator::make([], []); // Empty validator
+            $validator->errors()->add('email', 'Email already exists'); // Add an error message
+
+            return redirect('/login')->withErrors($validator)->withInput();
         }else{
 
-            $request->validate([
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-            ]);
+
+
 
             $user = User::create([
                 'name' => $user->name,
