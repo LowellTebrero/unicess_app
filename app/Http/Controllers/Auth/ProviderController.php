@@ -19,7 +19,7 @@ class ProviderController extends Controller
         return Socialite::driver('google')->redirect();
     }
 
-    public function handleCallback()
+    public function handleCallback(Request $request)
     {
         try {
         $user = Socialite::driver('google')->user();
@@ -43,6 +43,11 @@ class ProviderController extends Controller
             }
 
         }else{
+
+            $request->validate([
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            ]);
+
             $user = User::create([
                 'name' => $user->name,
                 'email' => $user->email,
