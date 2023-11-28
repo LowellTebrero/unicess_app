@@ -3,9 +3,14 @@
     <a href={{ route('admin.dashboard.member-request') }} class="bg-white w-full text-gray-700 rounded-xl  hover:bg-slate-100 transition-all flex justify-between items-center p-4 sm:p-0 sm:px-4 md:px-6 px-8 xl:px-10 shadow relative hover:border hover:border-teal-300">
         <div>
             <div class="flex space-x-2">
-                <span class="block  xl:text-5xl 2xl:text-6xl text-4xl font-medium">{{ $proposalrequest }}</span>
+                {{--  <span class="block 2xl:text-6xl text-4xl font-medium">{{ $evaluation }}</span>  --}}
+                <span class="flex items-center space-x-1  xl:text-5xl text-4xl font-medium">
+                    <span class="text-[2.8rem] text-gray-600 font-medium 2xl:text-6xl">{{ $evaluation }}</span>
+                    <span class="text-xs">Out of</span>
+                    <span class="block text-gray-700  text-lg ">{{ $totalAccount }}</span>
+                </span>
 
-                <div class="flex flex-col">
+                {{--  <div class="flex flex-col">
                     @if ($getCountpropreq > 0)
                     <span class="text-green-500">{{ $getCountpropreq }} % </span>
                     <span class="text-xs text-green-500">of today</span>
@@ -13,9 +18,9 @@
                     <span class="text-red-400">{{ $getCountpropreq }} % </span>
                     <span class="text-xs text-red-400">of today</span>
                     @endif
-                </div>
+                </div>  --}}
             </div>
-            <h1 class="xl:text-[.7rem] 2xl:text-sm text-xs">Request for proposal member </h1>
+            <h1 class="xl:text-[.7rem] 2xl:text-sm text-xs">Submitted Evaluation Form </h1>
             {{--  Request for proposal member  --}}
         </div>
 
