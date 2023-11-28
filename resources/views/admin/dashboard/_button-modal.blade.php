@@ -1,6 +1,6 @@
 <section class="flex min-h-[15vh] rounded-xl w-full flex-col space-y-4  lg:flex-row  xl:flex-row lg:space-x-6 lg:space-y-0 xl:space-x-5 2xl:space-x-8 mt-2 text-white sm:flex-row sm:space-x-4 md:flex-row md:space-x-4 md:space-y-0 sm:space-y-0 sm:w-full">
 
-    <a href={{ route('admin.dashboard.member-request') }} class="bg-white w-full text-gray-700 rounded-xl  hover:bg-slate-100 transition-all flex justify-between items-center p-4 sm:p-0 sm:px-4 md:px-6 px-8 xl:px-10 shadow relative hover:border hover:border-teal-300">
+    <a href={{ route('admin.evaluation.index') }} class="bg-white w-full text-gray-700 rounded-xl  hover:bg-slate-100 transition-all flex justify-between items-center p-4 sm:p-0 sm:px-4 md:px-6 px-8 xl:px-10 shadow relative hover:border hover:border-teal-300">
         <div>
             <div class="flex space-x-2">
                 {{--  <span class="block 2xl:text-6xl text-4xl font-medium">{{ $evaluation }}</span>  --}}
