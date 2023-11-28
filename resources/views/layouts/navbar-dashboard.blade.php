@@ -434,7 +434,12 @@ $proposals = App\Models\Proposal::all();
 
                             @else
 
-                            <h1 class="text-sm text-red-600 mt-3 mx-5 mb-5 m-auto text-left">You are not authorize yet, The admin is reviewing your account details</h1>
+                            @if (Auth()->user()->first_name == NULL)
+                            <h1 class="text-xs text-red-600 mt-3 mx-5 mb-5 m-auto text-left">Please fill-up your Profile Information, In-order to get Authorize</h1>
+                            @else
+                            <h1 class="text-xs text-red-600 mt-3 mx-5 mb-5 m-auto text-left">You are not authorize yet, The admin is reviewing your account details</h1>
+                            @endif
+
 
 
 

@@ -362,12 +362,12 @@
                             for="first_name">Contact Number <span class="text-red-600 inline-block">*</span></label>
 
                         <div class="border rounded-md flex  bg-blue-500">
-                            <h1 class="p-2 bg-blue-500 text-white rounded-tl rounded-bl">63+</h1>
+                            <h1 class="p-2 bg-blue-500 text-white rounded-tl rounded-bl">+63</h1>
 
                             <x-text-input id="contact_number" name="contact_number" type="text"
                                 class="w-full xl:text-xs 2xl:text-sm text-gray-600 border-b-2 border-blue-500  focus:border-none focus:ring-slate-200"
                                 :value="old('contact_number', $user->contact_number)" autocomplete="contact_number" onkeypress="return isNumber(event)"
-                                placeholder="e.g. 917xxxxxxx" />
+                                placeholder="e.g. 917xxxxxxx" maxlength="11" />
                         </div>
 
                         <x-input-error class="mt-2" :messages="$errors->get('contact_number')" />
