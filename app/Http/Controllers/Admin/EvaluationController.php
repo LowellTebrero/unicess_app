@@ -7,8 +7,11 @@ use App\Models\AdminYear;
 use App\Models\Evaluation;
 use Illuminate\Http\Request;
 use App\Models\ProposalMember;
+use App\Models\EvaluationFile;
 use App\Models\EvaluationStatus;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
+
 
 class EvaluationController extends Controller
 {
@@ -42,28 +45,28 @@ class EvaluationController extends Controller
 
     // public function filters(Request $request){
 
-    //     $selectedYear = $request->input('year');
+        //     $selectedYear = $request->input('year');
 
-    //     $currentYear = date('Y');
-    //     $previousYear = $currentYear + 1;
+        //     $currentYear = date('Y');
+        //     $previousYear = $currentYear + 1;
 
-    //     [$startYear, $endYear] = explode('-', $selectedYear);
+        //     [$startYear, $endYear] = explode('-', $selectedYear);
 
-    //     $currentYear = $startYear;
-    //     $previousYear = $endYear;
+        //     $currentYear = $startYear;
+        //     $previousYear = $endYear;
 
-    //     $latestYear = Evaluation::selectRaw('YEAR(created_at) as year')->orderByDesc('created_at')->groupBy('year')->pluck('year')->first();
-    //     $latestData = Evaluation::whereYear('created_at', $startYear)->get();
+        //     $latestYear = Evaluation::selectRaw('YEAR(created_at) as year')->orderByDesc('created_at')->groupBy('year')->pluck('year')->first();
+        //     $latestData = Evaluation::whereYear('created_at', $startYear)->get();
 
 
-    //     $evaluations = Evaluation::whereYear('created_at', '>=', $startYear)
-    //     ->whereYear('created_at', '<=', $endYear)
-    //     ->with('users')->get();
+        //     $evaluations = Evaluation::whereYear('created_at', '>=', $startYear)
+        //     ->whereYear('created_at', '<=', $endYear)
+        //     ->with('users')->get();
 
-    //     $id = 1;
-    //     $toggle = EvaluationStatus::findOrFail($id);
+        //     $id = 1;
+        //     $toggle = EvaluationStatus::findOrFail($id);
 
-    //     return view('admin.evaluation.index', compact( 'latestData','currentYear', 'previousYear', 'evaluations', 'toggle'));
+        //     return view('admin.evaluation.index', compact( 'latestData','currentYear', 'previousYear', 'evaluations', 'toggle'));
     // }
 
     public function show($id, $year){
@@ -84,7 +87,7 @@ class EvaluationController extends Controller
             }
         ])->first();
 
-        // dd($evaluation);
+
 
         return view('admin.evaluation.show', compact('evaluation'));
     }
@@ -136,6 +139,8 @@ class EvaluationController extends Controller
             'status' => $request->status,
             'total_points' => $total,
         ]);
+
+        flash()->addSuccess('Evaluation Updated Successfully.');
         return redirect(route('admin.evaluation.index'))->with('message', 'Evaluation update successfully');
     }
 
@@ -146,7 +151,23 @@ class EvaluationController extends Controller
             'status' => $request->input('status')  ==  true ? 'open' : 'close'
         ]);
 
+
         return response()->json(['success' => true]);
+    }
+
+
+    public function deleteEvaluation($id){
+
+        $delete = Evaluation::findorFail($id);
+        $file = EvaluationFile::where('evaluation_id', $id)->first();
+        $files = Storage::deleteDirectory(('file/'. $file->path));
+        dd($file->path);
+
+        // $delete->delete();
+
+
+        flash()->addSuccess('Evaluation Deleted Successfully.');
+        return back();
     }
 
 }

@@ -31,7 +31,7 @@
             @include('admin.evaluation._filter_evaluation')
         </div>
 
-        <x-messages />
+
     </section>
 
     <script>

@@ -166,6 +166,7 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
         Route::get('/evaluation/{id}/{year}', 'show')->name('evaluation.show');
         Route::patch('/evaluation-update/{id}', 'update')->name('evaluation.update');
         Route::get('/filters','filters')->name('evaluation.filters');
+        Route::delete('/evaluation-delete/{id}','deleteEvaluation')->name('evaluation.delete');
     });
 
 
