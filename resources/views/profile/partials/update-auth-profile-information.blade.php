@@ -14,9 +14,8 @@
             <div class="relative flex justify-center ">
 
                 <div class="lg:w-1/2 2xl:w-2/3">
-                    <img class="rounded-full border-4 border-blue-500 w-2/3" id="showImage"
-                        src="{{!empty($user->avatar) ? url('upload/image-folder/profile-image/' . $user->avatar) : url('upload/profile.png') }}"
-                    width="500" height="500">
+                    <img class="rounded-full border-4 border-blue-500" id="showImage"
+                        src="{{!empty($user->avatar) ? url('upload/image-folder/profile-image/' . $user->avatar) : url('upload/profile.png') }}">
                 </div>
 
                 <div class="absolute bottom-0 z-10 2xl:right-[10rem] xl:right-[7rem] bg-blue-500 rounded-full w-[2rem] h-[4vh] xl:w-[3rem] flex items-center justify-center">
