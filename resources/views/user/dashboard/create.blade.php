@@ -86,14 +86,11 @@
 
             <div class="flex space-y-4 flex-col w-full pt-3">
 
-
-                <hr>
-
-                <div class="pb-0 2xl:pb-5 flex space-x-2 items-center">
+                <div class="pb-0 2xl:py-5 flex space-x-2 items-center">
                     <h1 class="xl:text-sm text-xs">Select Role Type</h1>
                     <h4 class="text-xs">Note: (Choose what is applicable)</h4>
-                    <button class="px-3 py-1 2xl:text-sm text-xs bg-blue-500 text-white rounded-lg" type="button" id="leaderButton">Leader Type</button>
-                    <button class="px-3 py-1 2xl:text-sm text-xs bg-blue-500 text-white rounded-lg" type="button" id="MemberButton">Member Type</button>
+                    <button class="px-3 py-1 2xl:text-sm text-xs bg-blue-400 text-white rounded-lg" type="button" id="leaderButton">Leader Type</button>
+                    <button class="px-3 py-1 2xl:text-sm text-xs bg-blue-400 text-white rounded-lg" type="button" id="MemberButton">Member Type</button>
                 </div>
 
 
