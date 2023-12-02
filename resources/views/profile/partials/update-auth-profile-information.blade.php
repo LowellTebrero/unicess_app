@@ -13,11 +13,13 @@
 
             <div class="relative flex justify-center ">
 
-                <div class="lg:w-[10rem] 2xl:w-[20rem]">
-                    <img class="rounded-full border-4 border-blue-500" id="showImage" src="{{!empty($user->avatar) ? url('upload/image-folder/profile-image/' . $user->avatar) : url('upload/profile.png') }}">
+                <div class="w-[7rem] md:w-[8rem] lg:w-[10rem] 2xl:w-[20rem]">
+                    <img class="rounded-full border-4 border-blue-500 w-2/3" id="showImage"
+                        src="{{!empty($user->avatar) ? url('upload/image-folder/profile-image/' . $user->avatar) : url('upload/profile.png') }}"
+                    width="500" height="500">
                 </div>
 
-                <div class="absolute bottom-0 z-10 2xl:right-[10rem] xl:right-[7rem] bg-blue-500 rounded-full w-[2rem] h-[4vh] xl:w-[3rem] flex items-center justify-center">
+                <div class="absolute bottom-0 z-10 2xl:right-[5rem] right-[2rem] bg-blue-500 rounded-full w-[2rem] h-[4vh] xl:w-[3rem] flex items-center justify-center">
                     <button class="p-1 absolute" type="button">
                         <svg class="fill-white w-[1.3rem] xl:w-[1.5rem]" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
                             <path
