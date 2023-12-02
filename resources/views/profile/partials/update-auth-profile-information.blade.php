@@ -85,8 +85,6 @@
                                                 class=" w-full px-3 py-1.5 text-sm font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded
                                 transition ease-in-ou m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
 
-
-
                                                 @foreach ($role as $id => $name)
                                                     <option value="{{ $name }}"
                                                         @if ($user->roles->contains($id)) selected  @class(['bg-blue-500']) @endif>
@@ -102,22 +100,18 @@
 
                                         <div class="mt-4 w-full">
 
-                                            <div id="facultyId" style="display: none">
-                                                <x-input-label onchange="" class="lg:text-xs " for="faculty_id"
-                                                    :value="__('Faculty Name')" />
+                                            <div id="facultyId">
+                                                <x-input-label  class="lg:text-xs " for="faculty_id" :value="__('Faculty Name')" />
 
                                                 <select id="faculty_id"
                                                     class="greeting lg:text-xs xl:text-sm block mt-1 w-full rounded-md shadow-sm border-gray-300 text-gray-900 "
-                                                    type="text" name="faculty_id" autofocus
-                                                    autocomplete="faculty_id">
+                                                    type="text" name="faculty_id" autofocus autocomplete="faculty_id">
 
                                                     @foreach ($faculties as $id => $name)
                                                         <option value="{{ $id }}"
                                                             @if ($id == old('faculty_id', $user->faculty_id)) selected="selected" @endif>
                                                             {{ $name }}</option>
                                                     @endforeach
-
-
                                                 </select>
                                             </div>
 
@@ -144,8 +138,8 @@
                                             <div class="form-group mb-6 mt-6" id="submit">
                                                 <button type="submit"
                                                     class=" w-full px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight
-                                    uppercase shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
-                                    active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out rounded-xl">Submit</button>
+                                                uppercase shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
+                                                active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out rounded-xl">Submit</button>
                                             </div>
                                     </form>
                                     <x-input-error :messages="$errors->get('faculty_id')" class="mt-2" />
@@ -486,26 +480,15 @@
             console.log(answer.value)
             if (answer.value == 'Faculty extensionist' || answer.value == 'Extension coordinator') {
                 document.getElementById('facultyId').style.display = 'block';
-                document.getElementById('partnersId').style.display = 'none';
                 document.getElementById('submit').style.display = 'block';
-                document.getElementById('partners_id').style.display = '<option></option>';
-                document.getElementById('partners_id').value = "";
                 document.getElementById('faculty_id').innerHTML =
                     '@foreach ($faculties as $id => $name) <option value="{{ $id }}" @if ($id == old('faculty_id')) selected="selected" @endif >{{ $name }}</option> @endforeach';
-
-            } else if (answer.value == 'Partners/Linkages') {
-                document.getElementById('partnersId').style.display = 'block';
-                document.getElementById('submit').style.display = 'block';
-                document.getElementById('facultyId').style.display = 'none';
-                document.getElementById('faculty_id').innerHTML = '<option></option>';
-                document.getElementById('faculty_id').value = "";
 
             } else {
                 document.getElementById('facultyId').style.display = 'none';
                 document.getElementById('submit').style.display = 'none';
                 document.getElementById('faculty_id').innerHTML = '<option></option>';
                 document.getElementById('faculty_id').value = "";
-                document.getElementById('partnersId').style.display = 'none';
             }
 
         }

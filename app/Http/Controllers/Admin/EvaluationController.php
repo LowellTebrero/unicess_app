@@ -7,6 +7,7 @@ use App\Models\AdminYear;
 use App\Models\Evaluation;
 use Illuminate\Http\Request;
 use App\Models\ProposalMember;
+use Illuminate\Support\Facades\File;
 use App\Models\EvaluationFile;
 use App\Models\EvaluationStatus;
 use App\Http\Controllers\Controller;
@@ -159,11 +160,32 @@ class EvaluationController extends Controller
     public function deleteEvaluation($id){
 
         $delete = Evaluation::findorFail($id);
-        $file = EvaluationFile::where('evaluation_id', $id)->first();
-        $files = Storage::deleteDirectory(('file/'. $file->path));
-        dd($file->path);
+        $files = EvaluationFile::where('evaluation_id', $id)->get();
 
-        // $delete->delete();
+
+        foreach ($files as $file) {
+            $filePath = public_path('file/'.$file->path);
+
+            if (File::exists($filePath)) {
+                // Delete the file
+                File::delete($filePath);
+
+                // Extract the directory path from the file path
+                $directoryPath = dirname($filePath);
+
+                // Check if the directory is empty
+                if (count(File::allFiles($directoryPath)) === 0) {
+                    // If the directory is empty, delete it
+                    File::deleteDirectory($directoryPath);
+                }
+            } else {
+                dd('File does not exist.');
+            }
+        }
+
+
+
+        $delete->delete();
 
 
         flash()->addSuccess('Evaluation Deleted Successfully.');
