@@ -13,7 +13,7 @@
 
             <div class="relative flex justify-center ">
 
-                <div class="w-2/3">
+                <div class="w-[7rem] md:w-[8rem] lg:w-1/2 2xl:w-2/3">
                     <img class="rounded-full border-4 border-blue-500 w-2/3" id="showImage"
                         src="{{!empty($user->avatar) ? url('upload/image-folder/profile-image/' . $user->avatar) : url('upload/profile.png') }}"
                     width="500" height="500">
