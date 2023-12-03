@@ -15,25 +15,25 @@
 
         @hasanyrole('Faculty extensionist|Extension coordinator')
 
-            <div class="mx-10 mt-5  text-slate-700">
+            <div class="mx-5 xl:mx-10 my-5  text-slate-700">
                 <h1 class="tracking-wider 2xl:text-2xl font-medium">Hi, {{ Auth()->user()->name }}</h1>
                 <div class="flex ">
                     <span class="tracking-wider text-sm">{{  date('D M d, Y') }} </span>
                 </div>
             </div>
 
-            <section class="mx-5 flex xl:flex-row flex-col md:flex-row justify-between 2xl:h-48 xl:h-36 lg:h-[25vh] text-gray-700">
+            <section class="mx-5 xl:mx-10 md:space-x-2 lg:space-x-7  xl:space-x-10 flex xl:flex-row flex-col sm:flex-row sm:space-x-2 justify-between 2xl:h-48 xl:h-36 lg:h-[20vh] text-gray-700 ">
 
-                <a href={{ route('User-dashboard.profile') }} class="w-full m-5 rounded-lg hover:border hover:border-teal-400 hover:from-cyan-300 hover:to-sky-200 bg-gradient-to-tl from-cyan-400 to-sky-300 md:p-2 xl:px-5 2xl:px-10 2xl:py-9 xl:py-5 flex flex-col xl:flex-row lg:pt-3 xl:p-0 items-center">
+                <a href={{ route('User-dashboard.profile') }} class="w-full rounded-lg hover:border hover:border-teal-400 hover:from-cyan-300 hover:to-sky-200 bg-gradient-to-tl from-cyan-400 to-sky-300 md:p-2 xl:px-5 2xl:px-10 2xl:py-9 xl:py-5 flex flex-col xl:flex-row lg:pt-3 xl:p-0 items-center">
                     @if($user->gender == 'Female')
-                    <img src="{{ asset('/img/female.svg') }}" class="2xl:w-24 xl:mr-5 2xl:mr-8  xl:w-16 xl:h-16 2xl:h-20 w-16">
+                    <img src="{{ asset('/img/female.svg') }}" class="2xl:w-24 xl:mr-5 2xl:mr-8  xl:w-16 xl:h-16 2xl:h-20 w-12">
                     @elseif($user->gender == 'Male')
-                    <img src="{{ asset('/img/male.svg') }}" class="2xl:w-24 xl:mr-5 2xl:mr-8  xl:w-16 xl:h-16 2xl:h-20 w-16 lg:w-[4rem]">
+                    <img src="{{ asset('/img/male.svg') }}" class="2xl:w-24 xl:mr-5 2xl:mr-8  xl:w-16 xl:h-16 2xl:h-20 w-12 lg:w-[4rem]">
                     @else
                     <img src="{{ asset('/upload/profile.png') }}" class="2xl:w-24 xl:mr-5 2xl:mr-8  xl:w-16 xl:h-12 2xl:h-20 w-16 lg:w-[4rem]">
                     @endif
-                    <h1 class="font-thick text-gray-700 tracking-wide xl:text-xs 2xl:text-base lg:text-center md:text-xs md:text-center">Your Role
-                        <span class="block text-lg font-semibold xl:text-sm 2xl:text-lg lg:text-sm md:text-xs">
+                    <h1 class="font-thick text-gray-700 tracking-wide xl:text-xs 2xl:text-base lg:text-center text-xs md:text-center">Your Role
+                        <span class="block font-semibold xl:text-sm 2xl:text-lg lg:text-sm text-xs">
                             @foreach (Auth()->user()->roles as $role )
                                 {{ $role->name }}
                             @endforeach
@@ -42,46 +42,47 @@
 
                 </a>
 
-                <div class="w-full m-5 rounded-lg bg-gradient-to-tl from-violet-400 to-sky-500 xl:px-5 xl:py-5 2xl:px-10 2xl:py-5 flex lg:p-2">
-                    <div class="flex-1 text-gray-800 ">
-                        <span class="block text-2xl font-medium xl:text-4xl 2xl:text-6xl  flex-1 lg:text-5xl">{{$counts}}</span>
-                        <h1 class="font-thick  tracking-wide xl:text-xs 2xl:text-sm lg:text-xs">Completed Proposal</h1>
+                <div class="w-full rounded-lg bg-gradient-to-tl from-violet-400 to-sky-500 xl:px-5 xl:py-5 2xl:px-10 2xl:py-5 flex lg:p-2 relative">
+                    <div class="flex-1 text-gray-800 flex  md:flex-col  pl-5 justify-center">
+                        <span class=" font-medium text-5xl 2xl:text-6xl">{{$counts}}</span>
+                        <h1 class="font-thick  tracking-wide text-xs 2xl:text-sm">Completed Proposal</h1>
                     </div>
 
-                    <div class="flex xl:items-center justify-center lg:items-start lg:pt-4 xl:pt-0">
-                        <img src="{{ asset('/img/approved.png') }}" class="2xl:w-[5rem] xl:w-16 xl:h-14 2xl:h-[5rem] lg:w-[3rem]">
+                    <div class="flex xl:items-center justify-center lg:items-start lg:pt-4 xl:pt-0 lg:right-6 right-2 top-4 xl:right-0 xl:top-0 absolute xl:relative">
+                        <img src="{{ asset('/img/approved.png') }}" class="2xl:w-[5rem] xlw-[3rem] lg:w-[3rem] w-[2.5rem]">
                     </div>
                 </div>
 
 
 
-                <a href={{route('User-dashboard.my-proposal')}} class="w-full m-5 rounded-lg  hover:from-red-400 hover:to-pink-500  bg-gradient-to-tl from-red-500 to-pink-400 xl:px-5  xl:py-5 2xl:px-10 2xl:py-5 flex">
+                <a href={{route('User-dashboard.my-proposal')}} class="relative w-full rounded-lg  hover:from-red-400 hover:to-pink-500  bg-gradient-to-tl from-red-500 to-pink-400 xl:px-5  xl:py-5 2xl:px-10 2xl:py-5 flex">
 
-                    <div class="flex-1 text-gray-800">
-
-                        <span class="block text-2xl font-medium xl:text-4xl 2xl:text-6xl  flex-1">{{$second}}</span>
-                        <h1 class="font-thick  tracking-wide xl:text-xs 2xl:text-sm">Total Proposal</h1>
+                    <div class="flex-1 text-gray-800 flex  md:flex-col  pl-5 justify-center">
+                        <span  class=" font-medium text-5xl 2xl:text-6xl">{{$second}}</span>
+                        <h1 class="font-thick  tracking-wide text-xs 2xl:text-sm">Total Proposal</h1>
                     </div>
 
-                    <div class="flex items-center justify-center">
-                        <img src="{{ asset('/img/proposal-paper.png') }}" class="2xl:w-[5rem] xl:w-16 xl:h-14 2xl:h-[5rem]">
+                    <div class="flex xl:items-center justify-center lg:items-start lg:pt-4 xl:pt-0 lg:right-6 right-2 top-4 xl:right-0 xl:top-0  absolute xl:relative">
+                        <img src="{{ asset('/img/proposal-paper.png') }}" class="2xl:w-[5rem] xlw-[3rem] lg:w-[3rem] w-[2.5rem]">
                     </div>
                 </a>
 
-                <a href={{ route('points-system.index') }} class="text-gray-800 w-full m-5 rounded-lg hover:from-sky-600 hover:to-sky-500  bg-gradient-to-tl from-sky-500 to-sky-400 xl:px-5  xl:py-5 2xl:px-10 2xl:py-5 flex ">
-                    <div class="flex-1">
-                        <span class="block text-2xl font-medium xl:text-4xl 2xl:text-6xl  flex-1"> @if ($latestYearPoints == null) 0 @else {{ $latestYearPoints->total_points }} @endif</span>
-                        <h1 class="font-thick  tracking-wide xl:text-xs 2xl:text-sm">Total Points</h1>
+
+
+                <a href={{ route('points-system.index') }} class="relative text-gray-800 w-full rounded-lg hover:from-sky-600 hover:to-sky-500  bg-gradient-to-tl from-sky-500 to-sky-400 xl:px-5  xl:py-5 2xl:px-10 2xl:py-5 flex ">
+                    <div class="flex-1 text-gray-800 flex  md:flex-col  pl-5 justify-center">
+                        <span  class=" font-medium text-5xl 2xl:text-6xl"> @if ($latestYearPoints == null) 0 @else {{ $latestYearPoints->total_points }} @endif</span>
+                        <h1 class="font-thick  tracking-wide text-xs 2xl:text-sm">Total Points</h1>
                     </div>
 
-                    <div class="flex">
-                        <img src="{{ asset('/img/points.png') }}" class=" 2xl:w-[5rem] xl:w-16 xl:h-14 2xl:h-[5rem]">
+                    <div class="flex xl:items-center justify-center lg:items-start lg:pt-4 xl:pt-0 lg:right-6 right-2 top-4 xl:right-0 xl:top-0 absolute xl:relative">
+                        <img src="{{ asset('/img/points.png') }}" class="2xl:w-[5rem] xlw-[3rem] lg:w-[3rem] w-[2.5rem]">
                     </div>
                 </a>
 
             </section>
 
-            <section class="mx-10 my-5 xl:space-y-4 text-gray-700">
+            <section class="mx-5 xl:mx-10 my-5 xl:space-y-4 text-gray-700">
 
                 <div class="relative overflow-x-auto rounded-lg shadow bg-white">
 

@@ -2,7 +2,7 @@
 
     <section class="mt-5 m-8 rounded-lg 2xl:min-h-[87vh] xl:min-h-[85vh] relative bg-white">
         <header class="p-4 flex justify-between">
-            <h1 class="font-medium text-gray-700 tracking-wider">My Proposal</h1>
+            <h1 class="font-semibold text-gray-600 tracking-wider text-lg 2xl:text-2xl">My Proposal</h1>
             <a href={{ route('User-dashboard.index') }} class="focus:bg-red-100 rounded-md px-2 py-1 hover:bg-gray-200 text-red-500">
                 <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
