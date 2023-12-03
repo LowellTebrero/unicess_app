@@ -3,12 +3,13 @@
     <div class="mb-4">
         <div class="w-full">
             <label class="block  text-sm font mb-2" for="username"><span class="text-xs"> (1 point for every Php 10,000.00 worth of resource generated)</span></label>
-            <input id="resource" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  text-sm leading-tight focus:outline-none" name="resource" value="{{ $evaluation->resource }}" type="text">
+            <input onkeypress="return isNumber(event)" id="resource" class="dynamic-input border-zinc-400 appearance-none border rounded w-full py-2 px-3  text-sm leading-tight focus:outline-none"
+             name="resource" value="{{ $evaluation->resource }}" type="text" oninput="checkAndToggleReadonly(this)">
             <div class="py-2 resource">
                 <x-alpine-modal>
 
                     <x-slot name="scripts">
-                        <div class="bg-blue-600 px-2 py-2 rounded-md text-white xl:text-xs flex">Proof of Points</div>
+                        <div class="bg-blue-600 px-2 py-2 rounded-md text-white text-xs flex">Proof of Points</div>
                     </x-slot>
 
                     <x-slot name="title">Proof of file</x-slot>
@@ -19,7 +20,7 @@
                         <div class="bg-blue-600 w-full rounded-lg">
                             @foreach ($evaluation->evaluationfile as $image)
                             @if ($image->resource_generation !== null)
-                                <div class="bg-white  flex w-full  xl:w-48 -md rounded-lg hover:bg-slate-200  transition-all m-2 relative ">
+                                <div class="bg-white  flex w-full  xl:w-[30rem] rounded-lg hover:bg-slate-200  transition-all m-2 relative ">
 
                                     {{--  Modal Starts here  --}}
                                     <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = false" class="absolute right-0 top-1" >
@@ -30,7 +31,7 @@
                                         <div class="fixed inset-0 z-50  flex items-center justify-center overflow-auto bg-black bg-opacity-50" x-show="showModal">
 
                                             <!-- Modal inner -->
-                                            <div class="w-1/4 py-4 text-left bg-white rounded-lg -lg" x-show="showModal"
+                                            <div class="w-1/2 py-4 text-left bg-white rounded-lg -lg" x-show="showModal"
                                                 x-transition:enter="motion-safe:ease-out duration-300"
                                                 x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
                                                 x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"

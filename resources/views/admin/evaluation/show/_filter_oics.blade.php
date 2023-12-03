@@ -1,12 +1,12 @@
 <div class="mt-6 ">
     <h1 class="py-4  text-sm font-medium">4. OIC Function (depends on the length of time and what level)<span class="text-xs 2xl:block xl:inline-block"> (1 pt. for every 2 cumulative days)</span></h1>
     <div class="mb-4">
-            <input id="oic" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none" name="oic" value="{{ $evaluation->oic }}" type="text">
+            <input onkeypress="return isNumber(event)" id="oic" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none" name="oic" value="{{ $evaluation->oic }}" type="text">
             <div class="py-2 oic">
                 <x-alpine-modal>
 
                     <x-slot name="scripts">
-                        <div class="bg-blue-600 px-2 py-2 rounded-md text-white xl:text-xs flex">Proof of Points</div>
+                        <div class="bg-blue-600 px-2 py-2 rounded-md text-white text-xs flex">Proof of Points</div>
                     </x-slot>
 
                     <x-slot name="title">Proof of file</x-slot>

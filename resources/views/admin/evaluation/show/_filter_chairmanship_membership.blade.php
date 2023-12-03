@@ -3,12 +3,12 @@
     <div class="mb-4">
         <div class="w-full">
             <label class="block  text-sm font mb-2" for="username"><span class="text-xs"> (5 pts. per committee)</span></label>
-            <input id="chairmanship_membership" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none" name="chairmanship_membership" value="{{ $evaluation->chairmanship_membership }}" type="text">
+            <input onkeypress="return isNumber(event)" id="chairmanship_membership" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none" name="chairmanship_membership" value="{{ $evaluation->chairmanship_membership }}" type="text">
             <div class="py-2 chairmanship_membership">
                 <x-alpine-modal>
 
                     <x-slot name="scripts">
-                        <div class="bg-blue-600 px-2 py-2 rounded-md text-white xl:text-xs flex">Proof of Points</div>
+                        <div class="bg-blue-600 px-2 py-2 rounded-md text-white text-xs flex">Proof of Points</div>
                     </x-slot>
 
                     <x-slot name="title">Proof of file</x-slot>
@@ -19,7 +19,7 @@
                         <div class="bg-blue-600 w-full rounded-lg">
                             @foreach ($evaluation->evaluationfile as $image)
                             @if ($image->chairmanship !== null)
-                                <div class="bg-white  flex w-full  xl:w-48 -md rounded-lg hover:bg-slate-200  transition-all m-2 relative ">
+                                <div class="bg-white  flex w-full  xl:w-[30rem] rounded-lg hover:bg-slate-200  transition-all m-2 relative ">
 
                                     {{--  Modal Starts here  --}}
                                     <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = false" class="absolute right-0 top-1" >

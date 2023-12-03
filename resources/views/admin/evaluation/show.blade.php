@@ -1,19 +1,26 @@
     <style>
         [x-cloak] { display: none }
+
+
+
+
+
     </style>
+
 
 <x-admin-layout>
 
-    <section class="text-gray-700 p-5 rounded-lg 2xl:min-h-[80vh] m-8 mt-5 bg-white">
+    <section class="text-gray-700 p-5 rounded-lg m-8 mt-5 bg-white relative">
 
-        <section class=" mt-4 w-[95%] mx-auto text-gray-700">
+
+        <section class="mt-4 w-[95%] mx-auto text-gray-700">
 
             <form action="{{ route('admin.evaluation.update', $evaluation->id) }}" method="POST">
                 @csrf @method("PATCH")
 
                 @include('admin.evaluation.show._filter_header_show')
 
-                <div class="flex xl:flex-col 2xl:flex-row border-x border-b border-zinc-500 bg-slate-50">
+                <div class="flex flex-col xl:flex-row border-x border-b border-zinc-500 bg-slate-50">
                     <div class="w-full border-r border-zinc-500  p-5">
                         <h1 class=" text-md font-semibold tracking-wider">I. Administrative Work</h1>
                         @include('admin.evaluation.show._filter_chairmanship')
@@ -92,64 +99,64 @@
                     <div class="flex space-x-12">
                         <div class="w-full">
                             <label class="block  text-sm font mb-2" for="username">Training Director/Coordinator - Local/National <span class="text-xs xl:block 2xl:inline-block">  (10 pts. per Training) </span></label>
-                            <input class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none"value="{{ $evaluation->training_director_local }}" name="training_director_local" type="text">
+                            <input onkeypress="return isNumber(event)" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none"value="{{ $evaluation->training_director_local }}" name="training_director_local" type="text">
                         </div>
 
                         <div  class="w-full">
                             <label class="block  text-sm font mb-2" for="username">Training Director/Coordinator - International <span class="text-xs xl:block 2xl:inline-block">  (10 pts. per Training) </span></label>
-                            <input class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none"value="{{ $evaluation->training_director_international }}" name="training_director_international" type="text">
+                            <input onkeypress="return isNumber(event)" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none"value="{{ $evaluation->training_director_international }}" name="training_director_international" type="text">
                         </div>
                     </div>
 
                     <div class="flex space-x-12">
                         <div class="w-full">
                             <label class="block  text-sm font mb-2" for="username">Resource Speaker/Trainer - Local/National <span class="text-xs xl:block 2xl:inline-block">  (10 pts. per Training) </span></label>
-                            <input class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none"value="{{ $evaluation->resource_speaker_local }}" name="resource_speaker_local" type="text">
+                            <input onkeypress="return isNumber(event)" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none"value="{{ $evaluation->resource_speaker_local }}" name="resource_speaker_local" type="text">
                         </div>
 
                         <div  class="w-full">
                             <label class="block  text-sm font mb-2" for="username">Resource Speaker/Trainer - International <span class="text-xs xl:block 2xl:inline-block">  (10 pts. per Training) </span></label>
-                            <input class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none"value="{{ $evaluation->resource_speaker_international }}" name="resource_speaker_international" type="text">
+                            <input onkeypress="return isNumber(event)" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none"value="{{ $evaluation->resource_speaker_international }}" name="resource_speaker_international" type="text">
                         </div>
                     </div>
 
                     <div class="flex space-x-12">
                         <div class="w-full">
                         <label class="block  text-sm font mb-2" for="username">Facilitator moderator - Local/National <span class="text-xs xl:block 2xl:inline-block">  (10 pts. per Training) </span></label>
-                        <input class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none"value="{{ $evaluation->facilitator_moderator_local }}" name="facilitator_moderator_local" type="text">
+                        <input onkeypress="return isNumber(event)" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none"value="{{ $evaluation->facilitator_moderator_local }}" name="facilitator_moderator_local" type="text">
                         </div>
 
                         <div  class="w-full">
                             <label class="block  text-sm font mb-2" for="username">Facilitator moderator - International <span class="text-xs xl:block 2xl:inline-block">  (10 pts. per Training) </span></label>
-                            <input class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none"value="{{ $evaluation->facilitator_moderator_international }}" name="facilitator_moderator_international" type="text">
+                            <input onkeypress="return isNumber(event)" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none"value="{{ $evaluation->facilitator_moderator_international }}" name="facilitator_moderator_international" type="text">
                         </div>
                     </div>
 
                     <div class="flex space-x-12">
                         <div class="w-full">
                             <label class="block  text-sm font mb-2" for="username">Reactor panel member- Local/National <span class="text-xs xl:block 2xl:inline-block">  (10 pts. per Training) </span></label>
-                            <input class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none"value="{{ $evaluation->reactor_panel_member_local }}" name="reactor_panel_member_local" type="text">
+                            <input onkeypress="return isNumber(event)" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none"value="{{ $evaluation->reactor_panel_member_local }}" name="reactor_panel_member_local" type="text">
                         </div>
 
                         <div  class="w-full">
                             <label class="block  text-sm font mb-2" for="username">Reactor panel member- International  <span class="text-xs xl:block 2xl:inline-block">  (10 pts. per Training) </span></label>
-                            <input class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none"value="{{ $evaluation->reactor_panel_member_international }}" name="reactor_panel_member_international" type="text">
+                            <input onkeypress="return isNumber(event)" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none"value="{{ $evaluation->reactor_panel_member_international }}" name="reactor_panel_member_international" type="text">
                         </div>
                     </div>
 
                     <div>
                         <label class="block  text-sm font mb-2" for="username">Technical Assistance/Consultancy  <span class="text-xs ">  (10 pts. per Training) </span></label>
-                        <input class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none"value="{{ $evaluation->technical_assistance }}" name="technical_assistance"  type="text">
+                        <input onkeypress="return isNumber(event)" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none"value="{{ $evaluation->technical_assistance }}" name="technical_assistance"  type="text">
                     </div>
 
                     <div>
                         <label class="block  text-sm font mb-2" for="username">Judge  <span class="text-xs ">  (10 pts. per Training) </span></label>
-                        <input class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none"value="{{ $evaluation->judge_community }}" name="judge_community"  type="text">
+                        <input onkeypress="return isNumber(event)" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none"value="{{ $evaluation->judge_community }}" name="judge_community"  type="text">
                     </div>
 
                     <div>
                         <label class="block  text-sm font mb-2" for="username">Commencement/Guest Speaker  <span class="text-xs ">  (10 pts. per Training) </span></label>
-                        <input class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none"value="{{ $evaluation->commencement_guest_speaker }}" name="commencement_guest_speaker" type="text">
+                        <input onkeypress="return isNumber(event)" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none"value="{{ $evaluation->commencement_guest_speaker }}" name="commencement_guest_speaker" type="text">
                     </div>
                 </div>
 
@@ -215,34 +222,60 @@
 
                             <div class="w-full">
                                 <h1 class="text-sm">Coordinator/Organizer/consultants <span class="text-xs">(10 pts. per day) </span> </h1>
-                                <input class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none" value="{{ $evaluation->coordinator_organizer_consultants }}"  name="coordinator_organizer_consultants"  type="text">
+                                <input onkeypress="return isNumber(event)" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none" value="{{ $evaluation->coordinator_organizer_consultants }}"  name="coordinator_organizer_consultants"  type="text">
                             </div>
 
                             <div class="w-full">
                                 <label class="block  text-sm font mb-2" for="username">Resource person/lecturer <span class="text-xs"> (8 pts. per day)  </span></label>
-                                <input class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none" value="{{ $evaluation->resource_person_lecturer }}"  name="resource_person_lecturer"  type="text">
+                                <input onkeypress="return isNumber(event)" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none" value="{{ $evaluation->resource_person_lecturer }}"  name="resource_person_lecturer"  type="text">
                             </div>
 
 
                             <div class="w-full">
                                 <label class="block  text-sm font mb-2" for="username">Facilitator <span class="text-xs"> (6 pts. per day)  </span></label>
-                                <input class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none" value="{{ $evaluation->facilitator }}"   name="facilitator" type="text">
+                                <input onkeypress="return isNumber(event)" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none" value="{{ $evaluation->facilitator }}"   name="facilitator" type="text">
                             </div>
 
 
                             <div class="w-full">
                                 <label class="block  text-sm font mb-2" for="username">Member <span class="text-xs"> (4 pts. per day)  </span></label>
-                                <input class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none" value="{{ $evaluation->member }}"  name="member"  type="text">
+                                <input onkeypress="return isNumber(event)" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none" value="{{ $evaluation->member }}"  name="member"  type="text">
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <input type="text" name="status" value="evaluated" hidden="true">
+                <input onkeypress="return isNumber(event)" type="text" name="status" value="evaluated" hidden="true">
                 <div class="py-12">
                     <button type="submit" class="bg-blue-500 text-white px-3 w-full py-2 rounded-lg text-xl">Validate</button>
                 </div>
             </form>
         </section>
     </section>
+
+
 </x-admin-layout>
+
+    <script>
+
+            function toggleVisibility() {
+                var toggleButton = document.getElementById('toggleButton');
+                var userDetailDiv = document.getElementById('userDetailDiv');
+
+                // Toggle the display property of the button and div
+                toggleButton.style.display = (toggleButton.style.display === 'none') ? 'block' : 'none';
+                userDetailDiv.style.display = (userDetailDiv.style.display === 'none') ? 'block' : 'none';
+            }
+
+
+        function isNumber(evt) {
+            evt = (evt) ? evt : window.event;
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+            return true;
+        }
+    </script>
+
+

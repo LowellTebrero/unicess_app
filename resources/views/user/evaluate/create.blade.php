@@ -14,6 +14,17 @@
             display: none;
         }
 
+        input,
+        input::placeholder {
+            font: .8rem/3 sans-serif;
+            text-indent: 1%;
+            letter-spacing: 1px;
+        }
+
+        input:invalid {
+            border: 1px solid rgb(255, 97, 97);
+          }
+
     </style>
 
     <section class="p-4 sm:p-8 rounded-lg bg-white mt-5 m-8 w-[95%] mx-auto text-gray-700 relative">
@@ -226,70 +237,70 @@
                 @if ($row->leader_member_type == '1' && $row->location_id == '1')
 
                 <h1 class="text-sm">Training Director/Coordinator - Local/National  <span class="text-xs sm:text-sm">(10 pts. per Training)</span></h1>
-                <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="training_director_local"  type="text" id="inputfield1" onkeypress="return isNumber(event)" required>
+                <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="training_director_local"   type="text" id="inputfield1" placeholder="Points required" onkeypress="return isNumber(event)" required>
                 @endif
 
                 @if ($row->leader_member_type == '1' && $row->location_id == '2')
 
                 <h1 class="text-sm">Training Director/Coordinator - International   <span class="text-xs sm:text-sm">(15 pts. per Training)</span></h1>
-                <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="training_director_international" type="text" id="inputfield2" onkeypress="return isNumber(event)" required>
+                <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="training_director_international" type="text" id="inputfield2" placeholder="Points required" onkeypress="return isNumber(event)" required>
                 @endif
 
                 @if ($row->leader_member_type == '2' && $row->location_id == '1')
 
                 <h1 class="text-sm">Resource Speaker/Trainer - Local/National  <span class="text-xs sm:text-sm">(7 pts. per Training)</span></h1>
-                <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="resource_speaker_local" type="text" onkeypress="return isNumber(event)" required>
+                <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="resource_speaker_local" type="text" placeholder="Points required" onkeypress="return isNumber(event)" required>
                 @endif
 
                 @if ($row->leader_member_type == '2' && $row->location_id == '2')
 
                 <h1 class="text-sm" >Resource Speaker/Trainer - International   <span class="text-xs sm:text-sm">(10 pts. per Training)</span></h1>
-                <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="resource_speaker_international" type="text" onkeypress="return isNumber(event)" required>
+                <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="resource_speaker_international" type="text" placeholder="Points required" onkeypress="return isNumber(event)" required>
                 @endif
 
 
                 @if ($row->leader_member_type == '3' && $row->location_id == '1')
 
                 <h1 class="text-sm">Facilitator moderator - local   <span class="text-xs sm:text-sm">(3 pts. per Training)</span></h1>
-                <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="facilitator_moderator_local" type="text" onkeypress="return isNumber(event)" required>
+                <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="facilitator_moderator_local" type="text" placeholder="Points required" onkeypress="return isNumber(event)" required>
                 @endif
 
                 @if ($row->leader_member_type == '3' && $row->location_id == '2')
 
                 <h1 class="text-sm">Facilitator moderator - International  <span class="text-xs sm:text-sm">(7 pts. per Training)</span></h1>
-                <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="facilitator_moderator_international" type="text" onkeypress="return isNumber(event)" required>
+                <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="facilitator_moderator_international" type="text" placeholder="Points required" onkeypress="return isNumber(event)" required>
                 @endif
 
 
                 @if ($row->leader_member_type == '4' && $row->location_id == '1')
 
                 <h1 class="text-sm">Reactor panel member - local  <span class="text-xs sm:text-sm">(2 pts. per Training)</span></h1>
-                <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="reactor_panel_member_local" type="text" onkeypress="return isNumber(event)" required>
+                <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="reactor_panel_member_local" type="text" placeholder="Points required" onkeypress="return isNumber(event)" required>
                 @endif
 
                 @if ($row->leader_member_type == '4' && $row->location_id == '2')
 
                 <h1 class="text-sm">Reactor panel member - International  <span class="text-xs sm:text-sm">(5 pts. per Training)</span></h1>
-                <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="reactor_panel_member_international" type="text" onkeypress="return isNumber(event)" required>
+                <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="reactor_panel_member_international" type="text" placeholder="Points required" onkeypress="return isNumber(event)" required>
                 @endif
 
 
                 @if ($row->leader_member_type == '5' && empty($row->location_id))
 
                 <h1 class="text-sm">Technical Assistance/Consultancy  <span class="text-xs sm:text-sm">(7 pts. per project)</span></h1>
-                <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="technical_assistance"  type="text" onkeypress="return isNumber(event)" required>
+                <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="technical_assistance"  type="text" placeholder="Points required" onkeypress="return isNumber(event)" required>
                 @endif
 
                 @if ($row->leader_member_type == '6' && empty($row->location_id))
 
                 <h1 class="text-sm">Judge  <span class="text-xs sm:text-sm">(3 pts.) Note: Only extra-curricular activities where are academic in nature (e.g., debates, orations, quiz shows)</span></h1>
-                <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="judge_community"  type="text" onkeypress="return isNumber(event)" required>
+                <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="judge_community"  type="text" placeholder="Points required" onkeypress="return isNumber(event)" required>
                 @endif
 
                 @if ($row->leader_member_type == '7' && empty($row->location_id))
 
                 <h1 class="text-sm">Commencement/Guest Speaker: <span class="text-xs sm:text-sm">(4 pts.)</span></h1>
-                <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="commencement_guest_speaker" type="text" onkeypress="return isNumber(event)" required>
+                <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="commencement_guest_speaker" type="text" placeholder="Points required" onkeypress="return isNumber(event)" required>
                 @endif
                 {{--  @endif  --}}
                 @endforeach
@@ -315,28 +326,28 @@
                         @if ($rows->member_type == 'Coordinator/Organizer/consultants' )
                         <div class="w-full">
                         <h1 class="text-xs sm:text-sm">Coordinator/Organizer/consultants (10 pts. per day) </h1>
-                        <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm"  name="coordinator_organizer_consultants"  type="text" required onkeypress="return isNumber(event)">
+                        <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm"  name="coordinator_organizer_consultants"  type="text" placeholder="Points required" required onkeypress="return isNumber(event)">
                         </div>
                         @endif
 
                         @if ($rows->member_type == 'Facilitator' )
                         <div class="w-full">
                         <h1 class="text-xs sm:text-sm">Facilitator (6 pts. per day) </h1>
-                        <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm"   name="facilitator"   type="text" required onkeypress="return isNumber(event)">
+                        <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm"   name="facilitator"   type="text" placeholder="Points required" required onkeypress="return isNumber(event)">
                         </div>
                         @endif
 
                         @if ($rows->member_type == 'Member' )
                         <div class="w-full">
                         <h1 class="text-xs sm:text-sm">Member (4 pts. per day) </h1>
-                        <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm"   name="member" type="text" required onkeypress="return isNumber(event)">
+                        <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm"   name="member" type="text" placeholder="Points required" required onkeypress="return isNumber(event)">
                         </div>
                         @endif
 
                         @if ($rows->member_type == 'Resource person/lecturer' )
                         <div class="w-full">
                         <h1 class="text-xs sm:text-sm">Resource person/lecturer (8 pts. per day) </h1>
-                        <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="resource_person_lecturer"  type="text" required onkeypress="return isNumber(event)">
+                        <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="resource_person_lecturer"  type="text" placeholder="Points required" required onkeypress="return isNumber(event)">
                         </div>
 
                         @endif
