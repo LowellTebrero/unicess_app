@@ -61,7 +61,6 @@ class EvaluateController extends Controller
         ->get();
 
 
-
         $status = EvaluationStatus::select('status')->get();
         $latestYear = ProposalMember::select(DB::raw('MAX(YEAR(created_at)) as max_year'))->where('user_id', auth()->user()->id)->value('max_year');
         $result = Evaluation::select('status', DB::raw('MAX(YEAR(created_at)) as max_year'))->groupBy('status')->get();

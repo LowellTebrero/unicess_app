@@ -2,11 +2,10 @@
 @if (Auth::user()->authorize == 'checked')
 @hasanyrole('Faculty extensionist|Extension coordinator')
 
-    <section class="m-8  rounded-lg text-slate-700 relative mt-5 min-h-[85vh] bg-white 2xl:min-h-[87vh]">
+    <section class="m-8  rounded-lg text-slate-600 relative mt-5 min-h-[85vh] bg-white 2xl:min-h-[87vh]">
 
-        <div class=" flex justify-between p-8 flex-col sm:flex-row">
+        <div class="flex justify-between p-5 py-4 flex-col sm:flex-row">
             <h1 class="xl:text-2xl sm:text-lg text-[.9rem] font-semibold tracking-wider">Evaluation overview <button data-tooltip-target="tooltip-right3" data-tooltip-placement="bottom" class="inline-block" type="button"><img src="{{ asset('img/i.png') }}" width="18" alt=""></button></h1>
-
             <select name="Years" id="Years" class="sm:text-sm text-xs  border-slate-500 rounded-lg">
                 @foreach ($years as $year )
                 <option value="{{ $year }}">{{ $year }}</option>
@@ -15,72 +14,7 @@
         </div>
         <hr>
 
-         <header>
-            <div id="tooltip-right3" role="tooltip" class="space-y-1 absolute z-10 invisible inline-block px-3 py-2 text-xs font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                <h1 class="tracking-wider pt-2">Project Leader</h1>
-                <div class="flex">
-                    <div class="w-full border">
-                        <h1 class="pl-2">1. Resource Speaker/Trainer</h1>
-                        <h1 class="pl-4 font-thin text-[.7rem]">Local/National ( 10pts. per Training )</h1>
-                        <h1 class="pl-4 font-thin text-[.7rem]">International (15pts. per Training )</h1>
-                    </div>
-
-                    <div class="w-full border-t border-b border-r">
-                        <h1 class="pl-2">2. Facilitator/Moderator</h1>
-                        <h1 class="pl-4 font-thin text-[.7rem]">Local/National ( 7pts. per Training )</h1>
-                        <h1 class="pl-4 font-thin text-[.7rem]">International ( 10pts. per Training )</h1>
-                    </div>
-                </div>
-                <div class="flex">
-                    <div class="w-full border">
-                        <h1 class="pl-2 pt-2">3.  Reactor/Penl member</h1>
-                        <h1 class="pl-4 font-thin text-[.7rem]">Local/National ( 3pts. per Training )</h1>
-                        <h1 class="pl-4 font-thin text-[.7rem]">International ( 7pts. per Training )</h1>
-                    </div>
-
-                    <div class="w-full border-t border-b border-r">
-                        <h1 class="pl-2 pt-2">4. Techinical Assistance/Consultancy</h1>
-                        <h1 class="pl-4 font-thin text-[.7rem]">Local/National ( 2pts. per Training )</h1>
-                        <h1 class="pl-4 font-thin text-[.7rem]">International ( 5pts. per Training )</h1>
-                    </div>
-                </div>
-                <div class="flex">
-                    <div class="w-full border">
-                        <h1 class="pl-2 pt-2">5. Judge</h1>
-                        <h1 class="pl-4 font-thin text-[.7rem]">( 3pts.)</h1>
-                    </div>
-
-                    <div class="w-full border-t border-b border-r">
-                        <h1 class="pl-2 pt-2">6. Commencement/Guest Speaker</h1>
-                        <h1 class="pl-4 font-thin text-[.7rem]">( 4pts )</h1>
-                    </div>
-                </div>
-                <h1 class="py-2 tracking-wider">Participation in the extension and training per day:</h1>
-                <div class="flex">
-                    <div class="w-ful border">
-                        <h1 class="pl-2">1. Coordinator/Organizer/consultants</h1>
-                        <h1 class="pl-4 font-thin text-[.7rem]">Local/National ( 10pts. per day )</h1>
-                    </div>
-
-                    <div class="w-full border-t border-b border-r">
-                        <h1 class="pl-2">2. Resource person/lecturer</h1>
-                        <h1 class="pl-4 font-thin text-[.7rem]">Local/National ( 8pts. per day )</h1>
-                    </div>
-                </div>
-                <div class="flex">
-                    <div class="w-full border">
-                        <h1 class="pl-2 pt-2">3. Facilitator</h1>
-                        <h1 class="pl-4 font-thin text-[.7rem]">Local/National ( 6pts. per day )</h1>
-                    </div>
-
-                    <div class="w-full border-t border-b border-r">
-                        <h1 class="pl-2 pt-2">4. Member</h1>
-                        <h1 class="pl-4 font-thin text-[.7rem]">Local/National ( 4pts. per day )</h1>
-                    </div>
-                </div>
-                <div class="tooltip-arrow" data-popper-arrow></div>
-            </div>
-        </header>
+        @include('user.evaluate.index_filter._header_index')
 
         <div id="filtered-data" class="p-8">
             @include('user.evaluate.index_filter._filter_index')
@@ -122,6 +56,29 @@
 @endif
 
     <script>
+
+        function applyHideShowLogic() {
+            var divContainers = document.querySelectorAll('.animated-div-container');
+
+            // Show containers initially
+            divContainers.forEach(function (container) {
+                container.classList.add('animated-div');
+
+                // Set a timeout to hide the container after 5 seconds
+                setTimeout(function () {
+                    container.classList.remove('animated-div');
+                    container.style.display = 'none'; // Hide the container
+                    var hiddenDivContainer = container.nextElementSibling;
+                    if (hiddenDivContainer) {
+                        hiddenDivContainer.classList.remove('hidden-div');
+                    }
+                }, 5000);
+            });
+
+        }
+
+        applyHideShowLogic();
+
         $(document).ready(function () {
             $('#Years').on('change', function () {
                 var years = $(this).val();
@@ -133,6 +90,9 @@
                     success: function(data) {
                 // Update the filtered data container with the response
                 $('#filtered-data').html(data);
+
+
+                applyHideShowLogic();
 
             }
                 });
@@ -150,18 +110,20 @@
             .then(response => response.json())
             .then(data => {
                 if (data.message) {
-                    console.log(data.message);
+                //    console.log(data.message);
                 } else {
-                    console.error(data.error);
+                 //   console.error(data.error);
                 }
             })
             .catch(error => {
-                console.error('Error:', error);
+               // console.error('Error:', error);
             });
           });
 
-          console.log('It has been load');
+
     </script>
+
+
 
 
 </x-app-layout>
