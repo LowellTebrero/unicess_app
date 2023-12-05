@@ -129,12 +129,29 @@
 
             @foreach ($evaluation as $eval)
                 @if ($currentYear == date('Y') && $stats->status == "close" && $latestYear < $previousYear &&  $eval->status == 'evaluated' )
-                    <div class="flex space-y-2 items-center justify-center flex-col">
-                        {{--  <img src="{{ asset('img/attention.png') }}" width="90" class="closed-image">  --}}
-                        <h1 class="text-lg font-medium tracking-wider closed-title">Your evaluation form has been verified.</h1>
-                        <a href="{{ route('evaluate-pdf',$latestYearAndId->id ) }}" class="text-white py-2 px-3 rounded-lg text-sm bg-green-400 hover:bg-green-500">Click here to download </a>
-                    </div>
+                <div id="div1" class="animated-div-container animated-div flex flex-col items-center justify-center space-y-2 text-green-500">
+                    <img src="{{ asset('img/confetti.png') }}" width="75" class="head-primary-main">
+                    <h1 class="text-2xl font-medium tracking-wide head-primary-sub">Congratulations </h1>
+                    <p class="text-gray-700 tracking-wider">Your evaluation form has been verified.</p>
+                </div>
 
+                <div id="div2" class="hidden-div-container hidden-div flex flex-col text-green-500">
+                    <div class=" py-2 flex space-x-2 text-green-400 text-lg font-medium items-center justify-between">
+                        <div class="flex items-center space-x-2">
+                            {{--  <svg class="submitted-image" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#68bf7b" d="M12 23c6.075 0 11-4.925 11-11S18.075 1 12 1S1 5.925 1 12s4.925 11 11 11ZM7.5 10.586l3 3l6-6L17.914 9L10.5 16.414L6.086 12L7.5 10.586Z"/></svg>  --}}
+                            <img src="{{ asset('img/confetti.png') }}" width="35" class="head-primary-main">
+                            <div>
+                                <h1 class="text-lg submitted-text ">Congratulations</h1>
+                                <p class="text-gray-500 tracking-wider submitted-description text-xs">Your evaluation form has been verified. </p>
+                            </div>
+                        </div>
+                        <div class="flex items-end flex-col">
+                            <h1 class="text-sm text-center tracking-wider ">Download CES Evaluation Form {{ $currentYear  }}</h1>
+                             <a href={{ route('evaluate-pdf',$latestYearAndId->id ) }} class="text-white py-1 px-3 rounded-lg text-xs bg-green-400 hover:bg-green-500">Click here to download pdf</a>
+                        </div>
+                    </div>
+                    @include('user.evaluate.index_filter._filter_userform_index')
+                </div>
                 @endif
             @endforeach
 
@@ -156,7 +173,7 @@
                             </div>
                         </div>
                         <div class="flex items-end flex-col">
-                            <h1 class="text-sm text-center tracking-wider">CES Evaluation Form {{ $currentYear  }}</h1>
+                            <h1 class="text-sm text-center tracking-wider text-red-400">CES Evaluation Form {{ $currentYear  }}</h1>
                             <h4 class="text-xs tracking-wider text-gray-500">Status: Pending</h4>
                         </div>
                     </div>
@@ -196,7 +213,7 @@
                                 </div>
                             </div>
                             <div class="flex items-end flex-col">
-                                <h1 class="text-sm text-center tracking-wider">CES Evaluation Form {{ $currentYear  }}</h1>
+                                <h1 class="text-sm text-center tracking-wider text-red-400">CES Evaluation Form {{ $currentYear  }}</h1>
                                 <h4 class="text-xs tracking-wider text-gray-500">Status: Pending</h4>
                             </div>
                         </div>
@@ -210,7 +227,7 @@
             @foreach ($evaluation as $eval)
                 @if ($currentYear == date('Y')  && $stats->status == "checked" && $res->status == 'evaluated' &&  $latestYear == $currentYear && $res->max_year == $currentYear )
 
-                      <div id="div1" class="animated-div-container animated-div flex flex-col items-center justify-center space-y-2 text-green-500">
+                    <div id="div1" class="animated-div-container animated-div flex flex-col items-center justify-center space-y-2 text-green-500">
                         <img src="{{ asset('img/confetti.png') }}" width="75" class="head-primary-main">
                         <h1 class="text-2xl font-medium tracking-wide head-primary-sub">Congratulations </h1>
                         <p class="text-gray-700 tracking-wider">Your evaluation form has been verified.</p>

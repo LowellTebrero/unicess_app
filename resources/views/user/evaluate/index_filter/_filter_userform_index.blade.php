@@ -1,20 +1,19 @@
-{{--  <div class="flex space-x-2 text-green-500 text-lg font-medium items-center">
-    <img src="{{ asset('img/submit-successfully.png') }}" width="50" class="submitted-image w-[2rem] h-[3vh]">
-    <div>
-        <h1 class="text-lg submitted-text">Evaluation form submitted </h1>
-        <p class="text-gray-500 tracking-wider submitted-description text-xs">Please wait for the admin to verify your evaluation form. </p>
-    </div>
-</div>  --}}
 
 <div class="border rounded h-[59vh] 2xl:h-[62vh] overflow-x-auto 2xl:w-[70rem] text-gray-600">
     <h1 class="text-center my-2">CES FACULTY PERFORMANCE EVALUATION FORM {{ $currentYear  }}</h1>
    @foreach ( $evaluation as $evaluate )
        {{--  <h1 class="text-xs"> Status: {{ $evaluate->status }}</h1>  --}}
-       <h1 class="text-xs text-center">A. SERVICE TO THE UNIVERSITY -- 30 points (Ceiling Points) (Should show proof of involvement e.g., T.O/S.O, Certificate of Appearance/Activity Attendance Monitoring Form)</h1>
-        <h1 class="text-xs font-medium pl-4 mt-4">I. Administrative Work</h1>
+       <h1 class="text-xs text-left ml-5">A. SERVICE TO THE UNIVERSITY -- 30 points (Ceiling Points) (Should show proof of involvement e.g., T.O/S.O, Certificate of Appearance/Activity Attendance Monitoring Form)</h1>
+        @if ($evaluate->chairmanship_university || $evaluate->chairmanship_college ||
+        $evaluate->membership_university || $evaluate->membership_college ||
+        $evaluate->advisorship || $evaluate->oic || $evaluate->judge)
+        <h1 class="text-xs font-medium pl-4 mt-4"> I. Administrative Work</h1>
+        @endif
+
         <div class="text-xs  px-4 mt-3 flex space-x-5">
+            @if ($evaluate->chairmanship_university !== NULL || $evaluate->chairmanship_college !== NULL )
             <div class="w-full">
-                <h1 class="mt-2"> @if ($evaluate->chairmanship_university !== NULL || $evaluate->chairmanship_college !== NULL ) Chairmanship of Working Committees @endif </h1>
+                <h1 class="mt-2">1. Chairmanship of Working Committees </h1>
                 <div class="flex space-x-4 mt-2">
                     @if ($evaluate->chairmanship_university)
                         <div>
@@ -31,9 +30,11 @@
                     @endif
                 </div>
             </div>
+            @endif
 
+            @if ($evaluate->membership_university !== NULL || $evaluate->membership_college !== NULL )
             <div class="w-full">
-                <h1 class="mt-2"> @if ($evaluate->membership_university !== NULL || $evaluate->membership_college !== NULL ) 2. Membership in Working Committee @endif </h1>
+                <h1 class="mt-2"> 2. Membership in Working Committee </h1>
                 <div class="flex space-x-4 mt-2">
                     @if ($evaluate->membership_university)
                         <div>
@@ -50,8 +51,10 @@
                     @endif
                 </div>
             </div>
+            @endif
         </div>
 
+        @if ($evaluate->advisorship || $evaluate->advisorship)
         <div class="flex text-xs px-4 space-x-5 mt-3">
             <div class="w-full">
 
@@ -76,20 +79,25 @@
                 </div>
             </div>
         </div>
+        @endif
 
-
+        @if ($evaluate->judge)
         <div class="text-xs px-4 mt-3">
-            @if ($evaluate->judge)
+
                 <div class="pt-2">
                     <h1>5.Judge</h1>
                     <h1 class="border w-[10rem] px-2 py-1 rounded">{{ $evaluate->judge }} points.</h1>
                 </div>
-            @endif
         </div>
+        @endif
 
-
+        @if ($evaluate->resource || $evaluate->chairmanship_membership ||
+        $evaluate->facilication_on_going || $evaluate->facilication_regional ||
+        $evaluate->facilication_national || $evaluate->facilication_international)
         <h1 class="text-xs font-medium pl-4 mt-7">II. Institution Building</h1>
+        @endif
 
+        @if ($evaluate->resource || $evaluate->chairmanship_membership)
         <div class="text-xs px-4 mt-4">
             @if ($evaluate->resource)
                 <div>
@@ -106,6 +114,7 @@
                 </div>
             @endif
         </div>
+        @endif
 
 
         <div class="mt-2 text-xs px-4 flex space-x-5 pb-8">
@@ -149,7 +158,7 @@
             </div>
         </div>
         <hr>
-        <h1 class="text-xs text-center mt-12">B. COMMUNITY OUTREACH ---20 pts. (Ceiling Points) (Should show proof of involvement e.g., TOUS.O, Certificate of Appearance/Activity Attendance Monitoring Form)</h1>
+        <h1 class="text-xs text-left mt-12 ml-5">B. COMMUNITY OUTREACH ---20 pts. (Ceiling Points) (Should show proof of involvement e.g., TOUS.O, Certificate of Appearance/Activity Attendance Monitoring Form)</h1>
 
         <div class="px-4 pb-8 mt-5 text-xs  gap-2 grid grid-cols-3 ">
 
@@ -232,9 +241,12 @@
         </div>
 
         <hr>
-        <h1 class="text-xs text-center mt-12">C. Service to the Adopted Barangay/institutions ----50 pts. (Ceiling Points) (Should show proof of involvement e.g., T.O/S.O, Activity Attendance Monitoring Form)</h1>
+        <h1 class="text-xs text-left mt-12 pl-4">C. Service to the Adopted Barangay/institutions ----50 pts. (Ceiling Points) (Should show proof of involvement e.g., T.O/S.O, Activity Attendance Monitoring Form)</h1>
 
+        @if ($evaluate->coordinator_organizer_consultants || $evaluate->resource_person_lecturer || $evaluate->facilitator || $evaluate->member )
         <h1 class="text-xs font-medium pl-4 mt-7">I. Participation in the extension and training per day:</h1>
+        @endif
+
         <div class="px-4 pb-8 mt-5 text-xs  gap-2 grid grid-cols-4 ">
 
             @if ($evaluate->coordinator_organizer_consultants)
