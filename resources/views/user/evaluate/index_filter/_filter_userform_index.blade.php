@@ -6,7 +6,7 @@
     </div>
 </div>  --}}
 
-<div class="border rounded h-[62vh] overflow-x-auto 2xl:w-[70rem] text-gray-600">
+<div class="border rounded h-[59vh] 2xl:h-[62vh] overflow-x-auto 2xl:w-[70rem] text-gray-600">
     <h1 class="text-center my-2">CES FACULTY PERFORMANCE EVALUATION FORM {{ $currentYear  }}</h1>
    @foreach ( $evaluation as $evaluate )
        {{--  <h1 class="text-xs"> Status: {{ $evaluate->status }}</h1>  --}}

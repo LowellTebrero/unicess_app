@@ -114,7 +114,7 @@
          <input class="outline-none border-0 p-0 border-transparent focus:border-transparent focus:ring-0" type="text" name="yearGetter"  value="{{ $currentYear }} - {{ $previousYear }}" hidden>
     </div>
 
-    <div class="mt-12 flex items-center justify-center min-h-[40vh]">
+    <div class="mt-5 2xl:mt-12 flex justify-center min-h-[40vh]">
 
         @foreach ($status as $stats )
 
@@ -147,11 +147,17 @@
                 </div>
 
                 <div id="div2" class="hidden-div-container hidden-div flex flex-col text-green-500">
-                    <div class="flex space-x-2 text-green-500 text-lg font-medium items-center">
-                        <img src="{{ asset('img/submit-successfully.png') }}" width="50" class="submitted-image w-[2rem] h-[3vh]">
-                        <div>
-                            <h1 class="text-lg submitted-text">Evaluation form submitted </h1>
-                            <p class="text-gray-500 tracking-wider submitted-description text-xs">Please wait for the admin to verify your evaluation form. </p>
+                    <div class="flex space-x-2 text-green-400 text-lg font-medium items-center justify-between">
+                        <div class="flex items-center space-x-2">
+                            <svg class="submitted-image" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#68bf7b" d="M12 23c6.075 0 11-4.925 11-11S18.075 1 12 1S1 5.925 1 12s4.925 11 11 11ZM7.5 10.586l3 3l6-6L17.914 9L10.5 16.414L6.086 12L7.5 10.586Z"/></svg>
+                            <div>
+                                <h1 class="text-lg submitted-text">Evaluation form submitted </h1>
+                                <p class="text-gray-500 tracking-wider submitted-description text-xs">Please contact the admin to verify your evaluation form.  </p>
+                            </div>
+                        </div>
+                        <div class="flex items-end flex-col">
+                            <h1 class="text-sm text-center tracking-wider">CES Evaluation Form {{ $currentYear  }}</h1>
+                            <h4 class="text-xs tracking-wider text-gray-500">Status: Pending</h4>
                         </div>
                     </div>
                     @include('user.evaluate.index_filter._filter_userform_index')
@@ -181,11 +187,17 @@
                     </div>
 
                     <div id="div2" class="hidden-div-container hidden-div flex flex-col text-green-500">
-                        <div class="flex space-x-2 text-green-500 text-lg font-medium items-center">
-                            <img src="{{ asset('img/submit-successfully.png') }}" width="50" class="submitted-image w-[2rem] h-[3vh]">
-                            <div>
-                                <h1 class="text-lg submitted-text">Evaluation form submitted </h1>
-                                <p class="text-gray-500 tracking-wider submitted-description text-xs">Please wait for the admin to verify your evaluation form. </p>
+                        <div class="flex space-x-2 text-green-400 text-lg font-medium items-center justify-between">
+                            <div class="flex items-center space-x-2">
+                                <svg class="submitted-image" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#68bf7b" d="M12 23c6.075 0 11-4.925 11-11S18.075 1 12 1S1 5.925 1 12s4.925 11 11 11ZM7.5 10.586l3 3l6-6L17.914 9L10.5 16.414L6.086 12L7.5 10.586Z"/></svg>
+                                <div>
+                                    <h1 class="text-lg submitted-text">Evaluation form submitted </h1>
+                                    <p class="text-gray-500 tracking-wider submitted-description text-xs">Please contact the admin to verify your evaluation form.  </p>
+                                </div>
+                            </div>
+                            <div class="flex items-end flex-col">
+                                <h1 class="text-sm text-center tracking-wider">CES Evaluation Form {{ $currentYear  }}</h1>
+                                <h4 class="text-xs tracking-wider text-gray-500">Status: Pending</h4>
                             </div>
                         </div>
                         @include('user.evaluate.index_filter._filter_userform_index')
@@ -197,11 +209,29 @@
             @foreach ($result as $res)
             @foreach ($evaluation as $eval)
                 @if ($currentYear == date('Y')  && $stats->status == "checked" && $res->status == 'evaluated' &&  $latestYear == $currentYear && $res->max_year == $currentYear )
-                    <div class="flex flex-col items-center justify-center space-y-2 text-green-500">
+
+                      <div id="div1" class="animated-div-container animated-div flex flex-col items-center justify-center space-y-2 text-green-500">
                         <img src="{{ asset('img/confetti.png') }}" width="75" class="head-primary-main">
                         <h1 class="text-2xl font-medium tracking-wide head-primary-sub">Congratulations </h1>
                         <p class="text-gray-700 tracking-wider">Your evaluation form has been verified.</p>
-                        <a href="{{ route('evaluate-pdf',$latestYearAndId->id ) }}" class="text-white py-2 px-3 rounded-lg text-sm bg-green-400 hover:bg-green-500">Click here to download </a>
+                    </div>
+
+                    <div id="div2" class="hidden-div-container hidden-div flex flex-col text-green-500">
+                        <div class=" py-2 flex space-x-2 text-green-400 text-lg font-medium items-center justify-between">
+                            <div class="flex items-center space-x-2">
+                                {{--  <svg class="submitted-image" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#68bf7b" d="M12 23c6.075 0 11-4.925 11-11S18.075 1 12 1S1 5.925 1 12s4.925 11 11 11ZM7.5 10.586l3 3l6-6L17.914 9L10.5 16.414L6.086 12L7.5 10.586Z"/></svg>  --}}
+                                <img src="{{ asset('img/confetti.png') }}" width="35" class="head-primary-main">
+                                <div>
+                                    <h1 class="text-lg submitted-text ">Congratulations</h1>
+                                    <p class="text-gray-500 tracking-wider submitted-description text-xs">Your evaluation form has been verified. </p>
+                                </div>
+                            </div>
+                            <div class="flex items-end flex-col">
+                                <h1 class="text-sm text-center tracking-wider ">Download CES Evaluation Form {{ $currentYear  }}</h1>
+                                 <a href={{ route('evaluate-pdf',$latestYearAndId->id ) }} class="text-white py-1 px-3 rounded-lg text-xs bg-green-400 hover:bg-green-500">Click here to download pdf</a>
+                            </div>
+                        </div>
+                        @include('user.evaluate.index_filter._filter_userform_index')
                     </div>
                 @endif
             @endforeach
@@ -216,12 +246,13 @@
                         <div class="flex items-center space-x-2">
                             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#f87171" d="M17.385 21q-1.672 0-2.836-1.164Q13.385 18.67 13.385 17t1.164-2.836Q15.713 13 17.385 13q1.67 0 2.835 1.164T21.385 17q0 1.671-1.165 2.836T17.385 21Zm.384-4.165V14.5q0-.154-.115-.27q-.116-.115-.27-.115q-.153 0-.269.116q-.115.115-.115.269v2.333q0 .153.056.296q.056.144.186.275l1.525 1.525q.112.111.264.121q.152.01.282-.121q.131-.13.131-.273q0-.143-.13-.273l-1.545-1.548ZM5.615 20q-.666 0-1.14-.475Q4 19.051 4 18.385V5.615q0-.666.475-1.14Q4.949 4 5.615 4h4.637q.14-.587.623-.986T12 2.615q.654 0 1.134.4q.48.398.62.985h4.63q.667 0 1.141.475q.475.474.475 1.14v6.02q-.258-.133-.488-.233T19 11.223V5.615q0-.23-.192-.423Q18.615 5 18.385 5H16v1.423q0 .343-.23.576q-.23.232-.57.232H8.8q-.34 0-.57-.232Q8 6.766 8 6.423V5H5.615q-.23 0-.423.192Q5 5.385 5 5.615v12.77q0 .269.173.442t.442.173h6.127q.08.28.189.521q.11.24.28.479H5.616Zm6.388-14.77q.345 0 .575-.232q.23-.234.23-.578q0-.345-.233-.575q-.234-.23-.578-.23q-.345 0-.575.234q-.23.233-.23.577q0 .345.234.575q.233.23.577.23Z"/></svg>
                             <div>
-                                <h1 class="text-lg submitted-text">Evaluation form has been pending </h1>
+                                <h1 class="text-md 2xl:text-lg submitted-text">Evaluation form has been pending </h1>
                                 <p class="text-gray-500 tracking-wider submitted-description text-xs">Please contact the admin to verify your evaluation form.  </p>
                             </div>
                         </div>
                         <div class="flex items-end flex-col">
-                            <h1 class="font-medium text-sm text-center tracking-wider">CES Evaluation Form {{ $currentYear  }}</h1>
+                            <h1 class="text-xs 2xl:text-sm text-center tracking-wider">CES Evaluation Form {{ $currentYear  }}</h1>
+                            <h4 class="text-xs tracking-wider text-gray-500">Status: Pending</h4>
                         </div>
                     </div>
                     @include('user.evaluate.index_filter._filter_userform_index')
@@ -233,17 +264,17 @@
             @foreach ($evaluation_status as $Estatus)
                 @if ($currentYear != date('Y') && $currentYear == $Estatus->year && ($stats->status == "checked" || $stats->status == "close") && $Estatus->status == 'evaluated')
                     <div class="flex flex-col space-y-2">
-                        <div class="flex space-x-2 text-green-500 text-lg font-medium items-center justify-between">
+                        <div class="flex space-x-2 text-green-400 text-lg font-medium items-center justify-between">
                             <div class="flex items-center space-x-2">
-                                <img src="{{ asset('img/submit-successfully.png') }}" width="50" class="submitted-image w-[2rem] h-[3vh]">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#68bf7b" d="M12 23c6.075 0 11-4.925 11-11S18.075 1 12 1S1 5.925 1 12s4.925 11 11 11ZM7.5 10.586l3 3l6-6L17.914 9L10.5 16.414L6.086 12L7.5 10.586Z"/></svg>
                                 <div>
-                                    <h1 class="text-lg submitted-text">Evaluation validated </h1>
+                                    <h1 class="text-md 2xl:text-lg submitted-text">Evaluation validated </h1>
                                     <p class="text-gray-500 tracking-wider submitted-description text-xs">Your evaluation form has been verified. </p>
                                 </div>
                             </div>
                             <div class="flex items-end flex-col">
-                                <h1 class="font-medium text-sm text-center tracking-wider">Download Evaluation Form {{ $currentYear  }}</h1>
-                                <a href={{ route('evaluate-pdf',$Estatus->id ) }} class="text-white text-right py-1 px-3 rounded-md text-sm bg-green-400 hover:bg-green-500">Click here to download</a>
+                                <h1 class="text-xs 2xl:text-sm text-center tracking-wider">Download Evaluation Form {{ $currentYear  }}</h1>
+                                <a href={{ route('evaluate-pdf',$Estatus->id ) }} class="text-white text-right py-1 px-3 rounded-md text-xs bg-green-400 hover:bg-green-500">Click here to download</a>
                             </div>
                         </div>
                         @include('user.evaluate.index_filter._filter_userform_index')
