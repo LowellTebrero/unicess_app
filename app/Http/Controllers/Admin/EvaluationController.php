@@ -178,18 +178,12 @@ class EvaluationController extends Controller
                     // If the directory is empty, delete it
                     File::deleteDirectory($directoryPath);
                 }
-            } else {
-                dd('File does not exist.');
             }
         }
 
-
-
         $delete->delete();
 
-
-        flash()->addSuccess('Evaluation Deleted Successfully.');
-        return back();
+        return response()->json(['success' => 'Deleted Successfully']);
     }
 
 }

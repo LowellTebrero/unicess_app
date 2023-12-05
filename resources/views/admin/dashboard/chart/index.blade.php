@@ -94,10 +94,7 @@
             @endforeach
     </section>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!-- Toastr -->
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
 
     <script type="text/javascript">
 
@@ -200,37 +197,6 @@
                 });
             }, true);
 
-           /* var labels =  {{ Js::from($labels) }};
-            var users =  {{ Js::from($data) }};
-
-            const data = {
-                labels: labels,
-                datasets: [{
-                    label: 'Month of Uploaded of Proposal',
-                    backgroundColor: [
-                  "#DEB887","#A9A9A9","#DC143C","#F4A460","#2E8B57","#1D7A46","#CDA776",
-                ],
-                borderColor: [
-                    "#CDA776","#989898","#CB252B","#E39371","#1D7A46","#F4A460", "#CDA776",
-                  ],
-                borderWidth: [1, 1, 1, 1, 1, 1, 1],
-                    data: users,
-                }]
-            };
-
-
-            const config = {
-                type: 'bar',
-                data: data,
-                options: {}
-            };
-
-            const myChart = new Chart(
-                document.getElementById('Chart'),
-                config
-            );
-
-            */
     </script>
 
 

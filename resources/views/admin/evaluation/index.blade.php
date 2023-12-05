@@ -1,3 +1,4 @@
+
 <x-admin-layout>
 
     <section class="text-gray-700 min-h-[85vh] 2xl:min-h-[87vh] m-8 mt-5  bg-white rounded-xl shadow">
@@ -34,6 +35,7 @@
 
     </section>
 
+
     <script>
         // Wait for the DOM to load
         document.addEventListener('DOMContentLoaded', function() {
@@ -65,6 +67,64 @@
             });
         });
 
+        function centerModal() {
+            // Assuming your modal has an ID like 'popup-modal'
+            var modal = $(this).data('evaluation-id');
+
+            // Assuming your modal content is directly inside the modal
+            var modalContent = modal.find('.modal-content');
+
+            // Calculate the top and left positions to center the modal
+            var topPosition = ($(window).height() - modalContent.outerHeight()) / 2;
+            var leftPosition = ($(window).width() - modalContent.outerWidth()) / 2;
+
+            // Apply the calculated positions
+            modal.css({
+                'top': topPosition + 'px',
+                'left': leftPosition + 'px',
+            });
+        }
+
+        $(document).ready(function() {
+           $(document).on('click', '.delete-button', function() {
+                // Get the evaluation ID from the data attribute
+                var button = $(this);
+                var evaluationId = $(this).data('evaluation-id');
+
+                // Make an AJAX request to delete the evaluation
+                $.ajax({
+                    url: '/admin/evaluation-delete/' + evaluationId,
+                    type: "DELETE",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    },
+                    success: function(response) {
+                        // Handle the success response as needed
+                        console.log('Delete successful', response);
+                        button.closest('tr').remove();
+
+                        // Optionally, update the UI or perform additional actions
+                        if (response.success) {
+                            toastr.success(response.success);
+                            // Additional logic if needed
+                        } else if (response.error) {
+                            toastr.error(response.error);
+                            // Additional error handling logic
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle errors, e.g., show an error message
+                        console.error('Delete error', error);
+
+                        // Optionally, update the UI or perform additional error handling
+                    }
+                });
+
+            });
+        });
+
+
+
 
         $(document).ready(function() {
             $('#myDropdown').on('change', function() {
@@ -77,13 +137,81 @@
                         selected_value: selectedValue
                     },
                     success: function(data) {
-                        // Update the filtered data container with the response
+                        console.log('AJAX success', data);
                         $('#filtered-data').html(data);
 
+                        centerModal();
+
+                        $(document).off('click', '.delete-button');
+                        $(document).on('click', '.delete-button', function() {
+                            // Get the evaluation ID from the data attribute
+                            var button = $(this);
+                            var evaluationId = $(this).data('evaluation-id');
+
+                                // Make an AJAX request to delete the evaluation
+                                $.ajax({
+                                    url: '/admin/evaluation-delete/' + evaluationId,
+                                    type: "DELETE",
+                                    headers: {
+                                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                    },
+                                    success: function(response) {
+                                        // Handle the success response as needed
+                                        console.log('Delete successful', response);
+                                        button.closest('tr').remove();
+
+                                        // Optionally, update the UI or perform additional actions
+                                        if (response.success) {
+                                            toastr.success(response.success);
+                                            // Additional logic if needed
+                                        } else if (response.error) {
+                                            toastr.error(response.error);
+                                            // Additional error handling logic
+                                        }
+                                    },
+                                    error: function(xhr, status, error) {
+                                        // Handle errors, e.g., show an error message
+                                        console.error('Delete error', error);
+
+                                        // Optionally, update the UI or perform additional error handling
+                                    }
+                                });
+
+                        });
+                    },
+
+                    error: function(xhr, status, error) {
+                        console.error('AJAX error', error);
                     }
                 });
             });
         });
+
+        $(document).on('click', '[data-modal-toggle]', function() {
+            // Retrieve the evaluation ID from the data attribute
+            var evaluationId = $(this).data('modal-toggle').replace('popup-modal', '');
+
+            // Form the ID of the corresponding modal
+            var modalId = 'popup-modal' + evaluationId;
+            console.log(modalId);
+            // Code to show the modal
+            $('#' + modalId).removeClass('hidden');
+            $('#' + modalId).addClass('flex items-center justify-center');
+
+        });
+
+        $(document).on('click', '[data-modal-hide]', function() {
+            // Retrieve the evaluation ID from the data attribute
+            var evaluationId = $(this).data('modal-hide').replace('popup-modal', '');
+
+            // Form the ID of the corresponding modal
+            var modalId = 'popup-modal' + evaluationId;
+            console.log(modalId);
+            // Code to show the modal
+            $('#' + modalId).addClass('hidden');
+        });
+
+
 
         $(document).ready(function () {
             let timer;

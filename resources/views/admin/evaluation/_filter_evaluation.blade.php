@@ -63,6 +63,7 @@
                             </td>
 
                             <td class="xl:pl-4 2xl:pr-0 xl:px-0 2xl:px-2 py-4">
+
                                 <div class="flex text-gray-800 space-x-3 items-center justify-center">
                                     <a href="{{ route('admin.evaluation.show', ['id' => $evaluation->id, 'year' => $currentYear]) }}" class="bg-blue-500 hover:bg-blue-600 text-white px-2 py-2 rounded-lg flex space-x-2">
                                         <span class="text-xs">Update</span>
@@ -78,17 +79,16 @@
                                         </a>
                                     @endif
 
-
-                                    <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" type="button">
+                                    <button data-modal-target="popup-modal{{ $evaluation->id }}" data-modal-toggle="popup-modal{{ $evaluation->id }}" type="button" class="first-delete-button">
                                         <svg class="hover:fill-red-600" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"><g fill="none" stroke="#ff4d4d" stroke-linecap="round" stroke-width="1.5"><path d="M9.17 4a3.001 3.001 0 0 1 5.66 0" opacity=".5"/><path d="M20.5 6h-17m15.333 2.5l-.46 6.9c-.177 2.654-.265 3.981-1.13 4.79c-.865.81-2.195.81-4.856.81h-.774c-2.66 0-3.99 0-4.856-.81c-.865-.809-.953-2.136-1.13-4.79l-.46-6.9"/><path d="m9.5 11l.5 5m4.5-5l-.5 5" opacity=".5"/></g></svg>
                                     </button>
 
-                                    <div id="popup-modal" tabindex="-1" class="top-0 left-0 right-0 md:inset-0 m-0  fixed z-50 bg-black hidden bg-opacity-30 overflow-x-hidden overflow-y-auto max-h-full">
-                                        {{--  fixed z-50 bg-red-500 bg-opacity-80 hidden overflow-x-hidden top-0 left-0 right-0  overflow-y-auto md:inset-0 max-h-full  --}}
+                                    <div id="popup-modal{{ $evaluation->id }}" tabindex="-1" class="top-0 left-0 right-0 md:inset-0 m-0 fixed z-50 bg-black hidden bg-opacity-30 overflow-x-hidden overflow-y-auto max-h-full">
 
-                                        <div class="relative w-full max-w-md max-h-full ">
+                                        <div class="relative w-full max-w-md max-h-full">
                                             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                                <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="popup-modal">
+
+                                                <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="popup-modal{{ $evaluation->id }}">
                                                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                                                     </svg>
@@ -101,14 +101,12 @@
                                                     <h3 class="mb-5 text-sm font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete this evaluation?</h3>
 
                                                     <div class="flex space-x-4 items-center justify-center">
-                                                        <form action={{ route('admin.evaluation.delete', $evaluation->id) }} method="POST">
-                                                            @csrf @method('DELETE')
-                                                            <button data-modal-hide="popup-modal" type="submit" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
-                                                                Yes, Im sure
-                                                            </button>
-                                                        </form>
 
-                                                        <button data-modal-hide="popup-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No, cancel</button>
+                                                        <button data-modal-hide="popup-modal{{ $evaluation->id }}"  data-evaluation-id="{{ $evaluation->id }}" class="delete-button text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                                                            Yes, Im sure
+                                                        </button>
+
+                                                        <button data-modal-hide="popup-modal{{ $evaluation->id }}" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No, cancel</button>
                                                     </div>
 
                                                 </div>
