@@ -4,6 +4,7 @@
             background-position: right;
             background-size: cover;
             background-repeat: no-repeat;
+            background-attachment: fixed;
         }
     </style>
 

@@ -8,11 +8,7 @@
 
                 <div class="lg:w-full min-h-[50vh] slider overflow-hidden rounded-lg relative drop-shadow-lg md:w-full 2xl:w-4/5">
 
-
-
                     <!--Image slide start -->
-                    {{--  w-[171rem] min-h-[50vh]  --}}
-
                     <div class=" h-full overflow-hidden flex slides rounded-lg">
 
                         <!--radio buttons start-->
@@ -32,14 +28,9 @@
 
                         <div class="bg-gradient-to-t from-blue-800/90 via-blue-800/55  w-full h-full absolute top-0 rounded-lg"></div>
 
-                        <div class=" p-5 flex flex-col absolute bottom-8 z-30 rounded-lg">
-
-                            <h1 class="text-white xl:text-sm 2xl:text-lg font-light flex justify-between">{{ $event->title }}</h1>
-
-                                {{--  <p class="md:text-md lg:text-lg text-white shadow-lg mt-3">{!! Str::limit($event->description, 280) !!}</p>  --}}
-
+                            <div class=" p-5 flex flex-col absolute bottom-8 z-30 rounded-lg">
+                                <h1 class="text-white xl:text-sm 2xl:text-lg font-light flex justify-between">{{ $event->title }}</h1>
                                 <a  class="text-white text-lg outline outline-offset-2 outline-2 w-28 mt-6 rounded-lg text-center" href={{ route('lnu-additional-partials.event-additionals') }}>Learn more</a>
-
                             </div>
                         </div>
                         @endforeach
