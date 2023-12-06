@@ -101,7 +101,6 @@
         </div>
         {{--  End of Manage Account Collapse   --}}
 
-
         {{--  Manage Account Collapse  --}}
         <div class="relative w-full px-2  overflow-hidden mt-3">
 

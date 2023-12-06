@@ -202,7 +202,6 @@
                         {{ __('Home') }}
                     </x-nav-link>
 
-
                     <x-nav-link class="text-white text-xs xl:text-sm 2xl:text-base" href="#events-section">
                         {{ __('Events') }}
                     </x-nav-link>
@@ -249,7 +248,6 @@
                         {{ __('Home') }}
                     </x-nav-link>
 
-
                     <x-nav-link class="text-white text-xs xl:text-sm 2xl:text-base" href="#events-section">
                         {{ __('Events') }}
                     </x-nav-link>
@@ -258,32 +256,23 @@
                         {{ __('About') }}
                     </x-nav-link>
 
-
-
                     <x-nav-link class="text-white text-xs xl:text-sm 2xl:text-base" href="#article-section">
                         {{ __('Articles') }}
                     </x-nav-link>
-
-
 
                     <x-nav-link class="text-white text-xs xl:text-sm 2xl:text-base" href="#program-and-services-section">
                         {{ __('Program and Services') }}
                     </x-nav-link>
 
-
-
                     <x-nav-link class="text-white text-xs xl:text-sm 2xl:text-base" href="#contact-section">
                         {{ __('Contact us') }}
                     </x-nav-link>
-
                 </div>
 
 
                 <div class="px-4 mt-2">
-                    <div class="font-medium text-sm text-slate-500">{{ Auth::user()->name }}</div>
+                    <div class="font-medium text-sm text-slate-500">{{ Auth::user()->first_name }}</div>
                 </div>
-
-
 
                 <div class="space-y-1">
 

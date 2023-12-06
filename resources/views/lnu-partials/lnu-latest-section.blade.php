@@ -4,7 +4,7 @@
         {{--  Latest Events  --}}
         <div class="w-full md:w-full lg:w-full min-h-[70vh] lg:pl-10 md:pl-0 md:justify-center ">
             <div class=" lg:w-full min-h-[70vh] px-10 relative">
-             <h1 class="text-blue-700 font-semibold text-5xl  pt-5 pb-10 underline underline-offset-8 text-center md:tex-center lg:text-left xl:text-2xl 2xl:text-5xl">Latest Events</h1>
+             <h1 class="text-blue-700 font-semibold text-2xl  pt-5 pb-10 underline underline-offset-8 text-center md:tex-center  lg:text-left xl:text-3xl 2xl:text-4xl">Latest Events</h1>
 
                 <div class="lg:w-full min-h-[50vh] slider overflow-hidden rounded-lg relative drop-shadow-lg md:w-full 2xl:w-4/5">
 
