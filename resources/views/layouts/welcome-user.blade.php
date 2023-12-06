@@ -23,7 +23,7 @@
         </section>
 
 
-        <footer class="">
+        <footer>
             @include('lnu-partials.lnu-footer')
         </footer>
 

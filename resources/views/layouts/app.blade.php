@@ -62,7 +62,7 @@
                 </main>
             </div>
         @elseif(Auth::user()->hasVerifiedEmail() == true)
-            <div class="xl:flex-col flex w-full flex-1 relative">
+            <div class="flex-col flex w-full flex-1 relative">
                 {{--  Navbar Section  --}}
                 <div class="w-full sticky top-0 z-40">
                     @include('layouts.navbar-dashboard')
@@ -80,21 +80,6 @@
         @endif
 
     </section>
-
-    {{--  <script>
-        let button = document.querySelector(".btn-slide")
-        let sidebar = document.querySelector(".sidebar")
-        let closebutton = document.querySelector(".close-button")
-
-        button.addEventListener('click',() => {
-            sidebar.classList.toggle('active');
-          });
-
-        closebutton.addEventListener('click',() => {
-            sidebar.classList.remove('active');
-          });
-    </script>  --}}
-
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.4/flowbite.min.js"></script>

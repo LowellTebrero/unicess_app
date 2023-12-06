@@ -1,7 +1,6 @@
 @hasrole('admin')
     <x-admin-layout>
 
-
         <div class="w-full sm:px-6 lg:px-8 p-5 rounded-lg">
 
             <div class="w-full mx-auto sm:px-6 lg:px-8 xl:px-0 2xl:px-5 space-y-6">
