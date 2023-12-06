@@ -14,24 +14,12 @@
     @endphp
 @endauth
 
-
-
-
 <nav x-data="{ open: false }" class="bg-blue-800 border-b border-blue-900  sticky top-0 z-50">
 
     <!-- Primary Navigation Menu -->
     <div class="max-w-[100%] m-auto sm:px-4">
         <div class="flex justify-between h-16 ">
             <div class="flex navbar-dashboard transition-all">
-
-                {{--  Collapse Button  --}}
-                {{--  <div class="mt-6">
-                        <div class="flex justify-center w-full">
-                            <button class="btn-slide ">
-                                <svg class="fill-white " xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M120 816v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg>
-                            </button>
-                        </div>
-                    </div>  --}}
 
                 <!-- Navigation Links -->
                 @if (Auth()->user()->authorize == 'pending' || Auth()->user()->authorize == 'close')
@@ -51,9 +39,7 @@
 
             </div>
 
-            {{--  Authenticated Dropdown  --}}
             @auth
-
                 <div class="flex">
                     @role('admin')
                         <div class="relative" x-data="{ open: false }" @click.outside="open = false" @close.stop="open = false">
@@ -627,7 +613,7 @@
                             <x-slot name="trigger">
                                 <button
                                     class="inline-flex items-center px-3 py-2  border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-800 hover:text-yellow-500 focus:outline-none transition ease-in-out duration-150">
-                                    <div>{{ Auth::user()->name }}</div>
+                                    <div>{{ Auth::user()->first_name }}</div>
 
                                     <div class="ml-1">
                                         <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
@@ -760,7 +746,7 @@
             <!-- Responsive Settings Options -->
             <div class="pt-4 pb-1 border-t border-gray-200">
                 <div class="px-4">
-                    <div class="font-medium text-sm text-slate-500">{{ Auth::user()->name }}</div>
+                    <div class="font-medium text-sm text-slate-500">{{ Auth::user()->first_name }}</div>
                 </div>
 
                 <div class="mt-3 space-y-1">

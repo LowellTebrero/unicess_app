@@ -13,8 +13,8 @@
 
         <!-- Trigger for Modal -->
         <div class="flex justify-between py-4 px-10">
-            <div class="">
-                <button class="my-5 bg-yellow-500 rounded border-2 border-gray-500 px-2 py-1 text-white font-semibold" type="button" @click="showModal = true">Read more</button>
+            <div>
+                <button class="bg-yellow-500 rounded border-2 border-gray-500 px-2 py-1 text-white font-semibold" type="button" @click="showModal = true">Read more</button>
             </div>
         </div>
         <hr>
@@ -35,7 +35,7 @@
 
                 <!-- Title / Close-->
                 <div class="flex items-center justify-between mb-2 ">
-                    <h5 class="mr-3 text-black text-xs text-slate-600 max-w-none">Program and Services</h5>
+                    <h5 class="mr-3 text-xs text-slate-600 max-w-none">Program and Services</h5>
 
                     <button type="button" class=" z-50 cursor-pointer" @click="showModal = false">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -46,7 +46,7 @@
 
                 <!-- content -->
                 <div class="w-full flex flex-col space-y-2">
-                    <img class="" src="{{ asset('img/about-2.png') }}" alt="">
+                    <img src="{{ asset('img/about-2.png') }}" alt="">
                     <h1 class="font-semibold 2xl:text-lg xl:text-sm text-slate-600">Physical Fitness & Sport Development</h1>
 
                     <p class="2xl:text-sm xl:text-xs text-slate-600">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Adipisci exercitationem sed dignissimos voluptatem eos nam a impedit rem reiciendis odio dicta blanditiis repellat, quasi perspiciatis consectetur? Voluptatem commodi a enim? Quae porro molestiae excepturi eligendi libero provident harum expedita in, illo dolorum quisquam veritatis eveniet perferendis, iure aut labore saepe.</p>
@@ -69,8 +69,8 @@
 
         <!-- Trigger for Modal -->
         <div class="flex justify-between py-4 px-10">
-            <div class="">
-                <button class="my-5 bg-yellow-500 rounded border-2 border-gray-500 px-2 py-1 text-white font-semibold" type="button" @click="showModal = true">Read more</button>
+            <div>
+                <button class="bg-yellow-500 rounded border-2 border-gray-500 px-2 py-1 text-white font-semibold" type="button" @click="showModal = true">Read more</button>
             </div>
         </div>
         <hr>
@@ -91,7 +91,7 @@
 
                 <!-- Title / Close-->
                 <div class="flex items-center justify-between mb-2 ">
-                    <h5 class="mr-3 text-black text-xs text-slate-600 max-w-none">Program and Services</h5>
+                    <h5 class="mr-3 text-xs text-slate-600 max-w-none">Program and Services</h5>
 
                     <button type="button" class=" z-50 cursor-pointer" @click="showModal = false">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -102,7 +102,7 @@
 
                 <!-- content -->
                 <div class="w-full flex flex-col space-y-2">
-                    <img class="" src="{{ asset('img/about-2.png') }}" alt="">
+                    <img src="{{ asset('img/about-2.png') }}" alt="">
                     <h1 class="font-semibold 2xl:text-lg xl:text-sm text-slate-600">Information Communication & Education<</h1>
 
                     <p class="2xl:text-sm xl:text-xs text-slate-600">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Adipisci exercitationem sed dignissimos voluptatem eos nam a impedit rem reiciendis odio dicta blanditiis repellat, quasi perspiciatis consectetur? Voluptatem commodi a enim? Quae porro molestiae excepturi eligendi libero provident harum expedita in, illo dolorum quisquam veritatis eveniet perferendis, iure aut labore saepe.</p>
@@ -121,8 +121,8 @@
 
         <!-- Trigger for Modal -->
         <div class="flex justify-between py-4 px-10">
-            <div class="">
-                <button class="my-5 bg-yellow-500 rounded border-2 border-gray-500 px-2 py-1 text-white font-semibold" type="button" @click="showModal = true">Read more</button>
+            <div>
+                <button class="bg-yellow-500 rounded border-2 border-gray-500 px-2 py-1 text-white font-semibold" type="button" @click="showModal = true">Read more</button>
             </div>
         </div>
         <hr>
@@ -143,7 +143,7 @@
 
                 <!-- Title / Close-->
                 <div class="flex items-center justify-between mb-2 ">
-                    <h5 class="mr-3 text-black text-xs text-slate-600 max-w-none">Program and Services</h5>
+                    <h5 class="mr-3 text-xs text-slate-600 max-w-none">Program and Services</h5>
 
                     <button type="button" class=" z-50 cursor-pointer" @click="showModal = false">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -154,7 +154,7 @@
 
                 <!-- content -->
                 <div class="w-full flex flex-col space-y-2">
-                    <img class="" src="{{ asset('img/about-2.png') }}" alt="">
+                    <img src="{{ asset('img/about-2.png') }}" alt="">
                     <h1 class="font-semibold 2xl:text-lg xl:text-sm text-slate-600">Literacy, Numeracy & Language Enhancement</h1>
 
                     <p class="2xl:text-sm xl:text-xs text-slate-600">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Adipisci exercitationem sed dignissimos voluptatem eos nam a impedit rem reiciendis odio dicta blanditiis repellat, quasi perspiciatis consectetur? Voluptatem commodi a enim? Quae porro molestiae excepturi eligendi libero provident harum expedita in, illo dolorum quisquam veritatis eveniet perferendis, iure aut labore saepe.</p>
@@ -173,8 +173,8 @@
 
         <!-- Trigger for Modal -->
         <div class="flex justify-between py-4 px-10">
-            <div class="">
-                <button class="my-5 bg-yellow-500 rounded border-2 border-gray-500 px-2 py-1 text-white font-semibold" type="button" @click="showModal = true">Read more</button>
+            <div>
+                <button class=" bg-yellow-500 rounded border-2 border-gray-500 px-2 py-1 text-white font-semibold" type="button" @click="showModal = true">Read more</button>
             </div>
         </div>
         <hr>
@@ -195,7 +195,7 @@
 
                 <!-- Title / Close-->
                 <div class="flex items-center justify-between mb-2 ">
-                    <h5 class="mr-3 text-black text-xs text-slate-600 max-w-none">Program and Services</h5>
+                    <h5 class="mr-3 text-xs text-slate-600 max-w-none">Program and Services</h5>
 
                     <button type="button" class=" z-50 cursor-pointer" @click="showModal = false">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -206,7 +206,7 @@
 
                 <!-- content -->
                 <div class="w-full flex flex-col space-y-2">
-                    <img class="" src="{{ asset('img/about-2.png') }}" alt="">
+                    <img src="{{ asset('img/about-2.png') }}" alt="">
                     <h1 class="font-semibold 2xl:text-lg xl:text-sm text-slate-600">Cultural Development</h1>
 
                     <p class="2xl:text-sm xl:text-xs text-slate-600">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Adipisci exercitationem sed dignissimos voluptatem eos nam a impedit rem reiciendis odio dicta blanditiis repellat, quasi perspiciatis consectetur? Voluptatem commodi a enim? Quae porro molestiae excepturi eligendi libero provident harum expedita in, illo dolorum quisquam veritatis eveniet perferendis, iure aut labore saepe.</p>
@@ -225,8 +225,8 @@
 
         <!-- Trigger for Modal -->
         <div class="flex justify-between py-4 px-10">
-            <div class="">
-                <button class="my-5 bg-yellow-500 rounded border-2 border-gray-500 px-2 py-1 text-white font-semibold" type="button" @click="showModal = true">Read more</button>
+            <div>
+                <button class=" bg-yellow-500 rounded border-2 border-gray-500 px-2 py-1 text-white font-semibold" type="button" @click="showModal = true">Read more</button>
             </div>
         </div>
         <hr>
@@ -247,7 +247,7 @@
 
                 <!-- Title / Close-->
                 <div class="flex items-center justify-between mb-2 ">
-                    <h5 class="mr-3 text-black text-xs text-slate-600 max-w-none">Program and Services</h5>
+                    <h5 class="mr-3 text-xs text-slate-600 max-w-none">Program and Services</h5>
 
                     <button type="button" class=" z-50 cursor-pointer" @click="showModal = false">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -258,7 +258,7 @@
 
                 <!-- content -->
                 <div class="w-full flex flex-col space-y-2">
-                    <img class="" src="{{ asset('img/about-2.png') }}" alt="">
+                    <img src="{{ asset('img/about-2.png') }}" alt="">
                     <h1 class="font-semibold 2xl:text-lg xl:text-sm text-slate-600">Livelihood, Technical and Business Management</h1>
 
                     <p class="2xl:text-sm xl:text-xs text-slate-600">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Adipisci exercitationem sed dignissimos voluptatem eos nam a impedit rem reiciendis odio dicta blanditiis repellat, quasi perspiciatis consectetur? Voluptatem commodi a enim? Quae porro molestiae excepturi eligendi libero provident harum expedita in, illo dolorum quisquam veritatis eveniet perferendis, iure aut labore saepe.</p>
@@ -277,8 +277,8 @@
 
         <!-- Trigger for Modal -->
         <div class="flex justify-between py-4 px-10">
-            <div class="">
-                <button class="my-5 bg-yellow-500 rounded border-2 border-gray-500 px-2 py-1 text-white font-semibold" type="button" @click="showModal = true">Read more</button>
+            <div>
+                <button class=" bg-yellow-500 rounded border-2 border-gray-500 px-2 py-1 text-white font-semibold" type="button" @click="showModal = true">Read more</button>
             </div>
         </div>
         <hr>
@@ -299,7 +299,7 @@
 
                 <!-- Title / Close-->
                 <div class="flex items-center justify-between mb-2 ">
-                    <h5 class="mr-3 text-black text-xs text-slate-600 max-w-none">Program and Services</h5>
+                    <h5 class="mr-3 text-xs text-slate-600 max-w-none">Program and Services</h5>
 
                     <button type="button" class=" z-50 cursor-pointer" @click="showModal = false">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -310,7 +310,7 @@
 
                 <!-- content -->
                 <div class="w-full flex flex-col space-y-2">
-                    <img class="" src="{{ asset('img/about-2.png') }}" alt="">
+                    <img src="{{ asset('img/about-2.png') }}" alt="">
                     <h1 class="font-semibold 2xl:text-lg xl:text-sm text-slate-600">Environmental Conservation & Disaster Preparedness</h1>
 
                     <p class="2xl:text-sm xl:text-xs text-slate-600">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Adipisci exercitationem sed dignissimos voluptatem eos nam a impedit rem reiciendis odio dicta blanditiis repellat, quasi perspiciatis consectetur? Voluptatem commodi a enim? Quae porro molestiae excepturi eligendi libero provident harum expedita in, illo dolorum quisquam veritatis eveniet perferendis, iure aut labore saepe.</p>
@@ -329,8 +329,8 @@
 
         <!-- Trigger for Modal -->
         <div class="flex justify-between py-4 px-10">
-            <div class="">
-                <button class="my-5 bg-yellow-500 rounded border-2 border-gray-500 px-2 py-1 text-white font-semibold" type="button" @click="showModal = true">Read more</button>
+            <div>
+                <button class=" bg-yellow-500 rounded border-2 border-gray-500 px-2 py-1 text-white font-semibold" type="button" @click="showModal = true">Read more</button>
             </div>
         </div>
         <hr>
@@ -351,7 +351,7 @@
 
                 <!-- Title / Close-->
                 <div class="flex items-center justify-between mb-2 ">
-                    <h5 class="mr-3 text-black text-xs text-slate-600 max-w-none">Program and Services</h5>
+                    <h5 class="mr-3 text-xs text-slate-600 max-w-none">Program and Services</h5>
 
                     <button type="button" class=" z-50 cursor-pointer" @click="showModal = false">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -362,7 +362,7 @@
 
                 <!-- content -->
                 <div class="w-full flex flex-col space-y-2">
-                    <img class="" src="{{ asset('img/about-2.png') }}" alt="">
+                    <img src="{{ asset('img/about-2.png') }}" alt="">
                     <h1 class="font-semibold 2xl:text-lg xl:text-sm text-slate-600">Management & Leadership Development</h1>
 
                     <p class="2xl:text-sm xl:text-xs text-slate-600">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Adipisci exercitationem sed dignissimos voluptatem eos nam a impedit rem reiciendis odio dicta blanditiis repellat, quasi perspiciatis consectetur? Voluptatem commodi a enim? Quae porro molestiae excepturi eligendi libero provident harum expedita in, illo dolorum quisquam veritatis eveniet perferendis, iure aut labore saepe.</p>
@@ -381,8 +381,8 @@
 
         <!-- Trigger for Modal -->
         <div class="flex justify-between py-4 px-10">
-            <div class="">
-                <button class="my-5 bg-yellow-500 rounded border-2 border-gray-500 px-2 py-1 text-white font-semibold" type="button" @click="showModal = true">Read more</button>
+            <div>
+                <button class=" bg-yellow-500 rounded border-2 border-gray-500 px-2 py-1 text-white font-semibold" type="button" @click="showModal = true">Read more</button>
             </div>
         </div>
         <hr>
@@ -403,7 +403,7 @@
 
                 <!-- Title / Close-->
                 <div class="flex items-center justify-between mb-2 ">
-                    <h5 class="mr-3 text-black text-xs text-slate-600 max-w-none">Program and Services</h5>
+                    <h5 class="mr-3 text-xs text-slate-600 max-w-none">Program and Services</h5>
 
                     <button type="button" class=" z-50 cursor-pointer" @click="showModal = false">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -414,7 +414,7 @@
 
                 <!-- content -->
                 <div class="w-full flex flex-col space-y-2">
-                    <img class="" src="{{ asset('img/about-2.png') }}" alt="">
+                    <img src="{{ asset('img/about-2.png') }}" alt="">
                     <h1 class="font-semibold 2xl:text-lg xl:text-sm text-slate-600">Special Institute & Teaching Training Program</h1>
 
                     <p class="2xl:text-sm xl:text-xs text-slate-600">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Adipisci exercitationem sed dignissimos voluptatem eos nam a impedit rem reiciendis odio dicta blanditiis repellat, quasi perspiciatis consectetur? Voluptatem commodi a enim? Quae porro molestiae excepturi eligendi libero provident harum expedita in, illo dolorum quisquam veritatis eveniet perferendis, iure aut labore saepe.</p>
