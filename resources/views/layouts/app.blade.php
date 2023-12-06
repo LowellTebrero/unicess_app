@@ -33,51 +33,50 @@
     <section class="flex w-full md:flex-row xl:flex-row relative min-h-[100vh]">
 
         @if (Auth::user()->authorize == 'checked')
-
-
             {{--  Sidebar Section  --}}
             <div class="sidebar xl:w-[12rem] 2xl:w-[14rem] 2xl:sticky xl:top-0 xl:left-0 transition-all">
                 @include('layouts._user_sidebar')
             </div>
 
 
-        <div class="flex-col flex w-full flex-1 relative">
-            {{--  Navbar Section  --}}
-            <div class="w-full flex sticky top-0 z-40">
-                <div class="bg-blue-800 flex items-center justify-center xl:hidden">
-                    <button class="ml-4 btn-slide">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6h18M3 12h18M3 18h18"/></svg>
-                    </button>
-                </div>
-                <div class="w-full">
-                     @include('layouts.navbar-dashboard')
+            <div class="flex-col flex w-full flex-1 relative">
+                {{--  Navbar Section  --}}
+                <div class="w-full flex sticky top-0 z-40">
+                    <div class="bg-blue-800 flex items-center justify-center xl:hidden">
+                        <button class="ml-4 btn-slide">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                                <path fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="M3 6h18M3 12h18M3 18h18" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="w-full">
+                        @include('layouts.navbar-dashboard')
+                    </div>
+
                 </div>
 
+                {{--  Hero Section  --}}
+                <main id="hero-section" class="bg-blue-100 h-full w-full transition-all overflow-hidden">
+                    {{ $slot }}
+                </main>
             </div>
-
-            {{--  Hero Section  --}}
-            <main id="hero-section" class="bg-blue-100 h-full w-full transition-all overflow-hidden">
-                {{ $slot }}
-            </main>
-        </div>
-
         @elseif(Auth::user()->hasVerifiedEmail() == true)
-        <div class="xl:flex-col flex w-full flex-1 relative">
-            {{--  Navbar Section  --}}
-            <div class="w-full sticky top-0 z-40">
-                @include('layouts.navbar-dashboard')
+            <div class="xl:flex-col flex w-full flex-1 relative">
+                {{--  Navbar Section  --}}
+                <div class="w-full sticky top-0 z-40">
+                    @include('layouts.navbar-dashboard')
+                </div>
+
+                {{--  Hero Section  --}}
+                <main id="hero-section" class="bg-blue-100 h-full w-full transition-all overflow-hidden">
+                    {{ $slot }}
+                </main>
             </div>
-
-            {{--  Hero Section  --}}
-            <main id="hero-section" class="bg-blue-100 h-full w-full transition-all overflow-hidden">
-                {{ $slot }}
-            </main>
-        </div>
         @else
-        <div class=" w-full min-h-screen flex items-center justify-center">
-            <h1 class="text-7xl tex-center">You are not authorize</h1>
-        </div>
-
+            <div class=" w-full min-h-screen flex items-center justify-center">
+                <h1 class="text-7xl tex-center">You are not authorize</h1>
+            </div>
         @endif
 
     </section>
