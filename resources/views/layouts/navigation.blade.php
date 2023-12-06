@@ -14,52 +14,51 @@
 
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center ">
-                    <a class="xl:text-3xl text-lg font-bold tracking-wider text-yellow-400" href="{{ route('lnu') }}">
+                    <a class="xl:text-3xl text-lg font-semibold tracking-wider text-yellow-400" href="{{ route('lnu') }}">
                         UniCESS
                     </a>
                 </div>
+            </div>
 
-                <div class="flex space-x-2 ">
+            <div class="flex space-x-5 2xl:space-x-10 ">
 
-                    <!-- Navigation Links -->
+                <!-- Navigation Links -->
 
-                    <div class="hidden sm:-my-px  sm:flex">
-                        <x-nav-link class=" text-white text-xs xl:text-sm 2xl:text-base" href="#hero-section">
-                            {{ __('Home') }}
-                        </x-nav-link>
-                    </div>
+                <div class="hidden sm:-my-px  sm:flex">
+                    <x-nav-link class=" text-white text-xs xl:text-sm 2xl:text-base" href="#hero-section">
+                        {{ __('Home') }}
+                    </x-nav-link>
+                </div>
 
-                    <div class="hidden sm:-my-px sm:flex ">
-                        <x-nav-link class="text-white text-xs xl:text-sm 2xl:text-base" href="#events-section">
-                            {{ __('Events') }}
-                        </x-nav-link>
-                    </div>
+                <div class="hidden sm:-my-px sm:flex ">
+                    <x-nav-link class="text-white text-xs xl:text-sm 2xl:text-base" href="#events-section">
+                        {{ __('Events') }}
+                    </x-nav-link>
+                </div>
 
-                    <div class="hidden sm:-my-px sm:flex ">
-                        <x-nav-link class="text-white text-xs xl:text-sm 2xl:text-base" href="#about-section">
-                            {{ __('About') }}
-                        </x-nav-link>
-                    </div>
+                <div class="hidden sm:-my-px sm:flex ">
+                    <x-nav-link class="text-white text-xs xl:text-sm 2xl:text-base" href="#about-section">
+                        {{ __('About') }}
+                    </x-nav-link>
+                </div>
 
-                    <div class="hidden sm:-my-px sm:flex ">
-                        <x-nav-link class="text-white text-xs xl:text-sm 2xl:text-base" href="#article-section">
-                            {{ __('Articles') }}
-                        </x-nav-link>
-                    </div>
+                <div class="hidden sm:-my-px sm:flex ">
+                    <x-nav-link class="text-white text-xs xl:text-sm 2xl:text-base" href="#article-section">
+                        {{ __('Articles') }}
+                    </x-nav-link>
+                </div>
 
-                    <div class="hidden sm:-my-px sm:flex ">
-                        <x-nav-link class="text-white text-xs xl:text-sm 2xl:text-base"
-                            href="#program-and-services-section">
-                            {{ __('Program') }}
-                        </x-nav-link>
-                    </div>
+                <div class="hidden sm:-my-px sm:flex ">
+                    <x-nav-link class="text-white text-xs xl:text-sm 2xl:text-base"
+                        href="#program-and-services-section">
+                        {{ __('Program') }}
+                    </x-nav-link>
+                </div>
 
-                    <div class="hidden sm:-my-px sm:flex ">
-                        <x-nav-link class="text-white text-xs xl:text-sm 2xl:text-base" href="#contact-section">
-                            {{ __('Contact') }}
-                        </x-nav-link>
-                    </div>
-
+                <div class="hidden sm:-my-px sm:flex ">
+                    <x-nav-link class="text-white text-xs xl:text-sm 2xl:text-base" href="#contact-section">
+                        {{ __('Contact') }}
+                    </x-nav-link>
                 </div>
             </div>
 
