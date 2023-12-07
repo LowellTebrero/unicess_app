@@ -263,8 +263,6 @@
         @include('lnu-additional-partials.lnu-additional-navigation')
     </section>
 
-
-
     <section class="my-10 p-10 ">
         @yield('content')
     </section>
@@ -277,16 +275,13 @@
     <x-messages/>
 
 
-
-
-     <script src="{{ asset('js/preloader.js') }}"></script>
+     {{--  <script src="{{ asset('js/preloader.js') }}"></script>  --}}
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
      <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-
-    <script>
-        $( "a" ).addEventListener("click", function(event){
+     {{--  <script>
+        $( ".a" ).addEventListener("click", function(event){
             event.preventDefault()
         });
-    </script>
+     </script>  --}}
 </body>
 </html>

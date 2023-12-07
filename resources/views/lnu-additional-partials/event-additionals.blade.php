@@ -8,19 +8,27 @@
         <h1 class="font-semibold bg-yellow-500 p-2 text-white inline-block">Events Section</h1>
         <hr class="border-yellow-500 border-4">
     </div>
-    <div class="flex lg:flex-wrap xl:flex-row bg-red-500">
-        @foreach ($events as $event )
+    <div class="row bg-red-500">
 
-            <div class="border bg-blue-500 lg:w-[50%] xl:w-[25%]">
+
+            <div class="border bg-blue-500 col">
                 lowell
             </div>
-         @endforeach
+            <div class="border bg-blue-500 col">
+                lowell
+            </div>
+            <div class="border bg-blue-500 col">
+                lowell
+            </div>
+
     </div>
 </section>
 
 @endsection
 
-
+{{--
+@foreach ($events as $event )
+@endforeach  --}}
 {{--  <div class="overflow-hidden">
     <a href={{ route('lnu-show-details.show-event', $event->id) }}>
         <img src="{{ (!empty($event->image))? url('upload/image-folder/event-folder/'. $event->image): url('upload/no-image.png') }}" class="images">
