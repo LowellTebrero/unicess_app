@@ -13,7 +13,7 @@
 
         @foreach ($events as $event )
 
-        <div class="border bg-blue-500 col-md-6 col-lg-4 col-xl">
+        <div class="border bg-blue-500 col-md-6 col-lg-6 col-xl">
             lowell
         </div>
         @endforeach
