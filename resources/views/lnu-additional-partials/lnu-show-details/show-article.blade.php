@@ -1,6 +1,5 @@
 @extends('layouts.lnuAdd')
 
-
 @section('content')
 
 <section  class="min-h-[60vh] w-[90%] mx-auto ">
