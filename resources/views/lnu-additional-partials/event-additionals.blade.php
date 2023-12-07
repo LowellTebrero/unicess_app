@@ -8,7 +8,7 @@
         <h1 class="font-semibold bg-yellow-500 p-2 text-white inline-block">Events Section</h1>
         <hr class="border-yellow-500 border-4">
     </div>
-    <div class="grid lg:grid-cols-2 xl:grid-cols-4 gap-4 w-full">
+    <div class="grid lg:grid-cols-2 2xl:grid-cols-4 gap-4 w-full">
         @foreach ($events as $event )
 
             <div class="border bg-blue-500">
