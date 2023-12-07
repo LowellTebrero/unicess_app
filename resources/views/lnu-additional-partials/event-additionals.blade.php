@@ -11,24 +11,21 @@
     <div class="row bg-red-500">
 
 
-            <div class="border bg-blue-500 col">
-                lowell
-            </div>
-            <div class="border bg-blue-500 col">
-                lowell
-            </div>
-            <div class="border bg-blue-500 col">
-                lowell
-            </div>
+        @foreach ($events as $event )
+
+        <div class="border bg-blue-500 col-md-6 col-lg-4 col-xl">
+            lowell
+        </div>
+        @endforeach
+
+
 
     </div>
 </section>
 
 @endsection
 
-{{--
-@foreach ($events as $event )
-@endforeach  --}}
+
 {{--  <div class="overflow-hidden">
     <a href={{ route('lnu-show-details.show-event', $event->id) }}>
         <img src="{{ (!empty($event->image))? url('upload/image-folder/event-folder/'. $event->image): url('upload/no-image.png') }}" class="images">
