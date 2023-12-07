@@ -11,7 +11,7 @@
     <div class="flex flex-wrap  bg-red-500">
         @foreach ($events as $event )
 
-            <div class="border bg-blue-500 w-full md:w-1/2 xl:w-1/4">
+            <div class="border bg-blue-500 w-full md:w-1/2 lg:w-1/2 xl:w-1/4">
                 lowell
             </div>
          @endforeach
