@@ -11,14 +11,13 @@
     <div class="grid lg:grid-cols-2 xl:grid-cols-4 gap-4 w-full">
         @foreach ($events as $event )
 
-
-        <div class="card w-full">
+        <div class="border flex flex-col justify-between ">
             <div class="overflow-hidden">
                 <a href={{ route('lnu-show-details.show-event', $event->id) }}>
                     <img src="{{ (!empty($event->image))? url('upload/image-folder/event-folder/'. $event->image): url('upload/no-image.png') }}" class="card-img-top images">
                 </a>
             </div>
-            <div class="card-body d-flex flex-column  justify-content-between">
+            <div class="card-body d-flex flex-column p-2  justify-content-between">
               <h5 class="card-title">{{Str::limit($event->title,100)}}</h5>
               <p class="card-text text-muted"><small class="text-muted">{{ $event->created_at->diffForHumans() }}</small></p>
               <a href={{ route('lnu-show-details.show-event', $event->id) }} class="btn btn-primary">Read more</a>
