@@ -8,10 +8,10 @@
         <h1 class="font-semibold bg-yellow-500 p-2 text-white inline-block">Events Section</h1>
         <hr class="border-yellow-500 border-4">
     </div>
-    <div class="flex flex-wrap  bg-red-500">
+    <div class="flex lg:flex-wrap xl:flex-row bg-red-500">
         @foreach ($events as $event )
 
-            <div class="border bg-blue-500 w-full md:w-1/2 lg:w-1/2 xl:w-1/4">
+            <div class="border bg-blue-500 lg:w-[50%] xl:w-[25%]">
                 lowell
             </div>
          @endforeach
