@@ -27,12 +27,12 @@
                             @endforeach
                         </select>
 
-                        <select name="Proposal" id="Proposal" class="text-xs border-gray-300 rounded w-full 2xl:w-[8.5rem] sm:w-[8rem]">
+                        {{--  <select name="Proposal" id="Proposal" class="text-xs border-gray-300 rounded w-full 2xl:w-[8.5rem] sm:w-[8rem]">
                         @foreach ($allproposal as $proposal )
                         <option value="1" {{ old('1', $proposal->number) == '1' ? 'selected' : '' }}>All Proposal</option>
                         <option value="2" {{ old('2', $proposal->number) == '2' ? 'selected' : '' }}>My Proposal</option>
                         @endforeach
-                        </select>
+                        </select>  --}}
                     </div>
                 </div>
 

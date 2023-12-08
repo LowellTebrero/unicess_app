@@ -51,12 +51,8 @@
             </div>
         </div>
 
-        <div class="flex space-x-8 p-7 pt-0 ">
-
-            <div class="shadow-md bg-gray-100 rounded-lg flex-auto w-64 p-5">
-            </div>
-
-            <div class="shadow-md bg-gray-100 rounded-lg w-[40rem] p-5">
+        <div class="flex  p-7 pt-0 ">
+            <div class="shadow-md bg-gray-100 rounded-lg w-full p-5">
                 <div class="flex justify-between mb-2">
                     <h1 class="text-xs">With {{ Auth()->user()->faculty->name, }}</h1>
                     <input type="text" placeholder="Search name..." class="text-xs rounded">

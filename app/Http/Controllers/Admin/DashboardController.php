@@ -17,6 +17,9 @@ use App\Models\ParticipationName;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\CustomizeAdminProposal;
+use App\Notifications\ProposalNotification;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\UserTagProposalNotification;
 
 class DashboardController extends Controller
 {
@@ -46,7 +49,7 @@ class DashboardController extends Controller
             'proposal_pdf' => "required|mimes:pdf|max:10048",
             'special_order_pdf' => "required|mimes:pdf|max:10048",
 
-           ],  [
+           ], [
             'project_title.regex' => 'Invalid characters: \ / : * ? " < > |',
         ]);
 
@@ -69,20 +72,22 @@ class DashboardController extends Controller
 
         $post->save();
 
+        $admin = User::whereHas('roles', function ($query) { $query->where('id', 1);})->get();
+
+        Notification::send($admin, new ProposalNotification($post));
 
 
         if($request->leader_id){
 
-            $leadersave = [
-                'proposal_id' => $post->id,
-                'user_id'=> $request->input('leader_id'),
-                'leader_member_type' => $request->input('leader_member_type'),
-                'location_id' => $request->input('location_id'),
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ];
+            $model = new ProposalMember();
+            $model->proposal_id = $post->id;
+            $model->user_id = $request->input('leader_id');
+            $model->leader_member_type = $request->input('leader_member_type');
+            $model->location_id = $request->input('location_id');
+            $model->save();
 
-            DB::table('proposal_members')->insert($leadersave);
+            $users = User::where('id', $request->leader_id)->get();
+            Notification::send($users, new UserTagProposalNotification($model));
         };
 
 
@@ -90,11 +95,33 @@ class DashboardController extends Controller
 
             foreach ($request->member as $item) {
 
-            $model = new ProposalMember();
-            $model->proposal_id = $post->id;
-            $model->user_id = $item['id'];
-            $model->member_type = $item['type'];
-            $model->save();
+                $model = new ProposalMember();
+                $model->proposal_id = $post->id;
+                $model->user_id = $item['id'];
+                $model->member_type = $item['type'];
+                $model->save();
+
+
+                $users = User::where('id', $item['id'])->get();
+                Notification::send($users, new UserTagProposalNotification($model));
+
+                $duplicateCount = DB::table('notifications')
+                ->whereJsonContains('data->tag_id', $item['id'])
+                ->whereJsonContains('data->proposal_id', $post->id)
+                ->count();
+
+                if ($duplicateCount > 1) {
+                    // Use the offset method to skip the first occurrence
+                    $firstDuplicate = DB::table('notifications')
+                    ->whereJsonContains('data->tag_id', $item['id'])
+                    ->whereJsonContains('data->proposal_id', $post->id)
+                    ->offset(1)
+                    ->first();
+
+                    // Delete the second occurrence of duplicated data
+                    DB::table('notifications')->where('id', $firstDuplicate->id)->delete();
+                }
+
             }
 
             ProposalMember::whereNull('user_id')->where('proposal_id', $post->id)->delete();
@@ -103,10 +130,9 @@ class DashboardController extends Controller
 
         flash()->addSuccess('Proposal Uploaded Successfully.');
 
+
         return redirect(route('admin.dashboard.index'));
     }
-
-
 
 
        //  Edit Proposal

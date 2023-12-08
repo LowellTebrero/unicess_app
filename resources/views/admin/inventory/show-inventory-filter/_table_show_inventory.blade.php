@@ -2,18 +2,10 @@
     <table class="w-full text-sm text-left text-gray-500 ">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
             <tr>
-                <th scope="col" class="px-6 py-3">
-                    Name
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Last Modified
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    File size
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    <span class="">&nbsp;</span>
-                </th>
+                <th scope="col" class="px-6 py-3">Name</th>
+                <th scope="col" class="px-6 py-3">Last Modified</th>
+                <th scope="col" class="px-6 py-3">File size</th>
+                <th scope="col" class="px-6 py-3"><span>&nbsp;</span></th>
             </tr>
         </thead>
         <tbody>
@@ -31,7 +23,7 @@
                         </x-slot>
 
                         <x-slot name="title">
-                            <span class="">{{ Str::limit($mediaLibrary->file_name) }}</span>
+                            <span>{{ Str::limit($mediaLibrary->file_name) }}</span>
                         </x-slot>
 
                         <div class="w-[50rem]">
@@ -39,9 +31,7 @@
                         </div>
                     </x-alpine-modal>
                 </th>
-                {{--  <td class="px-6 py-4">
-                    <span class="block xl:text-xs 2xl:text-sm">{{ $proposals->user->first_name }}</span>
-                </td>  --}}
+
                 <td class="px-6 py-4">
                     <span class="block xl:text-xs 2xl:text-sm">{{ $mediaLibrary->updated_at }}</span>
                 </td>
@@ -81,7 +71,7 @@
                         </x-slot>
 
                         <x-slot name="title">
-                            <span class="">{{ Str::limit($mediaLibrary->file_name) }}</span>
+                            <span>{{ Str::limit($mediaLibrary->file_name) }}</span>
                         </x-slot>
 
                         <div class="w-[50rem]">
@@ -89,9 +79,7 @@
                         </div>
                         </x-alpine-modal>
                 </th>
-                {{--  <td class="px-6 py-4">
-                    <span class="block xl:text-xs 2xl:text-sm">{{ $proposals->user->first_name }}</span>
-                </td>  --}}
+
                 <td class="px-6 py-4">
                     <span class="block xl:text-xs 2xl:text-sm">{{ $mediaLibrary->updated_at }}</span>
                 </td>
@@ -131,7 +119,7 @@
                         </x-slot>
 
                         <x-slot name="title">
-                            <span class="">{{ Str::limit($mediaLibrary->file_name) }}</span>
+                            <span>{{ Str::limit($mediaLibrary->file_name) }}</span>
                         </x-slot>
 
                         <div class="w-[50rem]">
@@ -178,7 +166,7 @@
                         </x-slot>
 
                         <x-slot name="title">
-                            <span class="">{{ Str::limit($mediaLibrary->file_name) }}</span>
+                            <span>{{ Str::limit($mediaLibrary->file_name) }}</span>
                         </x-slot>
 
                         <div class="w-[50rem]">
@@ -225,7 +213,7 @@
                         </x-slot>
 
                         <x-slot name="title">
-                            <span class="">{{ Str::limit($mediaLibrary->file_name) }}</span>
+                            <span>{{ Str::limit($mediaLibrary->file_name) }}</span>
                         </x-slot>
 
                         <div class="w-[50rem]">
@@ -269,6 +257,8 @@
                             <div scope="row" class="font-medium text-gray-900 whitespace-nowrap flex items-center ">
                             @if ($image->mime_type == 'image/jpeg' || $image->mime_type == 'image/png' || $image->mime_type == 'image/jpg')
                             <img src="{{ asset('img/image-icon.png') }}" class="2xl:w-[1.5rem] mr-2" width="25" alt="">
+                            @elseif ($image->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+                            <img src="{{ asset('img/docx.png') }}" class="2xl:w-[1.5rem] mr-2" width="25" alt="">
                             @else
                             <img src="{{ asset('img/pdf.png') }}" class="2xl:w-[1.5rem] mr-2" width="25" alt="">
                             @endif
@@ -277,16 +267,19 @@
                         </x-slot>
 
                         <x-slot name="title">
-                            <span class="">{{ Str::limit($image->file_name) }}</span>
+                            <span>{{ Str::limit($image->file_name) }}</span>
                         </x-slot>
 
                         <div class="w-[50rem]">
                             @if ($image->mime_type == 'image/jpeg' || $image->mime_type == 'image/png' || $image->mime_type == 'image/jpg')
 
-                            <div class="">
-                            <img class="shadow w-full " src="{{  $image->getUrl() }}">
-                            </div>
+                            <div><img class="shadow w-full " src="{{  $image->getUrl() }}"></div>
 
+                            @elseif ($image->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+                            <div class="p-5 flex items-center flex-col">
+                                <h1 class="text-center">This file format does not support viewing download only.</h1>
+                                <a href={{ url('download-media', $image->id) }} class="text-sm hover:text-red-600 text-red-500">Click here to download</a>
+                            </div>
                             @else
                             <div>
                             <iframe class="shadow mt-2 w-full h-[80vh]" src="{{  $image->getUrl() }}"></iframe>
@@ -297,9 +290,7 @@
                 </th>
 
 
-                {{--  <td class="px-6 py-4">
-                    <span class="block xl:text-xs 2xl:text-sm">{{ $proposals->user->first_name }}</span>
-                </td>  --}}
+
                 <td class="px-6 py-4">
                     <span class="block xl:text-xs 2xl:text-sm">{{ $mediaLibrary->updated_at }}</span>
                 </td>
@@ -330,7 +321,7 @@
                 <hr>
 
                 <!-- content -->
-                <div class="">
+                <div>
 
                     <form action="{{route('admin.proposal.rename-ongoing-proposal', $image->id)}}" method="POST">
                         @csrf @method('PUT')

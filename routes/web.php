@@ -174,7 +174,6 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
         Route::put('/rename/files/{id}','RenameFile')->name('proposal.rename-ongoing-proposal');
         Route::delete('/delete-Mediafile','deleteMedia')->name('proposal.delete-media-proposal');
         Route::delete('/delete-proposal-folder','DeleteProposalFolder')->name('proposal.delete-folder-proposal');
-
         Route::get('/project/{id}','showFaculty')->name('proposal.show_faculty');
         Route::get('download-media/{id}','DownloadMedia')->name('proposal.download-media-files');
         Route::delete('/delete-proposal/{id}','DeleteProposal')->name('proposal.delete-project-proposal');
@@ -182,7 +181,6 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
     });
 
     Route::controller(AdminInventoryController::class)->group(function () {
-
         Route::get('/admin-inventory','index')->name('inventory.index');
         Route::get('/inventory/admin-search', 'search')->name('inventory.admin-search');
         Route::get('/inventory/admin-filter', 'filter')->name('inventory.admin-filter');
@@ -191,8 +189,6 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
         Route::get('/download-proposal-media/{id}','InventorydownloadMedia')->name('inventory.admin-download-media');
         Route::get('/inventory-show/{id}','show')->name('inventory.proposal-show');
         Route::get('/inventory/{id}','showInventory')->name('inventory.show-inventory');
-
-
     });
 
 
@@ -203,14 +199,16 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
     });
 
 
+    Route::controller(OtherSettingsController::class)->group(function () {
+        Route::get('/template-index', 'index')->name('template.index');
+        Route::put('/template-update/{id}', 'update')->name('template.update');
+        Route::get('/template-download/{template_name}', 'download')->name('template.download');
+        Route::post('/year-post', 'yearPost')->name('yearpost.upload');
+        Route::post('/faculty-post', 'facultyPost')->name('facultypost.upload');
+    });
+
+
     Route::get('/edit-toggle/{id}', [ToggleController::class, 'edit'])->name('edit.submit');
-
-    Route::get('/template-index',[OtherSettingsController::class, 'index'])->name('template.index');
-    Route::put('/template-update/{id}',[OtherSettingsController::class, 'update'])->name('template.update');
-    Route::get('/template-download/{template_name}',[OtherSettingsController::class, 'download'])->name('template.download');
-    Route::post('/year-post',[OtherSettingsController::class, 'yearPost'])->name('yearpost.upload');
-    Route::post('/faculty-post',[OtherSettingsController::class, 'facultyPost'])->name('facultypost.upload');
-
     Route::post('/tasks/update-status', [EventController::class, 'updateStatus'])->name('tasks.update-status');
 
 

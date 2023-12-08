@@ -23,7 +23,7 @@
             <hr>
 
             <div class="w-full flex flex-col">
-            @include('admin.inventory.show-inventory-filter._filter_option-show-inventory')
+                @include('admin.inventory.show-inventory-filter._filter_option-show-inventory')
                 <div class="flex px-5 py-3 items-center xl:flex-wrap 2xl:flex-nowrap">
                 @include('admin.inventory.show-inventory-filter._table_show_inventory')
                 </div>

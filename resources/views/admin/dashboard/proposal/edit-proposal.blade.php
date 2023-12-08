@@ -281,71 +281,6 @@
                                         </div>
                                     </div>
 
-                                    <a class="border-blue-600 bg-white border px-2 py-2 rounded-xl text-blue-600 text-xs  2xl:text-xs  flex"
-                                        href={{ url('download', $proposal->id) }}>
-                                        <svg class="fill-blue-600 mr-1" xmlns="http://www.w3.org/2000/svg" height="15"
-                                            viewBox="0 96 960 960" width="20">
-                                            <path
-                                                d="M220 896q-24 0-42-18t-18-42V693h60v143h520V693h60v143q0 24-18 42t-42 18H220Zm260-153L287 550l43-43 120 120V256h60v371l120-120 43 43-193 193Z" />
-                                        </svg>
-                                        Download Proposal
-                                    </a>
-
-                                    <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = true">
-
-                                        <!-- Trigger for Modal -->
-                                        <button class="px-2 py-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 2xl:text-xs text-xs space-x-2 flex" type="button" @click="showModal = true">
-                                            <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 32 32"><path fill="currentColor" d="M12 12h2v12h-2zm6 0h2v12h-2z"/><path fill="currentColor" d="M4 6v2h2v20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8h2V6zm4 22V8h16v20zm4-26h8v2h-8z"/></svg>
-                                             Delete this Proposal
-                                        </button>
-
-                                        <!-- Modal -->
-
-                                        <div class="fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-black bg-opacity-40" x-show="showModal" >
-
-                                            <!-- Modal inner -->
-                                            <div class="w-1/4  text-left bg-gray-700 rounded-lg shadow-lg" x-show="showModal"
-                                                x-transition:enter="motion-safe:ease-out duration-300"
-                                                x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
-                                                x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
-                                                x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" @click.away="showModal = false">
-
-                                                <!-- Title / Close-->
-                                                <div class="flex items-center justify-end px-4 rounded-tl rounded-tr py-4 pb-2 ">
-
-                                                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" @click="showModal = false">
-                                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                                                        </svg>
-                                                    </button>
-
-                                                </div>
-
-
-                                                <!-- content -->
-                                                <div class="p-6 pt-2 space-y-4 flex-col flex items-center justify-center">
-                                                    <div class="flex flex-col space-y-2">
-                                                    <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-                                                    </svg>
-                                                    <h3 class="mb-3 text-lg font-normal text-gray-400 dark:text-gray-300">Are you sure you want to delete this product?</h3>
-                                                    </div>
-
-                                                    <div class="flex space-x-4 justify-center ">
-
-                                                    <form action={{ route('admin.proposal.admin-delete-project-proposal', $proposals->id) }} method="POST" class="">
-                                                        @csrf @method('DELETE')
-                                                            <button class="text-white w-full bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">Yes I am sure</button>
-                                                    </form>
-                                                    <div>
-                                                    <button @click="showModal = false" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No, cancel</button>
-                                                </div>
-                                                </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
                                     <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = true">
 
                                         <!-- Trigger for Modal -->
@@ -559,6 +494,73 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <a class="border-blue-600 bg-white border px-2 py-2 rounded-xl text-blue-600 text-xs  2xl:text-xs  flex"
+                                        href={{ url('download', $proposal->id) }}>
+                                        <svg class="fill-blue-600 mr-1" xmlns="http://www.w3.org/2000/svg" height="15"
+                                            viewBox="0 96 960 960" width="20">
+                                            <path
+                                                d="M220 896q-24 0-42-18t-18-42V693h60v143h520V693h60v143q0 24-18 42t-42 18H220Zm260-153L287 550l43-43 120 120V256h60v371l120-120 43 43-193 193Z" />
+                                        </svg>
+                                        Download Proposal
+                                    </a>
+
+                                    <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = true">
+
+                                        <!-- Trigger for Modal -->
+                                        <button class="px-2 py-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 2xl:text-xs text-xs space-x-2 flex" type="button" @click="showModal = true">
+                                            <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 32 32"><path fill="currentColor" d="M12 12h2v12h-2zm6 0h2v12h-2z"/><path fill="currentColor" d="M4 6v2h2v20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8h2V6zm4 22V8h16v20zm4-26h8v2h-8z"/></svg>
+                                             Delete this Proposal
+                                        </button>
+
+                                        <!-- Modal -->
+
+                                        <div class="fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-black bg-opacity-40" x-show="showModal" >
+
+                                            <!-- Modal inner -->
+                                            <div class="w-1/4  text-left bg-gray-700 rounded-lg shadow-lg" x-show="showModal"
+                                                x-transition:enter="motion-safe:ease-out duration-300"
+                                                x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
+                                                x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                                                x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" @click.away="showModal = false">
+
+                                                <!-- Title / Close-->
+                                                <div class="flex items-center justify-end px-4 rounded-tl rounded-tr py-4 pb-2 ">
+
+                                                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" @click="showModal = false">
+                                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                                        </svg>
+                                                    </button>
+
+                                                </div>
+
+
+                                                <!-- content -->
+                                                <div class="p-6 pt-2 space-y-4 flex-col flex items-center justify-center">
+                                                    <div class="flex flex-col space-y-2">
+                                                    <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                                    </svg>
+                                                    <h3 class="mb-3 text-lg font-normal text-gray-400 dark:text-gray-300">Are you sure you want to delete this product?</h3>
+                                                    </div>
+
+                                                    <div class="flex space-x-4 justify-center ">
+
+                                                    <form action={{ route('admin.proposal.admin-delete-project-proposal', $proposals->id) }} method="POST" class="">
+                                                        @csrf @method('DELETE')
+                                                            <button class="text-white w-full bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">Yes I am sure</button>
+                                                    </form>
+                                                    <div>
+                                                    <button @click="showModal = false" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No, cancel</button>
+                                                </div>
+                                                </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
                                 </div>
                             </div>
                         </div>
@@ -569,7 +571,6 @@
                         <div class="flex space-x-2">
                             <button>&nbsp;</button>
                             <button class="text-xs rounded text-white px-2 py-1 bg-red-500" id="YesDelete" style="display: none">Delete</button>
-                            {{--  <input type="checkbox" name="" id="selectAll">  --}}
                             <button class="text-xs rounded text-white px-2 py-1 bg-red-500" id="selectAll" style="display: none">Select all</button>
                             <button class="text-xs rounded text-white px-2 py-1 bg-red-500" id="cancelButton" style="display: none">Cancel</button>
                         </div>
@@ -659,10 +660,8 @@
                                                 <div>
                                                     <form action="{{route('inventory-rename-media', $mediaLibrary->id)}}" method="POST">
                                                         @csrf @method('PUT')
-
                                                         <div class="flex flex-col items-center pt-5 px-4">
                                                         <input type="text" value="{{ $mediaLibrary->file_name }}" name="file_name" class=" w-full rounded">
-
                                                         <button type="submit" class="p-2 bg-blue-500 rounded mt-5 text-white">Rename</button>
                                                     </div>
                                                     </form>
@@ -708,10 +707,7 @@
         <x-messages />
 
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <!-- Toastr -->
-        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
 
         <script>
             document.addEventListener('DOMContentLoaded', function () {

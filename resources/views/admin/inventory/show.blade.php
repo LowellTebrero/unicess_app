@@ -1,6 +1,4 @@
-     <style>
-        [x-cloak] { display: none }
-    </style>
+     <style>[x-cloak] { display: none }</style>
 
 <x-admin-layout>
 

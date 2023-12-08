@@ -4,6 +4,12 @@
         [x-cloak] { display: none}
     </style>
 
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            <?php flash()->addError($error); ?>
+        @endforeach
+    @endif
+
     <section class="rounded-xl shadow m-8 mt-5 text-slate-700 bg-white min-h-[85vh] 2xl:min-h-[87vh]">
 
         <div class="p-5 py-4">

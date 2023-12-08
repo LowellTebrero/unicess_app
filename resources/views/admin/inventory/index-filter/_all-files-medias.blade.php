@@ -30,10 +30,13 @@
                                                 @if ($media->mime_type == 'image/jpeg' || $media->mime_type == 'image/png' || $media->mime_type == 'image/jpg')
                                                 <img src="{{ asset('img/image-icon.png') }}"
                                                     class="2xl:w-[2rem]" width="30" alt="">
-                                            @else
+
+                                                @elseif ($media->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+                                                <img src="{{ asset('img/docx.png') }}" class="2xl:w-[2rem]" width="25" alt="">
+                                                @else
                                                 <img src="{{ asset('img/pdf.png') }}" class="2xl:w-[2rem]"
                                                     width="30" alt="">
-                                            @endif
+                                                @endif
                                             </div>
                                             <div>
                                                 {{  Str::limit($media->file_name, 70) }}
@@ -47,8 +50,20 @@
                                     </x-slot>
 
                                     <div class="w-[50rem]">
-                                        <iframe class=" 2xl:w-[100%] drop-shadow mt-2 w-full h-[80vh]"
-                                            src="{{ $media->getUrl()}}"></iframe>
+                                        @if ($media->mime_type == 'image/jpeg' || $media->mime_type == 'image/png' || $media->mime_type == 'image/jpg')
+
+                                        <div><img class="shadow w-full " src="{{  $media->getUrl() }}"></div>
+
+                                        @elseif ($media->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+                                        <div class="p-5 flex items-center flex-col">
+                                            <h1 class="text-center">This file format does not support viewing download only.</h1>
+                                            <a href={{ url('download-media', $media->id) }} class="text-sm hover:text-red-600 text-red-500">Click here to download</a>
+                                        </div>
+                                        @else
+                                        <div>
+                                        <iframe class="shadow mt-2 w-full h-[80vh]" src="{{  $media->getUrl() }}"></iframe>
+                                        </div>
+                                        @endif
                                     </div>
                                 </x-alpine-modal>
 
