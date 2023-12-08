@@ -61,16 +61,16 @@
         </x-custom-nav-link>
 
         {{--  Manage LNU HOME Collapse  --}}
-        <div class="relative w-full px-2  overflow-hidden mt-8 ">
+        <div class="relative w-full px-2 mt-8 hover:bg-gray-700 rounded-lg">
 
             <input class="peer absolute top-0 inset-x-0 w-full h-12 opacity-0 z-10 cursor-pointer" type="checkbox">
-            <div class="  h-12 w-full flex items-center">
+            <div class="h-12 w-full flex items-center">
                 <svg class="mx-2 fill-white" xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 96 960 960"
                     width="28">
                     <path
                         d="M250 766h180v-60H250v60Zm400 0h60v-60h-60v60ZM250 606h180v-60H250v60Zm400 0h60V386h-60v220ZM250 446h180v-60H250v60ZM132 936q-24 0-42-18t-18-42V276q0-24 18-42t42-18h696q24 0 42 18t18 42v600q0 24-18 42t-42 18H132Zm0-60h696V276H132v600Zm0 0V276v600Z" />
                 </svg>
-                <span class="text-md text-slate-200 font-medium xl:text-xs 2xl:text-sm ">Others</span>
+                <h5 class="text-slate-200 font-medium text-xs 2xl:text-sm">Others</h5>
             </div>
 
             <div
@@ -101,22 +101,23 @@
         </div>
         {{--  End of Manage Account Collapse   --}}
 
+
+
         {{--  Manage Account Collapse  --}}
-        <div class="relative w-full px-2  overflow-hidden mt-3">
+        <div class="relative w-full px-2 overflow-hidden mt-3 hover:bg-gray-700 rounded-lg">
 
             <input class="peer absolute top-0 inset-x-0 w-full h-12 opacity-0 z-10 cursor-pointer" type="checkbox">
-            <div class="  h-12 w-full flex items-center  overflow-hidden">
+            <div class="h-12 w-full flex items-center  overflow-hidden">
                 <svg class="fill-white mx-2" xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 96 960 960"
                     width="30">
                     <path
                         d="m382 976-18.666-126.667Q346.333 843 328.5 832.667 310.666 822.333 296.333 811L178 863.666 79.333 691l106.334-78.666q-1.667-8.334-2-18.167-.334-9.834-.334-18.167 0-8.333.334-18.167.333-9.833 2-18.167L79.333 461 178 288.334 296.333 341q14.333-11.333 32.334-21.667 18-10.333 34.667-16L382 176h196l18.666 126.667Q613.667 309 631.833 319q18.167 10 31.834 22L782 288.334 880.667 461l-106.334 77.333q1.667 9 2 18.834.334 9.833.334 18.833 0 9-.334 18.5Q776 604 774 613l106.333 78-98.666 172.666-118-52.666q-14.333 11.333-32 22t-35.001 16.333L578 976H382Zm98.667-266.667q55.333 0 94.333-39T614 576q0-55.333-39-94.333t-94.333-39q-55.667 0-94.5 39-38.834 39-38.834 94.333t38.834 94.333q38.833 39 94.5 39Zm0-66.666q-27.667 0-47.167-19.5T414 576q0-27.667 19.5-47.167t47.167-19.5q27.666 0 47.166 19.5 19.5 19.5 19.5 47.167t-19.5 47.167q-19.5 19.5-47.166 19.5ZM480 576Zm-42.667 333.334h85l14-110q32.334-8 60.834-24.5T649 735l103.667 44.334 39.667-70.667L701 641q4.334-16 6.667-32.167Q710 592.667 710 576q0-16.667-2-32.833Q706 527 701 511l91.334-67.667-39.667-70.667L649 417.333q-22.666-25-50.833-41.833-28.167-16.834-61.834-22.834l-13.666-110h-85l-14 110q-33 7.334-61.501 23.834Q333.666 393 311 417l-103.667-44.334-39.667 70.667L259 510.667Q254.666 527 252.333 543T250 576q0 16.667 2.333 32.667T259 641l-91.334 67.667 39.667 70.667L311 734.667q23.333 23.667 51.833 40.167t60.834 24.5l13.666 110Z" />
                 </svg>
-                <span class="text-md text-slate-200 font-medium xl:text-xs 2xl:text-sm ">Settings</span>
+                <h5 class="text-slate-200 font-medium text-xs 2xl:text-sm">Settings</h5>
             </div>
 
             <div
                 class="absolute top-3 right-3 text-white transition-transform duration-500 rotate-0 peer-checked:rotate-180 ">
-
                 {{--  Arrow Icon  --}}
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-5 ">
@@ -128,7 +129,7 @@
             <div class="bg-gray-700 rounded overflow-hidden transition-all duration-500 max-h-0 peer-checked:max-h-48">
 
                 <div class="flex flex-col">
-                    <a class="xl:text-xs flex items-center px-4 py-2 mt-2 text-md font-semibold text-gray-900 bg-gray-200 rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                    <a class="text-xs flex items-center px-4 py-2 mt-2 text-md font-semibold text-gray-900 bg-gray-200 rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
                         href={{ route('admin.roles.index') }}>
                         {{--  <svg class="fill-white mr-2" xmlns="http://www.w3.org/2000/svg"
                                 height="35" viewBox="0 96 960 960" width="30">
@@ -137,7 +138,9 @@
                             </svg>  --}}
                         <span>Role</span>
                     </a>
-                    <a class="xl:text-xs flex items-center px-4 py-2 mt-2 text-md font-semibold text-gray-900 bg-gray-200 rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+
+
+                    <a class="text-xs flex items-center px-4 py-2 mt-2 text-md font-semibold text-gray-900 bg-gray-200 rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
                         href={{ route('admin.template.index') }}>
                         {{--  <svg class="fill-white mr-2" xmlns="http://www.w3.org/2000/svg"
                                 height="35" viewBox="0 96 960 960" width="30">
@@ -149,6 +152,9 @@
                 </div>
             </div>
         </div>
+
+
+
         {{--  End of Manage Account Collapse   --}}
     </nav>
 </div>

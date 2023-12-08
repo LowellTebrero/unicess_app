@@ -22,7 +22,7 @@ class OtherSettingsController extends Controller
     public function yearPost(Request $request){
 
         $request->validate([
-            'year' => 'required|integer'
+            'year' => 'required|integer|unique:admin_years',
         ]);
 
         AdminYear::create(['year' => $request->year]);
@@ -34,7 +34,7 @@ class OtherSettingsController extends Controller
 
         $request->validate([
 
-            'name' => 'required'
+            'name' => 'required|unique:faculties'
         ]);
 
         $new = new Faculty();
