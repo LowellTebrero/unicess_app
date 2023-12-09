@@ -15,12 +15,13 @@
 
         @hasanyrole('Faculty extensionist|Extension coordinator')
 
-            <div class="mx-5 xl:mx-10 my-5  text-slate-700">
-                <h1 class="tracking-wider 2xl:text-2xl font-medium">Hi, {{ Auth()->user()->name }}</h1>
-                <div class="flex ">
-                    <span class="tracking-wider text-sm">{{  date('D M d, Y') }} </span>
-                </div>
+        <div class="mx-5 xl:mx-10 my-5 text-slate-700">
+            <h1 class="tracking-wider text-sm 2xl:text-xl font-medium" id="greeting">Hi, {{ Auth()->user()->name }}</h1>
+            <div class="flex space-x-1">
+                <span class="tracking-wider text-sm">{{  date('D M d, Y') }} </span>
+                <span id="dynamic-time" class="tracking-wider text-sm">{{ date('h:i A') }}</span>
             </div>
+        </div>
 
             <section class="mx-5 xl:mx-10 md:space-x-2 lg:space-x-7  xl:space-x-10 flex xl:flex-row flex-col sm:flex-row sm:space-x-2 justify-between 2xl:h-48 xl:h-36 lg:h-[20vh] text-gray-700 ">
 
@@ -213,16 +214,6 @@
             });
         });
 
-
-          /*  $(document).ready(function() {
-
-                $('#myDropdown').on('change', function(){
-                    let companyId = this.value || this.options[this.selectedIndex].value
-                    window.location.href = window.location.href.split('?')[0] + '?authorize_name=' + companyId
-                });
-            });
-            */
-
         $(document).ready(function () {
             let timer;
 
@@ -251,5 +242,74 @@
 
         });
     </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+    <script>
+        function updateDynamicTime() {
+            $.ajax({
+                url: '/get-current-time',
+                type: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    try {
+                        // Get the current local time on the client
+                        var clientTime = moment();
+
+                        // Extract the server time (hours and minutes) from the response
+                        var serverTime = moment(response.time, 'h:mm A');
+
+                        // Set the client time's hours and minutes to match the server time
+                        clientTime.hours(serverTime.hours());
+                        clientTime.minutes(serverTime.minutes());
+
+                        // Display the adjusted time
+                        var adjustedTime = clientTime.format('h:mm A');
+                        $('#dynamic-time').text(adjustedTime);
+                    } catch (e) {
+                        console.error('Error updating time:', e);
+                    }
+                },
+                error: function (error) {
+                    console.error('Error fetching time:', error);
+                }
+            });
+        }
+
+        function updateGreeting() {
+            var currentTime = moment();
+            var greeting = getGreeting(currentTime, '{{ Auth()->user()->name }}');
+            $('#greeting').text(greeting);
+        }
+
+        function getGreeting(time, userName) {
+            var hour = time.hours();
+
+            if (hour >= 5 && hour < 12) {
+                return 'Good morning, ' + userName + '!';
+            } else if (hour >= 12 && hour < 18) {
+                return 'Good afternoon, ' + userName + '!';
+            } else {
+                return 'Good evening, ' + userName + '!';
+            }
+        }
+
+        // Update time every minute (60,000 milliseconds)
+        setInterval(updateDynamicTime, 60000);
+
+        // Update greeting every minute (60,000 milliseconds)
+        setInterval(updateGreeting, 60000);
+
+        // Initial updates
+        updateDynamicTime();
+        updateGreeting();
+    </script>
+
+
+
+
+
+
     @endsection
 </x-app-layout>

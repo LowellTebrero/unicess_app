@@ -78,6 +78,11 @@ class ProposalController extends Controller
         ,'currentYear',  'second', 'Temporary'));
     }
 
+    public function getCurrentTime()
+    {
+        return response()->json(['time' => Carbon::now()->format('h:i A')]);
+    }
+
     public function create()
     {
         $programs = Program::orderBy('program_name')->pluck('program_name', 'id')->prepend('Select Program', '');

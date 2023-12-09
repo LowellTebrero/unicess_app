@@ -291,6 +291,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/my-proposal',  'MyProposal')->name('User-dashboard.my-proposal');
         Route::get('/my-proposal-search/{id}',  'MyProposalSearch')->name('User-dashboard.my-proposal-search');
         Route::get('/my-proposal-filter-year/{id}',  'MyProposalFilterYear')->name('User-dashboard.my-proposal-filter-year');
+        Route::get('/get-current-time',  'getCurrentTime');
+
     });
 
 
