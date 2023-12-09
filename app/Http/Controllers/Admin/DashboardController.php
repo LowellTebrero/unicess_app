@@ -9,6 +9,7 @@ use App\Models\CesoRole;
 use App\Models\Location;
 use App\Models\Proposal;
 use App\Models\AdminYear;
+use App\Rules\UniqueTitle;
 use Illuminate\Http\Request;
 use App\Charts\ProposalChart;
 use App\Models\ProposalMember;
@@ -43,7 +44,7 @@ class DashboardController extends Controller
                 return in_array(request()->ceso_role_id,
                 ['Facilitator/Moderator','Reactor/Panel member','Technical Assistance/Consultancy','Resource Speaker/Trainer', 'nullable']);
             }),
-            'project_title' => ['regex:/^[^<>?:|\/"*]+$/','required','min:6' ,Rule::unique('proposals')],
+            'project_title' => ['regex:/^[^<>?:|\/"*]+$/','required','min:6' ,Rule::unique('proposals'), new UniqueTitle],
             'started_date' => 'required',
             'finished_date' => 'required',
             'proposal_pdf' => "required|mimes:pdf|max:10048",

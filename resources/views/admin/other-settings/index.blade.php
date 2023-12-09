@@ -4,6 +4,8 @@
         [x-cloak] { display: none}
     </style>
 
+    @section('title', 'Other | ' . config('app.name', 'UniCESS'))
+
     @if ($errors->any())
         @foreach ($errors->all() as $error)
             <?php flash()->addError($error); ?>

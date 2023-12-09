@@ -1,9 +1,5 @@
 <x-admin-layout>
     <style>
-        [x-cloak] {
-            display: none
-        }
-
         form button:disabled,
         form button[disabled] {
             border: 1px solid #999999;
@@ -23,12 +19,18 @@
         }
     </style>
 
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            <?php flash()->addError($error); ?>
+        @endforeach
+    @endif
+
     <section class="mt-5 m-8 rounded-xl  2xl:h-[87vh] h-[85vh] bg-white text-gray-700">
 
         <div class="flex justify-between items-center p-4 xl:py-3 2xl:py-4">
             <h1 class="2xl:text-2xl xl:text-lg text-[.9rem] font-semibold text-slate-600">Upload Proposal <span
                     class="text-red-500 text-xs tracking-wide font-light"> * required fields</span></h1>
-            <a href="/User-dashboard" class="text-red-500 text-xl font-medium focus:bg-gray-300 focus:rounded">
+            <a href="/admin" class="text-red-500 text-xl font-medium focus:bg-gray-300 focus:rounded">
                 <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -37,11 +39,7 @@
         </div>
 
         <hr>
-        @if ($errors->any())
-            @foreach ($errors->all() as $error)
-                <?php flash()->addError($error); ?>
-            @endforeach
-        @endif
+
 
         <form class="pt-2 px-5 2xl:px-10 xl:mt-2 2xl:mt-5 h-[75vh] 2xl:h-[78vh]" id="FormSubmit"
             action="{{ route('admin.dashboard.store') }}" method="POST" enctype="multipart/form-data">
@@ -316,21 +314,6 @@
 
 
         <script type="text/javascript">
-            /*  function RequiredGet(answer){
-
-                        console.log(answer.value)
-                        if(answer.value == '' ){
-                            document.getElementById('member').required = true;
-                            console.log(document.getElementById('member'));
-
-
-                        }else{
-                           document.getElementById('member').required = false;
-                            console.log(document.getElementById('member'));
-                      }
-                    }
-                    */
-
 
             function yesnoCheck(answer) {
 

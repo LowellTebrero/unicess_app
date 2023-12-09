@@ -1,6 +1,8 @@
 @hasrole('admin')
     <x-admin-layout>
 
+        @section('title', 'Profile | ' . config('app.name', 'UniCESS'))
+
         <div class="w-full sm:px-6 lg:px-8 p-5 rounded-lg">
 
             <div class="w-full mx-auto sm:px-6 lg:px-8 xl:px-0 2xl:px-5 space-y-6">
@@ -27,6 +29,9 @@
     </x-admin-layout>
 @else
     <x-app-layout>
+
+        @section('title', 'Profile | ' . config('app.name', 'UniCESS'))
+
         <div class="w-full mx-auto sm:px-6 lg:px-8  xl:px-0 2xl:px-10 p-10 rounded-lg">
 
             <div class="w-full mx-auto sm:px-6 space-y-6">

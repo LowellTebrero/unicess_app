@@ -1,5 +1,7 @@
 <x-admin-layout>
 
+    @section('title', 'Points | ' . config('app.name', 'UniCESS'))
+
 <section class="rounded-xl shadow m-8 mt-5 text-slate-700 bg-white min-h-[85vh] 2xl:min-h-[87vh]">
     <div class="flex justify-between px-5 py-4">
         <div>

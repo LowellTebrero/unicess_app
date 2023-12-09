@@ -1,4 +1,7 @@
 <x-admin-layout>
+
+    @section('title', 'Role | ' . config('app.name', 'UniCESS'))
+
     <section class="mt-5 m-8  2xl:min-h-[87vh] bg-white rounded-lg min-h-[85vh]">
 
                     <div class="p-5 py-4 text-gray-700 text-2xl tracking-wider font-semibold flex justify-between">

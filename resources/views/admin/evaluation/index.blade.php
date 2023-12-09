@@ -1,6 +1,8 @@
 
 <x-admin-layout>
 
+    @section('title', 'Evaluation | ' . config('app.name', 'UniCESS'))
+
     <section class="text-gray-700 min-h-[85vh] 2xl:min-h-[87vh] m-8 mt-5  bg-white rounded-xl shadow">
 
         <div class="flex justify-between p-5 py-4">

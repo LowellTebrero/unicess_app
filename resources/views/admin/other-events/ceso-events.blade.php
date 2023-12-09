@@ -4,6 +4,8 @@
         [x-cloak] { display: none }
     </style>
 
+    @section('title', 'Events | ' . config('app.name', 'UniCESS'))
+
     <section class="m-8 mt-5 rounded-lg shadow-md bg-white 2xl:min-h-[87vh] h-[85vh]">
 
         <div class="flex justify-between p-5 py-4">

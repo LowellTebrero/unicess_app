@@ -1,6 +1,8 @@
   <x-admin-layout>
     <style>[x-cloak] { display: none }</style>
 
+    @section('title', 'Article | ' . config('app.name', 'UniCESS'))
+
     <section class="mt-5 m-8 bg-white 2xl:min-h-[87vh] h-[85vh] rounded-lg">
 
         <div class="py-4 p-5">

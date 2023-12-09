@@ -1,9 +1,6 @@
 <x-admin-layout>
-    <style>
-        [x-cloak] {
-            display: none
-        }
-    </style>
+
+    @section('title', 'Dashboard | ' . config('app.name', 'UniCESS'))
 
     <section class="flex min-h-full flex-col-reverse xl:flex-row  xl:justify-between overflow-hidden">
         <div class="xl:px-4 2xl:px-8 flex w-full flex-col p-4">
@@ -64,7 +61,7 @@
 
     </section>
 
-    <x-messages />
+    <x-messages/>
 </x-admin-layout>
 
 
