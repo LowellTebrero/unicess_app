@@ -28,8 +28,7 @@
 
 
                             @foreach ($slider as $event )
-                            <button type="button" class="w-3 h-3 rounded-full bg-gray-500" aria-current="false" aria-label="Slide {{ $event->id }}" data-carousel-slide-to=" {{ $event->id }}"></button>
-
+                            <button type="button" class="w-3 h-3 rounded-full bg-blue-600" aria-current="false" aria-label="Slide {{ $event->id }}" data-carousel-slide-to=" {{ $event->id }}"></button>
                             @endforeach
                         </div>
                         <!-- Slider controls -->
@@ -53,26 +52,10 @@
             </div>
         </div>
 
-
-
-
         {{--  Latest News  --}}
         <div class=" pl-10 z-10 md:w-full lg:w-full  xl:min-h-screen 2xl:min-h-screen  relative">
         </div>
     </section>
-
-
-{{--
-    <script type="text/javascript">
-        var counter = 1;
-        setInterval(function(){
-          document.getElementById('radio' + counter).checked = true;
-          counter++;
-          if(counter > 4){
-            counter = 1;
-          }
-        }, 5000);
-    </script>  --}}
 
 
 

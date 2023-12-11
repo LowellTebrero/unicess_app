@@ -85,7 +85,7 @@
 
             {{--  Content  --}}
             <div class="bg-gray-700 rounded overflow-hidden transition-all duration-500 max-h-0 peer-checked:max-h-48">
-                <div class=" flex flex-col">
+                <div class="flex flex-col">
 
                     <x-custom-nav-link :href="route('admin.other-events-ceso-events')" :active="request()->routeIs('admin.other-events-ceso-events')">
                         {{ __('Events') }}

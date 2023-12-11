@@ -28,6 +28,15 @@
                             {{ __('Home') }}
                         </x-nav-link>
                     </div>
+                @else
+
+                <div class="mx-5 my-5 text-white">
+                    <h1 class="tracking-wider text-xs sm:text-sm font-medium" id="greeting">Hi, {{ Auth()->user()->name }}</h1>
+                    <div class="flex space-x-1">
+                        <span class="tracking-wider text-xs">{{  date('D M d, Y') }} </span>
+                        <span id="dynamic-time" class="tracking-wider text-xs">{{ date('h:i A') }}</span>
+                    </div>
+                </div>
                 @endif
 
                 @role('admin')
@@ -773,3 +782,69 @@
         </div>
     @endauth
 </nav>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+    <script>
+        function updateDynamicTime() {
+            $.ajax({
+                url: '/get-current-time',
+                type: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    try {
+                        // Get the current local time on the client
+                        var clientTime = moment();
+
+                        // Extract the server time (hours and minutes) from the response
+                        var serverTime = moment(response.time, 'h:mm A');
+
+                        // Set the client time's hours and minutes to match the server time
+                        clientTime.hours(serverTime.hours());
+                        clientTime.minutes(serverTime.minutes());
+
+                        // Display the adjusted time
+                        var adjustedTime = clientTime.format('h:mm A');
+                        $('#dynamic-time').text(adjustedTime);
+                    } catch (e) {
+                        console.error('Error updating time:', e);
+                    }
+                },
+                error: function (error) {
+                    console.error('Error fetching time:', error);
+                }
+            });
+        }
+
+        function updateGreeting() {
+            var currentTime = moment();
+            var greeting = getGreeting(currentTime, '{{ Auth()->user()->name }}');
+            $('#greeting').text(greeting);
+        }
+
+        function getGreeting(time, userName) {
+            var hour = time.hours();
+
+            if (hour >= 5 && hour < 12) {
+                return 'Good morning, ' + userName + '!';
+            } else if (hour >= 12 && hour < 18) {
+                return 'Good afternoon, ' + userName + '!';
+            } else {
+                return 'Good evening, ' + userName + '!';
+            }
+        }
+
+        // Update time every minute (60,000 milliseconds)
+        setInterval(updateDynamicTime, 60000);
+
+        // Update greeting every minute (60,000 milliseconds)
+        setInterval(updateGreeting, 60000);
+
+        // Initial updates
+        updateDynamicTime();
+        updateGreeting();
+    </script>
+
