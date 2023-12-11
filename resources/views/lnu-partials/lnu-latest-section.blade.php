@@ -6,9 +6,9 @@
             <div class="lg:w-full px-10 relative">
              <h1 class="text-blue-700 font-semibold text-2xl  pt-5 pb-10 underline underline-offset-8 text-center md:tex-center  lg:text-left xl:text-3xl 2xl:text-4xl">Latest Events</h1>
 
-                    <div id="default-carousel" class="relative w-full h-[30vh] md:h-96 lg:h-[60vh]" data-carousel="slide">
+                    <div id="default-carousel" class="relative w-full h-[30vh] md:h-[40vh] lg:h-[60vh]" data-carousel="slide">
                         <!-- Carousel wrapper -->
-                        <div class="relative h-[30vh] lg:h-[60vh] overflow-hidden rounded-lg md:h-96 ">
+                        <div class="relative h-[30vh] md:h-[40vh] lg:h-[60vh] overflow-hidden rounded-lg   ">
 
                             @foreach ($slider as $event )
                             <!-- Item 1 -->
