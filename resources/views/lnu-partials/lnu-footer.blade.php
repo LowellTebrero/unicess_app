@@ -1,6 +1,6 @@
 <footer class="footer min-h-[30vh] flex  md:flex-row xl:flex-row flex-col sm:flex-col ">
 
-    <div class=" flex-1 items-start pl-14 sm:pl-0  flex flex-col space-y-2 sm:space-y-0 space-x-0 sm:space-x-0 sm:flex-row sm:items-start xl:space-x-12 justify-evenly md:flex-col md:items-start md:space-y-5 lg:flex-col lg:space-x-0 lg:space-y-5 xl:space-y-0 xl:flex-row p-10" >
+    <div class="flex-1 items-start pl-14 sm:pl-0 md:pl-10  flex flex-col space-y-2 sm:space-y-0 space-x-0 sm:space-x-0 sm:flex-row sm:items-start xl:space-x-12 justify-evenly md:flex-col md:items-start md:space-y-5 lg:flex-col lg:space-x-0 lg:space-y-5 xl:space-y-0 xl:flex-row p-10" >
 
         <div class="text-white text-xs ">
             <h3 class="underline underline-offset-4 text-md font-semibold">Contact us:</h3>
