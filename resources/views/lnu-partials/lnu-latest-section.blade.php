@@ -18,7 +18,7 @@
                                 <div class="bg-gradient-to-t from-blue-800/90 via-blue-800/55  w-full h-full absolute top-0 rounded-lg"></div>
                                 <div class="p-5 flex flex-col absolute bottom-8 z-30 rounded-lg">
                                     <h1 class="text-white text-xs xl:text-sm 2xl:text-md font-light tracking-wider flex justify-between">{{ $event->title }}</h1>
-                                    <a class="text-white text-xs xl:text-lg outline outline-offset-2 outline-1 md:w-[5rem] lg:w-28 mt-6 rounded text-center" href={{ route('lnu-additional-partials.event-additionals') }}>Learn more</a>
+                                    <a class="text-white text-xs xl:text-lg outline outline-offset-1 outline-1 md:w-[5rem] lg:w-[8rem] mt-6 rounded text-center" href={{ route('lnu-additional-partials.event-additionals') }}>Learn more</a>
                                 </div>
                             </div>
                             @endforeach
