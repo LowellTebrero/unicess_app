@@ -3,12 +3,12 @@
 
         {{--  Latest Events  --}}
         <div class="w-full md:w-full lg:w-full min-h-[70vh] lg:pl-10 md:pl-0 md:justify-center ">
-            <div class="lg:w-full px-10 relative ">
+            <div class="lg:w-full px-10 relative">
              <h1 class="text-blue-700 font-semibold text-2xl  pt-5 pb-10 underline underline-offset-8 text-center md:tex-center  lg:text-left xl:text-3xl 2xl:text-4xl">Latest Events</h1>
 
-                    <div id="default-carousel" class="relative w-full" data-carousel="slide">
+                    <div id="default-carousel" class="relative w-full h-[30vh] md:h-96 lg:h-[60vh]" data-carousel="slide">
                         <!-- Carousel wrapper -->
-                        <div class="relative h-56 overflow-hidden rounded-lg md:h-96 ">
+                        <div class="relative h-[30vh] lg:h-[60vh] overflow-hidden rounded-lg md:h-96 ">
 
                             @foreach ($slider as $event )
                             <!-- Item 1 -->
@@ -26,7 +26,7 @@
                         <!-- Slider indicators -->
                         <div class="absolute z-40  flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
 
-                            {{--  <button type="button" class="w-3 h-3 rounded-full" aria-current="true" aria-label="Slide 1" data-carousel-slide-to="0"></button>  --}}
+
                             @foreach ($slider as $event )
                             <button type="button" class="w-3 h-3 rounded-full bg-gray-500" aria-current="false" aria-label="Slide {{ $event->id }}" data-carousel-slide-to=" {{ $event->id }}"></button>
 
