@@ -30,6 +30,7 @@
                     </div>
                 @else
 
+                @hasanyrole('Extension coordinator|Faculty extensionist')
                 <div class="mx-5 my-5 text-white">
                     <h1 class="tracking-wider text-xs sm:text-sm font-medium" id="greeting">Hi, {{ Auth()->user()->name }}</h1>
                     <div class="flex space-x-1">
@@ -37,6 +38,7 @@
                         <span id="dynamic-time" class="tracking-wider text-xs">{{ date('h:i A') }}</span>
                     </div>
                 </div>
+                @endrole
                 @endif
 
                 @role('admin')
@@ -49,20 +51,37 @@
             </div>
 
             @auth
+
+
                 <div class="flex">
+                    {{--  <div id="notification-container">
+                        <!-- Existing content or empty if no notifications yet -->
+                    </div>  --}}
                     @role('admin')
                         <div class="relative" x-data="{ open: false }" @click.outside="open = false" @close.stop="open = false">
                             <div @click="open = ! open">
                                 <button class="mt-4 relative ">
                                     @if ($notifs > 0)
-                                        <h1
-                                            class="text-red-500 text-[.2rem] rounded-full  px-1 pt-1 font-semibold absolute z-10 right-0 top-2 bg-red-500">
-                                            {{ $notifs }}</h1>
+                                    <h1
+                                        class="text-red-500 text-[.2rem] rounded-full  px-1 pt-1 font-semibold absolute z-10 right-0 top-2 bg-red-500">
+                                        {{ $notifs }}</h1>
                                     @endif
+
+                                    <div id="notification-container">
+                                        <!-- Existing content or empty if no notifications yet -->
+                                    </div>
+
+
+                                    @if ($notifs > 0)
                                     <svg class="mt-1 fill-white hover:fill-slate-200" xmlns="http://www.w3.org/2000/svg"
                                         width="25" height="25" viewBox="0 0 24 24">
                                         <path d="M20 17h2v2H2v-2h2v-7a8 8 0 1 1 16 0v7ZM9 21h6v2H9v-2Z" />
                                     </svg>
+                                    @else
+                                    <svg class="mt-1 fill-white hover:fill-slate-200" xmlns="http://www.w3.org/2000/svg"
+                                    width="25" height="25" viewBox="0 0 24 24"><path d="M20 17h2v2H2v-2h2v-7a8 8 0 1 1 16 0zm-2 0v-7a6 6 0 0 0-12 0v7zm-9 4h6v2H9z"/></svg>
+                                    @endif
+
                                 </button>
                             </div>
 
@@ -78,11 +97,16 @@
                                 <div class="rounded-md drop-shadow-lg overflow-hidden overflow-y-auto h-[50vh]">
                                     <div class="flex flex-col  w-[20rem] rounded  relative ring-1 ring-black ring-opacity-5">
 
-
+                                        @if (auth()->user()->notifications->isNotEmpty())
                                         <div class="p-2 sticky top-0 bg-white z-10 flex justify-between items-center">
                                             <h1 class="font-semibold text-sm text-gray-600">Notifications</h1>
-                                            <a href={{ route('markallsread') }} class="text-[.7rem] text-gray-700">Mark all as
-                                                read</a>
+                                            <a href={{ route('markallsread') }} class="text-[.7rem] text-gray-700">Mark all as read</a>
+                                        </div>
+                                        @endif
+
+                                        <div>
+
+                                            <div id="email"></div>
                                         </div>
 
                                         @foreach (auth()->user()->notifications as $notification)
@@ -180,6 +204,7 @@
                                                             </a>
                                                         @endif
 
+
                                                         @if (($key == 'email') == !null)
                                                             <div
                                                                 class="px-4 py-2 flex hover:bg-teal-100 {{ $notification->read_at == null ? 'bg-teal-50' : 'bg-white' }}">
@@ -223,10 +248,15 @@
                                             {{ $notifs }}</h1>
                                     @endif
 
+                                    @if ($notifs > 0)
                                     <svg class="mt-1 fill-white hover:fill-slate-200" xmlns="http://www.w3.org/2000/svg"
                                         width="25" height="25" viewBox="0 0 24 24">
                                         <path d="M20 17h2v2H2v-2h2v-7a8 8 0 1 1 16 0v7ZM9 21h6v2H9v-2Z" />
                                     </svg>
+                                    @else
+                                    <svg class="mt-1 fill-white hover:fill-slate-200" xmlns="http://www.w3.org/2000/svg"
+                                    width="25" height="25" viewBox="0 0 24 24"><path d="M20 17h2v2H2v-2h2v-7a8 8 0 1 1 16 0zm-2 0v-7a6 6 0 0 0-12 0v7zm-9 4h6v2H9z"/></svg>
+                                    @endif
                                 </button>
                             </div>
 
@@ -242,11 +272,12 @@
                                 <div class="rounded-md drop-shadow-lg overflow-hidden overflow-y-auto h-[50vh]">
                                     <div class="flex flex-col w-[20rem] rounded relative ring-1 ring-black ring-opacity-5">
 
-                                        <div class="p-2 sticky top-0 bg-white z-10 flex justify-between items-center">
-                                            <h1 class="font-semibold text-sm text-gray-600">Notifications</h1>
-                                            <a href={{ route('markallsread') }} class="text-[.7rem] text-gray-700">Mark all as
-                                                read</a>
-                                        </div>
+                                        @if (auth()->user()->notifications->isNotEmpty())
+                                            <div class="p-2 sticky top-0 bg-white z-10 flex justify-between items-center">
+                                                <h1 class="font-semibold text-sm text-gray-600">Notifications</h1>
+                                                <a href={{ route('markallsread') }} class="text-[.7rem] text-gray-700">Mark all as read</a>
+                                            </div>
+                                        @endif
 
 
                                         @foreach (auth()->user()->notifications as $notification)
@@ -265,7 +296,7 @@
                                                         @endif
 
                                                         @if (($key == 'proposal_id') == !null)
-                                                            {{--    --}}
+
                                                             <div
                                                                 class="pb-3 px-4 flex {{ $notification->read_at == null ? 'bg-teal-50' : 'bg-white' }}">
                                                                 <div class="mt-2 mr-2">
@@ -617,14 +648,18 @@
                         </div>
                     @endhasrole
 
-                    <div class="hidden sm:flex sm:items-center sm:ml-6">
+                    <div class="hidden sm:flex sm:items-center sm:ml-6 mr-7">
                         <x-dropdown align="right" width="48">
                             <x-slot name="trigger">
                                 <button
-                                    class="inline-flex items-center px-3 py-2  border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-800 hover:text-yellow-500 focus:outline-none transition ease-in-out duration-150">
-                                    <div>{{ Auth::user()->first_name }}</div>
+                                    class="inline-flex items-center px-3 py-2  text-sm leading-4 font-medium rounded-md text-white bg-blue-800 hover:text-yellow-500 ">
+                                    <div>
+                                        <img class="rounded-full border border-gray-400 shadow w-[2.5rem]"
+                                        src="{{!empty($user->avatar) ? url('upload/image-folder/profile-image/' . $user->avatar) : url('upload/profile.png') }}">
+                                    </div>
 
-                                    <div class="ml-1">
+
+                                    <div class="bg-blue-900 rounded-full absolute right-2 bottom-2">
                                         <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 20 20">
                                             <path fill-rule="evenodd"
@@ -848,3 +883,38 @@
         updateGreeting();
     </script>
 
+
+
+    <script>
+
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('6377ac4f22d8497db9c4', {
+          cluster: 'ap1'
+        });
+
+        var channel = pusher.subscribe('my-channel');
+        channel.bind('my-event', function(data) {
+          toastr.success('New Notification: ' + data.message);
+          $('#notification-container').append('<h1 class="text-red-500 text-[.2rem] rounded-full  px-1 pt-1 font-semibold absolute z-10 right-0 top-2 bg-red-500">1</h1>');
+          $('#email').append(`
+            <a href="/admin/users/${data.ids}/${data.ids}"
+                class="px-4 py-2 flex hover:bg-teal-100 bg-teal-50">
+                <div class="mr-2">
+                    <svg class="fill-teal-500"
+                        xmlns="http://www.w3.org/2000/svg" width="32"
+                        height="32" viewBox="0 0 512 512">
+                        <path
+                            d="M256 256c52.805 0 96-43.201 96-96s-43.195-96-96-96-96 43.201-96 96 43.195 96 96 96zm0 48c-63.598 0-192 32.402-192 96v48h384v-48c0-63.598-128.402-96-192-96z" />
+                    </svg>
+                </div>
+                <div>
+                    <span class="text-[.7rem] font-semibold tracking-wider text-gray-900 inline-block">New Account registered:</span>
+                    <h1 class="text-[.7rem] text-gray-700">${data.email}</h1>
+                    <span class="text-[.7rem] font-thin text-gray-400 inline-block">${data.created}</span>
+                </div>
+            </a>`);
+
+        });
+      </script>

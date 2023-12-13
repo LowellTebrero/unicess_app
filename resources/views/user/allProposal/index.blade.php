@@ -13,7 +13,7 @@
 
                 <div class="flex justify-between p-4 flex-col space-y-2 lg:space-y-0  lg:flex-row">
                     <div>
-                        <h1 class="xl:text-lg font-medium tracking-wider md:text-lg text-base">List of Project Proposal </h1>
+                        <h1 class="font-semibold tracking-wider md:text-lg text-base xl:text-2xl ">List of Project Proposal </h1>
                     </div>
 
                     <div class="sm:space-x-2 space-y-2 md:space-y-0 lg:flex-row text-xs">

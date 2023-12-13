@@ -52,6 +52,7 @@ use App\Http\Controllers\Admin\ProposalRequestController;
 
 Route::controller(PostController::class)->group(function () {
     Route::get('/', 'lnuShow')->name('lnu');
+    Route::get('/sendpusher', 'SendPusher');
     Route::get('/dashboard', 'index')->middleware(['auth', 'verified'])->name('dashboard');
     Route::get('/proposal', 'proposal')->middleware(['auth', 'verified'])->name('proposal');
     Route::get('/mark-as-read/{id}', 'markasread')->name('markasread');
@@ -72,6 +73,10 @@ Route::controller(LnuAdditionalController::class)->group(function () {
     Route::get('/show-news/{id}', 'showNews')->name('lnu-show-details.show-news');
     Route::get('/show-articles/{id}', 'showFeatures')->name('lnu-show-details.show-article');
 
+});
+
+Route::get('/pusher', function (){
+     return view('pusher');
 });
 
 

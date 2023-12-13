@@ -8,6 +8,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>@yield('title', config('app.name', 'UniCESS'))</title>
 
+    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -30,6 +32,12 @@
 </head>
 
 <body class="font-sans antialiased min-h-full">
+
+    {{--  <h1>Pusher Test</h1>
+    <p>
+      Try publishing an event to channel <code>my-channel</code>
+      with event name <code>my-event</code>.
+    </p>  --}}
 
     {{--  md:flex-row xl:flex-row min-h-screen   --}}
     <section class="flex w-full relative min-h-[100vh]">

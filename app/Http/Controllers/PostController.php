@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\RealtimeNotification;
 use App\Models\AdminEvent;
 use App\Models\AdminYear;
 use App\Models\Post;
@@ -77,6 +78,12 @@ class PostController extends Controller
 
         }
         return back();
+    }
+
+
+    public function SendPusher(){
+
+        // event(new RealtimeNotification('hello world'));
     }
 
 

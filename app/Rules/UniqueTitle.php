@@ -29,10 +29,9 @@ class UniqueTitle implements Rule
         // Get the existing titles from the database
         $existingTitles = \App\Models\Proposal::pluck('project_title')->toArray();
 
-        // Check if any title is too similar to the new value
+        // Check if any title has a matching sequence of 4 or 5 words with the new value
         foreach ($existingTitles as $existingTitle) {
-            // You can adjust the threshold based on your needs
-            if ($this->countDifferentCharacters($existingTitle, $value) <= 50) {
+            if ($this->hasMatchingSequence($existingTitle, $value, 4) || $this->hasMatchingSequence($existingTitle, $value, 5)) {
                 return false;
             }
         }
@@ -42,25 +41,30 @@ class UniqueTitle implements Rule
 
     public function message()
     {
-        return 'The title is not unique or has more than one different character.';
+        return 'The title contains a matching sequence of 4 or 5 words with an existing project title.';
     }
 
-    private function countDifferentCharacters($str1, $str2)
+    private function hasMatchingSequence($str1, $str2, $wordCount)
     {
-        $diffCount = 0;
-        $len = min(strlen($str1), strlen($str2));
+        $words1 = explode(' ', $str1);
+        $words2 = explode(' ', $str2);
 
-        for ($i = 0; $i < $len; $i++) {
-            if ($str1[$i] !== $str2[$i]) {
-                $diffCount++;
-            }
+        $len1 = count($words1);
+        $len2 = count($words2);
 
-            // You can adjust the threshold based on your needs
-            if ($diffCount > 1) {
-                return $diffCount;
+        // Check if the length is less than the specified word count
+        if ($len1 < $wordCount || $len2 < $wordCount) {
+            return false;
+        }
+
+        for ($i = 0; $i <= $len1 - $wordCount; $i++) {
+            $sequence = implode(' ', array_slice($words1, $i, $wordCount));
+            if (strpos($str2, $sequence) !== false) {
+                return true;
             }
         }
 
-        return $diffCount;
+        return false;
     }
+
 }

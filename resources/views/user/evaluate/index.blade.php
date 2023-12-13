@@ -5,7 +5,7 @@
     <section class="m-8  rounded-lg text-slate-600 relative mt-5 h-[85vh] bg-white 2xl:h-[87vh]">
 
         <div class="flex justify-between p-5 py-4 flex-col sm:flex-row">
-            <h1 class="xl:text-2xl sm:text-lg text-[.9rem] font-semibold tracking-wider">Evaluation overview <button data-tooltip-target="tooltip-right3" data-tooltip-placement="bottom" class="inline-block" type="button"><img src="{{ asset('img/i.png') }}" width="18" alt=""></button></h1>
+            <h1 class="xl:text-2xl sm:text-lg text-[.9rem] font-semibold tracking-wider text-slate-700">Evaluation overview <button data-tooltip-target="tooltip-right3" data-tooltip-placement="bottom" class="inline-block" type="button"><img src="{{ asset('img/i.png') }}" width="18" alt=""></button></h1>
             <select name="Years" id="Years" class="sm:text-sm text-xs  border-slate-500 rounded-lg">
                 @foreach ($years as $year )
                 <option value="{{ $year }}">{{ $year }}</option>

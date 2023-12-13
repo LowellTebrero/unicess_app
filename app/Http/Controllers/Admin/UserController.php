@@ -28,6 +28,21 @@ class UserController extends Controller
 
     public function show(User $user, $user_id)
     {
+
+        $unreadNotifications = auth()->user()->unreadNotifications;
+
+        foreach ($unreadNotifications as $notification) {
+            $data = $notification->data;
+
+            // Check if 'user_id' exists in the array and if it matches the provided $user_id
+            if (isset($data['user_id']) && $data['user_id'] == $user_id) {
+                // Mark the notification as read
+                $notification->markAsRead();
+            }
+        }
+
+
+
         if($user_id){
             auth()->user()->unreadNotifications->where('id', $user_id)->markAsRead();
         }

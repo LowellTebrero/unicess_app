@@ -6,7 +6,7 @@
         <section class="mt-5 m-8 bg-white rounded-lg min-h-[85vh] 2xl:min-h-[87vh] text-gray-600">
 
             <div class="p-4 flex justify-between sm:flex-col space-y-2 sm:space-y-0 md:flex-row flex-col space-x-0">
-                <h1 class="font-semibold tracking-wider sm:text-xl text-slate-700 text-base">My Inventory</h1>
+                <h1 class="font-semibold tracking-wider sm:text-xl xl:text-2xl text-slate-700 text-base">My Inventory</h1>
 
                 <div class="sm:space-x-2 space-y-2">
                     <input id="searchInput"  class="text-xs rounded border border-slate-400 sm:w-[15rem] xl:w-[20rem] w-full" type="text" placeholder="Search Proposal Title...">
