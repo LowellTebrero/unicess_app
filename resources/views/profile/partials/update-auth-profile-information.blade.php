@@ -241,7 +241,7 @@
                         <label
                             class="inline-block font-medium text-gray-900 tracking-wide text-xs 2xl:text-sm"
                             for="first_name">User Name <span class="text-red-600 inline-block">*</span></label>
-                        <x-text-input id="name" name="name" type="text"
+                        <x-text-input id="name"   name="name" type="text"
                             class="mt-1 block w-full text-xs 2xl:text-sm" :value="old('name', $user->name)"
                             autocomplete="name" />
                         <x-input-error class="mt-2" :messages="$errors->get('name')" />
@@ -446,8 +446,6 @@
             });
         });
 
-
-
         function yesnoCheck(answer) {
 
             console.log(answer.value)
@@ -455,7 +453,7 @@
                 document.getElementById('facultyId').style.display = 'block';
                 document.getElementById('submit').style.display = 'block';
                 document.getElementById('faculty_id').innerHTML =
-                    '@foreach ($faculties as $id => $name) <option value="{{ $id }}" @if ($id == old('faculty_id')) selected="selected" @endif >{{ $name }}</option> @endforeach';
+                '@foreach ($faculties as $id => $name) <option value="{{ $id }}" @if ($id == old('faculty_id')) selected="selected" @endif >{{ $name }}</option> @endforeach';
 
             } else {
                 document.getElementById('facultyId').style.display = 'none';
@@ -479,3 +477,26 @@
             return true;
         }
     </script>
+
+    <script>
+        var usernameInput = document.getElementById('name');
+        var errorMessage = document.getElementById('username-error');
+
+        usernameInput.addEventListener('input', function() {
+            // Remove spaces from the input value
+            var cleanedValue = usernameInput.value.replace(/\s/g, '');
+            usernameInput.value = cleanedValue;
+
+            // Check if the cleaned username contains spaces
+            if (cleanedValue.indexOf(' ') !== -1) {
+                errorMessage.textContent = 'Username cannot contain spaces.';
+                usernameInput.setCustomValidity('Username cannot contain spaces.');
+            } else {
+                errorMessage.textContent = '';
+                usernameInput.setCustomValidity('');
+            }
+        });
+    </script>
+
+
+
