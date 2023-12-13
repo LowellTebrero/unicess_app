@@ -33,7 +33,7 @@ class ProviderController extends Controller
 
         }
 
-
+        $cleanedUsername = str_replace(' ', '', $user->name);
         $existingUser = User::where('provider_id', $user->id)->first();
         $existingEmail = User::where('email', $user->email)->first();
 
@@ -60,7 +60,7 @@ class ProviderController extends Controller
 
 
             $user = User::create([
-                'name' => $user->name,
+                'name' => $cleanedUsername,
                 'email' => $user->email,
                 'provider_id' =>  $user->id,
                 'provider' => 'google',

@@ -171,7 +171,7 @@
                                     <div class="w-full">
                                         <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs">Project leader <span class="text-red-500">*</span></label>
                                         <select name="leader_id" class="rounded-md xl:text-xs w-full  border-zinc-400" value="{{ old('leader') }}" id="leader" onchange="RequiredGet(this)">
-                                            <option value="">Select Username</option>
+
                                             @foreach ($members as $id => $name )
                                                 <option value="{{ $id }}"
                                                 @foreach ($proposal->proposal_members as $proposal_mem)

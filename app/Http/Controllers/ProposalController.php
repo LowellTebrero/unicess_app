@@ -54,17 +54,9 @@ class ProposalController extends Controller
         $query->select('proposal_id')->where('user_id', auth()->user()->id)->distinct();
         }])->orderBy('created_at', 'DESC')->whereYear('created_at', date('Y'))->get();
 
-
-        $programs = Program::orderBy('program_name')->pluck('program_name', 'id')->prepend('Select Program', '');
-        $locations = Location::orderBy('location_name')->pluck('location_name', 'id')->prepend('Select Location', '');
-        $ceso_roles = CesoRole::orderBy('role_name')->pluck('role_name', 'id')->prepend('Select Role', '');
         $counts = Proposal::where('user_id', auth()->user()->id)->where('authorize', 'finished')->whereYear('created_at', $currentYear)->count();
-        $members = User::orderBy('name')->whereNot('name', 'Administrator')->pluck('name', 'id')->prepend('Select Username', '');
-        $parts_names = ParticipationName::orderBy('participation_name')->pluck('participation_name', 'id')->prepend('Select Participation', '');
         $second = ProposalMember::where('user_id', auth()->user()->id)->whereYear('created_at', date('Y'))->count();
-
         $proposalMembers = ProposalMember::with('proposal')->where('user_id', auth()->user()->id)->orderBy('created_at', 'DESC')->paginate(6);
-
         $latestYearPoints = Evaluation::select(DB::raw('MAX(YEAR(created_at)) as max_year'), 'total_points')
         ->groupBy('total_points')
         ->latest('max_year')
@@ -73,9 +65,8 @@ class ProposalController extends Controller
         ->first();
 
         return view('user.dashboard.index',compact(
-        'proposalMembers','latestYearPoints','proposals', 'user', 'counts', 'programs',
-             'locations', 'ceso_roles', 'members' , 'parts_names'
-        ,'currentYear',  'second', 'Temporary'));
+        'proposalMembers','latestYearPoints','proposals', 'user', 'counts',
+               'currentYear',  'second', 'Temporary'));
     }
 
     public function getCurrentTime()
@@ -94,7 +85,7 @@ class ProposalController extends Controller
         ->mapWithKeys(function ($user) {
             return [$user->id => $user->name];
         })
-        ->prepend('Select Username', '');
+        ->prepend('Select name', '');
 
         $ceso_roles = CesoRole::orderBy('role_name')->pluck('role_name', 'id');
         $locations = Location::orderBy('location_name')->pluck('location_name', 'id')->prepend('Select Location', '');
@@ -223,14 +214,21 @@ class ProposalController extends Controller
         $proposals = Proposal::where('id', $id)->with('medias')->with('proposal_members')->with('programs')->first();
         $proposal_member = ProposalMember::with('user')->where('user_id', auth()->user()->id)->first();
         $proposal = Proposal::with('programs')->with('proposal_members')->with('user')->where('id', $id)->first();
-        // dd($proposal_member);
         $program = Program::orderBy('program_name')->pluck('program_name', 'id')->prepend('Select Program', '');
         $parts_names = ParticipationName::orderBy('participation_name')->pluck('participation_name', 'id');
-        $members = User::orderBy('name')->whereNot('name', 'Administrator')->pluck('name', 'id');
+        $members = User::orderBy('name')
+        ->doesntHave('roles', 'and', function ($query) {
+            $query->where('id', 1);
+        })
+        ->get(['id', 'name'])
+        ->mapWithKeys(function ($user) {
+            return [$user->id => $user->name];
+        })
+        ->prepend('Select name', '');
         $ceso_roles = CesoRole::orderBy('role_name')->pluck('role_name', 'id')->prepend('Select Role', '');
         $locations = Location::orderBy('location_name')->pluck('location_name', 'id')->prepend('Select Location', '');
 
-        // dd($proposals);
+
         return view('user.dashboard.show-user-proposal', compact('proposals', 'proposal', 'proposal_member', 'program'
         ,'parts_names','members', 'ceso_roles', 'locations', 'users' ));
     }

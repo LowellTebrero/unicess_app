@@ -72,15 +72,12 @@
                                     </div>
 
 
-                                    @if ($notifs > 0)
+
                                     <svg class="mt-1 fill-white hover:fill-slate-200" xmlns="http://www.w3.org/2000/svg"
                                         width="25" height="25" viewBox="0 0 24 24">
                                         <path d="M20 17h2v2H2v-2h2v-7a8 8 0 1 1 16 0v7ZM9 21h6v2H9v-2Z" />
                                     </svg>
-                                    @else
-                                    <svg class="mt-1 fill-white hover:fill-slate-200" xmlns="http://www.w3.org/2000/svg"
-                                    width="25" height="25" viewBox="0 0 24 24"><path d="M20 17h2v2H2v-2h2v-7a8 8 0 1 1 16 0zm-2 0v-7a6 6 0 0 0-12 0v7zm-9 4h6v2H9z"/></svg>
-                                    @endif
+
 
                                 </button>
                             </div>
@@ -248,15 +245,12 @@
                                             {{ $notifs }}</h1>
                                     @endif
 
-                                    @if ($notifs > 0)
+
                                     <svg class="mt-1 fill-white hover:fill-slate-200" xmlns="http://www.w3.org/2000/svg"
                                         width="25" height="25" viewBox="0 0 24 24">
                                         <path d="M20 17h2v2H2v-2h2v-7a8 8 0 1 1 16 0v7ZM9 21h6v2H9v-2Z" />
                                     </svg>
-                                    @else
-                                    <svg class="mt-1 fill-white hover:fill-slate-200" xmlns="http://www.w3.org/2000/svg"
-                                    width="25" height="25" viewBox="0 0 24 24"><path d="M20 17h2v2H2v-2h2v-7a8 8 0 1 1 16 0zm-2 0v-7a6 6 0 0 0-12 0v7zm-9 4h6v2H9z"/></svg>
-                                    @endif
+
                                 </button>
                             </div>
 
