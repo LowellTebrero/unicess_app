@@ -12,7 +12,7 @@
         @endforeach
     @endif
 
-    <section class="rounded-xl shadow m-8 mt-5 text-slate-700 bg-white min-h-[85vh] 2xl:min-h-[87vh]">
+    <section class="rounded-xl shadow m-8 mt-5 text-slate-700 bg-white h-[82vh] 2xl:min-h-[87vh]">
 
         <div class="p-5 py-4">
             <h1 class=" font-semibold  text-lg 2xl:text-2xl tracking-wider">Others Settings </h1>
@@ -143,7 +143,7 @@
                         </div>
 
 
-                        <div class="overflow-x-auto h-[65vh] 2xl:h-[70vh] bg-white border rounded-lg">
+                        <div class="overflow-x-auto h-[60vh] 2xl:h-[70vh] bg-white border rounded-lg">
                             <table class="table-auto w-full border-collapse">
                                 <thead class="text-xs font-semibold uppercase text-gray-400">
                                     <tr class="sticky top-0 w-full bg-gray-50">

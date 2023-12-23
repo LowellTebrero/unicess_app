@@ -2,7 +2,7 @@
 
     @section('title', 'Role | ' . config('app.name', 'UniCESS'))
 
-    <section class="mt-5 m-8  2xl:min-h-[87vh] bg-white rounded-lg min-h-[85vh]">
+    <section class="mt-5 m-8  2xl:min-h-[87vh] bg-white rounded-lg h-[82vh]">
 
                     <div class="p-5 py-4 text-gray-700 text-2xl tracking-wider font-semibold flex justify-between">
                         {{ __("Name of Roles") }}

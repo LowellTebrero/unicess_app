@@ -95,6 +95,10 @@
                         {{ __('Article') }}
                     </x-custom-nav-link>
 
+                    <x-custom-nav-link :href="route('admin.partner-beneficiary.index')" :active="request()->routeIs('admin.partner-beneficiary.index')">
+                        {{ __('Partner/Beneficiary') }}
+                    </x-custom-nav-link>
+
 
                 </div>
             </div>

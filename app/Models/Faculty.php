@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Faculty extends Model
 {
@@ -20,8 +19,6 @@ class Faculty extends Model
         return $this->hasMany(User::class);
 
     }
-
-
 
     public function scopeSearch($query, $search)
     {
@@ -44,10 +41,6 @@ class Faculty extends Model
 
 
        });
-
-    //    $query->orWhereHas('faculty'($search) == 'Beneficiary/Partners', function($query) {
-    //             $query->whereNull('faculty_id');
-    //    });
 
     }
 }

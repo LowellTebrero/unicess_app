@@ -1,4 +1,4 @@
-<div class="p-3 pt-0 px-0 overflow-x-auto h-[50vh] 2xl:h-[57vh] text-gray-700">
+<div class="p-3 pt-0 px-0 overflow-x-auto h-[45vh] 2xl:h-[57vh] text-gray-700">
         <table class="table-auto w-full relative">
             <thead
                 class="text-[.7rem] font-semibold uppercase text-gray-400 bg-gray-50 top-0 sticky ">
@@ -7,7 +7,7 @@
                         <div class="font-semibold text-left ">Uploader</div>
                     </th>
                     <th class="p-2 whitespace-nowrap">
-                        <div class="font-semibold text-left">Project Title</div>
+                        <div class="font-semibold text-left">Extension Program of Projects</div>
                     </th>
 
                     <th class="p-2 whitespace-nowrap hidden sm:block">

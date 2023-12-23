@@ -1,5 +1,8 @@
 <?php
 
+use Google\Service\Oauth2;
+use Google\Service\Calendar\Calendar;
+
 return [
 
     /*
@@ -32,6 +35,12 @@ return [
     ],
 
     'google' => [
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect' => env('CALLBACK_URL'),
+    ],
+
+    'google_calendar' => [
         'client_id' => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
         'redirect' => env('CALLBACK_URL'),

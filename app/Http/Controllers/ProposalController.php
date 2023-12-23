@@ -201,12 +201,6 @@ class ProposalController extends Controller
         return redirect(route('User-dashboard.index'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
 
     public function showProposal($id)
     {
@@ -357,7 +351,7 @@ class ProposalController extends Controller
 
             app('flasher')->addSuccess('Updated Successfully.');
 
-        return back();
+        return redirect(route('User-dashboard.show-proposal', $proposals->id ));
     }
 
     /**

@@ -36,6 +36,7 @@ use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\OtherSettingsController;
 use App\Http\Controllers\Admin\AdminInventoryController;
 use App\Http\Controllers\Admin\ProposalRequestController;
+use App\Http\Controllers\Admin\AdminPartnerBeneficiaryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -85,29 +86,41 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
 
     Route::controller(IndexController::class)->group(function () {
         Route::get('/',  'index')->name('dashboard.index');
-        Route::post('/create-proposal', 'store')->name('store');
+        // Route::post('/create-proposal', 'store')->name('store');
         Route::get('/proposal/admin-dashboard-search', 'search')->name('proposal.admin-dashboard-search');
         Route::get('/proposal/admin-dashboard-filter',  'filter')->name('proposal.admin-dashboard-filter');
     });
 
-    Route::controller(RoleController::class)->group(function () {
-        Route::resource('/roles', RoleController::class);
-        Route::post('/roles/{role}/permissions',  'givePermission')->name('roles.permissions');
-        Route::delete('/roles/{role}/permissions/{permission}','revokePermission')->name('roles.permissions.revoke');
+    Route::controller(DashboardController::class)->group(function () {
+        Route::get('/upload','create')->name('dashboard.create');
+        Route::post('/post-upload','store')->name('dashboard.store');
+        Route::get('/dashboard/user-proposal/{id}/{notification}','checkProposal')->name('dashboard.edit-proposal');
+        Route::put('/update-user-proposal/{id}',  'updateDetails')->name('dashboard.update-project-details');
+        Route::delete('/delete-user-proposal',  'DeleteProposal')->name('dashboard.delete-project-proposal');
+        Route::delete('/delete-user-media',  'DeleteMedia')->name('dashboard.delete-user-media');
+        Route::get('/dashboard-chart',  'chart')->name('dashboard.chart-index');
+        Route::get('/dashboard-filter-status',  'FilterStatus')->name('dashboard.filter-status');
+        Route::get('/dashboard-search-data',  'SearchData')->name('dashboard.search-data');
+        Route::get('/dashboard-filter-year',  'FilterYears')->name('dashboard.filter-year');
     });
 
-
-    Route::controller(PermissionController::class)->group(function () {
-        Route::resource('/permissions', PermissionController::class);
-        Route::post('/permissions/{permission}/roles', 'assignRole')->name('permissions.roles');
-        Route::delete('/permissions/{permission}/roles/{role}','removeRole')->name('permissions.roles.remove');
+    Route::controller(AdminPointController::class)->group(function () {
+        Route::get('/points', 'index')->name('points.index');
+        Route::get('/points/{id}/{year}', 'show')->name('points.show');
+        Route::get('/adminfilter','AdminPointsfilter')->name('points.AdminPointsfilter');
     });
 
+    Route::controller(EvaluationController::class)->group(function () {
+        Route::get('/evaluation-index','index')->name('evaluation.index');
+        Route::get('/evaluation/{id}/{year}', 'show')->name('evaluation.show');
+        Route::patch('/evaluation-update/{id}', 'update')->name('evaluation.update');
+        Route::get('/filters','filters')->name('evaluation.filters');
+        Route::delete('/evaluation-delete/{id}','deleteEvaluation')->name('evaluation.delete');
+    });
 
     Route::controller(UserController::class)->group(function () {
         Route::get('/main','mainIndex')->name('users.main');
         Route::get('/search','searchUser')->name('users.search');
-        Route::get('/users','index')->name('users.index');
         Route::get('/users/{user}/{user_id}','show')->name('users.show');
         Route::patch('/users/{id}','update')->name('users.update');
         Route::delete('/users/{user}','destroy')->name('users.destroy');
@@ -123,68 +136,6 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
         Route::get('/user-filter-evaluation-status/{id}','FilterEvaluationStatus')->name('users.filter-evaluation-status');
     });
 
-    Route::controller(EventController::class)->group(function () {
-        Route::get('/events','index')->name('other-events-ceso-events');
-        Route::patch('/events/update/{id}','update')->name('other-events-ceso-update-events');
-        Route::post('events/store','store')->name('other-events-ceso-store-events');
-        Route::get('/events/edit/{id}','edit')->name('other-events-ceso-edit-events');
-        Route::get('/events-create','create')->name('other-events-ceso-create-events');
-        Route::delete('/events/delete/{id}','delete')->name('other-events-ceso-delete-events');
-    });
-
-
-    Route::controller(FeatureController::class)->group(function () {
-        Route::get('/features','index')->name('features.index');
-        Route::post('/features/store','store')->name('features.store');
-        Route::patch('/features/update/{id}','update')->name('features.update');
-        Route::get('/features/create','create')->name('features.create');
-        Route::get('/features/edit/{id}','edit')->name('features.edit');
-        Route::delete('/features/delete/{id}','delete')->name('features.delete');
-        Route::post('/toggle-update-feature-status',  'UpdateToggleFeatureStatus')->name('features.update-feature-status');
-
-    });
-
-
-    Route::controller(DashboardController::class)->group(function () {
-        Route::get('/upload','create')->name('dashboard.create');
-        Route::post('/post-upload','store')->name('dashboard.store');
-        Route::get('/dashboard/user-proposal/{id}/{notification}','checkProposal')->name('dashboard.edit-proposal');
-        Route::put('/update-user-proposal/{id}',  'updateDetails')->name('dashboard.update-project-details');
-        Route::delete('/delete-user-proposal',  'DeleteProposal')->name('dashboard.delete-project-proposal');
-        Route::delete('/delete-user-media',  'DeleteMedia')->name('dashboard.delete-user-media');
-        Route::get('/dashboard-chart',  'chart')->name('dashboard.chart-index');
-        Route::get('/dashboard-filter-status',  'FilterStatus')->name('dashboard.filter-status');
-        Route::get('/dashboard-search-data',  'SearchData')->name('dashboard.search-data');
-        Route::get('/dashboard-filter-year',  'FilterYears')->name('dashboard.filter-year');
-    });
-
-    Route::controller(ProposalRequestController::class)->group(function () {
-        Route::get('/member-request','index')->name('dashboard.member-request');
-        Route::get('/member-request-show/{id}/{notification}','show')->name('dashboard.member-request-show');
-        Route::post('/member-request-store','storeRequest')->name('dashboard.member-request-store');
-
-    });
-
-
-    Route::controller(EvaluationController::class)->group(function () {
-        Route::get('/evaluation-index','index')->name('evaluation.index');
-        Route::get('/evaluation/{id}/{year}', 'show')->name('evaluation.show');
-        Route::patch('/evaluation-update/{id}', 'update')->name('evaluation.update');
-        Route::get('/filters','filters')->name('evaluation.filters');
-        Route::delete('/evaluation-delete/{id}','deleteEvaluation')->name('evaluation.delete');
-    });
-
-
-    Route::controller(ProjectProposalController::class)->group(function () {
-        Route::put('/rename/files/{id}','RenameFile')->name('proposal.rename-ongoing-proposal');
-        Route::delete('/delete-Mediafile','deleteMedia')->name('proposal.delete-media-proposal');
-        Route::delete('/delete-proposal-folder','DeleteProposalFolder')->name('proposal.delete-folder-proposal');
-        Route::get('/project/{id}','showFaculty')->name('proposal.show_faculty');
-        Route::get('download-media/{id}','DownloadMedia')->name('proposal.download-media-files');
-        Route::delete('/delete-proposal/{id}','DeleteProposal')->name('proposal.delete-project-proposal');
-        Route::delete('/admin-delete-proposal/{id}','AdminDeleteProposal')->name('proposal.admin-delete-project-proposal');
-    });
-
     Route::controller(AdminInventoryController::class)->group(function () {
         Route::get('/admin-inventory','index')->name('inventory.index');
         Route::get('/inventory/admin-search', 'search')->name('inventory.admin-search');
@@ -196,13 +147,66 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
         Route::get('/inventory/{id}','showInventory')->name('inventory.show-inventory');
     });
 
-
-    Route::controller(AdminPointController::class)->group(function () {
-        Route::get('/points', 'index')->name('points.index');
-        Route::get('/points/{id}/{year}', 'show')->name('points.show');
-        Route::get('/adminfilter','AdminPointsfilter')->name('points.AdminPointsfilter');
+    Route::controller(EventController::class)->group(function () {
+        Route::get('/events','index')->name('other-events-ceso-events');
+        Route::patch('/events/update/{id}','update')->name('other-events-ceso-update-events');
+        Route::post('events/store','store')->name('other-events-ceso-store-events');
+        Route::get('/events/edit/{id}','edit')->name('other-events-ceso-edit-events');
+        Route::get('/events-create','create')->name('other-events-ceso-create-events');
+        Route::delete('/events/delete/{id}','delete')->name('other-events-ceso-delete-events');
     });
 
+    Route::controller(FeatureController::class)->group(function () {
+        Route::get('/features','index')->name('features.index');
+        Route::post('/features/store','store')->name('features.store');
+        Route::patch('/features/update/{id}','update')->name('features.update');
+        Route::get('/features/create','create')->name('features.create');
+        Route::get('/features/edit/{id}','edit')->name('features.edit');
+        Route::delete('/features/delete/{id}','delete')->name('features.delete');
+        Route::post('/toggle-update-feature-status',  'UpdateToggleFeatureStatus')->name('features.update-feature-status');
+    });
+
+    Route::controller(AdminPartnerBeneficiaryController::class)->group(function () {
+        Route::get('/partner-beneficiary','index')->name('partner-beneficiary.index');
+        Route::post('/partner/store','PartnerPost')->name('partner.store');
+        Route::delete('/partner/delete/{id}','PartnerDelete')->name('partner.delete');
+        Route::patch('/partner/update/{id}','PartnerUpdate')->name('partner.update');
+        Route::post('/beneficiary/store','BeneficiaryPost')->name('beneficiary.store');
+        Route::delete('/beneficiary/delete/{id}','BeneficiaryDelete')->name('beneficiary.delete');
+        Route::patch('/beneficiary/update/{id}','BeneficiaryUpdate')->name('beneficiary.update');
+        // Route::get('/events/edit/{id}','edit')->name('other-events-ceso-edit-events');
+        // Route::get('/events-create','create')->name('other-events-ceso-create-events');
+
+    });
+
+
+    Route::controller(RoleController::class)->group(function () {
+        Route::resource('/roles', RoleController::class);
+        Route::post('/roles/{role}/permissions',  'givePermission')->name('roles.permissions');
+        Route::delete('/roles/{role}/permissions/{permission}','revokePermission')->name('roles.permissions.revoke');
+    });
+
+    Route::controller(PermissionController::class)->group(function () {
+        Route::resource('/permissions', PermissionController::class);
+        Route::post('/permissions/{permission}/roles', 'assignRole')->name('permissions.roles');
+        Route::delete('/permissions/{permission}/roles/{role}','removeRole')->name('permissions.roles.remove');
+    });
+
+    Route::controller(ProposalRequestController::class)->group(function () {
+        Route::get('/member-request','index')->name('dashboard.member-request');
+        Route::get('/member-request-show/{id}/{notification}','show')->name('dashboard.member-request-show');
+        Route::post('/member-request-store','storeRequest')->name('dashboard.member-request-store');
+    });
+
+    Route::controller(ProjectProposalController::class)->group(function () {
+        Route::put('/rename/files/{id}','RenameFile')->name('proposal.rename-ongoing-proposal');
+        Route::delete('/delete-Mediafile','deleteMedia')->name('proposal.delete-media-proposal');
+        Route::delete('/delete-proposal-folder','DeleteProposalFolder')->name('proposal.delete-folder-proposal');
+        Route::get('/project/{id}','showFaculty')->name('proposal.show_faculty');
+        Route::get('download-media/{id}','DownloadMedia')->name('proposal.download-media-files');
+        Route::delete('/delete-proposal/{id}','DeleteProposal')->name('proposal.delete-project-proposal');
+        Route::delete('/admin-delete-proposal/{id}','AdminDeleteProposal')->name('proposal.admin-delete-project-proposal');
+    });
 
     Route::controller(OtherSettingsController::class)->group(function () {
         Route::get('/template-index', 'index')->name('template.index');
@@ -211,7 +215,6 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
         Route::post('/year-post', 'yearPost')->name('yearpost.upload');
         Route::post('/faculty-post', 'facultyPost')->name('facultypost.upload');
     });
-
 
     Route::get('/edit-toggle/{id}', [ToggleController::class, 'edit'])->name('edit.submit');
     Route::post('/tasks/update-status', [EventController::class, 'updateStatus'])->name('tasks.update-status');
@@ -223,6 +226,26 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
 
 // Route for Auth User
 Route::middleware(['auth', 'verified'])->group(function () {
+
+    Route::controller(ProposalController::class)->group(function () {
+        Route::put('update-project-details/{id}',  'updateDetails')->name('User-dashboard.update-project-details');
+        Route::get('/show-proposal/{id}',  'showProposal')->name('User-dashboard.show-proposal');
+        Route::delete('/delete-proposal/{id}',  'UserDeleteProposal')->name('User-dashboard.delete-proposal');
+        Route::get("/search",'search');
+        Route::get('/makefile',  'fileIndex')->name('index-file');
+        Route::get('/find',  'tagsInput')->name('api.skills');
+        Route::post('/post-file',  'createDirecrotory')->name('post-index-file');
+        Route::get('/proposal/dashboard-search/{id}',  'search')->name('proposal.user-dashboard-search');
+        Route::get('/proposal/dashboard-filter/{id}',  'filter')->name('proposal.user-dashboard-filter');
+        Route::resource('/User-dashboard',ProposalController::class);
+        Route::get('/user-profile',  'UserProfile')->name('User-dashboard.profile');
+        Route::get('/my-proposal',  'MyProposal')->name('User-dashboard.my-proposal');
+        Route::get('/my-proposal-search/{id}',  'MyProposalSearch')->name('User-dashboard.my-proposal-search');
+        Route::get('/my-proposal-filter-year/{id}',  'MyProposalFilterYear')->name('User-dashboard.my-proposal-filter-year');
+        Route::get('/get-current-time',  'getCurrentTime');
+
+    });
+
 
     Route::controller(ProfileRoleController::class)->group(function () {
         Route::post('/assign/{user}/roles', 'assignProfileUser')->name('profile.add.roles');
@@ -281,24 +304,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/user-download-template', 'UserTemplateDownload')->name('download.template');
     });
 
-    Route::controller(ProposalController::class)->group(function () {
-        Route::put('update-project-details/{id}',  'updateDetails')->name('User-dashboard.update-project-details');
-        Route::get('/show-proposal/{id}',  'showProposal')->name('User-dashboard.show-proposal');
-        Route::delete('/delete-proposal/{id}',  'UserDeleteProposal')->name('User-dashboard.delete-proposal');
-        Route::get("/search",'search');
-        Route::get('/makefile',  'fileIndex')->name('index-file');
-        Route::get('/find',  'tagsInput')->name('api.skills');
-        Route::post('/post-file',  'createDirecrotory')->name('post-index-file');
-        Route::get('/proposal/dashboard-search/{id}',  'search')->name('proposal.user-dashboard-search');
-        Route::get('/proposal/dashboard-filter/{id}',  'filter')->name('proposal.user-dashboard-filter');
-        Route::resource('/User-dashboard',ProposalController::class);
-        Route::get('/user-profile',  'UserProfile')->name('User-dashboard.profile');
-        Route::get('/my-proposal',  'MyProposal')->name('User-dashboard.my-proposal');
-        Route::get('/my-proposal-search/{id}',  'MyProposalSearch')->name('User-dashboard.my-proposal-search');
-        Route::get('/my-proposal-filter-year/{id}',  'MyProposalFilterYear')->name('User-dashboard.my-proposal-filter-year');
-        Route::get('/get-current-time',  'getCurrentTime');
-
-    });
 
 
     Route::controller(AllProposalController::class)->group(function () {
@@ -309,26 +314,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('request-proposal','SendRequest')->name('allProposal.post');
     });
 
-        Route::get('/welcome-user',[UserWelcomeController::class, 'WelcomeUser'])->name('auth.welcome-user');
+    Route::get('/welcome-user',[UserWelcomeController::class, 'WelcomeUser'])->name('auth.welcome-user');
 
-        Route::get('/points', [PointsController::class, 'index'])->name('points-system.index');
-        Route::get('/filter', [PointsController::class, 'filter'])->name('points-system.filter');
+    Route::get('/points', [PointsController::class, 'index'])->name('points-system.index');
+    Route::get('/filter', [PointsController::class, 'filter'])->name('points-system.filter');
 
-        Route::get('/evaluate/index', [EvaluateController::class, 'index'])->name('evaluate.index');
-        Route::get('/evaluate/{id}', [EvaluateController::class, 'create'])->name('evaluate.create');
-        Route::post('/post-evaluate', [EvaluateController::class, 'post'])->name('evaluate.post');
-        Route::get('/filter/evaluate/index', [EvaluateController::class, 'EvaluateFilterIndex'])->name('evaluate.EvaluateFilterIndex');
-        Route::get('/evaluate-pdf/{id}', [EvaluateController::class, 'evaluatePdf'])->name('evaluate-pdf');
+    Route::get('/evaluate/index', [EvaluateController::class, 'index'])->name('evaluate.index');
+    Route::get('/evaluate/{id}', [EvaluateController::class, 'create'])->name('evaluate.create');
+    Route::post('/post-evaluate', [EvaluateController::class, 'post'])->name('evaluate.post');
+    Route::get('/filter/evaluate/index', [EvaluateController::class, 'EvaluateFilterIndex'])->name('evaluate.EvaluateFilterIndex');
+    Route::get('/evaluate-pdf/{id}', [EvaluateController::class, 'evaluatePdf'])->name('evaluate-pdf');
 
-
-
-
-
-
-
-
-        Route::post('update-proposal/{proposal}', [SelectController::class, 'update']);
-        Route::delete('/delete-uploaded-file/{id}', [EvaluateController::class, 'deleteFile']);
+    Route::post('update-proposal/{proposal}', [SelectController::class, 'update']);
+    Route::delete('/delete-uploaded-file/{id}', [EvaluateController::class, 'deleteFile']);
 
 
 

@@ -3,7 +3,7 @@
 
     @section('title', 'Article | ' . config('app.name', 'UniCESS'))
 
-    <section class="mt-5 m-8 bg-white 2xl:min-h-[87vh] h-[85vh] rounded-lg">
+    <section class="mt-5 m-8 bg-white 2xl:min-h-[87vh] h-[82vh] rounded-lg">
 
         <div class="py-4 p-5">
             <h1 class="text-2xl text-slate-600 tracking-wider font-semibold">Article Section</h1>

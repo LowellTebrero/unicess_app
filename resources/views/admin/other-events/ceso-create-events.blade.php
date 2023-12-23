@@ -18,7 +18,7 @@
                     <div class="flex space-x-4">
                         <div class="mb-4 w-full">
                             <label class="block text-gray-600 text-sm font-semibold tracking-wider mb-2">Project Title</label>
-                            <input class=" border border-slate-300  rounded w-full py-2 px-3 text-gray-600  leading-tight" id="title" name="title" type="text" placeholder="">
+                            <input class=" border border-slate-300  rounded w-full py-2 px-3 text-gray-600  leading-tight" id="title" name="title" type="text">
                             @error('title') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
 
 

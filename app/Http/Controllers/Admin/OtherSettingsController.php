@@ -27,7 +27,7 @@ class OtherSettingsController extends Controller
 
         AdminYear::create(['year' => $request->year]);
 
-        return back()->with('message', 'Year Save Successfully');
+        return redirect(route('admin.template.index'))->with('message', 'Year Save Successfully');
     }
 
     public function facultyPost(Request $request){
@@ -41,8 +41,7 @@ class OtherSettingsController extends Controller
         $new->name = $request->name;
         $new->save();
 
-
-        return back()->with('message', 'Year Save Successfully');
+        return redirect(route('admin.template.index'))->with('message', 'Faculty Save Successfully');
     }
 
     public function post(Request $request){
@@ -86,7 +85,7 @@ class OtherSettingsController extends Controller
             Template::where('id', $id)->update(['template_name' => $fileName]);
         }
 
-        return back()->with('message', 'File update Successfully');
+        return redirect(route('admin.template.index'))->with('message', 'File update Successfully');
 
     }
 

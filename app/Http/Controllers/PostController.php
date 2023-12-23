@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\RealtimeNotification;
-use App\Models\AdminEvent;
-use App\Models\AdminYear;
 use App\Models\Post;
-use App\Models\Feature;
 use App\Models\User;
 use App\Models\Latest;
+use App\Models\Feature;
+use App\Models\AdminYear;
+use App\Models\AdminEvent;
 use App\Models\NewsUpdate;
+use App\Models\AdminPartner;
 use Illuminate\Http\Request;
+use App\Models\AdminBeneficiary;
 use Illuminate\Support\Facades\DB;
+use App\Events\RealtimeNotification;
 
 class PostController extends Controller
 {
@@ -49,8 +51,9 @@ class PostController extends Controller
         $authorize = DB::table('users')->select('authorize')->get();
         $slider = AdminEvent::where('status', 'open')->get();
         $features = Feature::where('status', 'open')->get();
-        $newsUpdate = NewsUpdate::where('status', '1')->get();
-        return view('lnu', compact('newsUpdate', 'slider', 'authorize', 'features'));
+        $partners = AdminPartner::take(6)->get();
+        $beneficiaries = AdminBeneficiary::take(6)->get();
+        return view('lnu', compact('slider', 'authorize', 'features', 'partners','beneficiaries' ));
     }
 
 

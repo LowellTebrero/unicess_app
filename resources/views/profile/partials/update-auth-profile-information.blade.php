@@ -1,6 +1,5 @@
     <style>[x-cloak] {display: none}</style>
 
-
     <section class="flex flex-col lg:flex-row space-y-10 lg:space-y-0 ">
 
         @if ($errors->any())
@@ -17,6 +16,7 @@
                     <img class="rounded-full border-4 border-blue-500 w-2/3" id="showImage"
                         src="{{!empty($user->avatar) ? url('upload/image-folder/profile-image/' . $user->avatar) : url('upload/profile.png') }}"
                     width="500" height="500">
+
                 </div>
 
                 <div class="absolute bottom-0 z-10 2xl:right-[5rem] right-[2rem] bg-blue-500 rounded-full w-[2rem] h-[4vh] xl:w-[3rem] flex items-center justify-center">
@@ -82,11 +82,12 @@
                                                 <select onchange="yesnoCheck(this)" id="role" name="role"
                                                     class=" w-full px-3 py-1.5 text-sm font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded
                                     transition ease-in-ou m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
-
+                                                    <option value="">Select Role</option>
                                                     @foreach ($role as $id => $name)
                                                         <option value="{{ $name }}"
                                                             @if ($user->roles->contains($id)) selected  @class(['bg-blue-500']) @endif>
-                                                            {{ $name }}</option>
+                                                            {{ $name }}
+                                                        </option>
                                                     @endforeach
                                                 </select>
 
@@ -204,7 +205,7 @@
 
                         <div class="w-full">
                             <x-text-input id="first_name" name="first_name" type="text"
-                                class="mt-1 block  w-full text-xs 2xl:text-sm" :value="old('first_name', $user->first_name)"
+                                class="mt-1 block  w-full text-xs 2xl:text-sm myInput" :value="old('first_name', $user->first_name)"
                                 autocomplete="first_name" placeholder="First Name" />
 
                             <x-input-error class="mt-2" :messages="$errors->get('first_name')" />
@@ -212,14 +213,14 @@
                         <div class="w-full">
 
                             <x-text-input id="middle_name" name="middle_name" type="text"
-                                class="mt-1 block w-full text-xs 2xl:text-sm" :value="old('middle_name', $user->middle_name)"
+                                class="mt-1 block w-full text-xs 2xl:text-sm myInput" :value="old('middle_name', $user->middle_name)"
                                 autocomplete="middle_name" placeholder="Middle Name" />
                             <x-input-error class="mt-2" :messages="$errors->get('middle_name')" />
                         </div>
                         <div class="w-full">
 
                             <x-text-input id="last_name" name="last_name" type="text"
-                                class="mt-1 block w-full text-xs 2xl:text-sm" :value="old('last_name', $user->last_name)"
+                                class="mt-1 block w-full text-xs 2xl:text-sm myInput" :value="old('last_name', $user->last_name)"
                                 autocomplete="last_name" placeholder="Last Name" />
                             <x-input-error class="mt-2" :messages="$errors->get('last_name')" />
                         </div>
@@ -239,10 +240,10 @@
 
                     <div class="w-full">
                         <label
-                            class="inline-block font-medium text-gray-900 tracking-wide text-xs 2xl:text-sm"
+                            class="inline-block font-medium text-gray-900 tracking-wide text-xs 2xl:text-sm "
                             for="first_name">User Name <span class="text-red-600 inline-block">*</span></label>
                         <x-text-input id="name"   name="name" type="text"
-                            class="mt-1 block w-full text-xs 2xl:text-sm" :value="old('name', $user->name)"
+                            class="mt-1 block w-full text-xs 2xl:text-sm myInput" :value="old('name', $user->name)"
                             autocomplete="name" />
                         <x-input-error class="mt-2" :messages="$errors->get('name')" />
                     </div>
@@ -254,7 +255,7 @@
                             class="inline-block font-medium text-gray-900 tracking-wide text-xs 2xl:text-sm"
                             for="gender">Gender<span class="text-red-600 inline-block">*</span></label>
                         <select id="gender" name="gender"
-                            class="mt-1 border-b-2 border-blue-500 block w-full rounded-md shadow-sm text-xs 2xl:text-sm"
+                            class="mt-1 border-b-2 border-blue-500 block w-full rounded-md shadow-sm text-xs 2xl:text-sm myInput"
                             autocomplete="gender">
                             <option value="">Choose Gender</option>
                             <option value="Male" {{ old('gender', $user->gender) == 'Male' ? 'selected' : '' }}>
@@ -277,7 +278,7 @@
                             class="inline-block font-medium text-gray-900 tracking-wide text-xs 2xl:text-sm"
                             for="birth_date">Birth Date <span class="text-red-600 inline-block">*</span></label>
                         <x-text-input id="birth_date" name="birth_date" type="date"
-                            class="mt-1 block  w-full text-xs 2xl:text-sm" :value="old('birth_date', $user->birth_date)"
+                            class="mt-1 block  w-full text-xs 2xl:text-sm myInput" :value="old('birth_date', $user->birth_date)"
                             autocomplete="birth_date" />
                         <x-input-error class="mt-2" :messages="$errors->get('birth_date')" />
                     </div>
@@ -293,7 +294,7 @@
                     <div class="w-full">
                         <label class="block font-medium text-gray-900 tracking-wide text-xs 2xl:text-sm"
                             for="email">Email Address</label>
-
+                        <input type="text" hidden name="email" value="{{ $user->email }}">
                         <h1 class="mt-3  inline-block mr-1 text-xs 2xl:text-sm">{{ $user->email }}</h1>
                         <span class="inline-block">
                             <svg class="fill-green-500" xmlns="http://www.w3.org/2000/svg" height="20"
@@ -332,7 +333,7 @@
                             <h1 class="p-2 bg-blue-500 text-white rounded-tl rounded-bl text-xs 2xl:text-sm">+63</h1>
 
                             <x-text-input id="contact_number" name="contact_number" type="text"
-                                class="w-full text-xs 2xl:text-sm text-gray-600 border-b-2 border-blue-500  focus:border-none focus:ring-slate-200"
+                                class="w-full text-xs 2xl:text-sm text-gray-600 border-b-2 border-blue-500  focus:border-none focus:ring-slate-200 myInput"
                                 :value="old('contact_number', $user->contact_number)" autocomplete="contact_number" onkeypress="return isNumber(event)"
                                 placeholder="e.g. 917xxxxxxx" maxlength="11" />
                         </div>
@@ -351,7 +352,7 @@
                         <div class="w-full">
 
                             <x-text-input id="province" name="province" type="text"
-                                class="mt-1 block w-full  text-xs 2xl:text-sm" :value="old('province', $user->province)"
+                                class="mt-1 block w-full  text-xs 2xl:text-sm myInput" :value="old('province', $user->province)"
                                 autocomplete="province" placeholder="Province" />
                             <x-input-error class="mt-2" :messages="$errors->get('province')" />
                         </div>
@@ -359,7 +360,7 @@
                         <div class="w-full">
 
                             <x-text-input id="city" name="city" type="text"
-                                class="mt-1 block w-full text-xs 2xl:text-sm" :value="old('city', $user->city)"
+                                class="mt-1 block w-full text-xs 2xl:text-sm myInput" :value="old('city', $user->city)"
                                 autocomplete="city" placeholder="City" />
                             <x-input-error class="mt-2" :messages="$errors->get('city')" />
                         </div>
@@ -367,7 +368,7 @@
                         <div class="w-full">
 
                             <x-text-input id="barangay" name="barangay" type="text"
-                                class="mt-1 block w-full  text-xs 2xl:text-sm" :value="old('barangay', $user->barangay)"
+                                class="mt-1 block w-full  text-xs 2xl:text-sm myInput" :value="old('barangay', $user->barangay)"
                                 autocomplete="barangay" placeholder="Barangay" />
                             <x-input-error class="mt-2" :messages="$errors->get('barangay')" />
                         </div>
@@ -378,14 +379,14 @@
                     <div class="w-full">
 
                         <x-text-input id="address" name="address" type="text"
-                            class="mt-1 block w-full text-xs 2xl:text-sm" :value="old('address', $user->address)"
+                            class="mt-1 block w-full text-xs 2xl:text-sm myInput" :value="old('address', $user->address)"
                             autocomplete="address" placeholder="Address" />
                         <x-input-error class="mt-2" :messages="$errors->get('address')" />
                     </div>
                     <div class="w-full sm:w-1/4">
 
                         <x-text-input id="zipcode" name="zipcode" type="text"
-                            class="mt-1 block w-full text-xs 2xl:text-sm" :value="old('zipcode', $user->zipcode)"
+                            class="mt-1 block w-full text-xs 2xl:text-sm myInput" :value="old('zipcode', $user->zipcode)"
                             autocomplete="zipcode" onkeypress="return isNumber(event)" placeholder="Zip Code" />
                         <x-input-error class="mt-2" :messages="$errors->get('zipcode')" />
                     </div>
@@ -404,12 +405,13 @@
                 </div>
             </form>
         </div>
-
-
-
-
     <x-messages />
 </section>
+
+    <!-- ToastrAPI -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
 
     <script>
         $('#avatarInput').on('change', function() {
@@ -423,12 +425,22 @@
                 contentType: false,
                 processData: false,
                 success: function(response) {
-
                     window.location.reload();
+                    toastr.success('Uploaded Successfully.');
                 },
-                error: function(error) {
+                error: function(xhr, status, error) {
+                    var errorMessage = 'An error occurred while uploading the avatar.';
+
+                    if (xhr.responseJSON && xhr.responseJSON.errors && xhr.responseJSON.errors.avatar) {
+                        var avatarErrors = xhr.responseJSON.errors.avatar;
+
+                        if (avatarErrors.length > 0) {
+                            errorMessage = avatarErrors[0];
+                        }
+                    }
 
                     console.error('Error:', error);
+                    toastr.error(errorMessage);
                 }
             });
         });
@@ -496,6 +508,25 @@
                 usernameInput.setCustomValidity('');
             }
         });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var inputs = document.querySelectorAll('.myInput');
+
+            inputs.forEach(function(inputElement) {
+                checkInput(inputElement);
+                inputElement.addEventListener('input', function() {
+                    checkInput(inputElement);
+                });
+            });
+        });
+
+        function checkInput(inputElement) {
+            if (inputElement.value.trim() === '' || (inputElement.type === 'select-one' && inputElement.selectedIndex === 0)) {
+                inputElement.style.border = '1px solid red';
+            } else {
+                inputElement.style.border = '';
+            }
+        }
     </script>
 
 

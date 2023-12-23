@@ -28,19 +28,21 @@
                 <div class="space-y-1 mt-4 text-xs">
                     <div class="flex flex-col">
                         <h1>Name:</h1>
-                        <h1>{{ $filteredUsers->name }}</h1>
+                        <h1>{{ $filteredUsers ? $filteredUsers->name : '' }}</h1>
                     </div>
 
                     <div class="flex flex-col">
                         <h1>Faculty Name:</h1>
-                        <h1> {{ $filteredUsers->faculty->name }}</h1>
+                        <h1>{{  $evaluation->faculty->name ?? 'N/A' }}</h1>
                     </div>
                     <div class="flex flex-col">
                         <h1>Role:</h1>
-                        @if (!empty($filteredUsers->getRoleNames()))
-                            @foreach ($filteredUsers->getRoleNames() as $role )
-                                <h1>{{ $role }}</h1>
-                            @endforeach
+                        @if (!empty($filteredUsers) && !empty($filteredUsers->getRoleNames()))
+                        @foreach ($filteredUsers->getRoleNames() as $role)
+                            <h1>{{ $role ?? 'N/A' }}</h1>
+                        @endforeach
+                        @else
+                            <h1>N/A</h1>
                         @endif
                     </div>
 
@@ -71,6 +73,7 @@
                 <div class="px-5 pt-4">
                      <h1 class="tracking-wider 2xl:text-lg text-sm font-medium">Points Information</h1>
                     <div class="space-y-2 2xl:text-sm xl:text-xs">
+                        @if (!empty($evaluations))
                         @foreach ($evaluations as $evaluation )
                         <h1> Created: {{ \Carbon\Carbon::parse($evaluation->created_at)->format('M d, Y,  g:i:s A')}}</h1>
                         @if ($evaluation->chairmanship_university !== null)
@@ -158,6 +161,9 @@
                         <h1>Member: ({{ $evaluation->member }} points)</h1>
                         @endif
                         @endforeach
+                        @else
+                            <h1>N/A</h1>
+                        @endif
                     </div>
                     </div>
                 </div>
@@ -167,9 +173,10 @@
 
                     <h1 class="tracking-wider 2xl:text-lg text-sm font-medium">Total Points</h1>
 
-                    @foreach ($filteredUsers->evaluation as $eval )
-                    <h1 class="text-5xl">{{ $eval->total_points }}</h1>
+                    @foreach ($filteredUsers->evaluation ?? [] as $eval)
+                        <h1 class="text-5xl">{{ $eval->total_points ?? 'N/A' }}</h1>
                     @endforeach
+
                 </div>
             </div>
 

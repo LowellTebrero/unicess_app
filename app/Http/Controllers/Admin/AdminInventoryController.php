@@ -32,7 +32,7 @@ class AdminInventoryController extends Controller
      // Show Faculty Admin
      public function show($id)
      {
-        
+
       $proposalID = Proposal::with('programs')
       ->whereHas('user', function($query){
           $query->with('faculty')
@@ -81,9 +81,10 @@ class AdminInventoryController extends Controller
             })->orderBy('file_name', 'ASC')->get();
 
 
-            return view('admin.inventory.index-filter._all-files-medias', compact('program' , 'proposal', 'inventory', 'medias', 'years'));
+        return view('admin.inventory.index-filter._all-files-medias', compact('program' , 'proposal', 'inventory', 'medias', 'years'));
 
     }
+
     public function filter(Request $request){
         $query = $request->input('query');
 
@@ -135,7 +136,7 @@ class AdminInventoryController extends Controller
 
     public function sort(Request $request){
         $query = $request->input('query');
-        $sort = $request->input('selected_value');
+        $sort = $request->input('selected_value', 'asc');
 
         $program = Program::all();
         $years = AdminYear::orderBy('year', 'DESC')->pluck('year');

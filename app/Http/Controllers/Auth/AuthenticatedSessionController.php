@@ -29,9 +29,22 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        flash()->addInfo('Welcome to UniCESS.');
-        return redirect()->intended(RouteServiceProvider::HOME);
+        $user = $request->user();
+
+        // Check if the user has the 'admin' role
+        if ($user->roles->contains('name', 'admin')) {
+            flash()->addInfo('Welcome to UniCESS.');
+            return redirect()->intended(RouteServiceProvider::ADMINDASHBOARD);
+        } else {
+            flash()->addInfo('Welcome to UniCESS.');
+            return redirect()->intended(RouteServiceProvider::USERDASHBOARD);
+        }
+
+          // flash()->addInfo('Welcome to UniCESS.');
+        // return redirect()->intended(RouteServiceProvider::HOME);
     }
+
+
 
     /**
      * Destroy an authenticated session.

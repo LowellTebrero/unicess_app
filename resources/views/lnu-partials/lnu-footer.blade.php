@@ -28,10 +28,7 @@
     <div class="flex-1 flex flex-col py-10 md:pl-20 space-y-8  lg:items-start xl:items-start items-center">
         <h1 class="text-white lg:text-sm xl:text-sm sm:text-xs text-xs text-center xl:text-left md:text-left lg:text-left">Follow our official social media platforms:</h1>
         <div class="flex space-x-3">
-            <img src="{{ asset('img/facebook.png') }}" alt="">
-            <img src="{{ asset('img/twitter.png') }}" alt="">
-            <img src="{{ asset('img/instagram.png') }}" alt="">
-
+            <a href="https://www.facebook.com/LNUCESO" target="_blank"><img src="{{ asset('img/facebook.png') }}"></a>
         </div>
     </div>
 </footer>

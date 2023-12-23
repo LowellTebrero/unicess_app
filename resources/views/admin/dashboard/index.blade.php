@@ -2,28 +2,31 @@
 
     @section('title', 'Dashboard | ' . config('app.name', 'UniCESS'))
 
-    <section class="flex min-h-full flex-col-reverse xl:flex-row  xl:justify-between overflow-hidden">
+    <section class="flex xl:h-[100%] flex-col-reverse xl:flex-row  xl:justify-between overflow-hidden">
         <div class="xl:px-4 2xl:px-8 flex w-full flex-col p-4">
 
-            {{--  4 Button Modal  --}}
+
+            <!-- 4 Button Modal -->
             @include('admin.dashboard._button-modal')
 
-            {{--  Proposal Dashboard  --}}
+
+            <!-- Proposal Dashboard -->
             <section
                 class="w-full flex-col h-full flex mt-5 bg-white 2xl:shadow rounded-xl text-white sm:w-full xl:shadow-none">
 
                 <div class="flex justify-between items-center p-4 pb-2">
                     <h2 class="font-semibold text-gray-600 2xl:text-sm xl:text-xs xl:mr-2 text-xs hidden md:block">
                         Proposal Dashboard</h2>
-                    {{--  Create Proposal   --}}
+
+                    <!-- Create Proposal -->
                     <a href={{ route('admin.dashboard.create') }}
                         class="text-white bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 focus:text-[.8rem] transition-all rounded-lg xl:text-xs px-3 py-2 2xl:text-sm text-sm md:w-[10rem] w-full">+
                         Upload Proposal</a>
                 </div>
 
-                <div class="flex flex-col justify-center h-full w-full">
+                <div class="flex flex-col justify-center h-full w-full rounded-xl">
                     <hr>
-                    <div class="w-full mx-auto bg-white p-2 pt-0  2xl:rounded-md  border-gray-200 h-full rounded-lg">
+                    <div class="w-full mx-auto bg-white p-2 pt-0  2xl:rounded-md  border-gray-200 h-full rounded-xl">
                         <header class="px-5 sm:px-2 pb-4 py-2 border-b border-gray-100 flex justify-between">
                             <div
                                 class="flex flex-col sm:flex-row  md:flex-row sm:justify-between space-y-2 sm:space-y-0 space-x-0  w-full">

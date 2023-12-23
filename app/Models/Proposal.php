@@ -16,11 +16,19 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 class Proposal extends Model implements HasMedia
 {
     use HasFactory;
-    use hasTags;
     use InteractsWithMedia;
     use Notifiable;
 
     protected $guarded = [];
+
+    protected $dates = ['started_date', 'finished_date'];
+
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('proposalPdf');
+        $this->addMediaCollection('specialOrderPdf');
+    }
 
     public function programs():BelongsTo
     {

@@ -37,7 +37,7 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request, User $user): RedirectResponse
     {
-         $request->validate([
+        $request->validate([
             'name' => ['required', 'string', 'max:255', 'regex:/^[^\s]+$/', 'unique:'.User::class],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
@@ -51,13 +51,6 @@ class RegisteredUserController extends Controller
         ]);
 
 
-        if($user->hasRole('Faculty extensionist')){
-            ($user->removeRole('Faculty extensionist'));
-        }elseif($user->hasRole('admin')){
-            $user->removeRole('admin');
-        }elseif($user->hasRole('Coordinator extension')){
-            $user->removeRole('Coordinator extension');
-        }
         $user->assignRole('New User');
 
 

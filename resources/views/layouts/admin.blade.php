@@ -9,8 +9,6 @@
     <title>@yield('title', config('app.name', 'UniCESS'))</title>
 
     <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
-
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

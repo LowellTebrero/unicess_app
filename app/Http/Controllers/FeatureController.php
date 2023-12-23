@@ -39,6 +39,7 @@ class FeatureController extends Controller
 
 
         $latest = new Feature();
+        $latest->title = $request->title;
         $latest->description = $request->description;
         $latest->feature_image = $filename;
         $latest->status = $request->input('status') == true ? 'open': 'close';

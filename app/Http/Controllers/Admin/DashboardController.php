@@ -201,13 +201,11 @@ class DashboardController extends Controller
                 $model->save();
             }
 
-         }else {
+        }else{
             ProposalMember::whereNotNull('member_type')->where('proposal_id', $proposals->id)->delete();
-         }
+        }
 
-
-
-        return back()->with('message', 'Status updated successfully');
+        return redirect("/admin/dashboard/user-proposal/{$proposals->id}/{$proposals->id}");
     }
 
     public function DeleteProposal(Request $request){

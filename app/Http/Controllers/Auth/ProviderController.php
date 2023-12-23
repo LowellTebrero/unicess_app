@@ -40,12 +40,12 @@ class ProviderController extends Controller
         if($existingUser){
             Auth::login($existingUser, true);
 
-             if($existingUser->hasRole('New User')){
-                flash()->addSuccess('Account Registered.');
+            if($existingUser->hasRole('New User')){
+                flash()->addSuccess('Welcome to UniCESS.');
                 return redirect()->to(route('auth.welcome-user'));
             }else{
                 flash()->addInfo('Welcome to UniCESS.');
-                return redirect()->to(route('lnu'));
+                return redirect()->intended(RouteServiceProvider::USERDASHBOARD);
             }
 
         }elseif($existingEmail){

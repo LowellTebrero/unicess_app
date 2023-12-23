@@ -2,7 +2,7 @@
 
     @section('title', 'Points | ' . config('app.name', 'UniCESS'))
 
-<section class="rounded-xl shadow m-8 mt-5 text-slate-700 bg-white min-h-[85vh] 2xl:min-h-[87vh]">
+<section class="rounded-xl shadow m-8 mt-5 text-slate-700 bg-white h-[82vh] 2xl:min-h-[87vh]">
     <div class="flex justify-between px-5 py-4">
         <div>
             <h1 class="font-semibold xl:text-lg 2xl:text-2xl tracking-wider">Evaluation Points Overview </h1>

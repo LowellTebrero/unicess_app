@@ -1,4 +1,4 @@
-<div class="xl:bg-white 2xl:w-[25rem] xl:w-[14rem] w-full">
+<div class="xl:bg-white 2xl:w-[25rem] xl:w-[14rem] w-full  xl:h-full">
 
     {{--  Proposal Summary  --}}
     <div class="flex flex-col p-5 mt-0">

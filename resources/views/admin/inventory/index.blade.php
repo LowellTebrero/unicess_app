@@ -8,7 +8,7 @@
 
     @section('title', 'Inventory | ' . config('app.name', 'UniCESS'))
 
-    <div class="rounded-xl m-8 mt-5 bg-white min-h-[85vh] 2xl:min-h-[87vh]">
+    <div class="rounded-xl m-8 mt-5 bg-white h-[82vh] 2xl:min-h-[87vh]">
 
         <div class="p-4 py-2 flex justify-between">
             <div class="flex space-x-1 items-center">

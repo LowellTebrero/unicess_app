@@ -21,6 +21,20 @@ class RouteServiceProvider extends ServiceProvider
 
     public const WELCOME = '/welcome-user';
 
+    public const ADMINDASHBOARD = '/admin';
+
+    public const USERDASHBOARD = '/User-dashboard';
+
+    // public const USERDASHBOARD = 'User-dashboard/index';
+
+
+    protected function mapWebRoutes()
+    {
+        Route::middleware('web')
+            ->group(base_path('routes/web.php'));
+    }
+
+
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
      *

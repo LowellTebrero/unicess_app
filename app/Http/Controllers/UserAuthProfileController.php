@@ -10,12 +10,13 @@ use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Redirect;
 
 class UserAuthProfileController extends Controller
 {
     public function editAuthUser($id)
     {
-        $role = Role::orderBy('name')->whereNotIn('name',['admin'])->whereNotIn('name',['New User'])->whereNotIn('name',['Partners/Linkages'])->pluck('name', 'id')->prepend('Select Role', '');
+        $role = Role::orderBy('name')->whereNotIn('name',['admin'])->whereNotIn('name',['New User'])->whereNotIn('name',['Partners/Linkages'])->pluck('name', 'id');
         $faculties = Faculty::orderBy('name')->pluck('name', 'id')->prepend('Select Faculty', '');
         $partners = Partner::orderBy('partners_name')->pluck('partners_name', 'id')->prepend('Select Partner', '');
         $users = User::with('faculty')->get();
@@ -23,9 +24,8 @@ class UserAuthProfileController extends Controller
         return view('profile.edit', compact('role', 'faculties', 'users', 'user', 'partners'));
     }
 
-    public function updateAuthUser(Request $request,  $id )
+    public function updateAuthUser(Request $request, $id )
     {
-
         $user = User::find($id);
 
         $request->validate([
@@ -34,6 +34,7 @@ class UserAuthProfileController extends Controller
             'middle_name' => ['max:255' , 'required'],
             'suffix' => ['max:255' ,'nullable'],
             'name' => ['max:255','required', Rule::unique('users')->ignore($user->id)],
+            'email' => ['max:255'],
             'gender' => ['required', 'string', 'max:255'],
             'birth_date' => ['required', 'string', 'max:255'],
             'address' => ['required', 'string', 'max:255'],
@@ -73,7 +74,7 @@ class UserAuthProfileController extends Controller
 
         ]);
         flash()->addSuccess('Profile Updated Successfully');
-        return back();
+        return redirect("/profile/{$user->id}");
     }else {
 
         User::where('id', $id)->update([
@@ -93,7 +94,7 @@ class UserAuthProfileController extends Controller
             'zipcode' => $request->zipcode,
         ]);
         flash()->addSuccess('Profile Updated Successfully');
-        return back();
+        return redirect("/profile/{$user->id}");
         }
     }
 }

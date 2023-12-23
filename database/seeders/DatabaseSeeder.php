@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             LocationSeeder::class,
             ParticipationNameSeeder::class,
             YearSeeder::class,
+            AdminSeeder::class,
         ]);
     }
 }

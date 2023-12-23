@@ -6,7 +6,7 @@
 
     @section('title', 'Events | ' . config('app.name', 'UniCESS'))
 
-    <section class="m-8 mt-5 rounded-lg shadow-md bg-white 2xl:min-h-[87vh] h-[85vh]">
+    <section class="m-8 mt-5 rounded-lg shadow-md bg-white 2xl:min-h-[87vh] h-[82vh]">
 
         <div class="flex justify-between p-5 py-4">
             <h1 class="font-semibold text-gray-600 tracking-wider text-lg 2xl:text-2xl">Event Section</h1>

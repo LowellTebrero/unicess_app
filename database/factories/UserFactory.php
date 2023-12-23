@@ -17,19 +17,27 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        // return [
+        //     'faculty_id' => fake()->randomElements([1,2,3,4,5,6]),
+        //     'first_name' => fake()->firstName('male'),
+        //     'middle_name' => fake()->name(),
+        //     'last_name' => fake()->lastName(),
+        //     'gender' => fake()->randomElements(['male', 'female']),
+        //     'email' => fake()->unique()->safeEmail(),
+        //     'address' => fake()->address(),
+        //     'contact_number' => fake()->phoneNumber(),
+        //     'authorize' => 1,
+        //     'email_verified_at' => now(),
+        //     'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+
+        // ];
+
         return [
-            'faculty_id' => fake()->randomElements([1, 2,3,4,5,6]),
-            'first_name' => fake()->firstName('male'),
-            'middle_name' => fake()->name(),
-            'last_name' => fake()->lastName(),
-            'gender' => fake()->randomElements(['male', 'female']),
-            'email' => fake()->unique()->safeEmail(),
-            'address' => fake()->address(),
-            'contact_number' => fake()->phoneNumber(),
-            'authorize' => 1,
+            'name' => $this->faker->name(),
+            'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-
+            'remember_token' => Str::random(10),
         ];
     }
 

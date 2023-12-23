@@ -12,6 +12,8 @@ class CesoRole extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['role_name'];
+
 
     public function proposal(){
         return $this->hasMany(Proposal::class);

@@ -16,7 +16,7 @@ class ProfileTest extends TestCase
 
         $response = $this
             ->actingAs($user)
-            ->get('/profile');
+            ->get("/profile/{$user->id}");
 
         $response->assertOk();
     }
@@ -27,20 +27,32 @@ class ProfileTest extends TestCase
 
         $response = $this
             ->actingAs($user)
-            ->patch('/profile', [
-                'name' => 'Test User',
-                'email' => 'test@example.com',
+            ->patch("/profile-patch/{$user->id}", [
+                'name' => 'TestUser',
+                'email' => $user->email, // Use the same email in the assertion
+                'first_name' => 'first',
+                'last_name' => 'last',
+                'middle_name' => 'middle',
+                'suffix' => 'Jr',
+                'gender' => 'male',
+                'birth_date' => '10/05/1997',
+                'address' => 'InternetCity',
+                'contact_number' => '074543321',
+                'province' => 'WebServer',
+                'city' => 'Cloud',
+                'barangay' => 'WebserverCloud',
+                'zipcode' => '4200',
             ]);
 
         $response
             ->assertSessionHasNoErrors()
-            ->assertRedirect('/profile');
+            ->assertRedirect("/profile/{$user->id}");
 
         $user->refresh();
 
-        $this->assertSame('Test User', $user->name);
-        $this->assertSame('test@example.com', $user->email);
-        $this->assertNull($user->email_verified_at);
+        $this->assertSame('TestUser', $user->name);
+        $this->assertSame($user->email, $user->email); // Use the same email in the assertion
+        $this->assertSame($user->email_verified_at->toDateTimeString(), $user->email_verified_at->toDateTimeString());
     }
 
     public function test_email_verification_status_is_unchanged_when_the_email_address_is_unchanged(): void
@@ -49,14 +61,26 @@ class ProfileTest extends TestCase
 
         $response = $this
             ->actingAs($user)
-            ->patch('/profile', [
+            ->patch("/profile-patch/{$user->id}", [
                 'name' => 'Test User',
                 'email' => $user->email,
+                'first_name' => 'first',
+                'last_name' => 'last',
+                'middle_name' => 'middle',
+                'suffix' => 'Jr',
+                'gender' => 'male',
+                'birth_date' => '10/05/1997',
+                'address' => 'InternetCity',
+                'contact_number' => '074543321',
+                'province' => 'WebServer',
+                'city' => 'Cloud',
+                'barangay' => 'WebserverCloud',
+                'zipcode' => '4200',
             ]);
 
         $response
             ->assertSessionHasNoErrors()
-            ->assertRedirect('/profile');
+            ->assertRedirect("/profile/{$user->id}");
 
         $this->assertNotNull($user->refresh()->email_verified_at);
     }

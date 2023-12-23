@@ -1,4 +1,4 @@
-<div class="bg-white shadow-lg rounded-lg  min-h-[85vh] 2xl:min-h-[87vh] m-8 mt-5 text-gray-700">
+<div class="bg-white shadow-lg rounded-lg  h-[82vh] 2xl:min-h-[87vh] m-8 mt-5 text-gray-700">
         <div class="py-2 flex justify-between 2xl:px-8 px-4">
             <h4 class="tracking-wider 2xl:text-2xl font-semibold text-gray-700 text-lg">Account Overview</h4>
 
