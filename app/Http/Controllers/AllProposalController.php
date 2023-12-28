@@ -33,8 +33,11 @@ class AllProposalController extends Controller
          'locations', 'proposalRequest', 'proposalMembers'));
     }
 
+    public function show($id){
 
-
+        $proposal = Proposal::find($id);
+        return view('user.allProposal.show', compact('proposal'));
+    }
 
     public function filterAllProposal(Request $request){
 
@@ -139,57 +142,4 @@ class AllProposalController extends Controller
         return view('user.allProposal.index')->with($data);
 
     }
-
-
-    public function RequestIndex(){
-
-        $proposalRequest = ProposalRequest::with('proposal')->where('user_id', Auth()->user()->id)->get();
-        return view('user.allProposal.send-request.index', compact('proposalRequest'));
-    }
-
-    public function RequestCreate(){
-
-        $leader_member = CesoRole::orderBy('role_name')->pluck('role_name', 'id');
-        $participation_member = ParticipationName::orderBy('participation_name')->pluck('participation_name');
-        $locations = Location::orderBy('location_name')->pluck('location_name', 'id')->prepend('Select Location', '');
-        $proposals = Proposal::orderBy('project_title', 'DESC')->get();
-        return view('user.allProposal.send-request.create', compact('proposals','leader_member', 'participation_member','locations'));
-    }
-
-
-    public function SendRequest(Request $request){
-
-
-        $request->validate([
-
-            'files.*' => 'required','mimes:jpg,png,jpeg,pdf', 'max:5048',
-            'proposal_id' => 'required|unique:proposal_requests,proposal_id',
-
-        ],[
-            'proposal_id' => ' Project Title Already added'
-        ]);
-
-        $proposalRequest = new ProposalRequest();
-        $proposalRequest->user_id = Auth()->user()->id;
-        $proposalRequest->proposal_id = $request->proposal_id;
-        $proposalRequest->leader_member_type = $request->leader_member_type;
-        $proposalRequest->leader_location = $request->location_id;
-        $proposalRequest->member_type = $request->member_type;
-
-        if ($files = $request->file('files')) {
-
-
-            foreach ($files as $file) {
-                $proposalRequest->addMedia($file)->usingName('Proposal_Request')->toMediaCollection('ProposalRequest');
-            }
-         }
-
-        $proposalRequest->save();
-
-        flash()->addSuccess('Request Sent Successfully.');
-
-        return redirect(route('allProposal.request-proposal-index'));
-
-    }
-
 }

@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('admin_program_services', function (Blueprint $table) {
             $table->id();
+            $table->integer('proposal_id');
             $table->string('title')->nullable();
             $table->longtext('description')->nullable();
             $table->string('image')->nullable();

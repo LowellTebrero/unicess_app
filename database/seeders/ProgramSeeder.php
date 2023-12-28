@@ -21,7 +21,7 @@ class ProgramSeeder extends Seeder
         Program::create(['program_name' => 'Cultural Development' ]);
         Program::create(['program_name' => 'Livelihood Technical & Business Management' ]);
         Program::create(['program_name' => 'Environmental Conversation & Disaster Preparedness' ]);
-        Program::create(['program_name' => 'Management & Leardership Development' ]);
+        Program::create(['program_name' => 'Management & Leadership Development' ]);
         Program::create(['program_name' => 'Special Institute & Teaching Training Program' ]);
     }
 }

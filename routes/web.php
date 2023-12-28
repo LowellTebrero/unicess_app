@@ -321,10 +321,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::controller(AllProposalController::class)->group(function () {
         Route::get('/allProposal', 'index')->name('allProposal.index');
-        Route::get('/request-proposal-index', 'RequestIndex')->name('allProposal.request-proposal-index');
-        Route::get('/request-proposal-create', 'RequestCreate')->name('allProposal.request-proposal-create');
-        Route::post('/request-proposal-post', 'RequestPost')->name('allProposal.request-proposal-post');
-        Route::post('request-proposal','SendRequest')->name('allProposal.post');
+        Route::get('/allProposal-show/{id}', 'show')->name('allProposal.show');
     });
 
     Route::get('/welcome-user',[UserWelcomeController::class, 'WelcomeUser'])->name('auth.welcome-user');

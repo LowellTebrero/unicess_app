@@ -76,6 +76,7 @@ class DashboardController extends Controller
 
 
         AdminProgramServices::create([
+            'proposal_id' => $post->id,
             'title' => $post->project_title,
             'status' => $post->programs->program_name,
         ]);
