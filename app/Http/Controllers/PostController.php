@@ -9,11 +9,14 @@ use App\Models\Feature;
 use App\Models\AdminYear;
 use App\Models\AdminEvent;
 use App\Models\NewsUpdate;
+use App\Models\AdminArticle;
 use App\Models\AdminPartner;
 use Illuminate\Http\Request;
+use App\Models\AdminCalendar;
 use App\Models\AdminBeneficiary;
 use Illuminate\Support\Facades\DB;
 use App\Events\RealtimeNotification;
+use App\Models\AdminProgramServices;
 
 class PostController extends Controller
 {
@@ -22,7 +25,6 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
 
     //  public function __construct()
     // {
@@ -42,18 +44,26 @@ class PostController extends Controller
         return view('proposal', compact('posts'));
     }
 
-
-
-
     public function lnuShow()
     {
-
         $authorize = DB::table('users')->select('authorize')->get();
         $slider = AdminEvent::where('status', 'open')->get();
-        $features = Feature::where('status', 'open')->get();
+        $articles = AdminArticle::where('status', 'open')->get();
         $partners = AdminPartner::take(6)->get();
         $beneficiaries = AdminBeneficiary::take(6)->get();
-        return view('lnu', compact('slider', 'authorize', 'features', 'partners','beneficiaries' ));
+        $programservices = AdminProgramServices::all();
+        $events = [];
+        $appointments  = AdminCalendar::all();
+
+        foreach ($appointments as $appointment) {
+            $events[] = [
+                'title' => $appointment->title,
+                'description' => $appointment->description,
+                'start' => $appointment->start_time,
+                'end' => $appointment->finish_time,
+            ];
+        }
+        return view('lnu', compact('slider', 'authorize', 'articles', 'partners','beneficiaries', 'events', 'programservices' ));
     }
 
 

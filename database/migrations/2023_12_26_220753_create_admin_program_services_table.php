@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('features', function (Blueprint $table) {
+        Schema::create('admin_program_services', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->longText('description');
-            $table->string('feature_image');
+            $table->string('title')->nullable();
+            $table->longtext('description')->nullable();
+            $table->string('image')->nullable();
             $table->string('status')->default('close');
             $table->timestamps();
         });
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('features');
+        Schema::dropIfExists('admin_program_services');
     }
 };

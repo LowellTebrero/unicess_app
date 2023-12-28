@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AdminEvent;
-use App\Models\Latest;
 use App\Models\Feature;
-use App\Models\NewsUpdate;
+use App\Models\AdminEvent;
+use App\Models\AdminArticle;
 use Illuminate\Http\Request;
 
 class LnuAdditionalController extends Controller
@@ -16,19 +15,13 @@ class LnuAdditionalController extends Controller
         $events = AdminEvent::orderBy('description', 'asc')->get();
         return view('lnu-additional-partials.event-additionals', compact('events'));
     }
-    public function lnuNews(){
 
-
-        $news = NewsUpdate::orderBy('description', 'asc')->get();
-
-        return view('lnu-additional-partials.news-additionals', compact( 'news',));
-    }
     public function lnuFeatures(){
 
 
-        $features = Feature::all();
+        $articles = AdminArticle::all();
 
-        return view('lnu-additional-partials.features-additionals', compact('features'));
+        return view('lnu-additional-partials.features-additionals', compact('articles'));
     }
 
     public function showEvent($id){
@@ -37,15 +30,11 @@ class LnuAdditionalController extends Controller
         return view('lnu-additional-partials.lnu-show-details.show-event', compact('events'));
     }
 
-    public function showNews($id){
 
-        $news = NewsUpdate::where('id', $id)->firstorFail();
-        return view('lnu-additional-partials.lnu-show-details.show-news', compact('news'));
-    }
 
     public function showFeatures($id){
 
-        $articles = Feature::where('id', $id)->firstorFail();
+        $articles = AdminArticle::where('id', $id)->firstorFail();
         return view('lnu-additional-partials.lnu-show-details.show-article', compact('articles'));
     }
 

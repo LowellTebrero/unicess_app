@@ -38,7 +38,8 @@ return new class extends Migration
             $table->string('password')->nullable();
             $table->string('provider')->nullable();
             $table->string('provider_id')->nullable();
-            $table->string('provider_token')->nullable();
+            $table->string('google_access_token')->nullable();
+            $table->text('google_refresh_token')->nullable();
             $table->foreign('faculty_id')->references('id')->on('faculties')->onDelete('cascade');
             $table->foreign('partners_id')->references('id')->on('partners')->onDelete('cascade');
             $table->rememberToken();

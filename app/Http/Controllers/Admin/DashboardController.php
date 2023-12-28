@@ -17,6 +17,7 @@ use Illuminate\Validation\Rule;
 use App\Models\ParticipationName;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\AdminProgramServices;
 use App\Models\CustomizeAdminProposal;
 use App\Notifications\ProposalNotification;
 use Illuminate\Support\Facades\Notification;
@@ -72,6 +73,16 @@ class DashboardController extends Controller
         }
 
         $post->save();
+
+
+        AdminProgramServices::create([
+            'title' => $post->project_title,
+            'status' => $post->programs->program_name,
+        ]);
+
+
+
+
 
         $admin = User::whereHas('roles', function ($query) { $query->where('id', 1);})->get();
 

@@ -1,13 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
-use App\Http\Controllers\EventController;
 use App\Http\Controllers\PointsController;
 use App\Http\Controllers\SelectController;
-use App\Http\Controllers\FeatureController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TagUserController;
 use App\Http\Controllers\EvaluateController;
@@ -16,15 +13,11 @@ use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\YearController;
-use App\Http\Controllers\Admin\ChartController;
 use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\AllProposalController;
 use App\Http\Controllers\ProfileRoleController;
-use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\UserWelcomeController;
 use App\Http\Controllers\Admin\ToggleController;
-use App\Http\Controllers\Admin\FacultyController;
 use App\Http\Controllers\Auth\ProviderController;
 use App\Http\Controllers\LnuAdditionalController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -33,9 +26,13 @@ use App\Http\Controllers\UserAuthProfileController;
 use App\Http\Controllers\Admin\AdminPointController;
 use App\Http\Controllers\Admin\EvaluationController;
 use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\AdminCalendarController;
 use App\Http\Controllers\Admin\OtherSettingsController;
 use App\Http\Controllers\Admin\AdminInventoryController;
+use App\Http\Controllers\Admin\GoogleCalendarController;
 use App\Http\Controllers\Admin\ProposalRequestController;
+use App\Http\Controllers\Admin\AdminArticleEventController;
+use App\Http\Controllers\Admin\AdminProgramServicesController;
 use App\Http\Controllers\Admin\AdminPartnerBeneficiaryController;
 
 /*
@@ -83,6 +80,8 @@ Route::get('/pusher', function (){
 
 // Route for Admin
 Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group(function(){
+
+
 
     Route::controller(IndexController::class)->group(function () {
         Route::get('/',  'index')->name('dashboard.index');
@@ -147,23 +146,17 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
         Route::get('/inventory/{id}','showInventory')->name('inventory.show-inventory');
     });
 
-    Route::controller(EventController::class)->group(function () {
-        Route::get('/events','index')->name('other-events-ceso-events');
-        Route::patch('/events/update/{id}','update')->name('other-events-ceso-update-events');
-        Route::post('events/store','store')->name('other-events-ceso-store-events');
-        Route::get('/events/edit/{id}','edit')->name('other-events-ceso-edit-events');
-        Route::get('/events-create','create')->name('other-events-ceso-create-events');
-        Route::delete('/events/delete/{id}','delete')->name('other-events-ceso-delete-events');
-    });
 
-    Route::controller(FeatureController::class)->group(function () {
-        Route::get('/features','index')->name('features.index');
-        Route::post('/features/store','store')->name('features.store');
-        Route::patch('/features/update/{id}','update')->name('features.update');
-        Route::get('/features/create','create')->name('features.create');
-        Route::get('/features/edit/{id}','edit')->name('features.edit');
-        Route::delete('/features/delete/{id}','delete')->name('features.delete');
-        Route::post('/toggle-update-feature-status',  'UpdateToggleFeatureStatus')->name('features.update-feature-status');
+    Route::controller(AdminArticleEventController::class)->group(function () {
+        Route::get('/article-event','index')->name('article-event.index');
+        Route::post('/article/store','ArticlePost')->name('article.store');
+        Route::patch('/article/update/{id}','ArticleUpdate')->name('article.update');
+        Route::delete('/article/delete/{id}','ArticleDelete')->name('article.delete');
+        Route::post('/event/store','EventPost')->name('event.store');
+        Route::patch('/event/update/{id}','EventUpdate')->name('event.update');
+        Route::delete('/event/delete/{id}','EventDelete')->name('event.delete');
+        Route::post('/toggle-update-article-status',  'UpdateToggleFeatureStatus')->name('features.update-article-status');
+        Route::post('/toggle-update-event-status', 'UpdateToggleEventStatus')->name('features.update-event-status');
     });
 
     Route::controller(AdminPartnerBeneficiaryController::class)->group(function () {
@@ -174,10 +167,24 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
         Route::post('/beneficiary/store','BeneficiaryPost')->name('beneficiary.store');
         Route::delete('/beneficiary/delete/{id}','BeneficiaryDelete')->name('beneficiary.delete');
         Route::patch('/beneficiary/update/{id}','BeneficiaryUpdate')->name('beneficiary.update');
-        // Route::get('/events/edit/{id}','edit')->name('other-events-ceso-edit-events');
-        // Route::get('/events-create','create')->name('other-events-ceso-create-events');
+    });
+
+    Route::controller(AdminProgramServicesController::class)->group(function () {
+        Route::get('/program-services','index')->name('program-services.index');
+        Route::delete('/program-services/delete/{id}','ProgramServicesDelete')->name('program-services.delete');
+        Route::patch('/program-services/update/{id}','ProgramServicesUpdate')->name('program-services.update');
+        Route::post('/toggle-program-services-status','UpdateToggleStatus')->name('program-services.update-status');
+        Route::post('/toggle-program-services-status-physical','UpdateToggleStatustoPhysical')->name('program-services.update-status-physical');
+        Route::post('/toggle-program-services-status-information','UpdateToggleStatustoInformation')->name('program-services.update-status-information');
+        Route::post('/toggle-program-services-status-literacy','UpdateToggleStatustoLiteracy')->name('program-services.update-status-literacy');
+        Route::post('/toggle-program-services-status-cultural','UpdateToggleStatustoCultural')->name('program-services.update-status-cultural');
+        Route::post('/toggle-program-services-status-livelihood','UpdateToggleStatustoLivelihood')->name('program-services.update-status-livelihood');
+        Route::post('/toggle-program-services-status-environmental','UpdateToggleStatustoEnvironmental')->name('program-services.update-status-environmental');
+        Route::post('/toggle-program-services-status-management','UpdateToggleStatustoManagement')->name('program-services.update-status-management');
+        Route::post('/toggle-program-services-status-special','UpdateToggleStatustoSpecial')->name('program-services.update-status-special');
 
     });
+
 
 
     Route::controller(RoleController::class)->group(function () {
@@ -217,8 +224,13 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
     });
 
     Route::get('/edit-toggle/{id}', [ToggleController::class, 'edit'])->name('edit.submit');
-    Route::post('/tasks/update-status', [EventController::class, 'updateStatus'])->name('tasks.update-status');
 
+    Route::controller(AdminCalendarController::class)->group(function () {
+        Route::get('/calendar-index', 'index')->name('calendar.index');
+        Route::post('/calendar-post', 'store')->name('calendar.store');
+        Route::patch('/calendar-update/{id}', 'update')->name('calendar.update');
+        Route::delete('/calendar-delete/{id}', 'delete')->name('calendar.delete');
+    });
 
 });
 
@@ -227,6 +239,7 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
 // Route for Auth User
 Route::middleware(['auth', 'verified'])->group(function () {
 
+    Route::get('/calendar', [GoogleCalendarController::class, 'GoogleCalendar'])->name('calendar');
     Route::controller(ProposalController::class)->group(function () {
         Route::put('update-project-details/{id}',  'updateDetails')->name('User-dashboard.update-project-details');
         Route::get('/show-proposal/{id}',  'showProposal')->name('User-dashboard.show-proposal');

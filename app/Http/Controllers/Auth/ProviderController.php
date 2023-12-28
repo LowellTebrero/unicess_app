@@ -13,13 +13,17 @@ use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\UserFollowNotification;
+use Google_Service_Calendar;
 
 class ProviderController extends Controller
 {
 
     public function redirectProvider()
     {
-        return Socialite::driver('google')->redirect();
+        return Socialite::driver('google')
+        ->with(['access_type' => 'offline', 'prompt' => 'consent'])
+        // ->scopes('https://www.googleapis.com/auth/calendar')
+        ->redirect();
     }
 
     public function handleCallback()
@@ -28,9 +32,10 @@ class ProviderController extends Controller
         try {
         $user = Socialite::driver('google')->user();
 
+
+
         }catch (\Exception $e) {
             return redirect('/login');
-
         }
 
         $cleanedUsername = str_replace(' ', '', $user->name);
@@ -56,28 +61,17 @@ class ProviderController extends Controller
             return redirect('/login')->withErrors($validator)->withInput();
         }else{
 
-
-
-
             $user = User::create([
                 'name' => $cleanedUsername,
                 'email' => $user->email,
                 'provider_id' =>  $user->id,
                 'provider' => 'google',
-                'provider_token' => $user->token,
-
-
+                'google_access_token' => $user->token,
+                'google_refresh_token' => $user->refreshToken,
             ]);
+
             $user->email_verified_at = date('Y-m-d H:i:s');
             $user->save();
-
-
-
-            if($user->hasRole('Faculty extensionist')){
-                ($user->removeRole('Faculty extensionist'));
-            }elseif($user->hasRole('admin')){
-                $user->removeRole('admin');
-            }
 
             $user->assignRole('New User');
 

@@ -10,8 +10,6 @@
         .active {
             background-color: rgb(8, 207, 124);
         }
-
-
         /* Hide the actual file input */
         input[type="file"]::-webkit-file-upload-button {
             font-size: .7rem;
@@ -39,7 +37,6 @@
         </div>
 
         <hr>
-
 
         <form class="pt-2 px-5 2xl:px-10 xl:mt-2 2xl:mt-5 h-[75vh] 2xl:h-[78vh]" id="FormSubmit"
             action="{{ route('admin.dashboard.store') }}" method="POST" enctype="multipart/form-data">
