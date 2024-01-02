@@ -1,5 +1,9 @@
+    <script src="{{ asset('js/lightbox.js') }}"></script>
 <x-app-layout>
 
+    @php
+    $maxLength = 18; // Adjust the maximum length as needed
+    @endphp
 
     @if (Auth::user()->authorize == 'checked')
         @hasanyrole('Faculty extensionist|Extension coordinator')
@@ -7,8 +11,8 @@
                 [x-cloak] {display: none}
             </style>
 
-            <section class="m-8  rounded-lg  relative mt-5 h-[82vh] 2xl:min-h-[87vh]  bg-white text-gray-700">
-                <div class="p-4 flex justify-between items-center">
+            <section class="m-8  rounded-lg  relative mt-5 h-[82vh] 2xl:min-h-[87vh]  bg-white text-gray-700 overflow-x-auto">
+                <div class="p-4 flex justify-between items-center bg-white sticky top-0 z-10">
                     <h1 class="font-semibold tracking-wider md:text-lg text-base xl:text-2xl">Show Program/Projects</h1>
                     <a href={{ route('allProposal.index') }}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -18,27 +22,43 @@
                 </div>
                 <hr>
 
-                <main class="p-4 ">
+                <main class="p-4 grid 2xl:grid-cols-7 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3 grid-cols-2  gap-3 ">
                     @foreach ($proposal->medias as $mediaLibrary)
-                        <div data-tooltip-target="tooltip-proposal" type="button"
-                            class="relative">
+                        <div data-tooltip-target="tooltip-proposal" type="button" class="relative">
 
                             <x-alpine-modal>
 
                                 <x-slot name="scripts">
-                                    <span class="text-[.7rem] 2xl:text-xs font-medium text-gray-700 tracking-wider">
-                                        {{ $mediaLibrary->file_name }}
-                                    </span>
+                                    <div class="flex space-x-2 p-4 bg-slate-100 hover:bg-slate-200 shadow-sm rounded">
+                                        <div>
+                                            @if ($mediaLibrary->mime_type == 'image/jpeg' || $mediaLibrary->mime_type == 'image/png' || $mediaLibrary->mime_type == 'image/jpg')
+                                            <img src="{{asset('img/image-icon.png') }}" class="xl:w-[2.5rem] w-[3rem]" width="30">
+                                            @elseif ($mediaLibrary->mime_type == 'text/plain')
+                                            <img src="{{asset('img/text-document.png') }}" class="xl:w-[2.5rem] w-[3rem]" width="30">
+                                            @elseif ($mediaLibrary->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+                                            <img src="{{asset('img/docx.png')}}" class="xl:w-[2.5rem] w-[3rem]" width="30">
+                                            @else
+                                            <img src="{{asset('img/pdf.png')}}" class="xl:w-[2.5rem] w-[3rem]" width="30">
+                                            @endif
+                                        </div>
+
+                                        <div class="text-[.7rem] text-left">
+                                        @if (strlen($mediaLibrary->file_name) <= 10)
+                                        <span>{{ Str::limit($mediaLibrary->file_name, 20) }} {{ substr($mediaLibrary->file_name, -$maxLength) }}</span>
+                                        @else
+                                        <span>{{ Str::limit($mediaLibrary->file_name, 15) }} {{ substr($mediaLibrary->file_name, -$maxLength) }}</span>
+                                        @endif
+                                        </div>
+                                    </div>
                                 </x-slot>
 
                                 <x-slot name="title">
-                                    <span class="">{{ Str::limit($mediaLibrary->file_name) }}</span>
+                                    <span>{{ Str::limit($mediaLibrary->file_name) }}</span>
                                 </x-slot>
 
                                 <div class="w-[50rem]">
-                                    <iframe class="2xl:w-[100%] drop-shadow mt-2 w-full h-[80vh]"
-                                        src="{{ $mediaLibrary->getUrl() }}"
-                                    ></iframe>
+
+                                    <iframe class="2xl:w-[100%] drop-shadow mt-2 w-full h-[80vh]" src="{{ $mediaLibrary->getUrl() }}" ></iframe>
                                 </div>
                             </x-alpine-modal>
                         </div>
@@ -80,3 +100,7 @@
     @endif
 
 </x-app-layout>
+
+
+
+

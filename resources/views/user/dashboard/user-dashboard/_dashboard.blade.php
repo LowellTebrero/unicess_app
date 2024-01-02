@@ -7,7 +7,6 @@
             @else
             <th scope="col" class="2xl:px-6 xl:px-4 xl:pl-4 py-3 ">Uploaded</th>
             <th scope="col" class="2xl:px-6 xl:px-4 xl:pl-0 py-3">Project Title</th>
-            {{--  <th scope="col" class="px-6 py-3">Started Date</th>  --}}
             <th scope="col" class="2xl:px-6 xl:px-4 xl:pl-0 py-3">Uploader</th>
             <th scope="col" class="2xl:px-6 xl:px-4 xl:pl-0 py-3 "> Status</th>
             @endif
@@ -47,12 +46,6 @@
                         </a>
                     </td>
 
-                    {{--  <td class=" 2xl:px-6 xl:px-4 xl:pl-0 py-4  xl:text-[.6rem] 2xl:text-[.8rem]">
-                        <a href={{ route('User-dashboard.show-proposal', $proposal->id) }}>
-                            {{ \Carbon\Carbon::parse($proposal->finished_date)->format('F d, Y')}}
-                        </a>
-                    </td>  --}}
-
                     <td class=" 2xl:px-6 xl:px-4 xl:pl-0 py-4  xl:text-[.6rem] 2xl:text-[.8rem]">
                         <a class="xl:text-[.7rem]" href={{ route('User-dashboard.show-proposal', $proposal->id) }}>
                             @if ($proposal->authorize == 'pending')
@@ -69,7 +62,6 @@
 
 
             @endif
-
             @endforeach
             @endforeach
             @endif

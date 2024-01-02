@@ -1,9 +1,8 @@
 <x-app-layout>
+    @section('title', 'All Project | ' . config('app.name', 'UniCESS'))
 @if (Auth::user()->authorize == 'checked')
 @hasanyrole('Faculty extensionist|Extension coordinator')
-    <style>
-        [x-cloak] {display: none}
-    </style>
+    <style>[x-cloak] {display: none}</style>
 
     <section class="m-8  rounded-lg  relative mt-5 h-[82vh] 2xl:min-h-[87vh]  bg-white text-gray-700">
 
@@ -17,7 +16,6 @@
                     </div>
 
                     <div class="sm:space-x-2 space-y-2 md:space-y-0 lg:flex-row text-xs">
-                        {{--  <a href={{ route('allProposal.request-proposal-index') }} class="bg-blue-500 text-white px-2 rounded py-1">Send Request</a>  --}}
                         <input type="text" id="searchInput" class="rounded text-xs border-gray-300 w-full  sm:w-[15rem] md:w-[20rem]" placeholder="Search Proposal Title...">
 
                         <select name="MyAllDropdown" id="MyAllDropdown" class="text-xs border-gray-300 rounded w-full 2xl:w-[7rem] sm:w-[8rem]">
@@ -26,13 +24,6 @@
                             <option value="{{ $year }}">{{ $year }}</option>
                             @endforeach
                         </select>
-
-                        {{--  <select name="Proposal" id="Proposal" class="text-xs border-gray-300 rounded w-full 2xl:w-[8.5rem] sm:w-[8rem]">
-                        @foreach ($allproposal as $proposal )
-                        <option value="1" {{ old('1', $proposal->number) == '1' ? 'selected' : '' }}>All Proposal</option>
-                        <option value="2" {{ old('2', $proposal->number) == '2' ? 'selected' : '' }}>My Proposal</option>
-                        @endforeach
-                        </select>  --}}
                     </div>
                 </div>
 

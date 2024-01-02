@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Location;
 use Spatie\Tags\HasTags;
 use App\Models\ProposalMember;
+use App\Models\NarrativeReport;
 use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
@@ -32,7 +33,6 @@ class Proposal extends Model implements HasMedia
 
     public function programs():BelongsTo
     {
-
        return  $this->belongsTo(Program::class, 'program_id');
     }
 
@@ -65,6 +65,11 @@ class Proposal extends Model implements HasMedia
 
     public function locations():BelongsTo{
         return $this->belongsTo(Location::class, 'location_id');
+    }
+
+    public function narrativereport()
+    {
+       return  $this->hasMany(NarrativeReport::class);
     }
 }
 

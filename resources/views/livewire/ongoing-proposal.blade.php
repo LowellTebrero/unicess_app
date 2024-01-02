@@ -6,9 +6,9 @@
 
             <h5 class="mr-3 text-gray-700 font-medium max-w-none tracking-wider">
                 @if ($Count > 0 )
-                {{ $Count }} ongoing project proposal
+                {{ $Count }} ongoing project
                 @else
-                No ongoing project proposal
+                No ongoing project
                 @endif
                 </h5>
 

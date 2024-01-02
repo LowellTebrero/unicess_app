@@ -616,7 +616,7 @@
                                         </x-slot>
 
                                         <div class="w-[50rem]">
-                                            {{--  <iframe class=" 2xl:w-[100%] drop-shadow mt-2 w-full h-[80vh]" src="{{ $proposals->getFirstMediaUrl('proposalPdf') }}"></iframe>  --}}
+
                                             @if ($mediaLibrary->mime_type == 'image/jpeg' || $mediaLibrary->mime_type == 'image/png' || $mediaLibrary->mime_type == 'image/jpg')
                                             <div><img class="shadow w-full " src="{{  $mediaLibrary->getUrl() }}"></div>
                                             @elseif ($mediaLibrary->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
@@ -631,7 +631,7 @@
                                         </div>
                                     </x-alpine-modal>
 
-                                    {{--  <input type="checkbox" id="checkboxes" class="absolute right-0 top-1" style="opacity: 0%">  --}}
+
                                     <input type="checkbox" class="hidden-checkbox absolute top-1 right-2"  style="display:none;" name="ids" value="{{ $mediaLibrary->id }}">
                                     <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = false" class="absolute right-0 top-1 ">
 
@@ -684,9 +684,7 @@
 
 
                                                 <button class="text-xs px-2 hover:bg-gray-200 w-full text-left" type="button" @click="showModal = true">Rename</button>
-
                                                 <a href={{ url('download-media', $mediaLibrary->id) }} class="block text-xs px-2 hover:text-black hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
-
                                                  <button class="deleteAllButton block text-slate-800 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="submit" id="deleteAllButton">Delete</button>
 
                                             </div>

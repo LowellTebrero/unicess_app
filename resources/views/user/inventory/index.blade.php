@@ -1,4 +1,5 @@
 <x-app-layout>
+    @section('title', 'My Inventory | ' . config('app.name', 'UniCESS'))
 @if (Auth::user()->authorize == 'checked')
     @hasanyrole('Faculty extensionist|Extension coordinator')
         <style>[x-cloak] {display: none}</style>

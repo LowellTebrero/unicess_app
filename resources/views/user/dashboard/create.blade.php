@@ -26,7 +26,7 @@
     <section class="mt-5 m-8 rounded-xl  2xl:h-[87vh] h-[82vh] bg-white text-gray-700">
 
         <div class="flex justify-between items-center p-4 xl:py-3 2xl:py-4">
-            <h1 class="2xl:text-2xl xl:text-lg text-[.9rem] font-semibold text-slate-600">Upload Proposal <span
+            <h1 class="2xl:text-2xl xl:text-lg text-[.9rem] font-semibold text-slate-600">Upload Project <span
                     class="text-red-500 text-xs tracking-wide font-light"> * required fields</span></h1>
             <a href="/User-dashboard" class="text-red-500 text-xl font-medium focus:bg-gray-300 focus:rounded">
                 <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none"
@@ -80,32 +80,51 @@
 
                 <div class="flex xl:justify-between mt-4 space-x-2 items-center w-full">
                     <div class="w-full">
-                        <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">PROJECT PROPOSAL (PDF)
-                            <span class="text-red-500">*</span></label>
-                        <input
-                            class="custom-file bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
-                            name="proposal_pdf" id="proposal_pdf" type="file" required>
-                        @error('proposal_pdf')
-                            <span class="text-red-500  text-xs">{{ $message }}</span>
-                        @enderror
+                        <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">PROJECT PROPOSAL (PDF)</label>
+                        <input class="custom-file bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
+                        name="proposal_pdf" id="proposal_pdf" type="file">
+
                     </div>
 
                     <div class="w-full">
-                        <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">SPECIAL ORDER (PDF)
-                            <span class="text-red-500">*</span></label>
-                        <input
-                            class="bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
-                            name="special_order_pdf" id="special_order_pdf" type="file" required>
-                        @error('special_order_pdf')
-                            <span class="text-red-500  text-xs">{{ $message }}</span>
-                        @enderror
+                        <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">MOA (PDF)</label>
+                        <input class="custom-file bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
+                        name="moa_pdf" id="moa_pdf" type="file">
+
                     </div>
 
+                    <div class="w-full">
+                        <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">OFFICE ORDER (PDF)</label>
+                        <input class="custom-file bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
+                        name="office_order_pdf" id="office_order_pdf" type="file">
+
+                    </div>
+
+                    <div class="w-full">
+                        <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">TRAVEL ORDER (PDF)</label>
+                        <input class="custom-file bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
+                        name="travel_order_pdf" id="travel_order_pdf" type="file">
+
+                    </div>
+
+                    <div class="w-full">
+                        <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">SPECIAL ORDER (PDF)</label>
+                        <input class="bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
+                        name="special_order_pdf" id="special_order_pdf" type="file">
+                    </div>
+
+                </div>
+
+                <div>
+                    @error('proposal_pdf')
+                    <span class="text-red-500  text-xs">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="flex space-x-2 pt-3">
                     <div class="w-1/2">
-                        <label class="text-xs block text-slate-600  font-medium 2xl:text-sm">Started Date<span
-                                class="text-red-500">*</span></label>
-                        <input required
-                            class="border-zinc-300 text-xs  appearance-none border  rounded w-full py-2 mt-2 px-3 text-slate-600  leading-tight focus:outline-none"
+                        <label class="text-xs block text-slate-600  font-medium 2xl:text-sm">Started Date</label>
+                        <input class="border-zinc-300 text-xs  appearance-none border  rounded w-full py-2 mt-2 px-3 text-slate-600  leading-tight focus:outline-none"
                             value="{{ old('started_date') }}" name="started_date" id="started_date" type="date">
                         @error('started_date')
                             <span class="text-red-500  text-xs">{{ $message }}</span>
@@ -113,10 +132,8 @@
                     </div>
 
                     <div class="w-1/2">
-                        <label class="text-xs block text-slate-600  font-medium 2xl:text-sm">Ended Date<span
-                                class="text-red-500">*</span></label>
-                        <input required
-                            class="border-zinc-300 text-xs appearance-none border  rounded w-full py-2 mt-2 px-3 text-slate-600  leading-tight focus:outline-none"
+                        <label class="text-xs block text-slate-600  font-medium 2xl:text-sm">Ended Date</label>
+                        <input class="border-zinc-300 text-xs appearance-none border  rounded w-full py-2 mt-2 px-3 text-slate-600  leading-tight focus:outline-none"
                             value="{{ old('finished_date') }}" name="finished_date" id="finished_date" type="date">
                         @error('finished_date')
                             <span class="text-red-500 text-xs">{{ $message }}</span>
@@ -261,7 +278,7 @@
                     <button
                         class="bg-blue-500 rounded-lg text-white 2xl:text-base xl:text-sm text-xs font-medium py-2 px-4 mt-4 focus:outline-none"
                         type="submit">
-                        Submit Proposal
+                        Submit Project
                     </button>
                 </div>
             </div>

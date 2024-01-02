@@ -1,5 +1,5 @@
 <x-app-layout>
-
+    @section('title', 'Dashboard | ' . config('app.name', 'UniCESS'))
     <style>
         [x-cloak] { display: none }
         form button:disabled,
@@ -90,7 +90,7 @@
                     <div class="flex justify-between items-center py-5 bg-white px-4">
 
                         <div class="flex space-x-2  items-center">
-                            <h1 class="tracking-wider xl:text-xs 2xl:text-base text-xs">Proposal Dashboard</h1>
+                            <h1 class="tracking-wider xl:text-xs 2xl:text-base text-xs">Extension Project Dashboard</h1>
                             <select class="text-xs rounded border border-gray-300" id="myDropdown" name="authorize_name">
                                 <option {{ '' == request('authorize_name') ? 'selected ' : '' }} value="">Select Status</option>
                                 <option {{ 'pending' == request('authorize_name') ? 'selected ' : '' }} value="pending">Pending</option>
@@ -105,17 +105,17 @@
                         <x-alpine-modal>
 
                             <x-slot name="scripts">
-                                <div class="bg-blue-600 px-2 py-2 rounded-md text-white xl:text-[.8rem] 2xl:text-base xl:text-xs flex text-xs">+ Upload Proposal</div>
+                                <div class="bg-blue-600 px-2 py-2 rounded-md text-white xl:text-[.8rem] 2xl:text-base xl:text-xs flex text-xs">+ Upload Projects</div>
                             </x-slot>
 
-                            <x-slot name="title">Upload Proposal</x-slot>
+                            <x-slot name="title">Upload Project</x-slot>
 
                             <!-- content -->
                             <div class="px-5 py-1 mt-5 flex flex-col items-center justify-center space-y-2">
 
                                 <a class="flex bg-blue-600 w-full rounded-xl p-2 items-center hover:bg-blue-700" href="User-dashboard/create">
                                     <svg class="fill-white mr-3" xmlns="http://www.w3.org/2000/svg" height="40" viewBox="0 96 960 960" width="40"><path d="M455.949 830.306h50.255V636.408l82.668 82.923 35.383-35.588L480 541.385 336.822 684.82l35.332 35.127 83.795-83.539v193.898ZM242.565 955.999q-25.788 0-44.176-18.388t-18.388-44.176v-634.87q0-25.788 18.388-44.176t44.176-18.388h337.59l199.844 199.844v497.59q0 25.788-18.388 44.176t-44.176 18.388h-474.87Zm312.462-536.513v-173.23H242.565q-4.616 0-8.462 3.847-3.847 3.846-3.847 8.462v634.87q0 4.616 3.847 8.462 3.846 3.847 8.462 3.847h474.87q4.616 0 8.462-3.847 3.847-3.846 3.847-8.462V419.486H555.027Zm-324.771-173.23v173.23-173.23V905.744 246.256Z"/></svg>
-                                    <h1 class="text-md text-white">Upload Proposal</h1>
+                                    <h1 class="text-md text-white">Upload Project</h1>
                                 </a>
 
                                 <a href={{ route('download.template') }} class="flex bg-blue-600 hover:bg-blue-700 text-sm rounded-xl text-white p-2 items-center">

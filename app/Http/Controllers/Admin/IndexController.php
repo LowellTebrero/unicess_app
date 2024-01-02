@@ -57,10 +57,8 @@ use Illuminate\Support\Facades\Notification;
             'project_title' => 'required|string|min:6',
             'started_date' => 'required',
             'finished_date' => 'required',
-            // 'proposal_pdf' => "required|mimes:pdf|max:5048",
             'project_leader' => 'required',
             'authorize' => 'required',
-            'tags' => 'required',
            ]);
 
         $post = new Proposal();

@@ -38,7 +38,12 @@ class InventoryController extends Controller
 
     public function show($id, $notification)
     {
-        $proposals = Proposal::where('id', $id)->with('medias')->with('programs')->first();
+        $proposals = Proposal::where('id', $id)
+        ->with(['medias' => function ($query) {
+            $query->orderBy('file_name', 'asc');
+        }])
+        ->with('programs')
+        ->first();
         $members = User::orderBy('name')->whereNot('name', 'Administrator')->pluck('name', 'id')->prepend('Select Username', '');
         $ceso_roles = CesoRole::orderBy('role_name')->pluck('role_name', 'id')->prepend('Select Role', '');
         $locations = Location::orderBy('location_name')->pluck('location_name', 'id')->prepend('Select Location', '');

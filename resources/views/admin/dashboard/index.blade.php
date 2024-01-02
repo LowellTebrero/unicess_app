@@ -16,12 +16,12 @@
 
                 <div class="flex justify-between items-center p-4 pb-2">
                     <h2 class="font-semibold text-gray-600 2xl:text-sm xl:text-xs xl:mr-2 text-xs hidden md:block">
-                        Proposal Dashboard</h2>
+                        Project Dashboard</h2>
 
                     <!-- Create Proposal -->
                     <a href={{ route('admin.dashboard.create') }}
                         class="text-white bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 focus:text-[.8rem] transition-all rounded-lg xl:text-xs px-3 py-2 2xl:text-sm text-sm md:w-[10rem] w-full">+
-                        Upload Proposal</a>
+                        Upload Projects</a>
                 </div>
 
                 <div class="flex flex-col justify-center h-full w-full rounded-xl">

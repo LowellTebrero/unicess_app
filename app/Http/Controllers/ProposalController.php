@@ -91,8 +91,6 @@ class ProposalController extends Controller
         $locations = Location::orderBy('location_name')->pluck('location_name', 'id')->prepend('Select Location', '');
         $parts_names = ParticipationName::orderBy('participation_name')->pluck('participation_name', 'id');
 
-
-
         return view('user.dashboard.create', compact('programs', 'members','ceso_roles', 'locations','parts_names'  ));
     }
 
@@ -106,14 +104,17 @@ class ProposalController extends Controller
                 ['Facilitator/Moderator','Reactor/Panel member','Technical Assistance/Consultancy','Resource Speaker/Trainer', 'nullable']);
             }),
             'project_title' => ['regex:/^[^<>?:|\/"*]+$/','required','min:6' ,Rule::unique('proposals'), new UniqueTitle],
-            'started_date' => 'required',
-            'finished_date' => 'required',
-            'proposal_pdf' => "required|mimes:pdf|max:10048",
-            'special_order_pdf' => "required|mimes:pdf|max:10048",
+            'proposal_pdf' => "required_without_all:special_order_pdf,moa_pdf,office_order_pdf,travel_order_pdf|file|mimes:pdf|max:10048",
+            'special_order_pdf' => "required_without_all:proposal_pdf,moa_pdf,office_order_pdf,travel_order_pdf|file|mimes:pdf|max:10048",
+            'moa_pdf' => "required_without_all:proposal_pdf,special_order_pdf,office_order_pdf,travel_order_pdf|file|mimes:pdf|max:10048",
+            'office_order_pdf' => "required_without_all:proposal_pdf,special_order_pdf,moa_pdf,travel_order_pdf|file|mimes:pdf|max:10048",
+            'travel_order_pdf' => "required_without_all:proposal_pdf,special_order_pdf,moa_pdf,office_order_pdf|file|mimes:pdf|max:10048",
 
-           ], [
+           ],
+           [
+            'required_without_all' => 'Please upload at least one file among Proposal PDF, Special Order PDF, MOA PDF, Office Order PDF, Travel Order PDF.',
             'project_title.regex' => 'Invalid characters: \ / : * ? " < > |',
-        ]);
+           ]);
 
 
         $post = new Proposal();
@@ -130,6 +131,20 @@ class ProposalController extends Controller
 
         if ($request->hasFile('special_order_pdf')) {
             $post->addMediaFromRequest('special_order_pdf')->usingName('special_order')->usingFileName($request->project_title.'_special_order.pdf')->toMediaCollection('specialOrderPdf');
+        }
+
+        if ($request->hasFile('moa')) {
+            $post->clearMediaCollection('MoaPDF');
+            $post->addMediaFromRequest('moa')->usingName('moa')->usingFileName($request->project_title.'_moa.pdf')->toMediaCollection('MoaPDF');
+        }
+
+        if ($request->hasFile('travel_order')) {
+            $post->clearMediaCollection('officeOrder');
+            $post->addMediaFromRequest('travel_order')->usingName('travel')->usingFileName($request->project_title.'_travel_order.pdf')->toMediaCollection('officeOrder');
+        }
+        if ($request->hasFile('office_order')) {
+            $post->clearMediaCollection('travelOrder');
+            $post->addMediaFromRequest('office_order')->usingName('office')->usingFileName($request->project_title.'_office_order.pdf')->toMediaCollection('travelOrder');
         }
 
         $post->save();
@@ -150,8 +165,6 @@ class ProposalController extends Controller
 
             $users = User::where('id', $request->leader_id)->get();
             Notification::send($users, new UserTagProposalNotification($model));
-
-
         };
 
 
@@ -186,15 +199,13 @@ class ProposalController extends Controller
                 DB::table('notifications')->where('id', $firstDuplicate->id)->delete();
 
             }
-
-
             }
 
             ProposalMember::whereNull('user_id')->where('proposal_id', $post->id)->delete();
 
         }
 
-        flash()->addSuccess('Proposal Uploaded Successfully.');
+        flash()->addSuccess('Project Uploaded Successfully.');
 
 
 
@@ -338,17 +349,6 @@ class ProposalController extends Controller
                 ProposalMember::whereNotNull('member_type')->where('proposal_id', $proposals->id)->delete();
 
             }
-
-            // $props = ProposalMember::where('proposal_id', $proposals->id)->get();
-
-            // $userIds = $props->pluck('user_id')->toArray();
-
-            //     DB::table('notifications')
-            //     ->where('notifiable_id', '<>', $userIds)
-            //     ->whereJsonContains('data->proposal_id', $proposals->id)
-            //     ->delete();
-
-
             app('flasher')->addSuccess('Updated Successfully.');
 
         return redirect(route('User-dashboard.show-proposal', $proposals->id ));

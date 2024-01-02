@@ -1,4 +1,5 @@
 <x-app-layout>
+    @section('title', 'My Evaluations | ' . config('app.name', 'UniCESS'))
 @if (Auth::user()->authorize == 'checked')
 @hasanyrole('Faculty extensionist|Extension coordinator')
 

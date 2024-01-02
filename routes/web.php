@@ -4,6 +4,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PointsController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SelectController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TagUserController;
@@ -309,6 +310,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/download-media/{id}','downloadsMedia');
         Route::put('/update-inventory-project-details/{id}', 'UpdateShowInventory')->name('inventory.update-project-details');
         Route::delete('/delete-inventory-proposals/{id}','UserDeleteInventoryProposal')->name('inventory-delete-proposals');
+    });
+
+    Route::controller(ReportController::class)->group(function () {
+        Route::get('/report-index', 'index')->name('report.index');
+        Route::post('/report-store-narrative',  'NarrativeStore')->name('report-narrative.store');
+        Route::delete('/report-delete-narrative/{id}/{narrativeId}','deleteNarrativeMedias')->name('report-narrative.delete');
+        Route::post('/report-update-narrative/{id}','NarrativeUpdate')->name('report-narrative.update');
+        // Route::get('/user-download-template', 'UserTemplateDownload')->name('download.template');
     });
 
     Route::controller(TemplateController::class)->group(function () {

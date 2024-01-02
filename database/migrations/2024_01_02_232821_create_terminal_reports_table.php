@@ -13,21 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('proposals', function (Blueprint $table) {
+        Schema::create('terminal_reports', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('program_id');
-            $table->string('started_date')->nullable();
-            $table->string('finished_date')->nullable();
-            $table->longtext('project_title');
-            $table->string('authorize')->default('pending');
+            $table->unsignedBigInteger('proposal_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('program_id')->references('id')->on('programs')->onDelete('cascade');
-
-
-
+            $table->foreign('proposal_id')->references('id')->on('proposals')->onDelete('cascade');
             $table->timestamps();
-
         });
     }
 
@@ -38,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('proposals');
+        Schema::dropIfExists('terminal_reports');
     }
 };

@@ -26,13 +26,11 @@
                             </div>
                             <div class="flex flex-col">
                                 <h1>Started date</h1>
-                                <h1>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $proposal->started_date)->format('M. d, Y') }}
-                                </h1>
+                                <h1>{{ $proposal->started_date == null ? 'No date' : $proposal->started_date->format('M. d, Y') }}</h1>
                             </div>
                             <div class="flex flex-col">
                                 <h1>Ended date</h1>
-                                <h1>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $proposal->finished_date)->format('M. d, Y') }}
-                                </h1>
+                                <h1>{{ $proposal->started_date == null ? 'No date' :  $proposal->finished_date->format('M. d, Y') }}</h1>
                             </div>
                         </div>
                     </div>

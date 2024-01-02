@@ -92,13 +92,14 @@
         <div class="flex text-gray-700 mb-2 space-x-4">
             <div class="text-[.7rem] w-full">
                 <label class="block font-bold mb-2" for="description">Started Date</label>
-                    <h1 class="text-[.8rem] py-2">{{ $proposal->started_date }}</h1>
+                <h1 class="text-[.8rem] py-2">{{$proposal->started_date == null ? 'No date' : $proposal->started_date->format('M. d, Y') }}</h1>
+
 
             </div>
 
             <div class="text-[.7rem] w-full">
                 <label class="block font-bold mb-2" for="description">Finished Date</label>
-                    <h1 class="text-[.8rem] py-2">{{ $proposal->finished_date }}</h1>
+                    <h1 class="text-[.8rem] py-2">{{$proposal->finished_date == null ? 'No date' : $proposal->finished_date->format('M. d, Y') }}</h1>
 
             </div>
         </div>
@@ -154,14 +155,14 @@
 
                                 <div class="flex space-x-4 w-full" >
                                     <div class="w-full">
-                                        <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs">Started Date  <span class="text-red-500">*</span></label>
-                                        <input required class="border-zinc-400 xl:text-xs shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" value="{{ $proposal->started_date }}" name="started_date" id="started_date" type="date">
+                                        <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs">Started Date</label>
+                                        <input class="border-zinc-400 xl:text-xs shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" value="{{ $proposal->started_date }}" name="started_date" id="started_date" type="date">
                                         @error('started_date') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
                                     </div>
 
                                     <div class="w-full">
-                                        <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs"> Ended Date  <span class="text-red-500">*</span></label>
-                                        <input required class="border-zinc-400 xl:text-xs shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" value="{{ $proposal->finished_date }}" name="finished_date" id="finished_date" type="date">
+                                        <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs"> Ended Date</label>
+                                        <input class="border-zinc-400 xl:text-xs shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" value="{{ $proposal->finished_date }}" name="finished_date" id="finished_date" type="date">
                                         @error('finished_date') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
                                     </div>
                                 </div>
@@ -169,7 +170,7 @@
                                 <div class="flex space-x-4 w-full">
 
                                     <div class="w-full">
-                                        <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs">Project leader <span class="text-red-500">*</span></label>
+                                        <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs">Project leader</label>
                                         <select name="leader_id" class="rounded-md xl:text-xs w-full  border-zinc-400" value="{{ old('leader') }}" id="leader" onchange="RequiredGet(this)">
 
                                             @foreach ($members as $id => $name )
@@ -183,11 +184,11 @@
 
                                             @endforeach
                                         </select>
-                                        @error('project_leader') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
+                                        @error('project_leader')  @enderror
                                     </div>
 
                                     <div class="w-full">
-                                        <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs">Role of Project Leader <span class="text-red-500">*</span></label>
+                                        <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs">Role of Project Leader </label>
                                         <select onchange="yesnoCheck(this)" id="leader_member_type" name="leader_member_type" value="{{ old('leader_member_type') }}" class="rounded-md xl:text-xs w-full border-zinc-400">
                                             @foreach ($ceso_roles as $id => $role_name )
 

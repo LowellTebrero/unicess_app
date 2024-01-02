@@ -26,7 +26,7 @@
     <section class="mt-5 m-8 rounded-xl  2xl:h-[87vh] h-[82vh] bg-white text-gray-700">
 
         <div class="flex justify-between items-center p-4 xl:py-3 2xl:py-4">
-            <h1 class="2xl:text-2xl xl:text-lg text-[.9rem] font-semibold text-slate-600">Upload Proposal <span
+            <h1 class="2xl:text-2xl xl:text-lg text-[.9rem] font-semibold text-slate-600">Upload Project <span
                     class="text-red-500 text-xs tracking-wide font-light"> * required fields</span></h1>
             <a href="/admin" class="text-red-500 text-xl font-medium focus:bg-gray-300 focus:rounded">
                 <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none"

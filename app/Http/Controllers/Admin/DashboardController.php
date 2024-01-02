@@ -46,14 +46,17 @@ class DashboardController extends Controller
                 ['Facilitator/Moderator','Reactor/Panel member','Technical Assistance/Consultancy','Resource Speaker/Trainer', 'nullable']);
             }),
             'project_title' => ['regex:/^[^<>?:|\/"*]+$/','required','min:6' ,Rule::unique('proposals'), new UniqueTitle],
-            'started_date' => 'required',
-            'finished_date' => 'required',
-            'proposal_pdf' => "required|mimes:pdf|max:10048",
-            'special_order_pdf' => "required|mimes:pdf|max:10048",
+            'proposal_pdf' => "required_without_all:special_order_pdf,moa_pdf,office_order_pdf,travel_order_pdf|file|mimes:pdf|max:10048",
+            'special_order_pdf' => "required_without_all:proposal_pdf,moa_pdf,office_order_pdf,travel_order_pdf|file|mimes:pdf|max:10048",
+            'moa_pdf' => "required_without_all:proposal_pdf,special_order_pdf,office_order_pdf,travel_order_pdf|file|mimes:pdf|max:10048",
+            'office_order_pdf' => "required_without_all:proposal_pdf,special_order_pdf,moa_pdf,travel_order_pdf|file|mimes:pdf|max:10048",
+            'travel_order_pdf' => "required_without_all:proposal_pdf,special_order_pdf,moa_pdf,office_order_pdf|file|mimes:pdf|max:10048",
 
-           ], [
+           ],
+           [
+            'required_without_all' => 'Please upload at least one file among Proposal PDF, Special Order PDF, MOA PDF, Office Order PDF, Travel Order PDF.',
             'project_title.regex' => 'Invalid characters: \ / : * ? " < > |',
-        ]);
+           ]);
 
 
         $post = new Proposal();
@@ -72,6 +75,20 @@ class DashboardController extends Controller
             $post->addMediaFromRequest('special_order_pdf')->usingName('special_order')->usingFileName($request->project_title.'_special_order.pdf')->toMediaCollection('specialOrderPdf');
         }
 
+        if ($request->hasFile('moa')) {
+            $proposals->clearMediaCollection('MoaPDF');
+            $proposals->addMediaFromRequest('moa')->usingName('moa')->usingFileName($project_title.'_moa.pdf')->toMediaCollection('MoaPDF');
+        }
+
+        if ($request->hasFile('travel_order')) {
+            $proposals->clearMediaCollection('officeOrder');
+            $proposals->addMediaFromRequest('travel_order')->usingName('travel')->usingFileName($project_title.'_travel_order.pdf')->toMediaCollection('officeOrder');
+        }
+        if ($request->hasFile('office_order')) {
+            $proposals->clearMediaCollection('travelOrder');
+            $proposals->addMediaFromRequest('office_order')->usingName('office')->usingFileName($project_title.'_office_order.pdf')->toMediaCollection('travelOrder');
+        }
+
         $post->save();
 
 
@@ -80,10 +97,6 @@ class DashboardController extends Controller
             'title' => $post->project_title,
             'status' => $post->programs->program_name,
         ]);
-
-
-
-
 
         $admin = User::whereHas('roles', function ($query) { $query->where('id', 1);})->get();
 
@@ -141,7 +154,7 @@ class DashboardController extends Controller
 
         }
 
-        flash()->addSuccess('Proposal Uploaded Successfully.');
+        flash()->addSuccess('Project Uploaded Successfully.');
 
 
         return redirect(route('admin.dashboard.index'));
@@ -152,7 +165,12 @@ class DashboardController extends Controller
     public function checkProposal(Request $request, $id, $notification )
     {
         $proposal = Proposal::where('id', $id)->first();
-        $proposals = Proposal::where('id', $id)->first();
+        $proposals = Proposal::where('id', $id)
+        ->with(['medias' => function ($query) {
+            $query->orderBy('file_name', 'asc');
+        }])
+        ->with('programs')
+        ->first();
         $program = Program::orderBy('program_name')->pluck('program_name', 'id')->prepend('Select Program', '');
         $members = User::orderBy('name')->whereNot('name', 'Administrator')->pluck('name', 'id')->prepend('Select Username', '');
         $ceso_roles = CesoRole::orderBy('role_name')->pluck('role_name', 'id')->prepend('Select Role', '');
