@@ -102,6 +102,10 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
         Route::get('/dashboard-filter-status',  'FilterStatus')->name('dashboard.filter-status');
         Route::get('/dashboard-search-data',  'SearchData')->name('dashboard.search-data');
         Route::get('/dashboard-filter-year',  'FilterYears')->name('dashboard.filter-year');
+        Route::get('/dashboard-narrative-index',  'NarrativeIndex')->name('dashboard.narrative-index');
+        Route::get('/dashboard-narrative-show/{id}',  'NarrativeShow')->name('dashboard.narrative-show');
+        Route::get('/dashboard-terminal-index',  'TerminalIndex')->name('dashboard.terminal-index');
+        Route::get('/dashboard-terminal-show/{id}',  'TerminalShow')->name('dashboard.terminal-show');
     });
 
     Route::controller(AdminPointController::class)->group(function () {
@@ -317,7 +321,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/report-store-narrative',  'NarrativeStore')->name('report-narrative.store');
         Route::delete('/report-delete-narrative/{id}/{narrativeId}','deleteNarrativeMedias')->name('report-narrative.delete');
         Route::post('/report-update-narrative/{id}','NarrativeUpdate')->name('report-narrative.update');
-        // Route::get('/user-download-template', 'UserTemplateDownload')->name('download.template');
+        Route::post('/report-store-terminal',  'TerminalStore')->name('report-terminal.store');
+        Route::delete('/report-delete-terminal/{id}/{terminalId}','deleteTerminalMedias')->name('report-terminal.delete');
+        Route::post('/report-update-terminal/{id}','TerminalUpdate')->name('report-terminal.update');
+
     });
 
     Route::controller(TemplateController::class)->group(function () {

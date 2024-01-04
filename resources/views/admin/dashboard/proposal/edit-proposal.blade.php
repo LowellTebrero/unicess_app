@@ -17,13 +17,14 @@
 
         <section class="bg-white shadow rounded-xl m-8 mt-5 xl:min-h-[85vh] 2xl:min-h-[87vh] text-gray-600">
 
-            @if ($proposals->authorize == 'pending')
-            <div class="flex justify-between p-2 2xl:p-3 bg-red-200 rounded-tl rounded-tr">
+
+            <div class="flex justify-between p-2 2xl:p-3 {{ $proposals->authorize == 'pending' ? 'bg-red-200' : ($proposals->authorize == 'ongoing' ? 'bg-blue-200' : 'bg-green-200') }}
+             rounded-tl rounded-tr">
                 <div class="flex flex-col sm:flex-row sm:space-x-8 font-medium text-gray-700">
                     <h1 class="text-[.7rem] xl:text-sm tracking-wider">Uploaded:
                         {{ \Carbon\Carbon::parse($proposals->created_at)->format('F-d-Y') }}</h1>
                     <h1 class="text-[.7rem] xl:text-sm tracking-wider">Status: {{ $proposals->authorize }}</h1>
-                    <h1 class="text-[.7rem] xl:text-sm tracking-wider">Proposal ID: {{ $proposals->id }}</h1>
+                    <h1 class="text-[.7rem] xl:text-sm tracking-wider">Program/Project ID: {{ $proposals->id }}</h1>
 
                 </div>
                 <a class="text-black text-xl focus:bg-red-500 focus:text-white hover:bg-red-400 font-medium  px-2 py-2 rounded" href={{ route('admin.dashboard.index') }}>
@@ -34,42 +35,6 @@
                 </a>
             </div>
 
-            @elseif ($proposals->authorize == 'ongoing')
-
-            <div class="flex justify-between p-2 2xl:p-3 bg-blue-200 rounded-tl rounded-tr">
-                <div class="flex space-x-8 font-medium text-gray-700">
-                    <h1 class="text-xs xl:text-sm tracking-wider">Uploaded:
-                        {{ \Carbon\Carbon::parse($proposals->created_at)->format('F-d-Y') }}</h1>
-                    <h1 class="text-xs xl:text-sm tracking-wider">Status: {{ $proposals->authorize }}</h1>
-                    <h1 class="text-xs xl:text-sm tracking-wider">Proposal ID: {{ $proposals->id }}</h1>
-
-                </div>
-                 <a class="text-black text-xl focus:bg-blue-500 focus:text-white hover:bg-blue-400 font-medium  px-2 py-2 rounded" href={{ route('admin.dashboard.index') }}>
-                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                    </svg>
-                    <span class="sr-only">Close modal</span>
-                </a>
-            </div>
-
-            @elseif ($proposals->authorize == 'finished')
-            <div class="flex justify-between p-2 2xl:p-3 bg-green-200 rounded-tl rounded-tr">
-                <div class="flex space-x-8 font-medium text-gray-700">
-                    <h1 class="text-xs xl:text-sm tracking-wider">Uploaded:
-                        {{ \Carbon\Carbon::parse($proposals->created_at)->format('F-d-Y') }}</h1>
-                    <h1 class="text-xs xl:text-sm tracking-wider">Status: {{ $proposals->authorize }}</h1>
-                    <h1 class="text-xs xl:text-sm tracking-wider">Proposal ID: {{ $proposals->id }}</h1>
-
-                </div>
-                 <a class="text-black text-xl focus:bg-green-500 focus:text-white hover:bg-green-400 font-medium  px-2 py-2 rounded" href={{ route('admin.dashboard.index') }}>
-                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                    </svg>
-                    <span class="sr-only">Close modal</span>
-                </a>
-            </div>
-
-            @endif
             <hr>
 
             {{--  Wrapper  --}}

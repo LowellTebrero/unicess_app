@@ -57,7 +57,6 @@
                                 </x-slot>
 
                                 <div class="w-[50rem]">
-
                                     <iframe class="2xl:w-[100%] drop-shadow mt-2 w-full h-[80vh]" src="{{ $mediaLibrary->getUrl() }}" ></iframe>
                                 </div>
                             </x-alpine-modal>

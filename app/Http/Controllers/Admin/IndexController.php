@@ -10,11 +10,13 @@ use App\Models\Evaluation;
 use Illuminate\Http\Request;
 use App\Charts\ProposalChart;
 use App\Models\ProposalMember;
+use App\Models\NarrativeReport;
+use App\Models\ProposalRequest;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\ProposalRequest;
 use App\Notifications\ProposalNotification;
 use Illuminate\Support\Facades\Notification;
+use App\Models\TerminalReport;
 
     class IndexController extends Controller
 {
@@ -38,6 +40,8 @@ use Illuminate\Support\Facades\Notification;
         $getCountpropreq = DB::table('proposal_requests')->whereDate('created_at', Carbon::today())->count();
         $programs = Program::orderBy('program_name')->pluck('program_name', 'id')->prepend('Select Program', '');
         $evaluation = Evaluation::whereYear('created_at', date('Y'))->count();
+        $narrativeCount = NarrativeReport::distinct('user_id')->count();
+        $terminalCount = TerminalReport::distinct('user_id')->count();
         $proposalrequest = ProposalRequest::whereYear('created_at', date('Y'))->count();
 
         $currentYear = date('Y');
@@ -46,7 +50,7 @@ use Illuminate\Support\Facades\Notification;
         return view('admin.dashboard.index', compact('projectProposal', 'allProposal', 'getCountProposals', 'getCountUsers',
              'pendingAccount', 'totalAccount', 'ongoingProposal', 'currentYear' , 'previousYear',
              'finishedProposal', 'totalProposal', 'programs', 'evaluation', 'proposalrequest'
-            ,'getCountpropreq' ));
+            ,'getCountpropreq', 'narrativeCount', 'terminalCount' ));
     }
 
     public function store(Request $request)

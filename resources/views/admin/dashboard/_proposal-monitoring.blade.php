@@ -55,11 +55,11 @@
 
     <div class="flex flex-col p-5 mt-8 rounded-lg mr-6 bg-white text-gray-800">
         <h1 class="tracking-wide 2xl:text-lg font-medium text-gray-600 text-sm">Narrative Report</h1>
-        <a href={{ route('admin.evaluation.index') }} class="mt-2 bg-white w-full text-gray-600 rounded-lg  hover:bg-slate-100 transition-all flex justify-between items-center p-4 sm:p-0 sm:px-4 md:px-6 px-8 xl:px-3 xl:py-4 2xl:py-5 shadow relative hover:border hover:border-teal-300">
+        <a href={{ route('admin.dashboard.narrative-index') }} class="mt-2 bg-white w-full text-gray-600 rounded-lg  hover:bg-slate-100 transition-all flex justify-between items-center p-4 sm:p-0 sm:px-4 md:px-6 px-8 xl:px-3 xl:py-4 2xl:py-5 shadow relative hover:border hover:border-teal-300">
             <div>
                 <div class="flex space-x-2">
                     <span class="flex items-center space-x-1  xl:text-5xl text-4xl font-medium">
-                        <span class="text-[1.7rem] text-gray-600 font-medium 2xl:text-[3rem]">0</span>
+                        <span class="text-[1.7rem] text-gray-600 font-medium 2xl:text-[3rem]">{{ $narrativeCount }}</span>
                         <span class="text-xs">Out of</span>
                         <span class="block text-gray-600  text-lg ">{{ $totalAccount }}</span>
                     </span>
@@ -70,18 +70,18 @@
         </a>
 
         <h1 class="xl:mt-5 2xl:mt-10 tracking-wide 2xl:text-lg font-medium text-gray-600 text-sm">Terminal  Report</h1>
-        <a href={{ route('admin.evaluation.index') }} class="mt-2 bg-white w-full text-gray-600 rounded-lg  hover:bg-slate-100 transition-all flex justify-between items-center p-4 sm:p-0 sm:px-4 md:px-6 px-8 xl:px-3 xl:py-4 2xl:py-5 shadow relative hover:border hover:border-teal-300">
+        <a href={{ route('admin.dashboard.terminal-index') }} class="mt-2 bg-white w-full text-gray-600 rounded-lg  hover:bg-slate-100 transition-all flex justify-between items-center p-4 sm:p-0 sm:px-4 md:px-6 px-8 xl:px-3 xl:py-4 2xl:py-5 shadow relative hover:border hover:border-teal-300">
             <div>
                 <div class="flex space-x-2">
                     <span class="flex items-center space-x-1  xl:text-5xl text-4xl font-medium">
-                        <span class="text-[1.7rem] text-gray-600 font-medium 2xl:text-[3rem]">0</span>
+                        <span class="text-[1.7rem] text-gray-600 font-medium 2xl:text-[3rem]">{{ $terminalCount }}</span>
                         <span class="text-xs">Out of</span>
                         <span class="block text-gray-600  text-lg ">{{ $totalAccount }}</span>
                     </span>
                 </div>
                 <h1 class="xl:text-[.6rem] 2xl:text-xs text-xs mt-2">Submitted Terminal  Report </h1>
             </div>
-            {{--  <svg class="xl:w-[2rem] 2xl:w-[2rem] lg:w-[3rem] sm:w-[2rem] sm:absolute sm:top-2 sm:right-5 lg:relative xl:absolute xl:top-2 xl:right-4" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 16 16"><path fill="#374151" d="M9 1v3.5A1.5 1.5 0 0 0 10.5 6H14v7.5a1.5 1.5 0 0 1-1.5 1.5H8.19c.202-.346.27-.769.16-1.179C9.952 13.634 11 12.088 11 10.5a5.5 5.5 0 0 0-7-5.293V2.5A1.5 1.5 0 0 1 5.5 1H9ZM6.862 14.79A4.5 4.5 0 1 1 10 10.5c0 1.301-.89 2.34-1.98 2.34c-.302 0-.56-.07-.776-.2a1.372 1.372 0 0 1-.406-.379a1.82 1.82 0 0 1-.586.423c-.225.1-.477.156-.752.156a1.818 1.818 0 0 1-1.5-.772c-.31-.422-.48-.977-.48-1.568c0-.59.17-1.146.48-1.568c.344-.47.859-.772 1.5-.772a1.815 1.815 0 0 1 .97.273a.513.513 0 0 1 .085-.112a.54.54 0 0 1 .92.305l.005.074v1.8c0 .895.202 1.26.54 1.26c.453 0 .9-.521.9-1.26a3.404 3.404 0 0 0-.634-1.983a3.434 3.434 0 0 0-1.794-1.29A3.42 3.42 0 0 0 4 7.425a3.42 3.42 0 0 0 2.335 6.392l.2-.057l.14-.048a.54.54 0 0 1 .44.984l-.068.03l-.185.063ZM4.6 10.5c0 .717.38 1.26.9 1.26s.9-.543.9-1.26s-.38-1.26-.9-1.26s-.9.543-.9 1.26ZM10 1.25V4.5a.5.5 0 0 0 .5.5h3.25L10 1.25Zm-2.169 9.567l.002-.002Z"/></svg>  --}}
+
             <svg class="xl:w-[2rem] 2xl:w-[2rem] lg:w-[3rem] sm:w-[2rem] sm:absolute sm:top-2 sm:right-5 lg:relative xl:absolute xl:top-2 xl:right-4" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512"><path d="M124 80v322c0 7.7-6.3 14-14 14s-14-6.3-14-14V112H80c-17.7 0-32 14.3-32 32v288c0 17.7 14.3 32 32 32h353.1c17 0 30.9-13.8 30.9-30.9V80c0-17.7-14.3-32-32-32l-278 2c-17.7 0-30 12.3-30 30zm66 32h84c7.7 0 14 6.3 14 14s-6.3 14-14 14h-84c-7.7 0-14-6.3-14-14s6.3-14 14-14zm0 160h148c7.7 0 14 6.3 14 14s-6.3 14-14 14H190c-7.7 0-14-6.3-14-14s6.3-14 14-14zm196 108H190c-7.7 0-14-6.3-14-14s6.3-14 14-14h196c7.7 0 14 6.3 14 14s-6.3 14-14 14zm0-160H190c-7.7 0-14-6.3-14-14s6.3-14 14-14h196c7.7 0 14 6.3 14 14s-6.3 14-14 14z" fill="currentColor"/></svg>
         </a>
     </div>

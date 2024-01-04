@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Location;
 use Spatie\Tags\HasTags;
 use App\Models\ProposalMember;
+use App\Models\TerminalReport;
 use App\Models\NarrativeReport;
 use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Database\Eloquent\Model;
@@ -70,6 +71,11 @@ class Proposal extends Model implements HasMedia
     public function narrativereport()
     {
        return  $this->hasMany(NarrativeReport::class);
+    }
+
+    public function terminalreport()
+    {
+       return  $this->hasMany(TerminalReport::class);
     }
 }
 

@@ -13,6 +13,8 @@ use App\Rules\UniqueTitle;
 use Illuminate\Http\Request;
 use App\Charts\ProposalChart;
 use App\Models\ProposalMember;
+use App\Models\TerminalReport;
+use App\Models\NarrativeReport;
 use Illuminate\Validation\Rule;
 use App\Models\ParticipationName;
 use Illuminate\Support\Facades\DB;
@@ -530,10 +532,34 @@ class DashboardController extends Controller
         }})
         ->get();
 
-
-
         return view('admin.dashboard.chart.filter_index._index-dashboard',compact( 'programLabel', 'programData', 'statusCount', 'pendingCount', 'ongoingCount', 'finishedCount',
             'labels','data','customizes', 'allProposal', 'years'));
+    }
+
+
+    public function NarrativeIndex(){
+
+        $narrativeReports = NarrativeReport::select('user_id')->with('users')->with('proposals')->groupBy('user_id')->get();
+        return view('admin.dashboard.narrative-report.index', compact('narrativeReports'));
+    }
+
+    public function NarrativeShow($id){
+
+        $narrativeReports = NarrativeReport::where('user_id', $id)->with('users')->with('proposals')->get();
+        return view('admin.dashboard.narrative-report.show', compact('narrativeReports'));
+    }
+
+    public function TerminalIndex(){
+
+        $terminalReports = TerminalReport::all();
+
+        return view('admin.dashboard.terminal-report.index', compact('terminalReports'));
+    }
+
+    public function TerminalShow($id){
+
+        $terminalReports = TerminalReport::where('user_id', $id)->with('users')->with('proposals')->get();
+        return view('admin.dashboard.terminal-report.show', compact('terminalReports'));
     }
 
 

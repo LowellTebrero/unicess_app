@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\User;
 use App\Models\Proposal;
 use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Database\Eloquent\Model;
@@ -17,8 +18,12 @@ class NarrativeReport extends Model implements HasMedia
     protected $guarded = [];
 
 
-    public function proposals():BelongsTo{
+    public function proposals(){
         return $this->belongsTo(Proposal::class, 'proposal_id');
+    }
+
+    public function users(){
+        return $this->belongsTo(User::class, 'user_id');
     }
 
 
