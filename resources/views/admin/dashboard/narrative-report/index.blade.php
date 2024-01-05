@@ -17,7 +17,7 @@
 
         <main class="p-10 ">
 
-            <div class="h-[25vh] overflow-x-auto">
+            <div class="h-[50vh] overflow-x-auto">
                 <table class="table-auto relative w-full">
                     <thead class="text-[.7rem] font-semibold uppercase text-gray-400 bg-gray-50 top-0 sticky z-10">
                         <tr>

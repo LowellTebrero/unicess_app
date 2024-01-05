@@ -19,7 +19,7 @@
 </div>
 
 
-<div class="p-3 pt-0 px-0 overflow-x-auto h-[55vh] 2xl:h-[55vh] rounded-lg border  w-full">
+<div class="p-3 pt-0 px-0 overflow-x-auto h-[50vh] 2xl:h-[55vh] rounded-lg border  w-full">
     <table class="table-auto w-full relative">
         <thead
             class="text-[.7rem] font-semibold uppercase text-gray-400 bg-gray-50 top-0 sticky z-10">

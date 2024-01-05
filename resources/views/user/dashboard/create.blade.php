@@ -121,7 +121,7 @@
                     @enderror
                 </div>
 
-                <div class="flex space-x-2 pt-3">
+                <div class="flex space-x-2 pt-3 items-center">
                     <div class="w-1/2">
                         <label class="text-xs block text-slate-600  font-medium 2xl:text-sm">Started Date</label>
                         <input class="border-zinc-300 text-xs  appearance-none border  rounded w-full py-2 mt-2 px-3 text-slate-600  leading-tight focus:outline-none"
@@ -139,21 +139,20 @@
                             <span class="text-red-500 text-xs">{{ $message }}</span>
                         @enderror
                     </div>
-                </div>
 
-                <div class="flex space-y-4 flex-col w-full pt-3">
-
-                    <div class="pb-0 2xl:py-5 flex space-x-2 items-center">
-                        <h1 class="xl:text-sm text-xs">Select Role Type</h1>
-                        <h4 class="text-xs">Note: (Choose what is applicable)</h4>
+                    <div class="pb-0 2xl:py-5 flex space-x-2 items-center w-full">
+                        <div>
+                            <h1 class="xl:text-sm text-xs">Select Role Type</h1>
+                            <h4 class="text-xs">Note: (Choose what is applicable)</h4>
+                        </div>
                         <button class="px-3 py-1 2xl:text-sm text-xs bg-blue-400 text-white rounded-lg" type="button"
                             id="leaderButton">Leader Type</button>
                         <button class="px-3 py-1 2xl:text-sm text-xs bg-blue-400 text-white rounded-lg" type="button"
                             id="MemberButton">Member Type</button>
                     </div>
+                </div>
 
-
-                    <div class="flex space-x-4 w-full" style="display: none" id="leaderDiv">
+                    <div class="flex space-x-4 w-full pt-2" style="display: none" id="leaderDiv">
 
                         <table class="w-full">
                             <thead>
@@ -222,7 +221,7 @@
                     </div>
 
 
-                    <div class="w-full overflow-x-auto h-[26vh] xl:h-[23vh] 2xl:h-[35vh] bg-slate-100"
+                    <div class="w-full overflow-x-auto h-[26vh] xl:h-[20vh] 2xl:h-[35vh] bg-slate-100 pt-2"
                         style="display: none" id="memberDiv">
 
                         <table id="table" class="w-full">
@@ -272,7 +271,7 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
+
 
                 <div class="bottom-2 left-0 xl:bottom-7">
                     <button
@@ -333,22 +332,6 @@
 
 
         <script type="text/javascript">
-            /*  function RequiredGet(answer){
-
-                        console.log(answer.value)
-                        if(answer.value == '' ){
-                            document.getElementById('member').required = true;
-                            console.log(document.getElementById('member'));
-
-
-                        }else{
-                           document.getElementById('member').required = false;
-                            console.log(document.getElementById('member'));
-                      }
-                    }
-                    */
-
-
             function yesnoCheck(answer) {
 
                 console.log(answer.value)

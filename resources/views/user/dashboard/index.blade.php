@@ -15,13 +15,6 @@
 
         @hasanyrole('Faculty extensionist|Extension coordinator')
 
-        {{--  <div class="mx-5 xl:mx-10 my-5 text-slate-700">
-            <h1 class="tracking-wider text-sm 2xl:text-xl font-medium" id="greeting">Hi, {{ Auth()->user()->name }}</h1>
-            <div class="flex space-x-1">
-                <span class="tracking-wider text-sm">{{  date('D M d, Y') }} </span>
-                <span id="dynamic-time" class="tracking-wider text-sm">{{ date('h:i A') }}</span>
-            </div>
-        </div>  --}}
 
             <section class="mx-5 xl:mx-10 md:space-x-2 lg:space-x-7  xl:space-x-10 flex xl:flex-row flex-col sm:flex-row sm:space-x-2 justify-between 2xl:h-48 xl:h-36 lg:h-[20vh] text-gray-700 mt-5">
 
@@ -118,9 +111,9 @@
                                     <h1 class="text-md text-white">Upload Project</h1>
                                 </a>
 
-                                <a href={{ route('download.template') }} class="flex bg-blue-600 hover:bg-blue-700 text-sm rounded-xl text-white p-2 items-center">
+                                <a href={{ route('download.template') }} class="flex bg-blue-600 hover:bg-blue-700 text-sm rounded-xl text-white p-2 items-center w-full">
                                     <svg class="fill-white mr-3" xmlns="http://www.w3.org/2000/svg" height="40" viewBox="0 96 960 960" width="40"><path d="M490.001 925.999v-64.383l210.82-210.821 64.384 64.384-210.821 210.82h-64.383Zm-360-204.872v-50.254h289.743v50.254H130.001Zm670.64-41.384-64.384-64.384 29-29q6.948-6.948 17.564-6.948 10.615 0 17.82 6.948l29 29q6.948 7.205 6.948 17.82 0 10.616-6.948 17.564l-29 29Zm-670.64-121.18v-50.255h454.615v50.255H130.001Zm0-162.307v-50.255h454.615v50.255H130.001Z"/></svg>
-                                    <h1>UNICESS Proposal Template</h1>
+                                    <h1>CESO Template</h1>
                                 </a>
                             </div>
                         </x-alpine-modal>

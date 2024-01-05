@@ -64,7 +64,8 @@ class OtherSettingsController extends Controller
 
     public function update(Request $request, $id){
 
-        $request->validate(['template_name' => 'required|mimes:docx|max:5048']);
+        $request->validate(['template_name' => 'required|file|mimetypes:application/vnd.openxmlformats-officedocument.wordprocessingml.document|max:5048']);
+
 
         if($request->hasFile("template_name")){
 
@@ -85,7 +86,8 @@ class OtherSettingsController extends Controller
             Template::where('id', $id)->update(['template_name' => $fileName]);
         }
 
-        return redirect(route('admin.template.index'))->with('message', 'File update Successfully');
+        flash()->addSuccess('File update Successfully');
+        return redirect(route('admin.template.index'));
 
     }
 

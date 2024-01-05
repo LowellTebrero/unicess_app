@@ -9,7 +9,7 @@
     </style>
 
 
-    <section class="mt-5 m-8 rounded-lg 2xl:min-h-[86vh] xl:min-h-[85vh] relative bg-white text-gray-700">
+    <section class="mt-5 m-8 rounded-lg 2xl:min-h-[87vh] h-[82vh] relative bg-white text-gray-700 overflow-hidden">
         <header class="p-4 flex justify-between">
             <h1 class="text-xl font-medium tracking-wider">User Profile</h1>
             <a href={{ route('User-dashboard.index') }} class="focus:bg-red-100 rounded-md px-2 py-1 hover:bg-gray-200 text-red-500">
@@ -51,7 +51,7 @@
             </div>
         </div>
 
-        <div class="flex  p-7 pt-0 ">
+        <div class="flex p-5 pt-0 bg-white">
             <div class="shadow-md bg-gray-100 rounded-lg w-full p-5">
                 <div class="flex justify-between mb-2">
                     <h1 class="text-xs">With {{ Auth()->user()->faculty->name, }}</h1>

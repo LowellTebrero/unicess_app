@@ -18,10 +18,10 @@
       <?php flash()->addError($error); ?>
     @endforeach
     @endif
-        <section class="bg-white shadow rounded-xl min-h-[87vh] overflow-hidden m-8 mt-5 relative text-gray-700">
+        <section class="bg-white shadow rounded-xl h-[82vh] 2xl:min-h-[87vh]  m-8 mt-5 relative text-gray-700">
 
-            <div class="bg-blue-200 bg-opacity-40 h-full absolute  z-10" id="mySidebar">
-                <div class="w-[0rem] bg-gray-600 h-full transition-all" id="subSidebar">
+            <div class="bg-blue-200 bg-opacity-40 h-full absolute  z-20" id="mySidebar">
+                <div class="w-[0rem] rounded bg-gray-600 h-full transition-all" id="subSidebar">
                     <div class="p-4 w-full h-full transition-all" style="display: none" id="sidebar-title">
                         <div class="flex justify-between text-white">
                             <h1 class="tracking-wider">Options</h1>
@@ -65,10 +65,8 @@
                                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                                                 </svg>
                                             </button>
-
                                         </div>
                                         <hr>
-
 
                                         <!-- content -->
                                         <div class="p-5 space-y-4">
@@ -147,7 +145,7 @@
                                                 <!-- Modal header -->
 
                                                 <!-- Modal body -->
-                                                <div class="p-6 space-y-6">
+                                                <div class="p-6 pt-0 space-y-6">
 
                                                     <div class="flex space-y-4 flex-col">
                                                         <div class="w-full">
@@ -333,12 +331,9 @@
                     </a>
                 </div>
                 <hr>
+                <div class="w-full flex flex-col p-4 pt-0 h-[70vh] overflow-x-auto">
 
-
-
-                <div class="w-full flex flex-col p-4 ">
-
-                    <div class="flex justify-between px-5 space-x-4 text-lg">
+                    <div class="flex justify-between px-5 pt-4 space-x-4 text-lg sticky top-0 bg-white z-10">
                         <button class="openbtn" onclick="openNav()">☰</button>
                         <select id="myDropdown" class="rounded text-xs">
                             @foreach ($inventory as $invent )

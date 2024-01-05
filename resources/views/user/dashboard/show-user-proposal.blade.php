@@ -1,6 +1,6 @@
 <x-app-layout>
     <style> [x-cloak] { display: none}</style>
-    <section class="m-8 h-[85vh] 2xl:min-h-[87vh] bg-white mt-5  rounded-lg shadow text-slate-700">
+    <section class="m-8 h-[82vh] 2xl:min-h-[87vh] bg-white mt-5  rounded-lg shadow text-slate-700 ">
 
         <div class="flex justify-between p-5 py-3">
             <h1 class="text-sm  tracking-wide">{{ $proposals->project_title }}</h1>
@@ -45,12 +45,11 @@
 
 
 
-                <div class="m-5 2xl:min-h-[40vh] bg-gray-200 space-y-2 text-sm tracking-wider rounded">
+                <div class="m-5 overflow-x-auto h-[50vh] 2xl:min-h-[50vh] bg-gray-200 space-y-2 text-sm tracking-wider rounded">
 
-                    <div class="flex justify-between py-2 px-4  tracking-wide bg-gray-600 text-white">
+                    <div class="flex justify-between py-2 px-4  tracking-wide bg-gray-600 text-white sticky top-0">
                         <h1>Time</h1>
                         <h1>Information</h1>
-
                     </div>
 
                     <div class="px-4 space-y-1 overflow-x-auto h-[48vh] 2xl:h-[50vh]">

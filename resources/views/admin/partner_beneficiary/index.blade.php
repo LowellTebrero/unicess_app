@@ -1,7 +1,7 @@
 <x-admin-layout>
 
     @section('title', 'Partners/Beneficiary | ' . config('app.name', 'UniCESS'))
-    <section class="bg-white mt-5 m-8 h-[87vh] rounded-lg text-gray-700">
+    <section class="bg-white mt-5 m-8 h-[82vh] 2xl:h-[87vh] rounded-lg text-gray-700">
         <header class="p-4 py-2">
             <h1 class="2xl:text-2xl tracking-wider font-semibold text-gray-600">Partners/Beneficiary Section</h1>
         </header>
@@ -13,7 +13,7 @@
             @endforeach
         @endif
 
-        <main class="flex flex-col m-10 space-y-12 mt-12">
+        <main class="flex flex-col m-10 space-y-12 mt-5 2xl:mt-12">
             <div class="bg-white shadow p-2 rounded-lg border">
                 <div class="flex justify-between mb-2">
                     <h1 class="tracking-wider">Partner Overview</h1>
@@ -73,7 +73,7 @@
                     </div>
                 </div>
 
-                <div class="h-[25vh] overflow-x-auto">
+                <div class="h-[20vh] 2xl:h-[25vh] overflow-x-auto">
                     <table class="table-auto w-full relative">
                         <thead class="text-[.7rem] font-semibold uppercase text-gray-400 bg-gray-50 top-0 sticky z-10">
                             <tr>
@@ -253,7 +253,7 @@
                     </div>
                 </div>
 
-                <div class="h-[25vh] overflow-x-auto">
+                <div class="h-[20vh] 2xl:h-[25vh] overflow-x-auto">
                     <table class="table-auto w-full relative">
                         <thead class="text-[.7rem] font-semibold uppercase text-gray-400 bg-gray-50 top-0 sticky z-10">
                             <tr>

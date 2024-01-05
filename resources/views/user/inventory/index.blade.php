@@ -36,7 +36,7 @@
         </section>
     @else
 
-        <div class="w-full min-h-[50vh] items-center justify-center">
+        <div class="w-full h-[50vh] items-center justify-center">
             <h1>No Proposal </h1>
         </div>
 

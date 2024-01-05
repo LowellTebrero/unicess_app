@@ -17,18 +17,15 @@
         <div class="p-5 py-4">
             <h1 class=" font-semibold  text-lg 2xl:text-2xl tracking-wider">Others Settings </h1>
         </div>
-
         <hr>
         <div class="flex">
-            <div class="m-5 w-1/2 flex flex-col  space-y-6 p-10 ">
-
-
-                <div class="w-full bg-white border shadow-sm  rounded-lg text-gray-700 mt-4">
+            <div class="m-5 w-1/2 flex flex-col  space-y-6 p-5 pt-0 2xl:p-10 ">
+                <div class="w-full bg-white border shadow-sm  rounded-lg text-gray-700 mt-0">
 
                     @foreach ($templates as  $template)
                     <div class="p-5 flex justify-between">
                         <h1 class="tracking-wider font-medium text-gray-600 text-xs 2xl:text-base">UPDATE PROPOSAL TEMPLATE HERE ...</h1>
-                        <h1 class="tracking-wider text-[.7rem] 2xl:text-xs">Note: (.docx/docx) only</h1>
+                        <h1 class="tracking-wider text-[.7rem] 2xl:text-xs">Note: (.docx/doc) only</h1>
                     </div>
                     <hr>
                     <div class="p-4">
@@ -41,7 +38,7 @@
                         <form action="{{ route('admin.template.update', $template->id) }}" class="flex flex-col pt-4 space-y-2" method="POST" enctype="multipart/form-data">
                             @csrf @method('PUT')
                             <input type="file" class="text-xs border  border-gray-500 rounded-lg" name="template_name">
-                            @error('template_name') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                            @error('template_name') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                             <button type="submit" class="bg-blue-400 hover:bg-blue-500 text-white rounded-lg p-2 text-sm ">Update File</button>
                         </form>
 

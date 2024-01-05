@@ -1,7 +1,7 @@
 <x-admin-layout>
 
     @section('title', 'Article/Event | ' . config('app.name', 'UniCESS'))
-    <section class="bg-white mt-5 m-8 h-[87vh] rounded-lg text-gray-700">
+    <section class="bg-white mt-5 m-8 h-[82vh] 2xl:h-[87vh] rounded-lg text-gray-700">
         <header class="p-4 py-2">
             <h1 class="2xl:text-2xl tracking-wider font-semibold text-gray-600">Article/Event Section</h1>
         </header>
@@ -14,7 +14,7 @@
         @endif
 
 
-        <main class="flex flex-col m-10 space-y-12 mt-12">
+        <main class="flex flex-col m-10 space-y-12 mt-5 2xl:mt-12">
             <div class="bg-white shadow p-2 rounded-lg border">
                 <div class="flex justify-between mb-2">
                     <h1 class="tracking-wider">Article Overview</h1>
@@ -30,8 +30,8 @@
                             <!-- Modal content -->
                             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                                 <!-- Modal header -->
-                                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                <div class="flex items-center justify-between p-3 2xl:p-4 border-b rounded-t dark:border-gray-600">
+                                    <h3 class="text-lg 2xl:text-xl font-semibold text-gray-900 dark:text-white">
                                         Add Article Post
                                     </h3>
                                     <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal">
@@ -46,20 +46,20 @@
                                     @csrf
                                     <div class="p-4 md:p-5 space-y-4">
                                         <div class="flex flex-col">
-                                            <label class="text-base leading-relaxed text-gray-200">Title</label>
-                                            <input type="text" class="text-base leading-relaxed text-gray-600 rounded" name="title">
+                                            <label class="text-sm 2xl:text-base leading-relaxed text-gray-200">Title</label>
+                                            <input type="text" class="text-sm 2xl:text-base leading-relaxed text-gray-600 rounded" name="title">
                                             @error('title') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                         </div>
 
                                         <div class="flex flex-col">
-                                            <label class="text-base leading-relaxed text-gray-200">Description</label>
-                                            <textarea name="description" class="text-base leading-relaxed text-gray-600 rounded" id="" cols="30" rows="10"></textarea>
+                                            <label class="text-sm 2xl:text-base leading-relaxed text-gray-200">Description</label>
+                                            <textarea name="description" class="text-sm 2xl:text-base leading-relaxed text-gray-600 rounded h-[20vh]" cols="30" rows="10"></textarea>
                                             @error('description') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                         </div>
 
                                         <div class="flex flex-col">
-                                            <label class="text-base leading-relaxed text-gray-200">Image</label>
-                                            <input type="file" class="text-base leading-relaxed text-gray-600" name="image">
+                                            <label class="text-sm 2xl:text-base leading-relaxed text-gray-200">Image</label>
+                                            <input type="file" class="text-sm 2xl:text-base leading-relaxed text-white" name="image">
                                             @error('image') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                         </div>
                                     </div>
@@ -74,7 +74,7 @@
                     </div>
                 </div>
 
-                <div class="h-[25vh] overflow-x-auto">
+                <div class="h-[20vh] 2xl:h-[25vh] overflow-x-auto">
                     <table class="table-auto w-full relative">
                         <thead class="text-[.7rem] font-semibold uppercase text-gray-400 bg-gray-50 top-0 sticky z-10">
                             <tr>
@@ -146,7 +146,7 @@
                                                     <!-- Modal content -->
                                                     <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                                                         <!-- Modal header -->
-                                                        <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                                        <div class="flex items-center justify-between p-3 2xl:p-4 border-b rounded-t dark:border-gray-600">
                                                             <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
                                                                 Edit article Details
                                                             </h3>
@@ -160,22 +160,22 @@
                                                         <!-- Modal body -->
                                                         <form action={{ route('admin.article.update', $article->id ) }} method="POST" enctype="multipart/form-data">
                                                             @csrf @method('PATCH')
-                                                            <div class="p-4 md:p-5 space-y-4">
+                                                            <div class="p-3 2xl:p-4 space-y-4">
                                                                 <div class="flex flex-col">
-                                                                    <label class="text-base leading-relaxed text-gray-200">Title</label>
-                                                                    <input type="text" class="text-base leading-relaxed text-gray-600 rounded" name="title" value="{{$article->title}}">
+                                                                    <label class="text-sm 2xl:text-base leading-relaxed text-gray-200">Title</label>
+                                                                    <input type="text" class="text-sm 2xl:text-base leading-relaxed text-gray-600 rounded" name="title" value="{{$article->title}}">
                                                                     @error('title') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                                                 </div>
 
                                                                 <div class="flex flex-col">
-                                                                    <label class="text-base leading-relaxed text-gray-200">Description</label>
-                                                                    <textarea name="description" class="text-base leading-relaxed text-gray-600 rounded" id="" cols="30" rows="10">{{$article->description}}</textarea>
+                                                                    <label class="text-sm 2xl:text-base leading-relaxed text-gray-200">Description</label>
+                                                                    <textarea name="description" class="text-sm 2xl:text-base leading-relaxed text-gray-600 rounded h-[20vh]"  cols="30" rows="10">{{$article->description}}</textarea>
                                                                     @error('description') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                                                 </div>
 
                                                                 <div class="flex flex-col">
-                                                                    <label class="text-base leading-relaxed text-gray-200">Image</label>
-                                                                    <input type="file" class="text-base leading-relaxed text-gray-600" name="image">
+                                                                    <label class="text-sm 2xl:text-base leading-relaxed text-gray-200">Image</label>
+                                                                    <input type="file" class="text-sm 2xl:text-base leading-relaxed text-white" name="image">
                                                                     @error('image') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                                                 </div>
                                                             </div>
@@ -221,7 +221,7 @@
                             <!-- Modal content -->
                             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                                 <!-- Modal header -->
-                                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                <div class="flex items-center justify-between p-3 2xl:p-4  border-b rounded-t dark:border-gray-600">
                                     <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
                                         Add event Post
                                     </h3>
@@ -237,20 +237,20 @@
                                     @csrf
                                     <div class="p-4 md:p-5 space-y-4">
                                         <div class="flex flex-col">
-                                            <label class="text-base leading-relaxed text-gray-200">Title</label>
-                                            <input type="text" class="text-base leading-relaxed text-gray-600 rounded" name="title">
+                                            <label class="text-sm 2xl:text-base leading-relaxed text-gray-200">Title</label>
+                                            <input type="text" class="text-sm 2xl:text-base leading-relaxed text-gray-600 rounded" name="title">
                                             @error('title') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                         </div>
 
                                         <div class="flex flex-col">
-                                            <label class="text-base leading-relaxed text-gray-200">Description</label>
-                                            <textarea name="description" class="text-base leading-relaxed text-gray-600 rounded" id="" cols="30" rows="10"></textarea>
+                                            <label class="text-sm 2xl:text-base leading-relaxed text-gray-200">Description</label>
+                                            <textarea name="description" class="text-sm 2xl:text-base leading-relaxed text-gray-600 rounded h-[20vh]"  cols="30" rows="10"></textarea>
                                             @error('description') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                         </div>
 
                                         <div class="flex flex-col">
-                                            <label class="text-base leading-relaxed text-gray-200">Image</label>
-                                            <input type="file" class="text-base leading-relaxed text-gray-600" name="image">
+                                            <label class="text-sm 2xl:text-base leading-relaxed text-gray-200">Image</label>
+                                            <input type="file" class="text-sm 2xl:text-base leading-relaxed text-white" name="image">
                                             @error('image') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                         </div>
                                     </div>
@@ -265,7 +265,7 @@
                     </div>
                 </div>
 
-                <div class="h-[25vh] overflow-x-auto">
+                <div class="h-[20vh] 2xl:h-[25vh] overflow-x-auto">
                     <table class="table-auto w-full relative">
                         <thead class="text-[.7rem] font-semibold uppercase text-gray-400 bg-gray-50 top-0 sticky z-10">
                             <tr>
@@ -359,20 +359,20 @@
                                                             @csrf @method('PATCH')
                                                             <div class="p-4 md:p-5 space-y-4">
                                                                 <div class="flex flex-col">
-                                                                    <label class="text-base leading-relaxed text-gray-200">Title</label>
-                                                                    <input type="text" class="text-base leading-relaxed text-gray-600 rounded" name="title" value="{{$event->title}}">
+                                                                    <label class="text-sm 2xl:text-base leading-relaxed text-gray-200">Title</label>
+                                                                    <input type="text" class="text-sm 2xl:text-base leading-relaxed text-gray-600 rounded" name="title" value="{{$event->title}}">
                                                                     @error('title') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                                                 </div>
 
                                                                 <div class="flex flex-col">
-                                                                    <label class="text-base leading-relaxed text-gray-200">Description</label>
-                                                                    <textarea name="description" class="text-base leading-relaxed text-gray-600 rounded" id="" cols="30" rows="10">{{$event->description}}</textarea>
+                                                                    <label class="text-sm 2xl:text-base leading-relaxed text-gray-200">Description</label>
+                                                                    <textarea name="description" class="text-sm 2xl:text-base leading-relaxed text-gray-600 rounded h-[20vh]" cols="30" rows="10">{{$event->description}}</textarea>
                                                                     @error('description') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                                                 </div>
 
                                                                 <div class="flex flex-col">
-                                                                    <label class="text-base leading-relaxed text-gray-200">Image</label>
-                                                                    <input type="file" class="text-base leading-relaxed text-gray-600" name="image">
+                                                                    <label class="text-sm 2xl:text-base leading-relaxed text-gray-200">Image</label>
+                                                                    <input type="file" class="text-sm 2xl:text-base leading-relaxed text-gray-600" name="image">
                                                                     @error('image') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                                                 </div>
                                                             </div>

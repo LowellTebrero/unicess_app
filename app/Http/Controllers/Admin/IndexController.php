@@ -96,8 +96,8 @@ use App\Models\TerminalReport;
         if ($images = $request->file('other_files')) {
            foreach ($images as $image) {
                $post->addMedia($image)->usingName('other')->toMediaCollection('otherFile');
-           }
-       }
+            }
+        }
 
         $post->save();
 

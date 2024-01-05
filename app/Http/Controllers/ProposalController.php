@@ -19,6 +19,7 @@ use Illuminate\Validation\Rule;
 use App\Models\ParticipationName;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Models\AdminProgramServices;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use App\Models\TemporaryEvaluationFile;
@@ -148,6 +149,13 @@ class ProposalController extends Controller
         }
 
         $post->save();
+
+
+        AdminProgramServices::create([
+            'proposal_id' => $post->id,
+            'title' => $post->project_title,
+            'status' => $post->programs->program_name,
+        ]);
 
         $admin = User::whereHas('roles', function ($query) { $query->where('id', 1);})->get();
 

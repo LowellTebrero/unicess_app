@@ -47,26 +47,26 @@
                                     @csrf
                                     <div class="p-4 md:p-5 space-y-4">
                                         <div class="flex flex-col">
-                                            <label class="text-base leading-relaxed text-gray-200">Title</label>
-                                            <input type="text" class="text-base leading-relaxed text-gray-600 rounded" name="title">
+                                            <label class="text-sm 2xl:text-base leading-relaxed text-gray-200">Title</label>
+                                            <input type="text" class="text-sm 2xl:text-base leading-relaxed text-gray-600 rounded" name="title">
                                             @error('title') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                         </div>
 
                                         <div class="flex flex-col">
-                                            <label class="text-base leading-relaxed text-gray-200">Description</label>
-                                            <textarea name="description" class="text-base leading-relaxed text-gray-600 rounded" id="" cols="30" rows="10"></textarea>
+                                            <label class="text-sm 2xl:text-base leading-relaxed text-gray-200">Description</label>
+                                            <textarea name="description" class="text-sm 2xl:text-base leading-relaxed text-gray-600 rounded h-[20vh]" cols="30" rows="10"></textarea>
                                             @error('description') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                         </div>
 
                                         <div class="flex flex-col">
-                                            <label class="text-base leading-relaxed text-gray-200">Start Date</label>
-                                            <input type="date" class="text-base leading-relaxed text-gray-600 rounded" name="start_time">
+                                            <label class="text-sm 2xl:text-base leading-relaxed text-gray-200">Start Date</label>
+                                            <input type="date" class="text-sm 2xl:text-base leading-relaxed text-gray-600 rounded" name="start_time">
                                             @error('start_time') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                         </div>
 
                                         <div class="flex flex-col">
-                                            <label class="text-base leading-relaxed text-gray-200">End Date</label>
-                                            <input type="date" class="text-base leading-relaxed text-gray-600 rounded" name="end_time">
+                                            <label class="text-sm 2xl:text-base leading-relaxed text-gray-200">End Date</label>
+                                            <input type="date" class="text-sm 2xl:text-base leading-relaxed text-gray-600 rounded" name="end_time">
                                             @error('end_time') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                         </div>
 

@@ -1,6 +1,6 @@
 <div class="p-5 py-3">
     {{--  <h1 class="">S-Y: {{ $currentYear }} - {{ $previousYear }}</h1>  --}}
-    <div class="overflow-x-auto h-[70vh] rounded-lg border border-gray-200 shadow-sm  ">
+    <div class="overflow-x-auto h-[65vh] 2xl:h-[70vh] rounded-lg border border-gray-200 shadow-sm  ">
         <table class="w-full border-collapse bg-white text-left text-sm text-gray-500 xl:text-xs 2xl:text-sm">
             <thead class="bg-gray-50">
                 <tr class="">

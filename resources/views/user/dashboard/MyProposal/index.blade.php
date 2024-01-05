@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    <section class="mt-5 m-8 rounded-lg 2xl:min-h-[87vh] xl:min-h-[85vh] relative bg-white">
+    <section class="mt-5 m-8 rounded-lg 2xl:min-h-[87vh] h-[82vh] relative bg-white">
         <header class="p-4 flex justify-between">
             <h1 class="font-semibold text-gray-600 tracking-wider text-lg 2xl:text-2xl">My Proposal</h1>
             <a href={{ route('User-dashboard.index') }} class="focus:bg-red-100 rounded-md px-2 py-1 hover:bg-gray-200 text-red-500">

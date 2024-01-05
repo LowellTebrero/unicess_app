@@ -1,6 +1,6 @@
 <x-admin-layout>
 
-    <section class="mt-8 m-5 rounded-lg bg-white  min-h-[85vh] 2xl:min-h-[87vh]">
+    <section class="mt-8 m-5 rounded-lg bg-white  min-h-[82vh] 2xl:min-h-[87vh]">
 
         <header class="p-4 py-2 flex justify-between items-center">
             <h1 class="text-lg font-medium tracking-wider text-slate-700">Proposal Overview</h1>
@@ -36,8 +36,6 @@
                         <div class="p-5">
                             <canvas id="myCharts" width="500" height="200"></canvas>
                         </div>
-                        {{--  {!! $chart->container() !!}
-                        {!! $chart->script() !!}  --}}
                     </div>
                 </div>
 
@@ -46,7 +44,7 @@
 
                 <div class="flex 2xl:flex-col flex-col pt-0  m-5 mt-0 rounded-lg ">
 
-                    <div class="flex justify-between  py-2  ">
+                    <div class="flex justify-between py-2">
 
 
                         <div id="wrapper" class="flex items-center transition-all px-2 py-1 rounded border ">
