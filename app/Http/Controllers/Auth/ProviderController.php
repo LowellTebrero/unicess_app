@@ -22,7 +22,6 @@ class ProviderController extends Controller
     {
         return Socialite::driver('google')
         ->with(['access_type' => 'offline', 'prompt' => 'consent'])
-        // ->scopes('https://www.googleapis.com/auth/calendar')
         ->redirect();
     }
 
