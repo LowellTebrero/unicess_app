@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('program_id');
-            $table->string('started_date')->nullable();
-            $table->string('finished_date')->nullable();
+            $table->dateTime('started_date')->nullable();
+            $table->dateTime('finished_date')->nullable();
             $table->longtext('project_title');
             $table->string('authorize')->default('pending');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

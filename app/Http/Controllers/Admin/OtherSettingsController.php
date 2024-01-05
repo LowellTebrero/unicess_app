@@ -8,12 +8,14 @@ use App\Models\AdminYear;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class OtherSettingsController extends Controller
 {
     public function index(){
 
-        $templates = Template::all();
+        $templates = Template::with('medias')->get();
+
         $years = AdminYear::orderBy('year', 'DESC')->get();
         $faculties =  Faculty::orderBy('name')->get();
         return view('admin.other-settings.index', compact('templates', 'years', 'faculties'));
@@ -62,37 +64,59 @@ class OtherSettingsController extends Controller
 
     }
 
-    public function update(Request $request, $id){
+    public function PostTemplate(Request $request){
 
-        $request->validate(['template_name' => 'required|file|mimetypes:application/vnd.openxmlformats-officedocument.wordprocessingml.document|max:5048']);
+        $request->validate(['template_file' => 'required|max:10048']);
 
+        $post = new Template();
+        $post->template_name = "template_name";
 
-        if($request->hasFile("template_name")){
-
-            $template = Template::find($id);
-
-            $exists = Storage::disk('local')->exists("upload/template/".$template->template_name);
-
-            if($exists){
-                Storage::disk("local")->delete('upload/template/'.$template->template_name);
-
+        if ($templates = $request->file('template_file')) {
+            foreach ($templates as $template) {
+                $post->addMedia($template)->usingName('template')->toMediaCollection('TemplateFile');
             }
-
-            $fileName = $request->template_name->getClientOriginalName();
-            $filePath = 'upload/template/'. $fileName;
-
-            Storage::disk('local')->put($filePath, file_get_contents($request->template_name));
-
-            Template::where('id', $id)->update(['template_name' => $fileName]);
         }
 
-        flash()->addSuccess('File update Successfully');
-        return redirect(route('admin.template.index'));
+        $post->save();
 
+        flash()->addSuccess('File Uploaded Successfully.');
+        return back();
     }
 
-    public function download($template_name){
+    public function TemplateUpdate(Request $request, $id){
 
-        return response()->download(public_path('upload/template/'. $template_name));
+        $request->validate([
+            'template_file' => "required|max:10048",
+           ]);
+
+        $post = Template::where('id', $id)->first();
+
+        if ($templates = $request->file('template_file')) {
+            foreach ($templates as $template) {
+                $post->addMedia($template)->usingName('template')->toMediaCollection('TemplateFile');
+            }
+        }
+
+        flash()->addSuccess('File Uploaded Successfully.');
+        return back();
+    }
+
+
+    public function deleteMediasTemplate($id, $templateId)
+    {
+        $media = Media::findOrFail($id);
+        $narrativeReport = Template::findOrFail($templateId);
+        $media->delete();
+
+        // Check if the related NarrativeReport should be deleted
+        if ($narrativeReport->medias()->count() === 0) {
+            $narrativeReport->delete();
+            flash()->addSuccess('File and related NarrativeReport deleted successfully.');
+        } else {
+            flash()->addSuccess('File deleted successfully.');
+        }
+
+        return back();
+
     }
 }

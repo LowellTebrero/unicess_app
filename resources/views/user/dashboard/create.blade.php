@@ -121,7 +121,7 @@
                     @enderror
                 </div>
 
-                <div class="flex space-x-2 pt-3 items-center">
+                <div class="flex space-x-4 pt-3 items-center">
                     <div class="w-1/2">
                         <label class="text-xs block text-slate-600  font-medium 2xl:text-sm">Started Date</label>
                         <input class="border-zinc-300 text-xs  appearance-none border  rounded w-full py-2 mt-2 px-3 text-slate-600  leading-tight focus:outline-none"

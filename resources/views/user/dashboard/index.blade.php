@@ -111,10 +111,57 @@
                                     <h1 class="text-md text-white">Upload Project</h1>
                                 </a>
 
-                                <a href={{ route('download.template') }} class="flex bg-blue-600 hover:bg-blue-700 text-sm rounded-xl text-white p-2 items-center w-full">
+                                {{--  <a href={{ route('download.template') }} class="flex bg-blue-600 hover:bg-blue-700 text-sm rounded-xl text-white p-2 items-center w-full">
                                     <svg class="fill-white mr-3" xmlns="http://www.w3.org/2000/svg" height="40" viewBox="0 96 960 960" width="40"><path d="M490.001 925.999v-64.383l210.82-210.821 64.384 64.384-210.821 210.82h-64.383Zm-360-204.872v-50.254h289.743v50.254H130.001Zm670.64-41.384-64.384-64.384 29-29q6.948-6.948 17.564-6.948 10.615 0 17.82 6.948l29 29q6.948 7.205 6.948 17.82 0 10.616-6.948 17.564l-29 29Zm-670.64-121.18v-50.255h454.615v50.255H130.001Zm0-162.307v-50.255h454.615v50.255H130.001Z"/></svg>
                                     <h1>CESO Template</h1>
-                                </a>
+                                </a>  --}}
+
+
+
+                                <!-- Modal toggle -->
+                                <button data-modal-target="default-modal" data-modal-toggle="default-modal" class="flex space-x-2 items-center justify-between text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                                    <svg class="fill-white mr-3" xmlns="http://www.w3.org/2000/svg" height="40" viewBox="0 96 960 960" width="40"><path d="M490.001 925.999v-64.383l210.82-210.821 64.384 64.384-210.821 210.82h-64.383Zm-360-204.872v-50.254h289.743v50.254H130.001Zm670.64-41.384-64.384-64.384 29-29q6.948-6.948 17.564-6.948 10.615 0 17.82 6.948l29 29q6.948 7.205 6.948 17.82 0 10.616-6.948 17.564l-29 29Zm-670.64-121.18v-50.255h454.615v50.255H130.001Zm0-162.307v-50.255h454.615v50.255H130.001Z"/></svg>
+                                    CESO Template
+                                </button>
+
+                                <!-- Main modal -->
+                                <div id="default-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                    <div class="relative p-4 w-full max-w-2xl max-h-full">
+                                        <!-- Modal content -->
+                                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                            <!-- Modal header -->
+                                            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                                    Download CESO Templates
+                                                </h3>
+                                                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal">
+                                                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                                    </svg>
+                                                    <span class="sr-only">Close modal</span>
+                                                </button>
+                                            </div>
+                                            <!-- Modal body -->
+                                            <div class="p-4">
+
+                                                @foreach ($templates as  $template)
+                                                    @foreach ($template->medias as $media )
+                                                    <div class="flex space-y-2">
+                                                        <a href={{ url('download-media', $media->id) }} class="text-white px-2 py-1 text-sm hover:bg-blue-500 rounded transition-all">{{ $media->file_name }}</a>
+                                                    </div>
+
+                                                    @endforeach
+                                                @endforeach
+                                            </div>
+                                            <!-- Modal footer -->
+                                            <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+
+                                                <button data-modal-hide="default-modal" type="button" class="ms-3 text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </x-alpine-modal>
                     </div>

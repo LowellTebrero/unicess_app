@@ -12,6 +12,7 @@ use App\Models\Location;
 use App\Models\Proposal;
 use App\Models\AdminYear;
 use App\Models\Evaluation;
+use App\Models\Template;
 use App\Rules\UniqueTitle;
 use Illuminate\Http\Request;
 use App\Models\ProposalMember;
@@ -50,7 +51,7 @@ class ProposalController extends Controller
         $user = Auth::user();
         $currentYear = date('Y');
         $Temporary = TemporaryEvaluationFile::all();
-
+        $templates = Template::with('medias')->get();
         $proposals = Proposal::with(['proposal_members' => function ($query) {
         $query->select('proposal_id')->where('user_id', auth()->user()->id)->distinct();
         }])->orderBy('created_at', 'DESC')->whereYear('created_at', date('Y'))->get();
@@ -67,7 +68,7 @@ class ProposalController extends Controller
 
         return view('user.dashboard.index',compact(
         'proposalMembers','latestYearPoints','proposals', 'user', 'counts',
-               'currentYear',  'second', 'Temporary'));
+               'currentYear',  'second', 'Temporary', 'templates'));
     }
 
     public function getCurrentTime()

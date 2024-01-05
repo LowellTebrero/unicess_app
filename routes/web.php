@@ -190,8 +190,6 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
 
     });
 
-
-
     Route::controller(RoleController::class)->group(function () {
         Route::resource('/roles', RoleController::class);
         Route::post('/roles/{role}/permissions',  'givePermission')->name('roles.permissions');
@@ -222,10 +220,11 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
 
     Route::controller(OtherSettingsController::class)->group(function () {
         Route::get('/template-index', 'index')->name('template.index');
-        Route::put('/template-update/{id}', 'update')->name('template.update');
-        Route::get('/template-download/{template_name}', 'download')->name('template.download');
         Route::post('/year-post', 'yearPost')->name('yearpost.upload');
         Route::post('/faculty-post', 'facultyPost')->name('facultypost.upload');
+        Route::post('/template-post', 'PostTemplate')->name('templatepost.upload');
+        Route::put('/template-update/{id}', 'TemplateUpdate')->name('template.update');
+        Route::delete('/template-delete/{id}/{templateId}', 'deleteMediasTemplate')->name('template.delete');
     });
 
     Route::get('/edit-toggle/{id}', [ToggleController::class, 'edit'])->name('edit.submit');

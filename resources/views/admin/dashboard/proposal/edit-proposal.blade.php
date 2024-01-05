@@ -177,14 +177,14 @@
                                                 <path
                                                     d="M14 8A6 6 0 1 1 2 8a6 6 0 0 1 12 0Zm-1 0A5 5 0 1 0 3 8a5 5 0 0 0 10 0Z" />
                                             </g>
-                                        </svg> Upload file
+                                        </svg> Upload documents
                                         </button>
                                         <!-- Modal -->
 
                                         <div class="fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-black bg-opacity-40" x-show="showModal" >
 
                                             <!-- Modal inner -->
-                                            <div class="w-[50rem]  2xl:w-1/4  text-left bg-blue-500 rounded-lg shadow-lg" x-show="showModal"
+                                            <div class="w-[50rem]  2xl:w-1/2  text-left bg-blue-500 rounded-lg shadow-lg" x-show="showModal"
                                                 x-transition:enter="motion-safe:ease-out duration-300"
                                                 x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
                                                 x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
@@ -317,14 +317,14 @@
 
                                                                     <div class="flex space-x-4 w-full" >
                                                                         <div class="w-full">
-                                                                            <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs">Started Date  <span class="text-red-500">*</span></label>
-                                                                            <input required class="border-zinc-400 xl:text-xs shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" value="{{ $proposal->started_date }}" name="started_date" id="started_date" type="date">
+                                                                            <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs">Started Date<span class="text-red-500">*</span></label>
+                                                                            <input required class="border-zinc-400 xl:text-xs shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" value="{{ $proposal->started_date }}" name="started_date" id="started_date" type="datetime-local">
                                                                             @error('started_date') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
                                                                         </div>
 
                                                                         <div class="w-full">
-                                                                            <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs"> Ended Date  <span class="text-red-500">*</span></label>
-                                                                            <input required class="border-zinc-400 xl:text-xs shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" value="{{ $proposal->finished_date }}" name="finished_date" id="finished_date" type="date">
+                                                                            <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs">Ended Date<span class="text-red-500">*</span></label>
+                                                                            <input required class="border-zinc-400 xl:text-xs shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" value="{{ $proposal->finished_date }}" name="finished_date" id="finished_date" type="datetime-local">
                                                                             @error('finished_date') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
                                                                         </div>
                                                                     </div>

@@ -42,7 +42,7 @@
                                             d="M14 8A6 6 0 1 1 2 8a6 6 0 0 1 12 0Zm-1 0A5 5 0 1 0 3 8a5 5 0 0 0 10 0Z" />
                                     </g>
                                     </svg>
-                                     Upload Files
+                                     Upload Documents
                                 </button>
 
                                 <!-- Modal -->
@@ -58,7 +58,7 @@
                                         <!-- Title / Close-->
                                         <div class="flex items-center justify-end px-4 rounded-tl rounded-tr py-4 pb-2">
 
-                                            <h1 class="tracking-wider text-sm">Upload file</h1>
+                                            <h1 class="tracking-wider text-sm">Upload Documents</h1>
 
                                             <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" @click="showModal = false">
                                                 <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -76,13 +76,13 @@
                                                 <div class="py-1 flex flex-col w-full">
 
                                                     <div class="flex flex-col mb-4">
-                                                        <label class="text-sm font-light  mb-1">Proposal PDF</label>
+                                                        <label class="text-sm font-light  mb-1">Proposal (PDF)</label>
                                                         <input type="file" name="proposal_pdf" class="text-xs text-slate-700 border file:bg-transparent file:border-none  file:bg-gray-100 file:mr-4 file:py-2 file:px-4">
                                                         @error('proposal_pdf') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
                                                     </div>
 
                                                     <div class="flex flex-col mb-4">
-                                                        <label class="text-sm font-light  mb-1">Memorandum of Agreement PDF</label>
+                                                        <label class="text-sm font-light  mb-1">Memorandum of Agreement (PDF)</label>
                                                         <input type="file" name="moa" class="text-xs text-slate-700 border file:bg-transparent file:border-none  file:bg-gray-100 file:mr-4 file:py-2 file:px-4">
                                                         @error('moa') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
                                                     </div>
@@ -168,13 +168,13 @@
                                                         <div class="flex space-x-4 w-full" >
                                                             <div class="w-full">
                                                                 <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs">Started Date  <span class="text-red-500">*</span></label>
-                                                                <input required class="border-zinc-400 xl:text-xs shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" value="{{ $proposals->started_date }}" name="started_date" id="started_date" type="date">
+                                                                <input required class="border-zinc-400 xl:text-xs shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" value="{{ $proposals->started_date }}" name="started_date" id="started_date" type="datetime-local">
                                                                 @error('started_date') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
                                                             </div>
 
                                                             <div class="w-full">
                                                                 <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs"> Ended Date  <span class="text-red-500">*</span></label>
-                                                                <input required class="border-zinc-400 xl:text-xs shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" value="{{ $proposals->finished_date }}" name="finished_date" id="finished_date" type="date">
+                                                                <input required class="border-zinc-400 xl:text-xs shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" value="{{ $proposals->finished_date }}" name="finished_date" id="finished_date" type="datetime-local">
                                                                 @error('finished_date') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
                                                             </div>
                                                         </div>
@@ -234,15 +234,15 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="pt-4 w-full">
+                                                        <div class="w-full overflow-x-auto h-[25vh] 2xl:h-[30vh]">
 
-                                                            <div>
+                                                            <div class="pb-2 sticky top-0 bg-white">
                                                                 <button name="add" id="add" type="button" class="bg-slate-500 rounded text-white px-2 py-1  text-sm xl:text-xs border-zinc-400">Add Member</button>
                                                             </div>
 
                                                             <table id="table" class="w-full">
                                                                 <thead>
-                                                                <tr class="text-sm text-gray-500">
+                                                                <tr class="text-sm text-gray-500 sticky top-7 bg-white">
                                                                     <th class="xl:text-xs  text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs text-left">Member Name</th>
                                                                     <th class="xl:text-xs  text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs text-left">Member Type</th>
                                                                     <th class="xl:text-xs  text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs text-left">Action</th>

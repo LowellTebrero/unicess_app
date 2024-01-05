@@ -26,11 +26,9 @@ class ReportController extends Controller
 
     public function NarrativeStore(Request $request){
 
-
         $request->validate([
             'narrative_file' => "required|max:10048",
-           ]);
-
+        ]);
 
         $post = new NarrativeReport();
         $post->user_id  = auth()->id();

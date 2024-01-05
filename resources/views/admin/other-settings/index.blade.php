@@ -22,28 +22,85 @@
             <div class="m-5 w-1/2 flex flex-col  space-y-6 p-5 pt-0 2xl:p-10 ">
                 <div class="w-full bg-white border shadow-sm  rounded-lg text-gray-700 mt-0">
 
-                    @foreach ($templates as  $template)
+
                     <div class="p-5 flex justify-between">
-                        <h1 class="tracking-wider font-medium text-gray-600 text-xs 2xl:text-base">UPDATE PROPOSAL TEMPLATE HERE ...</h1>
-                        <h1 class="tracking-wider text-[.7rem] 2xl:text-xs">Note: (.docx/doc) only</h1>
+                        <div>
+                            <h1 class="tracking-wider font-medium text-gray-600 text-xs 2xl:text-base">UPDATE PROPOSAL TEMPLATE HERE</h1>
+                            <h1 class="tracking-wider text-[.7rem] 2xl:text-xs">Note: (.docx/doc) only</h1>
+                        </div>
+
+                            @if ($templates->isEmpty())
+
+                            <button data-modal-target="default-modal" data-modal-toggle="default-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                            Upload File
+                            </button>
+                            @else
+
+                            <button data-modal-target="default-modal" data-modal-toggle="default-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                            Add File
+                            </button>
+                            @endif
+
+
+                            <!-- Main modal -->
+                            <div id="default-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                <div class="relative p-4 w-full max-w-2xl max-h-full">
+                                    <!-- Modal content -->
+                                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                        <!-- Modal header -->
+                                        <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                               Upload Template File(s)
+                                            </h3>
+                                            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal">
+                                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                                </svg>
+                                                <span class="sr-only">Close modal</span>
+                                            </button>
+                                        </div>
+                                        <!-- Modal body -->
+                                        <form action={{ route('admin.templatepost.upload') }} method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="p-4 space-y-4 flex flex-col">
+
+                                                <label class="text-sm 2xl:text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                                                    Upload template file here...
+                                                </label>
+                                                <input type="file" multiple name="template_file[]"  class="text-sm 2xl:text-base border leading-relaxed text-white">
+
+                                            </div>
+                                            <!-- Modal footer -->
+                                            <div class="flex items-center justify-between p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+                                                <button type="Submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit here</button>
+                                                <button data-modal-hide="default-modal" type="button" class="ms-3 text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Decline</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                     </div>
                     <hr>
                     <div class="p-4">
-                        <div class="flex space-x-4">
-                            <h1 class="text-xs 2xl:text-sm">{{ $template->template_name }}</h1>
-                            <a href={{ route('admin.template.download', $template->template_name) }} class="text-white bg-red-400 rounded-lg px-2 py-1 text-xs">Download</a>
 
-                        </div>
+                        @foreach ($templates as $template )
+                          @foreach ($template->medias as $media )
+                          <div class="flex justify-between space-y-2">
+                            <h1>{{ $media->file_name }}</h1>
+                            <div class="flex space-x-2 ">
+                                <a href={{ url('download-media', $media->id) }} class="text-white bg-green-400 rounded-lg px-2 py-1 text-xs">Download</a>
+                                <form action={{ route('admin.template.delete', ['id' => $media->id, 'templateId' => $template->id]) }} method="POST" onsubmit="return confirm ('Are you sure?')">
+                                    @csrf @method('DELETE')
+                                    <button class="text-white bg-red-400 rounded-lg px-2 py-1 text-xs" type="submit">Delete</button>
+                                </form>
 
-                        <form action="{{ route('admin.template.update', $template->id) }}" class="flex flex-col pt-4 space-y-2" method="POST" enctype="multipart/form-data">
-                            @csrf @method('PUT')
-                            <input type="file" class="text-xs border  border-gray-500 rounded-lg" name="template_name">
-                            @error('template_name') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
-                            <button type="submit" class="bg-blue-400 hover:bg-blue-500 text-white rounded-lg p-2 text-sm ">Update File</button>
-                        </form>
+                            </div>
+                          </div>
+                          @endforeach
+                        @endforeach
 
                     </div>
-                    @endforeach
+
                 </div>
 
 
