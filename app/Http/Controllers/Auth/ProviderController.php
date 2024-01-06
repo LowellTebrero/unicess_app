@@ -23,6 +23,8 @@ class ProviderController extends Controller
         return Socialite::driver('google')
         ->with(['access_type' => 'offline', 'prompt' => 'consent'])
         ->redirect();
+
+
     }
 
     public function handleCallback()
@@ -30,8 +32,6 @@ class ProviderController extends Controller
 
         try {
         $user = Socialite::driver('google')->user();
-
-
 
         }catch (\Exception $e) {
             return redirect('/login');
