@@ -43,7 +43,7 @@
     </div>
 
     <a href="{{ route('admin.dashboard.chart-index') }}"
-        class="bg-white w-full text-gray-600 rounded-lg xl:rounded-xl  hover:bg-slate-100 transition-all flex justify-between items-center p-4 sm:p-0 sm:px-4 md:px-6 px-8 xl:px-10 shadow relative hover:border hover:border-teal-300">
+        class="bg-white w-full text-gray-600 rounded xl:rounded-xl  hover:bg-slate-100 transition-all flex justify-between items-center p-4 sm:p-0 sm:px-4 md:px-6 px-8 xl:px-10 shadow relative hover:border hover:border-teal-300">
 
         <div class="relative">
             <div class="flex space-x-2">
