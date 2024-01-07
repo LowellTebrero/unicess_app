@@ -2,7 +2,7 @@
 
     @section('title', 'Dashboard | ' . config('app.name', 'UniCESS'))
 
-    <section class="flex xl:h-[100%] flex-col-reverse xl:flex-row  xl:justify-between overflow-hidden">
+    <section class="flex h-[85vh] 2xl:h-[87vh] flex-col-reverse xl:flex-row  xl:justify-between ">
         <div class="xl:px-4 2xl:px-8 flex w-full flex-col p-4">
 
 
