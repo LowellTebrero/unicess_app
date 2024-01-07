@@ -6,7 +6,7 @@
         <div class="justify-between flex mt-2 2xl:mt-3 xl:flex-col xl:space-y-2 xl:space-x-0 flex-col sm:flex-row sm:space-y-0 space-y-2 sm:space-x-4">
 
             <button
-                class="border border-gray-400 min-h-[8vh] bg-gradient-to-r from-green-200 to-green-500  w-full rounded-lg p-5  flex space-x-5 items-center relative overflow-hidden  duration-100"
+                class="border border-gray-400 h-[8vh] bg-gradient-to-r from-green-200 to-green-500  w-full rounded-lg p-5  flex space-x-5 items-center relative overflow-hidden  duration-100"
                 type="button" x-data="{}"
                 x-on:click="window.livewire.emitTo('finished-proposal', 'show')">
 
@@ -20,7 +20,7 @@
             </button>
 
             <button
-                class="border border-gray-400 min-h-[8vh] bg-gradient-to-r from-sky-400 to-blue-500 w-full  rounded-lg p-5 flex space-x-5 items-center relative overflow-hidden  duration-100"
+                class="border border-gray-400 h-[8vh] bg-gradient-to-r from-sky-400 to-blue-500 w-full  rounded-lg p-5 flex space-x-5 items-center relative overflow-hidden  duration-100"
                 type="button" x-data="{}"
                 x-on:click="window.livewire.emitTo('ongoing-proposal', 'show')">
 
@@ -36,7 +36,7 @@
             </button>
 
             <button
-                class="border border-gray-400 min-h-[8vh] bg-gradient-to-l from-orange-600 via-orange-400 to-yellow-300   w-full rounded-lg p-5 space-x-5   items-center relative overflow-hidden flex "
+                class="border border-gray-400 h-[8vh] bg-gradient-to-l from-orange-600 via-orange-400 to-yellow-300   w-full rounded-lg p-5 space-x-5   items-center relative overflow-hidden flex "
                 type="button" x-data="{}"
                 x-on:click="window.livewire.emitTo('pending-proposal', 'show')">
 
