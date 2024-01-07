@@ -7,7 +7,7 @@
                 <thead>
                 <tr class="sticky top-0 bg-gray-100 z-20">
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
-                    <th scope="col" class="px-6 pr-0 py-3 text-left text-xs font-medium text-gray-500 uppercase w-[7rem]">Type</th>
+                    <th scope="col" class="px-6 pr-0 py-3 text-left text-xs font-medium text-gray-500 uppercase w-[7rem]">Document Type</th>
                     <th scope="col" class="px-6 pr-0 py-3 text-left text-xs font-medium text-gray-500 uppercase w-[7rem]">Size</th>
                     <th scope="col" class="px-6 pr-0 py-3 text-left text-xs font-medium text-gray-500 uppercase w-[10rem]">created</th>
                     <th scope="col" class="text-left text-xs font-medium text-gray-500 uppercase w-[5rem]">Action</th>

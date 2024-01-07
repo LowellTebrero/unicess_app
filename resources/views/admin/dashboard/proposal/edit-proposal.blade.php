@@ -709,20 +709,20 @@
                     <div class="overflow-x-auto h-[74vh] 2xl:h-[77vh]">
                         <div class="flex py-3 items-center flex-wrap px-2">
                             @foreach ($proposals->medias as $mediaLibrary)
-                                <div class="bg-white w-[10rem] sm:w-[10rem] xl:w-[10rem] xl:h-[14vh] shadow-md rounded-lg hover:bg-slate-100 transition-all m-2 relative" id="proposal_id{{ $mediaLibrary->id }}">
+                                <div class="bg-white w-[10rem] sm:w-[10rem] xl:w-[10rem] xl:h-[17vh] shadow-md rounded-lg hover:bg-slate-100 transition-all m-2 relative" id="proposal_id{{ $mediaLibrary->id }}">
 
                                     <x-alpine-modal>
                                         <x-slot name="scripts">
                                             <div class="flex items-center flex-col p-4 space-y-3 h-full" target="__blank">
                                                 <div>
                                                     @if ($mediaLibrary->mime_type == 'image/jpeg' || $mediaLibrary->mime_type == 'image/png' || $mediaLibrary->mime_type == 'image/jpg')
-                                                    <img src="{{asset('img/image-icon.png') }}" class="xl:w-[2.5rem] w-[3rem]" width="30">
+                                                    <img src="{{asset('img/image-icon.png') }}" class="xl:w-[2.4rem] w-[3rem]" width="30">
                                                     @elseif ($mediaLibrary->mime_type == 'text/plain')
-                                                    <img src="{{asset('img/text-document.png') }}" class="xl:w-[2.5rem] w-[3rem]" width="30">
+                                                    <img src="{{asset('img/text-document.png') }}" class="xl:w-[2.4rem] w-[3rem]" width="30">
                                                     @elseif ($mediaLibrary->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-                                                    <img src="{{asset('img/docx.png')}}" class="xl:w-[2.5rem] w-[3rem]" width="30">
+                                                    <img src="{{asset('img/docx.png')}}" class="xl:w-[2.4rem] w-[3rem]" width="30">
                                                     @else
-                                                    <img src="{{asset('img/pdf.png')}}" class="xl:w-[2.5rem] w-[3rem]" width="30">
+                                                    <img src="{{asset('img/pdf.png')}}" class="xl:w-[2.4rem] w-[3rem]" width="30">
                                                     @endif
                                                 </div>
 
@@ -778,7 +778,7 @@
                                                 <!-- Modal body -->
                                                 <div class="p-4 md:p-5 space-y-2">
                                                     <p class="text-sm leading-relaxed text-white">
-                                                        Uploaded at: {{ \Carbon\Carbon::parse($mediaLibrary->created_at)->format('M d, y g:i:s A') }}
+                                                        Uploaded at: {{ \Carbon\Carbon::parse($mediaLibrary->created_at)->format('M d, Y g:i:s A') }}
                                                     </p>
                                                     <p class="text-sm leading-relaxed text-white">
                                                         Project Type: {{ $mediaLibrary->collection_name }}
