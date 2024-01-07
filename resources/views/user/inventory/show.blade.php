@@ -115,7 +115,7 @@
                                                         @error('other_files') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
                                                     </div>
 
-                                                    <div class="mb-2 mt-12">
+                                                    <div class="mb-1 mt-12">
                                                         <button class="bg-blue-500 w-full text-white rounded-md p-2" type="submit" id="upload-file" disabled>Upload Document</button>
                                                     </div>
                                                 </div>
@@ -128,7 +128,7 @@
                             <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = false">
 
                                 <!-- Trigger for Modal -->
-                                <button class="px-2 py-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 xl:text-[.8rem] 2xl:text-xs text-xs space-x-2 flex" type="button" @click="showModal = true">
+                                <button class="p-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 xl:text-[.8rem] 2xl:text-xs text-xs space-x-2 flex" type="button" @click="showModal = true">
                                     <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M4 7h3m13 0h-9m9 10h-3M4 17h9m-9-5h16"/></svg>
                                      Edit Project details
                                 </button>
@@ -144,7 +144,7 @@
                                         x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" @click.away="showModal = false">
 
                                         <!-- Title / Close-->
-                                        <div class="flex items-center justify-between p-4 rounded-tl rounded-tr bg-white  ">
+                                        <div class="flex items-center justify-between p-2 px-4 rounded-tl rounded-tr bg-white  ">
                                             <h3 class="text-base font-semibold  text-gray-500">
                                                Edit Project Details
                                             </h3>
@@ -160,18 +160,17 @@
                                         <hr>
 
                                         <!-- content -->
-                                        <div class="p-6 space-y-4">
+                                        <div class="p-4 pt-2 space-y-4">
 
                                                 <form action={{ route('inventory.update-project-details', $proposals->id ) }} method="POST">
                                                     @csrf @method('PUT')
-                                                <!-- Modal header -->
 
                                                 <!-- Modal body -->
                                                 <div class="py-4 px-0 pt-0 space-y-4">
 
                                                     <div class="flex space-y-2 flex-col">
                                                         <div class="w-full">
-                                                            <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs" for="program_id">Program Name <span class="text-red-500">*</span></label>
+                                                            <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-1 tracking-wider 2xl:text-xs" for="program_id">Program Name <span class="text-red-500">*</span></label>
                                                             <select id="program_id" class="rounded-md xl:text-xs w-full border-zinc-400  py-2 px-3" name="program_id" value="{{ old('program_id') }}" required>
                                                                 @foreach ($program as $id => $program_name ) <option value="{{ $id }}" @if ($id == $proposals->program_id) selected="selected" @endif >{{ $program_name }}</option> @endforeach
                                                             </select>
@@ -179,7 +178,7 @@
                                                         </div>
 
                                                         <div class="w-full">
-                                                            <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs" for="project_title">Proposal Title <span class="text-red-500">*</span></label>
+                                                            <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-1 tracking-wider 2xl:text-xs" for="project_title">Proposal Title <span class="text-red-500">*</span></label>
                                                             <input class="border-zinc-400 xl:text-xs shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="project_title" id="project_title" type="text" value="{{ $proposals->project_title }}" placeholder="project title" required>
                                                             @error('project_title') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
                                                         </div>
@@ -189,13 +188,13 @@
 
                                                         <div class="flex space-x-4 w-full" >
                                                             <div class="w-full">
-                                                                <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs">Started Date  <span class="text-red-500">*</span></label>
+                                                                <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-1 tracking-wider 2xl:text-xs">Started Date  <span class="text-red-500">*</span></label>
                                                                 <input required class="border-zinc-400 xl:text-xs shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" value="{{ $proposals->started_date }}" name="started_date" id="started_date" type="datetime-local">
                                                                 @error('started_date') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
                                                             </div>
 
                                                             <div class="w-full">
-                                                                <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs"> Ended Date  <span class="text-red-500">*</span></label>
+                                                                <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-1 tracking-wider 2xl:text-xs"> Ended Date  <span class="text-red-500">*</span></label>
                                                                 <input required class="border-zinc-400 xl:text-xs shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" value="{{ $proposals->finished_date }}" name="finished_date" id="finished_date" type="datetime-local">
                                                                 @error('finished_date') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
                                                             </div>
@@ -204,7 +203,7 @@
                                                         <div class="flex space-x-4 w-full">
 
                                                             <div class="w-full">
-                                                                <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs">Project leader <span class="text-red-500">*</span></label>
+                                                                <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-1 tracking-wider 2xl:text-xs">Project leader <span class="text-red-500">*</span></label>
                                                                 <select name="leader_id" class="rounded-md xl:text-xs w-full  border-zinc-400" value="{{ old('leader') }}" id="leader" onchange="RequiredGet(this)">
                                                                     <option value="">Select Username</option>
                                                                     @foreach ($members as $id => $name )
@@ -222,7 +221,7 @@
                                                             </div>
 
                                                             <div class="w-full">
-                                                                <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs">Role of Project Leader <span class="text-red-500">*</span></label>
+                                                                <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-1 tracking-wider 2xl:text-xs">Role of Project Leader <span class="text-red-500">*</span></label>
                                                                 <select onchange="yesnoCheck(this)" id="leader_member_type" name="leader_member_type" value="{{ old('leader_member_type') }}" class="rounded-md xl:text-xs w-full border-zinc-400">
                                                                     @foreach ($ceso_roles as $id => $role_name )
 
@@ -240,7 +239,7 @@
                                                             </div>
 
                                                             <div class="w-full">
-                                                                <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs">Location <span class="text-red-500">*</span></label>
+                                                                <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-1 tracking-wider 2xl:text-xs">Location <span class="text-red-500">*</span></label>
                                                                 <select id="location_id" type="text"  class="rounded-md xl:text-xs w-full border-zinc-400 " name="location_id" value="{{ old('location_id') }}">
                                                                     @foreach ($locations as $id => $name )
                                                                     <option value="{{ $id }}"
@@ -265,9 +264,9 @@
                                                             <table id="table" class="w-full">
                                                                 <thead>
                                                                 <tr class="text-sm text-gray-500 sticky top-7 bg-white">
-                                                                    <th class="xl:text-xs  text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs text-left">Member Name</th>
-                                                                    <th class="xl:text-xs  text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs text-left">Member Type</th>
-                                                                    <th class="xl:text-xs  text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs text-left">Action</th>
+                                                                    <th class="xl:text-xs  text-gray-700 text-sm font-medium mb-1 tracking-wider 2xl:text-xs text-left">Member Name</th>
+                                                                    <th class="xl:text-xs  text-gray-700 text-sm font-medium mb-1 tracking-wider 2xl:text-xs text-left">Member Type</th>
+                                                                    <th class="xl:text-xs  text-gray-700 text-sm font-medium mb-1 tracking-wider 2xl:text-xs text-left">Action</th>
                                                                 </tr>
                                                                 </thead>
 
