@@ -163,6 +163,17 @@ class AdminInventoryController extends Controller
 
     }
 
+    public function deleteMedia($id)
+    {
+
+         Media::destroy($id);
+
+
+        flash()->addSuccess('File Deleted Successfully');
+        return back();
+
+    }
+
 
 
 }

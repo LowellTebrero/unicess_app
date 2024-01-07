@@ -37,6 +37,12 @@
     $maxLength = 18; // Adjust the maximum length as needed
     @endphp
 
+    @if ($errors->any())
+    @foreach ($errors->all() as $error)
+        <?php flash()->addError($error); ?>
+    @endforeach
+    @endif
+
     <x-admin-layout>
 
         <section class="bg-white shadow rounded-xl m-8 mt-4 2xl:mt-5 h-[82vh] 2xl:min-h-[87vh] text-gray-600 overflow-hidden">
@@ -114,36 +120,38 @@
                                 </h1>
                             @endforeach
                         </div>
-                        <div class="w-full">
+                        {{-- <div class="w-full">
                             <label class="block text-gray-700  font-semibold xl:text-[.7rem] text-[.7rem]">Role of Leader:</label>
                             @foreach ($proposals->proposal_members as $proposal_mem)
                                 <h1 class="xl:text-[.7rem] text-[.7rem] appearance-none rounded w-full  text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                                     {{ $proposal_mem->leader_member_type != null ? $proposal_mem->ceso_role->role_name : '' }}
                                 </h1>
                             @endforeach
-                        </div>
+                        </div> --}}
                     </div>
 
+                    @if (!empty($proposals->proposal_members->member_type))
                     <div class="mb-2 mt-5 xl:mt-0 w-full overflow-x-auto h-[15vh] 2xl:h-[25vh]">
                         <div class="w-full sticky top-0 z-10 bg-gray-100 xl:bg-white">
-                            <label class="text-gray-700 font-semibold xl:text-[.7rem] text-[.7rem] ">Project Member(s)</label>
+                        <label class="text-gray-700 font-semibold xl:text-[.7rem] text-[.7rem] ">Project Member(s)</label>
                         </div>
 
                         @foreach ($proposals->proposal_members as $proposal_mem)
-                        <div class="pb-2">
-                            @if ($proposal_mem->member_type !== null)
-                            <div>
-                                <h1 class="xl:text-[.7rem] text-[.6rem] font-medium text-gray-700 tracking-wider"> Name:</h1>
-                                <span class="font-light 2xl:text-xs xl:text-[.7rem] text-[.7rem]">{{ $proposal_mem->member_type !== null ? $proposal_mem->user->name : '' }}</span>
+                            <div class="pb-2">
+                                @if ($proposal_mem->member_type !== null)
+                                <div>
+                                    <h1 class="xl:text-[.7rem] text-[.6rem] font-medium text-gray-700 tracking-wider"> Name:</h1>
+                                    <span class="font-light 2xl:text-xs xl:text-[.7rem] text-[.7rem]">{{ $proposal_mem->member_type !== null ? $proposal_mem->user->name : '' }}</span>
+                                </div>
+                                <div>
+                                    <h1 class="xl:text-[.7rem] text-[.6rem] font-medium text-gray-700 tracking-wider"> Type:</h1>
+                                    <span class="font-light 2xl:text-xs  xl:text-[.7rem] text-[.7rem]">{{ $proposal_mem->member_type }}</span>
+                                </div>
+                                @endif
                             </div>
-                            <div>
-                                <h1 class="xl:text-[.7rem] text-[.6rem] font-medium text-gray-700 tracking-wider"> Type:</h1>
-                                <span class="font-light 2xl:text-xs  xl:text-[.7rem] text-[.7rem]">{{ $proposal_mem->member_type }}</span>
-                            </div>
-                            @endif
-                        </div>
                         @endforeach
                     </div>
+                    @endif
 
                     <div class="flex flex-col">
                         <div class="flex flex-col text-xs">
@@ -192,24 +200,25 @@
                                     </p>
 
                                         <div class="py-1 mt-5 grid grid-cols-2 gap-3 text-white">
-
-
                                             <div class="flex flex-col mb-1 w-full">
                                                 <label class="text-xs font-light tracking-wider mb-1">Update Proposal
                                                     (PDF)</label>
                                                 <input type="file" class="border text-xs" name="proposal_pdf">
+                                                @error('proposal_pdf')<span class="text-red-500  text-xs">{{ $message }}</span>@enderror
                                             </div>
 
                                             <div class="flex flex-col mb-1 w-full">
                                                 <label class="text-xs font-light tracking-wider mb-1">Update Special Order
                                                     (PDF)</label>
                                                 <input type="file" class="border text-xs" name="special_order_pdf">
+                                                @error('special_order_pdf')<span class="text-red-500  text-xs">{{ $message }}</span>@enderror
                                             </div>
 
                                             <div class="flex flex-col mb-1 w-full">
                                                 <label class="text-xs font-light tracking-wider mb-1">Update Memorandum of Agreement
                                                     (PDF)</label>
                                                 <input type="file" class="border text-xs" name="moa_pdf">
+                                                @error('moa_pdf')<span class="text-red-500  text-xs">{{ $message }}</span>@enderror
                                             </div>
 
 
@@ -217,18 +226,21 @@
                                                 <label class="text-xs font-light tracking-wider mb-1">Update Travel order
                                                     (PDF)</label>
                                                 <input type="file"  class="border text-xs" name="travel_order">
+                                                @error('travel_order')<span class="text-red-500  text-xs">{{ $message }}</span>@enderror
                                             </div>
 
                                             <div class="flex flex-col  mb-1 w-full">
                                                 <label class="text-xs font-light tracking-wider mb-1">Update Office order
                                                     (PDF)</label>
                                                 <input type="file"  class="border text-xs" name="office_order">
+                                                @error('office_order')<span class="text-red-500  text-xs">{{ $message }}</span>@enderror
                                             </div>
 
                                             <div class="flex flex-col mb-1 w-full">
                                                 <label class="text-xs font-light tracking-wider mb-1">Upload Other Files <span class="text-xs">(Multiple Files)</span></label>
                                                 <input class="border text-xs "  type="file" multiple name="other_files[]" onchange="displayFileNames(this)">
                                                 <div id="file-names-container" class="text-xs mt-1"></div>
+                                                @error('other_files')<span class="text-red-500  text-xs">{{ $message }}</span>@enderror
                                             </div>
                                         </div>
 
@@ -236,7 +248,7 @@
                                 <!-- Modal footer -->
                                 <div class="flex items-center justify-between p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
                                     <button id="upload-file" disabled type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Submit here</button>
-                                    <button data-modal-hide="modal-upload-documents" type="button" class="ms-3 text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Decline</button>
+                                    <button data-modal-hide="modal-upload-documents" type="button" class="ms-3 text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
                                 </div>
                                 </form>
                             </div>
@@ -709,6 +721,7 @@
                     <div class="overflow-x-auto h-[74vh] 2xl:h-[77vh]">
                         <div class="flex py-3 items-center flex-wrap px-2">
                             @foreach ($proposals->medias as $mediaLibrary)
+                            @if (!empty($mediaLibrary))
                                 <div class="bg-white w-[10rem] sm:w-[10rem] xl:w-[10rem] xl:h-[17vh] 2xl:h-[12vh] shadow-md rounded-lg hover:bg-slate-100 transition-all m-2 relative" id="proposal_id{{ $mediaLibrary->id }}">
 
                                     <x-alpine-modal>
@@ -858,6 +871,7 @@
                                         </div>
                                     </div>
                                 </div>
+                            @endif
                             @endforeach
 
 
@@ -1504,27 +1518,6 @@
                     });
                 });
             });
-
-            document.addEventListener('FilePond:loaded',(e) => {
-                const inputElements = document.querySelectorAll('input.filepond');
-
-                Array.from(inputElements).forEach(inputElement => {
-                    const filepond = FilePond.create(inputElement);
-                })
-
-                FilePond.setOptions({
-                    credits: false,
-                    server: {
-                        process: '/api/filepond/{{ $proposals->id }}',
-                        revert: '/api/revert/{{ $mediaLibrary->id }}',
-                        headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                        }
-
-                    }
-                });
-            });
-
 
             $('input[type=file]').change(function() {
                 if ($('input[type=files]').val() == '') {

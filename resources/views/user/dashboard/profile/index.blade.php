@@ -9,7 +9,7 @@
     </style>
 
 
-    <section class="mt-5 m-8 rounded-lg 2xl:min-h-[87vh] h-[82vh] relative bg-white text-gray-700 overflow-hidden">
+    <section class="mt-4 2xl:mt-5 m-8 rounded-lg 2xl:h-[87vh] h-[82vh] relative bg-white text-gray-700 overflow-hidden">
         <header class="p-4 flex justify-between">
             <h1 class="text-xl font-medium tracking-wider">User Profile</h1>
             <a href={{ route('User-dashboard.index') }} class="focus:bg-red-100 rounded-md px-2 py-1 hover:bg-gray-200 text-red-500">
@@ -22,12 +22,12 @@
 
         <div class="2xl:min-h-[12vh] xl:min-h-[8vh] footer w-full"></div>
 
-        <div class="2xl:w-40 xl:w-32 lg:w-28 w-28 absolute 2xl:top-28 xl:top-[9vh] left-12 z-20">
+        <div class="2xl:w-40 xl:w-28 lg:w-28 w-28 absolute 2xl:top-28 xl:top-[12vh] left-12 z-20">
             <img class="rounded-full border-8 border-white bg-white"
             src="{{ !empty( Auth()->user()->avatar) ? url('upload/image-folder/profile-image/' . Auth()->user()->avatar) : url('upload/profile.png') }}">
         </div>
 
-        <div class=" min-h-[12vh] flex justify-end relative">
+        <div class="h-[12vh] flex justify-end relative">
             <div class="left-[14rem]  top-4 absolute ">
                 <div class="flex space-x-1  items-center">
                     <h1 class="text-lg font-medium tracking-wider">{{ Auth()->user()->name }} </h1>
@@ -54,10 +54,10 @@
         <div class="flex p-5 pt-0 bg-white">
             <div class="shadow-md bg-gray-100 rounded-lg w-full p-5">
                 <div class="flex justify-between mb-2">
-                    <h1 class="text-xs">With {{ Auth()->user()->faculty->name, }}</h1>
+                    <h1 class="text-xs">With {{ Auth()->user()->faculty->name }}</h1>
                     <input type="text" placeholder="Search name..." class="text-xs rounded">
                 </div>
-                <div class="overflow-y-scroll 2xl:h-[46vh] xl:h-[40vh]">
+                <div class="overflow-x-auto 2xl:h-[46vh] xl:h-[35vh]">
                 <table class="min-w-full divide-y divide-gray-200 ">
                     <thead>
                       <tr>

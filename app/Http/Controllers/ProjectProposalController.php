@@ -25,7 +25,6 @@ class ProjectProposalController extends Controller
         $proposalDelete =  Media::destroy($ids);
 
 
-
         if ($proposalDelete) {
             // Flash a success message
             return response()->json(['success' => 'Deleted Successfully']);

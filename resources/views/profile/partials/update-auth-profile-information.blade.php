@@ -141,7 +141,7 @@
                                 <div class="flex flex-col">
                                     <h1 class="text-xs 2xl:text-base"> {{ $user_role->name }} </h1>
                                     @if ($user_role->name == 'New User')
-                                        <h1 class="text-xs text-red-500">Note: Please Update your Role and Faculty</h1>
+                                        <h1 class="text-xs text-red-500">Note: Please Update your Role and Department</h1>
                                     @endif
                                 </div>
                                 @endforeach

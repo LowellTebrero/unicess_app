@@ -1,5 +1,5 @@
 <div
-    class="shadow-2xl min-h-screen bg-gradient-to-t from-blue-500 to-blue-800 transition-all fixed subsidebar xl:w-[10rem] 2xl:w-[14rem]">
+    class="shadow-2xl min-h-screen bg-gradient-to-t from-blue-500 to-blue-800 transition-all fixed subsidebar xl:w-[12rem] 2xl:w-[14rem]">
 
     <nav class="flex-grow pr-2 pl-2 pb-4 space-y-2 md:block md:pb-0 navigation ">
 

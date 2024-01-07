@@ -30,7 +30,7 @@
                     </div>
                 @else
 
-                @hasanyrole('Extension coordinator|Faculty extensionist')
+                @unlessrole('admin|New User')
                 <div class="mx-5 my-5 text-white">
                     <h1 class="tracking-wider text-xs sm:text-sm font-medium" id="greeting">Hi, {{ Auth()->user()->name }}</h1>
                     <div class="flex space-x-1">
@@ -38,7 +38,7 @@
                         <span id="dynamic-time" class="tracking-wider text-xs">{{ date('h:i A') }}</span>
                     </div>
                 </div>
-                @endrole
+                @endunlessrole
                 @endif
 
                 @role('admin')

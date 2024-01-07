@@ -152,6 +152,7 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
         Route::get('/download-proposal-media/{id}','InventorydownloadMedia')->name('inventory.admin-download-media');
         Route::get('/inventory-show/{id}','show')->name('inventory.proposal-show');
         Route::get('/inventory/{id}','showInventory')->name('inventory.show-inventory');
+        Route::delete('/inventory-delete-media/{id}',  'DeleteMedia')->name('inventory.delete-media');
     });
 
 

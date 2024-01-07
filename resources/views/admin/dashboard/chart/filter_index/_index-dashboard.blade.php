@@ -1,18 +1,18 @@
-<div class="flex space-x-4  m-5 mx-0 h-[9vh] text-gray-700">
+<div class="flex space-x-4  m-5 mx-0 h-[9vh] text-gray-700 ">
 
-    <div class="bg-slate-100 p-5 px-8 w-[10rem] hover:bg-white hover:border hover:border-teal-300 rounded-lg text-xs">
+    <div class="bg-slate-100 p-5 px-8 w-[10rem] hover:bg-white hover:border hover:border-teal-300 rounded-lg text-xs flex 2xl:flex-col flex-row items-center space-x-2 2xl:space-x-0 xl:space-y-0 2xl:space-y-2">
         <h1 class="tracking-wider">Pending</h1>
         <h1 class="text-xl">{{ $pendingCount }}</h1>
     </div>
-    <div class="bg-slate-100 p-5 px-8 w-[10rem] hover:bg-white hover:border hover:border-teal-300 rounded-lg text-xs">
+    <div class="bg-slate-100 p-5 px-8 w-[10rem] hover:bg-white hover:border hover:border-teal-300 rounded-lg text-xs flex 2xl:flex-col flex-row items-center space-x-2 2xl:space-x-0 xl:space-y-0 2xl:space-y-2">
         <h1 class="tracking-wider">Ongoing</h1>
         <h1 class="text-xl">{{ $ongoingCount }}</h1>
     </div>
-    <div class="bg-slate-100 p-5 px-8 w-[10rem] hover:bg-white hover:border hover:border-teal-300 rounded-lg text-xs">
+    <div class="bg-slate-100 p-5 px-8 w-[10rem] hover:bg-white hover:border hover:border-teal-300 rounded-lg text-xs flex 2xl:flex-col flex-row items-center space-x-2 2xl:space-x-0 xl:space-y-0 2xl:space-y-2">
         <h1 class="tracking-wider">Finished</h1>
         <h1 class="text-xl">{{ $finishedCount }}</h1>
     </div>
-    <div class="bg-slate-100 p-5 px-8 w-[10rem] hover:bg-white hover:border hover:border-teal-300 rounded-lg text-xs">
+    <div class="bg-slate-100 p-5 px-8 w-[10rem] hover:bg-white hover:border hover:border-teal-300 rounded-lg text-xs flex 2xl:flex-col flex-row items-center space-x-2 2xl:space-x-0 xl:space-y-0 2xl:space-y-2">
         <h1 class="tracking-wider">Total</h1>
         <h1 class="text-xl">{{ $statusCount }}</h1>
     </div>
