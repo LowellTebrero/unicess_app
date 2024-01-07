@@ -10,7 +10,7 @@
 
 <x-admin-layout>
 
-    <section class="bg-white shadow rounded-xl min-h-[85vh] 2xl:min-h-[87vh] m-8 mt-5">
+    <section class="bg-white shadow rounded-xl h-[82vh] 2xl:h-[87vh] m-8 mt-4 2xl:mt-5">
 
             <div class="flex justify-between p-4">
                 <h1 class="tracking-wider text-sm">Project Title: {{ $proposals->project_title }} </h1>
@@ -28,7 +28,6 @@
                 @include('admin.inventory.show-inventory-filter._table_show_inventory')
                 </div>
             </div>
-
     </section>
     <x-messages/>
 </x-admin-layout>
@@ -36,14 +35,14 @@
 
 
     <script>
-    $('input[type=file]').change(function(){
-        if($('input[type=files]').val()==''){
-            $('button').attr('disabled',true)
+        $('input[type=file]').change(function(){
+            if($('input[type=files]').val()==''){
+                $('button').attr('disabled',true)
 
-        }
-        else{
-        $('button').attr('disabled',false);
+            }
+            else{
+            $('button').attr('disabled',false);
 
-        }
-    })
+            }
+        })
     </script>

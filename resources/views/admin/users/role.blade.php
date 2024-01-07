@@ -23,7 +23,7 @@
     <div class="bg-white rounded-lg shadow mt-4 2xl:mt-5  m-8  h-[82vh] 2xl:h-[87vh] relative text-gray-700 overflow-hidden">
 
         <div class="p-4 px-6 pl-8 text-gray-900 flex  justify-between">
-            <h1 class="text-gray-600 xl:text-sm 2xl:text-xl tracking-wider font-semibold">Account details</h1>
+            <h1 class="text-gray-600 xl:text-lg 2xl:text-xl tracking-wider font-semibold">Account details</h1>
             <a class=" px-1 py-1 rounded text-red-500 text-2xl font-bold hover:bg-gray-200 focus:bg-red-200 " href={{ route('admin.users.main') }}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -112,7 +112,7 @@
                 </div>
 
                 <div class="bg-white lg:mt-4 rounded shadow xl:py-2 2xl:py-4 p-4 lg:space-y-1 2xl:space-x-2 w-full">
-                    <h1 class="tracking-wider text-sm 2xl:text-base">Contact Information</h1>
+                    <h1 class="tracking-wider text-sm 2xl:text-base">Address Information</h1>
                     <hr>
                     <h1 class="text-[.6rem] xl:text-[.67rem] 2xl:text-xs tracking-wider"> Contact no.:  {{ $user->contact_number == null ? 'N/A' : $user->contact_number }}</h1>
                     <h1 class="text-[.6rem] xl:text-[.67rem] 2xl:text-xs tracking-wider"> Province:   {{ $user->province == null ? 'N/A' : $user->province }}</h1>

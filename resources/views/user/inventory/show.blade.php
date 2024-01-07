@@ -1,7 +1,7 @@
 <x-app-layout>
     @section('title', 'Show Inventory | ' . config('app.name', 'UniCESS'))
 @if (Auth::user()->authorize == 'checked')
-  @hasanyrole('Faculty extensionist|Extension coordinator')
+   @unlessrole('admin|New User')
     <style>
         [x-cloak] { display: none }
         .upload-form button:disabled,
@@ -696,7 +696,7 @@
 
         <h1>404 Error</h1>
 
-    @endrole
+    @endunlessrole
 
     @elseif (Auth::user()->authorize == 'close')
 

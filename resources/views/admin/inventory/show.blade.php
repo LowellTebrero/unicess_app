@@ -2,7 +2,7 @@
 
 <x-admin-layout>
 
-    <section class="mt-5 m-8 bg-white rounded-xl min-h-[85vh] 2xl:min-h-[87vh]">
+    <section class="mt-4 2xl:mt-5 m-8 bg-white rounded-xl h-[82vh] 2xl:h-[87vh]">
 
 
         <div class="w-full flex justify-between p-4">
@@ -15,10 +15,9 @@
         </div>
 
         <hr>
-
         <div class="flex flex-col relative  px-4 ">
 
-            <div class="flex flex-row gap-4 col-2 mt-4 px-4 justify-center flex-wrap text-gray-700">
+            <div class="grid 2xl:grid-cols-7 grid-cols-4 mt-4   text-gray-700">
                 @forelse ($proposalID as $proposal )
                     @if ($programID->id === $proposal->program_id)
                         <div class="flex w-[17rem] bg-slate-100  shadow-md rounded-xl relative hover:bg-slate-200">
