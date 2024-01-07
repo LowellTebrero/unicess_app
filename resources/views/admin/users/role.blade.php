@@ -139,9 +139,9 @@
                     @if ($custom->number == '1')
                     <div class="bg-white rounded p-4">
                         <div class="flex justify-between items-center mb-1">
-                           <h1 class="tracking-wider text-[.7rem] 2xl:text-base">Proposal</h1>
+                           <h1 class="tracking-wider text-[.7rem] 2xl:text-base">Projects</h1>
                            <div>
-                               <input type="text" id="searchInput" class="text-xs border-gray-200 rounded-md  xl:w-[12rem] 2xl:w-auto" placeholder="Search proposal title...">
+                               <input type="text" id="searchInput" class="text-xs border-gray-200 rounded-md  xl:w-[12rem] 2xl:w-auto" placeholder="Search Project title...">
                                <select  class="text-xs border-gray-200 rounded-md text-gray-700" id="Years">
                                    <option value="">All Year</option>
                                    @foreach ($years as $year )
@@ -157,7 +157,7 @@
 
                                <select  class="text-xs border-gray-200 text-gray-700 rounded-md" id="Customize">
                                 @foreach ($customs as $custom )
-                                <option value="1" {{ old('1', $custom->number) == '1' ? 'selected' : '' }}>Proposal</option>
+                                <option value="1" {{ old('1', $custom->number) == '1' ? 'selected' : '' }}>Projects</option>
                                 <option value="2" {{ old('2', $custom->number) == '2' ? 'selected' : '' }}>Evaluation</option>
                                 @endforeach
                                </select>
@@ -189,7 +189,7 @@
 
                            <select  class="text-xs border-gray-200 rounded-md" id="Customize">
                             @foreach ($customs as $custom )
-                            <option value="1" {{ old('1', $custom->number) == '1' ? 'selected' : '' }}>Proposal</option>
+                            <option value="1" {{ old('1', $custom->number) == '1' ? 'selected' : '' }}>Projects</option>
                             <option value="2" {{ old('2', $custom->number) == '2' ? 'selected' : '' }}>Evaluation</option>
                             @endforeach
                            </select>
