@@ -15,7 +15,6 @@ class OtherSettingsController extends Controller
     public function index(){
 
         $templates = Template::with('medias')->get();
-
         $years = AdminYear::orderBy('year', 'DESC')->get();
         $faculties =  Faculty::orderBy('name')->get();
         return view('admin.other-settings.index', compact('templates', 'years', 'faculties'));

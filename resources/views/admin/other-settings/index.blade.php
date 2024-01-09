@@ -63,7 +63,6 @@
                                         <form action={{ route('admin.templatepost.upload') }} method="POST" enctype="multipart/form-data">
                                             @csrf
                                             <div class="p-4 space-y-4 flex flex-col">
-
                                                 <label class="text-sm 2xl:text-base leading-relaxed text-gray-500 dark:text-gray-400">
                                                     Upload template file here...
                                                 </label>
@@ -79,7 +78,7 @@
                                     </div>
                                 </div>
                             </div>
-                    </div>
+                        </div>
                     <hr>
                     <div class="p-4">
 
