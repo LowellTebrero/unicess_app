@@ -173,21 +173,27 @@ class DashboardController extends Controller
         }, 'programs'])
         ->first();
 
+        $proposals = Proposal::where('id', $id)
+        ->with(['medias' => function ($query) {
+            $query->orderBy('file_name', 'asc');
+        }, 'programs'])
+        ->first();
+
         $formedia = Proposal::where('id', $id)
         ->with(['medias' => function ($query) {
-            $query->select('collection_name', 'model_id', 'created_at')
-            ->groupBy('model_id','collection_name', 'created_at')->orderBy('created_at', 'desc')->pluck('collection_name', 'model_id');
+            $query->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
+            ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
         },
         'narrativereport' => function ($query) {
             $query->with(['medias' => function ($query) {
-                $query->select('collection_name', 'model_id', 'created_at')
-                ->groupBy('model_id','collection_name', 'created_at')->orderBy('created_at', 'desc')->pluck('collection_name', 'model_id');
+                $query->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
+            ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
             }]); // Nested 'with' for 'medias' inside 'narrativereport'
         },
         'terminalreport' => function ($query) {
             $query->with(['medias' => function ($query) {
-                $query->select('collection_name', 'model_id', 'created_at')
-                ->groupBy('model_id','collection_name', 'created_at')->orderBy('created_at', 'desc')->pluck('collection_name', 'model_id');
+                $query->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
+                ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
             }]); // Nested 'with' for 'medias' inside 'narrativereport'
         },])->first();
 
