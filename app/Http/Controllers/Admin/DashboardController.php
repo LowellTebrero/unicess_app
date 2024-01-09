@@ -213,6 +213,56 @@ class DashboardController extends Controller
         'narrativeCount','terminalCount', 'memberCount' ));
     }
 
+    public function AdminUpdateFiles(Request $request, $id)
+    {
+        $request->validate([
+            'proposal_pdf' => 'mimes:pdf',
+            'moa_pdf' => 'mimes:pdf',
+            'special_order_pdf' => 'mimes:pdf',
+            'travel_order' => 'mimes:pdf',
+            'office_order' => 'mimes:pdf',
+        ]);
+
+       $proposals = Proposal::where('id', $id)->first();
+       $project_title = $proposals->project_title;
+
+
+
+       if ($request->hasFile('proposal_pdf')) {
+        $proposals->addMediaFromRequest('proposal_pdf')->usingName('proposal')->usingFileName($request->project_title.'_proposal.pdf')->toMediaCollection('proposalPdf');
+    }
+
+    if ($request->hasFile('special_order_pdf')) {
+        $proposals->addMediaFromRequest('special_order_pdf')->usingName('special_order')->usingFileName($request->project_title.'_special_order.pdf')->toMediaCollection('specialOrderPdf');
+    }
+
+    if ($request->hasFile('moa_pdf')) {
+        $proposals->clearMediaCollection('MoaPDF');
+        $proposals->addMediaFromRequest('moa_pdf')->usingName('moa')->usingFileName($request->project_title.'_moa.pdf')->toMediaCollection('MoaPDF');
+    }
+
+    if ($request->hasFile('travel_order')) {
+        $proposals->clearMediaCollection('officeOrder');
+        $proposals->addMediaFromRequest('travel_order')->usingName('travel')->usingFileName($request->project_title.'_travel_order.pdf')->toMediaCollection('officeOrder');
+    }
+    if ($request->hasFile('office_order')) {
+        $proposals->clearMediaCollection('travelOrder');
+        $proposals->addMediaFromRequest('office_order')->usingName('office')->usingFileName($request->project_title.'_office_order.pdf')->toMediaCollection('travelOrder');
+    }
+
+    if ($files = $request->file('other_files')) {
+
+        foreach ($files as $file) {
+            $proposals->addMedia($file)->usingName('other')->toMediaCollection('otherFile');
+        }
+    }
+
+        $proposals->update();
+        app('flasher')->addSuccess('Files successfully updated.');
+        return back();
+
+    }
+
 
     public function updateDetails(Request $request, $id)
     {

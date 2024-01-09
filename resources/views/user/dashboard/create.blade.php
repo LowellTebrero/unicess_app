@@ -81,7 +81,7 @@
 
 
                 <div id="filemessagerror" class="text-xs text-red-500 tracking-wider mt-4 mb-2">
-                    Please upload at least one file among Proposal PDF, Special Order PDF, MOA PDF, Office Order PDF, Travel Order PDF.
+                    Please upload at least one file among Proposal PDF, Special Order PDF, MOA PDF, Office Order PDF, Travel Order PDF, Other File(s).
                 </div>
                 <div class="grid grid-cols-2 gap-2">
                     <div class="w-full">
@@ -121,7 +121,7 @@
                     <div class="w-full">
                         <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Other Files <span class="text-xs">(Multiple files)</span></label>
                         <input class="bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
-                        name="otherfile" id="otherfile" type="file">
+                        name="other_files[]" multiple id="other_files" type="file">
                     </div>
 
                 </div>

@@ -216,8 +216,8 @@
 
                                                 <!-- Title / Close-->
                                                 <div class="flex items-center justify-between px-4 rounded-tl rounded-tr bg-blue-700 py-4 ">
-                                                    <h5 class="text-white max-w-none text-sm tracking-wider">Upload file</h5>
-                                                    <button type="button" class=" z-50 cursor-pointer text-red-500 font-medium text-md px-1 rounded hover:bg-blue-600 focus:bg-blue-800 " @click="showModal = false" onClick="window.location.reload()">
+                                                    <h5 class="text-white max-w-none text-sm tracking-wider">Upload/Update Documents</h5>
+                                                    <button type="button" class=" z-50 cursor-pointer text-red-500 font-medium text-md px-1 rounded hover:bg-blue-600 focus:bg-blue-800 " @click="showModal = false">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                                                         </svg>
@@ -228,45 +228,56 @@
                                                 <!-- content -->
                                                 <div class="p-6 space-y-4">
 
-                                                    <p class="text-xs text-center leading-relaxed text-white tracking-wider">
+                                                    <p class="text-sm leading-relaxed text-white tracking-wider">
                                                         Note: Choose what is applicable
                                                     </p>
-                                                        <div class="py-1 mt-5 flex flex-col text-white">
-
-                                                            <div class="flex space-x-4">
-                                                                <div class="flex flex-col mb-1 w-full">
-                                                                    <label class="text-sm font-light tracking-wider mb-1">Memorandum of Agreement
-                                                                        PDF</label>
-                                                                    <input type="file" name="moa"
-                                                                        class="filepond" credits="false">
-                                                                </div>
+                                                    <form action={{ route('admin.dashboard-update-user-proposal', $proposals->id) }} method="POST" enctype="multipart/form-data">
+                                                        @csrf @method('PUT')
+                                                        <div class="py-1 mt-5 grid grid-cols-2 gap-3 text-white">
 
 
-                                                                <div class="flex flex-col  mb-1 w-full">
-                                                                    <label class="text-sm font-light tracking-wider mb-1">Travel order
-                                                                        PDF</label>
-                                                                    <input type="file" name="travel_order"
-                                                                        class="filepond " credits="false">
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="flex space-x-4">
-                                                            <div class="flex flex-col  mb-1 w-full">
-                                                                <label class="text-sm font-light tracking-wider mb-1">Office order
-                                                                    PDF</label>
-                                                                <input type="file" name="office_order"
-                                                                    class="filepond" credits="false">
+                                                            <div class="flex flex-col mb-1 w-full">
+                                                                <label class="text-sm font-light tracking-wider mb-1">Proposal
+                                                                    (PDF)</label>
+                                                                <input type="file" class="border text-xs" name="proposal_pdf">
                                                             </div>
 
                                                             <div class="flex flex-col mb-1 w-full">
-                                                                <label class="text-sm font-light tracking-wider mb-1">Other Files</label>
-                                                                <input type="file" multiple name="other_files[]"
-                                                                    class="filepond" credits="false">
-                                                                    {{--  onchange="displayFileNames(this)"  --}}
-                                                                    <div id="file-names-container" class="text-xs"></div>
+                                                                <label class="text-sm font-light tracking-wider mb-1">Special Order
+                                                                    (PDF)</label>
+                                                                <input type="file" class="border text-xs" name="special_order_pdf">
                                                             </div>
+
+                                                            <div class="flex flex-col mb-1 w-full">
+                                                                <label class="text-sm font-light tracking-wider mb-1">Memorandum of Agreement
+                                                                    (PDF)</label>
+                                                                <input type="file" class="border text-xs" name="moa_pdf">
+                                                            </div>
+
+
+                                                            <div class="flex flex-col  mb-1 w-full">
+                                                                <label class="text-sm font-light tracking-wider mb-1">Travel order
+                                                                    (PDF)</label>
+                                                                <input type="file"  class="border text-xs" name="travel_order">
+                                                            </div>
+
+                                                            <div class="flex flex-col  mb-1 w-full">
+                                                                <label class="text-sm font-light tracking-wider mb-1">Office order
+                                                                    (PDF)</label>
+                                                                <input type="file"  class="border text-xs" name="office_order">
+                                                            </div>
+
+                                                            <div class="flex flex-col mb-1 w-full">
+                                                                <label class="text-sm font-light tracking-wider mb-1">Other Files <span class="text-xs">(Multiple Files)</span></label>
+                                                                <input class="border text-xs "  type="file" multiple name="other_files[]" onchange="displayFileNames(this)">
+                                                                <div id="file-names-container" class="text-xs mt-1"></div>
                                                             </div>
                                                         </div>
+
+                                                        <div class="mt-4">
+                                                            <button class="bg-white rounded-lg px-3 py-1" type="submit" id="upload-file" disabled>Submit here</button>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
@@ -627,7 +638,7 @@
                                                                         Download
                                                                     </a>
                                                                 </li>
-                                                                @elseif (!empty($mediaLibrary->collection_name == 'specialOrder'))
+                                                                @elseif (!empty($mediaLibrary->collection_name == 'specialOrderPdf'))
                                                                 <li class="mb-10 mx-8 ">
                                                                     <span class="absolute flex items-center justify-center w-6 h-6  rounded-full -left-3 ring-8 ring-white dark:ring-gray-700 dark:bg-gray-600">
                                                                         <svg class="w-2.5 h-2.5 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20"><path fill="currentColor" d="M6 1a1 1 0 0 0-2 0h2ZM4 4a1 1 0 0 0 2 0H4Zm7-3a1 1 0 1 0-2 0h2ZM9 4a1 1 0 1 0 2 0H9Zm7-3a1 1 0 1 0-2 0h2Zm-2 3a1 1 0 1 0 2 0h-2ZM1 6a1 1 0 0 0 0 2V6Zm18 2a1 1 0 1 0 0-2v2ZM5 11v-1H4v1h1Zm0 .01H4v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM10 11v-1H9v1h1Zm0 .01H9v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM10 15v-1H9v1h1Zm0 .01H9v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM15 15v-1h-1v1h1Zm0 .01h-1v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM15 11v-1h-1v1h1Zm0 .01h-1v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM5 15v-1H4v1h1Zm0 .01H4v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM2 4h16V2H2v2Zm16 0h2a2 2 0 0 0-2-2v2Zm0 0v14h2V4h-2Zm0 14v2a2 2 0 0 0 2-2h-2Zm0 0H2v2h16v-2ZM2 18H0a2 2 0 0 0 2 2v-2Zm0 0V4H0v14h2ZM2 4V2a2 2 0 0 0-2 2h2Zm2-3v3h2V1H4Zm5 0v3h2V1H9Zm5 0v3h2V1h-2ZM1 8h18V6H1v2Zm3 3v.01h2V11H4Zm1 1.01h.01v-2H5v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H5v2h.01v-2ZM9 11v.01h2V11H9Zm1 1.01h.01v-2H10v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H10v2h.01v-2ZM9 15v.01h2V15H9Zm1 1.01h.01v-2H10v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H10v2h.01v-2ZM14 15v.01h2V15h-2Zm1 1.01h.01v-2H15v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H15v2h.01v-2ZM14 11v.01h2V11h-2Zm1 1.01h.01v-2H15v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H15v2h.01v-2ZM4 15v.01h2V15H4Zm1 1.01h.01v-2H5v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H5v2h.01v-2Z"/></svg>
@@ -891,9 +902,6 @@
         </section>
 
         <x-messages />
-
-
-
 
         <script>
             document.addEventListener('DOMContentLoaded', function () {

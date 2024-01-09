@@ -48,8 +48,8 @@ class InventoryController extends Controller
 
         $formedia = Proposal::where('id', $id)
         ->with(['medias' => function ($query) {
-            $query->select('collection_name', 'model_id', 'created_at')
-            ->groupBy('model_id','collection_name', 'created_at')->orderBy('created_at', 'desc')->pluck('collection_name', 'model_id');
+            $query->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
+            ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
         },
         'narrativereport' => function ($query) {
             $query->with(['medias' => function ($query) {
@@ -64,14 +64,12 @@ class InventoryController extends Controller
             }]); // Nested 'with' for 'medias' inside 'narrativereport'
         },])->first();
 
+        // dd($formedia);
 
         $latest = Proposal::where('id', $id)
         ->with(['medias' => function ($query) {
             $query->latest()->first();
         }])->first();
-
-
-
 
         $members = User::orderBy('name')->whereNot('name', 'Administrator')->pluck('name', 'id')->prepend('Select Username', '');
         $ceso_roles = CesoRole::orderBy('role_name')->pluck('role_name', 'id')->prepend('Select Role', '');
@@ -165,7 +163,7 @@ class InventoryController extends Controller
     public function downloadsSpecialOrder($id)
     {
         $proposal = Proposal::findorFail($id);
-        $pdf = $proposal->getFirstMedia('specialOrder');
+        $pdf = $proposal->getFirstMedia('specialOrderPdf');
         return $pdf;
     }
 
@@ -250,8 +248,6 @@ class InventoryController extends Controller
         $request->validate([
             'proposal_pdf' => 'mimes:pdf',
             'moa' => 'mimes:pdf',
-
-
         ]);
 
        $proposals = Proposal::where('id', $id)->first();

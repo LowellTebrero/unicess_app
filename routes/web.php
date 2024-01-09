@@ -95,6 +95,7 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
         Route::get('/upload','create')->name('dashboard.create');
         Route::post('/post-upload','store')->name('dashboard.store');
         Route::get('/dashboard/user-proposal/{id}/{notification}','checkProposal')->name('dashboard.edit-proposal');
+        Route::put('/update-user/proposal-file/{id}','AdminUpdateFiles')->name('dashboard-update-user-proposal');
         Route::put('/update-user-proposal/{id}',  'updateDetails')->name('dashboard.update-project-details');
         Route::delete('/delete-user-proposal',  'DeleteProposal')->name('dashboard.delete-project-proposal');
         Route::delete('/delete-user-media',  'DeleteMedia')->name('dashboard.delete-user-media');

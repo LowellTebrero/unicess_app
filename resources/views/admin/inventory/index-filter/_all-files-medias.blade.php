@@ -7,6 +7,7 @@
                 <thead>
                 <tr class="sticky top-0 bg-gray-100 z-20">
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
+                    <th scope="col" class="px-6 pr-0 py-3 text-left text-xs font-medium text-gray-500 uppercase w-[7rem]">Type</th>
                     <th scope="col" class="px-6 pr-0 py-3 text-left text-xs font-medium text-gray-500 uppercase w-[7rem]">Size</th>
                     <th scope="col" class="px-6 pr-0 py-3 text-left text-xs font-medium text-gray-500 uppercase w-[10rem]">created</th>
                     <th scope="col" class="text-left text-xs font-medium text-gray-500 uppercase w-[5rem]">Action</th>
@@ -70,7 +71,7 @@
 
                             </div>
                         </td>
-                        {{--  <td class="px-6 py-4 whitespace-nowrap text-xs text-gray-800 ">{{ $media->mime_type }}</td>  --}}
+                        <td class="px-6 py-4 whitespace-nowrap text-xs text-gray-800 ">{{ $media->collection_name }}</td>
                         <td class="px-6 py-4 pr-0 whitespace-nowrap text-xs text-gray-800 ">{{ $media->human_readable_size }}</td>
                         <td class="px-6 py-4 pr-0 whitespace-nowrap text-xs text-gray-800 ">{{ $media->created_at }}</td>
                         <td class="whitespace-nowrap text-left text-xs font-medium relative">
