@@ -98,7 +98,7 @@ class ProposalController extends Controller
 
     public function store(Request $request)
     {
-       dd($request);
+
        $request->validate([
 
             'program_id' => 'required',
