@@ -497,7 +497,7 @@
 
 
 
-                                                        @foreach ($proposals->narrativereport as $narrative)
+                                                        @foreach ($formedia->narrativereport as $narrative)
                                                             @foreach ($narrative->medias as $mediaLibrary )
                                                                 @if (!empty($mediaLibrary->collection_name == 'NarrativeFile'))
                                                                 <li class="mb-10 mx-8 ">
@@ -515,7 +515,7 @@
                                                             @endforeach
                                                         @endforeach
 
-                                                        @foreach ($proposals->terminalreport as $terminal)
+                                                        @foreach ($formedia->terminalreport as $terminal)
                                                             @foreach ($terminal->medias as $mediaLibrary )
                                                                 @if (!empty($mediaLibrary->collection_name == 'TerminalFile'))
                                                                 <li class="mb-10 mx-8 ">

@@ -118,6 +118,12 @@
                         name="special_order_pdf" id="special_order_pdf" type="file">
                     </div>
 
+                    <div class="w-full">
+                        <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Other Files <span class="text-xs">(Multiple files)</span></label>
+                        <input class="bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
+                        name="otherfile" id="otherfile" type="file">
+                    </div>
+
                 </div>
 
                 <div>
@@ -147,10 +153,10 @@
                         @enderror
                     </div>
 
-                    <div class="pb-0 flex space-x-2 items-center w-full">
+                    <div class="pt-2 flex space-x-2 items-center w-full">
                         <div class="flex flex-col space-y-2">
                             <div class="flex flex-col space-y-2  w-full">
-                                <div>
+                                <div class="flex space-x-2">
                                     <h1 class="xl:text-sm text-xs">Select Role Type<span class="text-red-500">*</span></h1>
                                     <h4 class="text-xs">Note: (Choose what is applicable)</h4>
                                 </div>
