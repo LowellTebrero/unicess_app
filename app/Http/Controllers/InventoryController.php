@@ -10,6 +10,8 @@ use App\Models\Proposal;
 use App\Models\AdminYear;
 use Illuminate\Http\Request;
 use App\Models\ProposalMember;
+use App\Models\TerminalReport;
+use App\Models\NarrativeReport;
 use App\Models\ProposalProject;
 use App\Models\ParticipationName;
 use Illuminate\Support\Facades\DB;
@@ -41,9 +43,34 @@ class InventoryController extends Controller
         $proposals = Proposal::where('id', $id)
         ->with(['medias' => function ($query) {
             $query->orderBy('file_name', 'asc');
-        }])
-        ->with('programs')
+        }, 'programs'])
         ->first();
+
+        $formedia = Proposal::where('id', $id)
+        ->with(['medias' => function ($query) {
+            $query->select('collection_name', 'model_id', 'created_at')
+            ->groupBy('model_id','collection_name', 'created_at')->orderBy('created_at', 'desc')->pluck('collection_name', 'model_id');
+        },
+        'narrativereport' => function ($query) {
+            $query->with(['medias' => function ($query) {
+                $query->select('collection_name', 'model_id', 'created_at')
+                ->groupBy('model_id','collection_name', 'created_at')->orderBy('created_at', 'desc')->pluck('collection_name', 'model_id');
+            }]); // Nested 'with' for 'medias' inside 'narrativereport'
+        },
+        'terminalreport' => function ($query) {
+            $query->with(['medias' => function ($query) {
+                $query->select('collection_name', 'model_id', 'created_at')
+                ->groupBy('model_id','collection_name', 'created_at')->orderBy('created_at', 'desc')->pluck('collection_name', 'model_id');
+            }]); // Nested 'with' for 'medias' inside 'narrativereport'
+        },])->first();
+
+
+        $latest = Proposal::where('id', $id)
+        ->with(['medias' => function ($query) {
+            $query->latest()->first();
+        }])->first();
+
+
         $members = User::orderBy('name')->whereNot('name', 'Administrator')->pluck('name', 'id')->prepend('Select Username', '');
         $ceso_roles = CesoRole::orderBy('role_name')->pluck('role_name', 'id')->prepend('Select Role', '');
         $locations = Location::orderBy('location_name')->pluck('location_name', 'id')->prepend('Select Location', '');
@@ -58,7 +85,7 @@ class InventoryController extends Controller
         }
 
         return view('user.inventory.show', compact('proposals', 'proposal', 'proposal_member', 'inventory', 'program', 'members'
-    ,'ceso_roles','locations', 'parts_names'));
+        ,'ceso_roles','locations', 'parts_names','formedia', 'latest'));
 
     }
 
@@ -123,21 +150,61 @@ class InventoryController extends Controller
         return back();
     }
 
-
-
     // Universal User
-    public function downloadsPdf($id)
+    public function downloadProposalPdf($id)
     {
         $proposal = Proposal::findorFail($id);
         $pdf = $proposal->getFirstMedia('proposalPdf');
         return $pdf;
     }
 
+    public function downloadsSpecialOrder($id)
+    {
+        $proposal = Proposal::findorFail($id);
+        $pdf = $proposal->getFirstMedia('specialOrder');
+        return $pdf;
+    }
+
+    public function downloadsOffice($id)
+    {
+        $proposal = Proposal::findorFail($id);
+        $pdf = $proposal->getFirstMedia('officeOrder');
+        return $pdf;
+    }
+
+    public function downloadsTravel($id)
+    {
+        $proposal = Proposal::findorFail($id);
+        $pdf = $proposal->getFirstMedia('travelOrder');
+        return $pdf;
+    }
+
+    public function downloadsMoa($id)
+    {
+        $proposals = Proposal::findorFail($id);
+        $moapdf = $proposals->getFirstMedia('MoaPDF');
+        return $moapdf;
+    }
+
     public function downloadsOther($id)
     {
         $proposals = Proposal::findorFail($id);
         $downloads = $proposals->getMedia('otherFile');
-        return MediaStream::create('my-files.zip')->addMedia($downloads);
+        return MediaStream::create($proposals->project_title.'-'.'otherFile.zip')->addMedia($downloads);
+    }
+
+    public function downloadNarrative($id){
+
+        $narrative = NarrativeReport::where('proposal_id',$id)->first();
+        $downloads = $narrative->getMedia('NarrativeFile');
+        return MediaStream::create($narrative->proposals->project_title.'-'.'NarrativeFiles.zip')->addMedia($downloads);
+    }
+
+    public function downloadTerminal($id){
+
+        $terminal = TerminalReport::where('proposal_id',$id)->first();
+        $downloads = $terminal->getMedia('TerminalFile');
+        return MediaStream::create($terminal->proposals->project_title.'-'.'TerminalFiles.zip')->addMedia($downloads);
     }
 
     // Download All
@@ -187,34 +254,32 @@ class InventoryController extends Controller
        $project_title = $proposals->project_title;
 
 
-       if ($request->hasFile('proposal_pdf')) {
+        if ($request->hasFile('proposal_pdf')) {
             $proposals->clearMediaCollection('proposalPdf');
             $proposals->addMediaFromRequest('proposal_pdf')->usingName('proposal')->usingFileName($project_title.'_proposal.pdf')->toMediaCollection('proposalPdf');
         }
 
-         if ($request->hasFile('moa')) {
-             $proposals->clearMediaCollection('MoaPDF');
-             $proposals->addMediaFromRequest('moa')->usingName('moa')->usingFileName($project_title.'_moa.pdf')->toMediaCollection('MoaPDF');
-         }
+        if ($request->hasFile('moa')) {
+            $proposals->clearMediaCollection('MoaPDF');
+            $proposals->addMediaFromRequest('moa')->usingName('moa')->usingFileName($project_title.'_moa.pdf')->toMediaCollection('MoaPDF');
+        }
 
-         if ($images = $request->file('other_files')) {
+        if ($images = $request->file('other_files')) {
 
             foreach ($images as $image) {
                 $proposals->addMedia($image)->usingName('other')->toMediaCollection('otherFile');
             }
-         }
-         $proposals->update();
-         app('flasher')->addSuccess('Files successfully updated.');
-         return back();
+        }
 
+        $proposals->update();
+        app('flasher')->addSuccess('Files successfully updated.');
+        return back();
 
     }
-
 
     // Admin Inventory
     public function ShowFiles($id)
     {
-
         $proposals = Proposal::where('id', $id)->with('medias')->with('programs')->first();
         $proposal = Proposal::where('id', $id)->with('programs')->where('authorize', 'finished')->first();
         $proposal_member = ProposalMember::where('user_id', auth()->user()->id)->first();
@@ -264,8 +329,6 @@ class InventoryController extends Controller
             'inventory'  => $inventory,
             'years'  => $years,
             'myId'  => $myId,
-
-
         ];
 
         return view('user.inventory.index._filter_index' )->with($data);
@@ -299,8 +362,6 @@ class InventoryController extends Controller
         return view('user.inventory.index._filter_index' )->with($data);
     }
 
-
-
     public function downloadsMedia(Media $id)
     {
         return response()->download($id->getPath(), $id->file_name);
@@ -330,6 +391,8 @@ class InventoryController extends Controller
         app('flasher')->addSuccess('Proposal Delete successfully');
 
         return redirect(route('inventory.index'))->with('message', 'Proposal Deleted Successfully');
-     }
+    }
+
+
 
 }

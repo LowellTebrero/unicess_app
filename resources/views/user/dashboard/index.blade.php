@@ -111,15 +111,8 @@
                                     <h1 class="text-md text-white">Upload Project</h1>
                                 </a>
 
-                                {{--  <a href={{ route('download.template') }} class="flex bg-blue-600 hover:bg-blue-700 text-sm rounded-xl text-white p-2 items-center w-full">
-                                    <svg class="fill-white mr-3" xmlns="http://www.w3.org/2000/svg" height="40" viewBox="0 96 960 960" width="40"><path d="M490.001 925.999v-64.383l210.82-210.821 64.384 64.384-210.821 210.82h-64.383Zm-360-204.872v-50.254h289.743v50.254H130.001Zm670.64-41.384-64.384-64.384 29-29q6.948-6.948 17.564-6.948 10.615 0 17.82 6.948l29 29q6.948 7.205 6.948 17.82 0 10.616-6.948 17.564l-29 29Zm-670.64-121.18v-50.255h454.615v50.255H130.001Zm0-162.307v-50.255h454.615v50.255H130.001Z"/></svg>
-                                    <h1>CESO Template</h1>
-                                </a>  --}}
-
-
-
                                 <!-- Modal toggle -->
-                                <button data-modal-target="default-modal" data-modal-toggle="default-modal" class="flex space-x-2 items-center justify-between text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                                <button data-modal-target="default-modal" data-modal-toggle="default-modal" class="flex space-x-2 items-center justify-between text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-xl text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
                                     <svg class="fill-white mr-3" xmlns="http://www.w3.org/2000/svg" height="40" viewBox="0 96 960 960" width="40"><path d="M490.001 925.999v-64.383l210.82-210.821 64.384 64.384-210.821 210.82h-64.383Zm-360-204.872v-50.254h289.743v50.254H130.001Zm670.64-41.384-64.384-64.384 29-29q6.948-6.948 17.564-6.948 10.615 0 17.82 6.948l29 29q6.948 7.205 6.948 17.82 0 10.616-6.948 17.564l-29 29Zm-670.64-121.18v-50.255h454.615v50.255H130.001Zm0-162.307v-50.255h454.615v50.255H130.001Z"/></svg>
                                     CESO Template
                                 </button>

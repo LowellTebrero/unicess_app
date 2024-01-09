@@ -170,9 +170,33 @@ class DashboardController extends Controller
         $proposals = Proposal::where('id', $id)
         ->with(['medias' => function ($query) {
             $query->orderBy('file_name', 'asc');
-        }])
-        ->with('programs')
+        }, 'programs'])
         ->first();
+
+        $formedia = Proposal::where('id', $id)
+        ->with(['medias' => function ($query) {
+            $query->select('collection_name', 'model_id', 'created_at')
+            ->groupBy('model_id','collection_name', 'created_at')->orderBy('created_at', 'desc')->pluck('collection_name', 'model_id');
+        },
+        'narrativereport' => function ($query) {
+            $query->with(['medias' => function ($query) {
+                $query->select('collection_name', 'model_id', 'created_at')
+                ->groupBy('model_id','collection_name', 'created_at')->orderBy('created_at', 'desc')->pluck('collection_name', 'model_id');
+            }]); // Nested 'with' for 'medias' inside 'narrativereport'
+        },
+        'terminalreport' => function ($query) {
+            $query->with(['medias' => function ($query) {
+                $query->select('collection_name', 'model_id', 'created_at')
+                ->groupBy('model_id','collection_name', 'created_at')->orderBy('created_at', 'desc')->pluck('collection_name', 'model_id');
+            }]); // Nested 'with' for 'medias' inside 'narrativereport'
+        },])->first();
+
+
+        $latest = Proposal::where('id', $id)
+        ->with(['medias' => function ($query) {
+            $query->latest()->first();
+        }])->first();
+
         $program = Program::orderBy('program_name')->pluck('program_name', 'id')->prepend('Select Program', '');
         $members = User::orderBy('name')->whereNot('name', 'Administrator')->pluck('name', 'id')->prepend('Select Username', '');
         $ceso_roles = CesoRole::orderBy('role_name')->pluck('role_name', 'id')->prepend('Select Role', '');
@@ -182,7 +206,7 @@ class DashboardController extends Controller
         if($notification){
             auth()->user()->unreadNotifications->where('id', $notification)->markAsRead();
         }
-        return view('admin.dashboard.proposal.edit-proposal', compact('proposal','proposals', 'program', 'members', 'ceso_roles', 'locations', 'parts_names'));
+        return view('admin.dashboard.proposal.edit-proposal', compact('proposal','proposals', 'program', 'members', 'ceso_roles', 'locations', 'parts_names', 'formedia', 'latest'));
     }
 
 

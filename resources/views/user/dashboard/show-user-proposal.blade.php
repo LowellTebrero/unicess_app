@@ -1,4 +1,6 @@
 <x-app-layout>
+
+    @php($count=0)
     <style> [x-cloak] { display: none}</style>
     <section class="m-8 h-[82vh] 2xl:min-h-[87vh] bg-white mt-5  rounded-lg shadow text-slate-700 ">
 
@@ -36,7 +38,7 @@
                     </div>
 
                     <div class="flex space-y-2 text-xs tracking-wider text-gray-600 flex-col  items-end ">
-                        <h1>Proposal ID: {{ $proposal->id }}</h1>
+                        <h1>Project ID: {{ $proposal->id }}</h1>
                         <h1>Status: {{ strtoupper($proposal->authorize) }}</h1>
                         @include('user.dashboard.show-user._see-details-show-user-proposal')
                         <a href={{ route('inventory.show', ['id' => $proposal->id, 'notification' => $proposal->id ]) }} class="bg-blue-500 px-2 py-2 rounded text-white hover:bg-blue-600">Go to Inventory</a>
@@ -73,3 +75,57 @@
     </section>
 
 </x-app-layout>
+
+
+    <script>
+
+        var count = {{ $count }};
+
+
+        $(document).on('click', '.remove-table-row', function(){
+            count--;
+            $(this).parents('tr').remove();
+
+        });
+
+
+        $('#add').click(function(){
+            count++;
+            addDivAndSetSelectName(count);
+        });
+
+
+        function addDivAndSetSelectName(index){
+
+            $('#table').append(
+                `<tr>
+                    <td class="pr-4 pt-2">
+                        <select name="member[`+index+`][id]" class="rounded-md xl:text-xs w-full border-zinc-400" id="member" required>
+                            @foreach ($members as $id => $name )
+                            <option value="{{ $id }}"
+                            >{{ $name }}</option>
+                            @endforeach
+                        </select>
+                    </td>
+
+                    <td class="pr-4 pt-2">
+                        <select  name="member[`+index+`][type]" class="rounded-md xl:text-xs w-full border-zinc-400" required>
+                            <option value="">Select Type </option>
+                            @foreach ($parts_names as $id => $name )
+                            <option value="{{ $name }}"
+                            @if ($id == old('parts_names_id'))
+                                selected="selected"
+                            @endif
+                            >{{ $name }}</option>
+                            @endforeach
+                        </select>
+                    </td>
+
+                    <td class="pr-2">
+                        <button type="button" class="bg-red-500 remove-table-row text-xs text-white px-2 py-1 rounded">Remove</button>
+                    </td>
+                </tr>`
+            );
+        }
+
+    </script>

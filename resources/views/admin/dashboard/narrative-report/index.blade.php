@@ -80,10 +80,6 @@
                                 @endforeach
                                 </a>
                             </td>
-
-                            {{--  <td class="p-3 whitespace-nowrap text-left">
-                                {{Str::limit($narrative->proposals->project_title, 50)}}
-                            </td>  --}}
                         </tr>
                         @endforeach
                     </tbody>

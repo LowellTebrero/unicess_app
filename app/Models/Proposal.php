@@ -30,6 +30,10 @@ class Proposal extends Model implements HasMedia
     {
         $this->addMediaCollection('proposalPdf');
         $this->addMediaCollection('specialOrderPdf');
+        $this->addMediaCollection('travelOrder');
+        $this->addMediaCollection('officeOrder');
+        $this->addMediaCollection('otherFile');
+        $this->addMediaCollection('MoaPDF');
     }
 
     public function programs():BelongsTo
@@ -61,7 +65,7 @@ class Proposal extends Model implements HasMedia
 
     public function medias()
     {
-        return $this->morphMany(Media::class, 'model');
+        return $this->hasMany(Media::class, 'model_id');
     }
 
     public function locations():BelongsTo{

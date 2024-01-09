@@ -135,9 +135,9 @@ class ProposalController extends Controller
             $post->addMediaFromRequest('special_order_pdf')->usingName('special_order')->usingFileName($request->project_title.'_special_order.pdf')->toMediaCollection('specialOrderPdf');
         }
 
-        if ($request->hasFile('moa')) {
+        if ($request->hasFile('moa_pdf')) {
             $post->clearMediaCollection('MoaPDF');
-            $post->addMediaFromRequest('moa')->usingName('moa')->usingFileName($request->project_title.'_moa.pdf')->toMediaCollection('MoaPDF');
+            $post->addMediaFromRequest('moa_pdf')->usingName('moa')->usingFileName($request->project_title.'_moa.pdf')->toMediaCollection('MoaPDF');
         }
 
         if ($request->hasFile('travel_order')) {
