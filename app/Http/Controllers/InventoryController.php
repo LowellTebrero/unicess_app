@@ -71,6 +71,8 @@ class InventoryController extends Controller
         }])->first();
 
 
+
+
         $members = User::orderBy('name')->whereNot('name', 'Administrator')->pluck('name', 'id')->prepend('Select Username', '');
         $ceso_roles = CesoRole::orderBy('role_name')->pluck('role_name', 'id')->prepend('Select Role', '');
         $locations = Location::orderBy('location_name')->pluck('location_name', 'id')->prepend('Select Location', '');
@@ -79,13 +81,15 @@ class InventoryController extends Controller
         $proposal = Proposal::where('id', $id)->with('programs')->where('authorize', 'finished')->first();
         $proposal_member = ProposalMember::where('user_id', auth()->user()->id)->first();
         $program = Program::orderBy('program_name')->pluck('program_name', 'id')->prepend('Select Program', '');
-
+        $narrativeCount = NarrativeReport::distinct('user_id')->count();
+        $terminalCount = TerminalReport::distinct('user_id')->count();
+        $memberCount = ProposalMember::where('proposal_id', $id)->count();
         if($notification){
             auth()->user()->unreadNotifications->where('id', $notification)->markAsRead();
         }
 
         return view('user.inventory.show', compact('proposals', 'proposal', 'proposal_member', 'inventory', 'program', 'members'
-        ,'ceso_roles','locations', 'parts_names','formedia', 'latest'));
+        ,'ceso_roles','locations', 'parts_names','formedia', 'latest', 'narrativeCount', 'terminalCount', 'memberCount'));
 
     }
 

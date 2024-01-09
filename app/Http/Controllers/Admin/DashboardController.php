@@ -202,11 +202,15 @@ class DashboardController extends Controller
         $ceso_roles = CesoRole::orderBy('role_name')->pluck('role_name', 'id')->prepend('Select Role', '');
         $locations = Location::orderBy('location_name')->pluck('location_name', 'id')->prepend('Select Location', '');
         $parts_names = ParticipationName::orderBy('participation_name')->pluck('participation_name', 'id');
+        $narrativeCount = NarrativeReport::distinct('user_id')->count();
+        $terminalCount = TerminalReport::distinct('user_id')->count();
+        $memberCount = ProposalMember::where('proposal_id', $id)->count();
 
         if($notification){
             auth()->user()->unreadNotifications->where('id', $notification)->markAsRead();
         }
-        return view('admin.dashboard.proposal.edit-proposal', compact('proposal','proposals', 'program', 'members', 'ceso_roles', 'locations', 'parts_names', 'formedia', 'latest'));
+        return view('admin.dashboard.proposal.edit-proposal', compact('proposal','proposals', 'program', 'members', 'ceso_roles', 'locations', 'parts_names', 'formedia', 'latest',
+        'narrativeCount','terminalCount', 'memberCount' ));
     }
 
 
