@@ -11,7 +11,7 @@
                 [x-cloak] {display: none}
             </style>
 
-            <section class="m-8  rounded-lg  relative mt-4 2xl:mt-5 h-[82vh] 2xl:h-[87vh]  bg-white text-gray-700 overflow-x-auto">
+            <section class="m-8 rounded-lg  relative mt-4 2xl:mt-5 h-[82vh] 2xl:h-[87vh]  bg-white text-gray-700 overflow-x-auto">
                 <div class="p-4 flex justify-between items-center bg-white sticky top-0 z-10">
                     <h1 class="font-semibold tracking-wider md:text-lg text-base xl:text-2xl">Show Program/Projects</h1>
                     <a href={{ route('allProposal.index') }}>

@@ -83,7 +83,7 @@
                 <div id="filemessagerror" class="text-xs text-red-500 tracking-wider mt-4 mb-2">
                     Please upload at least one file among Proposal PDF, Special Order PDF, MOA PDF, Office Order PDF, Travel Order PDF, Other File(s).
                 </div>
-                <div class="grid grid-cols-2 gap-2">
+                <div class="grid grid-cols-3 2xl:grid-cols-2 gap-2">
                     <div class="w-full">
                         <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Project Proposal (PDF)</label>
                         <input class="custom-file bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
