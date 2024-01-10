@@ -1,7 +1,7 @@
 <x-admin-layout>
 
     @section('title', 'Article/Event | ' . config('app.name', 'UniCESS'))
-    <section class="bg-white mt-5 m-8 h-[82vh] 2xl:h-[87vh] rounded-lg text-gray-700">
+    <section class="bg-white mt-4 2xl:mt-5 m-8 h-[82vh] 2xl:h-[87vh] rounded-lg text-gray-700">
         <header class="p-4 py-2">
             <h1 class="2xl:text-2xl tracking-wider font-semibold text-gray-600">Article/Event Section</h1>
         </header>

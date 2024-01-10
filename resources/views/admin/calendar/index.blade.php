@@ -8,7 +8,7 @@
     @endif
 
 
-    <section class="mt-5 m-8 h-[83vh] bg-white rounded-lg overflow-x-auto text-gray-600">
+    <section class="mt-4 2xl:mt-5 m-8 h-[82vh] 2xl:h-[87vh] bg-white rounded-lg overflow-x-auto text-gray-600">
 
         <header class="bg-white sticky top-0 z-20">
             <h1 class="text-2xl font-semibold p-4">Calendar Section</h1>

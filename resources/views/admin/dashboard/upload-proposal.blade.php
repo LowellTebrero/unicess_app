@@ -23,7 +23,7 @@
         @endforeach
     @endif
 
-    <section class="mt-5 m-8 rounded-xl  2xl:h-[87vh] h-[82vh] bg-white text-gray-700">
+    <section class="mt-4 2xl:mt-5 m-8 rounded-xl  2xl:h-[87vh] h-[82vh] bg-white text-gray-700">
 
         <div class="flex justify-between items-center p-4 xl:py-3 2xl:py-4">
             <h1 class="2xl:text-2xl xl:text-lg text-[.9rem] font-semibold text-slate-600">Upload Project <span

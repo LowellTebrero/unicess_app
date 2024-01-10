@@ -1,6 +1,6 @@
 <x-admin-layout>
 
-    <section class="mt-8 m-5 rounded-lg bg-white  min-h-[82vh] 2xl:min-h-[87vh]">
+    <section class="mt-4 2xl:mt-5 m-8 rounded-lg bg-white  h-[82vh] 2xl:h-[87vh]">
 
         <header class="p-4 py-2 flex justify-between items-center">
             <h1 class="text-lg font-medium tracking-wider text-slate-700">Proposal Overview</h1>

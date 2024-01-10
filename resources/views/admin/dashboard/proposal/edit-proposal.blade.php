@@ -39,7 +39,7 @@
 
     <x-admin-layout>
 
-        <section class="bg-white shadow rounded-xl m-8 mt-5 h-[82vh] 2xl:min-h-[87vh] text-gray-600 overflow-hidden">
+        <section class="bg-white shadow rounded-xl m-8 mt-4 2xl:mt-5 h-[82vh] 2xl:min-h-[87vh] text-gray-600 overflow-hidden">
 
 
             <div class="flex justify-between p-2 2xl:p-3 {{ $proposals->authorize == 'pending' ? 'bg-red-200' : ($proposals->authorize == 'ongoing' ? 'bg-blue-200' : 'bg-green-200') }}

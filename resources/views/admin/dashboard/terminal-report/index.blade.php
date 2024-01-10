@@ -1,7 +1,7 @@
 <x-admin-layout>
 
     @section('title', 'Terminal | ' . config('app.name', 'UniCESS'))
-    <section class="text-gray-700 h-[82vh] 2xl:min-h-[87vh] m-8 mt-5  bg-white rounded-xl shadow">
+    <section class="text-gray-700 h-[82vh] 2xl:h-[87vh] m-8 mt-4 2xl:mt-5  bg-white rounded-xl shadow">
 
         <header class="flex justify-between p-5 py-4">
             <div>
