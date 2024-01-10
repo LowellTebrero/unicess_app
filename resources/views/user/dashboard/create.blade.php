@@ -303,11 +303,7 @@
                     </button>
                 </div>
             </div>
-
-
         </form>
-
-
     </section>
 
     @section('scripts')
@@ -476,8 +472,6 @@
                 errorMessageDisplayed = true;
                 event.preventDefault(); // Prevent form submission
             }
-
-
         });
 
     });

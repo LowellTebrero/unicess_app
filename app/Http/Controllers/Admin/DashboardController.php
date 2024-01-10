@@ -53,6 +53,7 @@ class DashboardController extends Controller
             'moa_pdf' => "required_without_all:proposal_pdf,special_order_pdf,office_order_pdf,travel_order_pdf|file|mimes:pdf|max:10048",
             'office_order_pdf' => "required_without_all:proposal_pdf,special_order_pdf,moa_pdf,travel_order_pdf|file|mimes:pdf|max:10048",
             'travel_order_pdf' => "required_without_all:proposal_pdf,special_order_pdf,moa_pdf,office_order_pdf|file|mimes:pdf|max:10048",
+            'other_files' => "required_without_all:proposal_pdf,special_order_pdf,moa_pdf,office_order_pdf,travel_order_pdf|max:10048",
 
            ],
            [
@@ -68,7 +69,6 @@ class DashboardController extends Controller
         $post->finished_date =  $request->finished_date;
         $post->user_id  = auth()->id();
 
-
         if ($request->hasFile('proposal_pdf')) {
             $post->addMediaFromRequest('proposal_pdf')->usingName('proposal')->usingFileName($request->project_title.'_proposal.pdf')->toMediaCollection('proposalPdf');
         }
@@ -77,18 +77,25 @@ class DashboardController extends Controller
             $post->addMediaFromRequest('special_order_pdf')->usingName('special_order')->usingFileName($request->project_title.'_special_order.pdf')->toMediaCollection('specialOrderPdf');
         }
 
-        if ($request->hasFile('moa')) {
-            $proposals->clearMediaCollection('MoaPDF');
-            $proposals->addMediaFromRequest('moa')->usingName('moa')->usingFileName($project_title.'_moa.pdf')->toMediaCollection('MoaPDF');
+        if ($request->hasFile('moa_pdf')) {
+            $post->clearMediaCollection('MoaPDF');
+            $post->addMediaFromRequest('moa_pdf')->usingName('moa')->usingFileName($request->project_title.'_moa.pdf')->toMediaCollection('MoaPDF');
         }
 
         if ($request->hasFile('travel_order')) {
-            $proposals->clearMediaCollection('officeOrder');
-            $proposals->addMediaFromRequest('travel_order')->usingName('travel')->usingFileName($project_title.'_travel_order.pdf')->toMediaCollection('officeOrder');
+            $post->clearMediaCollection('officeOrder');
+            $post->addMediaFromRequest('travel_order')->usingName('travel')->usingFileName($request->project_title.'_travel_order.pdf')->toMediaCollection('officeOrder');
         }
         if ($request->hasFile('office_order')) {
-            $proposals->clearMediaCollection('travelOrder');
-            $proposals->addMediaFromRequest('office_order')->usingName('office')->usingFileName($project_title.'_office_order.pdf')->toMediaCollection('travelOrder');
+            $post->clearMediaCollection('travelOrder');
+            $post->addMediaFromRequest('office_order')->usingName('office')->usingFileName($request->project_title.'_office_order.pdf')->toMediaCollection('travelOrder');
+        }
+
+        if ($files = $request->file('other_files')) {
+
+            foreach ($files as $file) {
+                $post->addMedia($file)->usingName('other')->toMediaCollection('otherFile');
+            }
         }
 
         $post->save();

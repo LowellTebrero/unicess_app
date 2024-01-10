@@ -1,24 +1,6 @@
 
     <div class="flex-col space-y-4 sm:space-y-0 sm:flex-row flex sm:justify-between">
-                {{--  @foreach ($proposals as $proposal )
-                    <div class="flex flex-col">
 
-                    <div class="flex flex-col 2xl:text-base xl:text-xs">
-                        <div class="flex space-x-2">
-                            <h1>Proposal ID: {{ $proposal->proposal_id }}</h1>
-                            <h1>Title: {{ $proposal->proposal->project_title }}</h1>
-                        </div>
-
-                        <div>
-                            @if ($proposal->leader_member_type !== null)
-                                <h1>Project Leader : {{ $proposal->ceso_role->role_name }}</h1>
-                            @elseif ($proposal->member_type !== null)
-                                <h1>Member Type : {{ $proposal->member_type }}</h1>
-                            @endif
-                        </div>
-                    </div>
-                    </div>
-                @endforeach  --}}
             <div class="space-y-2 2xl:text-base xl:text-xs">
                 @foreach ($evaluations as $evaluation )
                 <h1 class="text-md 2xl:text-base xl:text-sm tracking-wider">Created: {{ \Carbon\Carbon::parse($evaluation->created_at)->format('M d, y g:i:s A')}}</h1>

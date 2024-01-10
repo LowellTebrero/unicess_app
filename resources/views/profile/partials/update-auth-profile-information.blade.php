@@ -65,10 +65,14 @@
 
                                     <!-- Title / Close-->
                                     <div class="flex items-center justify-between mb-5 px-4 py-1">
-                                        <h5 class="mr-3 text-black max-w-none">Update Role</h5>
+                                        <h5 class="mr-3 text-black max-w-none">Update Role/Department</h5>
                                         <button type="button"
                                             class=" z-50 cursor-pointer text-red-500 text-xl font-semibold"
-                                            @click="showModal = false">X</button>
+                                            @click="showModal = false">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
+                                        </button>
                                     </div>
                                     <hr>
 
@@ -79,9 +83,10 @@
                                             @csrf @method('PATCH')
 
                                             <div class="form-group mb-6 mt-5">
+                                                <h1 class="text-xs">Role Name:</h1>
                                                 <select onchange="yesnoCheck(this)" id="role" name="role"
                                                     class=" w-full px-3 py-1.5 text-sm font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded
-                                    transition ease-in-ou m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
+                                                    transition ease-in-ou m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
                                                     <option value="">Select Role</option>
                                                     @foreach ($role as $id => $name)
                                                         <option value="{{ $name }}"
@@ -100,7 +105,7 @@
                                             <div class="mt-4 w-full">
 
                                                 <div id="facultyId">
-                                                    <x-input-label  class="lg:text-xs " for="faculty_id" :value="__('Faculty Name')" />
+                                                    <x-input-label  class="lg:text-xs " for="faculty_id" :value="__('Department Name')" />
 
                                                     <select id="faculty_id"
                                                         class="greeting lg:text-xs xl:text-sm block mt-1 w-full rounded-md shadow-sm border-gray-300 text-gray-900 "
@@ -118,7 +123,7 @@
                                                     <button type="submit"
                                                         class=" w-full px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight
                                                     uppercase shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
-                                                    active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out rounded-xl">Submit</button>
+                                                    active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out rounded-xl">Update</button>
                                                 </div>
                                         </form>
                                         <x-input-error :messages="$errors->get('faculty_id')" class="mt-2" />
@@ -150,7 +155,7 @@
 
                         @hasrole('admin')
                         @else
-                        <h1 class="text-xs">Faculty Name:</h1>
+                        <h1 class="text-xs">Department Name:</h1>
                         <h1 class="text-xs 2xl:text-base">{{ $user->faculty->name }}</h1>
                         @endrole
                         @elseif ($user->partners == !null)

@@ -42,7 +42,7 @@
             action="{{ route('admin.dashboard.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
-            <div class="w-full mx-auto 2xl:py-4 py-2 p-4 border relative rounded-md">
+            <div class="w-4/4 2xl:w-3/4 mx-auto 2xl:py-4 py-2 p-4 border relative rounded-md">
                 <div class="flex space-x-2 flex-row  w-full">
                     <div class="w-1/2">
                         <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm"
@@ -73,34 +73,66 @@
                     </div>
                 </div>
 
-                <div class="flex xl:justify-between mt-4 space-x-2 items-center w-full">
+
+
+                <div id="filemessagerror" class="text-xs text-red-500 tracking-wider mt-4 mb-2">
+                    Please upload at least one file among Proposal PDF, Special Order PDF, MOA PDF, Office Order PDF, Travel Order PDF, Other File(s).
+                </div>
+                <div class="grid grid-cols-3 2xl:grid-cols-2 gap-2">
                     <div class="w-full">
-                        <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">PROJECT PROPOSAL (PDF)
-                            <span class="text-red-500">*</span></label>
-                        <input
-                            class="custom-file bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
-                            name="proposal_pdf" id="proposal_pdf" type="file" required>
-                        @error('proposal_pdf')
-                            <span class="text-red-500  text-xs">{{ $message }}</span>
-                        @enderror
+                        <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Project Proposal (PDF)</label>
+                        <input class="custom-file bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
+                        name="proposal_pdf" id="proposal_pdf" type="file">
+
                     </div>
 
                     <div class="w-full">
-                        <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">SPECIAL ORDER (PDF)
-                            <span class="text-red-500">*</span></label>
-                        <input
-                            class="bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
-                            name="special_order_pdf" id="special_order_pdf" type="file" required>
-                        @error('special_order_pdf')
-                            <span class="text-red-500  text-xs">{{ $message }}</span>
-                        @enderror
+                        <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">MOA (PDF)</label>
+                        <input class="custom-file bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
+                        name="moa_pdf" id="moa_pdf" type="file">
+
                     </div>
 
+                    <div class="w-full">
+                        <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Office Order (PDF)</label>
+                        <input class="custom-file bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
+                        name="office_order_pdf" id="office_order_pdf" type="file">
+
+                    </div>
+
+                    <div class="w-full">
+                        <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Travel Order (PDF)</label>
+                        <input class="custom-file bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
+                        name="travel_order_pdf" id="travel_order_pdf" type="file">
+
+                    </div>
+
+                    <div class="w-full">
+                        <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Special Order (PDF)</label>
+                        <input class="bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
+                        name="special_order_pdf" id="special_order_pdf" type="file">
+                    </div>
+
+                    <div class="w-full">
+                        <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Other Files <span class="text-xs">(Multiple files)</span></label>
+                        <input class="bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
+                        name="other_files[]" multiple id="other_files" type="file">
+                    </div>
+
+                </div>
+
+                <div>
+                    @error('proposal_pdf')
+                    <span class="text-red-500  text-xs">{{ $message }}</span>
+                    @enderror
+                </div>
+
+
+
+                <div class="flex space-x-4 items-center">
                     <div class="w-1/2">
-                        <label class="text-xs block text-slate-600  font-medium 2xl:text-sm">Started Date<span
-                                class="text-red-500">*</span></label>
-                        <input required
-                            class="border-zinc-300 text-xs  appearance-none border  rounded w-full py-2 mt-2 px-3 text-slate-600  leading-tight focus:outline-none"
+                        <label class="text-xs block text-slate-600  font-medium 2xl:text-sm">Started Date (optional)</label>
+                        <input class="border-zinc-300 text-xs  appearance-none border  rounded w-full py-2 mt-2 px-3 text-slate-600  leading-tight focus:outline-none"
                             value="{{ old('started_date') }}" name="started_date" id="started_date" type="date">
                         @error('started_date')
                             <span class="text-red-500  text-xs">{{ $message }}</span>
@@ -108,28 +140,35 @@
                     </div>
 
                     <div class="w-1/2">
-                        <label class="text-xs block text-slate-600  font-medium 2xl:text-sm">Ended Date<span
-                                class="text-red-500">*</span></label>
-                        <input required
-                            class="border-zinc-300 text-xs appearance-none border  rounded w-full py-2 mt-2 px-3 text-slate-600  leading-tight focus:outline-none"
+                        <label class="text-xs block text-slate-600  font-medium 2xl:text-sm">Ended Date (optional)</label>
+                        <input class="border-zinc-300 text-xs appearance-none border  rounded w-full py-2 mt-2 px-3 text-slate-600  leading-tight focus:outline-none"
                             value="{{ old('finished_date') }}" name="finished_date" id="finished_date" type="date">
                         @error('finished_date')
                             <span class="text-red-500 text-xs">{{ $message }}</span>
                         @enderror
                     </div>
-                </div>
 
-                <div class="flex space-y-4 flex-col w-full pt-3">
+                    <div class="pt-2 flex space-x-2 items-center w-full">
+                        <div class="flex flex-col space-y-2">
+                            <div class="flex flex-col space-y-2  w-full">
+                                <div class="flex space-x-2">
+                                    <h1 class="xl:text-sm text-xs">Select Role Type<span class="text-red-500">*</span></h1>
+                                    <h4 class="text-xs">Note: (Choose what is applicable)</h4>
+                                </div>
+                                <div>
+                                    <button class="px-3 py-1 2xl:text-sm text-xs bg-blue-400 text-white rounded-lg" type="button"
+                                    id="leaderButton">Leader Type
+                                </button>
+                                <button class="px-3 py-1 2xl:text-sm text-xs bg-blue-400 text-white rounded-lg" type="button"
+                                    id="MemberButton">Member Type
+                                </button>
+                                </div>
 
-                    <div class="pb-0 2xl:py-5 flex space-x-2 items-center">
-                        <h1 class="xl:text-sm text-xs">Select Role Type</h1>
-                        <h4 class="text-xs">Note: (Choose what is applicable)</h4>
-                        <button class="px-3 py-1 2xl:text-sm text-xs bg-blue-400 text-white rounded-lg" type="button"
-                            id="leaderButton">Leader Type</button>
-                        <button class="px-3 py-1 2xl:text-sm text-xs bg-blue-400 text-white rounded-lg" type="button"
-                            id="MemberButton">Member Type</button>
+                            </div>
+                            <div id="error-message" class="text-xs text-red-500 tracking-wider "></div>
+                        </div>
                     </div>
-
+                </div>
 
                     <div class="flex space-x-4 w-full" style="display: none" id="leaderDiv">
 
@@ -140,15 +179,14 @@
                                         leader</th>
                                     <th class="text-xs  text-slate-600 font-medium mb-2 2xl:text-sm text-left">Role of
                                         Leader</th>
-                                    <th
-                                        class="text-xs  text-slate-600 font-medium mb-2 2xl:text-sm text-left w-[11rem] 2xl:w-[10rem]">
+                                    <th class="text-xs  text-slate-600 font-medium mb-2 2xl:text-sm text-left">
                                         Location</th>
                                 </tr>
                             </thead>
 
                             <tbody>
                                 <tr>
-                                    <td class="pr-4 xl:w-[21rem] 2xl:w-[30rem]">
+                                    <td class="pr-4">
 
                                         <select name="leader_id" class="rounded-md text-xs w-full  border-zinc-300"
                                             value="{{ old('leader_id') }}" id="leader">
@@ -162,7 +200,7 @@
 
                                     </td>
 
-                                    <td class="pr-4  xl:w-[21rem] 2xl:w-[30rem]">
+                                    <td class="pr-4">
                                         <select onchange="yesnoCheck(this)" id="leader_member_type"
                                             name="leader_member_type" value="{{ old('leader_member_type') }}"
                                             class="rounded-md text-xs w-full border-zinc-300">
@@ -179,7 +217,7 @@
                                     </td>
 
                                     <td>
-                                        <div class="w-[32.5rem]">
+                                        <div>
                                             <select id="location_id" type="text"
                                                 class="rounded-md text-xs w-full border-zinc-300 " name="location_id"
                                                 value="{{ old('location_id') }}">
@@ -200,7 +238,7 @@
                     </div>
 
 
-                    <div class="w-full overflow-x-auto h-[26vh] xl:h-[23vh] 2xl:h-[35vh] bg-slate-100"
+                    <div class="w-full overflow-x-auto h-[26vh] xl:h-[20vh] 2xl:h-[20vh]  mt-2"
                         style="display: none" id="memberDiv">
 
                         <table id="table" class="w-full">
@@ -250,17 +288,16 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
+
 
                 <div class="bottom-2 left-0 xl:bottom-7">
                     <button
                         class="bg-blue-500 rounded-lg text-white 2xl:text-base xl:text-sm text-xs font-medium py-2 px-4 mt-4 focus:outline-none"
                         type="submit">
-                        Submit Proposal
+                        Submit Project
                     </button>
                 </div>
             </div>
-
 
         </form>
 
@@ -408,12 +445,33 @@
 
         // Add a submit event listener to the form
         var form = document.getElementById("FormSubmit"); // Replace with your actual form ID
+        var errormessage = document.getElementById("error-message");
+        var fileerror = document.getElementById("filemessagerror");
+        var errorMessageDisplayed = false;
+        var fileInputs = document.querySelectorAll('input[type="file"]');
+
         form.addEventListener("submit", function(event) {
+
+              // Check if at least one file input has a file selected
+              var hasFile = Array.from(fileInputs).some(function(input) {
+                return input.files.length > 0;
+            });
+
+            if (!hasFile && !errorMessageDisplayed) {
+                alert("Please upload at least one file.");
+                fileerror.innerHTML = 'Please upload at least one file among Proposal PDF, Special Order PDF, MOA PDF, Office Order PDF, Travel Order PDF.';
+                errorMessageDisplayed = true;
+                event.preventDefault(); // Prevent form submission
+            }
+
             // Check if both buttons are not clicked
             if (leaderDiv.style.display === "none" && memberDiv.style.display === "none") {
                 alert("You must select at least one of the member types");
+                errormessage.innerHTML = 'You must select at least one of the member types';
+                errorMessageDisplayed = true;
                 event.preventDefault(); // Prevent form submission
             }
         });
+
     });
 </script>
