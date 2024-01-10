@@ -54,7 +54,7 @@
 
                                         <div class="flex flex-col">
                                             <label class="text-sm 2xl:text-base leading-relaxed text-gray-200">Description</label>
-                                            <textarea name="description" class="text-sm 2xl:text-base leading-relaxed text-gray-600 rounded h-[20vh]" cols="30" rows="10"></textarea>
+                                            <textarea name="description" class="text-sm 2xl:text-base leading-relaxed text-gray-600 rounded h-[15vh] 2xl:h-[20vh]" cols="30" rows="10"></textarea>
                                             @error('description') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                         </div>
 
