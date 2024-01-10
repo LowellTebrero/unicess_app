@@ -14,7 +14,7 @@
 
         @hasanyrole('Faculty extensionist|Extension coordinator')
 
-            <section class="mx-5 xl:mx-10 md:space-x-2 lg:space-x-7  xl:space-x-10 flex xl:flex-row flex-col sm:flex-row sm:space-x-2 justify-between 2xl:h-48 xl:h-36 lg:h-[20vh] text-gray-700 mt-5">
+            <section class="mx-5 xl:mx-10 md:space-x-2 lg:space-x-7  xl:space-x-10 flex xl:flex-row flex-col sm:flex-row sm:space-x-2 justify-between 2xl:h-48 xl:h-36 lg:h-[20vh] text-gray-700 mt-4 2xl:mt-5">
 
                 <a href={{ route('User-dashboard.profile') }} class="w-full rounded-lg hover:border hover:border-teal-400 hover:from-cyan-300 hover:to-sky-200 bg-gradient-to-tl from-cyan-400 to-sky-300 md:p-2 xl:px-5 2xl:px-10 2xl:py-9 xl:py-5 flex flex-col xl:flex-row lg:pt-3 xl:p-0 items-center">
                     @if($user->gender == 'Female')

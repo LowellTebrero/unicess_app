@@ -1,4 +1,4 @@
-<div class="overflow-x-auto xl:h-[49vh] 2xl:h-[52vh]">
+<div class="overflow-x-auto h-[45vh] 2xl:h-[52vh]">
 
     <table class="w-full text-left text-gray-500">
         <thead class="text-[.6rem] text-gray-700 uppercase bg-gray-200 relative">
