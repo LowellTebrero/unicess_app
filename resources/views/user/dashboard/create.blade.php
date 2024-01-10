@@ -47,7 +47,7 @@
             action="{{ route('User-dashboard.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
-            <div class="w-3/4 mx-auto 2xl:py-4 py-2 p-4 border relative rounded-md">
+            <div class="w-4/4 2xl:w-3/4 mx-auto 2xl:py-4 py-2 p-4 border relative rounded-md">
                 <div class="flex space-x-2 flex-row  w-full">
                     <div class="w-1/2">
                         <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm"
