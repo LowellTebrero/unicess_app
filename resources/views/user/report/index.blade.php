@@ -18,8 +18,8 @@
         <hr>
 
         <div class="flex flex-col space-y-5 p-5 h-[50vh] mt-0 2xl:mt-8">
-            <div class="">
-                <h1 class="text-lg font-medium mb-2">Narrative Report</h1>
+            <div class="border rounded-lg">
+                <h1 class="text-lg font-medium mb-2 ml-2">Narrative Report</h1>
                 <div class="overflow-x-auto xl:h-[25vh] 2xl:h-[20vh]">
 
                     <table class="w-full text-left text-gray-500">
@@ -316,8 +316,8 @@
                     </table>
                 </div>
             </div>
-            <div class="">
-                <h1 class="text-lg font-medium mb-2">Terminal Report</h1>
+            <div class="border rounded-lg">
+                <h1 class="text-lg font-medium mb-2 ml-2">Terminal Report</h1>
                 <div class="overflow-x-auto xl:h-[25vh] 2xl:h-[20vh]">
 
                     <table class="w-full text-left text-gray-500">
