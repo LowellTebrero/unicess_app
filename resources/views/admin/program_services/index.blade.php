@@ -7,7 +7,7 @@
         <?php flash()->addError($error); ?>
     @endforeach
     @endif
-    <section class="bg-white rounded-lg mt-5 m-8 h-[82vh] 2xl:h-[87vh]">
+    <section class="bg-white rounded-lg mt-4 2xl:mt-5 m-8 h-[82vh] 2xl:h-[87vh]">
 
         <header class="p-4 py-2">
             <h1 class="2xl:text-2xl tracking-wider font-semibold text-gray-600">Program and Services Section</h1>
@@ -58,7 +58,7 @@
 
                             <td class="p-3 whitespace-nowrap">
                                 <div class="text-left text-gray-700  xl:text-[.7rem]">
-                                    {{Str::limit($article->title, 100)}}
+                                    {{Str::limit($article->title, 50)}}
                                 </div>
                             </td>
                             <td class="text-xs text-green-600 flex space-x-2 items-center font-light text-left px-2 pr-10 py-4 whitespace-nowrap">
