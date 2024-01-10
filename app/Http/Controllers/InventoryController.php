@@ -32,10 +32,10 @@ class InventoryController extends Controller
         $proposals = Proposal::whereYear('created_at',  date('Y'))->with(['proposal_members' => function ($query) {
             $query->where('user_id', auth()->user()->id);
         }])->orderBy('created_at', 'DESC')->with('programs')->distinct()->get();
+        $proposalmember = ProposalMember::where('user_id', auth()->user()->id)->distinct('user_id')->get();
 
 
-
-        return view('user.inventory.index', compact('inventory', 'years', 'myId', 'proposals'));
+        return view('user.inventory.index', compact('inventory', 'years', 'myId', 'proposals', 'proposalmember'));
     }
 
     public function show($id, $notification)

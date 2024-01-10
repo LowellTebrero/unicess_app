@@ -26,6 +26,10 @@
                         <thead class="text-[.6rem] text-gray-700 uppercase bg-gray-200 relative">
                             <tr class="bg-gray-100 sticky top-0">
                                 @if ($proposalMembers->count() <= 0)
+                                <div class="flex space-x-2 items-center justify-center text-gray-500">
+                                    <h1 class="text-xs 2xl:text-sm">It’s empty here</h1>
+                                    <svg class="fill-gray-500" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 20 20"><path fill="currentColor" d="M8.5 8.5a1 1 0 1 1-2 0a1 1 0 0 1 2 0m4 1a1 1 0 1 0 0-2a1 1 0 0 0 0 2m.303 2.5c-1.274 0-2.52.377-3.58 1.084a.5.5 0 0 0 .554.832A5.454 5.454 0 0 1 12.803 13h.797a.5.5 0 0 0 0-1zM2 10a8 8 0 1 1 16 0a8 8 0 0 1-16 0m8-7a7 7 0 1 0 0 14a7 7 0 0 0 0-14"/></svg>
+                                </div>
                                 @else
                                 <th scope="col" class="2xl:px-6 xl:px-4 xl:pl-4 py-3">Uploaded</th>
                                 <th scope="col" class="2xl:px-6 xl:px-4 xl:pl-0 py-3">Extension Program/Project Title</th>
@@ -324,6 +328,11 @@
                         <thead class="text-[.6rem] text-gray-700 uppercase bg-gray-200 relative">
                             <tr class="bg-gray-100 sticky top-0">
                                 @if ($proposalMembers->count() <= 0)
+                                <div class="flex space-x-2 items-center justify-center text-gray-500">
+                                    <h1 class="text-xs 2xl:text-sm">It’s empty here</h1>
+                                    <svg class="fill-gray-500" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 20 20"><path fill="currentColor" d="M8.5 8.5a1 1 0 1 1-2 0a1 1 0 0 1 2 0m4 1a1 1 0 1 0 0-2a1 1 0 0 0 0 2m.303 2.5c-1.274 0-2.52.377-3.58 1.084a.5.5 0 0 0 .554.832A5.454 5.454 0 0 1 12.803 13h.797a.5.5 0 0 0 0-1zM2 10a8 8 0 1 1 16 0a8 8 0 0 1-16 0m8-7a7 7 0 1 0 0 14a7 7 0 0 0 0-14"/></svg>
+                                </div>
+
                                 @else
                                 <th scope="col" class="2xl:px-6 xl:px-4 xl:pl-4 py-3">Uploaded</th>
                                 <th scope="col" class="2xl:px-6 xl:px-4 xl:pl-0 py-3">Extension Program/Project Title</th>
@@ -336,7 +345,7 @@
                         <tbody>
                             @if ($proposals == null)
                             <tr>
-                                <td class="px-6 py-4 xl:text-[.9rem] text-red-400">No Proposal</td>
+                                <td class="px-6 py-4 xl:text-[.9rem] text-red-400">No Project</td>
                             </tr>
                             @else
                                 @foreach ($proposals as $proposal )
