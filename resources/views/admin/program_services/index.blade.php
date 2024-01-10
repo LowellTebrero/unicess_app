@@ -185,7 +185,7 @@
 
                                                             <div class="flex flex-col">
                                                                 <label class="text-base leading-relaxed text-gray-200">Description</label>
-                                                                <textarea name="description" class="text-base leading-relaxed text-gray-600 rounded" id="" cols="30" rows="10">{{ $article->description }}</textarea>
+                                                                <textarea name="description" class="text-base leading-relaxed text-gray-600 rounded h-[20vh]" id="" cols="30" rows="10">{{ $article->description }}</textarea>
                                                                 @error('description') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
 
                                                             </div>
