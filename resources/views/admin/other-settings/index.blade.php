@@ -12,7 +12,7 @@
         @endforeach
     @endif
 
-    <section class="rounded-xl shadow m-8 mt-5 text-slate-700 bg-white h-[82vh] 2xl:min-h-[87vh]">
+    <section class="rounded-xl shadow m-8 mt-4 2xl:mt-5 text-slate-700 bg-white h-[82vh] 2xl:h-[87vh]">
 
         <div class="p-5 py-4">
             <h1 class=" font-semibold  text-lg 2xl:text-2xl tracking-wider">Others Settings </h1>
@@ -85,7 +85,7 @@
                         @foreach ($templates as $template )
                           @foreach ($template->medias as $media )
                           <div class="flex justify-between space-y-2">
-                            <h1>{{ $media->file_name }}</h1>
+                            <h1 class="text-xs 2xl:text-sm">{{ $media->file_name }}</h1>
                             <div class="flex space-x-2 ">
                                 <a href={{ url('download-media', $media->id) }} class="text-white bg-green-400 rounded-lg px-2 py-1 text-xs">Download</a>
                                 <form action={{ route('admin.template.delete', ['id' => $media->id, 'templateId' => $template->id]) }} method="POST" onsubmit="return confirm ('Are you sure?')">
