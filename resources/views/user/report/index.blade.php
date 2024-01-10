@@ -10,7 +10,7 @@
     @endforeach
     @endif
 
-    <section class="bg-white rounded-lg h-[82vh] 2xl:h-[85vh] mt-5 m-8 text-slate-700">
+    <section class="bg-white rounded-lg h-[82vh] 2xl:h-[87vh] mt-4 2xl:mt-5 m-8 text-slate-700">
 
         <header class="p-4 flex justify-between sm:flex-col space-y-2 sm:space-y-0 md:flex-row flex-col space-x-0">
             <h1 class="font-semibold tracking-wider sm:text-xl xl:text-2xl text-slate-700 text-base">Report Overview</h1>

@@ -4,7 +4,7 @@
 @hasanyrole('Faculty extensionist|Extension coordinator')
     <style>[x-cloak] {display: none}</style>
 
-    <section class="m-8  rounded-lg  relative mt-5 h-[82vh] 2xl:min-h-[87vh]  bg-white text-gray-700">
+    <section class="m-8  rounded-lg  relative mt-4 2xl:mt-5 h-[82vh] 2xl:h-[87vh]  bg-white text-gray-700">
 
         @foreach ($allproposal as $proposal )
 

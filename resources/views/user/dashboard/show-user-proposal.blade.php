@@ -2,7 +2,7 @@
 
     @php($count=0)
     <style> [x-cloak] { display: none}</style>
-    <section class="m-8 h-[82vh] 2xl:min-h-[87vh] bg-white mt-5  rounded-lg shadow text-slate-700 ">
+    <section class="m-8 h-[82vh] 2xl:h-[87vh] bg-white mt-4 2xl:mt-5  rounded-lg shadow text-slate-700 ">
 
         <div class="flex justify-between p-5 py-3">
             <h1 class="text-sm  tracking-wide">{{ $proposals->project_title }}</h1>

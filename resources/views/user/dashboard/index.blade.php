@@ -10,11 +10,9 @@
         }
     </style>
 
-
     @if (Auth::user()->authorize == 'checked')
 
         @hasanyrole('Faculty extensionist|Extension coordinator')
-
 
             <section class="mx-5 xl:mx-10 md:space-x-2 lg:space-x-7  xl:space-x-10 flex xl:flex-row flex-col sm:flex-row sm:space-x-2 justify-between 2xl:h-48 xl:h-36 lg:h-[20vh] text-gray-700 mt-5">
 
