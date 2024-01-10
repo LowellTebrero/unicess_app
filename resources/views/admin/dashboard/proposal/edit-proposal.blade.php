@@ -137,7 +137,7 @@
                     </div>
 
 
-                    <div class="mb-2 mt-5 xl:mt-0 w-full overflow-x-auto h-[25vh]">
+                    <div class="mb-2 mt-5 xl:mt-0 w-full overflow-x-auto h-[15vh] 2xl:h-[25vh]">
                         <div class="w-full sticky top-0 z-10 bg-gray-100 xl:bg-white">
                             <label class="text-gray-700 font-semibold xl:text-[.7rem] text-[.7rem] ">Project Member(s)</label>
                         </div>
