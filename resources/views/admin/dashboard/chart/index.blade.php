@@ -3,7 +3,7 @@
     <section class="mt-4 2xl:mt-5 m-8 rounded-lg bg-white  h-[82vh] 2xl:h-[87vh]">
 
         <header class="p-4 py-2 flex justify-between items-center">
-            <h1 class="text-lg font-medium tracking-wider text-slate-700">Proposal Overview</h1>
+            <h1 class="text-lg font-medium tracking-wider text-slate-700">Extension Program/Project Overview</h1>
             <a href={{ route('admin.dashboard.index') }} class="hover:bg-gray-200 focus:bg-red-200 rounded px-2 py-1">
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -17,14 +17,14 @@
                 <div class="flex justify-end space-x-4 p-4 py-2">
                     <select name="" id="CustomizeFilter" class="text-xs rounded">
                             <option value="1" {{ old('1', $customize->number) == '1' ? 'selected' : '' }}>View Statistics</option>
-                            <option value="2" {{ old('2', $customize->number) == '2' ? 'selected' : '' }}>View Proposal</option>
+                            <option value="2" {{ old('2', $customize->number) == '2' ? 'selected' : '' }}>View Project</option>
                     </select>
                 </div>
 
 
                 <div class="flex xl:flex-row flex-col space-x-1  m-5 mt-5 rounded-lg  xl:w-11/12 2xl:w-auto ">
                     <div class="xl:w-1/2">
-                        <h1 class="text-sm tracking-wider pl-5">Count of Uploaded Proposal By Month</h1>
+                        <h1 class="text-sm tracking-wider pl-5">Count of Uploaded Project By Month</h1>
                         <div class="p-5">
                             <canvas id="myChart" width="500" height="200"></canvas>
                         </div>
@@ -49,7 +49,7 @@
 
                         <div id="wrapper" class="flex items-center transition-all px-2 py-1 rounded border ">
                             <button class="flex items-center space-x-2 text-xs text-gray-700" id="YesDelete">
-                                Delete proposal
+                                Delete Project
                                 <svg class="fill-gray-500" xmlns="http://www.w3.org/2000/svg" height="15"
                                 viewBox="0 96 960 960" width="15">
                                 <path d="M261 936q-24.75 0-42.375-17.625T201 876V306h-41v-60h188v-30h264v30h188v60h-41v570q0 24-18 42t-42 18H261Zm438-630H261v570h438V306ZM367 790h60V391h-60v399Zm166 0h60V391h-60v399ZM261 306v570-570Z" />
@@ -58,7 +58,7 @@
                         </div>
 
                         <div>
-                            <input id="searchInput"  class=" text-xs rounded border border-gray-300 2xl:w-[20rem] sm:w-[15rem] w-full text-gray-700" type="text" placeholder="Search Proposal Title...">
+                            <input id="searchInput"  class=" text-xs rounded border border-gray-300 2xl:w-[20rem] sm:w-[15rem] w-full text-gray-700" type="text" placeholder="Search Project Title...">
                             <select class="text-xs rounded border border-gray-300 text-gray-700" id="MyYear">
                                 <option {{ '' == request('year') ? 'selected ' : '' }} value="">Select Year</option>
                                 @foreach ($years as $year )
@@ -77,7 +77,7 @@
 
                             <select id="CustomizeFilter" class="text-xs rounded border border-gray-300 text-gray-700">
                                     <option value="1" {{ old('1', $customize->number) == '1' ? 'selected' : '' }}>View Statistics</option>
-                                    <option value="2" {{ old('2', $customize->number) == '2' ? 'selected' : '' }}>View Proposal</option>
+                                    <option value="2" {{ old('2', $customize->number) == '2' ? 'selected' : '' }}>View Project</option>
                             </select>
 
                         </div>
@@ -107,7 +107,7 @@
                     data: {
                         labels: labels,
                         datasets: [{
-                            label: 'Month of Uploaded of Proposal',
+                            label: 'Month of Uploaded of Project',
                             data: users,
                             backgroundColor: [
                                 'rgba(255, 99, 132, 0.2)',

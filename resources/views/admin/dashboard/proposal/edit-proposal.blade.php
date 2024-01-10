@@ -75,7 +75,7 @@
                     <div class="flex flex-col space-y-2 mb-4">
                         <div class="w-full">
                             <div class="w-full">
-                                <label class="block text-gray-700 text-[.7rem] font-semibold xl:text-[.7rem]"> Project Proposal Title:</label>
+                                <label class="block text-gray-700 text-[.7rem] font-semibold xl:text-[.7rem]"> Project Title:</label>
                                 <h1 class="xl:text-[.7rem] text-[.7rem] appearance-none rounded w-full py-1  text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                                     {{ $proposals->project_title }}</h1>
                             </div>
@@ -237,38 +237,38 @@
 
 
                                                             <div class="flex flex-col mb-1 w-full">
-                                                                <label class="text-sm font-light tracking-wider mb-1">Proposal
+                                                                <label class="text-sm font-light tracking-wider mb-1">Update Proposal
                                                                     (PDF)</label>
                                                                 <input type="file" class="border text-xs" name="proposal_pdf">
                                                             </div>
 
                                                             <div class="flex flex-col mb-1 w-full">
-                                                                <label class="text-sm font-light tracking-wider mb-1">Special Order
+                                                                <label class="text-sm font-light tracking-wider mb-1">Update Special Order
                                                                     (PDF)</label>
                                                                 <input type="file" class="border text-xs" name="special_order_pdf">
                                                             </div>
 
                                                             <div class="flex flex-col mb-1 w-full">
-                                                                <label class="text-sm font-light tracking-wider mb-1">Memorandum of Agreement
+                                                                <label class="text-sm font-light tracking-wider mb-1">Update Memorandum of Agreement
                                                                     (PDF)</label>
                                                                 <input type="file" class="border text-xs" name="moa_pdf">
                                                             </div>
 
 
                                                             <div class="flex flex-col  mb-1 w-full">
-                                                                <label class="text-sm font-light tracking-wider mb-1">Travel order
+                                                                <label class="text-sm font-light tracking-wider mb-1">Update Travel order
                                                                     (PDF)</label>
                                                                 <input type="file"  class="border text-xs" name="travel_order">
                                                             </div>
 
                                                             <div class="flex flex-col  mb-1 w-full">
-                                                                <label class="text-sm font-light tracking-wider mb-1">Office order
+                                                                <label class="text-sm font-light tracking-wider mb-1">Update Office order
                                                                     (PDF)</label>
                                                                 <input type="file"  class="border text-xs" name="office_order">
                                                             </div>
 
                                                             <div class="flex flex-col mb-1 w-full">
-                                                                <label class="text-sm font-light tracking-wider mb-1">Other Files <span class="text-xs">(Multiple Files)</span></label>
+                                                                <label class="text-sm font-light tracking-wider mb-1">Upload Other Files <span class="text-xs">(Multiple Files)</span></label>
                                                                 <input class="border text-xs "  type="file" multiple name="other_files[]" onchange="displayFileNames(this)">
                                                                 <div id="file-names-container" class="text-xs mt-1"></div>
                                                             </div>
@@ -544,7 +544,7 @@
                                                     <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                                                     </svg>
-                                                    <h3 class="mb-3 text-lg font-normal text-gray-400 dark:text-gray-300">Are you sure you want to delete this product?</h3>
+                                                    <h3 class="mb-3 text-sm 2xl:text-lg font-normal text-gray-400 dark:text-gray-300">Are you sure you want to delete this product?</h3>
                                                     </div>
 
                                                     <div class="flex space-x-4 justify-center ">

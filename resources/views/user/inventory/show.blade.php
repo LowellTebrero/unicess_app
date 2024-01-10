@@ -11,8 +11,6 @@
         background-color: #cccccc;
         color: #666666;
         }
-
-
         #style-2::-webkit-scrollbar-track
         {
             -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
@@ -20,14 +18,12 @@
             border-radius: 10px;
 
         }
-
         #style-2::-webkit-scrollbar
         {
             width: .8rem;
             border-radius: 10px;
             background-color: rgb(55 65 81);
         }
-
         #style-2::-webkit-scrollbar-thumb
         {
             width: .8rem;
@@ -101,26 +97,26 @@
                                                 <div class="py-1 flex flex-col w-full">
 
                                                     <div class="flex flex-col mb-4">
-                                                        <label class="text-sm font-light  mb-1">Proposal (PDF)</label>
+                                                        <label class="text-sm font-light  mb-1">Update Proposal (PDF)</label>
                                                         <input type="file" name="proposal_pdf" class="text-xs text-slate-700 border file:bg-transparent file:border-none  file:bg-gray-100 file:mr-4 file:py-2 file:px-4">
                                                         @error('proposal_pdf') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
                                                     </div>
 
                                                     <div class="flex flex-col mb-4">
-                                                        <label class="text-sm font-light  mb-1">Memorandum of Agreement (PDF)</label>
+                                                        <label class="text-sm font-light  mb-1">Update Memorandum of Agreement (PDF)</label>
                                                         <input type="file" name="moa" class="text-xs text-slate-700 border file:bg-transparent file:border-none  file:bg-gray-100 file:mr-4 file:py-2 file:px-4">
                                                         @error('moa') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
                                                     </div>
 
                                                     <div class="flex flex-col mb-4">
-                                                        <label class="text-sm font-light  mb-1">Other Files </label>
+                                                        <label class="text-sm font-light  mb-1">Upload other files </label>
                                                         <input type="file" multiple name="other_files[]" onchange="displayFileNames(this)" class="text-xs text-slate-700 border file:bg-transparent file:border-none  file:bg-gray-100 file:mr-4 file:py-2 file:px-4">
                                                         <div id="file-names-container" class="text-xs mt-1"></div>
                                                         @error('other_files') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
                                                     </div>
 
                                                     <div class="mb-2 mt-12">
-                                                        <button class="bg-blue-500 w-full text-white rounded-md p-2" type="submit" id="upload-file" disabled>Upload File</button>
+                                                        <button class="bg-blue-500 w-full text-white rounded-md p-2" type="submit" id="upload-file" disabled>Upload Document</button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -260,7 +256,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="w-full overflow-x-auto h-[25vh] 2xl:h-[30vh]">
+                                                        <div class="w-full overflow-x-auto h-[20vh] 2xl:h-[30vh]">
 
                                                             <div class="pb-2 sticky top-0 bg-white">
                                                                 <button name="add" id="add" type="button" class="bg-slate-500 rounded text-white px-2 py-1  text-sm xl:text-xs border-zinc-400">Add Member</button>
