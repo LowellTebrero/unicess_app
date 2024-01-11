@@ -121,7 +121,8 @@
                     <div class="w-full">
                         <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Other Files <span class="text-xs">(Multiple files)</span></label>
                         <input class="bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
-                        name="other_files[]" multiple id="other_files" type="file">
+                        name="other_files[]" multiple id="other_files" type="file" onchange="displayFileNames(this)">
+                        <div id="file-names-container" class="text-xs mt-1"></div>
                     </div>
 
                 </div>
@@ -390,89 +391,114 @@
 
 </x-app-layout>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Get the buttons and corresponding divs
-        var leaderButton = document.getElementById("leaderButton");
-        var memberButton = document.getElementById("MemberButton"); // Corrected ID
-        var leaderDiv = document.getElementById("leaderDiv");
-        var memberDiv = document.getElementById("memberDiv");
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Get the buttons and corresponding divs
+            var leaderButton = document.getElementById("leaderButton");
+            var memberButton = document.getElementById("MemberButton"); // Corrected ID
+            var leaderDiv = document.getElementById("leaderDiv");
+            var memberDiv = document.getElementById("memberDiv");
 
-        // Add click event listeners to the buttons
-        leaderButton.addEventListener("click", function() {
-            toggleVisibility(leaderDiv);
-            updateRequiredInputs(leaderDiv);
-            updateButtonStyle(leaderButton, leaderDiv);
-            resetFormInputs(leaderDiv);
-        });
-
-        memberButton.addEventListener("click", function() {
-            toggleVisibility(memberDiv);
-            updateRequiredInputs(memberDiv);
-            updateButtonStyle(memberButton, memberDiv);
-            resetFormInputs(memberDiv);
-        });
-
-        // Function to toggle the visibility of a div
-        function toggleVisibility(div) {
-            div.style.display = div.style.display === "none" ? "block" : "none";
-        }
-
-        // Function to update required attribute on inputs based on visibility
-        function updateRequiredInputs(div) {
-            var inputs = div.querySelectorAll('select, input'); // Add more types if needed
-
-            // Set or remove the 'required' attribute based on div visibility
-            inputs.forEach(function(input) {
-                input.required = div.style.display !== "none";
-            });
-        }
-
-        // Function to update button style based on div visibility
-        function updateButtonStyle(button, div) {
-            // Add or remove a class to change the background color based on div visibility
-            button.classList.toggle("active", div.style.display !== "none");
-        }
-
-        // Function to reset form inputs within a div
-        function resetFormInputs(div) {
-            var inputs = div.querySelectorAll('select, input'); // Add more types if needed
-
-            // Reset only the inputs within the specific div
-            inputs.forEach(function(input) {
-                input.value = "";
-            });
-        }
-
-        // Add a submit event listener to the form
-        var form = document.getElementById("FormSubmit"); // Replace with your actual form ID
-        var errormessage = document.getElementById("error-message");
-        var fileerror = document.getElementById("filemessagerror");
-        var errorMessageDisplayed = false;
-        var fileInputs = document.querySelectorAll('input[type="file"]');
-
-        form.addEventListener("submit", function(event) {
-
-              // Check if at least one file input has a file selected
-              var hasFile = Array.from(fileInputs).some(function(input) {
-                return input.files.length > 0;
+            // Add click event listeners to the buttons
+            leaderButton.addEventListener("click", function() {
+                toggleVisibility(leaderDiv);
+                updateRequiredInputs(leaderDiv);
+                updateButtonStyle(leaderButton, leaderDiv);
+                resetFormInputs(leaderDiv);
             });
 
-            if (!hasFile && !errorMessageDisplayed) {
-                alert("Please upload at least one file.");
-                fileerror.innerHTML = 'Please upload at least one file among Proposal PDF, Special Order PDF, MOA PDF, Office Order PDF, Travel Order PDF.';
-                errorMessageDisplayed = true;
-                event.preventDefault(); // Prevent form submission
+            memberButton.addEventListener("click", function() {
+                toggleVisibility(memberDiv);
+                updateRequiredInputs(memberDiv);
+                updateButtonStyle(memberButton, memberDiv);
+                resetFormInputs(memberDiv);
+            });
+
+            // Function to toggle the visibility of a div
+            function toggleVisibility(div) {
+                div.style.display = div.style.display === "none" ? "block" : "none";
             }
 
-            // Check if both buttons are not clicked
-            if (leaderDiv.style.display === "none" && memberDiv.style.display === "none") {
-                alert("You must select at least one of the member types");
-                errormessage.innerHTML = 'You must select at least one of the member types';
-                errorMessageDisplayed = true;
-                event.preventDefault(); // Prevent form submission
-            }
-        });
+            // Function to update required attribute on inputs based on visibility
+            function updateRequiredInputs(div) {
+                var inputs = div.querySelectorAll('select, input'); // Add more types if needed
 
-    });
-</script>
+                // Set or remove the 'required' attribute based on div visibility
+                inputs.forEach(function(input) {
+                    input.required = div.style.display !== "none";
+                });
+            }
+
+            // Function to update button style based on div visibility
+            function updateButtonStyle(button, div) {
+                // Add or remove a class to change the background color based on div visibility
+                button.classList.toggle("active", div.style.display !== "none");
+            }
+
+            // Function to reset form inputs within a div
+            function resetFormInputs(div) {
+                var inputs = div.querySelectorAll('select, input'); // Add more types if needed
+
+                // Reset only the inputs within the specific div
+                inputs.forEach(function(input) {
+                    input.value = "";
+                });
+            }
+
+            // Add a submit event listener to the form
+            var form = document.getElementById("FormSubmit"); // Replace with your actual form ID
+            var errormessage = document.getElementById("error-message");
+            var fileerror = document.getElementById("filemessagerror");
+            var errorMessageDisplayed = false;
+            var fileInputs = document.querySelectorAll('input[type="file"]');
+
+            form.addEventListener("submit", function(event) {
+
+                // Check if at least one file input has a file selected
+                var hasFile = Array.from(fileInputs).some(function(input) {
+                    return input.files.length > 0;
+                });
+
+                if (!hasFile && !errorMessageDisplayed) {
+                    alert("Please upload at least one file.");
+                    fileerror.innerHTML = 'Please upload at least one file among Proposal PDF, Special Order PDF, MOA PDF, Office Order PDF, Travel Order PDF.';
+                    errorMessageDisplayed = true;
+                    event.preventDefault(); // Prevent form submission
+                }
+
+                // Check if both buttons are not clicked
+                if (leaderDiv.style.display === "none" && memberDiv.style.display === "none") {
+                    alert("You must select at least one of the member types");
+                    errormessage.innerHTML = 'You must select at least one of the member types';
+                    errorMessageDisplayed = true;
+                    event.preventDefault(); // Prevent form submission
+                }
+            });
+
+        });
+    </script>
+
+    <script>
+        function displayFileNames(input) {
+            // Get the selected files
+            var files = input.files;
+
+            // Get the container where you want to display file names
+            var container = document.getElementById('file-names-container');
+
+            // Clear the container before adding new file names
+            container.innerHTML = '';
+
+            // Display file names
+            for (var i = 0; i < files.length; i++) {
+                var fileName = files[i].name;
+
+                // Create a paragraph element for each file name
+                var p = document.createElement('p');
+                p.textContent = fileName;
+
+                // Append the paragraph to the container
+                container.appendChild(p);
+            }
+        }
+    </script>
