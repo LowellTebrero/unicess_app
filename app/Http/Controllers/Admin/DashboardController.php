@@ -241,32 +241,32 @@ class DashboardController extends Controller
 
        if ($request->hasFile('proposal_pdf')) {
         $proposals->addMediaFromRequest('proposal_pdf')->usingName('proposal')->usingFileName($project_title.'_proposal.pdf')->toMediaCollection('proposalPdf');
-    }
-
-    if ($request->hasFile('special_order_pdf')) {
-        $proposals->addMediaFromRequest('special_order_pdf')->usingName('special_order')->usingFileName($project_title.'_special_order.pdf')->toMediaCollection('specialOrderPdf');
-    }
-
-    if ($request->hasFile('moa_pdf')) {
-        $proposals->clearMediaCollection('MoaPDF');
-        $proposals->addMediaFromRequest('moa_pdf')->usingName('moa')->usingFileName($project_title.'_moa.pdf')->toMediaCollection('MoaPDF');
-    }
-
-    if ($request->hasFile('travel_order')) {
-        $proposals->clearMediaCollection('officeOrder');
-        $proposals->addMediaFromRequest('travel_order')->usingName('travel')->usingFileName($project_title.'_travel_order.pdf')->toMediaCollection('officeOrder');
-    }
-    if ($request->hasFile('office_order')) {
-        $proposals->clearMediaCollection('travelOrder');
-        $proposals->addMediaFromRequest('office_order')->usingName('office')->usingFileName($project_title.'_office_order.pdf')->toMediaCollection('travelOrder');
-    }
-
-    if ($files = $request->file('other_files')) {
-
-        foreach ($files as $file) {
-            $proposals->addMedia($file)->usingName('other')->toMediaCollection('otherFile');
         }
-    }
+
+        if ($request->hasFile('special_order_pdf')) {
+            $proposals->addMediaFromRequest('special_order_pdf')->usingName('special_order')->usingFileName($project_title.'_special_order.pdf')->toMediaCollection('specialOrderPdf');
+        }
+
+        if ($request->hasFile('moa_pdf')) {
+            $proposals->clearMediaCollection('MoaPDF');
+            $proposals->addMediaFromRequest('moa_pdf')->usingName('moa')->usingFileName($project_title.'_moa.pdf')->toMediaCollection('MoaPDF');
+        }
+
+        if ($request->hasFile('travel_order')) {
+            $proposals->clearMediaCollection('officeOrder');
+            $proposals->addMediaFromRequest('travel_order')->usingName('travel')->usingFileName($project_title.'_travel_order.pdf')->toMediaCollection('officeOrder');
+        }
+        if ($request->hasFile('office_order')) {
+            $proposals->clearMediaCollection('travelOrder');
+            $proposals->addMediaFromRequest('office_order')->usingName('office')->usingFileName($project_title.'_office_order.pdf')->toMediaCollection('travelOrder');
+        }
+
+        if ($files = $request->file('other_files')) {
+
+            foreach ($files as $file) {
+                $proposals->addMedia($file)->usingName('other')->toMediaCollection('otherFile');
+            }
+        }
 
         $proposals->update();
         app('flasher')->addSuccess('Files successfully updated.');
@@ -355,11 +355,6 @@ class DashboardController extends Controller
         ->orderBy('month_name','ASC')
         ->pluck('count','month_name');
 
-
-
-
-        // dd($users);
-
         $labels = $users->keys();
         $data = $users->values();
 
@@ -379,9 +374,6 @@ class DashboardController extends Controller
         return view('admin.dashboard.chart.index',compact( 'programLabel', 'programData', 'statusCount', 'pendingCount', 'ongoingCount', 'finishedCount',
             'labels','data','customizes', 'allProposal', 'years'));
     }
-
-
-
 
 
     public function updateData(Request $request, $id){
@@ -649,6 +641,20 @@ class DashboardController extends Controller
 
         $terminalReports = TerminalReport::where('user_id', $id)->with('users')->with('proposals')->get();
         return view('admin.dashboard.terminal-report.show', compact('terminalReports'));
+    }
+
+    public function deleteAllNarrative($id){
+        NarrativeReport::where('proposal_id', $id)->delete();
+
+        flash()->addSuccess('Narratives Delete Successfully');
+        return back();
+    }
+
+    public function deleteAllTerminal($id){
+        TerminalReport::where('proposal_id', $id)->delete();
+
+        flash()->addSuccess('Terminals Delete Successfully');
+        return back();
     }
 
 

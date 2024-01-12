@@ -42,8 +42,7 @@
         <section class="bg-white shadow rounded-xl m-8 mt-4 2xl:mt-5 h-[82vh] 2xl:min-h-[87vh] text-gray-600 overflow-hidden">
 
 
-            <div class="flex justify-between p-2 2xl:p-3 {{ $proposals->authorize == 'pending' ? 'bg-red-200' : ($proposals->authorize == 'ongoing' ? 'bg-blue-200' : 'bg-green-200') }}
-             rounded-tl rounded-tr">
+            <div class="flex justify-between p-2 2xl:p-3 {{ $proposals->authorize == 'pending' ? 'bg-red-200' : ($proposals->authorize == 'ongoing' ? 'bg-blue-200' : 'bg-green-200') }} rounded-tl rounded-tr">
                 <div class="flex flex-col sm:flex-row sm:space-x-8 font-medium text-gray-700">
                     <h1 class="text-[.7rem] xl:text-sm tracking-wider">Uploaded:
                         {{ \Carbon\Carbon::parse($proposals->created_at)->format('F-d-Y') }}</h1>
@@ -87,75 +86,65 @@
                                 {{ $proposals->programs->program_name }}</h1>
                         </div>
 
-
                     </div>
 
                     <div class="flex space-x-4 mb-3">
                         <div class="w-full">
 
                             <div class="w-full">
-                                <label class="block text-gray-700 font-semibold xl:text-[.7rem] text-[.7rem]"
-                                    >Started Date:</label>
-                                <h1
-                                    class="xl:text-[.7rem] text-[.7rem] appearance-none rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                                    {{ \Carbon\Carbon::parse($proposals->started_date)->format('F-d-Y') }}</h1>
+                                <label class="block text-gray-700 font-semibold xl:text-[.7rem] text-[.7rem]">Started Date:</label>
+                                <h1 class="xl:text-[.7rem] text-[.7rem] appearance-none rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                {{ \Carbon\Carbon::parse($proposals->started_date)->format('F-d-Y') }}</h1>
                             </div>
                         </div>
 
                         <div class="w-full">
                             <div class="w-full">
                                 <label class="block text-gray-700 font-semibold xl:text-[.7rem] text-[.7rem]">Ended Date:</label>
-                                <h1
-                                    class="xl:text-[.7rem] text-[.7rem] appearance-none rounded w-full  text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                                    {{ \Carbon\Carbon::parse($proposals->finished_date)->format('F-d-Y') }}</h1>
+                                <h1 class="xl:text-[.7rem] text-[.7rem] appearance-none rounded w-full  text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                {{ \Carbon\Carbon::parse($proposals->finished_date)->format('F-d-Y') }}</h1>
                             </div>
                         </div>
                     </div>
 
                     <div class="flex 2xl:space-x-3 xl:space-y-3 xl:mb-2 2xl:space-y-0  xl:flex-col 2xl:flex-row">
                         <div class="w-full">
-
                             <label class="block text-gray-700 font-semibold xl:text-[.7rem] text-[.7rem]">Project Leader</label>
                             @foreach ($proposals->proposal_members as $proposal_mem)
-                                <h1
-                                    class=" xl:text-[.7rem] text-[.7rem] appearance-none rounded w-full  text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                <h1 class=" xl:text-[.7rem] text-[.7rem] appearance-none rounded w-full  text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                                     {{ $proposal_mem->leader_member_type != null ? $proposal_mem->user->name : '' }}
                                 </h1>
                             @endforeach
                         </div>
                         <div class="w-full">
-
-                            <label class="block text-gray-700  font-semibold xl:text-[.7rem] text-[.7rem]"
-                                >Role of Leader:</label>
+                            <label class="block text-gray-700  font-semibold xl:text-[.7rem] text-[.7rem]">Role of Leader:</label>
                             @foreach ($proposals->proposal_members as $proposal_mem)
-                                <h1
-                                    class="xl:text-[.7rem] text-[.7rem] appearance-none rounded w-full  text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                <h1 class="xl:text-[.7rem] text-[.7rem] appearance-none rounded w-full  text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                                     {{ $proposal_mem->leader_member_type != null ? $proposal_mem->ceso_role->role_name : '' }}
                                 </h1>
                             @endforeach
                         </div>
                     </div>
 
-
                     <div class="mb-2 mt-5 xl:mt-0 w-full overflow-x-auto h-[15vh] 2xl:h-[25vh]">
                         <div class="w-full sticky top-0 z-10 bg-gray-100 xl:bg-white">
                             <label class="text-gray-700 font-semibold xl:text-[.7rem] text-[.7rem] ">Project Member(s)</label>
                         </div>
 
-                            @foreach ($proposals->proposal_members as $proposal_mem)
-                            <div class="pb-2">
-                                @if ($proposal_mem->member_type !== null)
-                                <div>
-                                    <h1 class="xl:text-[.7rem] text-[.6rem] font-medium text-gray-700 tracking-wider"> Name:</h1>
-                                    <span class="font-light 2xl:text-xs xl:text-[.7rem] text-[.7rem]">{{ $proposal_mem->member_type !== null ? $proposal_mem->user->name : '' }}</span>
-                                </div>
-                                <div>
-                                    <h1 class="xl:text-[.7rem] text-[.6rem] font-medium text-gray-700 tracking-wider"> Type:</h1>
-                                    <span class="font-light 2xl:text-xs  xl:text-[.7rem] text-[.7rem]">{{ $proposal_mem->member_type }}</span>
-                                </div>
-                                @endif
+                        @foreach ($proposals->proposal_members as $proposal_mem)
+                        <div class="pb-2">
+                            @if ($proposal_mem->member_type !== null)
+                            <div>
+                                <h1 class="xl:text-[.7rem] text-[.6rem] font-medium text-gray-700 tracking-wider"> Name:</h1>
+                                <span class="font-light 2xl:text-xs xl:text-[.7rem] text-[.7rem]">{{ $proposal_mem->member_type !== null ? $proposal_mem->user->name : '' }}</span>
                             </div>
-                            @endforeach
+                            <div>
+                                <h1 class="xl:text-[.7rem] text-[.6rem] font-medium text-gray-700 tracking-wider"> Type:</h1>
+                                <span class="font-light 2xl:text-xs  xl:text-[.7rem] text-[.7rem]">{{ $proposal_mem->member_type }}</span>
+                            </div>
+                            @endif
+                        </div>
+                        @endforeach
                     </div>
 
                     <div class="flex flex-col">
@@ -204,7 +193,6 @@
                                         </svg> Upload documents
                                         </button>
                                         <!-- Modal -->
-
                                         <div class="fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-black bg-opacity-40" x-show="showModal" >
 
                                             <!-- Modal inner -->
@@ -319,179 +307,175 @@
                                                         </svg>
                                                         <span class="sr-only">Close modal</span>
                                                     </button>
-
-
                                                 </div>
                                                 <hr>
 
                                                 <!-- content -->
                                                 <div class="p-6 space-y-4">
-                                                        <!-- Modal body -->
-                                                        <div class="pt-0 2xl:pt-6 p-6 space-y-6">
+                                                    <!-- Modal body -->
+                                                    <div class="pt-0 2xl:pt-6 p-6 space-y-6">
 
-                                                            <form action={{ route('admin.dashboard.update-project-details', $proposal->id ) }} method="POST">
-                                                                @csrf @method('PUT')
+                                                        <form action={{ route('admin.dashboard.update-project-details', $proposal->id ) }} method="POST">
+                                                            @csrf @method('PUT')
 
-                                                                <div class="flex space-y-4 flex-col">
+                                                            <div class="flex space-y-4 flex-col">
+                                                                <div class="w-full">
+                                                                    <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs" for="program_id">Program Name <span class="text-red-500">*</span></label>
+                                                                    <select id="program_id" class="rounded-md xl:text-xs w-full border-zinc-400  py-2 px-3" name="program_id" value="{{ old('program_id') }}" required>
+                                                                        @foreach ($program as $id => $program_name ) <option value="{{ $id }}" @if ($id == $proposal->program_id) selected="selected" @endif >{{ $program_name }}</option> @endforeach
+                                                                    </select>
+                                                                    @error('program_id') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
+                                                                </div>
+
+                                                                <div class="w-full">
+                                                                    <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs" for="project_title">Proposal Title <span class="text-red-500">*</span></label>
+                                                                    <input class="border-zinc-400 xl:text-xs shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="project_title" id="project_title" type="text" value="{{ $proposal->project_title }}" placeholder="project title" required>
+                                                                    @error('project_title') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="flex space-y-2 flex-col mt-3">
+
+                                                                <div class="flex space-x-4 w-full" >
                                                                     <div class="w-full">
-                                                                        <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs" for="program_id">Program Name <span class="text-red-500">*</span></label>
-                                                                        <select id="program_id" class="rounded-md xl:text-xs w-full border-zinc-400  py-2 px-3" name="program_id" value="{{ old('program_id') }}" required>
-                                                                            @foreach ($program as $id => $program_name ) <option value="{{ $id }}" @if ($id == $proposal->program_id) selected="selected" @endif >{{ $program_name }}</option> @endforeach
-                                                                        </select>
-                                                                        @error('program_id') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
+                                                                        <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs">Started Date<span class="text-red-500">*</span></label>
+                                                                        <input required class="border-zinc-400 xl:text-xs shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" value="{{ $proposal->started_date }}" name="started_date" id="started_date" type="datetime-local">
+                                                                        @error('started_date') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
                                                                     </div>
 
                                                                     <div class="w-full">
-                                                                        <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs" for="project_title">Proposal Title <span class="text-red-500">*</span></label>
-                                                                        <input class="border-zinc-400 xl:text-xs shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="project_title" id="project_title" type="text" value="{{ $proposal->project_title }}" placeholder="project title" required>
-                                                                        @error('project_title') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
+                                                                        <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs">Ended Date<span class="text-red-500">*</span></label>
+                                                                        <input required class="border-zinc-400 xl:text-xs shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" value="{{ $proposal->finished_date }}" name="finished_date" id="finished_date" type="datetime-local">
+                                                                        @error('finished_date') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
                                                                     </div>
                                                                 </div>
 
-                                                                <div class="flex space-y-2 flex-col mt-3">
+                                                                <div class="flex space-x-4 w-full">
 
-                                                                    <div class="flex space-x-4 w-full" >
-                                                                        <div class="w-full">
-                                                                            <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs">Started Date<span class="text-red-500">*</span></label>
-                                                                            <input required class="border-zinc-400 xl:text-xs shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" value="{{ $proposal->started_date }}" name="started_date" id="started_date" type="datetime-local">
-                                                                            @error('started_date') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
-                                                                        </div>
-
-                                                                        <div class="w-full">
-                                                                            <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs">Ended Date<span class="text-red-500">*</span></label>
-                                                                            <input required class="border-zinc-400 xl:text-xs shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" value="{{ $proposal->finished_date }}" name="finished_date" id="finished_date" type="datetime-local">
-                                                                            @error('finished_date') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="flex space-x-4 w-full">
-
-                                                                        <div class="w-full">
-                                                                            <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs">Project leader <span class="text-red-500">*</span></label>
-                                                                            <select name="leader_id" class="rounded-md xl:text-xs w-full  border-zinc-400" value="{{ old('leader') }}" id="leader" onchange="RequiredGet(this)">
-                                                                                <option value="">Select Username</option>
-                                                                                @foreach ($members as $id => $name )
-                                                                                    <option value="{{ $id }}"
-                                                                                    @foreach ($proposal->proposal_members as $proposal_mem)
-                                                                                    @if ($proposal_mem->leader_member_type != null ? $proposal_mem->user_id == $id : '')
-                                                                                    selected="selected"
-                                                                                    @endif
-                                                                                    @endforeach
-                                                                                >{{ $name }}</option>
-
-                                                                                @endforeach
-                                                                            </select>
-                                                                            @error('project_leader') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
-                                                                        </div>
-
-                                                                        <div class="w-full">
-                                                                            <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs">Role of Project Leader <span class="text-red-500">*</span></label>
-                                                                            <select onchange="yesnoCheck(this)" id="leader_member_type" name="leader_member_type" value="{{ old('leader_member_type') }}" class="rounded-md xl:text-xs w-full border-zinc-400">
-                                                                                @foreach ($ceso_roles as $id => $role_name )
-
+                                                                    <div class="w-full">
+                                                                        <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs">Project leader <span class="text-red-500">*</span></label>
+                                                                        <select name="leader_id" class="rounded-md xl:text-xs w-full  border-zinc-400" value="{{ old('leader') }}" id="leader" onchange="RequiredGet(this)">
+                                                                            <option value="">Select Username</option>
+                                                                            @foreach ($members as $id => $name )
                                                                                 <option value="{{ $id }}"
                                                                                 @foreach ($proposal->proposal_members as $proposal_mem)
-                                                                                @if ($id == $proposal_mem->leader_member_type)
+                                                                                @if ($proposal_mem->leader_member_type != null ? $proposal_mem->user_id == $id : '')
                                                                                 selected="selected"
                                                                                 @endif
                                                                                 @endforeach
-                                                                                >{{ $role_name }}
-                                                                                </option>
-                                                                                @endforeach
-                                                                            </select>
-                                                                            @error('role_name') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
-                                                                        </div>
+                                                                            >{{ $name }}</option>
 
-                                                                        <div class="w-full">
-                                                                            <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs">Location <span class="text-red-500">*</span></label>
-                                                                            <select id="location_id" type="text"  class="rounded-md xl:text-xs w-full border-zinc-400 " name="location_id" value="{{ old('location_id') }}">
-                                                                                @foreach ($locations as $id => $name )
-                                                                                <option value="{{ $id }}"
-                                                                                @foreach ($proposal->proposal_members as $proposal_mem)
-                                                                                @if ($id == $proposal_mem->location_id)
-                                                                                    selected="selected"
-                                                                                @endif
-                                                                                @endforeach
-                                                                                >{{ $name }}</option>
                                                                             @endforeach
-                                                                            </select>
-                                                                            @error('location_name') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
-                                                                        </div>
+                                                                        </select>
+                                                                        @error('project_leader') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
                                                                     </div>
 
-                                                                    <div class="mt-4 w-full h-[15vh] 2xl:h-[20vh] overflow-x-auto">
+                                                                    <div class="w-full">
+                                                                        <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs">Role of Project Leader <span class="text-red-500">*</span></label>
+                                                                        <select onchange="yesnoCheck(this)" id="leader_member_type" name="leader_member_type" value="{{ old('leader_member_type') }}" class="rounded-md xl:text-xs w-full border-zinc-400">
+                                                                            @foreach ($ceso_roles as $id => $role_name )
 
-                                                                        <div class="sticky top-0 bg-white w-full">
-                                                                            <button name="add" id="add" type="button" class="bg-slate-500 rounded text-white px-2 py-1  text-sm xl:text-xs border-zinc-400">Add Member</button>
-                                                                        </div>
+                                                                            <option value="{{ $id }}"
+                                                                            @foreach ($proposal->proposal_members as $proposal_mem)
+                                                                            @if ($id == $proposal_mem->leader_member_type)
+                                                                            selected="selected"
+                                                                            @endif
+                                                                            @endforeach
+                                                                            >{{ $role_name }}
+                                                                            </option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                        @error('role_name') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
+                                                                    </div>
 
-                                                                        <table id="table" class="w-full">
-                                                                            <thead class="sticky top-6 bg-white">
-                                                                            <tr class="text-sm text-gray-500">
-                                                                                <th class="xl:text-xs  text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs text-left">Member Name</th>
-                                                                                <th class="xl:text-xs  text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs text-left">Member Type</th>
-                                                                                <th class="xl:text-xs  text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs text-left">Action</th>
-                                                                            </tr>
-                                                                            </thead>
+                                                                    <div class="w-full">
+                                                                        <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs">Location <span class="text-red-500">*</span></label>
+                                                                        <select id="location_id" type="text"  class="rounded-md xl:text-xs w-full border-zinc-400 " name="location_id" value="{{ old('location_id') }}">
+                                                                            @foreach ($locations as $id => $name )
+                                                                            <option value="{{ $id }}"
+                                                                            @foreach ($proposal->proposal_members as $proposal_mem)
+                                                                            @if ($id == $proposal_mem->location_id)
+                                                                                selected="selected"
+                                                                            @endif
+                                                                            @endforeach
+                                                                            >{{ $name }}</option>
+                                                                        @endforeach
+                                                                        </select>
+                                                                        @error('location_name') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
+                                                                    </div>
+                                                                </div>
 
-                                                                            <tbody>
+                                                                <div class="mt-4 w-full h-[15vh] 2xl:h-[20vh] overflow-x-auto">
 
-                                                                                @php($count=0)
-                                                                                @foreach ($proposal->proposal_members as $proposal_mem)
-                                                                                @if ($proposal_mem->member_type !== null)
-                                                                                @php($count++)
+                                                                    <div class="sticky top-0 bg-white w-full">
+                                                                        <button name="add" id="add" type="button" class="bg-slate-500 rounded text-white px-2 py-1  text-sm xl:text-xs border-zinc-400">Add Member</button>
+                                                                    </div>
+
+                                                                    <table id="table" class="w-full">
+                                                                        <thead class="sticky top-6 bg-white">
+                                                                        <tr class="text-sm text-gray-500">
+                                                                            <th class="xl:text-xs  text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs text-left">Member Name</th>
+                                                                            <th class="xl:text-xs  text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs text-left">Member Type</th>
+                                                                            <th class="xl:text-xs  text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs text-left">Action</th>
+                                                                        </tr>
+                                                                        </thead>
+
+                                                                        <tbody>
+
+                                                                            @php($count=0)
+                                                                            @foreach ($proposal->proposal_members as $proposal_mem)
+                                                                            @if ($proposal_mem->member_type !== null)
+                                                                            @php($count++)
 
 
-                                                                                <tr>
-                                                                                <td class="pr-4 pt-2">
-                                                                                    <select name="member[{{ $count }}][id]" class="rounded-md xl:text-xs w-full border-zinc-400" id="member" required>
-                                                                                        @foreach ($members as $id => $participation_name )
-                                                                                            <option value="{{ $id }}"
-                                                                                                @if ($proposal_mem->member_type != null ? $proposal_mem->user_id == $id : '')
-                                                                                                selected="selected"
-                                                                                                @endif>
-                                                                                                {{ $participation_name }}
-                                                                                            </option>
-                                                                                        @endforeach
-                                                                                    </select>
-                                                                                </td>
-
-                                                                                <td class="pr-4 pt-2">
-
-                                                                                    <select name="member[{{ $count }}][type]" class="rounded-md xl:text-xs w-full border-zinc-400">
-                                                                                        @foreach ($parts_names as $id => $name ) <option value="{{ $name }}"
-
-                                                                                            @if ($proposal_mem->member_type != null ? $proposal_mem->member_type == $name : '')
+                                                                            <tr>
+                                                                            <td class="pr-4 pt-2">
+                                                                                <select name="member[{{ $count }}][id]" class="rounded-md xl:text-xs w-full border-zinc-400" id="member" required>
+                                                                                    @foreach ($members as $id => $participation_name )
+                                                                                        <option value="{{ $id }}"
+                                                                                            @if ($proposal_mem->member_type != null ? $proposal_mem->user_id == $id : '')
                                                                                             selected="selected"
-                                                                                            @endif
-                                                                                            >
-                                                                                            {{ $name }}
-                                                                                        @endforeach
-                                                                                    </option>
+                                                                                            @endif>
+                                                                                            {{ $participation_name }}
+                                                                                        </option>
+                                                                                    @endforeach
                                                                                 </select>
-                                                                                </td>
+                                                                            </td>
 
-                                                                                <td>
-                                                                                    <button type="button" class="bg-red-500 remove-table-row text-xs text-white px-2 py-1 rounded">Remove</button>
-                                                                                </td>
-                                                                            </tr>
-                                                                                @endif
-                                                                                @endforeach
+                                                                            <td class="pr-4 pt-2">
 
-                                                                        </tbody>
-                                                                        </table>
-                                                                    </div>
+                                                                                <select name="member[{{ $count }}][type]" class="rounded-md xl:text-xs w-full border-zinc-400">
+                                                                                    @foreach ($parts_names as $id => $name ) <option value="{{ $name }}"
+
+                                                                                        @if ($proposal_mem->member_type != null ? $proposal_mem->member_type == $name : '')
+                                                                                        selected="selected"
+                                                                                        @endif
+                                                                                        >
+                                                                                        {{ $name }}
+                                                                                    @endforeach
+                                                                                </option>
+                                                                            </select>
+                                                                            </td>
+
+                                                                            <td>
+                                                                                <button type="button" class="bg-red-500 remove-table-row text-xs text-white px-2 py-1 rounded">Remove</button>
+                                                                            </td>
+                                                                        </tr>
+                                                                            @endif
+                                                                            @endforeach
+
+                                                                    </tbody>
+                                                                    </table>
                                                                 </div>
+                                                            </div>
 
-                                                                <!-- Modal footer -->
-                                                                <div class="flex items-center p-6 px-0 space-x-2 border-gray-200 rounded-b dark:border-gray-600">
-                                                                    <button data-modal-hide="defaultModal" type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
-                                                                    <button @click="showModal = false"  type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-
-
+                                                            <!-- Modal footer -->
+                                                            <div class="flex items-center p-6 px-0 space-x-2 border-gray-200 rounded-b dark:border-gray-600">
+                                                                <button data-modal-hide="defaultModal" type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+                                                                <button @click="showModal = false"  type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -516,7 +500,6 @@
                                         </button>
 
                                         <!-- Modal -->
-
                                         <div class="fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-black bg-opacity-40" x-show="showModal" >
 
                                             <!-- Modal inner -->
@@ -759,11 +742,10 @@
                                                 </div>
                                             </div>
                                         </div>
-
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
                     <div class="flex justify-between px-4 2xl:py-2 xl:py-1 text-lg ">
                         <button class="leftbtn-slide block xl:hidden">☰</button>
@@ -781,13 +763,11 @@
                     <div class="overflow-x-auto h-[74vh] 2xl:h-[77vh]">
                         <div class="flex py-3 items-center flex-wrap px-2">
                             @foreach ($proposals->medias as $mediaLibrary)
-                            @if ((!empty($mediaLibrary->model_id)) && (!empty($mediaLibrary->collection_name)))
-
-                                <div data-tooltip-target="tooltip-proposal" type="button" class="bg-white w-[10rem] sm:w-[10rem] xl:w-[10rem] xl:min-h-[14vh] shadow-md rounded-lg hover:bg-slate-100 transition-all m-2 relative" id="proposal_id{{ $mediaLibrary->id }}">
+                                <div data-tooltip-target="tooltip-proposal" type="button" class="bg-white w-[10rem] sm:w-[10rem] xl:w-[10rem] xl:h-[14vh] shadow-md rounded-lg hover:bg-slate-100 transition-all m-2 relative" id="proposal_id{{ $mediaLibrary->id }}">
 
                                     <x-alpine-modal>
                                         <x-slot name="scripts">
-                                            <div class="flex items-center flex-col p-4 space-y-3" target="__blank">
+                                            <div class="flex items-center flex-col p-4 space-y-3 h-full" target="__blank">
                                                 <div>
                                                     @if ($mediaLibrary->mime_type == 'image/jpeg' || $mediaLibrary->mime_type == 'image/png' || $mediaLibrary->mime_type == 'image/jpg')
                                                     <img src="{{asset('img/image-icon.png') }}" class="xl:w-[2.5rem] w-[3rem]" width="30">
@@ -829,7 +809,6 @@
                                             @endif
                                         </div>
                                     </x-alpine-modal>
-
 
                                     <input type="checkbox" class="hidden-checkbox absolute top-1 right-2"  style="display:none;" name="ids" value="{{ $mediaLibrary->id }}">
                                     <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = false" class="absolute right-0 top-1 ">
@@ -884,19 +863,468 @@
 
                                                 <button class="text-xs px-2 hover:bg-gray-200 w-full text-left" type="button" @click="showModal = true">Rename</button>
                                                 <a href={{ url('download-media', $mediaLibrary->id) }} class="block text-xs px-2 hover:text-black hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
-                                                 <button class="deleteAllButton block text-slate-800 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="submit" id="deleteAllButton">Delete</button>
+                                                <button class="deleteAllButton block text-slate-800 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="submit" id="deleteAllButton">Delete</button>
 
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-                            @endif
                             @endforeach
+
+
+                            @if ($proposals->narrativereport->isEmpty())
+                            @else
+                                <div class="bg-white w-[10rem] sm:w-[10rem] xl:w-[10rem] xl:h-[14vh] shadow-md rounded-lg hover:bg-slate-100 transition-all m-2 relative" id="narrativereport">
+
+                                    <!-- Modal toggle -->
+                                    <button data-modal-target="default-modal-narrative" data-modal-toggle="default-modal-narrative" class="text-sm p-4 text-center h-full flex flex-col space-y-4 items-center w-full" type="button">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 32 32"><g fill="none"><path fill="#FFB02E" d="m15.385 7.39l-2.477-2.475A3.121 3.121 0 0 0 10.698 4H4.126A2.125 2.125 0 0 0 2 6.125V13.5h28v-3.363a2.125 2.125 0 0 0-2.125-2.125H16.888a2.126 2.126 0 0 1-1.503-.621"/><path fill="#FCD53F" d="M27.875 30H4.125A2.118 2.118 0 0 1 2 27.888V13.112C2 11.945 2.951 11 4.125 11h23.75c1.174 0 2.125.945 2.125 2.112v14.776A2.118 2.118 0 0 1 27.875 30"/></g></svg>
+                                        <span class="text-xs mt-4">Narrative Folder</span>
+                                    </button>
+
+                                    <!-- Main modal -->
+                                    <div id="default-modal-narrative" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                        <div class="relative p-4 w-full max-w-5xl h-[80%]">
+                                            <!-- Modal content -->
+                                            <div class="relative bg-white rounded-lg shadow h-full overflow-x-auto">
+                                                <!-- Modal header -->
+                                                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t z-10 sticky top-0 bg-white">
+                                                    <h3 class="text-xl font-semibold text-gray-600">
+                                                       Narrative Folder
+                                                    </h3>
+                                                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal-narrative">
+                                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                                        </svg>
+                                                        <span class="sr-only">Close modal</span>
+                                                    </button>
+                                                </div>
+                                                <!-- Modal body -->
+                                                <div class="p-4 grid grid-cols-3 gap-3">
+                                                   @foreach ($proposals->narrativereport as $narrative )
+                                                       @foreach ($narrative->medias as $media )
+
+                                                       <div data-tooltip-target="tooltip-proposal" type="button" class="w-full shadow rounded-lg transition-all  relative" id="">
+                                                            <!-- Modal toggle -->
+                                                           <button data-modal-target="narrative-media-modal{{ $media->id}}" data-modal-toggle="narrative-media-modal{{ $media->id}}"  class="space-x-2 p-4 flex bg-gray-100 hover:bg-gray-200 justify-start items-center rounded w-full" type="button">
+                                                                @if ($media->mime_type == 'image/jpeg' || $media->mime_type == 'image/png' || $media->mime_type == 'image/jpg')
+                                                                    <img src="{{asset('img/image-icon.png') }}" class="xl:w-[2.5rem] w-[3rem]" width="30">
+                                                                @elseif ($media->mime_type == 'text/plain')
+                                                                    <img src="{{asset('img/text-document.png') }}" class="xl:w-[2.5rem] w-[3rem]" width="30">
+                                                                @elseif ($media->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+                                                                    <img src="{{asset('img/docx.png')}}" class="xl:w-[2.5rem] w-[3rem]" width="30">
+                                                                @else
+                                                                    <img src="{{asset('img/pdf.png')}}" class="xl:w-[2.5rem] w-[3rem]" width="30">
+                                                                @endif
+                                                                <span class="text-xs">{{ Str::limit($media->file_name, 25) }}</span>
+                                                           </button>
+                                                            <div x-cloak  x-data="{ 'showModalNarrative{{ $media->id }}': false }" @keydown.escape="showModalNarrative{{ $media->id }} = false" class="absolute right-0 top-1 ">
+
+                                                                <!-- Modal -->
+                                                                <div class="fixed inset-0 z-50  flex items-center justify-center overflow-auto bg-black bg-opacity-50" x-show="showModalNarrative{{ $media->id }}">
+
+                                                                    <!-- Modal inner -->
+                                                                    <div class="w-1/4 py-4 text-left bg-white rounded-lg shadow-lg" x-show="showModalNarrative{{ $media->id }}"
+                                                                        x-transition:enter="motion-safe:ease-out duration-300"
+                                                                        x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
+                                                                        x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                                                                        x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" @click.away="showModalNarrative{{ $media->id }} = true">
+
+                                                                        <!-- Title / Close-->
+                                                                        <div class="flex items-center justify-between px-4 py-1">
+                                                                            <h5 class="mr-3 text-black max-w-none text-xs">Rename file</h5>
+                                                                            <button type="button" class="z-50 cursor-pointer text-red-500 hover:bg-gray-200 rounded px-2 py-1 text-xl font-semibold" @click="showModalNarrative{{ $media->id }} = false">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                                                </svg>
+                                                                            </button>
+                                                                        </div>
+                                                                        <hr>
+
+                                                                        <!-- content -->
+                                                                        <div>
+                                                                            <form action="{{route('inventory-rename-media', $media->id)}}" method="POST">
+                                                                                @csrf @method('PUT')
+                                                                                <div class="flex flex-col items-center pt-5 px-4">
+                                                                                <input type="text" value="{{ $media->file_name }}" name="file_name" class="text-gray-700 w-full rounded">
+                                                                                <button type="submit" class="p-2 bg-blue-500 rounded mt-5 text-gray-700">Rename</button>
+                                                                            </div>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <!-- Detail modal -->
+                                                                <div id="detail-narrative-modal{{ $media->id }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0  left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                                                    <div class="relative p-4 w-full max-w-2xl max-h-full bg-opacity-0">
+                                                                        <!-- Modal content -->
+                                                                        <div class="relative bg-gray-700 rounded-lg shadow">
+                                                                            <!-- Modal header -->
+                                                                            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+                                                                                <h3 class="text-xl font-semibold text-white">
+                                                                                    Details
+                                                                                </h3>
+                                                                                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="detail-narrative-modal{{ $media->id }}">
+                                                                                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                                                                    </svg>
+                                                                                    <span class="sr-only">Close modal</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <!-- Modal body -->
+                                                                            <div class="p-4 md:p-5 space-y-2">
+                                                                                <p class="text-sm leading-relaxed text-white">
+                                                                                    Uploaded at: {{ \Carbon\Carbon::parse($media->created_at)->format('M d, y g:i:s A') }}
+                                                                                </p>
+                                                                                <p class="text-sm leading-relaxed text-white">
+                                                                                    Report Type: Narrative
+                                                                                </p>
+                                                                                <p class="text-sm leading-relaxed text-white">
+                                                                                    File name: {{ $media->file_name }}
+                                                                                </p>
+                                                                                <p class="text-sm leading-relaxed text-white">
+                                                                                    File size: {{ $media->size }} kb
+                                                                                </p>
+
+                                                                                <p class="text-sm leading-relaxed text-white">
+                                                                                    File type: {{ $media->mime_type }}
+                                                                                </p>
+
+                                                                                <p class="text-sm leading-relaxed text-white">
+                                                                                    Username uploader: {{ $narrative->users->name }}
+                                                                                </p>
+
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0">
+                                                                    <!-- Dropdown toggle button -->
+                                                                    <button @click="dropdownMenu = ! dropdownMenu" class="tooltipButton  flex items-center p-2 rounded-md" style="display: block">
+                                                                        <svg class=" absolute hover:fill-blue-600 top-2 right-0 fill-slate-500" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z"/></svg>
+                                                                    </button>
+                                                                    <!-- Dropdown list -->
+                                                                    <div x-show="dropdownMenu" class="z-50 absolute right-5 py-2 mt-2 bg-white rounded-md shadow-xl w-32 space-y-2" x-on:keydown.escape.window="dropdownMenu = false"  @click.away="dropdownMenu = false" @click="dropdownMenu = ! dropdownMenu"
+                                                                        x-transition:enter="motion-safe:ease-out duration-100" x-transition:enter-start="opacity-0 scale-90"
+                                                                        x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-200"
+                                                                        x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                                                                        x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+
+                                                                        <button data-modal-target="detail-narrative-modal{{ $media->id }}" data-modal-toggle="detail-narrative-modal{{ $media->id }}" class="text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left" type="button">Details</button>
+                                                                        <button class="text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left" type="button" @click="showModalNarrative{{ $media->id }} = true">Rename</button>
+                                                                        <a href={{ url('download-media', $media->id) }} class="block text-xs px-2 hover:text-black hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
+                                                                        <form action={{ route('report-narrative.delete',[ 'id' => $media->id, 'narrativeId' => $narrative->id]) }} method="POST" enctype="multipart/form-data" onsubmit="return confirm ('Are you sure?')" >
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            <button class="block text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="submit">Delete</button>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                           <div id="narrative-media-modal{{ $media->id}}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                                            <div class="relative p-4 w-full max-w-5xl h-[90%]">
+                                                                <!-- Modal content -->
+                                                                <div class="relative bg-white rounded-lg shadow h-full overflow-hidden">
+                                                                    <!-- Modal header -->
+                                                                    <div class="flex items-center justify-between p-2 md:p-5 border-b rounded-t">
+                                                                        <h3 class="text-md font-semibold text-gray-600">
+                                                                           {{ $media->file_name }}
+                                                                        </h3>
+                                                                        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="narrative-media-modal{{ $media->id}}">
+                                                                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                                                            </svg>
+                                                                            <span class="sr-only">Close modal</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <!-- Modal body -->
+                                                                    <div>
+                                                                        @if ($media->mime_type == 'image/jpeg' || $media->mime_type == 'image/png' || $media->mime_type == 'image/jpg')
+                                                                        <div><img class="shadow w-full " src="{{  $media->getUrl() }}"></div>
+                                                                        @elseif ($media->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+                                                                        <div class="p-5 flex items-center flex-col">
+                                                                            <h1 class="text-center">This file format does not support viewing download only.</h1>
+                                                                            <a href={{ url('download-media', $media->id) }} class="text-sm hover:text-red-600 text-red-500">Click here to download</a>
+                                                                        </div>
+
+                                                                        @else
+                                                                            <div><iframe class="shadow mt-2 w-full h-[80vh]" src="{{  $media->getUrl() }}"></iframe></div>
+                                                                        @endif
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                       @endforeach
+                                                   @endforeach
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div data-tooltip-target="tooltip-narrativereport" type="button">
+                                        <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = false" class="absolute right-0 top-1 ">
+
+                                            <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0">
+                                                <!-- Dropdown toggle button -->
+                                                <button @click="dropdownMenu = ! dropdownMenu" class="tooltipButton  flex items-center p-2 rounded-md" style="display: block">
+                                                    <svg class=" absolute hover:fill-blue-500 top-2 right-0 fill-slate-700" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z"/></svg>
+                                                </button>
+                                                <!-- Dropdown list -->
+                                                <div x-show="dropdownMenu" class="z-50 absolute right-[-5] py-2 mt-2 bg-white rounded-md shadow-xl w-32 space-y-2" x-on:keydown.escape.window="dropdownMenu = false"  @click.away="dropdownMenu = false" @click="dropdownMenu = ! dropdownMenu"
+                                                    x-transition:enter="motion-safe:ease-out duration-100" x-transition:enter-start="opacity-0 scale-90"
+                                                    x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-200"
+                                                    x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                                                    x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+
+                                                    <a href={{ route('inventory-download-narrative', $proposals->id) }} class="block text-xs px-2 hover:text-black hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
+                                                    <form action={{ route('admin.dashboard.narrative-delete',$proposals->id) }} method="POST" enctype="multipart/form-data" onsubmit="return confirm ('Are you sure?')" >
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button class="block text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="submit">Delete</button>
+                                                    </form>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+
+                            @if ($proposals->terminalreport->isEmpty())
+                            @else
+                                <div class="bg-white w-[10rem] sm:w-[10rem] xl:w-[10rem] xl:h-[14vh] shadow-md rounded-lg hover:bg-slate-100 transition-all m-2 relative" id="narrativereport">
+
+                                    <!-- Modal toggle -->
+                                    <button data-modal-target="default-modal-terminal" data-modal-toggle="default-modal-terminal" class="text-sm p-4 text-center h-full flex flex-col space-y-4 items-center w-full" type="button">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 32 32"><g fill="none"><path fill="#FFB02E" d="m15.385 7.39l-2.477-2.475A3.121 3.121 0 0 0 10.698 4H4.126A2.125 2.125 0 0 0 2 6.125V13.5h28v-3.363a2.125 2.125 0 0 0-2.125-2.125H16.888a2.126 2.126 0 0 1-1.503-.621"/><path fill="#FCD53F" d="M27.875 30H4.125A2.118 2.118 0 0 1 2 27.888V13.112C2 11.945 2.951 11 4.125 11h23.75c1.174 0 2.125.945 2.125 2.112v14.776A2.118 2.118 0 0 1 27.875 30"/></g></svg>
+                                        <span class="text-xs mt-4">Terminal Folder</span>
+                                    </button>
+
+                                    <!-- Main modal -->
+                                    <div id="default-modal-terminal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                        <div class="relative p-4 w-full max-w-5xl h-[80%]">
+                                            <!-- Modal content -->
+                                            <div class="relative bg-white rounded-lg shadow h-full overflow-x-auto">
+                                                <!-- Modal header -->
+                                                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t z-10 sticky top-0 bg-white">
+                                                    <h3 class="text-xl font-semibold text-gray-600">
+                                                       Terminal Folder
+                                                    </h3>
+                                                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal-terminal">
+                                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                                        </svg>
+                                                        <span class="sr-only">Close modal</span>
+                                                    </button>
+                                                </div>
+                                                <!-- Modal body -->
+                                                <div class="p-4 grid grid-cols-3 gap-3">
+                                                   @foreach ($proposals->terminalreport as $terminal )
+                                                       @foreach ($terminal->medias as $media )
+
+                                                       <div class="w-full shadow rounded-lg transition-all  relative">
+                                                        <!-- Modal toggle -->
+                                                           <button data-modal-target="terminal-media-modal{{ $media->id}}" data-modal-toggle="terminal-media-modal{{ $media->id}}"  class="space-x-2 p-4 flex bg-gray-100 hover:bg-gray-200 justify-start items-center rounded w-full" type="button">
+                                                                @if ($media->mime_type == 'image/jpeg' || $media->mime_type == 'image/png' || $media->mime_type == 'image/jpg')
+                                                                    <img src="{{asset('img/image-icon.png') }}" class="xl:w-[2.5rem] w-[3rem]" width="30">
+                                                                @elseif ($media->mime_type == 'text/plain')
+                                                                    <img src="{{asset('img/text-document.png') }}" class="xl:w-[2.5rem] w-[3rem]" width="30">
+                                                                @elseif ($media->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+                                                                    <img src="{{asset('img/docx.png')}}" class="xl:w-[2.5rem] w-[3rem]" width="30">
+                                                                @else
+                                                                    <img src="{{asset('img/pdf.png')}}" class="xl:w-[2.5rem] w-[3rem]" width="30">
+                                                                @endif
+                                                                <span class="text-xs">{{ Str::limit($media->file_name, 25) }}</span>
+
+                                                           </button>
+
+                                                            <div x-cloak  x-data="{ 'showModalTerminal{{ $media->id }}': false }" @keydown.escape="showModalTerminal{{ $media->id }} = false"  x-data="{ 'showModalTerminalDetail{{ $media->id }}': false }" @keydown.escape="showModalTerminalDetail{{ $media->id }} = false" class="absolute right-0 top-1">
+
+                                                                <!-- Modal -->
+                                                                <div class="fixed inset-0 z-50  flex items-center justify-center overflow-auto bg-black bg-opacity-50" x-show="showModalTerminal{{ $media->id }}">
+
+                                                                    <!-- Modal inner -->
+                                                                    <div class="w-1/4 py-4 text-left bg-white rounded-lg shadow-lg" x-show="showModalTerminal{{ $media->id }}"
+                                                                        x-transition:enter="motion-safe:ease-out duration-300"
+                                                                        x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
+                                                                        x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                                                                        x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" @click.away="showModalTerminal{{ $media->id }} = true">
+
+                                                                        <!-- Title / Close-->
+                                                                        <div class="flex items-center justify-between px-4 py-1">
+                                                                            <h5 class="mr-3 text-black max-w-none text-xs">Rename file</h5>
+                                                                            <button type="button" class="z-50 cursor-pointer text-red-500 hover:bg-gray-200 rounded px-2 py-1 text-xl font-semibold" @click="showModalTerminal{{ $media->id }} = false">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                                                </svg>
+                                                                            </button>
+                                                                        </div>
+                                                                        <hr>
+
+                                                                        <!-- content -->
+                                                                        <div>
+                                                                            <form action="{{route('inventory-rename-media', $media->id)}}" method="POST">
+                                                                                @csrf @method('PUT')
+                                                                                <div class="flex flex-col items-center pt-5 px-4">
+                                                                                <input type="text" value="{{ $media->file_name }}" name="file_name" class="text-gray-700 w-full rounded">
+                                                                                <button type="submit" class="p-2 bg-blue-500 rounded mt-5 text-gray-700">Rename</button>
+                                                                            </div>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <!-- Detail modal -->
+                                                                <div id="detail-terminal-modal{{ $media->id }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0  left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                                                    <div class="relative p-4 w-full max-w-2xl max-h-full bg-opacity-0">
+                                                                        <!-- Modal content -->
+                                                                        <div class="relative bg-gray-100 rounded-lg shadow">
+                                                                            <!-- Modal header -->
+                                                                            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+                                                                                <h3 class="text-xl font-semibold text-gray-600">
+                                                                                    Details
+                                                                                </h3>
+                                                                                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="detail-terminal-modal{{ $media->id }}">
+                                                                                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                                                                    </svg>
+                                                                                    <span class="sr-only">Close modal</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <!-- Modal body -->
+                                                                            <div class="p-4 md:p-5 space-y-2">
+                                                                                <p class="text-sm leading-relaxed text-gray-500">
+                                                                                    Uploaded at: {{ \Carbon\Carbon::parse($media->created_at)->format('M d, y g:i:s A') }}
+                                                                                </p>
+                                                                                <p class="text-sm leading-relaxed text-gray-500">
+                                                                                    Report Type: Terminal
+                                                                                </p>
+                                                                                <p class="text-sm leading-relaxed text-gray-500">
+                                                                                    File name: {{ $media->file_name }}
+                                                                                </p>
+                                                                                <p class="text-sm leading-relaxed text-gray-500">
+                                                                                    File size: {{ $media->size }} kb
+                                                                                </p>
+
+                                                                                <p class="text-sm leading-relaxed text-gray-500">
+                                                                                    File type: {{ $media->mime_type }}
+                                                                                </p>
+
+                                                                                <p class="text-sm leading-relaxed text-gray-500">
+                                                                                    Username uploader: {{ $terminal->users->name }}
+                                                                                </p>
+
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0">
+
+                                                                    <!-- Dropdown toggle button -->
+                                                                    <button @click="dropdownMenu = ! dropdownMenu" class="tooltipButton  flex items-center p-2 rounded-md" style="display: block">
+                                                                        <svg class=" absolute hover:fill-blue-600 top-2 right-0 fill-slate-500" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z"/></svg>
+                                                                    </button>
+                                                                    <!-- Dropdown list -->
+                                                                    <div x-show="dropdownMenu" class="z-50 absolute right-5 py-2 mt-2 bg-white rounded-md shadow-xl w-32 space-y-2" x-on:keydown.escape.window="dropdownMenu = false"  @click.away="dropdownMenu = false" @click="dropdownMenu = ! dropdownMenu"
+                                                                        x-transition:enter="motion-safe:ease-out duration-100" x-transition:enter-start="opacity-0 scale-90"
+                                                                        x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-200"
+                                                                        x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                                                                        x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+
+                                                                        <!-- Modal toggle -->
+                                                                        <button data-modal-target="detail-terminal-modal{{ $media->id }}" data-modal-toggle="detail-terminal-modal{{ $media->id }}" class="text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left" type="button">Details</button>
+                                                                        <button class="text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left" type="button" @click="showModalTerminal{{ $media->id }} = true">Rename</button>
+                                                                        <a href={{ url('download-media', $media->id) }} class="block text-xs px-2 hover:text-black hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
+                                                                        <form action={{ route('report-terminal.delete',[ 'id' => $media->id, 'terminalId' => $terminal->id]) }} method="POST" enctype="multipart/form-data" onsubmit="return confirm ('Are you sure?')" >
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            <button class="block text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="submit">Delete</button>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                           <div id="terminal-media-modal{{ $media->id}}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                                            <div class="relative p-4 w-full max-w-5xl h-[90%]">
+                                                                <!-- Modal content -->
+                                                                <div class="relative bg-white rounded-lg shadow h-full overflow-hidden">
+                                                                    <!-- Modal header -->
+                                                                    <div class="flex items-center justify-between p-2 md:p-5 border-b rounded-t">
+                                                                        <h3 class="text-md font-semibold text-gray-600">
+                                                                           {{ $media->file_name }}
+                                                                        </h3>
+                                                                        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="terminal-media-modal{{ $media->id}}">
+                                                                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                                                            </svg>
+                                                                            <span class="sr-only">Close modal</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <!-- Modal body -->
+                                                                    <div>
+                                                                        @if ($media->mime_type == 'image/jpeg' || $media->mime_type == 'image/png' || $media->mime_type == 'image/jpg')
+                                                                        <div><img class="shadow w-full " src="{{  $media->getUrl() }}"></div>
+                                                                        @elseif ($media->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+                                                                        <div class="p-5 flex items-center flex-col">
+                                                                            <h1 class="text-center">This file format does not support viewing download only.</h1>
+                                                                            <a href={{ url('download-media', $media->id) }} class="text-sm hover:text-red-600 text-red-500">Click here to download</a>
+                                                                        </div>
+
+                                                                        @else
+                                                                            <div><iframe class="shadow mt-2 w-full h-[80vh]" src="{{$media->getUrl() }}"></iframe></div>
+                                                                        @endif
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                       @endforeach
+                                                   @endforeach
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div data-tooltip-target="tooltip-narrativereport" type="button">
+
+                                        <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = false" class="absolute right-0 top-1 ">
+
+                                            <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0">
+                                                <!-- Dropdown toggle button -->
+                                                <button @click="dropdownMenu = ! dropdownMenu" class="tooltipButton  flex items-center p-2 rounded-md" style="display: block">
+                                                    <svg class=" absolute hover:fill-blue-500 top-2 right-0 fill-slate-700" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z"/></svg>
+                                                </button>
+                                                <!-- Dropdown list -->
+                                                <div x-show="dropdownMenu" class="z-50 absolute right-[-5] py-2 mt-2 bg-white rounded-md shadow-xl w-32 space-y-2" x-on:keydown.escape.window="dropdownMenu = false"  @click.away="dropdownMenu = false" @click="dropdownMenu = ! dropdownMenu"
+                                                    x-transition:enter="motion-safe:ease-out duration-100" x-transition:enter-start="opacity-0 scale-90"
+                                                    x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-200"
+                                                    x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                                                    x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+
+                                                    <a href={{ route('inventory-download-terminal', $proposals->id) }} class="block text-xs px-2 hover:text-black hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
+                                                    <form action={{ route('admin.dashboard.terminal-delete',$proposals->id) }} method="POST" enctype="multipart/form-data" onsubmit="return confirm ('Are you sure?')" >
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button class="block text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="submit">Delete</button>
+                                                    </form>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+
                         </div>
                     </div>
                 </div>
-
             </div>
 
         </section>

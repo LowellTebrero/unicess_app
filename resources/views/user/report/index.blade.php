@@ -51,7 +51,7 @@
 
                                     <tr class="border-b text-gray-700 bg-white hover:bg-gray-100 text-xs ">
 
-                                       <td class=" 2xl:px-6 xl:px-4 xl:pl-4 py-4 xl:text-[.6rem] 2xl:text-[.7rem]">
+                                        <td class=" 2xl:px-6 xl:px-4 xl:pl-4 py-4 xl:text-[.6rem] 2xl:text-[.7rem]">
                                             <a href={{ route('User-dashboard.show-proposal', $proposal->id) }}>
                                                 {{ \Carbon\Carbon::parse($proposal->created_at)->format('M d, y g:i:s A')}}
                                             </a>
@@ -87,11 +87,11 @@
 
                                             <!-- Already uploaded modal -->
                                             <div id="default-already-uploaded-narrative{{ $proposal->id }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                                                <div class="relative p-4 w-full max-w-2xl max-h-full">
+                                                <div class="relative p-4 w-full max-w-2xl h-[80%]">
                                                     <!-- Modal content -->
-                                                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 h-full overflow-x-auto">
                                                         <!-- Modal header -->
-                                                        <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                                        <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t bg-gray-700 dark:border-gray-600 z-10 sticky top-0">
                                                             <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
                                                                 Show Narrative Files
                                                             </h3>
@@ -198,7 +198,7 @@
                                                                                     <svg class=" absolute hover:fill-blue-500 top-2 right-0 fill-slate-700" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z"/></svg>
                                                                                 </button>
                                                                                 <!-- Dropdown list -->
-                                                                                <div x-show="dropdownMenu" class="z-50 absolute right-[-5] py-2 mt-2 bg-white rounded-md shadow-xl w-32 space-y-2" x-on:keydown.escape.window="dropdownMenu = false"  @click.away="dropdownMenu = false" @click="dropdownMenu = ! dropdownMenu"
+                                                                                <div x-show="dropdownMenu" class="z-50 absolute right-5 py-2 mt-2 bg-white rounded-md shadow-xl w-32 space-y-2" x-on:keydown.escape.window="dropdownMenu = false"  @click.away="dropdownMenu = false" @click="dropdownMenu = ! dropdownMenu"
                                                                                     x-transition:enter="motion-safe:ease-out duration-100" x-transition:enter-start="opacity-0 scale-90"
                                                                                     x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-200"
                                                                                     x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
@@ -222,7 +222,7 @@
                                                             </div>
                                                             <input type="text" value="{{ $proposal->id }}" name="proposal_id" hidden>
                                                             <!-- Modal footer -->
-                                                            <div class="flex items-center justify-between p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+                                                            <div class="flex items-center justify-between p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600 sticky bottom-0 z-10 bg-gray-700">
                                                                 <button data-modal-hide="default-already-uploaded-narrative{{ $proposal->id }}" data-modal-target="default-update-modal-narrative{{ $proposal->id }}"  data-modal-toggle="default-update-modal-narrative{{ $proposal->id }}" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
                                                                     Add File(s)
                                                                 </button>
@@ -390,11 +390,11 @@
 
                                             <!-- Already uploaded modal -->
                                             <div id="default-already-uploaded-terminal{{ $proposal->id }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                                                <div class="relative p-4 w-full max-w-2xl max-h-full">
+                                                <div class="relative p-4 w-full max-w-4xl h-[80%]">
                                                     <!-- Modal content -->
-                                                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 overflow-x-auto h-full">
                                                         <!-- Modal header -->
-                                                        <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                                        <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 sticky top-0 z-10 bg-gray-700">
                                                             <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
                                                                 Show terminal Files
                                                             </h3>
@@ -501,7 +501,7 @@
                                                                                     <svg class=" absolute hover:fill-blue-500 top-2 right-0 fill-slate-700" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z"/></svg>
                                                                                 </button>
                                                                                 <!-- Dropdown list -->
-                                                                                <div x-show="dropdownMenu" class="z-50 absolute right-[-5] py-2 mt-2 bg-white rounded-md shadow-xl w-32 space-y-2" x-on:keydown.escape.window="dropdownMenu = false"  @click.away="dropdownMenu = false" @click="dropdownMenu = ! dropdownMenu"
+                                                                                <div x-show="dropdownMenu" class="z-50 absolute right-5 py-2 mt-2 bg-white rounded-md shadow-xl w-32 space-y-2" x-on:keydown.escape.window="dropdownMenu = false"  @click.away="dropdownMenu = false" @click="dropdownMenu = ! dropdownMenu"
                                                                                     x-transition:enter="motion-safe:ease-out duration-100" x-transition:enter-start="opacity-0 scale-90"
                                                                                     x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-200"
                                                                                     x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
@@ -525,7 +525,7 @@
                                                             </div>
                                                             <input type="text" value="{{ $proposal->id }}" name="proposal_id" hidden>
                                                             <!-- Modal footer -->
-                                                            <div class="flex items-center justify-between p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+                                                            <div class="flex items-center justify-between p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600 sticky bottom-0 z-10 bg-gray-700">
                                                                 <button data-modal-hide="default-already-uploaded-terminal{{ $proposal->id }}" data-modal-target="default-update-modal-terminal{{ $proposal->id }}"  data-modal-toggle="default-update-modal-terminal{{ $proposal->id }}" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
                                                                     Add File(s)
                                                                 </button>
