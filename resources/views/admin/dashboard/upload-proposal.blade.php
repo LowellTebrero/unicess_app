@@ -116,7 +116,8 @@
                     <div class="w-full">
                         <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Other Files <span class="text-xs">(Multiple files)</span></label>
                         <input class="bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
-                        name="other_files[]" multiple id="other_files" type="file">
+                        name="other_files[]" multiple id="other_files" type="file" onchange="displayFileNames(this)">
+                        <div id="file-names-container" class="text-xs mt-1"></div>
                     </div>
 
                 </div>
@@ -475,3 +476,29 @@
 
     });
 </script>
+
+<script>
+    function displayFileNames(input) {
+        // Get the selected files
+        var files = input.files;
+
+        // Get the container where you want to display file names
+        var container = document.getElementById('file-names-container');
+
+        // Clear the container before adding new file names
+        container.innerHTML = '';
+
+        // Display file names
+        for (var i = 0; i < files.length; i++) {
+            var fileName = files[i].name;
+
+            // Create a paragraph element for each file name
+            var p = document.createElement('p');
+            p.textContent = fileName;
+
+            // Append the paragraph to the container
+            container.appendChild(p);
+        }
+    }
+</script>
+

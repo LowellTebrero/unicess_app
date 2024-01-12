@@ -82,13 +82,13 @@ class DashboardController extends Controller
             $post->addMediaFromRequest('moa_pdf')->usingName('moa')->usingFileName($request->project_title.'_moa.pdf')->toMediaCollection('MoaPDF');
         }
 
-        if ($request->hasFile('travel_order')) {
+        if ($request->hasFile('travel_order_pdf')) {
             $post->clearMediaCollection('officeOrder');
-            $post->addMediaFromRequest('travel_order')->usingName('travel')->usingFileName($request->project_title.'_travel_order.pdf')->toMediaCollection('officeOrder');
+            $post->addMediaFromRequest('travel_order_pdf')->usingName('travel')->usingFileName($request->project_title.'_travel_order.pdf')->toMediaCollection('officeOrder');
         }
-        if ($request->hasFile('office_order')) {
+        if ($request->hasFile('office_order_pdf')) {
             $post->clearMediaCollection('travelOrder');
-            $post->addMediaFromRequest('office_order')->usingName('office')->usingFileName($request->project_title.'_office_order.pdf')->toMediaCollection('travelOrder');
+            $post->addMediaFromRequest('office_order_pdf')->usingName('office')->usingFileName($request->project_title.'_office_order.pdf')->toMediaCollection('travelOrder');
         }
 
         if ($files = $request->file('other_files')) {
