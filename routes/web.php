@@ -340,8 +340,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 
     Route::controller(AllProposalController::class)->group(function () {
-        Route::get('/allProposal', 'index')->name('allProposal.index');
-        Route::get('/allProposal-show/{id}', 'show')->name('allProposal.show');
+        Route::get('/all-projects', 'index')->name('allProposal.index');
+        Route::get('/all-projects-show/{id}', 'show')->name('allProposal.show');
     });
 
     Route::get('/welcome-user',[UserWelcomeController::class, 'WelcomeUser'])->name('auth.welcome-user');

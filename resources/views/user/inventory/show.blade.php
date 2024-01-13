@@ -144,9 +144,9 @@
                                         x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" @click.away="showModal = false">
 
                                         <!-- Title / Close-->
-                                        <div class="flex items-center justify-between px-4 rounded-tl rounded-tr bg-white py-4 ">
+                                        <div class="flex items-center justify-between p-4 rounded-tl rounded-tr bg-white  ">
                                             <h3 class="text-base font-semibold  text-gray-500">
-                                                Project Details
+                                               Edit Project Details
                                             </h3>
                                             <button type="button" class=" bg-transparent text-gray-500 hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" @click="showModal = false">
                                                 <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -167,9 +167,9 @@
                                                 <!-- Modal header -->
 
                                                 <!-- Modal body -->
-                                                <div class="p-6 pt-0 space-y-6">
+                                                <div class="py-4 px-0 pt-0 space-y-4">
 
-                                                    <div class="flex space-y-4 flex-col">
+                                                    <div class="flex space-y-2 flex-col">
                                                         <div class="w-full">
                                                             <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs" for="program_id">Program Name <span class="text-red-500">*</span></label>
                                                             <select id="program_id" class="rounded-md xl:text-xs w-full border-zinc-400  py-2 px-3" name="program_id" value="{{ old('program_id') }}" required>
@@ -185,7 +185,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="flex space-y-2 flex-col mt-3">
+                                                    <div class="flex space-y-2 flex-col">
 
                                                         <div class="flex space-x-4 w-full" >
                                                             <div class="w-full">
@@ -256,7 +256,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="w-full overflow-x-auto h-[20vh] 2xl:h-[30vh]">
+                                                        <div class="w-full overflow-x-auto h-[17vh] 2xl:h-[30vh]">
 
                                                             <div class="pb-2 sticky top-0 bg-white">
                                                                 <button name="add" id="add" type="button" class="bg-slate-500 rounded text-white px-2 py-1  text-sm xl:text-xs border-zinc-400">Add Member</button>
@@ -322,7 +322,7 @@
 
                                                 </div>
                                                 <!-- Modal footer -->
-                                                <div class="flex items-center p-6 space-x-2 border-gray-200 rounded-b dark:border-gray-600">
+                                                <div class="flex items-center px-2 space-x-2 border-gray-200 rounded-b dark:border-gray-600">
                                                     <button data-modal-hide="defaultModal" type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
                                                     <button @click="showModal = false"  type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
                                                 </div>

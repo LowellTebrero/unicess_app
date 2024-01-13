@@ -32,7 +32,7 @@
                             </div>
                             <div class="flex flex-col">
                                 <h1>Ended date</h1>
-                                <h1>{{ $proposal->started_date == null ? 'No date' :  $proposal->finished_date->format('M. d, Y') }}</h1>
+                                <h1>{{ $proposal->finished_date == null ? 'No date' :  $proposal->finished_date->format('M. d, Y') }}</h1>
                             </div>
                         </div>
                     </div>
@@ -47,14 +47,14 @@
 
 
 
-                <div class="m-5 overflow-x-auto h-[50vh] 2xl:min-h-[50vh] bg-gray-200 space-y-2 text-sm tracking-wider rounded">
+                <div class="m-5 overflow-x-auto h-[40vh] 2xl:h-[50vh] bg-gray-200 space-y-2 text-sm tracking-wider rounded">
 
                     <div class="flex justify-between py-2 px-4  tracking-wide bg-gray-600 text-white sticky top-0">
                         <h1>Time</h1>
                         <h1>Information</h1>
                     </div>
 
-                    <div class="px-4 space-y-1 overflow-x-auto h-[48vh] 2xl:h-[50vh]">
+                    <div class="px-4 space-y-1">
                         <div class="flex justify-between w-full text-[.7rem] 2xl:text-[.8rem]">
                             <h1>{{ $proposal->created_at }} </h1>
                             <h1> Proposal uploaded</h1>
@@ -68,9 +68,10 @@
                         </div>
                         @endif
                         @endforeach
+                    </div>
+
+
                 </div>
-
-
         </div>
     </section>
 

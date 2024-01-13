@@ -16,22 +16,22 @@
                                             {{ Str::ucfirst(Str::lower(Str::limit($proposal->project_title, 50))) }}
                                         </a>
 
-                                        <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = false" class="absolute top-0 right-2">
+                                        <div x-cloak  x-data="{ 'showModal{{ $proposal->id }}': false }" @keydown.escape="showModal{{ $proposal->id }} = false" class="absolute top-0 right-2">
 
                                             <!-- Modal -->
-                                            <div class="fixed inset-0 z-50  flex items-center justify-center overflow-auto bg-black bg-opacity-50" x-show="showModal">
+                                            <div class="fixed inset-0 z-50  flex items-center justify-center overflow-auto bg-black bg-opacity-50" x-show="showModal{{ $proposal->id }}">
 
                                                 <!-- Modal inner -->
-                                                <div class="w-[40rem] py-4 text-left bg-white rounded-lg shadow-lg" x-show="showModal"
+                                                <div class="w-[40rem] py-4 text-left bg-white rounded-lg shadow-lg" x-show="showModal{{ $proposal->id }}"
                                                     x-transition:enter="motion-safe:ease-out duration-300"
                                                     x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
                                                     x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
-                                                    x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" @click.away="showModal = false">
+                                                    x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" @click.away="showModal{{ $proposal->id }} = false">
 
                                                     <!-- Title / Close-->
                                                     <div class="flex items-center justify-between px-4 py-1">
                                                         <h1 class="text-xs"> {{ Str::limit($proposal->project_title, 70) }}</h1>
-                                                        <button type="button" class=" z-50 cursor-pointer text-red-500 hover:bg-gray-200 rounded px-2 py-1  text-xl font-semibold" @click="showModal = false">
+                                                        <button type="button" class=" z-50 cursor-pointer text-red-500 hover:bg-gray-200 rounded px-2 py-1  text-xl font-semibold" @click="showModal{{ $proposal->id }} = false">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                                                             </svg>
@@ -67,11 +67,11 @@
                                                             </div>
                                                             <div>
                                                                 <label class="text-xs text-gray-700 font-semibold tracking-wider">Started date:</label>
-                                                                <h1 class="text-xs tracking-wider">{{ \Carbon\Carbon::parse($proposal->started_date)->format('l,  F d, Y ')}}</h1>
+                                                                <h1 class="text-xs tracking-wider">{{ $proposal->started_date == null ? 'No date' :  $proposal->started_date->format('M. d, Y') }}</h1>
                                                             </div>
                                                             <div>
                                                                 <label class="text-xs text-gray-700 font-semibold tracking-wider">Finished date:</label>
-                                                                <h1 class="text-xs tracking-wider">{{ \Carbon\Carbon::parse($proposal->finished_date)->format('l,  F d, Y ')}}</h1>
+                                                                <h1 class="text-xs tracking-wider">{{ $proposal->finished_date == null ? 'No date' :  $proposal->finished_date->format('M. d, Y') }}</h1>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -119,7 +119,7 @@
                                                     x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
                                                     x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
 
-                                                    <button class="text-xs px-3 py-2 hover:bg-gray-200 w-full text-left" type="button" @click="showModal = true">Properties</button>
+                                                    <button class="text-xs px-3 py-2 hover:bg-gray-200 w-full text-left" type="button" @click="showModal{{ $proposal->id }} = true">Properties</button>
 
                                                     <a href={{ url('download', $proposal->id) }}
                                                         class="block text-xs px-3 py-2  text-left hover:text-gray-700 hover:bg-gray-200 focus:bg-green-200"
