@@ -377,7 +377,7 @@
                                             <div x-cloak  x-data="{ 'showModalNarrative{{ $media->id }}': false }" @keydown.escape="showModalNarrative{{ $media->id }} = false" class="absolute right-0 top-1 ">
 
                                                 <!-- Modal -->
-                                                <div class="fixed inset-0 z-50  flex items-center justify-center overflow-auto bg-black bg-opacity-50" x-show="showModalNarrative{{ $media->id }}">
+                                                {{--  <div class="fixed inset-0 z-50  flex items-center justify-center overflow-auto bg-black bg-opacity-50" x-show="showModalNarrative{{ $media->id }}">
 
                                                     <!-- Modal inner -->
                                                     <div class="w-1/4 py-4 text-left bg-white rounded-lg shadow-lg" x-show="showModalNarrative{{ $media->id }}"
@@ -408,7 +408,7 @@
                                                             </form>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div>  --}}
 
                                                 <!-- Detail modal -->
                                                 <div id="detail-narrative-modal{{ $media->id }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0  left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -469,7 +469,7 @@
                                                         x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
 
                                                         <button data-modal-target="detail-narrative-modal{{ $media->id }}" data-modal-toggle="detail-narrative-modal{{ $media->id }}" class="text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left" type="button">Details</button>
-                                                        <button class="text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left" type="button" @click="showModalNarrative{{ $media->id }} = true">Rename</button>
+                                                        {{--  <button class="text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left" type="button" @click="showModalNarrative{{ $media->id }} = true">Rename</button>  --}}
                                                         <a href={{ url('download-media', $media->id) }} class="block text-xs px-2 hover:text-black hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
                                                     </div>
                                                 </div>
@@ -593,7 +593,7 @@
                                                 <!-- Modal -->
                                                 <div class="fixed inset-0 z-50  flex items-center justify-center overflow-auto bg-black bg-opacity-50" x-show="showModalTerminal{{ $media->id }}">
 
-                                                    <!-- Modal inner -->
+                                                    {{--  <!-- Modal inner -->
                                                     <div class="w-1/4 py-4 text-left bg-white rounded-lg shadow-lg" x-show="showModalTerminal{{ $media->id }}"
                                                         x-transition:enter="motion-safe:ease-out duration-300"
                                                         x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
@@ -621,7 +621,7 @@
                                                             </div>
                                                             </form>
                                                         </div>
-                                                    </div>
+                                                    </div>  --}}
                                                 </div>
 
                                                 <!-- Detail modal -->
@@ -686,7 +686,7 @@
 
                                                         <!-- Modal toggle -->
                                                         <button data-modal-target="detail-terminal-modal{{ $media->id }}" data-modal-toggle="detail-terminal-modal{{ $media->id }}" class="text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left" type="button">Details</button>
-                                                        <button class="text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left" type="button" @click="showModalTerminal{{ $media->id }} = true">Rename</button>
+                                                        {{--  <button class="text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left" type="button" @click="showModalTerminal{{ $media->id }} = true">Rename</button>  --}}
                                                         <a href={{ url('download-media', $media->id) }} class="block text-xs px-2 hover:text-black hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
                                                     </div>
                                                 </div>
