@@ -1,6 +1,6 @@
 <x-app-layout>
     @if (Auth::user()->authorize == 'checked')
-    @hasanyrole('Faculty extensionist|Extension coordinator')
+    @unlessrole('admin|New User')
 
     <style>
         form button:disabled,
@@ -406,7 +406,7 @@
         </form>
     </section>
 
-    @endrole
+    @endunlessrole
 
     @elseif (Auth::user()->authorize == 'close')
 

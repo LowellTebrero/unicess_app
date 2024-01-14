@@ -1,7 +1,7 @@
 <x-app-layout>
     @section('title', 'My Evaluations | ' . config('app.name', 'UniCESS'))
 @if (Auth::user()->authorize == 'checked')
-@hasanyrole('Faculty extensionist|Extension coordinator')
+@unlessrole('admin|New User')
 
     <section class="m-8  rounded-lg text-slate-600 relative mt-4 2xl:mt-5 h-[82vh] bg-white 2xl:h-[87vh]">
 
@@ -33,7 +33,7 @@
 
     </section>
 
-    @endrole
+    @endunlessrole
 
     @elseif (Auth::user()->authorize == 'close')
 

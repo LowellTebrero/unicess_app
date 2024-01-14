@@ -466,17 +466,19 @@
         function yesnoCheck(answer) {
 
             console.log(answer.value)
-            if (answer.value == 'Faculty extensionist' || answer.value == 'Extension coordinator') {
-                document.getElementById('facultyId').style.display = 'block';
-                document.getElementById('submit').style.display = 'block';
-                document.getElementById('faculty_id').innerHTML =
-                '@foreach ($faculties as $id => $name) <option value="{{ $id }}" @if ($id == old('faculty_id')) selected="selected" @endif >{{ $name }}</option> @endforeach';
-
-            } else {
+            if (answer.value == '' ) {
                 document.getElementById('facultyId').style.display = 'none';
                 document.getElementById('submit').style.display = 'none';
                 document.getElementById('faculty_id').innerHTML = '<option></option>';
                 document.getElementById('faculty_id').value = "";
+
+            } else {
+
+
+                document.getElementById('facultyId').style.display = 'block';
+                document.getElementById('submit').style.display = 'block';
+                document.getElementById('faculty_id').innerHTML =
+                '@foreach ($faculties as $id => $name) <option value="{{ $id }}" @if ($id == old('faculty_id')) selected="selected" @endif >{{ $name }}</option> @endforeach';
             }
 
         }

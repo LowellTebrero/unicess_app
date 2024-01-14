@@ -1,7 +1,7 @@
 <x-app-layout>
     @section('title', 'My Inventory | ' . config('app.name', 'UniCESS'))
     @if (Auth::user()->authorize == 'checked')
-        @hasanyrole('Faculty extensionist|Extension coordinator')
+        @unlessrole('admin|New User')
             <style>[x-cloak] {display: none}</style>
 
             <section class="mt-4 2xl:mt-5 m-8 bg-white rounded-lg h-[82vh] 2xl:h-[87vh] text-gray-600">
@@ -47,7 +47,7 @@
             <h1>No Proposal </h1>
         </div>
 
-        @endrole
+        @endunlessrole
 
     @elseif (Auth::user()->authorize == 'close')
 

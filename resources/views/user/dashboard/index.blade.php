@@ -12,7 +12,8 @@
 
     @if (Auth::user()->authorize == 'checked')
 
-        @hasanyrole('Faculty extensionist|Extension coordinator')
+        @unlessrole('admin|New User')
+
 
             <section class="mx-5 xl:mx-10 md:space-x-2 lg:space-x-7  xl:space-x-10 flex xl:flex-row flex-col sm:flex-row sm:space-x-2 justify-between 2xl:h-48 xl:h-36 lg:h-[20vh] text-gray-700 mt-4 2xl:mt-5">
 
@@ -170,8 +171,7 @@
                 </div>
                 <x-messages/>
             </section>
-        @endhasanyrole
-
+        @endunlessrole
     @elseif (Auth::user()->authorize == 'close')
 
         <div class="flex items-center justify-center h-[80vh]">

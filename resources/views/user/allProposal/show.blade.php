@@ -6,7 +6,7 @@
     @endphp
 
     @if (Auth::user()->authorize == 'checked')
-        @hasanyrole('Faculty extensionist|Extension coordinator')
+        @unlessrole('admin|New User')
             <style>
                 [x-cloak] {display: none}
             </style>
@@ -65,7 +65,7 @@
                 </main>
             </section>
 
-            @endrole
+            @endunlessrole
 
             @elseif (Auth::user()->authorize == 'close')
 

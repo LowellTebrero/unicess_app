@@ -15,16 +15,16 @@
     {{--  Nav Section  --}}
     <nav class="flex-grow pr-2 pl-2 pb-4 space-y-2 md:block md:pb-0 navigation text-xs">
 
-        @hasanyrole('Faculty extensionist|Extension coordinator|Partners/Linkages')
+        @unlessrole('admin|New User')
             <x-custom-nav-link :href="route('User-dashboard.index')" :active="request()->routeIs('User-dashboard*')" class="dynamic-link">
                 <svg class="fill-white mr-2 " xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 96 960 960"
                     width="30">
                     <path
                         d="M120 216h330v330H120V216Zm60 59v188-188Zm330-59h330v330H510V216Zm83 59v188-188ZM120 606h330v330H120V606Zm60 81v189-189Zm465-81h60v135h135v60H705v135h-60V801H510v-60h135V606Zm-75-330v210h210V276H570Zm-390 0v210h210V276H180Zm0 390v210h210V666H180Z" />
                 </svg>{{ __('Dashboard') }}</x-custom-nav-link>
-        @endrole
 
-        @hasanyrole('Faculty extensionist|Extension coordinator')
+
+
             <x-custom-nav-link :href="route('allProposal.index')" :active="request()->routeIs('allProposal*')" class="dynamic-link">
                 <svg class="fill-white mr-2" xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960"
                     width="30">
@@ -33,9 +33,9 @@
                 </svg>
                 {{ __('All Projects') }}
             </x-custom-nav-link>
-        @endrole
 
-        @hasanyrole('Faculty extensionist|Extension coordinator')
+
+
             <x-custom-nav-link :href="route('inventory.index')" :active="request()->routeIs('inventory*')" class="dynamic-link">
                 <svg class="fill-white mr-2" xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 96 960 960"
                     width="30">
@@ -44,18 +44,16 @@
                 </svg>
                 {{ __('My Inventory') }}
             </x-custom-nav-link>
-        @endrole
 
 
-        @hasanyrole('Faculty extensionist|Extension coordinator')
-        <x-custom-nav-link :href="route('report.index')" :active="request()->routeIs('report*')" class="dynamic-link">
+            <x-custom-nav-link :href="route('report.index')" :active="request()->routeIs('report*')" class="dynamic-link">
 
-            <svg class="fill-white mr-2" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256"><path fill="currentColor" d="m213.66 66.34l-40-40A8 8 0 0 0 168 24H88a16 16 0 0 0-16 16v16H56a16 16 0 0 0-16 16v144a16 16 0 0 0 16 16h112a16 16 0 0 0 16-16v-16h16a16 16 0 0 0 16-16V72a8 8 0 0 0-2.34-5.66M168 216H56V72h76.69L168 107.31v84.85zm32-32h-16v-80a8 8 0 0 0-2.34-5.66l-40-40A8 8 0 0 0 136 56H88V40h76.69L200 75.31Zm-56-32a8 8 0 0 1-8 8H88a8 8 0 0 1 0-16h48a8 8 0 0 1 8 8m0 32a8 8 0 0 1-8 8H88a8 8 0 0 1 0-16h48a8 8 0 0 1 8 8"/></svg>
-            {{ __('Reports') }}
-        </x-custom-nav-link>
-        @endrole
+                <svg class="fill-white mr-2" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256"><path fill="currentColor" d="m213.66 66.34l-40-40A8 8 0 0 0 168 24H88a16 16 0 0 0-16 16v16H56a16 16 0 0 0-16 16v144a16 16 0 0 0 16 16h112a16 16 0 0 0 16-16v-16h16a16 16 0 0 0 16-16V72a8 8 0 0 0-2.34-5.66M168 216H56V72h76.69L168 107.31v84.85zm32-32h-16v-80a8 8 0 0 0-2.34-5.66l-40-40A8 8 0 0 0 136 56H88V40h76.69L200 75.31Zm-56-32a8 8 0 0 1-8 8H88a8 8 0 0 1 0-16h48a8 8 0 0 1 8 8m0 32a8 8 0 0 1-8 8H88a8 8 0 0 1 0-16h48a8 8 0 0 1 8 8"/></svg>
+                {{ __('Reports') }}
+            </x-custom-nav-link>
 
-        @hasanyrole('Faculty extensionist|Extension coordinator')
+
+
             <x-custom-nav-link :href="route('points-system.index')" :active="request()->routeIs('points-system*')" class="dynamic-link">
                 <svg class="fill-white mr-2" xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960"
                     width="30">
@@ -64,9 +62,9 @@
                 </svg>
                 {{ __('My Points') }}
             </x-custom-nav-link>
-        @endrole
 
-        @hasanyrole('Faculty extensionist|Extension coordinator')
+
+
             <x-custom-nav-link :href="route('evaluate.index')" :active="request()->routeIs('evaluate*')" class="dynamic-link">
                 <svg class="fill-white mr-2" xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960"
                     width="30">
@@ -75,6 +73,6 @@
                 </svg>
                 {{ __('My Evaluations') }}
             </x-custom-nav-link>
-        @endrole
+        @endunlessrole
     </nav>
 </div>

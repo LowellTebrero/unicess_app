@@ -25,8 +25,10 @@ class RoleandPermissionSeeder extends Seeder
         Permission::create(['name' => 'delete-proposal']);
 
         $adminRole = Role::create(['name' => 'admin']);
-        $editorRole = Role::create(['name' => 'Faculty extensionist']);
-        $editorRole = Role::create(['name' => 'Extension coordinator']);
+        $editorRole = Role::create(['name' => 'College extension coordinator']);
+        $editorRole = Role::create(['name' => 'Faculty ']);
+        $editorRole = Role::create(['name' => 'Student ']);
+        $editorRole = Role::create(['name' => 'Extension Staff ']);
 
         Role::create(['name' => 'New User']);
         Role::create(['name' => 'Partners/Linkages']);
