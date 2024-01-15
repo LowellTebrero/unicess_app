@@ -20,7 +20,7 @@
 
 <x-admin-layout>
 
-    <div class="bg-white rounded-lg shadow mt-5  m-8  min-h-[85vh] 2xl:h-[87vh] relative text-gray-700">
+    <div class="bg-white rounded-lg shadow mt-4 2xl:mt-5  m-8  min-h-[85vh] 2xl:h-[87vh] relative text-gray-700">
 
         <div class="p-4 px-6 pl-8 text-gray-900 flex  justify-between">
             <h1 class="text-gray-600 xl:text-sm 2xl:text-xl tracking-wider font-semibold">Account details</h1>
@@ -39,16 +39,16 @@
         background-animate">
         </div>
 
-        <div class="w-32 2xl:w-40 absolute top-20 xl:top-27 2xl:top-28  left-12 z-20 ">
+        <div class="w-32 2xl:w-40 lg:w-28 absolute top-20 xl:top-27 2xl:top-28  left-12 z-20 ">
             <img class="rounded-full border-8 border-white bg-white" id="showImage"
             src="{{ !empty($user->avatar) ? url('upload/image-folder/profile-image/' . $user->avatar) : url('upload/profile.png') }}">
         </div>
 
 
-        <div class=" xl:min-h-[7vh] min-h-[7vh]  2xl:min-h-[12vh] flex justify-end relative">
+        <div class="xl:h-[12vh] h-[7vh]  2xl:h-[12vh] flex justify-end relative">
             <div class="left-[12rem] xl:left-[12rem] 2xl:left-[14rem] top-4 absolute ">
                 <div class="flex space-x-1  items-center">
-                    <h1 class="text-sm xl:text-lg font-medium tracking-wider">{{ $user->name }} </h1>
+                    <h1 class="text-sm xl:text-base 2xl:text-lg font-medium tracking-wider">{{ $user->name }} </h1>
                     @if ($user->email_verified_at == '')
                         <h1 class="text-xs text-red-400">email unverified</h1>
                     @else
@@ -92,10 +92,10 @@
             </div>
         </div>
 
-        <div class="lg:space-x-0 lg:space-y-3 xl:space-x-4 xl:space-y-0 flex-col xl:flex-row 2xl:space-x-8 2xl:p-7 p-4 xl:p-4 xl:pt-0 2xl:pt-4 pt-0 overflow-hidden flex text-gray-700  pb-0">
-            <div class="shadow-md flex space-y-0 xl:space-x-0 xl:space-y-3 flex-row xl:flex-col bg-gray-100 rounded-lg 2xl:w-[30rem] xl:w-[20rem] xl:p-4 p-2 2xl:p-5 space-x-3 lg:space-x-4">
+        <div class="lg:space-x-0 lg:space-y-3 xl:space-x-4 xl:space-y-0 flex-col xl:flex-row 2xl:space-x-8 2xl:p-7 p-4 xl:p-4 xl:pt-0 2xl:pt-4 pt-0 overflow-hidden flex text-gray-700 pb-0 ">
+            <div class="shadow-md flex space-y-0 xl:space-x-0 xl:space-y-3 flex-row xl:flex-col bg-gray-100 rounded-lg 2xl:w-[30rem] xl:w-[20rem] xl:p-4  p-2 2xl:p-5 space-x-3 lg:space-x-4">
 
-                <div class="bg-white full rounded p-4 lg:space-y-1 2xl:space-x-2 w-full ">
+                <div class="bg-white full rounded xl:py-2 2xl:py-4 p-4 lg:space-y-1 2xl:space-x-2 w-full ">
                     <div class="flex justify-between items-center">
                         <h1 class="tracking-wider 2xl:text-lg text-sm">Basic Information</h1>
                       <h1 class="2xl:text-[.7rem] text-[.6rem] tracking-wider"> Joined: {{ $user->created_at->diffForHumans() }}</h1>
@@ -111,7 +111,7 @@
 
                 </div>
 
-                <div class="bg-white lg:mt-5 h-full rounded p-4 lg:space-y-1 2xl:space-x-2 w-full">
+                <div class="bg-white lg:mt-4 h-full rounded xl:py-2 2xl:py-4 p-4 lg:space-y-1 2xl:space-x-2 w-full">
                     <h1 class="tracking-wider text-sm 2xl:text-base">Contact Information</h1>
                     <hr>
                     <h1 class="text-[.6rem] xl:text-xs tracking-wider"> Contact no.:  {{ $user->contact_number == null ? 'N/A' : $user->contact_number }}</h1>
@@ -173,7 +173,7 @@
 
                    <div class="bg-white rounded p-4 h-full">
                     <div class="flex justify-between items-center mb-1">
-                       <h1 class="tracking-wider">Evaluation Overview</h1>
+                       <h1 class="tracking-wider text-xs 2xl:text-sm">Evaluation Overview</h1>
                        <div>
                             <select  class="text-xs border-gray-400 rounded-md" id="EvaluationYears">
                                <option value="">All Year</option>

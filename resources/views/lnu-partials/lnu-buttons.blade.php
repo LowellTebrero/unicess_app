@@ -51,13 +51,13 @@
                     <!-- Modal body -->
                     <div class="p-4 md:p-5  gap-4 grid grid-cols-1 2xl:grid-cols-2 ">
                         @foreach ($partners as $partner)
-                            <a href="#" class="w-full bg-yellow-500 hover:bg-yellow-400 border border-gray-300 rounded-lg shadow flex flex-col sm:flex-row">
+                            <a href="#" class="w-full bg-white hover:bg-gray-200 border border-gray-300 rounded-lg shadow flex flex-col sm:flex-row">
                                 <div class="w-full ">
                                     <img class="rounded-tl-lg rounded-bl-lg h-full object-cover w-full" src="{{ !empty($partner->image) ? url('upload/image-folder/partner-folder/' . $partner->image) : url('upload/no-image.png') }}">
                                 </div>
 
                                 <div class="flex flex-col space-y-4 p-4 w-full h-full">
-                                    <h5 class="mb-2 text-xs sm:text-sm tracking-wide lg:text-lg 2xl:text-xl font-bold text-white ">
+                                    <h5 class="mb-2 text-xs sm:text-sm tracking-wide lg:text-lg 2xl:text-xl font-bold text-gray-700">
                                         {{ Str::limit($partner->title) }}
                                     </h5>
                                     <p class="mb-3 text-xs 2xl:text-sm font-normal text-gray-800 ">
@@ -116,7 +116,7 @@
 
                     <div class="p-4 md:p-5  gap-4 grid grid-cols-1 2xl:grid-cols-2 ">
                         @foreach ($beneficiaries as $beneficiary)
-                            <a href="#" class="w-full bg-blue-600 hover:bg-blue-500 border border-gray-300 rounded-lg shadow flex flex-col sm:flex-row">
+                            <a href="#" class="w-full bg-white hover:bg-gray-200 border border-gray-300 rounded-lg shadow flex flex-col sm:flex-row">
                                 <div class="w-full ">
                                     <img class="rounded-tl-lg rounded-bl-lg h-full object-cover w-full" src="{{ !empty($beneficiary->image) ? url('upload/image-folder/beneficiary-folder/' . $beneficiary->image) : url('upload/no-image.png') }}">
                                 </div>
@@ -125,7 +125,7 @@
                                     <h5 class="mb-2 text-xs sm:text-sm tracking-wide lg:text-lg 2xl:text-xl font-bold text-white ">
                                         {{ Str::limit($beneficiary->title) }}
                                     </h5>
-                                    <p class="mb-3 text-xs 2xl:text-sm font-normal text-white">
+                                    <p class="mb-3 text-xs 2xl:text-sm font-normal text-gray-700">
                                         {{ Str::limit($beneficiary->description, 800) }}
                                     </p>
 

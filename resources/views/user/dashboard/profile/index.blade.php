@@ -22,7 +22,7 @@
 
         <div class="2xl:min-h-[12vh] xl:min-h-[8vh] footer w-full"></div>
 
-        <div class="2xl:w-40 xl:w-28 lg:w-28 w-28 absolute 2xl:top-28 xl:top-[12vh] left-12 z-20">
+        <div class="2xl:w-40 lg:w-28 w-28 absolute 2xl:top-28 xl:top-[12vh] left-12 z-20">
             <img class="rounded-full border-8 border-white bg-white"
             src="{{ !empty( Auth()->user()->avatar) ? url('upload/image-folder/profile-image/' . Auth()->user()->avatar) : url('upload/profile.png') }}">
         </div>
