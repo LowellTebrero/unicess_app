@@ -33,10 +33,7 @@
         <hr>
 
         <div class="hidden 2xl:block h-[7vh] xl:h-[9vh] 2xl:h-[12vh] bg-gradient-to-r
-        from-slate-400
-        via-slate-300
-        to-slate-200
-        background-animate">
+        from-slate-400 via-slate-300 to-slate-200 background-animate">
         </div>
 
         <div class="w-32 2xl:w-40 xl:w-20 lg:w-28 absolute top-20 xl:top-[11vh] 2xl:top-28  left-12 z-20 ">
@@ -92,10 +89,10 @@
             </div>
         </div>
 
-        <div class="lg:space-x-0 lg:space-y-3 xl:space-x-4 xl:space-y-0 flex-col xl:flex-row 2xl:space-x-8 2xl:p-7 p-4 xl:p-4 xl:pt-0 2xl:pt-4 pt-0  flex text-gray-700 pb-0 bg-blue-700">
+        <div class="lg:space-x-0 lg:space-y-3 xl:space-x-4 xl:space-y-0 flex-col xl:flex-row 2xl:space-x-2 2xl:p-7 p-4 xl:p-4 xl:pt-0 2xl:pt-4 pt-0  flex text-gray-700 pb-0 bg-blue-700">
 
-            <div class="flex space-y-0 xl:space-x-0 xl:space-y-3 flex-row xl:flex-col rounded-lg 2xl:w-[30rem] xl:w-[20rem] 2xl:p-5 space-x-3 lg:space-x-4 xl:pt-2">
-                <div class="bg-white full rounded shadow xl:py-2 2xl:py-4 p-4 lg:space-y-1 2xl:space-x-2 w-full ">
+            <div class="flex space-y-0 xl:space-x-0 xl:space-y-3 flex-row xl:flex-col rounded-lg 2xl:w-[30rem] xl:w-[20rem] 2xl:p-5 space-x-3 lg:space-x-4 xl:pt-2 ">
+                <div class="bg-white full rounded shadow xl:py-2 2xl:py-4 p-4 lg:space-y-1 2xl:space-x-2 w-full 2xl:h-full">
                     <div class="flex justify-between items-center">
                         <h1 class="tracking-wider 2xl:text-lg text-sm">Basic Information</h1>
                       <h1 class="2xl:text-[.7rem] text-[.6rem] tracking-wider"> Joined: {{ $user->created_at->diffForHumans() }}</h1>
@@ -111,7 +108,7 @@
 
                 </div>
 
-                <div class="bg-white lg:mt-4 rounded shadow xl:py-2 2xl:py-4 p-4 lg:space-y-1 2xl:space-x-2 w-full">
+                <div class="bg-white lg:mt-4 rounded shadow xl:py-2 2xl:py-4 p-4 lg:space-y-1 2xl:space-x-2 w-full 2xl:h-full">
                     <h1 class="tracking-wider text-sm 2xl:text-base">Address Information</h1>
                     <hr>
                     <h1 class="text-[.6rem] xl:text-[.67rem] 2xl:text-xs tracking-wider"> Contact no.:  {{ $user->contact_number == null ? 'N/A' : $user->contact_number }}</h1>

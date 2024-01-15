@@ -222,14 +222,14 @@
                                         </div>
                                     </div>
 
-                                    <div class="pt-4 w-full">
+                                    <div class="mt-4 w-full overflow-x-auto h-[20vh]">
 
-                                        <div>
+                                        <div class="z-10 sticky top-0 bg-white">
                                             <button name="add" id="add" type="button" class="bg-slate-500 rounded text-white px-2 py-1  text-sm xl:text-xs border-zinc-400">Add Member</button>
                                         </div>
 
                                         <table id="table" class="w-full">
-                                            <thead>
+                                            <thead class="z-10 sticky top-5 bg-white">
                                             <tr class="text-sm text-gray-500">
                                                 <th class="xl:text-xs text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs text-left">Member Name</th>
                                                 <th class="xl:text-xs text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs text-left">Member Type</th>

@@ -49,7 +49,7 @@
                                             <p class="mb-3 font-normal text-xs text-gray-600">{{ Str::limit($progserv->description, 800) }}</p>
                                         </div>
 
-                                        @hasrole('Extension coordinator|Faculty extensionist|New User')
+                                        @unlessrole('admin')
                                         <a href={{ route('allProposal.show', $progserv->proposal_id) }} class="w-[15rem] inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                             Click here for other details
                                         </a>
@@ -145,14 +145,19 @@
                                             <p class="mb-3 font-normal text-xs text-gray-600">{{ Str::limit($progserv->description, 800) }}</p>
                                         </div>
 
-                                        @auth
-                                        <a href="#" class="w-[15rem] inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                        @unlessrole('admin')
+                                        <a href={{ route('allProposal.show', $progserv->proposal_id) }} class="w-[15rem] inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                             Click here for other details
                                         </a>
-                                        @endauth
+                                        @endhasrole
+                                        @role('admin')
+                                        <a href={{ route('admin.dashboard.edit-proposal', ['id' => $progserv->proposal_id, 'notification' => $progserv->proposal_id]) }} class="w-[15rem] inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                            Click here for other details
+                                        </a>
+                                        @endrole
 
                                         @guest
-                                        <button data-modal-target="popup-modal-information" data-modal-toggle="popup-modal-information" data-modal-hide="default-modal-information" class="w-[15rem] block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
+                                        <button data-modal-target="popup-modal-physical" data-modal-toggle="popup-modal-physical" data-modal-hide="default-modal-physical" class="w-[15rem] block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
                                             Click here for other details
                                         </button>
                                         @endguest
@@ -235,14 +240,19 @@
                                             <p class="mb-3 font-normal text-xs text-gray-600">{{ Str::limit($progserv->description, 800) }}</p>
                                         </div>
 
-                                         @auth
-                                        <a href="#" class="w-[15rem] inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                        @unlessrole('admin')
+                                        <a href={{ route('allProposal.show', $progserv->proposal_id) }} class="w-[15rem] inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                             Click here for other details
                                         </a>
-                                        @endauth
+                                        @endhasrole
+                                        @role('admin')
+                                        <a href={{ route('admin.dashboard.edit-proposal', ['id' => $progserv->proposal_id, 'notification' => $progserv->proposal_id]) }} class="w-[15rem] inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                            Click here for other details
+                                        </a>
+                                        @endrole
 
                                         @guest
-                                        <button data-modal-target="popup-modal-literacy" data-modal-toggle="popup-modal-literacy" data-modal-hide="default-modal-literacy" class="w-[15rem] block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
+                                        <button data-modal-target="popup-modal-physical" data-modal-toggle="popup-modal-physical" data-modal-hide="default-modal-physical" class="w-[15rem] block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
                                             Click here for other details
                                         </button>
                                         @endguest
@@ -324,14 +334,19 @@
                                             <p class="mb-3 font-normal text-xs text-gray-600">{{ Str::limit($progserv->description, 800) }}</p>
                                         </div>
 
-                                        @auth
-                                        <a href="#" class="w-[15rem] inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                        @unlessrole('admin')
+                                        <a href={{ route('allProposal.show', $progserv->proposal_id) }} class="w-[15rem] inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                             Click here for other details
                                         </a>
-                                        @endauth
+                                        @endhasrole
+                                        @role('admin')
+                                        <a href={{ route('admin.dashboard.edit-proposal', ['id' => $progserv->proposal_id, 'notification' => $progserv->proposal_id]) }} class="w-[15rem] inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                            Click here for other details
+                                        </a>
+                                        @endrole
 
                                         @guest
-                                        <button data-modal-target="popup-modal-cultural" data-modal-toggle="popup-modal-cultural" data-modal-hide="default-modal-cultural" class="w-[15rem] block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
+                                        <button data-modal-target="popup-modal-physical" data-modal-toggle="popup-modal-physical" data-modal-hide="default-modal-physical" class="w-[15rem] block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
                                             Click here for other details
                                         </button>
                                         @endguest
@@ -412,14 +427,19 @@
                                             <p class="mb-3 font-normal text-xs text-gray-600">{{ Str::limit($progserv->description, 800) }}</p>
                                         </div>
 
-                                        @auth
-                                        <a href="#" class="w-[15rem] inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                        @unlessrole('admin')
+                                        <a href={{ route('allProposal.show', $progserv->proposal_id) }} class="w-[15rem] inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                             Click here for other details
                                         </a>
-                                        @endauth
+                                        @endhasrole
+                                        @role('admin')
+                                        <a href={{ route('admin.dashboard.edit-proposal', ['id' => $progserv->proposal_id, 'notification' => $progserv->proposal_id]) }} class="w-[15rem] inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                            Click here for other details
+                                        </a>
+                                        @endrole
 
                                         @guest
-                                        <button data-modal-target="popup-modal-livelihood" data-modal-toggle="popup-modal-livelihood" data-modal-hide="default-modal-livelihood" class="w-[15rem] block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
+                                        <button data-modal-target="popup-modal-physical" data-modal-toggle="popup-modal-physical" data-modal-hide="default-modal-physical" class="w-[15rem] block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
                                             Click here for other details
                                         </button>
                                         @endguest
@@ -500,14 +520,19 @@
                                             <p class="mb-3 font-normal text-xs text-gray-600">{{ Str::limit($progserv->description, 800) }}</p>
                                         </div>
 
-                                        @auth
-                                        <a href="#" class="w-[15rem] inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                        @unlessrole('admin')
+                                        <a href={{ route('allProposal.show', $progserv->proposal_id) }} class="w-[15rem] inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                             Click here for other details
                                         </a>
-                                        @endauth
+                                        @endhasrole
+                                        @role('admin')
+                                        <a href={{ route('admin.dashboard.edit-proposal', ['id' => $progserv->proposal_id, 'notification' => $progserv->proposal_id]) }} class="w-[15rem] inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                            Click here for other details
+                                        </a>
+                                        @endrole
 
                                         @guest
-                                        <button data-modal-target="popup-modal-environmental" data-modal-toggle="popup-modal-environmental" data-modal-hide="default-modal-environmental" class="w-[15rem] block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
+                                        <button data-modal-target="popup-modal-physical" data-modal-toggle="popup-modal-physical" data-modal-hide="default-modal-physical" class="w-[15rem] block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
                                             Click here for other details
                                         </button>
                                         @endguest
@@ -588,14 +613,19 @@
                                             <p class="mb-3 font-normal text-xs text-gray-600">{{ Str::limit($progserv->description, 800) }}</p>
                                         </div>
 
-                                        @auth
-                                        <a href="#" class="w-[15rem] inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                        @unlessrole('admin')
+                                        <a href={{ route('allProposal.show', $progserv->proposal_id) }} class="w-[15rem] inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                             Click here for other details
                                         </a>
-                                        @endauth
+                                        @endhasrole
+                                        @role('admin')
+                                        <a href={{ route('admin.dashboard.edit-proposal', ['id' => $progserv->proposal_id, 'notification' => $progserv->proposal_id]) }} class="w-[15rem] inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                            Click here for other details
+                                        </a>
+                                        @endrole
 
                                         @guest
-                                        <button data-modal-target="popup-modal-management" data-modal-toggle="popup-modal-management" data-modal-hide="default-modal-management" class="w-[15rem] block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
+                                        <button data-modal-target="popup-modal-physical" data-modal-toggle="popup-modal-physical" data-modal-hide="default-modal-physical" class="w-[15rem] block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
                                             Click here for other details
                                         </button>
                                         @endguest
@@ -676,14 +706,19 @@
                                             <p class="mb-3 font-normal text-xs text-gray-600">{{ Str::limit($progserv->description, 800) }}</p>
                                         </div>
 
-                                        @auth
-                                        <a href="#" class="w-[15rem] inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                        @unlessrole('admin')
+                                        <a href={{ route('allProposal.show', $progserv->proposal_id) }} class="w-[15rem] inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                             Click here for other details
                                         </a>
-                                        @endauth
+                                        @endhasrole
+                                        @role('admin')
+                                        <a href={{ route('admin.dashboard.edit-proposal', ['id' => $progserv->proposal_id, 'notification' => $progserv->proposal_id]) }} class="w-[15rem] inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                            Click here for other details
+                                        </a>
+                                        @endrole
 
                                         @guest
-                                        <button data-modal-target="popup-modal-special" data-modal-toggle="popup-modal-special" data-modal-hide="default-modal-special" class="w-[15rem] block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
+                                        <button data-modal-target="popup-modal-physical" data-modal-toggle="popup-modal-physical" data-modal-hide="default-modal-physical" class="w-[15rem] block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
                                             Click here for other details
                                         </button>
                                         @endguest

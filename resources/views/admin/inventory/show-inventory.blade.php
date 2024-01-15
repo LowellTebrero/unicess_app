@@ -33,7 +33,6 @@
 </x-admin-layout>
 
 
-
     <script>
         $('input[type=file]').change(function(){
             if($('input[type=files]').val()==''){

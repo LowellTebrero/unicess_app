@@ -4,7 +4,6 @@
 
     <section class="mt-4 2xl:mt-5 m-8 bg-white rounded-xl h-[82vh] 2xl:h-[87vh]">
 
-
         <div class="w-full flex justify-between p-4">
             <h1 class="tracking-wider text-sm">Program Name:{{ $programID->program_name }}</h1>
             <a class="text-red-500 font-bold text-xl focus:bg-gray-300 rounded"  href={{ route('admin.inventory.index') }}>
@@ -15,7 +14,7 @@
         </div>
 
         <hr>
-        <div class="flex flex-col relative  px-4 ">
+        <div class="flex flex-col relative px-4">
 
             <div class="grid 2xl:grid-cols-7 grid-cols-4 mt-4   text-gray-700">
                 @forelse ($proposalID as $proposal )
@@ -50,6 +49,7 @@
                 @endforelse
             </div>
         </div>
+
       <x-messages/>
 
     </section>

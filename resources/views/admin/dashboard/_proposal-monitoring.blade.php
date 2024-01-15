@@ -1,7 +1,7 @@
 <div class="2xl:w-[25rem] xl:w-[14rem] w-full ">
 
     {{--  Proposal Summary  --}}
-    <div class="flex flex-col p-5 mt-6 rounded-lg mr-6 bg-white">
+    <div class="flex flex-col p-5 mt-6 rounded-lg mr-6 bg-white 2xl:h-[46%]">
         <h1 class="text-gray-700 xl:text-sm 2xl:text-[1.1rem] tracking-wider font-medium">Project Monitoring</h1>
         <div class="justify-between flex mt-2 2xl:mt-3 xl:flex-col xl:space-y-2 xl:space-x-0 flex-col sm:flex-row sm:space-y-0 space-y-2 sm:space-x-4">
 
@@ -53,7 +53,7 @@
         </div>
     </div>
 
-    <div class="flex flex-col p-5 mt-3 2xl:mt-8 rounded-lg mr-6 bg-white text-gray-800">
+    <div class="flex flex-col p-5 mt-3 2xl:mt-8 rounded-lg mr-6 bg-white text-gray-800 2xl:h-[50%]">
         <h1 class="tracking-wide 2xl:text-lg font-medium text-gray-600 text-sm">Narrative Report</h1>
         <a href={{ route('admin.dashboard.narrative-index') }} class="mt-2 bg-white w-full text-gray-600 rounded-lg  hover:bg-slate-100 transition-all flex justify-between items-center p-4 sm:p-0 sm:px-4 md:px-6 px-8 xl:px-3 xl:py-4 2xl:py-5 shadow relative hover:border hover:border-teal-300">
             <div>

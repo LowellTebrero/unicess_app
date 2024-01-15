@@ -284,8 +284,6 @@ class ProposalController extends Controller
         $request->validate([
             'program_id' => 'required',
             'project_title' => 'required',
-            'started_date' => 'required',
-            'finished_date' => 'required',
         ]);
 
         Proposal::where('id', $proposals->id)->update([
