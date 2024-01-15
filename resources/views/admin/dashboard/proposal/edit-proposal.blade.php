@@ -874,7 +874,6 @@
                             @endif
                             @endforeach
 
-
                             @if ($proposals->narrativereport->isEmpty())
                             @else
                                 <div class="bg-white w-[10rem] sm:w-[10rem] xl:w-[10rem] xl:h-[12vh] 2xl:[h-17vh] shadow-md rounded-lg hover:bg-slate-100 transition-all m-2 relative" id="narrativereport">

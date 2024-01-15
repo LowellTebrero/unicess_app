@@ -51,8 +51,6 @@
             </div>
 
             @auth
-
-
                 <div class="flex">
                     {{--  <div id="notification-container">
                         <!-- Existing content or empty if no notifications yet -->
@@ -70,9 +68,6 @@
                                     <div id="notification-container">
                                         <!-- Existing content or empty if no notifications yet -->
                                     </div>
-
-
-
                                     <svg class="mt-1 fill-white hover:fill-slate-200" xmlns="http://www.w3.org/2000/svg"
                                         width="25" height="25" viewBox="0 0 24 24">
                                         <path d="M20 17h2v2H2v-2h2v-7a8 8 0 1 1 16 0v7ZM9 21h6v2H9v-2Z" />
@@ -102,7 +97,6 @@
                                         @endif
 
                                         <div>
-
                                             <div id="email"></div>
                                         </div>
 
@@ -234,7 +228,7 @@
                         </div>
                     @endrole
 
-                    @hasrole(['New User', 'Extension coordinator', 'Faculty extensionist'])
+                    @unlessrole('admin')
                         <div class="relative" x-data="{ open: false }" @click.outside="open = false"
                             @close.stop="open = false">
                             <div @click="open = ! open">
@@ -244,8 +238,6 @@
                                             class="text-red-500 text-[.2rem] rounded-full  px-1 pt-1 font-semibold absolute z-10 right-0 top-2 bg-red-500">
                                             {{ $notifs }}</h1>
                                     @endif
-
-
                                     <svg class="mt-1 fill-white hover:fill-slate-200" xmlns="http://www.w3.org/2000/svg"
                                         width="25" height="25" viewBox="0 0 24 24">
                                         <path d="M20 17h2v2H2v-2h2v-7a8 8 0 1 1 16 0v7ZM9 21h6v2H9v-2Z" />
@@ -640,7 +632,7 @@
                                 </div>
                             </div>
                         </div>
-                    @endhasrole
+                    @endunlessrole
 
                     <div class="hidden sm:flex sm:items-center sm:ml-6 mr-7">
                         <x-dropdown align="right" width="48">
@@ -715,8 +707,6 @@
                     </div>
                 </div>
             @endauth
-
-
 
             {{--  Guest Dropdown  --}}
             @guest
@@ -812,8 +802,6 @@
     @endauth
 </nav>
 
-
-
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
@@ -876,8 +864,6 @@
         updateDynamicTime();
         updateGreeting();
     </script>
-
-
 
     <script>
 

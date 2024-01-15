@@ -10,7 +10,7 @@
                     <h1 class="font-semibold tracking-wider sm:text-xl xl:text-2xl text-slate-700 text-base">My Inventory</h1>
 
                     <div class="sm:space-x-2 space-y-2">
-                        <input id="searchInput"  class="text-xs rounded border border-slate-400 sm:w-[15rem] xl:w-[20rem] w-full" type="text" placeholder="Search Proposal Title...">
+                        <input id="searchInput"  class="text-xs rounded border border-slate-400 sm:w-[15rem] xl:w-[20rem] w-full" type="text" placeholder="Search Project Title...">
                         <select name="Years" id="Years" class="md:text-xs text-xs  border-slate-400 rounded w-full sm:w-[8rem]">
                             <option value="">All Year</option>
                             @foreach ($years as $year )
