@@ -89,7 +89,7 @@
             </div>
         </div>
 
-        <div class="lg:space-x-0 lg:space-y-3 xl:space-x-4 xl:space-y-0 flex-col xl:flex-row 2xl:space-x-2 2xl:p-7 p-4 xl:p-4 xl:pt-0 2xl:pt-4 pt-0  flex text-gray-700 pb-0 bg-blue-700">
+        <div class="lg:space-x-0 lg:space-y-3 xl:space-x-4 xl:space-y-0 flex-col xl:flex-row 2xl:space-x-2 2xl:p-7 p-4 xl:p-4 xl:pt-0 2xl:pt-4 pt-0  flex text-gray-700 pb-0 bg-blue-500">
 
             <div class="flex space-y-0 xl:space-x-0 xl:space-y-3 flex-row xl:flex-col rounded-lg 2xl:w-[30rem] xl:w-[20rem] 2xl:p-5 space-x-3 lg:space-x-4 xl:pt-2 ">
                 <div class="bg-white full rounded shadow xl:py-2 2xl:py-4 p-4 lg:space-y-1 2xl:space-x-2 w-full 2xl:h-full">

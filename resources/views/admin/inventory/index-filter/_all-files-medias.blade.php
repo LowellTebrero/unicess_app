@@ -98,9 +98,11 @@
                                             <h1 class="text-md text-white tracking-wide">
                                                Uploaded on : {{ \Carbon\Carbon::parse($media->created_at)->format('M d, Y,  g:i:s A')}}
                                             </h1>
+
                                             <h1 class="text-md text-white tracking-wide">
-                                               File name: {{ Str::limit($media->file_name, 100) }}
+                                            File name: {{ Str::limit($media->file_name, 70) }}
                                             </h1>
+
                                             <h1 class="text-md text-white tracking-wide">
                                                File type: {{ $media->mime_type }}
                                             </h1>
@@ -120,7 +122,7 @@
                                 <div class="absolute right-10 bottom-5">
                                 <x-tooltip-modal>
                                     <!-- Modal toggle -->
-                                    <div class="flex flex-col space-y-2 items-start pl-2">
+                                    <div class="flex flex-col space-y-2 items-start pl-2 text-gray-600 ">
                                         <button data-modal-target="default-modal" data-modal-toggle="default-modal" class="block text-xs hover:text-black" type="button">Details</button>
                                         <a href={{ route('admin.inventory.admin-download-media', $media->id) }} class="block text-xs hover:text-black" x-data="{dropdownMenu: false}">Download</a>
                                             <form action="{{ route('admin.inventory.delete-media', $media->id) }}" method="POST" enctype="multipart/form-data" onsubmit="return confirm ('Are you sure?')" >

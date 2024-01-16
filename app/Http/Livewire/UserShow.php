@@ -7,6 +7,7 @@ use App\Models\Faculty;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 
@@ -155,8 +156,11 @@ class UserShow extends Component
     }
 
 
+
+
     public function render()
     {
+
       return view('livewire.user-show', [
             'users' => User::with(['faculty'])
             ->with(['role'])->whereNot('name', 'Administrator')
@@ -173,9 +177,35 @@ class UserShow extends Component
             ->orderBy('first_name', 'asc')
             ->paginate($this->paginate),
             'faculties' => Faculty::orderBy('name')->pluck('name', 'id')->prepend('All Faculties', ''),
-            'roled' => Role::orderBy('name')->pluck('name', 'id')->prepend('All Role', '')
+            'roled' => Role::orderBy('name')->pluck('name', 'id')->prepend('All Role', ''),
+            'Usercount' => User::count(),
+            'approved' => User::where('authorize', 'checked')->count(),
+            'pending' => User::where('authorize', 'pending')->count(),
+            'declined' => User::where('authorize', 'close')->count(),
+            'user' => User::with('role')->get(),
+            'college_extension_coordinator' => DB::table('model_has_roles')
+            ->where('model_type', 'App\Models\User')
+            ->where('role_id', 2)
+            ->count(),
+            'Faculty' => DB::table('model_has_roles')
+            ->where('model_type', 'App\Models\User')
+            ->where('role_id', 3)
+            ->count(),
+            'Student' => DB::table('model_has_roles')
+            ->where('model_type', 'App\Models\User')
+            ->where('role_id', 4)
+            ->count(),
+            'Extension_Staff' => DB::table('model_has_roles')
+            ->where('model_type', 'App\Models\User')
+            ->where('role_id', 5)
+            ->count(),
+            'New_user' => DB::table('model_has_roles')
+            ->where('model_type', 'App\Models\User')
+            ->where('role_id', 6)
+            ->count(),
 
     ]);
+
     }
 
 }

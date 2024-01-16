@@ -42,9 +42,12 @@
                 @endif
 
                 @role('admin')
-                    <div class="text-white mt-2 ml-6">
-                        <h1 class="tracking-wider text-sm font-medium">Welcome, {{ Auth()->user()->name }} </h1>
-                        <span class="tracking-wider text-[.7rem] text-slate-200">{{ date('D M d, Y') }} </span>
+                    <div class="mx-5 my-5 text-white">
+                        <h1 class="tracking-wider text-xs sm:text-sm font-medium" id="greeting">Hi, {{ Auth()->user()->name }}</h1>
+                        <div class="flex space-x-1">
+                            <span class="tracking-wider text-xs">{{  date('D M d, Y') }} </span>
+                            <span id="dynamic-time" class="tracking-wider text-xs">{{ date('h:i A') }}</span>
+                        </div>
                     </div>
                 @endrole
 

@@ -67,6 +67,7 @@
                                                     Upload template file here...
                                                 </label>
                                                 <input type="file" multiple name="template_file[]"  class="text-sm 2xl:text-base border leading-relaxed text-white">
+                                                @error('template_file') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
 
                                             </div>
                                             <!-- Modal footer -->
@@ -143,8 +144,8 @@
 
                                 <!-- Trigger for Modal -->
                                 <div class="flex justify-between items-center pb-4">
-                                    <h1 class="tracking-wider text-gray-600 font-medium">FACULTY NAME</h1>
-                                    <button class="bg-blue-400 hover:bg-blue-500 p-2 rounded-lg text-white text-sm" type="button" @click="showModal = true">+ Add faculty</button>
+                                    <h1 class="tracking-wider text-gray-600 font-medium">DEPARTMENT NAME</h1>
+                                    <button class="bg-blue-400 hover:bg-blue-500 p-2 rounded-lg text-white text-sm" type="button" @click="showModal = true">+ Add Department</button>
                                 </div>
 
 
@@ -164,7 +165,7 @@
 
                                         <!-- Title / Close-->
                                         <div class="flex items-center justify-between mb-10 ">
-                                            <h5 class="mr-3 text-black max-w-none">Add Faculty</h5>
+                                            <h5 class="mr-3 text-black max-w-none">Add Department</h5>
 
                                             <button type="button" class=" z-50 cursor-pointer" @click="showModal = false">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">

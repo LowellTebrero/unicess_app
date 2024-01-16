@@ -537,7 +537,7 @@
 
                 <div class="flex justify-between p-4">
                     <h1 class="tracking-wider sm:text-sm text-xs"> {{ Str::limit($proposals->project_title, 50) }} </h1>
-                    <a class="text-red-500 text-xl font-bold hover:bg-gray-200 focus:bg-red-200 rounded" href={{ route('inventory.index') }}>
+                    <a class="text-red-500 text-xl font-bold hover:bg-gray-200 focus:bg-red-200 rounded" href={{ URL::previous() }}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>

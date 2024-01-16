@@ -10,13 +10,13 @@ use App\Models\Evaluation;
 use Illuminate\Http\Request;
 use App\Charts\ProposalChart;
 use App\Models\ProposalMember;
+use App\Models\TerminalReport;
 use App\Models\NarrativeReport;
 use App\Models\ProposalRequest;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Notifications\ProposalNotification;
 use Illuminate\Support\Facades\Notification;
-use App\Models\TerminalReport;
 
     class IndexController extends Controller
 {
@@ -46,6 +46,10 @@ use App\Models\TerminalReport;
 
         $currentYear = date('Y');
         $previousYear = $currentYear + 1;
+
+
+
+
 
         return view('admin.dashboard.index', compact('projectProposal', 'allProposal', 'getCountProposals', 'getCountUsers',
              'pendingAccount', 'totalAccount', 'ongoingProposal', 'currentYear' , 'previousYear',

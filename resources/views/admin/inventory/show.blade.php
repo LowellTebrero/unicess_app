@@ -6,7 +6,7 @@
 
         <div class="w-full flex justify-between p-4">
             <h1 class="tracking-wider text-sm">Program Name:{{ $programID->program_name }}</h1>
-            <a class="text-red-500 font-bold text-xl focus:bg-gray-300 rounded"  href={{ route('admin.inventory.index') }}>
+            <a class="text-red-500 font-bold text-xl focus:bg-gray-300 rounded"   href={{ route('admin.inventory.index') }}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
@@ -19,14 +19,14 @@
             <div class="grid 2xl:grid-cols-7 grid-cols-4 mt-4   text-gray-700">
                 @forelse ($proposalID as $proposal )
                     @if ($programID->id === $proposal->program_id)
-                        <div class="flex w-[17rem] bg-slate-100  shadow-md rounded-xl relative hover:bg-slate-200">
+                        <div class="flex bg-slate-100  shadow-md rounded-lg relative hover:bg-slate-200">
 
-                            <a class="p-3 rounded-lg w-full flex items-center" href={{ route('admin.inventory.show-inventory', $proposal->id) }}>
+                            <a class="p-3 pl-2 rounded-lg w-full flex flex-col" href={{ route('admin.inventory.show-inventory', $proposal->id) }}>
                                 <svg class="fill-yellow-400 mr-3" xmlns="http://www.w3.org/2000/svg" height="55" viewBox="0 96 960 960" width="55"><path d="M141 896q-24 0-42-18.5T81 836V316q0-23 18-41.5t42-18.5h280l60 60h340q23 0 41.5 18.5T881 376v460q0 23-18.5 41.5T821 896H141Z"/></svg>
-                                <h1 class="text-xs text-gray-500 block"> <span class="block xl:text-[.7rem] text-gray-700 font-medium">{{ Str::limit($proposal->project_title, 40) }}</span> </h1>
+                                <span class="block xl:text-[.7rem] text-gray-700 font-medium">{{ Str::limit($proposal->project_title, 50) }}</span>
                             </a>
 
-                            <div class="absolute top-0 right-2 z-100">
+                            <div class="absolute top-0 right-1 z-50">
 
                                 <x-tooltip-modal>
                                     <a href={{ url('download', $proposal->id) }} class="block text-xs px-2 py-2 hover:text-black hover:bg-gray-200" x-data="{dropdownMenu: false}" >Download as zip</a>

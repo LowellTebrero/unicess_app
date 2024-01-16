@@ -455,7 +455,7 @@
                                     <div class="flex space-x-2 items-center justify-center">
                                         <form action={{ route('admin.proposal.admin-delete-project-proposal', $proposals->id) }} method="POST" class="">
                                             @csrf @method('DELETE')
-                                                <button class="text-white w-full bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">Yes I am sure</button>
+                                                <button class="text-white w-full bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">Yes I’m sure</button>
                                         </form>
 
                                         <button data-modal-hide="popup-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No, cancel</button>
@@ -721,7 +721,7 @@
                     <div class="overflow-x-auto h-[74vh] 2xl:h-[77vh]">
                         <div class="flex py-3 items-center flex-wrap px-2">
                             @foreach ($proposals->medias as $mediaLibrary)
-                            @if (!empty($mediaLibrary))
+                            @if (!empty($mediaLibrary->model_type == 'App\Models\Proposal'))
                                 <div class="bg-white w-[10rem] sm:w-[10rem] xl:w-[10rem] xl:h-[17vh] 2xl:h-[12vh] shadow-md rounded-lg hover:bg-slate-100 transition-all m-2 relative" id="proposal_id{{ $mediaLibrary->id }}">
 
                                     <x-alpine-modal>
@@ -874,18 +874,18 @@
                             @endif
                             @endforeach
 
-                            @if ($proposals->narrativereport->isEmpty())
-                            @else
+                            @if ($proposals->narrativereport->isNotEmpty())
+
                                 <div class="bg-white w-[10rem] sm:w-[10rem] xl:w-[10rem] xl:h-[12vh] 2xl:[h-17vh] shadow-md rounded-lg hover:bg-slate-100 transition-all m-2 relative" id="narrativereport">
 
                                     <!-- Modal toggle -->
-                                    <button data-modal-target="default-modal-narrative" data-modal-toggle="default-modal-narrative" class="text-sm p-4 text-center h-full flex flex-col space-y-4 items-center w-full" type="button">
+                                    <button data-modal-target="default-modal-narrative{{ $proposals->id }}" data-modal-toggle="default-modal-narrative{{ $proposals->id }}" class="text-sm p-4 text-center h-full flex flex-col space-y-4 items-center w-full" type="button">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 32 32"><g fill="none"><path fill="#FFB02E" d="m15.385 7.39l-2.477-2.475A3.121 3.121 0 0 0 10.698 4H4.126A2.125 2.125 0 0 0 2 6.125V13.5h28v-3.363a2.125 2.125 0 0 0-2.125-2.125H16.888a2.126 2.126 0 0 1-1.503-.621"/><path fill="#FCD53F" d="M27.875 30H4.125A2.118 2.118 0 0 1 2 27.888V13.112C2 11.945 2.951 11 4.125 11h23.75c1.174 0 2.125.945 2.125 2.112v14.776A2.118 2.118 0 0 1 27.875 30"/></g></svg>
                                         <span class="text-xs mt-4">Narrative Folder</span>
                                     </button>
 
                                     <!-- Main modal -->
-                                    <div id="default-modal-narrative" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                    <div id="default-modal-narrative{{ $proposals->id }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                                         <div class="relative p-4 w-full max-w-5xl h-[80%]">
                                             <!-- Modal content -->
                                             <div class="relative bg-white rounded-lg shadow h-full overflow-x-auto">
@@ -894,7 +894,7 @@
                                                     <h3 class="text-xl font-semibold text-gray-600">
                                                        Narrative Folder
                                                     </h3>
-                                                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal-narrative">
+                                                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal-narrative{{ $proposals->id }}">
                                                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                                                         </svg>
@@ -1096,18 +1096,17 @@
                                 </div>
                             @endif
 
-                            @if ($proposals->terminalreport->isEmpty())
-                            @else
+                            @if ($proposals->terminalreport->isNotEmpty())
                                 <div class="bg-white w-[10rem] sm:w-[10rem] xl:w-[10rem] xl:h-[12vh] 2xl:[h-17vh] shadow-md rounded-lg hover:bg-slate-100 transition-all m-2 relative" id="narrativereport">
 
                                     <!-- Modal toggle -->
-                                    <button data-modal-target="default-modal-terminal" data-modal-toggle="default-modal-terminal" class="text-sm p-4 text-center h-full flex flex-col space-y-4 items-center w-full" type="button">
+                                    <button data-modal-target="default-modal-terminal{{ $proposals->id }}" data-modal-toggle="default-modal-terminal{{ $proposals->id }}" class="text-sm p-4 text-center h-full flex flex-col space-y-4 items-center w-full" type="button">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 32 32"><g fill="none"><path fill="#FFB02E" d="m15.385 7.39l-2.477-2.475A3.121 3.121 0 0 0 10.698 4H4.126A2.125 2.125 0 0 0 2 6.125V13.5h28v-3.363a2.125 2.125 0 0 0-2.125-2.125H16.888a2.126 2.126 0 0 1-1.503-.621"/><path fill="#FCD53F" d="M27.875 30H4.125A2.118 2.118 0 0 1 2 27.888V13.112C2 11.945 2.951 11 4.125 11h23.75c1.174 0 2.125.945 2.125 2.112v14.776A2.118 2.118 0 0 1 27.875 30"/></g></svg>
                                         <span class="text-xs mt-4">Terminal Folder</span>
                                     </button>
 
                                     <!-- Main modal -->
-                                    <div id="default-modal-terminal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                    <div id="default-modal-terminal{{ $proposals->id }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                                         <div class="relative p-4 w-full max-w-5xl h-[80%]">
                                             <!-- Modal content -->
                                             <div class="relative bg-white rounded-lg shadow h-full overflow-x-auto">
@@ -1116,7 +1115,7 @@
                                                     <h3 class="text-xl font-semibold text-gray-600">
                                                        Terminal Folder
                                                     </h3>
-                                                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal-terminal">
+                                                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal-terminal{{ $proposals->id }}">
                                                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                                                         </svg>

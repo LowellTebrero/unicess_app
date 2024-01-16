@@ -42,32 +42,32 @@ class AdminSeeder extends Seeder
 
         // $faker = Factory::create();
 
-            // $roles = ['Faculty extensionist', 'Extension coordinator'];
+        //     $roles = ['College extension coordinator', 'Faculty ', 'Student', 'Extension Staff '];
 
-            // foreach (range(1, 100) as $index) {
-            //     $gender = $faker->randomElement(['male', 'female']);
-            //     $role = $faker->randomElement($roles);
+        //     foreach (range(1, 100) as $index) {
+        //         $gender = $faker->randomElement(['male', 'female']);
+        //         $role = $faker->randomElement($roles);
 
-            //     $users =  User::create([
-            //         'name' => $faker->name,
-            //         'first_name' => $faker->firstName($gender),
-            //         'middle_name' => $faker->lastName,
-            //         'last_name' => $faker->lastName,
-            //         'gender' => $gender,
-            //         'email' => $faker->unique()->safeEmail,
-            //         'email_verified_at' => now(),
-            //         'address' => $faker->address,
-            //         'contact_number' => $faker->phoneNumber,
-            //         'password' => bcrypt('password'), // You can customize the default password
-            //         'faculty_id' => $faker->numberBetween(1, 21),
-            //         'authorize' => 'checked',
-            //         'provider' => 'google',
-            //         'city' => 'Tacloban City',
-            //         'created_at' => now(),
-            //         'updated_at' => now(),
-            //     ]);
+        //         $users =  User::create([
+        //             'name' => $faker->name,
+        //             'first_name' => $faker->firstName($gender),
+        //             'middle_name' => $faker->lastName,
+        //             'last_name' => $faker->lastName,
+        //             'gender' => $gender,
+        //             'email' => $faker->unique()->safeEmail,
+        //             'email_verified_at' => now(),
+        //             'address' => $faker->address,
+        //             'contact_number' => $faker->phoneNumber,
+        //             'password' => bcrypt('password'), // You can customize the default password
+        //             'faculty_id' => $faker->numberBetween(1, 21),
+        //             'authorize' => 'checked',
+        //             'provider' => 'google',
+        //             'city' => 'Tacloban City',
+        //             'created_at' => now(),
+        //             'updated_at' => now(),
+        //         ]);
 
-            //      $users -> assignRole($role);
+        //          $users -> assignRole($role);
 
         // }
 

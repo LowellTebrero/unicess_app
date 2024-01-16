@@ -30,7 +30,15 @@ class DashboardController extends Controller
     public function create(){
 
         $programs = Program::orderBy('program_name')->pluck('program_name', 'id')->prepend('Select Program', '');
-        $members = User::orderBy('name')->whereNot('name', 'Administrator')->pluck('name', 'id')->prepend('Select Username', '');
+        $members = User::orderBy('name')
+        ->doesntHave('roles', 'and', function ($query) {
+            $query->where('id', 1);
+        })
+        ->get(['id', 'name'])
+        ->mapWithKeys(function ($user) {
+            return [$user->id => $user->name];
+        })
+        ->prepend('Select name', '');
         $ceso_roles = CesoRole::orderBy('role_name')->pluck('role_name', 'id')->prepend('Select Role', '');
         $locations = Location::orderBy('location_name')->pluck('location_name', 'id')->prepend('Select Location', '');
         $parts_names = ParticipationName::orderBy('participation_name')->pluck('participation_name', 'id');
@@ -211,7 +219,15 @@ class DashboardController extends Controller
         }])->first();
 
         $program = Program::orderBy('program_name')->pluck('program_name', 'id')->prepend('Select Program', '');
-        $members = User::orderBy('name')->whereNot('name', 'Administrator')->pluck('name', 'id')->prepend('Select Username', '');
+        $members = User::orderBy('name')
+        ->doesntHave('roles', 'and', function ($query) {
+            $query->where('id', 1);
+        })
+        ->get(['id', 'name'])
+        ->mapWithKeys(function ($user) {
+            return [$user->id => $user->name];
+        })
+        ->prepend('Select name', '');
         $ceso_roles = CesoRole::orderBy('role_name')->pluck('role_name', 'id')->prepend('Select Role', '');
         $locations = Location::orderBy('location_name')->pluck('location_name', 'id')->prepend('Select Location', '');
         $parts_names = ParticipationName::orderBy('participation_name')->pluck('participation_name', 'id');

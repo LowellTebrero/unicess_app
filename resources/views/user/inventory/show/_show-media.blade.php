@@ -21,7 +21,7 @@
                     <tbody>
 
                         @foreach ($proposals->medias as $mediaLibrary)
-                        @if ((!empty($mediaLibrary->model_id)) && (!empty($mediaLibrary->collection_name)))
+                        @if (!empty($mediaLibrary->model_type == 'App\Models\Proposal'))
 
 
                                 <tr class="hover:bg-gray-200 ">
@@ -158,7 +158,7 @@
                                  </td>
                             </tr>
                         @endif
-                    @endforeach
+                        @endforeach
 
             </tbody>
         </table>
@@ -173,7 +173,7 @@
 
 
             @foreach ($proposals->medias as $mediaLibrary)
-
+            @if (!empty($mediaLibrary->model_type == 'App\Models\Proposal'))
                     <div data-tooltip-target="tooltip-proposal" type="button" class="bg-white w-full sm:w-[10rem] xl:w-[10rem] xl:min-h-[14vh] shadow-md rounded-lg hover:bg-slate-100 transition-all m-2 relative">
 
                         <x-alpine-modal>
@@ -325,7 +325,7 @@
                         </div>
                     </div>
 
-
+            @endif
             @endforeach
 
             @if ($proposals->narrativereport->isEmpty())

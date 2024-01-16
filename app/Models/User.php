@@ -122,7 +122,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
 
     public function role():BelongsToMany{
-        return $this->belongsToMany(Role::class, 'model_has_roles' ,'role_id', 'model_id');
+        return $this->belongsToMany(Role::class, 'model_has_roles' ,'model_id', 'role_id');
     }
 
     public function scopeSearch($query, $search)

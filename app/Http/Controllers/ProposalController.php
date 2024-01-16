@@ -88,7 +88,6 @@ class ProposalController extends Controller
             return [$user->id => $user->name];
         })
         ->prepend('Select name', '');
-
         $ceso_roles = CesoRole::orderBy('role_name')->pluck('role_name', 'id');
         $locations = Location::orderBy('location_name')->pluck('location_name', 'id')->prepend('Select Location', '');
         $parts_names = ParticipationName::orderBy('participation_name')->pluck('participation_name', 'id');

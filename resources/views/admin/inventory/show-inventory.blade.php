@@ -14,7 +14,7 @@
 
             <div class="flex justify-between p-4">
                 <h1 class="tracking-wider text-sm">Project Title: {{ $proposals->project_title }} </h1>
-                <a class="text-red-500 text-xl font-bold focus:bg-gray-300 rounded" href={{ route('admin.inventory.proposal-show', $proposals->programs->id) }}>
+                <a class="text-red-500 text-xl font-bold focus:bg-gray-300 rounded" href="{{ URL::previous() }}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>

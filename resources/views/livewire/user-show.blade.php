@@ -1,8 +1,55 @@
 <div class="bg-white shadow-lg rounded-lg  h-[82vh] 2xl:min-h-[87vh] m-8 mt-4 2xl:mt-5 text-gray-700">
         <div class="py-2 flex justify-between 2xl:px-8 px-4">
-            <h4 class="tracking-wider 2xl:text-2xl font-semibold text-gray-700 text-lg">Account Overview</h4>
+            <h4 class="tracking-wider 2xl:text-2xl font-semibold text-gray-700 text-lg">Accounts Overview</h4>
 
-            <div class="text-sm">
+            <div class="text-sm flex space-x-2">
+
+                <!-- Modal toggle -->
+                <button data-modal-target="default-modal" data-modal-toggle="default-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                Summary
+                </button>
+
+                <!-- Main modal -->
+                <div id="default-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                    <div class="relative p-4 w-full max-w-xl h-[50%]">
+                        <!-- Modal content -->
+                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 h-full">
+                            <!-- Modal header -->
+                            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                    Account Summary
+                                </h3>
+                                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal">
+                                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                    </svg>
+                                    <span class="sr-only">Close modal</span>
+                                </button>
+                            </div>
+                            <!-- Modal body -->
+                            <div class="p-4 md:p-5 space-y-4 text-white space-y-2">
+                                <div class="space-y-2">
+                                    <h1 class="text-base">Accounts</h1>
+                                    <h1 class="tracking-wider">Total of Registered Accounts ({{ $Usercount }})</h1>
+                                    <h1 class="tracking-wider">Total of Aprroved Accounts ({{$approved}})</h1>
+                                    <h1 class="tracking-wider">Total of Pending Accounts ({{ $pending }})</h1>
+                                    <h1 class="tracking-wider">Total of Declined Accounts ({{$declined}})</h1>
+                                </div>
+
+                                <div class="space-y-2">
+                                    <h1 class="text-base">Roles</h1>
+                                    <h1 class="tracking-wider">Total of College extension coordinator ({{ $college_extension_coordinator }})</h1>
+                                    <h1 class="tracking-wider">Total of Extension Staff  ({{ $Extension_Staff }})</h1>
+                                    <h1 class="tracking-wider">Total of Faculty ({{$Faculty}})</h1>
+                                    <h1 class="tracking-wider">Total of Student ({{ $Student }})</h1>
+                                    <h1 class="tracking-wider">Total of New User ({{ $New_user }})</h1>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
                 <input type="text" name="search" wire:model.debounce.500ms="search" id="search"
                     class="xl:text-xs  rounded 2xl:w-[20rem] 2xl:text-sm border-slate-400" placeholder="Search...">
 
@@ -30,15 +77,14 @@
         </div>
         <hr>
 
-        <div class="overflow-x-auto p-2 xl:px-4 2xl:px-8 h-[70vh] 2xl:h-[75vh] ">
+        <div class="overflow-x-auto p-2 pt-0 mt-2 xl:px-4 2xl:px-8 h-[70vh] 2xl:h-[75vh] ">
             <table class="table-auto w-full border-collapse">
-
-                <thead class="text-[.7rem] text-gray-700 uppercase">
-                    <tr class="sticky top-0 bg-gray-200 w-full">
+                <thead class="text-[.7rem] text-gray-700 uppercase sticky top-0 bg-gray-200 w-full">
+                    <tr>
                         <th class="p-2 whitespace-nowrap text-left">First Name</th>
                         <th class="p-2 whitespace-nowrap text-left">Last Name</th>
                         <th class="p-2 whitespace-nowrap text-left">Email</th>
-                        <th class="p-2 whitespace-nowrap text-left">Faculty Name</th>
+                        <th class="p-2 whitespace-nowrap text-left">Department Name</th>
                         <th class="p-2 whitespace-nowrap text-left">Role</th>
                         <th class="p-2 whitespace-nowrap text-left">Authorize</th>
                         <th class="p-2 whitespace-nowrap text-left">Action</th>

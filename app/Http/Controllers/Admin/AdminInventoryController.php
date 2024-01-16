@@ -8,6 +8,9 @@ use App\Models\Program;
 use App\Models\Proposal;
 use App\Models\AdminYear;
 use Illuminate\Http\Request;
+use App\Models\ProposalMember;
+use App\Models\TerminalReport;
+use App\Models\NarrativeReport;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\CustomizeAdminInventory;
@@ -43,6 +46,8 @@ class AdminInventoryController extends Controller
          });
       })->get();
 
+
+
       $facs = Faculty::where('id', $id)->first();
       $userfaculty = User::where('id', $id)->first();
       $programID =   Program::where('id', $id)->first();
@@ -55,7 +60,35 @@ class AdminInventoryController extends Controller
      public function showInventory($id){
 
         $proposals = Proposal::where('id', $id)->first();
-        return view('admin.inventory.show-inventory', compact('proposals'));
+
+        $formedia = Proposal::where('id', $id)
+        ->with(['medias' => function ($query) {
+            $query->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
+            ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
+        },
+        'narrativereport' => function ($query) {
+            $query->with(['medias' => function ($query) {
+                $query->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
+            ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
+            }]); // Nested 'with' for 'medias' inside 'narrativereport'
+        },
+        'terminalreport' => function ($query) {
+            $query->with(['medias' => function ($query) {
+                $query->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
+                ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
+            }]); // Nested 'with' for 'medias' inside 'narrativereport'
+        },])->first();
+
+        $latest = Proposal::where('id', $id)
+        ->with(['medias' => function ($query) {
+            $query->latest()->first();
+        }])->first();
+
+        $narrativeCount = NarrativeReport::distinct('user_id')->count();
+        $terminalCount = TerminalReport::distinct('user_id')->count();
+        $memberCount = ProposalMember::where('proposal_id', $id)->count();
+
+        return view('admin.inventory.show-inventory', compact('proposals', 'formedia','latest','narrativeCount','terminalCount','memberCount'));
      }
 
 
