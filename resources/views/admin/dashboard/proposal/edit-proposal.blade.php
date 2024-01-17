@@ -76,6 +76,7 @@
                     </button>
 
                     <div class="flex flex-col space-y-2 mb-4">
+                        <h1 class="text-base font-medium tracking-wide">Summary:</h1>
                         <div class="w-full">
                             <div class="w-full">
                                 <label class="block text-gray-700 text-[.7rem] font-semibold xl:text-[.7rem]"> Project Title:</label>
@@ -130,28 +131,30 @@
                         </div> --}}
                     </div>
 
-                    @if (!empty($proposals->proposal_members->member_type))
-                    <div class="mb-2 mt-5 xl:mt-0 w-full overflow-x-auto h-[15vh] 2xl:h-[25vh]">
+
+                    <div class="mb-2 mt-5 xl:mt-0 w-full overflow-x-auto h-[15vh] 2xl:h-[20vh]">
                         <div class="w-full sticky top-0 z-10 bg-gray-100 xl:bg-white">
                         <label class="text-gray-700 font-semibold xl:text-[.7rem] text-[.7rem] ">Project Member(s)</label>
                         </div>
 
                         @foreach ($proposals->proposal_members as $proposal_mem)
-                            <div class="pb-2">
+
                                 @if ($proposal_mem->member_type !== null)
-                                <div>
-                                    <h1 class="xl:text-[.7rem] text-[.6rem] font-medium text-gray-700 tracking-wider"> Name:</h1>
-                                    <span class="font-light 2xl:text-xs xl:text-[.7rem] text-[.7rem]">{{ $proposal_mem->member_type !== null ? $proposal_mem->user->name : '' }}</span>
-                                </div>
-                                <div>
-                                    <h1 class="xl:text-[.7rem] text-[.6rem] font-medium text-gray-700 tracking-wider"> Type:</h1>
-                                    <span class="font-light 2xl:text-xs  xl:text-[.7rem] text-[.7rem]">{{ $proposal_mem->member_type }}</span>
-                                </div>
+                                    <div class="pb-2">
+                                        <div>
+                                            <h1 class="xl:text-[.7rem] text-[.6rem] font-medium text-gray-700 tracking-wider"> Name:</h1>
+                                            <span class="font-light 2xl:text-xs xl:text-[.7rem] text-[.7rem]">{{ $proposal_mem->member_type !== null ? $proposal_mem->user->name : '' }}</span>
+                                        </div>
+                                        <div>
+                                            <h1 class="xl:text-[.7rem] text-[.6rem] font-medium text-gray-700 tracking-wider"> Type:</h1>
+                                            <span class="font-light 2xl:text-xs  xl:text-[.7rem] text-[.7rem]">{{ $proposal_mem->member_type }}</span>
+                                        </div>
+                                    </div>
                                 @endif
-                            </div>
+
                         @endforeach
                     </div>
-                    @endif
+
 
                     <div class="flex flex-col">
                         <div class="flex flex-col text-xs">
@@ -260,7 +263,7 @@
                             <!-- Modal content -->
                             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                                 <!-- Modal header -->
-                                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                <div class="flex items-center justify-between p-4  border-b rounded-t dark:border-gray-600">
                                     <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
                                         Edit Project Details <span class="text-xs text-red-400">(*)required</span>
                                     </h3>
@@ -272,164 +275,171 @@
                                     </button>
                                 </div>
                                 <!-- Modal body -->
-                                <form action={{ route('admin.dashboard.update-project-details', $proposal->id ) }} method="POST">
+                                <form action={{ route('admin.dashboard.update-project-details', $proposal->id ) }} method="POST" id="myForm">
                                     @csrf @method('PUT')
-                                <div class="p-4 md:p-5">
-                                    <div class="flex space-y-4 flex-col">
-                                        <div class="w-full">
-                                            <label class="xl:text-xs block text-white text-sm font-medium mb-2 tracking-wider 2xl:text-xs" for="program_id">Program Name <span class="text-red-500">*</span></label>
-                                            <select id="program_id" class="rounded-md xl:text-xs w-full border-zinc-400  py-2 px-3" name="program_id" value="{{ old('program_id') }}" required>
-                                                @foreach ($program as $id => $program_name ) <option value="{{ $id }}" @if ($id == $proposal->program_id) selected="selected" @endif >{{ $program_name }}</option> @endforeach
-                                            </select>
-                                            @error('program_id') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
-                                        </div>
-
-                                        <div class="w-full">
-                                            <label class="xl:text-xs block text-white text-sm font-medium mb-2 tracking-wider 2xl:text-xs" for="project_title">Proposal Title <span class="text-red-500">*</span></label>
-                                            <input class="border-zinc-400 xl:text-xs shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="project_title" id="project_title" type="text" value="{{ $proposal->project_title }}" placeholder="project title" required>
-                                            @error('project_title') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
-                                        </div>
-                                    </div>
-
-                                    <div class="flex space-y-2 flex-col mt-3">
-
-                                        <div class="flex space-x-4 w-full" >
+                                    <div class="p-4 md:p-5">
+                                        <div class="flex 2xl:space-y-4 space-x-4 2xl:space-x-0 flex-row 2xl:flex-col">
                                             <div class="w-full">
-                                                <label class="xl:text-xs block text-white text-sm font-medium mb-2 tracking-wider 2xl:text-xs">Started Date<span class="text-red-500">*</span></label>
-                                                <input required class="border-zinc-400 xl:text-xs shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" value="{{ $proposal->started_date }}" name="started_date" id="started_date" type="datetime-local">
-                                                @error('started_date') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
+                                                <label class="xl:text-xs block text-white text-sm font-medium mb-2 tracking-wider 2xl:text-xs" for="program_id">Program Name <span class="text-red-500">*</span></label>
+                                                <select id="program_id" class="rounded-md xl:text-xs w-full border-zinc-400  py-2 px-3" name="program_id" value="{{ old('program_id') }}" required>
+                                                    @foreach ($program as $id => $program_name ) <option value="{{ $id }}" @if ($id == $proposal->program_id) selected="selected" @endif >{{ $program_name }}</option> @endforeach
+                                                </select>
+                                                @error('program_id') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
                                             </div>
 
                                             <div class="w-full">
-                                                <label class="xl:text-xs block text-white text-sm font-medium mb-2 tracking-wider 2xl:text-xs">Ended Date<span class="text-red-500">*</span></label>
-                                                <input required class="border-zinc-400 xl:text-xs shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" value="{{ $proposal->finished_date }}" name="finished_date" id="finished_date" type="datetime-local">
-                                                @error('finished_date') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
+                                                <label class="xl:text-xs block text-white text-sm font-medium mb-2 tracking-wider 2xl:text-xs" for="project_title">Project Title <span class="text-red-500">*</span></label>
+                                                <input class="border-zinc-400 xl:text-xs shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="project_title" id="project_title" type="text" value="{{ $proposal->project_title }}" placeholder="project title" required>
+                                                @error('project_title') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
                                             </div>
                                         </div>
 
-                                        <div class="flex space-x-4 w-full">
+                                        <div class="flex space-y-2 flex-col mt-3">
 
-                                            <div class="w-full">
-                                                <label class="xl:text-xs block text-white text-sm font-medium mb-2 tracking-wider 2xl:text-xs">Project leader <span class="text-red-500">*</span></label>
-                                                <select name="leader_id" class="rounded-md xl:text-xs w-full  border-zinc-400" value="{{ old('leader') }}" id="leader" onchange="RequiredGet(this)">
-                                                    <option value="">Select Username</option>
-                                                    @foreach ($members as $id => $name )
+                                            <div class="flex space-x-4 w-full" >
+                                                <div class="w-full">
+                                                    <label class="xl:text-xs block text-white text-sm font-medium mb-2 tracking-wider 2xl:text-xs">Started Date</label>
+                                                    <input class="border-zinc-400 xl:text-xs shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" value="{{ $proposal->started_date }}" name="started_date" id="started_date" type="datetime-local">
+                                                    @error('started_date') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
+                                                </div>
+
+                                                <div class="w-full">
+                                                    <label class="xl:text-xs block text-white text-sm font-medium mb-2 tracking-wider 2xl:text-xs">Ended Date</label>
+                                                    <input class="border-zinc-400 xl:text-xs shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" value="{{ $proposal->finished_date }}" name="finished_date" id="finished_date" type="datetime-local">
+                                                    @error('finished_date') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
+                                                </div>
+                                            </div>
+
+                                            <div class="flex space-x-4 w-full">
+
+                                                <div class="w-full">
+                                                    <label class="xl:text-xs block text-white text-sm font-medium mb-2 tracking-wider 2xl:text-xs">Project leader</label>
+                                                    <select name="leader_id" class="rounded-md xl:text-xs w-full  border-zinc-400" value="{{ old('leader') }}" id="leader_id">
+                                                        <option value="">Select Username</option>
+                                                        @foreach ($members as $id => $name )
+                                                            <option value="{{ $id }}"
+                                                            @foreach ($proposal->proposal_members as $proposal_mem)
+                                                            @if ($proposal_mem->leader_member_type != null ? $proposal_mem->user_id == $id : '')
+                                                            selected="selected"
+                                                            @endif
+                                                            @endforeach
+                                                        >{{ $name }}</option>
+
+                                                        @endforeach
+                                                    </select>
+                                                    @error('project_leader') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
+                                                </div>
+
+                                                <div class="w-full">
+                                                    <label class="xl:text-xs block text-white text-sm font-medium mb-2 tracking-wider 2xl:text-xs">Role of Project Leader</label>
+                                                    <select id="leader_member_type" name="leader_member_type" value="{{ old('leader_member_type') }}" class="rounded-md xl:text-xs w-full border-zinc-400">
+                                                        <option value="">Select Role</option>
+                                                        @foreach ($ceso_roles as $id => $role_name )
                                                         <option value="{{ $id }}"
                                                         @foreach ($proposal->proposal_members as $proposal_mem)
-                                                        @if ($proposal_mem->leader_member_type != null ? $proposal_mem->user_id == $id : '')
+                                                        @if ($id == $proposal_mem->leader_member_type)
                                                         selected="selected"
                                                         @endif
                                                         @endforeach
-                                                    >{{ $name }}</option>
-
-                                                    @endforeach
-                                                </select>
-                                                @error('project_leader') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
-                                            </div>
-
-                                            <div class="w-full">
-                                                <label class="xl:text-xs block text-white text-sm font-medium mb-2 tracking-wider 2xl:text-xs">Role of Project Leader <span class="text-red-500">*</span></label>
-                                                <select onchange="yesnoCheck(this)" id="leader_member_type" name="leader_member_type" value="{{ old('leader_member_type') }}" class="rounded-md xl:text-xs w-full border-zinc-400">
-                                                    @foreach ($ceso_roles as $id => $role_name )
-
-                                                    <option value="{{ $id }}"
-                                                    @foreach ($proposal->proposal_members as $proposal_mem)
-                                                    @if ($id == $proposal_mem->leader_member_type)
-                                                    selected="selected"
-                                                    @endif
-                                                    @endforeach
-                                                    >{{ $role_name }}
-                                                    </option>
-                                                    @endforeach
-                                                </select>
-                                                @error('role_name') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
-                                            </div>
-
-                                            <div class="w-full">
-                                                <label class="xl:text-xs block text-white text-sm font-medium mb-2 tracking-wider 2xl:text-xs">Location <span class="text-red-500">*</span></label>
-                                                <select id="location_id" type="text"  class="rounded-md xl:text-xs w-full border-zinc-400 " name="location_id" value="{{ old('location_id') }}">
-                                                    @foreach ($locations as $id => $name )
-                                                    <option value="{{ $id }}"
-                                                    @foreach ($proposal->proposal_members as $proposal_mem)
-                                                    @if ($id == $proposal_mem->location_id)
-                                                        selected="selected"
-                                                    @endif
-                                                    @endforeach
-                                                    >{{ $name }}</option>
-                                                @endforeach
-                                                </select>
-                                                @error('location_name') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="mt-4 w-full h-[15vh] 2xl:h-[20vh] overflow-x-auto">
-
-                                            <div class="sticky top-0 bg-gray-700 w-full">
-                                                <button name="add" id="add" type="button" class="bg-slate-500 rounded text-white px-2 py-1  text-sm xl:text-xs border-zinc-400">Add Member</button>
-                                            </div>
-
-                                            <table id="table" class="w-full">
-                                                <thead class="sticky top-6 bg-gray-700">
-                                                <tr class="text-sm text-gray-500">
-                                                    <th class="xl:text-xs  text-white text-sm font-medium mb-2 tracking-wider 2xl:text-xs text-left">Member Name</th>
-                                                    <th class="xl:text-xs  text-white text-sm font-medium mb-2 tracking-wider 2xl:text-xs text-left">Member Type</th>
-                                                    <th class="xl:text-xs  text-white text-sm font-medium mb-2 tracking-wider 2xl:text-xs text-left">Action</th>
-                                                </tr>
-                                                </thead>
-
-                                                <tbody>
-
-                                                    @php($count=0)
-                                                    @foreach ($proposal->proposal_members as $proposal_mem)
-                                                    @if ($proposal_mem->member_type !== null)
-                                                    @php($count++)
-
-
-                                                    <tr>
-                                                    <td class="pr-4 pt-2">
-                                                        <select name="member[{{ $count }}][id]" class="rounded-md xl:text-xs w-full border-zinc-400" id="member" required>
-                                                            @foreach ($members as $id => $participation_name )
-                                                                <option value="{{ $id }}"
-                                                                    @if ($proposal_mem->member_type != null ? $proposal_mem->user_id == $id : '')
-                                                                    selected="selected"
-                                                                    @endif>
-                                                                    {{ $participation_name }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </td>
-
-                                                    <td class="pr-4 pt-2">
-
-                                                        <select name="member[{{ $count }}][type]" class="rounded-md xl:text-xs w-full border-zinc-400">
-                                                            @foreach ($parts_names as $id => $name ) <option value="{{ $name }}"
-
-                                                                @if ($proposal_mem->member_type != null ? $proposal_mem->member_type == $name : '')
-                                                                selected="selected"
-                                                                @endif
-                                                                >
-                                                                {{ $name }}
-                                                            @endforeach
+                                                        >{{ $role_name }}
                                                         </option>
+                                                        @endforeach
                                                     </select>
-                                                    </td>
+                                                    @error('role_name') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
+                                                    <div id="error-leader_member_type" style="color: red;"></div>
 
-                                                    <td>
-                                                        <button type="button" class="bg-red-500 remove-table-row text-xs text-white px-2 py-1 rounded">Remove</button>
-                                                    </td>
-                                                </tr>
-                                                    @endif
+                                                </div>
+
+                                                <div class="w-full">
+                                                    <label class="xl:text-xs block text-white text-sm font-medium mb-2 tracking-wider 2xl:text-xs">Location</label>
+                                                    <select id="location_id" type="text"  class="rounded-md xl:text-xs w-full border-zinc-400" name="location_id" value="{{ old('location_id') }}">
+                                                        <option value="">Select Location</option>
+                                                        @foreach ($locations as $id => $name )
+                                                        <option value="{{ $id }}"
+                                                        @foreach ($proposal->proposal_members as $proposal_mem)
+                                                        @if ($id == $proposal_mem->location_id)
+                                                            selected="selected"
+                                                        @endif
+                                                        @endforeach
+                                                        >{{ $name }}</option>
                                                     @endforeach
+                                                    </select>
+                                                    @error('location_name') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
+                                                    <div id="error-location_id" style="color: red;"></div>
 
-                                            </tbody>
-                                            </table>
+                                                </div>
+                                            </div>
+
+                                            <div class="mt-4 w-full h-[24vh] 2xl:h-[20vh] overflow-x-auto">
+
+                                                <div class="sticky top-0 bg-gray-700 w-full">
+                                                    <button name="add" id="add" type="button" class="bg-slate-500 rounded text-white px-2 py-1  text-sm xl:text-xs border-zinc-400">Add Member</button>
+                                                </div>
+
+                                                <table id="table" class="w-full">
+                                                    <thead class="sticky top-6 bg-gray-700">
+                                                    <tr class="text-sm text-gray-500">
+                                                        <th class="xl:text-xs  text-white text-sm font-medium mb-2 tracking-wider 2xl:text-xs text-left">Member Name</th>
+                                                        <th class="xl:text-xs  text-white text-sm font-medium mb-2 tracking-wider 2xl:text-xs text-left">Member Type</th>
+                                                        <th class="xl:text-xs  text-white text-sm font-medium mb-2 tracking-wider 2xl:text-xs text-left">Action</th>
+                                                    </tr>
+                                                    </thead>
+
+                                                    <tbody>
+
+                                                        @php($count=0)
+                                                        @foreach ($proposal->proposal_members as $proposal_mem)
+                                                        @if ($proposal_mem->member_type !== null)
+                                                        @php($count++)
+
+
+                                                        <tr>
+                                                        <td class="pr-4 pt-2">
+                                                            <select name="member[{{ $count }}][id]" class="rounded-md xl:text-xs w-full border-zinc-400" id="member" required>
+                                                                <option value="">Select Username</option>
+                                                                @foreach ($members as $id => $participation_name )
+                                                                    <option value="{{ $id }}"
+                                                                        @if ($proposal_mem->member_type != null ? $proposal_mem->user_id == $id : '')
+                                                                        selected="selected"
+                                                                        @endif>
+                                                                        {{ $participation_name }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                        </td>
+
+                                                        <td class="pr-4 pt-2">
+
+                                                            <select name="member[{{ $count }}][type]" class="rounded-md xl:text-xs w-full border-zinc-400">
+                                                                <option value="">Select Type</option>
+                                                                @foreach ($parts_names as $id => $name ) <option value="{{ $name }}"
+
+                                                                    @if ($proposal_mem->member_type != null ? $proposal_mem->member_type == $name : '')
+                                                                    selected="selected"
+                                                                    @endif
+                                                                    >
+                                                                    {{ $name }}
+                                                                @endforeach
+                                                            </option>
+                                                        </select>
+                                                        </td>
+
+                                                        <td>
+                                                            <button type="button" class="bg-red-500 remove-table-row text-xs text-white px-2 py-1 rounded">Remove</button>
+                                                        </td>
+                                                    </tr>
+                                                        @endif
+                                                        @endforeach
+
+                                                </tbody>
+                                                </table>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                </div>
+                                    </div>
                                 <!-- Modal footer -->
                                 <div class="flex items-center justify-between p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
-                                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Submit here</button>
+                                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Update</button>
                                     <button data-modal-hide="modal-edit-project-details" type="button" class="ms-3 text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Decline</button>
                                 </div>
                                 </form>
@@ -659,7 +669,7 @@
                                 <div class="p-3 space-y-2 flex justify-start flex-col">
 
                                     <!-- Modal toggle -->
-                                    <button data-modal-target="modal-upload-documents" data-modal-toggle="modal-upload-documents" class="px-2 py-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 text-xs xl:text-[.8rem] 2xl:text-xs xl:text-xs space-x-2 flex" type="button">
+                                    <button data-modal-target="modal-upload-documents" data-modal-toggle="modal-upload-documents" class="px-2 py-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 text-xs xl:text-[.8rem] 2xl:text-xs xl:text-xs space-x-2 flex hover:bg-blue-600 hover:text-white" type="button">
                                         <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="17"
                                             height="17" viewBox="0 0 16 16">
                                             <g fill="currentColor">
@@ -671,7 +681,7 @@
                                         </svg>
                                         Upload Documents
                                     </button>
-                                    <button data-modal-target="modal-edit-project-details" data-modal-toggle="modal-edit-project-details" class="px-2 py-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 text-xs xl:text-[.8rem] 2xl:text-xs xl:text-xs space-x-2 flex" type="button">
+                                    <button data-modal-target="modal-edit-project-details" data-modal-toggle="modal-edit-project-details" class="px-2 py-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 text-xs xl:text-[.8rem] 2xl:text-xs xl:text-xs space-x-2 flex hover:bg-blue-600 hover:text-white" type="button">
                                         <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="17"
                                             height="17" viewBox="0 0 16 16">
                                             <g fill="currentColor">
@@ -683,20 +693,20 @@
                                         </svg>
                                         Edit Project Documents
                                     </button>
-                                    <a class="border-blue-600 bg-white border px-2 py-2 rounded-xl text-blue-600 text-xs  2xl:text-xs  flex"
+                                    <a class="border-blue-600 bg-white border px-2 py-2 rounded-xl text-blue-600 text-xs  2xl:text-xs  flex hover:bg-blue-600 hover:text-white"
                                         href={{ url('download', $proposal->id) }}>
-                                        <svg class="fill-blue-600 mr-1" xmlns="http://www.w3.org/2000/svg" height="15"
+                                        <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" height="15"
                                             viewBox="0 96 960 960" width="20">
-                                            <path
+                                            <path fill="currentColor"
                                                 d="M220 896q-24 0-42-18t-18-42V693h60v143h520V693h60v143q0 24-18 42t-42 18H220Zm260-153L287 550l43-43 120 120V256h60v371l120-120 43 43-193 193Z" />
                                         </svg>
                                         Download this Project
                                     </a>
-                                    <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="bg-white border w-full border-blue-600 rounded-xl text-blue-600 2xl:text-xs text-xs space-x-2 flex p-2" type="button">
+                                    <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="bg-white border w-full border-blue-600 rounded-xl text-blue-600 2xl:text-xs text-xs space-x-2 flex p-2 hover:bg-blue-600 hover:text-white" type="button">
                                         <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 32 32"><path fill="currentColor" d="M12 12h2v12h-2zm6 0h2v12h-2z"/><path fill="currentColor" d="M4 6v2h2v20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8h2V6zm4 22V8h16v20zm4-26h8v2h-8z"/></svg>
                                              Delete this Project
                                     </button>
-                                    <button data-modal-target="modal-track-documents" data-modal-toggle="modal-track-documents" class="px-2 py-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 text-xs xl:text-[.8rem] 2xl:text-xs xl:text-xs space-x-2 flex" type="button">
+                                    <button data-modal-target="modal-track-documents" data-modal-toggle="modal-track-documents" class="px-2 py-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 text-xs xl:text-[.8rem] 2xl:text-xs xl:text-xs space-x-2 flex hover:bg-blue-600 hover:text-white" type="button">
                                         <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 256 256"><path fill="currentColor" d="M88 112a8 8 0 0 1 8-8h80a8 8 0 0 1 0 16H96a8 8 0 0 1-8-8m8 40h80a8 8 0 0 0 0-16H96a8 8 0 0 0 0 16m136-88v120a24 24 0 0 1-24 24H32a24 24 0 0 1-24-23.89V88a8 8 0 0 1 16 0v96a8 8 0 0 0 16 0V64a16 16 0 0 1 16-16h160a16 16 0 0 1 16 16m-16 0H56v120a23.84 23.84 0 0 1-1.37 8H208a8 8 0 0 0 8-8Z"/></svg>
                                             Track Documents
                                     </button>
@@ -1332,7 +1342,34 @@
 
         <x-messages />
 
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <script>
+
+            document.addEventListener('DOMContentLoaded', function () {
+                var leaderIdSelect = document.getElementById('leader_id');
+                var leaderMemberTypeSelect = document.getElementById('leader_member_type');
+                var locationIdSelect = document.getElementById('location_id');
+
+                leaderIdSelect.addEventListener('change', function () {
+                    var leaderIdValue = leaderIdSelect.value.trim();
+                    var isLeaderIdFilled = leaderIdValue !== '';
+
+                    leaderMemberTypeSelect.disabled = !isLeaderIdFilled;
+                    locationIdSelect.disabled = !isLeaderIdFilled;
+
+                    if (isLeaderIdFilled) {
+                        leaderMemberTypeSelect.setAttribute('required', 'required');
+                        locationIdSelect.setAttribute('required', 'required');
+                    } else {
+                        leaderMemberTypeSelect.removeAttribute('required');
+                        locationIdSelect.removeAttribute('required');
+                    }
+                });
+            });
+
+
+
+
             document.addEventListener('DOMContentLoaded', function () {
                 // Get the toggle all button
                 var toggleAllButton = document.getElementById('selectAll');
@@ -1549,6 +1586,7 @@
                         `<tr>
                             <td class="pr-4 pt-2">
                                 <select name="member[`+index+`][id]" class="rounded-md xl:text-xs w-full border-zinc-400" id="member" required >
+                                    <option value="">Select Username</option>
                                     @foreach ($members as $id => $name )
                                     <option value="{{ $id }}"
                                     >{{ $name }}</option>
@@ -1557,7 +1595,8 @@
                             </td>
 
                             <td class="pr-4 pt-2">
-                                <select  name="member[`+index+`][type]" class="rounded-md xl:text-xs w-full border-zinc-400" required >
+                                <select name="member[`+index+`][type]" class="rounded-md xl:text-xs w-full border-zinc-400" required >
+                                    <option value="">Select Type</option>
                                     @foreach ($parts_names as $id => $name )
                                     <option value="{{ $name }}"
                                     @if ($id == old('parts_names_id'))
@@ -1599,6 +1638,8 @@
                     container.appendChild(p);
                 }
             }
+
+
         </script>
 
 

@@ -19,7 +19,10 @@ class AllProposalController extends Controller
         $proposalmember = ProposalMember::with('proposal')->get();
         $allproposal = CustomizeUserAllProposal::where('id', 1)->get();
         $years = AdminYear::orderBy('year', 'DESC')->pluck('year');
-        $proposals = Proposal::with('proposal_members')->orderBy('created_at', 'asc')->get();
+        $proposals = Proposal::with(['proposal_members' => function ($query) {
+            $query->take(5)->latest();
+        }])->orderBy('created_at', 'asc')->get();
+
         $myproposal = Proposal::with(['proposal_members' => function ($query) {
         $query->where('user_id', auth()->user()->id); }])->get();
         $leader_member = CesoRole::orderBy('role_name')->pluck('role_name', 'id');

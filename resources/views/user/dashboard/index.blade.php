@@ -38,7 +38,7 @@
                 <div class="w-full rounded-lg bg-gradient-to-tl from-violet-400 to-sky-500 xl:px-5 xl:py-5 2xl:px-10 2xl:py-5 flex lg:p-2 relative">
                     <div class="flex-1 text-gray-800 flex  md:flex-col  pl-5 justify-center">
                         <span class=" font-medium text-5xl 2xl:text-6xl">{{$counts}}</span>
-                        <h1 class="font-thick  tracking-wide text-xs 2xl:text-sm">Completed Proposal</h1>
+                        <h1 class="font-thick  tracking-wide text-xs 2xl:text-sm">Completed Project</h1>
                     </div>
 
                     <div class="flex xl:items-center justify-center lg:items-start lg:pt-4 xl:pt-0 lg:right-6 right-2 top-4 xl:right-0 xl:top-0 absolute xl:relative">

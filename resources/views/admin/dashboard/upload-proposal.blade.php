@@ -23,9 +23,9 @@
         @endforeach
     @endif
 
-    <section class="mt-4 2xl:mt-5 m-8 rounded-xl  2xl:h-[87vh] h-[82vh] bg-white text-gray-700">
+    <section class="mt-4 2xl:mt-5 m-8 rounded-xl 2xl:h-[87vh] h-[82vh] overflow-x-auto bg-white text-gray-700">
 
-        <div class="flex justify-between items-center p-4 xl:py-3 2xl:py-4">
+        <header class="flex justify-between items-center p-4 xl:py-3 2xl:py-4 sticky top-0 z-10 bg-white">
             <h1 class="2xl:text-2xl xl:text-lg text-[.9rem] font-semibold text-slate-600">Upload Project <span
                     class="text-red-500 text-xs tracking-wide font-light"> * required fields</span></h1>
             <a href="/admin" class="text-red-500 text-xl font-medium focus:bg-gray-300 focus:rounded">
@@ -34,7 +34,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </a>
-        </div>
+        </header>
 
         <hr>
 

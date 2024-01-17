@@ -142,7 +142,7 @@
                         <form action={{ route('inventory.update-project-details', $proposals->id ) }} method="POST">
                             @csrf @method('PUT')
                         <div class="p-4 md:p-5">
-                            <div class="flex space-y-4 flex-col">
+                            <div class="flex 2xl:space-y-4 2xl:space-x-0 space-x-4 2xl:flex-col flex-row">
                                 <div class="w-full">
                                     <label class="xl:text-xs block text-white text-sm font-medium mb-2 tracking-wider 2xl:text-xs" for="program_id">Program Name <span class="text-red-500">*</span></label>
                                     <select id="program_id" class="rounded-md xl:text-xs w-full border-zinc-400  py-2 px-3" name="program_id" value="{{ old('program_id') }}" required>
@@ -229,7 +229,7 @@
                                     </div>
                                 </div>
 
-                                <div class="mt-4 w-full h-[15vh] 2xl:h-[20vh] overflow-x-auto">
+                                <div class="mt-4 w-full h-[25vh] 2xl:h-[20vh] overflow-x-auto">
 
                                     <div class="sticky top-0 bg-gray-700 w-full">
                                         <button name="add" id="add" type="button" class="bg-slate-500 rounded text-white px-2 py-1  text-sm xl:text-xs border-zinc-400">Add Member</button>
@@ -495,7 +495,7 @@
 
                         <div class="py-2 space-y-2 mt-5 flex flex-col transition-all ">
 
-                            <button data-modal-target="modal-upload-documents" data-modal-toggle="modal-upload-documents" class="px-2 py-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 text-xs xl:text-[.8rem] 2xl:text-xs xl:text-xs space-x-2 flex" type="button">
+                            <button data-modal-target="modal-upload-documents" data-modal-toggle="modal-upload-documents" class="p-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 text-xs xl:text-[.8rem] 2xl:text-xs xl:text-xs space-x-2 flex hover:bg-blue-600 hover:text-white" type="button">
                                 <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="17"
                                     height="17" viewBox="0 0 16 16">
                                     <g fill="currentColor">
@@ -508,7 +508,7 @@
                                 Upload Documents
                             </button>
 
-                            <button data-modal-target="modal-edit-project-details" data-modal-toggle="modal-edit-project-details" class="px-2 py-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 text-xs xl:text-[.8rem] 2xl:text-xs xl:text-xs space-x-2 flex" type="button">
+                            <button data-modal-target="modal-edit-project-details" data-modal-toggle="modal-edit-project-details" class="p-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 text-xs xl:text-[.8rem] 2xl:text-xs xl:text-xs space-x-2 flex hover:bg-blue-600 hover:text-white" type="button">
                                 <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="17"
                                     height="17" viewBox="0 0 16 16">
                                     <g fill="currentColor">
@@ -521,12 +521,12 @@
                                 Edit Project Documents
                             </button>
 
-                            <button data-modal-target="modal-track-documents" data-modal-toggle="modal-track-documents" class="px-2 py-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 text-xs xl:text-[.8rem] 2xl:text-xs xl:text-xs space-x-2 flex" type="button">
+                            <button data-modal-target="modal-track-documents" data-modal-toggle="modal-track-documents" class="p-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 text-xs xl:text-[.8rem] 2xl:text-xs xl:text-xs space-x-2 flex hover:bg-blue-600 hover:text-white" type="button">
                                 <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 256 256"><path fill="currentColor" d="M88 112a8 8 0 0 1 8-8h80a8 8 0 0 1 0 16H96a8 8 0 0 1-8-8m8 40h80a8 8 0 0 0 0-16H96a8 8 0 0 0 0 16m136-88v120a24 24 0 0 1-24 24H32a24 24 0 0 1-24-23.89V88a8 8 0 0 1 16 0v96a8 8 0 0 0 16 0V64a16 16 0 0 1 16-16h160a16 16 0 0 1 16 16m-16 0H56v120a23.84 23.84 0 0 1-1.37 8H208a8 8 0 0 0 8-8Z"/></svg>
                                     Track Documents
                             </button>
 
-                            <a class="px-2 py-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 xl:text-[.8rem] 2xl:text-xs text-xs space-x-2 flex" href={{ url('download', $proposals->id) }}>
+                            <a class="p-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 xl:text-[.8rem] 2xl:text-xs text-xs space-x-2 flex hover:bg-blue-600 hover:text-white" href={{ url('download', $proposals->id) }}>
                                 <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 256 256"><path fill="currentColor" d="M82.34 117.66A8 8 0 0 1 88 104h32V40a8 8 0 0 1 16 0v64h32a8 8 0 0 1 5.66 13.66l-40 40a8 8 0 0 1-11.32 0ZM216 144a8 8 0 0 0-8 8v56H48v-56a8 8 0 0 0-16 0v56a16 16 0 0 0 16 16h160a16 16 0 0 0 16-16v-56a8 8 0 0 0-8-8Z"/></svg>
                                 Download to zip
                             </a>

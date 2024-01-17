@@ -53,6 +53,8 @@
 
             <td class="px-4 py-4 text-sm whitespace-nowrap ">
                 <div class="flex items-center">
+
+
                     @foreach ($proposal->proposal_members as $props )
                         <img class="object-cover w-6 h-6 -mx-1 border-2 border-white bg-white rounded-full  shrink-0" src="{{ (!empty($props->user->avatar))? url('upload/image-folder/profile-image/'. $props->user->avatar): url('upload/profile.png') }}" alt="">
                     @endforeach

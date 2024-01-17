@@ -236,11 +236,11 @@
                                                                         </div>
                                                                         <div>
                                                                             <label class="text-xs text-gray-700 font-semibold tracking-wider">Started date:</label>
-                                                                            <h1 class="text-xs tracking-wider">{{ \Carbon\Carbon::parse($proposal->started_date)->format('l,  F d, Y ')}}</h1>
+                                                                            <h1 class="text-xs tracking-wider">{{ $proposal->started_date == null ? 'No date' :  $proposal->started_date->format('M. d, Y') }}</h1>
                                                                         </div>
                                                                         <div>
                                                                             <label class="text-xs text-gray-700 font-semibold tracking-wider">Finished date:</label>
-                                                                            <h1 class="text-xs tracking-wider">{{ \Carbon\Carbon::parse($proposal->finished_date)->format('l,  F d, Y ')}}</h1>
+                                                                            <h1 class="text-xs tracking-wider">{{ $proposal->finished_date == null ? 'No date' :  $proposal->finished_date->format('M. d, Y') }}</h1>
                                                                         </div>
                                                                     </div>
                                                                 </div>

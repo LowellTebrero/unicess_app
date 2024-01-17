@@ -226,10 +226,9 @@ class DashboardController extends Controller
         ->get(['id', 'name'])
         ->mapWithKeys(function ($user) {
             return [$user->id => $user->name];
-        })
-        ->prepend('Select name', '');
-        $ceso_roles = CesoRole::orderBy('role_name')->pluck('role_name', 'id')->prepend('Select Role', '');
-        $locations = Location::orderBy('location_name')->pluck('location_name', 'id')->prepend('Select Location', '');
+        });
+        $ceso_roles = CesoRole::orderBy('role_name')->pluck('role_name', 'id');
+        $locations = Location::orderBy('location_name')->pluck('location_name', 'id');
         $parts_names = ParticipationName::orderBy('participation_name')->pluck('participation_name', 'id');
         $narrativeCount = NarrativeReport::distinct('user_id')->count();
         $terminalCount = TerminalReport::distinct('user_id')->count();
@@ -298,8 +297,6 @@ class DashboardController extends Controller
         $request->validate([
             'program_id' => 'required',
             'project_title' => 'required',
-            'started_date' => 'required',
-            'finished_date' => 'required',
         ]);
 
         Proposal::where('id', $proposals->id)->update([
@@ -342,6 +339,7 @@ class DashboardController extends Controller
             ProposalMember::whereNotNull('member_type')->where('proposal_id', $proposals->id)->delete();
         }
 
+        flash()->addSuccess('Details Updated Successfully');
         return redirect("/admin/dashboard/user-proposal/{$proposals->id}/{$proposals->id}");
     }
 

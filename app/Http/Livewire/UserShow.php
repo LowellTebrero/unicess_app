@@ -178,10 +178,18 @@ class UserShow extends Component
             ->paginate($this->paginate),
             'faculties' => Faculty::orderBy('name')->pluck('name', 'id')->prepend('All Faculties', ''),
             'roled' => Role::orderBy('name')->pluck('name', 'id')->prepend('All Role', ''),
-            'Usercount' => User::count(),
-            'approved' => User::where('authorize', 'checked')->count(),
-            'pending' => User::where('authorize', 'pending')->count(),
-            'declined' => User::where('authorize', 'close')->count(),
+            'Usercount' => User::doesntHave('roles', 'and', function ($query) {
+            $query->where('id', 1); })->get(['id', 'name'])->mapWithKeys(function ($user) {
+            return [$user->id => $user->name]; })->count(),
+            'approved' => User::where('authorize', 'checked')->doesntHave('roles', 'and', function ($query) {
+                $query->where('id', 1); })->get(['id', 'name'])->mapWithKeys(function ($user) {
+                return [$user->id => $user->name]; })->count(),
+            'pending' => User::where('authorize', 'pending')->doesntHave('roles', 'and', function ($query) {
+                $query->where('id', 1); })->get(['id', 'name'])->mapWithKeys(function ($user) {
+                return [$user->id => $user->name]; })->count(),
+            'declined' => User::where('authorize', 'close')->doesntHave('roles', 'and', function ($query) {
+                $query->where('id', 1); })->get(['id', 'name'])->mapWithKeys(function ($user) {
+                return [$user->id => $user->name]; })->count(),
             'user' => User::with('role')->get(),
             'college_extension_coordinator' => DB::table('model_has_roles')
             ->where('model_type', 'App\Models\User')
