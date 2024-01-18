@@ -243,11 +243,45 @@
                                                 @foreach ($proposal->proposal_members as $proposal_mem)
                                                 @if ($proposal_mem->member_type !== null)
                                                 @php($count++)
+                                                <tr>
+                                                    <td class="pr-4 pt-2">
+                                                        <select name="member[{{ $count }}][id]" class="rounded-md xl:text-xs w-full border-zinc-400" id="member" required>
+                                                            <option value="">Select Username</option>
+                                                            @foreach ($members as $id => $participation_name )
+                                                                <option value="{{ $id }}"
+                                                                    @if ($proposal_mem->member_type != null ? $proposal_mem->user_id == $id : '')
+                                                                    selected="selected"
+                                                                    @endif>
+                                                                    {{ $participation_name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </td>
 
+                                                    <td class="pr-4 pt-2">
+
+                                                        <select name="member[{{ $count }}][type]" class="rounded-md xl:text-xs w-full border-zinc-400">
+                                                            <option value="">Select Type</option>
+                                                            @foreach ($parts_names as $id => $name ) <option value="{{ $name }}"
+
+                                                                @if ($proposal_mem->member_type != null ? $proposal_mem->member_type == $name : '')
+                                                                selected="selected"
+                                                                @endif
+                                                                >
+                                                                {{ $name }}
+                                                            @endforeach
+                                                        </option>
+                                                    </select>
+                                                    </td>
+
+                                                    <td>
+                                                        <button type="button" class="bg-red-500 remove-table-row text-xs text-white px-2 py-1 rounded">Remove</button>
+                                                    </td>
+                                                </tr>
                                                 @endif
                                                 @endforeach
 
-                                        </tbody>
+                                            </tbody>
                                         </table>
                                     </div>
                                 </div>
