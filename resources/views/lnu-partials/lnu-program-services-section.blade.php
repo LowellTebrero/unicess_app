@@ -48,7 +48,7 @@
                                             <h5 class="mb-2 text-base font-bold tracking-tight text-gray-600">{{ $progserv->title }}</h5>
                                             <p class="mb-3 font-normal text-xs text-gray-600">{{ Str::limit($progserv->description, 800) }}</p>
                                         </div>
-
+                                        @auth
                                         @unlessrole('admin')
                                         <a href={{ route('allProposal.show', $progserv->proposal_id) }} class="w-[15rem] inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                             Click here for other details
@@ -59,6 +59,7 @@
                                             Click here for other details
                                         </a>
                                         @endrole
+                                        @endauth
 
                                         @guest
                                         <button data-modal-target="popup-modal-physical" data-modal-toggle="popup-modal-physical" data-modal-hide="default-modal-physical" class="w-[15rem] block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
@@ -144,7 +145,7 @@
                                             <h5 class="mb-2 text-base font-bold tracking-tight text-gray-600">{{ $progserv->title }}</h5>
                                             <p class="mb-3 font-normal text-xs text-gray-600">{{ Str::limit($progserv->description, 800) }}</p>
                                         </div>
-
+                                        @auth
                                         @unlessrole('admin')
                                         <a href={{ route('allProposal.show', $progserv->proposal_id) }} class="w-[15rem] inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                             Click here for other details
@@ -155,6 +156,7 @@
                                             Click here for other details
                                         </a>
                                         @endrole
+                                        @endauth
 
                                         @guest
                                         <button data-modal-target="popup-modal-physical" data-modal-toggle="popup-modal-physical" data-modal-hide="default-modal-physical" class="w-[15rem] block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
@@ -239,7 +241,7 @@
                                             <h5 class="mb-2 text-base font-bold tracking-tight text-gray-600">{{ $progserv->title }}</h5>
                                             <p class="mb-3 font-normal text-xs text-gray-600">{{ Str::limit($progserv->description, 800) }}</p>
                                         </div>
-
+                                        @auth
                                         @unlessrole('admin')
                                         <a href={{ route('allProposal.show', $progserv->proposal_id) }} class="w-[15rem] inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                             Click here for other details
@@ -250,6 +252,7 @@
                                             Click here for other details
                                         </a>
                                         @endrole
+                                        @endauth
 
                                         @guest
                                         <button data-modal-target="popup-modal-physical" data-modal-toggle="popup-modal-physical" data-modal-hide="default-modal-physical" class="w-[15rem] block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
@@ -333,7 +336,7 @@
                                             <h5 class="mb-2 text-base font-bold tracking-tight text-gray-600">{{ $progserv->title }}</h5>
                                             <p class="mb-3 font-normal text-xs text-gray-600">{{ Str::limit($progserv->description, 800) }}</p>
                                         </div>
-
+                                        @auth
                                         @unlessrole('admin')
                                         <a href={{ route('allProposal.show', $progserv->proposal_id) }} class="w-[15rem] inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                             Click here for other details
@@ -344,6 +347,7 @@
                                             Click here for other details
                                         </a>
                                         @endrole
+                                        @endauth
 
                                         @guest
                                         <button data-modal-target="popup-modal-physical" data-modal-toggle="popup-modal-physical" data-modal-hide="default-modal-physical" class="w-[15rem] block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
@@ -426,7 +430,7 @@
                                             <h5 class="mb-2 text-base font-bold tracking-tight text-gray-600">{{ $progserv->title }}</h5>
                                             <p class="mb-3 font-normal text-xs text-gray-600">{{ Str::limit($progserv->description, 800) }}</p>
                                         </div>
-
+                                        @auth
                                         @unlessrole('admin')
                                         <a href={{ route('allProposal.show', $progserv->proposal_id) }} class="w-[15rem] inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                             Click here for other details
@@ -437,6 +441,7 @@
                                             Click here for other details
                                         </a>
                                         @endrole
+                                        @endauth
 
                                         @guest
                                         <button data-modal-target="popup-modal-physical" data-modal-toggle="popup-modal-physical" data-modal-hide="default-modal-physical" class="w-[15rem] block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
@@ -519,7 +524,7 @@
                                             <h5 class="mb-2 text-base font-bold tracking-tight text-gray-600">{{ $progserv->title }}</h5>
                                             <p class="mb-3 font-normal text-xs text-gray-600">{{ Str::limit($progserv->description, 800) }}</p>
                                         </div>
-
+                                        @auth
                                         @unlessrole('admin')
                                         <a href={{ route('allProposal.show', $progserv->proposal_id) }} class="w-[15rem] inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                             Click here for other details
@@ -530,6 +535,7 @@
                                             Click here for other details
                                         </a>
                                         @endrole
+                                        @endauth
 
                                         @guest
                                         <button data-modal-target="popup-modal-physical" data-modal-toggle="popup-modal-physical" data-modal-hide="default-modal-physical" class="w-[15rem] block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
@@ -612,7 +618,7 @@
                                             <h5 class="mb-2 text-base font-bold tracking-tight text-gray-600">{{ $progserv->title }}</h5>
                                             <p class="mb-3 font-normal text-xs text-gray-600">{{ Str::limit($progserv->description, 800) }}</p>
                                         </div>
-
+                                        @auth
                                         @unlessrole('admin')
                                         <a href={{ route('allProposal.show', $progserv->proposal_id) }} class="w-[15rem] inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                             Click here for other details
@@ -623,6 +629,7 @@
                                             Click here for other details
                                         </a>
                                         @endrole
+                                        @endauth
 
                                         @guest
                                         <button data-modal-target="popup-modal-physical" data-modal-toggle="popup-modal-physical" data-modal-hide="default-modal-physical" class="w-[15rem] block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
@@ -705,7 +712,7 @@
                                             <h5 class="mb-2 text-base font-bold tracking-tight text-gray-600">{{ $progserv->title }}</h5>
                                             <p class="mb-3 font-normal text-xs text-gray-600">{{ Str::limit($progserv->description, 800) }}</p>
                                         </div>
-
+                                        @auth
                                         @unlessrole('admin')
                                         <a href={{ route('allProposal.show', $progserv->proposal_id) }} class="w-[15rem] inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                             Click here for other details
@@ -716,6 +723,8 @@
                                             Click here for other details
                                         </a>
                                         @endrole
+                                        @endauth
+
 
                                         @guest
                                         <button data-modal-target="popup-modal-physical" data-modal-toggle="popup-modal-physical" data-modal-hide="default-modal-physical" class="w-[15rem] block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
