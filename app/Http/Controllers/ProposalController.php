@@ -10,9 +10,9 @@ use App\Models\Program;
 use App\Models\CesoRole;
 use App\Models\Location;
 use App\Models\Proposal;
+use App\Models\Template;
 use App\Models\AdminYear;
 use App\Models\Evaluation;
-use App\Models\Template;
 use App\Rules\UniqueTitle;
 use Illuminate\Http\Request;
 use App\Models\ProposalMember;
@@ -28,6 +28,8 @@ use App\Notifications\ProposalNotification;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\UserTagProposalNotification;
 use App\Notifications\UserTagRemoveProposalNotification;
+use App\Notifications\UserDeletedTheirProposaleNotification;
+use App\Notifications\AdminDeletedProposaleFromUserNotification;
 
 
 
@@ -416,7 +418,44 @@ class ProposalController extends Controller
      public function UserDeleteProposal($id){
 
         $proposal = Proposal::findorFail($id);
-        $proposal->delete();
+
+        $admin = User::whereHas('roles', function ($query) { $query->where('id', 1);})->get();
+        // Notify each admin individually
+        foreach ($admin as $adminUser) {
+            $adminUser->notify(new AdminDeletedProposaleFromUserNotification($proposal));
+        }
+        // Notify Users
+       foreach($proposal->proposal_members as $member){
+
+            $users = User::where('id', $member->user_id )->get();
+            foreach($users as $user){
+                $user->notify(new UserDeletedTheirProposaleNotification($proposal));
+            }
+
+       }
+       // proposal delete
+       $proposal->delete();
+
+
+       $notifications = DB::table('notifications')->get();
+
+       foreach ($notifications as $notification) {
+            // Decode the JSON string into an array
+            $data = json_decode($notification->data, true);
+
+            // Check if the data array has an 'id' matching the one you want to delete
+            if (is_array($data) && array_key_exists('id', $data) && $data['id'] == $id) {
+            // Delete the notification
+
+                DB::table('notifications')->where('id', $notification->id)->delete();
+            }
+            // Check if the data array has an 'id' matching the one you want to delete
+            if (is_array($data) && array_key_exists('proposal_id', $data) && $data['proposal_id'] == $id) {
+            // Delete the notification
+
+                DB::table('notifications')->where('id', $notification->id)->delete();
+            }
+        }
 
         return redirect(route('User-dashboard.index'))->with('message', 'Proposal Deleted Successfully');
      }

@@ -47,8 +47,7 @@ use Illuminate\Support\Facades\Notification;
         $currentYear = date('Y');
         $previousYear = $currentYear + 1;
 
-
-
+        // dd($notifications);
 
 
         return view('admin.dashboard.index', compact('projectProposal', 'allProposal', 'getCountProposals', 'getCountUsers',

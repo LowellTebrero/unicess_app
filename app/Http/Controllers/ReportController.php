@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Proposal;
 use Illuminate\Http\Request;
 use App\Models\ProposalMember;
 use App\Models\TerminalReport;
 use App\Models\NarrativeReport;
+use App\Notifications\NarrativeNotification;
+use Illuminate\Support\Facades\Notification;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class ReportController extends Controller
@@ -41,6 +44,10 @@ class ReportController extends Controller
         }
 
         $post->save();
+
+        $admin = User::whereHas('roles', function ($query) { $query->where('id', 1);})->get();
+
+        Notification::send($admin, new NarrativeNotification($post));
 
         flash()->addSuccess('Project Uploaded Successfully.');
         return back();

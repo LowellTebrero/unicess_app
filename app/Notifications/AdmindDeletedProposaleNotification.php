@@ -7,37 +7,26 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class UserTagProposalNotification extends Notification
+class AdmindDeletedProposaleNotification extends Notification
 {
     use Queueable;
-    public $model;
+    public $proposalDelete;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($model)
+    public function __construct($proposalDelete)
     {
-        $this->model = $model;
+        $this->proposalDelete = $proposalDelete;
     }
 
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
     public function via($notifiable)
     {
         return ['database'];
     }
 
-    /**
-     * Get the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
+
 
     /**
      * Get the array representation of the notification.
@@ -47,10 +36,12 @@ class UserTagProposalNotification extends Notification
      */
     public function toArray($notifiable)
     {
+
+
         return [
-            'tag_id' => $this->model->user_id,
-            'proposal_id' => $this->model->proposal_id,
-            'proposal_title' => $this->model->proposal->project_title,
+            'admin_deleted_proposal' => $this->proposalDelete->id,
+            'admin_deleted_project_title' => $this->proposalDelete->project_title,
         ];
+
     }
 }
