@@ -52,7 +52,7 @@ class PostController extends Controller
         $partners = AdminPartner::take(6)->get();
         $beneficiaries = AdminBeneficiary::take(6)->get();
         $programservices = AdminProgramServices::all();
-        dd($programservices);
+
         $events = [];
         $appointments  = AdminCalendar::all();
 
