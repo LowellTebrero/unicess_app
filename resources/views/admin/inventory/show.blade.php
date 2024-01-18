@@ -99,7 +99,7 @@
                                     <x-tooltip-modal>
                                         <a href={{ url('download', $proposal->id) }} class="block text-xs p-2 hover:text-black hover:bg-gray-200" x-data="{dropdownMenu: false}" >Download as zip</a>
                                         <button class="text-xs p-2 hover:bg-gray-200 w-full text-left" type="button" @click="showModal{{ $proposal->id }} = true">Properties</button>
-                                        <form action="{{ route('admin.proposal.delete-project-proposal', $proposal->id) }}" method="POST" onsubmit="return confirm ('Are you sure?')">
+                                        <form action="{{ route('admin.inventory.delete-project-proposal', $proposal->id) }}" method="POST" onsubmit="return confirm ('Are you sure?')">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="text-xs pl-2 p-1 hover:bg-gray-200 w-full text-left">
@@ -137,10 +137,11 @@
 
     <script>
         var tooltipTimeout;
+        var proposalId = {{ $proposal->id ?? 'null' }};
 
         function showTooltip() {
           tooltipTimeout = setTimeout(function () {
-            var tooltip = document.getElementById(`tooltip-bottom`+ {{$proposal->id}});
+            var tooltip = document.getElementById(`tooltip-bottom${proposalId}`);
             tooltip.classList.remove('invisible');
             tooltip.classList.add('visible');
             tooltip.style.opacity = '1';
@@ -149,7 +150,7 @@
 
         function hideTooltip() {
           clearTimeout(tooltipTimeout);
-          var tooltip = document.getElementById(`tooltip-bottom`+ {{$proposal->id}});
+          var tooltip = document.getElementById(`tooltip-bottom${proposalId}`);
           tooltip.classList.add('invisible');
           tooltip.classList.remove('visible');
           tooltip.style.opacity = '0';

@@ -38,8 +38,8 @@ class NarrativeNotification extends Notification
     public function toArray($notifiable)
     {
         return [
+            'narrative_user_id' => $this->post->user_id,
             'narrative_id' => $this->post->id,
-            'user_id' => $this->post->user_id,
         ];
     }
 }

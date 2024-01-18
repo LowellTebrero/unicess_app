@@ -187,7 +187,7 @@
                             <h3 class="mb-5 text-sm font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete this project?</h3>
 
                             <div class="flex space-x-4 items-center justify-center">
-                                <form action={{ route('inventory-delete-proposals', $proposal->id) }} method="POST">
+                                <form action={{ route('admin.inventory.delete-project-proposal', $proposal->id) }} method="POST">
                                     @csrf @method('DELETE')
                                     <button data-modal-hide="popup-modal" type="submit" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
                                         Yes, Im sure

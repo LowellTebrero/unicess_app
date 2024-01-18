@@ -104,9 +104,9 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
         Route::get('/dashboard-search-data',  'SearchData')->name('dashboard.search-data');
         Route::get('/dashboard-filter-year',  'FilterYears')->name('dashboard.filter-year');
         Route::get('/dashboard-narrative-index',  'NarrativeIndex')->name('dashboard.narrative-index');
-        Route::get('/dashboard-narrative-show/{id}',  'NarrativeShow')->name('dashboard.narrative-show');
+        Route::get('/dashboard-narrative-show/{id}/{notification}',  'NarrativeShow')->name('dashboard.narrative-show');
         Route::get('/dashboard-terminal-index',  'TerminalIndex')->name('dashboard.terminal-index');
-        Route::get('/dashboard-terminal-show/{id}',  'TerminalShow')->name('dashboard.terminal-show');
+        Route::get('/dashboard-terminal-show/{id}/{notification}',  'TerminalShow')->name('dashboard.terminal-show');
         Route::delete('/dashboard-delete-narrative/{id}',  'deleteAllNarrative')->name('dashboard.narrative-delete');
         Route::delete('/dashboard-delete-terminal/{id}',  'deleteAllTerminal')->name('dashboard.terminal-delete');
     });
@@ -153,6 +153,7 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
         Route::get('/inventory-show/{id}','show')->name('inventory.proposal-show');
         Route::get('/inventory/{id}','showInventory')->name('inventory.show-inventory');
         Route::delete('/inventory-delete-media/{id}',  'DeleteMedia')->name('inventory.delete-media');
+        Route::delete('/inventory-delete-proposal/{id}','AdminDeleteInventoryProposal')->name('inventory.delete-project-proposal');
     });
 
 

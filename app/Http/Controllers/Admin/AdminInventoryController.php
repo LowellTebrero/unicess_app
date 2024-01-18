@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\CustomizeAdminInventory;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use App\Notifications\UserDeletedProposaleNotification;
+use App\Notifications\AdmindDeletedProposaleNotification;
 
 class AdminInventoryController extends Controller
 {
@@ -199,13 +201,61 @@ class AdminInventoryController extends Controller
     public function deleteMedia($id)
     {
 
-         Media::destroy($id);
+        Media::destroy($id);
 
 
         flash()->addSuccess('File Deleted Successfully');
         return back();
 
     }
+
+    public function AdminDeleteInventoryProposal($id)
+    {
+       $proposalDelete = Proposal::find($id);
+
+       $admin = User::whereHas('roles', function ($query) { $query->where('id', 1);})->get();
+        // Notify each admin individually
+        foreach ($admin as $adminUser) {
+            $adminUser->notify(new AdmindDeletedProposaleNotification($proposalDelete));
+        }
+        // Notify Users
+       foreach($proposalDelete->proposal_members as $member){
+
+            $users = User::where('id', $member->user_id )->get();
+            foreach($users as $user){
+                $user->notify(new UserDeletedProposaleNotification($proposalDelete));
+            }
+
+       }
+       // proposal delete
+       $proposalDelete->delete();
+
+
+       $notifications = DB::table('notifications')->get();
+
+        foreach ($notifications as $notification) {
+        // Decode the JSON string into an array
+        $data = json_decode($notification->data, true);
+
+            // Check if the data array has an 'id' matching the one you want to delete
+            if (is_array($data) && array_key_exists('id', $data) && $data['id'] == $id) {
+            // Delete the notification
+
+                DB::table('notifications')->where('id', $notification->id)->delete();
+            }
+            // Check if the data array has an 'id' matching the one you want to delete
+            if (is_array($data) && array_key_exists('proposal_id', $data) && $data['proposal_id'] == $id) {
+            // Delete the notification
+
+                DB::table('notifications')->where('id', $notification->id)->delete();
+            }
+
+        }
+
+        flash()->addSuccess('Project Deleted Successfully');
+        return back();
+    }
+
 
 
 

@@ -45,7 +45,7 @@
 
                         <tr class="hover:bg-gray-100">
                             <td class="p-3 whitespace-nowrap">
-                                <a href={{route('admin.dashboard.terminal-show', $terminal->user_id)}}>
+                                  <a href={{route('admin.dashboard.terminal-show', ['id' => $terminal->user_id, 'notification' => $terminal->user_id])}}>
                                     <div class="text-left text-gray-700 xl:text-[.7rem]">
                                         {{ \Carbon\Carbon::parse($terminal->created_at)->format('M d, Y,  g:i:s A')}}
                                     </div>
@@ -53,7 +53,7 @@
                             </td>
 
                             <td class="p-3 whitespace-nowrap">
-                                <a href={{route('admin.dashboard.terminal-show', $terminal->user_id)}}>
+                                  <a href={{route('admin.dashboard.terminal-show', ['id' => $terminal->user_id, 'notification' => $terminal->user_id])}}>
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 mr-2 sm:mr-3"><img
                                             class="rounded-full"
@@ -68,13 +68,13 @@
                             </td>
 
                             <td class="p-3 whitespace-nowrap text-left">
-                                <a href={{route('admin.dashboard.terminal-show', $terminal->user_id)}}>
+                                  <a href={{route('admin.dashboard.terminal-show', ['id' => $terminal->user_id, 'notification' => $terminal->user_id])}}>
                                 {{$terminal->users->faculty->name}}
                                 </a>
                             </td>
 
                             <td class="p-3 whitespace-nowrap text-left">
-                                <a href={{route('admin.dashboard.terminal-show', $terminal->user_id)}}>
+                                  <a href={{route('admin.dashboard.terminal-show', ['id' => $terminal->user_id, 'notification' => $terminal->user_id])}}>
                                 @foreach ($terminal->users->roles as $roles )
                                 {{$roles->name}}
                                 @endforeach

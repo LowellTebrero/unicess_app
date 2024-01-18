@@ -638,9 +638,13 @@ class DashboardController extends Controller
         return view('admin.dashboard.narrative-report.index', compact('narrativeReports'));
     }
 
-    public function NarrativeShow($id){
+    public function NarrativeShow($id, $notification){
 
         $narrativeReports = NarrativeReport::where('user_id', $id)->with('users')->with('proposals')->get();
+
+        if($notification){
+            auth()->user()->unreadNotifications->where('id', $notification)->markAsRead();
+        }
         return view('admin.dashboard.narrative-report.show', compact('narrativeReports'));
     }
 
@@ -651,9 +655,12 @@ class DashboardController extends Controller
         return view('admin.dashboard.terminal-report.index', compact('terminalReports'));
     }
 
-    public function TerminalShow($id){
+    public function TerminalShow($id, $notification){
 
         $terminalReports = TerminalReport::where('user_id', $id)->with('users')->with('proposals')->get();
+        if($notification){
+            auth()->user()->unreadNotifications->where('id', $notification)->markAsRead();
+        }
         return view('admin.dashboard.terminal-report.show', compact('terminalReports'));
     }
 

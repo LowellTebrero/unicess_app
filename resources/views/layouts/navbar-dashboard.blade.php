@@ -193,14 +193,14 @@
                                                     </div>
 
                                                     <!-- For Narrative New-Upload Notification -->
-                                                    <div class="relative">
-                                                        @if (($key == 'narrative_id') == !null)
-                                                            <a href={{ route('admin.dashboard.edit-proposal', ['id' => $value, 'notification' => $notification->id]) }}
+                                                    <div class="relative flex flex-col">
+                                                        @if (($key == 'narrative_user_id') == !null)
+                                                            <a href={{ route('admin.dashboard.narrative-show', ['id' => $value, 'notification' => $notification->id]) }}
                                                                 data-id="{{ $notification->id }}"
-                                                                class="absolute z-20  h-[10vh] sm:h-[10vh] md:h-[10vh]  2xl:h-[8.5vh]  w-full ">
+                                                                class="absolute z-10 top-0 h-[10vh] sm:h-[10vh] md:h-[10vh]  2xl:h-[8.5vh]  w-full ">
+
                                                             </a>
                                                         @endif
-
 
                                                         @if (($key == 'narrative_id') == !null)
                                                             <div
@@ -276,6 +276,8 @@
                                                             </div>
                                                         </div>
                                                     </div>
+
+
 
                                                     <!-- A User Delete this Proposal Notification -->
                                                     <div class="relative">
