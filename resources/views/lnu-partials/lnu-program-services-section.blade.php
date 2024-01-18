@@ -159,7 +159,7 @@
                                         @endauth
 
                                         @guest
-                                        <button data-modal-target="popup-modal-physical" data-modal-toggle="popup-modal-physical" data-modal-hide="default-modal-physical" class="w-[15rem] block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                                        <button data-modal-target="popup-modal-information" data-modal-toggle="popup-modal-information" data-modal-hide="default-modal-information" class="w-[15rem] block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
                                             Click here for other details
                                         </button>
                                         @endguest
@@ -350,7 +350,7 @@
                                         @endauth
 
                                         @guest
-                                        <button data-modal-target="popup-modal-physical" data-modal-toggle="popup-modal-physical" data-modal-hide="default-modal-physical" class="w-[15rem] block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                                        <button data-modal-target="popup-modal-cultural" data-modal-toggle="popup-modal-cultural" data-modal-hide="default-modal-cultural" class="w-[15rem] block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
                                             Click here for other details
                                         </button>
                                         @endguest
@@ -444,7 +444,7 @@
                                         @endauth
 
                                         @guest
-                                        <button data-modal-target="popup-modal-physical" data-modal-toggle="popup-modal-physical" data-modal-hide="default-modal-physical" class="w-[15rem] block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                                        <button data-modal-target="popup-modal-livelihood" data-modal-toggle="popup-modal-livelihood" data-modal-hide="default-modal-livelihood" class="w-[15rem] block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
                                             Click here for other details
                                         </button>
                                         @endguest
@@ -538,7 +538,7 @@
                                         @endauth
 
                                         @guest
-                                        <button data-modal-target="popup-modal-physical" data-modal-toggle="popup-modal-physical" data-modal-hide="default-modal-physical" class="w-[15rem] block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                                        <button data-modal-target="popup-modal-environmental" data-modal-toggle="popup-modal-environmental" data-modal-hide="default-modal-environmental" class="w-[15rem] block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
                                             Click here for other details
                                         </button>
                                         @endguest
@@ -632,10 +632,31 @@
                                         @endauth
 
                                         @guest
-                                        <button data-modal-target="popup-modal-physical" data-modal-toggle="popup-modal-physical" data-modal-hide="default-modal-physical" class="w-[15rem] block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                                        <button data-modal-target="popup-modal-management" data-modal-toggle="popup-modal-management" data-modal-hide="default-modal-management" class="w-[15rem] block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
                                             Click here for other details
                                         </button>
                                         @endguest
+
+                                        <div id="popup-modal-management" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                            <div class="relative p-4 w-1/2 h-1/2 ">
+                                                <div class="relative bg-white rounded-lg shadow-lg w-full h-full flex flex-col xl:flex-row">
+
+                                                    <div class="w-full">
+                                                        <img src="{{ url('upload/CESO.png') }}" class="h-[20vh] xl:h-full w-full object-cover rounded-tl-lg rounded-bl-lg">
+                                                    </div>
+
+                                                    <div class="p-4 md:p-5 w-full">
+                                                        <div class="mb-5">
+                                                            <h3 class="text-sm md:text-lg 2xl:text-2xl font-medium text-gray-800 tracking-wider">LOGIN/REGISTER ACCOUNT?</h3>
+                                                            <hr>
+                                                        </div>
+
+                                                        <a href={{ route('login') }} class="text-white bg-blue-600 hover:bg-blue-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2">Yes, Im sure</a>
+                                                        <button data-modal-hide="popup-modal-management" data-modal-toggle="default-modal-management" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No, cancel</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             @endif
@@ -645,26 +666,7 @@
                     </div>
                 </div>
             </div>
-            <div id="popup-modal-management" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                <div class="relative p-4 w-1/2 h-1/2 ">
-                    <div class="relative bg-white rounded-lg shadow-lg w-full h-full flex flex-col xl:flex-row">
 
-                        <div class="w-full">
-                            <img src="{{ url('upload/CESO.png') }}" class="h-[20vh] xl:h-full w-full object-cover rounded-tl-lg rounded-bl-lg">
-                        </div>
-
-                        <div class="p-4 md:p-5 w-full">
-                            <div class="mb-5">
-                                <h3 class="text-sm md:text-lg 2xl:text-2xl font-medium text-gray-800 tracking-wider">LOGIN/REGISTER ACCOUNT?</h3>
-                                <hr>
-                            </div>
-
-                            <a href={{ route('login') }} class="text-white bg-blue-600 hover:bg-blue-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2">Yes, Im sure</a>
-                            <button data-modal-hide="popup-modal-management" data-modal-toggle="default-modal-management" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No, cancel</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <hr>
         </div>
 
@@ -728,7 +730,7 @@
 
 
                                         @guest
-                                        <button data-modal-target="popup-modal-physical" data-modal-toggle="popup-modal-physical" data-modal-hide="default-modal-physical" class="w-[15rem] block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                                        <button data-modal-target="popup-modal-special" data-modal-toggle="popup-modal-special" data-modal-hide="default-modal-special" class="w-[15rem] block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
                                             Click here for other details
                                         </button>
                                         @endguest
