@@ -54,11 +54,13 @@
 
             <div class="mb-4 text-gray-700 w-full">
                 <label class="block font-bold mb-2 text-[.7rem]" for="project_title">Role of
-                    Leader</label>
-                    <h1 class="text-[.8rem] py-2">
-                        @foreach ($proposal->proposal_members as $proposal_mem)
-                        {{ $proposal_mem->leader_member_type != null ? $proposal_mem->ceso_role->role_name : '' }}
-                    @endforeach</h1>
+                    Leader
+                </label>
+                <h1 class="text-[.8rem] py-2">
+                    @foreach ($proposal->proposal_members as $proposal_mem)
+                    {{ $proposal_mem->leader_member_type != null ? $proposal_mem->ceso_role->role_name : '' }}
+                    @endforeach
+                </h1>
             </div>
         </div>
 

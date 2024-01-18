@@ -50,7 +50,7 @@
 
             <div class="flex justify-between p-2 2xl:p-3 {{ $proposals->authorize == 'pending' ? 'bg-red-200' : ($proposals->authorize == 'ongoing' ? 'bg-blue-200' : 'bg-green-200') }} rounded-tl rounded-tr">
                 <div class="flex flex-col sm:flex-row sm:space-x-8 font-medium text-gray-700">
-                    <h1 class="text-[.7rem] xl:text-sm tracking-wider">Uploaded:
+                    <h1 class="text-[.7rem] xl:text-sm tracking-wider">Created:
                         {{ \Carbon\Carbon::parse($proposals->created_at)->format('F-d-Y') }}</h1>
                     <h1 class="text-[.7rem] xl:text-sm tracking-wider">Status: {{ $proposals->authorize }}</h1>
                     <h1 class="text-[.7rem] xl:text-sm tracking-wider">Program/Project ID: {{ $proposals->id }}</h1>
@@ -76,7 +76,201 @@
                     </button>
 
                     <div class="flex flex-col space-y-2 mb-4">
-                        <h1 class="text-base font-medium tracking-wide">Summary:</h1>
+                        <div class="flex   justify-between">
+                            <h1 class="text-base font-medium tracking-wide">Summary:</h1>
+                            <button data-modal-target="modal-show-all-summary" data-modal-toggle="modal-show-all-summary" class="px-2 py-1 bg-white border border-gray-600 rounded  text-gray-600 text-xs xl:text-[.8rem] 2xl:text-xs xl:text-xs space-x-2 flex hover:bg-gray-600 hover:text-white" type="button">
+                                {{--  <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="17"
+                                    height="17" viewBox="0 0 16 16">
+                                    <g fill="currentColor">
+                                        <path
+                                            d="m5.369 7.92l2.14-2.14v5.752h1v-5.68l2.066 2.067l.707-.707l-2.957-2.956h-.707L4.662 7.212l.707.707Z" />
+                                        <path
+                                            d="M14 8A6 6 0 1 1 2 8a6 6 0 0 1 12 0Zm-1 0A5 5 0 1 0 3 8a5 5 0 0 0 10 0Z" />
+                                    </g>
+                                </svg>  --}}
+                                Show All
+                            </button>
+                            <!-- Modal Upload modal documents -->
+                            <div id="modal-show-all-summary" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                <div class="relative p-4 w-full max-w-4xl max-h-full">
+                                    <!-- Modal content -->
+                                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                        <!-- Modal header -->
+                                        <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                                Program/Project Details
+                                            </h3>
+                                            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="modal-show-all-summary">
+                                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                                </svg>
+                                                <span class="sr-only">Close modal</span>
+                                            </button>
+                                        </div>
+                                        <!-- Modal body -->
+
+                                        <div class="p-4">
+                                            <h1 class="text-white text-base mb-2 tracking-wider">Details</h1>
+
+                                            <div class="space-y-2">
+                                                <p class="text-xs text-white tracking-wider">
+                                                Created at:  {{ \Carbon\Carbon::parse($proposals->created_at)->format('M d, y g:i:s A') }}
+                                                </p>
+                                                <p class="text-xs text-white tracking-wider">
+                                                Last Modified:  {{ \Carbon\Carbon::parse($proposals->updated_at)->format('M d, y g:i:s A') }}
+                                                </p>
+                                                <p class="text-xs text-white tracking-wider">
+                                                Program/Project ID: {{ $proposals->id }}
+                                                </p>
+                                                <p class="text-xs text-white tracking-wider">
+                                                Project Title: {{ $proposals->project_title }}
+                                                </p>
+
+                                                <p class="text-xs text-white tracking-wider">
+                                                Status: {{ $proposals->authorize }}
+                                                </p>
+
+                                                <p class="text-xs text-white tracking-wider">
+                                                Uploader: {{ $proposals->user->name }}
+                                                </p>
+                                                <p class="text-xs text-white tracking-wider">
+                                                Started date: {{ $proposals->started_date == null ? 'No date' :  $proposals->started_date->format('M. d, Y') }}
+                                                </p>
+                                                <p class="text-xs text-white tracking-wider">
+                                                Finished date: {{ $proposals->finished_date == null ? 'No date' :  $proposals->finished_date->format('M. d, Y') }}
+                                                </p>
+                                                <p class="text-xs text-white tracking-wide">
+                                                    Total of Users: {{ $proposals->proposal_members->count() }}
+                                                </p>
+                                            </div>
+                                            <div class="h-[40vh] 2xl:h-[50vh] overflow-auto">
+                                            <div class="mt-4 flex space-x-1 sticky top-0 z-10 bg-gray-700">
+
+                                                <h1 class="text-white text-base my-5 tracking-wider">Project Users</h1>
+                                                <button data-tooltip-target="tooltip-right" data-tooltip-placement="right" type="button" class="text-center text-white">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><g fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" opacity=".5"/><path stroke="currentColor" stroke-linecap="round" stroke-width="1.5" d="M10.125 8.875a1.875 1.875 0 1 1 2.828 1.615c-.475.281-.953.708-.953 1.26V13"/><circle cx="12" cy="16" r="1" fill="currentColor"/></g></svg>
+                                                </button>
+
+
+                                                    <div id="tooltip-right" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-white rounded-lg shadow-sm opacity-0 tooltip ">
+
+                                                        <div class="flex flex-col space-y-2 text-gray-700">
+                                                            <div class="text-xs tracking-wider flex space-x-2 items-center">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="#15c160" d="m10.562 14.492l-2.497-2.496q-.14-.14-.344-.15q-.204-.01-.363.15q-.16.16-.16.354t.16.354l2.638 2.638q.242.243.566.243q.323 0 .565-.243l5.477-5.477q.14-.14.15-.344q.01-.204-.15-.363q-.16-.16-.354-.16t-.354.16zM12.003 21q-1.866 0-3.51-.708q-1.643-.709-2.859-1.924q-1.216-1.214-1.925-2.856Q3 13.87 3 12.003q0-1.866.708-3.51q.709-1.643 1.924-2.859q1.214-1.216 2.856-1.925Q10.13 3 11.997 3q1.866 0 3.51.708q1.643.709 2.859 1.924q1.216 1.214 1.925 2.856Q21 10.13 21 11.997q0 1.866-.708 3.51q-.709 1.643-1.924 2.859q-1.214 1.216-2.856 1.925Q13.87 21 12.003 21"/></svg>
+                                                                <h1>Uploaded Narrative</h1>
+                                                            </div>
+
+                                                            <div class="text-xs tracking-wider flex space-x-2 items-center">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="#0091ff" d="m10.562 14.492l-2.497-2.496q-.14-.14-.344-.15q-.204-.01-.363.15q-.16.16-.16.354t.16.354l2.638 2.638q.242.243.566.243q.323 0 .565-.243l5.477-5.477q.14-.14.15-.344q.01-.204-.15-.363q-.16-.16-.354-.16t-.354.16zM12.003 21q-1.866 0-3.51-.708q-1.643-.709-2.859-1.924q-1.216-1.214-1.925-2.856Q3 13.87 3 12.003q0-1.866.708-3.51q.709-1.643 1.924-2.859q1.214-1.216 2.856-1.925Q10.13 3 11.997 3q1.866 0 3.51.708q1.643.709 2.859 1.924q1.216 1.214 1.925 2.856Q21 10.13 21 11.997q0 1.866-.708 3.51q-.709 1.643-1.924 2.859q-1.214 1.216-2.856 1.925Q13.87 21 12.003 21"/></svg>
+                                                                <h1>Uploaded Terminal</h1>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="tooltip-arrow" data-popper-arrow></div>
+                                                    </div>
+                                            </div>
+
+
+
+                                            <div class="space-y-3">
+                                                <div class="flex flex-row">
+                                                    <div>
+                                                        <p class="xl:text-[.7rem] text-[.6rem] text-white tracking-wider">
+                                                            Project Leader:
+
+                                                            @foreach ($proposals->proposal_members as $proposal_mem)
+                                                            @if ($proposal_mem->leader_member_type !== null)
+
+                                                                {{ $proposal_mem->leader_member_type != null ? $proposal_mem->user->name : 'None' }}
+                                                            @endif
+                                                            @endforeach
+                                                        </p>
+                                                        <p class="xl:text-[.7rem] text-[.6rem] text-white tracking-wider">
+                                                            Leader Role:
+                                                            @foreach ($proposals->proposal_members as $proposal_mem)
+                                                            @if ($proposal_mem->leader_member_type !== null)
+                                                            {{ $proposal_mem->leader_member_type != null ? $proposal_mem->ceso_role->role_name : 'None' }}
+                                                            @endif
+                                                            @endforeach
+                                                        </p>
+                                                        <p class="xl:text-[.7rem] text-[.6rem] text-white tracking-wider">
+                                                            Leader Location:
+                                                            @foreach ($proposals->proposal_members as $proposal_mem)
+                                                            @if ($proposal_mem->location_id !== null)
+                                                                {{ $proposal_mem->location_id != null ? $proposal_mem->locations->location_name : 'None' }}
+                                                            @endif
+                                                            @endforeach
+                                                        </p>
+                                                    </div>
+                                                    <p class="text-xs text-white tracking-wide flex flex-col justify-center items-center">
+                                                        <span class="flex flex-col  ml-1">
+                                                            @foreach ($proposals->proposal_members as $proposal_mem)
+                                                            @foreach ($proposals->narrativereport as $narrative)
+                                                            @if ( $proposal_mem->leader_member_type !== null && $narrative->user_id == $proposal_mem->user_id)
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="#15c160" d="m10.562 14.492l-2.497-2.496q-.14-.14-.344-.15q-.204-.01-.363.15q-.16.16-.16.354t.16.354l2.638 2.638q.242.243.566.243q.323 0 .565-.243l5.477-5.477q.14-.14.15-.344q.01-.204-.15-.363q-.16-.16-.354-.16t-.354.16zM12.003 21q-1.866 0-3.51-.708q-1.643-.709-2.859-1.924q-1.216-1.214-1.925-2.856Q3 13.87 3 12.003q0-1.866.708-3.51q.709-1.643 1.924-2.859q1.214-1.216 2.856-1.925Q10.13 3 11.997 3q1.866 0 3.51.708q1.643.709 2.859 1.924q1.216 1.214 1.925 2.856Q21 10.13 21 11.997q0 1.866-.708 3.51q-.709 1.643-1.924 2.859q-1.214 1.216-2.856 1.925Q13.87 21 12.003 21"/></svg>
+                                                            @endif
+                                                            @endforeach
+                                                            @endforeach
+                                                        </span>
+                                                        <span class="flex flex-col  ml-1">
+                                                            @foreach ($proposals->proposal_members as $proposal_mem)
+                                                            @foreach ($proposals->terminalreport as $terminal)
+                                                            @if ( $proposal_mem->leader_member_type !== null && $terminal->user_id == $proposal_mem->user_id)
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="#0091ff" d="m10.562 14.492l-2.497-2.496q-.14-.14-.344-.15q-.204-.01-.363.15q-.16.16-.16.354t.16.354l2.638 2.638q.242.243.566.243q.323 0 .565-.243l5.477-5.477q.14-.14.15-.344q.01-.204-.15-.363q-.16-.16-.354-.16t-.354.16zM12.003 21q-1.866 0-3.51-.708q-1.643-.709-2.859-1.924q-1.216-1.214-1.925-2.856Q3 13.87 3 12.003q0-1.866.708-3.51q.709-1.643 1.924-2.859q1.214-1.216 2.856-1.925Q10.13 3 11.997 3q1.866 0 3.51.708q1.643.709 2.859 1.924q1.216 1.214 1.925 2.856Q21 10.13 21 11.997q0 1.866-.708 3.51q-.709 1.643-1.924 2.859q-1.214 1.216-2.856 1.925Q13.87 21 12.003 21"/></svg>
+                                                            @endif
+                                                            @endforeach
+                                                            @endforeach
+                                                        </span>
+                                                    </p>
+                                                </div>
+
+                                                <div class="flex flex-col space-y-4">
+
+                                                        @foreach ($proposals->proposal_members as $proposal_mem)
+                                                           @if ($proposal_mem->member_type !== null)
+
+                                                                <div class="flex space-x-2">
+                                                                    <div>
+                                                                        <div class="flex space-x-2">
+                                                                            <h1 class="xl:text-[.7rem] text-[.6rem] text-white tracking-wider"> Member Name:</h1>
+                                                                            <span class="font-light 2xl:text-xs xl:text-[.7rem] text-[.7rem] text-white tracking-wider">{{ $proposal_mem->member_type !== null ? $proposal_mem->user->name : '' }}</span>
+                                                                        </div>
+                                                                        <div class="flex space-x-2">
+                                                                            <h1 class="xl:text-[.7rem] text-[.6rem] text-white tracking-wider"> Member Type:</h1>
+                                                                            <span class="font-light 2xl:text-xs  xl:text-[.7rem] text-[.7rem] text-white tracking-wider">{{ $proposal_mem->member_type }}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="flex flex-col">
+                                                                        @foreach ($proposals->narrativereport as $narrative)
+                                                                        @if ($narrative->user_id == $proposal_mem->user_id)
+                                                                        <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="#15c160" d="m10.562 14.492l-2.497-2.496q-.14-.14-.344-.15q-.204-.01-.363.15q-.16.16-.16.354t.16.354l2.638 2.638q.242.243.566.243q.323 0 .565-.243l5.477-5.477q.14-.14.15-.344q.01-.204-.15-.363q-.16-.16-.354-.16t-.354.16zM12.003 21q-1.866 0-3.51-.708q-1.643-.709-2.859-1.924q-1.216-1.214-1.925-2.856Q3 13.87 3 12.003q0-1.866.708-3.51q.709-1.643 1.924-2.859q1.214-1.216 2.856-1.925Q10.13 3 11.997 3q1.866 0 3.51.708q1.643.709 2.859 1.924q1.216 1.214 1.925 2.856Q21 10.13 21 11.997q0 1.866-.708 3.51q-.709 1.643-1.924 2.859q-1.214 1.216-2.856 1.925Q13.87 21 12.003 21"/></svg>
+                                                                        @endif
+                                                                        @endforeach
+
+                                                                        @foreach ($proposals->terminalreport as $terminal)
+                                                                        @if ($terminal->user_id == $proposal_mem->user_id)
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="#0091ff" d="m10.562 14.492l-2.497-2.496q-.14-.14-.344-.15q-.204-.01-.363.15q-.16.16-.16.354t.16.354l2.638 2.638q.242.243.566.243q.323 0 .565-.243l5.477-5.477q.14-.14.15-.344q.01-.204-.15-.363q-.16-.16-.354-.16t-.354.16zM12.003 21q-1.866 0-3.51-.708q-1.643-.709-2.859-1.924q-1.216-1.214-1.925-2.856Q3 13.87 3 12.003q0-1.866.708-3.51q.709-1.643 1.924-2.859q1.214-1.216 2.856-1.925Q10.13 3 11.997 3q1.866 0 3.51.708q1.643.709 2.859 1.924q1.216 1.214 1.925 2.856Q21 10.13 21 11.997q0 1.866-.708 3.51q-.709 1.643-1.924 2.859q-1.214 1.216-2.856 1.925Q13.87 21 12.003 21"/></svg>
+                                                                        @endif
+                                                                        @endforeach
+                                                                    </div>
+                                                                </div>
+                                                            @endif
+                                                        @endforeach
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
                         <div class="w-full">
                             <div class="w-full">
                                 <label class="block text-gray-700 text-[.7rem] font-semibold xl:text-[.7rem]"> Project Title:</label>
@@ -121,14 +315,6 @@
                                 </h1>
                             @endforeach
                         </div>
-                        {{-- <div class="w-full">
-                            <label class="block text-gray-700  font-semibold xl:text-[.7rem] text-[.7rem]">Role of Leader:</label>
-                            @foreach ($proposals->proposal_members as $proposal_mem)
-                                <h1 class="xl:text-[.7rem] text-[.7rem] appearance-none rounded w-full  text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                                    {{ $proposal_mem->leader_member_type != null ? $proposal_mem->ceso_role->role_name : '' }}
-                                </h1>
-                            @endforeach
-                        </div> --}}
                     </div>
 
 
@@ -691,7 +877,7 @@
                                                     d="M14 8A6 6 0 1 1 2 8a6 6 0 0 1 12 0Zm-1 0A5 5 0 1 0 3 8a5 5 0 0 0 10 0Z" />
                                             </g>
                                         </svg>
-                                        Edit Project Documents
+                                        Edit Project Details
                                     </button>
                                     <a class="border-blue-600 bg-white border px-2 py-2 rounded-xl text-blue-600 text-xs  2xl:text-xs  flex hover:bg-blue-600 hover:text-white"
                                         href={{ url('download', $proposal->id) }}>
