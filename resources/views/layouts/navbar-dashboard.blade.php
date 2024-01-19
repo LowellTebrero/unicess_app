@@ -11,6 +11,8 @@
             ->unreadNotifications->count();
         $notifications = auth()->user()->unreadNotifications;
         $proposals = App\Models\Proposal::all();
+        $currentYear = date('Y');
+
     @endphp
 @endauth
 
@@ -192,6 +194,90 @@
                                                         </div>
                                                     </div>
 
+                                                    <!-- For Evaluation New-Upload Notification -->
+                                                    <div class="relative flex flex-col">
+                                                        @if (($key == 'evaluation_id') == !null)
+                                                            <a href={{ route('admin.evaluation.show', ['id' => $value, 'year' => $currentYear , 'notification' => $notification->id]) }}
+                                                                class="absolute z-10 top-0 h-[10vh] sm:h-[10vh] md:h-[10vh]  2xl:h-[8.5vh]  w-full ">
+
+                                                            </a>
+                                                        @endif
+
+                                                        @if (($key == 'evaluation_user_id') == !null)
+                                                            <div
+                                                                class="px-4 py-2 flex  {{ $notification->read_at == null ? 'bg-teal-50' : 'bg-white' }}">
+                                                                <div class="mt-2 mr-2">
+                                                                    <svg class="fill-teal-500"
+                                                                        xmlns="http://www.w3.org/2000/svg" width="32"
+                                                                        height="32" viewBox="0 0 36 36">
+                                                                        <path
+                                                                            d="M31 34H13a1 1 0 0 1-1-1V11a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v22a1 1 0 0 1-1 1Zm-17-2h16V12H14Z"
+                                                                            class="clr-i-outline clr-i-outline-path-1" />
+                                                                        <path fill="currentColor" d="M16 16h12v2H16z"
+                                                                            class="clr-i-outline clr-i-outline-path-2" />
+                                                                        <path fill="currentColor" d="M16 20h12v2H16z"
+                                                                            class="clr-i-outline clr-i-outline-path-3" />
+                                                                        <path fill="currentColor" d="M16 24h12v2H16z"
+                                                                            class="clr-i-outline clr-i-outline-path-4" />
+                                                                        <path fill="currentColor"
+                                                                            d="M6 24V4h18V3a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v22a1 1 0 0 0 1 1h1Z"
+                                                                            class="clr-i-outline clr-i-outline-path-5" />
+                                                                        <path fill="currentColor"
+                                                                            d="M10 28V8h18V7a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v22a1 1 0 0 0 1 1h1Z"
+                                                                            class="clr-i-outline clr-i-outline-path-6" />
+                                                                        <path fill="none" d="M0 0h36v36H0z" />
+                                                                    </svg>
+                                                                </div>
+                                                                <div>
+                                                                    <span
+                                                                        class="text-[.7rem] font-semibold tracking-wider text-gray-900 inline-block">New
+                                                                        Uploaded Evaluation:</span>
+                                                                    <h1 class="text-[.7rem] text-gray-700">
+                                                                        New uploaded Evaluation from User</h1>
+                                                                    <span
+                                                                        class="text-[.7rem] font-thin text-gray-400 inline-block">{{ $notification->created_at->diffForHumans() }}</span>
+                                                                </div>
+                                                            </div>
+                                                        @endif
+
+                                                        <div x-cloak x-data="{ dropdownMenu: false }"
+                                                            class="absolute right-5 top-5 z-50 ">
+                                                            <!-- Dropdown toggle button -->
+                                                            <button @click="dropdownMenu = ! dropdownMenu"
+                                                                class="flex items-center p-2 rounded-full bg-teal-400 opacity-0 hover:opacity-100 transition-all">
+                                                                <svg class="fill-white" xmlns="http://www.w3.org/2000/svg"
+                                                                    width="25" height="25" viewBox="0 0 256 256">
+                                                                    <path
+                                                                        d="M156 128a28 28 0 1 1-28-28a28 28 0 0 1 28 28ZM48 100a28 28 0 1 0 28 28a28 28 0 0 0-28-28Zm160 0a28 28 0 1 0 28 28a28 28 0 0 0-28-28Z" />
+                                                                </svg>
+                                                            </button>
+                                                            <!-- Dropdown list -->
+                                                            <div x-show="dropdownMenu"
+                                                                class="z-50 absolute left-[-8rem] top-7 py-1 px-2 mt-2 bg-white border rounded-md shadow-xl w-[10rem] space-y-2"
+                                                                x-on:keydown.escape.window="dropdownMenu = false"
+                                                                @click.away="dropdownMenu = false"
+                                                                @click="dropdownMenu = ! dropdownMenu"
+                                                                x-transition:enter="motion-safe:ease-out duration-100"
+                                                                x-transition:enter-start="opacity-0 scale-90"
+                                                                x-transition:enter-end="opacity-100 scale-100"
+                                                                x-transition:leave="ease-in duration-200"
+                                                                x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                                                                x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+
+                                                                <form
+                                                                    action={{ route('remove-notification', $notification->id) }}
+                                                                    method="POST">
+                                                                    @csrf @method('DELETE')
+                                                                    <button class="text-[.7rem] hover:text-slate-800">Remove
+                                                                        this notification</button>
+                                                                </form>
+
+                                                                <a href={{ route('markasread', $notification->id) }}
+                                                                    class="text-[.7rem] hover:text-slate-800">Mark as read</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
                                                     <!-- For Narrative New-Upload Notification -->
                                                     <div class="relative flex flex-col">
                                                         @if (($key == 'narrative_user_id') == !null)
@@ -276,8 +362,6 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
-
 
                                                     <!-- A User Delete this Proposal Notification -->
                                                     <div class="relative">
@@ -635,6 +719,90 @@
                                                                         class="text-[.7rem] font-semibold tracking-wider text-gray-900 inline-block">A User Deleted this Project:</span>
                                                                     <h1 class="text-[.7rem] text-gray-700">
                                                                         {{ Str::limit($value, 80) }}</h1>
+                                                                    <span
+                                                                        class="text-[.7rem] font-thin text-gray-400 inline-block">{{ $notification->created_at->diffForHumans() }}</span>
+                                                                </div>
+                                                            </div>
+                                                        @endif
+
+                                                        <div x-cloak x-data="{ dropdownMenu: false }"
+                                                            class="absolute right-5 top-5 z-50 ">
+                                                            <!-- Dropdown toggle button -->
+                                                            <button @click="dropdownMenu = ! dropdownMenu"
+                                                                class="flex items-center p-2 rounded-full bg-teal-400 opacity-0 hover:opacity-100 transition-all">
+                                                                <svg class="fill-white" xmlns="http://www.w3.org/2000/svg"
+                                                                    width="25" height="25" viewBox="0 0 256 256">
+                                                                    <path
+                                                                        d="M156 128a28 28 0 1 1-28-28a28 28 0 0 1 28 28ZM48 100a28 28 0 1 0 28 28a28 28 0 0 0-28-28Zm160 0a28 28 0 1 0 28 28a28 28 0 0 0-28-28Z" />
+                                                                </svg>
+                                                            </button>
+                                                            <!-- Dropdown list -->
+                                                            <div x-show="dropdownMenu"
+                                                                class="z-50 absolute left-[-8rem] top-7 py-1 px-2 mt-2 bg-white border rounded-md shadow-xl w-[10rem] space-y-2"
+                                                                x-on:keydown.escape.window="dropdownMenu = false"
+                                                                @click.away="dropdownMenu = false"
+                                                                @click="dropdownMenu = ! dropdownMenu"
+                                                                x-transition:enter="motion-safe:ease-out duration-100"
+                                                                x-transition:enter-start="opacity-0 scale-90"
+                                                                x-transition:enter-end="opacity-100 scale-100"
+                                                                x-transition:leave="ease-in duration-200"
+                                                                x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                                                                x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+
+                                                                <form
+                                                                    action={{ route('remove-notification', $notification->id) }}
+                                                                    method="POST">
+                                                                    @csrf @method('DELETE')
+                                                                    <button class="text-[.7rem] hover:text-slate-800">Remove
+                                                                        this notification</button>
+                                                                </form>
+
+                                                                <a href={{ route('markasread', $notification->id) }}
+                                                                    class="text-[.7rem] hover:text-slate-800">Mark as read</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- User Deletin of Evaluation From Admin Notification -->
+                                                    <div class="relative flex flex-col">
+                                                        {{--  @if (($key == 'deleted_evaluation_id') == !null)
+                                                            <h1
+                                                                class="absolute z-10 top-0 h-[10vh] sm:h-[10vh] md:h-[10vh]  2xl:h-[8.5vh]  w-full ">
+                                                                {{ $value }}
+                                                            </h1>
+                                                        @endif  --}}
+
+                                                        @if (($key == 'deleted_evaluation_user_id') == !null)
+                                                            <div
+                                                                class="px-4 py-2 flex  {{ $notification->read_at == null ? 'bg-teal-50' : 'bg-white' }}">
+                                                                <div class="mt-2 mr-2">
+                                                                    <svg class="fill-teal-500"
+                                                                        xmlns="http://www.w3.org/2000/svg" width="32"
+                                                                        height="32" viewBox="0 0 36 36">
+                                                                        <path
+                                                                            d="M31 34H13a1 1 0 0 1-1-1V11a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v22a1 1 0 0 1-1 1Zm-17-2h16V12H14Z"
+                                                                            class="clr-i-outline clr-i-outline-path-1" />
+                                                                        <path fill="currentColor" d="M16 16h12v2H16z"
+                                                                            class="clr-i-outline clr-i-outline-path-2" />
+                                                                        <path fill="currentColor" d="M16 20h12v2H16z"
+                                                                            class="clr-i-outline clr-i-outline-path-3" />
+                                                                        <path fill="currentColor" d="M16 24h12v2H16z"
+                                                                            class="clr-i-outline clr-i-outline-path-4" />
+                                                                        <path fill="currentColor"
+                                                                            d="M6 24V4h18V3a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v22a1 1 0 0 0 1 1h1Z"
+                                                                            class="clr-i-outline clr-i-outline-path-5" />
+                                                                        <path fill="currentColor"
+                                                                            d="M10 28V8h18V7a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v22a1 1 0 0 0 1 1h1Z"
+                                                                            class="clr-i-outline clr-i-outline-path-6" />
+                                                                        <path fill="none" d="M0 0h36v36H0z" />
+                                                                    </svg>
+                                                                </div>
+                                                                <div>
+                                                                    <span
+                                                                        class="text-[.7rem] font-semibold tracking-wider text-gray-900 inline-block">
+                                                                        Update for Evaluation:</span>
+                                                                    <h1 class="text-[.7rem] text-gray-700">
+                                                                        Admin Deleted Your Evaluation </h1>
                                                                     <span
                                                                         class="text-[.7rem] font-thin text-gray-400 inline-block">{{ $notification->created_at->diffForHumans() }}</span>
                                                                 </div>

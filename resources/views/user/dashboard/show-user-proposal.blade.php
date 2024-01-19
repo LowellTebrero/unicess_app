@@ -4,6 +4,23 @@
     <style> [x-cloak] { display: none}</style>
     <section class="m-8 h-[82vh] 2xl:h-[87vh] bg-white mt-4 2xl:mt-5  rounded-lg shadow text-slate-700 ">
 
+        @if ($proposals == null)
+        <div class="flex justify-between p-5 py-3">
+            <h1 class="text-lg tracking-wide">404 Error: Not Found</h1>
+            <a href={{ route('User-dashboard.index') }} class="text-red-500 text-lg font-medium dynamic-link hover:bg-gray-200 rounded focus:bg-red-200">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </a>
+        </div>
+        <hr>
+        <div class="flex items-center justify-center h-[100%]">
+            <h1 class="text-2xl tracking-wide text-gray-700">404 Error:<span class="text-red-500"> Not Found</span> </h1>
+        </div>
+
+        @else
+
         <div class="flex justify-between p-5 py-3">
             <h1 class="text-sm  tracking-wide">{{ $proposals->project_title }}</h1>
             <a href={{ URL::previous() }} class="text-red-500 text-lg font-medium dynamic-link hover:bg-gray-200 rounded focus:bg-red-200">
@@ -73,60 +90,12 @@
 
                 </div>
         </div>
+
+        @endif
+
     </section>
 
 </x-app-layout>
 
 
-    <script>
 
-        var count = {{ $count }};
-
-
-        $(document).on('click', '.remove-table-row', function(){
-            count--;
-            $(this).parents('tr').remove();
-
-        });
-
-
-        $('#add').click(function(){
-            count++;
-            addDivAndSetSelectName(count);
-        });
-
-
-        function addDivAndSetSelectName(index){
-
-            $('#table').append(
-                `<tr>
-                    <td class="pr-4 pt-2">
-                        <select name="member[`+index+`][id]" class="rounded-md xl:text-xs w-full border-zinc-400" id="member" required>
-                            @foreach ($members as $id => $name )
-                            <option value="{{ $id }}"
-                            >{{ $name }}</option>
-                            @endforeach
-                        </select>
-                    </td>
-
-                    <td class="pr-4 pt-2">
-                        <select  name="member[`+index+`][type]" class="rounded-md xl:text-xs w-full border-zinc-400" required>
-                            <option value="">Select Type </option>
-                            @foreach ($parts_names as $id => $name )
-                            <option value="{{ $name }}"
-                            @if ($id == old('parts_names_id'))
-                                selected="selected"
-                            @endif
-                            >{{ $name }}</option>
-                            @endforeach
-                        </select>
-                    </td>
-
-                    <td class="pr-2">
-                        <button type="button" class="bg-red-500 remove-table-row text-xs text-white px-2 py-1 rounded">Remove</button>
-                    </td>
-                </tr>`
-            );
-        }
-
-    </script>

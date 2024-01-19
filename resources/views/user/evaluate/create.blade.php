@@ -35,7 +35,7 @@
                 </svg>
             </a>
 
-        <form action="{{ route('evaluate.post') }}" method="POST" enctype="multipart/form-data" id="form" class="form">
+        <form action={{ route('evaluate.post') }} method="POST" enctype="multipart/form-data" id="form" class="form">
             @csrf
 
             <div>

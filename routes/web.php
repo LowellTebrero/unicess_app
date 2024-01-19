@@ -119,7 +119,7 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
 
     Route::controller(EvaluationController::class)->group(function () {
         Route::get('/evaluation-index','index')->name('evaluation.index');
-        Route::get('/evaluation/{id}/{year}', 'show')->name('evaluation.show');
+        Route::get('/evaluation/{id}/{year}/{notification}', 'show')->name('evaluation.show');
         Route::patch('/evaluation-update/{id}', 'update')->name('evaluation.update');
         Route::get('/filters','filters')->name('evaluation.filters');
         Route::delete('/evaluation-delete/{id}','deleteEvaluation')->name('evaluation.delete');

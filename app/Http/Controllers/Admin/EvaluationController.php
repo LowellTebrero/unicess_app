@@ -6,12 +6,14 @@ use App\Models\User;
 use App\Models\AdminYear;
 use App\Models\Evaluation;
 use Illuminate\Http\Request;
-use App\Models\ProposalMember;
-use Illuminate\Support\Facades\File;
 use App\Models\EvaluationFile;
+use App\Models\ProposalMember;
 use App\Models\EvaluationStatus;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\AdminDeleteUserEvaluationNotification;
 
 
 class EvaluationController extends Controller
@@ -70,7 +72,7 @@ class EvaluationController extends Controller
         //     return view('admin.evaluation.index', compact( 'latestData','currentYear', 'previousYear', 'evaluations', 'toggle'));
     // }
 
-    public function show($id, $year){
+    public function show($id, $year, $notification){
 
 
         $evaluation = Evaluation::with('evaluationfile')->where('id', $id)
@@ -87,6 +89,12 @@ class EvaluationController extends Controller
                 ]);
             }
         ])->first();
+
+
+
+        if($notification){
+            auth()->user()->unreadNotifications->where('id', $notification)->markAsRead();
+        }
 
         return view('admin.evaluation.show', compact('evaluation'));
     }
@@ -160,7 +168,6 @@ class EvaluationController extends Controller
         $delete = Evaluation::findorFail($id);
         $files = EvaluationFile::where('evaluation_id', $id)->get();
 
-
         foreach ($files as $file) {
             $filePath = public_path('file/'.$file->path);
 
@@ -178,6 +185,9 @@ class EvaluationController extends Controller
                 }
             }
         }
+
+        $user = User::where('id', $delete->user_id)->get();
+        Notification::send($user, new AdminDeleteUserEvaluationNotification($delete));
 
         $delete->delete();
 

@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\File;
 use App\Models\TemporaryEvaluationFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\UserSubmitEvaluationToAdminNotification;
 
 class EvaluateController extends Controller
 {
@@ -149,6 +151,10 @@ class EvaluateController extends Controller
             $evaluate->total_points = $total;
             $evaluate->user_id  = auth()->id();
         $evaluate->save();
+
+        $admin = User::whereHas('roles', function ($query) { $query->where('id', 1);})->get();
+        Notification::send($admin, new UserSubmitEvaluationToAdminNotification($evaluate));
+
 
         if ($request->has('chairmanship_wide')){
             foreach ($request['chairmanship_wide'] as $file){
@@ -334,6 +340,9 @@ class EvaluateController extends Controller
                 $tmpfile->delete();
             }
         }
+
+
+
 
         return redirect(route('evaluate.index'));
     }

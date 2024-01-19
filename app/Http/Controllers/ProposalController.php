@@ -455,6 +455,12 @@ class ProposalController extends Controller
 
                 DB::table('notifications')->where('id', $notification->id)->delete();
             }
+
+            if (is_array($data) && array_key_exists('proposal_status_id', $data) && $data['proposal_status_id'] == $id) {
+            // Delete the notification
+
+                DB::table('notifications')->where('id', $notification->id)->delete();
+            }
         }
 
         return redirect(route('User-dashboard.index'))->with('message', 'Proposal Deleted Successfully');
