@@ -57,7 +57,18 @@
                                 </x-slot>
 
                                 <div class="w-[50rem]">
-                                    <iframe class="2xl:w-[100%] drop-shadow mt-2 w-full h-[80vh]" src="{{ $mediaLibrary->getUrl() }}" ></iframe>
+                                    {{--  <iframe class=" 2xl:w-[100%] drop-shadow mt-2 w-full h-[80vh]" src="{{ $proposals->getFirstMediaUrl('proposalPdf') }}"></iframe>  --}}
+                                    @if ($mediaLibrary->mime_type == 'image/jpeg' || $mediaLibrary->mime_type == 'image/png' || $mediaLibrary->mime_type == 'image/jpg')
+                                    <div><img class="shadow w-full " src="{{  $mediaLibrary->getUrl() }}"></div>
+                                    @elseif ($mediaLibrary->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+                                    <div class="p-5 flex items-center flex-col">
+                                        <h1 class="text-center">This file format does not support viewing download only.</h1>
+                                        <a href={{ url('download-media', $mediaLibrary->id) }} class="text-sm hover:text-red-600 text-red-500">Click here to download</a>
+                                    </div>
+
+                                    @else
+                                        <div><iframe class="shadow mt-2 w-full h-[80vh]" src="{{  $mediaLibrary->getUrl() }}"></iframe></div>
+                                    @endif
                                 </div>
                             </x-alpine-modal>
                         </div>

@@ -16,7 +16,7 @@
                     </div>
 
                     <div class="sm:space-x-2 space-y-2 md:space-y-0 lg:flex-row text-xs">
-                        <input type="text" id="searchInput" class="rounded text-xs border-gray-300 w-full  sm:w-[15rem] md:w-[20rem]" placeholder="Search Proposal Title...">
+                        <input type="text" id="searchInput" class="rounded text-xs border-gray-300 w-full  sm:w-[15rem] md:w-[20rem]" placeholder="Search Project Title...">
 
                         <select name="MyAllDropdown" id="MyAllDropdown" class="text-xs border-gray-300 rounded w-full 2xl:w-[7rem] sm:w-[8rem]">
                             <option value="">All Year</option>
@@ -38,11 +38,11 @@
 
                 <div class="flex justify-between p-4">
                     <div>
-                        <h1 class="xl:text-xl font-semibold tracking-wider text-lg">List of project proposal </h1>
+                        <h1 class="xl:text-xl font-semibold tracking-wider text-lg">List of Program/Project </h1>
                     </div>
 
                     <div class="space-x-2">
-                        <input type="text" id="searchMyInput" class="rounded text-xs border-gray-300 text-gray-600" placeholder="Search Proposal Title...">
+                        <input type="text" id="searchMyInput" class="rounded text-xs border-gray-300 text-gray-600" placeholder="Search Project Title...">
 
                         <select name="myProposalDropdown" id="myProposalDropdown" class="text-xs text-gray-600 border-gray-300 rounded">
                             <option value="">Select Year</option>
