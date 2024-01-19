@@ -1,3 +1,4 @@
+
 <div class="grid grid-cols-4 2xl:grid-cols-7 gap-3 p-4 pt-7">
 
     {{--  <div class="flex flex-col w-full">
@@ -229,3 +230,4 @@
     </div>
     @endforeach
 </div>
+

@@ -8,7 +8,7 @@
 
     @section('title', 'Inventory | ' . config('app.name', 'UniCESS'))
 
-    <div class="rounded-xl m-8 mt-4 2xl:mt-5 bg-white h-[82vh] 2xl:min-h-[87vh]">
+    <section class="rounded-xl m-8 mt-4 2xl:mt-5 bg-white h-[82vh] 2xl:min-h-[87vh]">
 
         <div class="p-4 py-2 flex justify-between">
             <div class="flex space-x-1 items-center">
@@ -40,90 +40,108 @@
         <hr class="my-2">
 
        @foreach ($inventory as $invent )
+            @if ($invent->number == 1)
 
-        @if ($invent->number == 1)
-        <div class="grid 2xl:grid-cols-4 gap-3 p-4 pt-7">
-            @foreach ($program as $name)
-            @foreach ($proposal as $proposals )
-                   @if ($name->id === $proposals->program_id)
-
-             <a href={{route('admin.inventory.proposal-show', $name->id)}} class="font-bold drop-shadow-md bg-white p-4  text-blue-900 rounded-xl w-full  hover:bg-slate-200 duration-100  relative">
-                <p class="absolute left-14 text-white px-2 text-xs py-1 rounded-full  bg-yellow-400"> {{ $proposals->qty }}</p>
-                <span class="absolute w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 h-2 top-0 left-0 rounded-tl-xl rounded-tr-xl"></span>
-                <span class="absolute w-full bg-white hover:bg-slate-100 h-2 bottom-0 left-0 rounded-bl-xl rounded-br-xl"></span>
-                <svg class="fill-blue-600" xmlns="http://www.w3.org/2000/svg" height="48" width="48"><path d="M7.05 40q-1.2 0-2.1-.925-.9-.925-.9-2.075V11q0-1.15.9-2.075Q5.85 8 7.05 8h14l3 3h17q1.15 0 2.075.925.925.925.925 2.075v23q0 1.15-.925 2.075Q42.2 40 41.05 40Z"/></svg>
-               <span class="xl:text-xs 2xl:text-xs">{{ $name->program_name}}</span>
-            </a>
-
-            @endif
-            @endforeach
-            @endforeach
-        </div>
-
-        @elseif ($invent->number == 3)
-
-        <div class="px-5 flex justify-between space-x-2">
-            <div>
-                <select class="text-xs border-slate-500 rounded-lg" id="MySort">
-                   <option value="asc">A-Z</option>
-                   <option value="desc">Z-A</option>
-                </select>
+            @if ($proposal->isEmpty())
+            <div class="flex items-center justify-center h-[30vh]">
+                <h1 class="text-gray-400 text-sm">Its empty here</h1>
             </div>
-            <div>
-            <input type="text"  class="text-xs border-slate-500 rounded-lg w-[20rem]" placeholder="Search name..." id="searchInput">
-            <select class="text-xs border-slate-500 rounded-lg" id="MyYear">
-                <option {{ '' == request('selected_value') ? 'selected ' : '' }} value="">Select Year</option>
-                @foreach ($years as $year )
-                <option value="{{ $year }}">{{ $year }}</option>
-                @endforeach
-            </select>
+            @else
+            <div class="grid 2xl:grid-cols-4 gap-3 p-4 pt-7">
+                @foreach ($program as $name)
+                @foreach ($proposal as $proposals )
+                    @if ($name->id === $proposals->program_id)
 
-            <select id="myFiles" class="text-xs border-slate-500 rounded-lg">
-                <option value="">Select File</option>
-                <option value="proposalPdf">Proposal</option>
-                <option value="MoaPDF">MOA</option>
-                <option value="specialOrderPdf">Special Order</option>
-                <option value="travelOrder">Travel Order</option>
-                <option value="officeOrder">Office Order</option>
-                <option value="otherFile">Others</option>
-                <option value="TemplateFile">Template</option>
-                <option value="NarrativeFile">Narrative</option>
-                <option value="TerminalFile">Terminal</option>
-            </select>
-        </div>
-        </div>
+                <a href={{route('admin.inventory.proposal-show', $name->id)}} class="font-bold drop-shadow-md bg-white p-4  text-blue-900 rounded-xl w-full  hover:bg-slate-200 duration-100  relative">
+                    <p class="absolute left-14 text-white px-2 text-xs py-1 rounded-full  bg-yellow-400"> {{ $proposals->qty }}</p>
+                    <span class="absolute w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 h-2 top-0 left-0 rounded-tl-xl rounded-tr-xl"></span>
+                    <span class="absolute w-full bg-white hover:bg-slate-100 h-2 bottom-0 left-0 rounded-bl-xl rounded-br-xl"></span>
+                    <svg class="fill-blue-600" xmlns="http://www.w3.org/2000/svg" height="48" width="48"><path d="M7.05 40q-1.2 0-2.1-.925-.9-.925-.9-2.075V11q0-1.15.9-2.075Q5.85 8 7.05 8h14l3 3h17q1.15 0 2.075.925.925.925.925 2.075v23q0 1.15-.925 2.075Q42.2 40 41.05 40Z"/></svg>
+                <span class="xl:text-xs 2xl:text-xs">{{ $name->program_name}}</span>
+                </a>
+
+                @endif
+                @endforeach
+                @endforeach
+            </div>
+            @endif
+
+            @elseif ($invent->number == 3)
+
+            @if ($medias->isEmpty())
+            <div class="flex items-center justify-center h-[30vh]">
+                <h1 class="text-gray-400 text-sm">Its empty here</h1>
+            </div>
+            @else
+            <div class="px-5 flex justify-between space-x-2">
+                <div>
+                    <select class="text-xs border-slate-500 rounded-lg" id="MySort">
+                    <option value="asc">A-Z</option>
+                    <option value="desc">Z-A</option>
+                    </select>
+                </div>
+                <div>
+                    <input type="text"  class="text-xs border-slate-500 rounded-lg w-[20rem]" placeholder="Search name..." id="searchInput">
+                    <select class="text-xs border-slate-500 rounded-lg" id="MyYear">
+                        <option {{ '' == request('selected_value') ? 'selected ' : '' }} value="">Select Year</option>
+                        @foreach ($years as $year )
+                        <option value="{{ $year }}">{{ $year }}</option>
+                        @endforeach
+                    </select>
+
+                    <select id="myFiles" class="text-xs border-slate-500 rounded-lg">
+                        <option value="">Select File</option>
+                        <option value="proposalPdf">Proposal</option>
+                        <option value="MoaPDF">MOA</option>
+                        <option value="specialOrderPdf">Special Order</option>
+                        <option value="travelOrder">Travel Order</option>
+                        <option value="officeOrder">Office Order</option>
+                        <option value="otherFile">Others</option>
+                        <option value="TemplateFile">Template</option>
+                        <option value="NarrativeFile">Narrative</option>
+                        <option value="TerminalFile">Terminal</option>
+                    </select>
+                </div>
+            </div>
 
 
             <div id="filtered-data">
                 @include('admin.inventory.index-filter._all-files-medias')
             </div>
+            @endif
 
 
-        @elseif ($invent->number == 4)
+            @elseif ($invent->number == 4)
 
-        <div class="px-5 flex justify-between space-x-2">
-            {{--  <div>
-                <select class="xl:text-xs border-slate-500 rounded-lg" id="MySort">
-                   <option value="asc">A-Z</option>
-                   <option value="desc">Z-A</option>
-                </select>
-            </div>  --}}
-            <div>
-            {{--  <input type="text"  class="xl:text-xs border-slate-500 rounded-lg w-[20rem]" placeholder="Search name..." id="searchInput">
-            <select class="xl:text-xs border-slate-500 rounded-lg" id="MyYear">
-                <option {{ '' == request('selected_value') ? 'selected ' : '' }} value="">Select Year</option>
-                @foreach ($years as $year )
-                <option value="{{ $year }}">{{ $year }}</option>
-                @endforeach
-            </select>  --}}
-        </div>
-        </div>
-            <div id="filtered-data">
-                @include('admin.inventory.index-filter._proposal-medias')
-            </div>
-        @endif
+                @if ($proposals->isEmpty())
+                    <div class="flex items-center justify-center h-[30vh]">
+                        <h1 class="text-gray-400 text-sm">Its empty here</h1>
+                    </div>
+                @else
+                    <div class="px-5 flex justify-between space-x-2">
+                        {{--  <div>
+                            <select class="xl:text-xs border-slate-500 rounded-lg" id="MySort">
+                            <option value="asc">A-Z</option>
+                            <option value="desc">Z-A</option>
+                            </select>
+                        </div>  --}}
+                        <div>
+                        {{--  <input type="text"  class="xl:text-xs border-slate-500 rounded-lg w-[20rem]" placeholder="Search name..." id="searchInput">
+                        <select class="xl:text-xs border-slate-500 rounded-lg" id="MyYear">
+                            <option {{ '' == request('selected_value') ? 'selected ' : '' }} value="">Select Year</option>
+                            @foreach ($years as $year )
+                            <option value="{{ $year }}">{{ $year }}</option>
+                            @endforeach
+                        </select>  --}}
+                        </div>
+                    </div>
+                    <div id="filtered-data">
+                        @include('admin.inventory.index-filter._proposal-medias')
+                    </div>
+                @endif
+            @endif
         @endforeach
-    </div>
+    </section>
 
 
     <script>

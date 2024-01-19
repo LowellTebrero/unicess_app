@@ -3,6 +3,7 @@
     @section('title', 'Terminal | ' . config('app.name', 'UniCESS'))
     <section class="text-gray-700 h-[82vh] 2xl:h-[87vh] m-8 mt-4 2xl:mt-5  bg-white rounded-xl shadow">
 
+
         <header class="flex justify-between p-5 py-4">
             <div>
                 <h1 class="tracking-wider 2xl:text-2xl font-semibold text-lg">Terminal Overview </h1>
@@ -15,6 +16,11 @@
         </header>
         <hr>
 
+        @if ($terminalReports->isEmpty())
+        <div class="flex items-center justify-center h-[30vh]">
+            <h1 class="text-gray-400 text-sm">Its empty here</h1>
+        </div>
+        @else
         <main class="p-10 ">
 
             <div class="h-[25vh] overflow-x-auto">
@@ -88,6 +94,6 @@
 
 
         </main>
-
+        @endif
     </section>
 </x-admin-layout>

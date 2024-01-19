@@ -15,6 +15,11 @@
         </header>
         <hr>
 
+        @if ($narrativeReports->isEmpty())
+        <div class="flex items-center justify-center h-[30vh]">
+            <h1 class="text-gray-400 text-sm">Its empty here</h1>
+        </div>
+        @else
         <main class="p-10 ">
 
             <div class="h-[50vh] overflow-x-auto">
@@ -88,6 +93,7 @@
 
 
         </main>
+        @endif
 
     </section>
 </x-admin-layout>

@@ -1,4 +1,8 @@
-
+@if ($latestData->isEmpty())
+<div class="flex items-center justify-center h-[50vh]">
+    <h1 class="text-gray-500">Its empty here</h1>
+</div>
+@else
 <div class="rounded-lg border border-gray-200 shadow-sm m-5 mt-7 overflow-x-auto h-[65vh] 2xl:h-[75vh] text-gray-700">
     <table class="w-full border-collapse bg-white text-left text-sm text-gray-500 xl:text-xs 2xl:text-sm">
         <thead class="bg-gray-50">
@@ -87,3 +91,4 @@
     </table>
 
 </div>
+@endif
