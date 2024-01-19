@@ -52,7 +52,7 @@
 
                     <div class="flex-1 text-gray-800 flex  md:flex-col  pl-5 justify-center">
                         <span  class=" font-medium text-5xl 2xl:text-6xl">{{$second}}</span>
-                        <h1 class="font-thick  tracking-wide text-xs 2xl:text-sm">Total Proposal</h1>
+                        <h1 class="font-thick  tracking-wide text-xs 2xl:text-sm">Total Project</h1>
                     </div>
 
                     <div class="flex xl:items-center justify-center lg:items-start lg:pt-4 xl:pt-0 lg:right-6 right-2 top-4 xl:right-0 xl:top-0  absolute xl:relative">
@@ -90,7 +90,7 @@
                                 <option {{ 'finished' == request('authorize_name') ? 'selected ' : '' }} value="finished">Finished</option>
                             </select>
 
-                            <input id="searchInput"  class="text-xs rounded border border-gray-300 w-[20rem]" type="text" placeholder="Search Proposal Title...">
+                            <input id="searchInput"  class="text-xs rounded border border-gray-300 w-[20rem]" type="text" placeholder="Search Project Title...">
 
                         </div>
 
