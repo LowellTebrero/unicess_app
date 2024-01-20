@@ -11,22 +11,13 @@ class UserTagProposalNotification extends Notification
 {
     use Queueable;
     public $model;
-    /**
-     * Create a new notification instance.
-     *
-     * @return void
-     */
+
     public function __construct($model)
     {
         $this->model = $model;
     }
 
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
+
     public function via($notifiable)
     {
         return ['database'];

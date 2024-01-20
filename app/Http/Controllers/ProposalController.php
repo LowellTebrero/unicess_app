@@ -28,6 +28,7 @@ use App\Notifications\ProposalNotification;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\UserTagProposalNotification;
 use App\Notifications\UserTagRemoveProposalNotification;
+use App\Notifications\AnotherUserTagProposalNotification;
 use App\Notifications\UserDeletedTheirProposaleNotification;
 use App\Notifications\AdminDeletedProposaleFromUserNotification;
 
@@ -119,7 +120,7 @@ class ProposalController extends Controller
            [
             'required_without_all' => 'Please upload at least one file among Proposal PDF, Special Order PDF, MOA PDF, Office Order PDF, Travel Order PDF, Other Files.',
             'project_title.regex' => 'Invalid characters: \ / : * ? " < > |',
-           ]);
+        ]);
 
 
         $post = new Proposal();
@@ -252,17 +253,11 @@ class ProposalController extends Controller
         $ceso_roles = CesoRole::orderBy('role_name')->pluck('role_name', 'id')->prepend('Select Role', '');
         $locations = Location::orderBy('location_name')->pluck('location_name', 'id')->prepend('Select Location', '');
 
-
         return view('user.dashboard.show-user-proposal', compact('proposals', 'proposal', 'proposal_member', 'program'
         ,'parts_names','members', 'ceso_roles', 'locations', 'users' ));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
         $proposal = Proposal::with('programs')->where('id', $id)->first();
@@ -270,13 +265,6 @@ class ProposalController extends Controller
 
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
 
     public function updateDetails(Request $request, $id)
     {
@@ -310,32 +298,37 @@ class ProposalController extends Controller
                 if(!$ifExists){
 
                     $users = User::where('id', $model->user_id)->get();
-                    Notification::send($users, new UserTagProposalNotification($model));
+                    Notification::send($users, new AnotherUserTagProposalNotification($model));
                     DB::table('notifications')->where('notifiable_id', $model->user_id)->whereJsonContains('data->remove_proposal_id', $proposals->id)->delete();
 
                 }
 
 
-            }else{
-              $leaderId = ProposalMember::whereNotNull('leader_member_type')->where('proposal_id', $proposals->id)->get();
+                }else{
+                $leaderId = ProposalMember::whereNotNull('leader_member_type')->where('proposal_id', $proposals->id)->get();
 
-                foreach($leaderId as $user)
-                {
-                DB::table('notifications')->where('notifiable_id', $user->user_id)->whereJsonContains('data->proposal_id', $proposals->id)->delete();
-                $userLeader = User::where('id', $user->user_id)->get();
-                Notification::send($userLeader, new UserTagRemoveProposalNotification($user));
-                }
+                    foreach($leaderId as $user)
+                    {
+                    DB::table('notifications')->where('notifiable_id', $user->user_id)->whereJsonContains('data->proposal_id', $proposals->id)->delete();
+                    DB::table('notifications')->where('notifiable_id', $user->user_id)->whereJsonContains('data->another_tag_proposal_id', $proposals->id)->delete();
+                    $userLeader = User::where('id', $user->user_id)->get();
+                    Notification::send($userLeader, new UserTagRemoveProposalNotification($user));
+                    }
 
-                ProposalMember::whereNotNull('leader_member_type')->where('proposal_id', $proposals->id)->delete();
-                ProposalMember::whereNull('leader_member_type')->where('proposal_id', $proposals->id)->delete();
+                    ProposalMember::whereNotNull('leader_member_type')->where('proposal_id', $proposals->id)->delete();
+                    ProposalMember::whereNull('leader_member_type')->where('proposal_id', $proposals->id)->delete();
 
             }
 
             if($request->member !== null){
 
+
                 ProposalMember::whereNotNull('member_type')->where('proposal_id', $proposals->id)->delete();
 
+
                 foreach ($request->member as $item) {
+
+
 
                     $model = new ProposalMember();
                     $model->proposal_id = $proposals->id;
@@ -343,26 +336,17 @@ class ProposalController extends Controller
                     $model->member_type = $item['type'];
                     $model->save();
 
-                    $ifExists =  DB::table('notifications')->where('notifiable_id',$item['id'])->whereJsonContains('data->proposal_id', $proposals->id)->exists();
+                    $tags =  DB::table('notifications')->whereJsonDoesntContain('data->tag_id', $item['id'])
+                    ->whereJsonContains('data->proposal_id', $proposals->id)
+                    ->where('type', 'App\Notifications\UserTagProposalNotification')->delete();
 
-                    if(!$ifExists){
-
-                        $users = User::where('id', $model->user_id)->get();
-                        Notification::send($users, new UserTagProposalNotification($model));
-                        DB::table('notifications')->where('notifiable_id', $model->user_id)->whereJsonContains('data->remove_proposal_id', $proposals->id)->delete();
-                        // DB::table('notifications')->where('notifiable_id','!==' ,$model->user_id)->whereJsonContains('data->remove_proposal_id', $proposals->id)->delete();
-                    }
                 }
+
 
             }else {
-                $memberIds = ProposalMember::whereNotNull('member_type')->where('proposal_id', $proposals->id)->get();
 
-                foreach($memberIds as $user){
-                    DB::table('notifications')->where('notifiable_id', $user->user_id )->whereJsonContains('data->proposal_id', $proposals->id)->delete();
-                    $userLeader = User::where('id', $user->user_id)->get();
-                    Notification::send($userLeader, new UserTagRemoveProposalNotification($user));
-                }
-
+                DB::table('notifications')->whereJsonContains('data->proposal_id', $proposals->id)
+                ->where('type', 'App\Notifications\UserTagProposalNotification')->delete();
                 ProposalMember::whereNotNull('member_type')->where('proposal_id', $proposals->id)->delete();
 
             }

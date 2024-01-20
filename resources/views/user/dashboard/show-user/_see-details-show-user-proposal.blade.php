@@ -5,7 +5,7 @@
     </x-slot>
 
     <x-slot name="title">
-        Project Proposal Information
+        Project Details
     </x-slot>
 
 
@@ -15,7 +15,7 @@
 
         <div class="flex text-gray-700 mt-2 space-x-2">
             <div class="text-[.7rem] w-full">
-                <label class="block font-bold mb-2" for="description">Project Proposal ID:</label>
+                <label class="block font-bold mb-2" for="description">Project ID:</label>
                         <h1 class="text-[.8rem] py-2">{{ $proposal->id }}</h1>
 
             </div>
@@ -123,7 +123,7 @@
                         <!-- Modal header -->
                         <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                             <h3 class="text-lg font-semibold text-gray-900 ">
-                                Edit Proposal Information
+                                Edit Project Information
                             </h3>
                             <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="defaultModal">
                                 <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -315,7 +315,7 @@
                             <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                             </svg>
-                            <h3 class="mb-5 text-sm font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete this proposal?</h3>
+                            <h3 class="mb-5 text-sm font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete this project?</h3>
 
                             <div class="flex space-x-4 items-center justify-center">
                                 <form action={{ route('User-dashboard.delete-proposal', $proposal->id) }} method="POST">
