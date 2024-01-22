@@ -60,7 +60,8 @@ class AdminPartnerBeneficiaryController extends Controller
 
                     'title' => 'required',
                     'description' => 'required',
-                    'image' => 'mimes:jpg,png,jpeg', 'max:5048']);
+                    'image' => ['required', 'mimes:jpg,png,jpeg', 'max:5048'],
+                ]);
 
                 if($request->file('image')){
                 $image = $request->file('image');
@@ -118,23 +119,24 @@ class AdminPartnerBeneficiaryController extends Controller
 
                 'title' => 'required|unique:admin_beneficiaries|max:255',
                 'description' => 'required',
-                'image' => 'required','mimes:jpg,png,jpeg','max:5048']);
+                'image' => ['required', 'mimes:jpg,png,jpeg', 'max:5048'],
+            ]);
 
-                $image = $request->image;
-                $filename = Str::limit($request->title, 15).'.'. $image->getClientOriginalExtension();
-                $resize_image = Image::make($image->getRealPath());
-                $resize_image->resize(600, 500);
-                $resize_image->save(public_path('upload/image-folder/beneficiary-folder/'. $filename));
+            $image = $request->image;
+            $filename = Str::limit($request->title, 15).'.'. $image->getClientOriginalExtension();
+            $resize_image = Image::make($image->getRealPath());
+            $resize_image->resize(600, 500);
+            $resize_image->save(public_path('upload/image-folder/beneficiary-folder/'. $filename));
 
-                if(File::exists($resize_image)){
-                    unlink($resize_image);
-                }
+            if(File::exists($resize_image)){
+                unlink($resize_image);
+            }
 
-                $beneficiary = new AdminBeneficiary();
-                $beneficiary->title = $request->title;
-                $beneficiary->description = $request->description;
-                $beneficiary->image = $filename;
-                $beneficiary->save();
+            $beneficiary = new AdminBeneficiary();
+            $beneficiary->title = $request->title;
+            $beneficiary->description = $request->description;
+            $beneficiary->image = $filename;
+            $beneficiary->save();
 
 
             flash()->addSuccess('Beneficiary Uploded Successfully.');
@@ -149,7 +151,8 @@ class AdminPartnerBeneficiaryController extends Controller
 
                     'title' => 'required',
                     'description' => 'required',
-                    'image' => 'mimes:jpg,png,jpeg', 'max:5048']);
+                    'image' => ['required', 'mimes:jpg,png,jpeg', 'max:5048'],
+                ]);
 
                 if($request->file('image')){
                 $image = $request->file('image');

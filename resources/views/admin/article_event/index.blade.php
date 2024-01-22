@@ -86,13 +86,13 @@
                                     <div class="font-semibold text-left">Title</div>
                                 </th>
 
-                                <th class="p-2 whitespace-nowrap">
+                                <th class="p-2 whitespace-nowrap w-[5rem]">
                                     <div class="font-semibold text-center">
                                         Image
                                     </div>
                                 </th>
 
-                                <th class="p-2 whitespace-nowrap">
+                                <th class="p-2 whitespace-nowrap w-[10rem]">
                                     <div class="font-semibold text-center">
                                         Status
                                     </div>
@@ -121,9 +121,9 @@
                                     </div>
                                 </td>
 
-                                <td class="p-3 whitespace-nowrap w-[5rem]">
-                                    <div class="text-left text-gray-700">
-                                        <img class="rounded-lg" id="showImage"  src="{{ (!empty($article->image))? url('upload/image-folder/features-folder/'. $article->image): url('upload/no-image.png') }}">
+                                <td class="p-3 whitespace-nowrap ">
+                                    <div class="text-left text-gray-700 w-[5rem] h-[5vh]">
+                                        <img class="rounded-lg h-[100%]" id="showImage"  src="{{ (!empty($article->image))? url('upload/image-folder/features-folder/'. $article->image): url('upload/no-image.png') }}">
                                     </div>
                                 </td>
 
@@ -277,13 +277,13 @@
                                     <div class="font-semibold text-left">Title</div>
                                 </th>
 
-                                <th class="p-2 whitespace-nowrap">
+                                <th class="p-2 whitespace-nowrap w-[5rem]">
                                     <div class="font-semibold text-center">
                                         Image
                                     </div>
                                 </th>
 
-                                <th class="p-2 whitespace-nowrap">
+                                <th class="p-2 whitespace-nowrap w-[10rem]">
                                     <div class="font-semibold text-center">
                                         Status
                                     </div>
@@ -312,9 +312,9 @@
                                     </div>
                                 </td>
 
-                                <td class="p-3 whitespace-nowrap w-[5rem]">
-                                    <div class="text-left text-gray-700">
-                                        <img class="rounded-lg" id="showImage"  src="{{ (!empty($event->image))? url('upload/image-folder/event-folder/'. $event->image): url('upload/no-image.png') }}">
+                                <td class="p-3 whitespace-nowrap">
+                                    <div class="text-left text-gray-700 w-[5rem] h-[5vh]">
+                                        <img class="rounded-lg h-[100%]" id="showImage"  src="{{ (!empty($event->image))? url('upload/image-folder/event-folder/'. $event->image): url('upload/no-image.png') }}">
                                     </div>
                                 </td>
 

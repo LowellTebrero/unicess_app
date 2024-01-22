@@ -57,7 +57,8 @@ class AdminArticleEventController extends Controller
 
                     'title' => 'required',
                     'description' => 'required',
-                    'image' => 'mimes:jpg,png,jpeg', 'max:5048']);
+                    'image' => ['required', 'mimes:jpg,png,jpeg', 'max:5048'],
+                ]);
 
                 if($request->file('image')){
                 $image = $request->file('image');
@@ -135,25 +136,27 @@ class AdminArticleEventController extends Controller
 
         $request->validate([
 
-            'title' => 'required|unique:admin_articles|max:255',
+            'title' => 'required|unique:admin_events|max:255',
             'description' => 'required',
-            'image' => 'required','mimes:jpg,png,jpeg', 'max:5048']);
+            'image' => ['required', 'mimes:jpg,png,jpeg', 'max:5048'],
 
-            $image = $request->image;
-            $filename = Str::limit($request->title, 15).'.'. $image->getClientOriginalExtension();
-            $resize_image = Image::make($image->getRealPath());
-            $resize_image->resize(600, 500);
-            $resize_image->save(public_path('upload/image-folder/event-folder/'. $filename));
+        ]);
 
-            if(File::exists($resize_image)){
-                unlink($resize_image);
-            }
+        $image = $request->image;
+        $filename = Str::limit($request->title, 15).'.'. $image->getClientOriginalExtension();
+        $resize_image = Image::make($image->getRealPath());
+        $resize_image->resize(600, 500);
+        $resize_image->save(public_path('upload/image-folder/event-folder/'. $filename));
 
-            $articles = new AdminEvent();
-            $articles->title = $request->title;
-            $articles->description = $request->description;
-            $articles->image = $filename;
-            $articles->save();
+        if(File::exists($resize_image)){
+            unlink($resize_image);
+        }
+
+        $articles = new AdminEvent();
+        $articles->title = $request->title;
+        $articles->description = $request->description;
+        $articles->image = $filename;
+        $articles->save();
 
 
         flash()->addSuccess('Article Uploded Successfully.');
@@ -166,7 +169,8 @@ class AdminArticleEventController extends Controller
 
                     'title' => 'required',
                     'description' => 'required',
-                    'image' => 'mimes:jpg,png,jpeg', 'max:5048']);
+                    'image' => ['required', 'mimes:jpg,png,jpeg', 'max:5048'],
+                ]);
 
                 if($request->file('image')){
                 $image = $request->file('image');
