@@ -1091,7 +1091,7 @@
 
                             @if ($proposals->narrativereport->isNotEmpty())
 
-                                <div class="bg-white w-[10rem] sm:w-[10rem] xl:w-[10rem] xl:h-[12vh] 2xl:[h-17vh] shadow-md rounded-lg hover:bg-slate-100 transition-all m-2 relative" id="narrativereport">
+                                <div class="bg-white w-[10rem] sm:w-[10rem] xl:w-[10rem] xl:h-[17vh] 2xl:h-[12vh] shadow-md rounded-lg hover:bg-slate-100 transition-all m-2 relative" id="narrativereport">
 
                                     <!-- Modal toggle -->
                                     <button data-modal-target="default-modal-narrative{{ $proposals->id }}" data-modal-toggle="default-modal-narrative{{ $proposals->id }}" class="text-sm p-4 text-center h-full flex flex-col space-y-4 items-center w-full" type="button">
@@ -1312,7 +1312,7 @@
                             @endif
 
                             @if ($proposals->terminalreport->isNotEmpty())
-                                <div class="bg-white w-[10rem] sm:w-[10rem] xl:w-[10rem] xl:h-[12vh] 2xl:[h-17vh] shadow-md rounded-lg hover:bg-slate-100 transition-all m-2 relative" id="narrativereport">
+                                <div class="bg-white w-[10rem] sm:w-[10rem] xl:w-[10rem] xl:h-[17vh] 2xl:h-[12vh] shadow-md rounded-lg hover:bg-slate-100 transition-all m-2 relative" id="narrativereport">
 
                                     <!-- Modal toggle -->
                                     <button data-modal-target="default-modal-terminal{{ $proposals->id }}" data-modal-toggle="default-modal-terminal{{ $proposals->id }}" class="text-sm p-4 text-center h-full flex flex-col space-y-4 items-center w-full" type="button">
