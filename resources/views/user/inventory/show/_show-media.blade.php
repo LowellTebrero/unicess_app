@@ -174,20 +174,20 @@
 
             @foreach ($proposals->medias as $mediaLibrary)
             @if (!empty($mediaLibrary->model_type == 'App\Models\Proposal'))
-                    <div data-tooltip-target="tooltip-proposal" type="button" class="bg-white w-full sm:w-[10rem] xl:w-[10rem] xl:min-h-[14vh] shadow-md rounded-lg hover:bg-slate-100 transition-all m-2 relative">
+                    <div data-tooltip-target="tooltip-proposal" type="button" class="bg-white w-full sm:w-[10rem] xl:w-[10rem] xl:h-[17vh] 2xl:h-[12vh] shadow-md rounded-lg hover:bg-slate-100 transition-all m-2 relative">
 
                         <x-alpine-modal>
                             <x-slot name="scripts">
                                 <div class="flex items-center flex-col p-4 space-y-3" target="__blank">
                                     <div>
                                         @if ($mediaLibrary->mime_type == 'image/jpeg' || $mediaLibrary->mime_type == 'image/png' || $mediaLibrary->mime_type == 'image/jpg')
-                                        <img src="{{asset('img/image-icon.png') }}" class="xl:w-[3rem]" width="30">
+                                        <img src="{{asset('img/image-icon.png') }}" class="xl:w-[2.5rem] 2xl:w-[2.5rem]" width="30">
                                          @elseif ($mediaLibrary->mime_type == 'text/plain')
-                                        <img src="{{asset('img/text-document.png') }}" class="xl:w-[3rem]" width="30">
+                                        <img src="{{asset('img/text-document.png') }}" class="xl:w-[2.5rem] 2xl:w-[2.5rem]" width="30">
                                         @elseif ($mediaLibrary->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-                                        <img src="{{asset('img/docx.png')}}" class="xl:w-[3rem]" width="30">
+                                        <img src="{{asset('img/docx.png')}}" class="xl:w-[2.5rem] 2xl:w-[2.5rem]" width="30">
                                         @else
-                                        <img src="{{asset('img/pdf.png')}}" class="xl:w-[3rem]" width="30">
+                                        <img src="{{asset('img/pdf.png')}}" class="xl:w-[2.5rem] 2xl:w-[2.5rem]" width="30">
                                         @endif
                                     </div>
 
@@ -330,7 +330,7 @@
 
             @if ($proposals->narrativereport->isEmpty())
             @else
-                <div class="bg-white w-[10rem] sm:w-[10rem] xl:w-[10rem] xl:h-[14vh]  shadow-md rounded-lg hover:bg-slate-100 transition-all m-2 relative" id="narrativereport">
+                <div class="w-[10rem] sm:w-[10rem] xl:w-[10rem] xl:h-[17vh] 2xl:h-[12vh] bg-white  shadow-md rounded-lg hover:bg-slate-100 transition-all m-2 relative" id="narrativereport">
 
                     <!-- Modal toggle -->
                     <button data-modal-target="default-modal-narrative" data-modal-toggle="default-modal-narrative" class="text-sm p-4 text-center h-full flex flex-col space-y-4 items-center w-full" type="button">
@@ -542,7 +542,7 @@
 
             @if ($proposals->terminalreport->isEmpty())
             @else
-                <div class="bg-white w-[10rem] sm:w-[10rem] xl:w-[10rem] xl:h-[14vh] shadow-md rounded-lg hover:bg-slate-100 transition-all m-2 relative" id="narrativereport">
+                <div class="bg-white w-[10rem] sm:w-[10rem] xl:w-[10rem] xl:h-[17vh] 2xl:h-[12vh] shadow-md rounded-lg hover:bg-slate-100 transition-all m-2 relative" id="narrativereport">
 
                     <!-- Modal toggle -->
                     <button data-modal-target="default-modal-terminal" data-modal-toggle="default-modal-terminal" class="text-sm p-4 text-center h-full flex flex-col space-y-4 items-center w-full" type="button">
