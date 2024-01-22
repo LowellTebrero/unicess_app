@@ -15,6 +15,10 @@
     channel.bind('my-event', function(data) {
       alert(JSON.stringify(data));
     });
+    var channel = pusher.subscribe('my-user-channel');
+    channel.bind('my-user-event', function(data) {
+      alert(JSON.stringify(data));
+    });
   </script>
 </head>
 <body>

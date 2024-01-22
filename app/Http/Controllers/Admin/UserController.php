@@ -13,10 +13,11 @@ use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use App\Models\CustomizeAdminUserData;
-use App\Notifications\UserAuthorizeNotification;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\UserFollowNotification;
+use App\Notifications\UserAuthorizeNotification;
+use App\Events\UserStatusUpdateRealtimeNotification;
 
 class UserController extends Controller
 {
@@ -100,10 +101,9 @@ class UserController extends Controller
             'authorize' => $request->input('state') ? 'checked' : 'close',
         ]);
 
+
         $users = User::where('id', $id)->get();
-
         Notification::send($users, new UserAuthorizeNotification($toggle));
-
 
 
         return response()->json(['success' => true]);

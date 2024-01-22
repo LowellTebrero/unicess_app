@@ -84,9 +84,9 @@
 
                                             <div class="form-group mb-6 mt-5">
                                                 <h1 class="text-xs">Role Name:</h1>
-                                                <select onchange="yesnoCheck(this)" id="role" name="role"
+                                                <select id="role" name="role"
                                                     class=" w-full px-3 py-1.5 text-sm font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded
-                                                    transition ease-in-ou m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
+                                                    transition ease-in-ou m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" required>
                                                     <option value="">Select Role</option>
                                                     @foreach ($role as $id => $name)
                                                         <option value="{{ $name }}"
@@ -109,8 +109,8 @@
 
                                                     <select id="faculty_id"
                                                         class="greeting lg:text-xs xl:text-sm block mt-1 w-full rounded-md shadow-sm border-gray-300 text-gray-900 "
-                                                        type="text" name="faculty_id" autofocus autocomplete="faculty_id">
-
+                                                        type="text" name="faculty_id" autofocus autocomplete="faculty_id" required>
+                                                        <option value="">Select Department</option>
                                                         @foreach ($faculties as $id => $name)
                                                             <option value="{{ $id }}"
                                                                 @if ($id == old('faculty_id', $user->faculty_id)) selected="selected" @endif>
@@ -462,26 +462,6 @@
                 reader.readAsDataURL(e.target.files['0']);
             });
         });
-
-        function yesnoCheck(answer) {
-
-            console.log(answer.value)
-            if (answer.value == '' ) {
-                document.getElementById('facultyId').style.display = 'none';
-                document.getElementById('submit').style.display = 'none';
-                document.getElementById('faculty_id').innerHTML = '<option></option>';
-                document.getElementById('faculty_id').value = "";
-
-            } else {
-
-
-                document.getElementById('facultyId').style.display = 'block';
-                document.getElementById('submit').style.display = 'block';
-                document.getElementById('faculty_id').innerHTML =
-                '@foreach ($faculties as $id => $name) <option value="{{ $id }}" @if ($id == old('faculty_id')) selected="selected" @endif >{{ $name }}</option> @endforeach';
-            }
-
-        }
     </script>
 
 

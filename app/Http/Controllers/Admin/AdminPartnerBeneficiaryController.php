@@ -27,23 +27,25 @@ class AdminPartnerBeneficiaryController extends Controller
 
                 'title' => 'required|unique:admin_partners|max:255',
                 'description' => 'required',
-                'image' => 'required','mimes:jpg,png,jpeg','max:5048']);
+                'image' => ['required', 'mimes:jpg,png,jpeg', 'max:5048'],
 
-                $image = $request->image;
-                $filename = Str::limit($request->title, 15).'.'. $image->getClientOriginalExtension();
-                $resize_image = Image::make($image->getRealPath());
-                $resize_image->resize(600, 500);
-                $resize_image->save(public_path('upload/image-folder/partner-folder/'. $filename));
+            ]);
 
-                if(File::exists($resize_image)){
-                    unlink($resize_image);
-                }
+            $image = $request->image;
+            $filename = Str::limit($request->title, 15).'.'. $image->getClientOriginalExtension();
+            $resize_image = Image::make($image->getRealPath());
+            $resize_image->resize(600, 500);
+            $resize_image->save(public_path('upload/image-folder/partner-folder/'. $filename));
 
-                $partners = new AdminPartner();
-                $partners->title = $request->title;
-                $partners->description = $request->description;
-                $partners->image = $filename;
-                $partners->save();
+            if(File::exists($resize_image)){
+                unlink($resize_image);
+            }
+
+            $partners = new AdminPartner();
+            $partners->title = $request->title;
+            $partners->description = $request->description;
+            $partners->image = $filename;
+            $partners->save();
 
 
             flash()->addSuccess('Partner Uploded Successfully.');

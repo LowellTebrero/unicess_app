@@ -23,7 +23,8 @@ class AdminProgramServicesController extends Controller
                 $request->validate([
                     'title' => 'required',
                     'description'  => 'required',
-                    'image' => 'mimes:jpg,png,jpeg', 'max:5048']);
+                    'image' => ['required', 'mimes:jpg,png,jpeg', 'max:5048'],
+                ]);
 
                 if($request->file('image')){
                 $image = $request->file('image');

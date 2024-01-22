@@ -26,7 +26,9 @@ class AdminArticleEventController extends Controller
 
             'title' => 'required|unique:admin_articles|max:255',
             'description' => 'required',
-            'image' => 'required','mimes:jpg,png,jpeg', 'max:5048']);
+            'image' => ['required', 'mimes:jpg,png,jpeg', 'max:5048'],
+
+            ]);
 
             $image = $request->image;
             $filename = Str::limit($request->title, 15).'.'. $image->getClientOriginalExtension();

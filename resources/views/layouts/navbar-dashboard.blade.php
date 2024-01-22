@@ -566,6 +566,10 @@
                                             class="text-red-500 text-[.2rem] rounded-full  px-1 pt-1 font-semibold absolute z-10 right-0 top-2 bg-red-500">
                                             {{ $notifs }}</h1>
                                     @endif
+
+                                    <div id="user-notification-container">
+                                        <!-- Existing content or empty if no notifications yet -->
+                                    </div>
                                     <svg class="mt-1 fill-white hover:fill-slate-200" xmlns="http://www.w3.org/2000/svg"
                                         width="25" height="25" viewBox="0 0 24 24">
                                         <path d="M20 17h2v2H2v-2h2v-7a8 8 0 1 1 16 0v7ZM9 21h6v2H9v-2Z" />
@@ -592,6 +596,10 @@
                                                 <a href={{ route('markallsread') }} class="text-[.7rem] text-gray-700">Mark all as read</a>
                                             </div>
                                         @endif
+
+                                        <div>
+                                            <div id="userStatusUpdate"></div>
+                                        </div>
 
 
                                         @foreach (auth()->user()->notifications as $notification)
@@ -1546,4 +1554,12 @@
             </a>`);
 
         });
+
+        var userstatus = pusher.subscribe('my-user-status-update-channel');
+        userstatus.bind('my-user-status-update-event', function(data) {
+            toastr.success('New Notification: ' + data.id);
+            $('#user-notification-container').append('<h1 class="text-red-500 text-[.2rem] rounded-full  px-1 pt-1 font-semibold absolute z-10 right-0 top-2 bg-red-500">1</h1>');
+
+
+          });
       </script>
