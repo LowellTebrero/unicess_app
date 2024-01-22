@@ -1,11 +1,11 @@
 <section class="flex items-center justify-center  article-bg w-full relative overflow-hidden flex-col">
 <h1 class="text-white lg:text-2xl font-semibold tracking-wider text-xl">Featured Articles</h1>
 
-    <div class="flex flex-col  space-y-3  lg:space-y-0 lg:space-x-5 xl:space-x-10 p-5 py-3 sm:p-10 sm:space-x-5 sm:space-y-0  sm:flex-row">
+    <div class="grid grid-cols  sm:grid-cols-4 gap-5 py-4 content-center">
         @foreach ($articles as $article )
 
-        <div class="bg-white flex flex-row sm:flex-col  sm:w-[8.5rem] md:w-[10rem]  lg:w-[12rem] xl:w-[15rem]  relative ">
-            <div class="sm:h-[15vh] h-[9vh] lg:h-[18vh] xl:h-[20vh]">
+        <div class="bg-white flex flex-row sm:flex-col  sm:w-[8.5rem] md:w-[10rem]  lg:w-[12rem] xl:w-[15rem]  relative rounded overflow-hidden">
+            <div class="">
                 <img id="article_image" class="h-[100%]" src="{{ (!empty($article->image))? url('upload/image-folder/features-folder/'. $article->image): url('upload/no-image.png') }}">
             </div>
 

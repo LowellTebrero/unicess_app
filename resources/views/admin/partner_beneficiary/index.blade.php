@@ -46,13 +46,13 @@
                                     <div class="p-4 md:p-5 space-y-4">
                                         <div class="flex flex-col">
                                             <label class="text-base leading-relaxed text-gray-200">Title</label>
-                                            <input type="text" class="text-base leading-relaxed text-gray-600 rounded" name="title">
+                                            <input type="text" class="text-base leading-relaxed text-gray-600 rounded" name="title" value="{{ old('title') }}">
                                             @error('title') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                         </div>
 
                                         <div class="flex flex-col">
                                             <label class="text-base leading-relaxed text-gray-200">Description</label>
-                                            <textarea name="description" class="text-base leading-relaxed text-gray-600 rounded" id="" cols="30" rows="10"></textarea>
+                                            <textarea name="description" class="text-base leading-relaxed text-gray-600 rounded" id="" cols="30" rows="10">{{ old('description') }}</textarea>
                                             @error('description') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                         </div>
 
@@ -226,13 +226,13 @@
                                     <div class="p-4 md:p-5 space-y-4">
                                         <div class="flex flex-col">
                                             <label class="text-base leading-relaxed text-gray-200">Title</label>
-                                            <input type="text" class="text-base leading-relaxed text-gray-600 rounded" name="title">
+                                            <input type="text" class="text-base leading-relaxed text-gray-600 rounded" name="title" value="{{ old('title') }}">
                                             @error('title') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                         </div>
 
                                         <div class="flex flex-col">
                                             <label class="text-base leading-relaxed text-gray-200">Description</label>
-                                            <textarea name="description" class="text-base leading-relaxed text-gray-600 rounded" id="" cols="30" rows="10"></textarea>
+                                            <textarea name="description" class="text-base leading-relaxed text-gray-600 rounded" id="" cols="30" rows="10">{{ old('description') }}</textarea>
                                             @error('description') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                         </div>
 

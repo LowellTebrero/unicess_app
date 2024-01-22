@@ -1,43 +1,43 @@
     <style>
-    /* Custom styles for FullCalendar events */
-    .fc-event {
-        padding: 10px;
-        margin-bottom: 10px;
-        font-size: 14px; /* Adjust the font size as needed */
-        background-color: #e0e0e0; /* Background color for events */
-        border-radius: 5px;
-        cursor: pointer;
-    }
+        /* Custom styles for FullCalendar events */
+        .fc-event {
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 14px; /* Adjust the font size as needed */
+            background-color: #e0e0e0; /* Background color for events */
+            border-radius: 5px;
+            cursor: pointer;
+        }
 
-    .fc-title {
-        font-weight: bold;
-        margin-bottom: 5px;
-    }
+        .fc-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
 
-    .fc-description {
-        color: #333; /* Text color for description */
-    }
+        .fc-description {
+            color: #333; /* Text color for description */
+        }
 
-    #calendar-container {
-        width: 400px; /* Adjust the width value as needed */
-        height: 200px; /* Adjust the height value as needed */
-    }
+        #calendar-container {
+            width: 400px; /* Adjust the width value as needed */
+            height: 200px; /* Adjust the height value as needed */
+        }
 
-    .example::-webkit-scrollbar {
-        display: none;
-    }
+        .example::-webkit-scrollbar {
+            display: none;
+        }
 
-      /* Hide scrollbar for IE, Edge and Firefox */
-    .example {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-    }
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .example {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+        }
 
 
     </style>
 
 <div class="bg-gradient-to-r from-blue-800 to-blue-700 h-10"></div>
-    <section class="min-h-[80vh] bg-slate-200 flex flex-col md:flex-col lg:flex-col xl:flex-row xl:space-x-10 lg:items-center xl:pb-10 2xl:pb-0 ">
+    <section class="min-h-[80vh] bg-slate-200 flex flex-col md:flex-col lg:flex-col xl:flex-row xl:space-x-0 lg:items-center xl:pb-10 2xl:pb-0 ">
 
         {{--  Latest Events  --}}
         <div class="w-full md:w-full lg:w-full min-h-[70vh] lg:pl-10 md:pl-0 md:justify-center ">
@@ -46,7 +46,7 @@
 
                     <div id="default-carousel" class="relative w-full h-[30vh] md:h-[40vh] lg:h-[60vh]" data-carousel="slide">
                         <!-- Carousel wrapper -->
-                        <div class="relative h-[30vh] md:h-[40vh] lg:h-[60vh] overflow-hidden rounded-lg   ">
+                        <div class="relative h-[30vh] md:h-[40vh] lg:h-[60vh] overflow-hidden rounded-lg">
 
                             @foreach ($slider as $event )
                             <!-- Item 1 -->
@@ -88,13 +88,12 @@
             </div>
         </div>
 
-        {{--  Latest News  --}}
-        <div class="w-full md:w-full lg:w-full h-[70vh] md:justify-center ">
-            <h1 class="text-blue-700 font-semibold text-2xl  pt-5 pb-10 underline underline-offset-8 text-center md:tex-center  lg:text-left xl:text-3xl 2xl:text-4xl bg-slate-200">Calender Event</h1>
+        {{--  Calendar Section  --}}
+        <div class="w-full md:w-full lg:w-full h-[70vh] md:justify-center flex justify-center flex-col  px-10 lg:pl-10">
+            <h1 class="text-blue-700 font-semibold text-2xl pt-5 pb-10 underline underline-offset-8 text-center md:tex-center  lg:text-left xl:text-3xl 2xl:text-4xl bg-gray-200">Calender Event</h1>
             <div class="h-[60vh]  overflow-y-auto example">
                 <div id="calendar" class="bg-white shadow rounded-lg  p-5 w-[95%]"></div>
             </div>
-
         </div>
     </section>
 

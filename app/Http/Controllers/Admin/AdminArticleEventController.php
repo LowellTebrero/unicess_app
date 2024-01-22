@@ -24,16 +24,18 @@ class AdminArticleEventController extends Controller
 
         $request->validate([
 
-            'title' => 'required|unique:admin_articles|max:255',
+            'title' => ['required','unique:admin_articles','max:255','min:6','regex:/^[^<>?:|\/"*]+$/'],
             'description' => 'required',
             'image' => ['required', 'mimes:jpg,png,jpeg', 'max:5048'],
 
-            ]);
+            ],
+            ['title.regex' => 'Invalid characters: \ / : * ? " < > |']
+            );
 
             $image = $request->image;
             $filename = Str::limit($request->title, 15).'.'. $image->getClientOriginalExtension();
             $resize_image = Image::make($image->getRealPath());
-            $resize_image->resize(785, 326);
+              $resize_image->resize(600, 500);
             $resize_image->save(public_path('upload/image-folder/features-folder/'. $filename));
 
             if(File::exists($resize_image)){
@@ -55,16 +57,20 @@ class AdminArticleEventController extends Controller
     {
                 $request->validate([
 
-                    'title' => 'required',
+                    'title' => ['required','max:255','min:6','regex:/^[^<>?:|\/"*]+$/'],
                     'description' => 'required',
-                    'image' => ['required', 'mimes:jpg,png,jpeg', 'max:5048'],
-                ]);
+                    'image' => ['sometimes', 'mimes:jpg,png,jpeg', 'max:5048'],
+
+
+                ],
+                ['title.regex' => 'Invalid characters: \ / : * ? " < > |']
+                );
 
                 if($request->file('image')){
                 $image = $request->file('image');
-                $filename = $request->title.'.'.$image->getClientOriginalExtension();
+                $filename =  Str::limit($request->title, 15).'.'.$image->getClientOriginalExtension();
                 $resize_image = Image::make($image->getRealPath());
-                $resize_image->resize(785, 326);
+                  $resize_image->resize(600, 500);
                 $resize_image->save(public_path('upload/image-folder/features-folder/'. $filename));
 
                 if(File::exists($resize_image)){
@@ -136,11 +142,13 @@ class AdminArticleEventController extends Controller
 
         $request->validate([
 
-            'title' => 'required|unique:admin_events|max:255',
+            'title' => ['required','unique:admin_events','max:255','min:6','regex:/^[^<>?:|\/"*]+$/'],
             'description' => 'required',
             'image' => ['required', 'mimes:jpg,png,jpeg', 'max:5048'],
 
-        ]);
+        ],
+        ['title.regex' => 'Invalid characters: \ / : * ? " < > |']
+        );
 
         $image = $request->image;
         $filename = Str::limit($request->title, 15).'.'. $image->getClientOriginalExtension();
@@ -167,14 +175,17 @@ class AdminArticleEventController extends Controller
     {
                 $request->validate([
 
-                    'title' => 'required',
+                    'title' => ['required','max:255','min:6','regex:/^[^<>?:|\/"*]+$/'],
                     'description' => 'required',
-                    'image' => ['required', 'mimes:jpg,png,jpeg', 'max:5048'],
-                ]);
+                    'image' => ['sometimes', 'mimes:jpg,png,jpeg', 'max:5048'],
+                ],
+                ['title.regex' => 'Invalid characters: \ / : * ? " < > |']
+                );
+
 
                 if($request->file('image')){
                 $image = $request->file('image');
-                $filename = $request->title.'.'.$image->getClientOriginalExtension();
+                $filename =  Str::limit($request->title, 15).'.'.$image->getClientOriginalExtension();
                 $resize_image = Image::make($image->getRealPath());
                 $resize_image->resize(600, 500);
                 $resize_image->save(public_path('upload/image-folder/event-folder/'. $filename));

@@ -25,11 +25,14 @@ class AdminPartnerBeneficiaryController extends Controller
         {
             $request->validate([
 
-                'title' => 'required|unique:admin_partners|max:255',
+                'title' => ['required', 'unique:admin_partners','max:255','min:6','regex:/^[^<>?:|\/"*]+$/'],
                 'description' => 'required',
                 'image' => ['required', 'mimes:jpg,png,jpeg', 'max:5048'],
 
-            ]);
+            ],
+            ['title.regex' => 'Invalid characters: \ / : * ? " < > |']
+            );
+
 
             $image = $request->image;
             $filename = Str::limit($request->title, 15).'.'. $image->getClientOriginalExtension();
@@ -56,12 +59,17 @@ class AdminPartnerBeneficiaryController extends Controller
 
     public function PartnerUpdate(Request $request, $id)
     {
-                $request->validate([
+            $request->validate([
 
-                    'title' => 'required',
-                    'description' => 'required',
-                    'image' => ['required', 'mimes:jpg,png,jpeg', 'max:5048'],
-                ]);
+                'title' => ['required','max:255','min:6','regex:/^[^<>?:|\/"*]+$/'],
+                'description' => 'required',
+                'image' => ['sometimes', 'mimes:jpg,png,jpeg', 'max:5048'],
+
+
+            ],
+            ['title.regex' => 'Invalid characters: \ / : * ? " < > |']
+            );
+
 
                 if($request->file('image')){
                 $image = $request->file('image');
@@ -117,10 +125,15 @@ class AdminPartnerBeneficiaryController extends Controller
         {
             $request->validate([
 
-                'title' => 'required|unique:admin_beneficiaries|max:255',
+                'title' => ['required', 'unique:admin_beneficiaries','max:255','min:6','regex:/^[^<>?:|\/"*]+$/'],
                 'description' => 'required',
                 'image' => ['required', 'mimes:jpg,png,jpeg', 'max:5048'],
-            ]);
+
+            ],
+            ['title.regex' => 'Invalid characters: \ / : * ? " < > |']
+            );
+
+
 
             $image = $request->image;
             $filename = Str::limit($request->title, 15).'.'. $image->getClientOriginalExtension();
@@ -147,12 +160,17 @@ class AdminPartnerBeneficiaryController extends Controller
 
     public function BeneficiaryUpdate(Request $request, $id)
     {
-                $request->validate([
+            $request->validate([
 
-                    'title' => 'required',
-                    'description' => 'required',
-                    'image' => ['required', 'mimes:jpg,png,jpeg', 'max:5048'],
-                ]);
+                'title' => ['required','max:255','min:6','regex:/^[^<>?:|\/"*]+$/'],
+                'description' => 'required',
+                'image' => ['sometimes', 'mimes:jpg,png,jpeg', 'max:5048'],
+
+
+            ],
+            ['title.regex' => 'Invalid characters: \ / : * ? " < > |']
+            );
+
 
                 if($request->file('image')){
                 $image = $request->file('image');

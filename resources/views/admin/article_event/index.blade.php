@@ -47,13 +47,13 @@
                                     <div class="p-4 md:p-5 space-y-4">
                                         <div class="flex flex-col">
                                             <label class="text-sm 2xl:text-base leading-relaxed text-gray-200">Title</label>
-                                            <input type="text" class="text-sm 2xl:text-base leading-relaxed text-gray-600 rounded" name="title">
+                                            <input type="text" class="text-sm 2xl:text-base leading-relaxed text-gray-600 rounded" name="title" value="{{ old('title') }}">
                                             @error('title') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                         </div>
 
                                         <div class="flex flex-col">
                                             <label class="text-sm 2xl:text-base leading-relaxed text-gray-200">Description</label>
-                                            <textarea name="description" class="text-sm 2xl:text-base leading-relaxed text-gray-600 rounded h-[20vh]" cols="30" rows="10"></textarea>
+                                            <textarea name="description" class="text-sm 2xl:text-base leading-relaxed text-gray-600 rounded h-[20vh]" cols="30" rows="10">{{ old('description') }}</textarea>
                                             @error('description') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                         </div>
 
@@ -170,13 +170,13 @@
                                                                 <div class="flex flex-col">
                                                                     <label class="text-sm 2xl:text-base leading-relaxed text-gray-200">Description</label>
                                                                     <textarea name="description" class="text-sm 2xl:text-base leading-relaxed text-gray-600 rounded h-[20vh]"  cols="30" rows="10">{{$article->description}}</textarea>
-                                                                    @error('description') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                                                    @error('description')<span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                                                 </div>
 
                                                                 <div class="flex flex-col">
                                                                     <label class="text-sm 2xl:text-base leading-relaxed text-gray-200">Image</label>
                                                                     <input type="file" class="text-sm 2xl:text-base leading-relaxed text-white" name="image">
-                                                                    @error('image') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                                                    @error('image')<span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                                                 </div>
                                                             </div>
                                                             <!-- Modal footer -->
@@ -193,7 +193,6 @@
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit flex jusify-center items-center">
-                                                {{--  <svg class="fill-red-400" xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 96 960 960" width="30"><path d="M261 936q-24.75 0-42.375-17.625T201 876V306h-41v-60h188v-30h264v30h188v60h-41v570q0 24-18 42t-42 18H261Zm438-630H261v570h438V306ZM367 790h60V391h-60v399Zm166 0h60V391h-60v399ZM261 306v570-570Z"/></svg>  --}}
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="#ff4d4d" stroke-linecap="round" stroke-width="1.5"><path d="M9.17 4a3.001 3.001 0 0 1 5.66 0" opacity=".5"/><path d="M20.5 6h-17m15.333 2.5l-.46 6.9c-.177 2.654-.265 3.981-1.13 4.79c-.865.81-2.195.81-4.856.81h-.774c-2.66 0-3.99 0-4.856-.81c-.865-.809-.953-2.136-1.13-4.79l-.46-6.9"/><path d="m9.5 11l.5 5m4.5-5l-.5 5" opacity=".5"/></g></svg>
                                             </button>
                                         </form>
@@ -238,13 +237,13 @@
                                     <div class="p-4 md:p-5 space-y-4">
                                         <div class="flex flex-col">
                                             <label class="text-sm 2xl:text-base leading-relaxed text-gray-200">Title</label>
-                                            <input type="text" class="text-sm 2xl:text-base leading-relaxed text-gray-600 rounded" name="title">
+                                            <input type="text" class="text-sm 2xl:text-base leading-relaxed text-gray-600 rounded" name="title" value="{{ old('title') }}">
                                             @error('title') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                         </div>
 
                                         <div class="flex flex-col">
                                             <label class="text-sm 2xl:text-base leading-relaxed text-gray-200">Description</label>
-                                            <textarea name="description" class="text-sm 2xl:text-base leading-relaxed text-gray-600 rounded h-[20vh]"  cols="30" rows="10"></textarea>
+                                            <textarea name="description" class="text-sm 2xl:text-base leading-relaxed text-gray-600 rounded h-[20vh]"  cols="30" rows="10">{{ old('description') }}</textarea>
                                             @error('description') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                         </div>
 
