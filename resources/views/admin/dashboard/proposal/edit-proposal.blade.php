@@ -1055,7 +1055,7 @@
                                                     <form action="{{route('inventory-rename-media', $mediaLibrary->id)}}" method="POST">
                                                         @csrf @method('PUT')
                                                         <div class="flex flex-col items-center pt-5 px-4">
-                                                        <input type="text" value="{{ $mediaLibrary->file_name }}" name="file_name" class=" w-full rounded">
+                                                        <input type="text" value="{{ $mediaLibrary->file_name }}" name="file_name" class=" w-full rounded" required>
                                                         <button type="submit" class="p-2 bg-blue-500 rounded mt-5 text-white">Rename</button>
                                                     </div>
                                                     </form>
@@ -1163,7 +1163,7 @@
                                                                             <form action="{{route('inventory-rename-media', $media->id)}}" method="POST">
                                                                                 @csrf @method('PUT')
                                                                                 <div class="flex flex-col items-center pt-5 px-4">
-                                                                                <input type="text" value="{{ $media->file_name }}" name="file_name" class="text-gray-700 w-full rounded">
+                                                                                <input type="text" value="{{ $media->file_name }}" name="file_name" class="text-gray-700 w-full rounded" required>
                                                                                 <button type="submit" class="p-2 bg-blue-500 rounded mt-5 text-gray-700">Rename</button>
                                                                             </div>
                                                                             </form>
@@ -1386,7 +1386,7 @@
                                                                             <form action="{{route('inventory-rename-media', $media->id)}}" method="POST">
                                                                                 @csrf @method('PUT')
                                                                                 <div class="flex flex-col items-center pt-5 px-4">
-                                                                                <input type="text" value="{{ $media->file_name }}" name="file_name" class="text-gray-700 w-full rounded">
+                                                                                <input type="text" value="{{ $media->file_name }}" name="file_name" class="text-gray-700 w-full rounded" required>
                                                                                 <button type="submit" class="p-2 bg-blue-500 rounded mt-5 text-gray-700">Rename</button>
                                                                             </div>
                                                                             </form>
