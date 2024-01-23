@@ -1329,10 +1329,10 @@ $proposals = App\Models\Proposal::all();
                                             </x-dropdown-link>
                                         @else
                                             @if (Auth()->user()->first_name == null)
-                                                <h1 class="text-xs text-red-600 mt-3 mx-5 mb-5 m-auto text-left">Please fill-up
+                                                <h1 class="text-xs text-red-600 m-2 mx-4 text-left">Please fill-up
                                                     your Profile Information, In-order to get Authorize</h1>
                                             @else
-                                                <h1 class="text-xs text-red-600 mt-3 mx-5 mb-5 m-auto text-left">You are not
+                                                <h1 class="text-xs text-red-600 m-2 mx-4 text-left">You are not
                                                     authorize yet, The admin is reviewing your account details</h1>
                                             @endif
 
