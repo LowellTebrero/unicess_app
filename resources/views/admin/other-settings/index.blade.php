@@ -25,7 +25,7 @@
 
                     <div class="p-5 flex justify-between">
                         <div>
-                            <h1 class="tracking-wider font-medium text-gray-600 text-xs 2xl:text-base">UPDATE PROPOSAL TEMPLATE HERE</h1>
+                            <h1 class="tracking-wider font-medium text-gray-600 text-xs 2xl:text-base">UPDATE CESO TEMPLATE HERE</h1>
 
                         </div>
 

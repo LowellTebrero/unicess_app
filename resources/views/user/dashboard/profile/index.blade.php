@@ -55,9 +55,9 @@
             <div class="shadow-md bg-gray-100 rounded-lg w-full p-5">
                 <div class="flex justify-between mb-2">
                     <h1 class="text-xs">With {{ Auth()->user()->faculty->name }}</h1>
-                    <input type="text" placeholder="Search name..." class="text-xs rounded">
+                    {{--  <input type="text" placeholder="Search name..." class="text-xs rounded">  --}}
                 </div>
-                <div class="overflow-x-auto 2xl:h-[46vh] xl:h-[35vh]">
+                <div class="overflow-x-auto 2xl:h-[46vh] h-[40vh]">
                 <table class="min-w-full divide-y divide-gray-200 ">
                     <thead>
                       <tr>
