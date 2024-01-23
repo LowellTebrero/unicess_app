@@ -58,7 +58,7 @@ $proposals = App\Models\Proposal::all();
                             @role('admin')
                                 <div class="relative" x-data="{ open: false }" @click.outside="open = false" @close.stop="open = false">
                                     <div @click="open = ! open">
-                                        <button class="mt-2 relative ">
+                                        <button class="mt-3 relative ">
                                             @if ($notifs > 0)
                                             <h1
                                                 class="text-red-500 text-[.2rem] rounded-full  px-1 pt-1 font-semibold absolute z-10 right-0 top-2 bg-red-500">
@@ -555,7 +555,7 @@ $proposals = App\Models\Proposal::all();
                                 <div class="relative" x-data="{ open: false }" @click.outside="open = false"
                                     @close.stop="open = false">
                                     <div @click="open = ! open">
-                                        <button class="mt-4 relative ">
+                                        <button class="mt-3 relative ">
                                             @if ($notifs > 0)
                                                 <h1
                                                     class="text-red-500 text-[.2rem] rounded-full  px-1 pt-1 font-semibold absolute z-10 right-0 top-2 bg-red-500">
