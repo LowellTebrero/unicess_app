@@ -45,7 +45,7 @@
                                     </select>
                                     <input id="searchInput"
                                         class=" text-xs rounded border border-gray-300 2xl:w-[20rem] sm:w-[15rem] w-full text-gray-700"
-                                        type="text" placeholder="Search Proposal Title...">
+                                        type="text" placeholder="Search Project Title...">
                                 </div>
                             </div>
                         </header>

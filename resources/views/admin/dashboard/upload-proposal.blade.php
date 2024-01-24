@@ -443,27 +443,55 @@
                 input.value = "";
             });
         }
-
         // Add a submit event listener to the form
         var form = document.getElementById("FormSubmit"); // Replace with your actual form ID
         var errormessage = document.getElementById("error-message");
         var fileerror = document.getElementById("filemessagerror");
         var errorMessageDisplayed = false;
         var fileInputs = document.querySelectorAll('input[type="file"]');
+        var intervalId;
 
-        form.addEventListener("submit", function(event) {
+        document.getElementById('FormSubmit').addEventListener('submit', function (event) {
+            var fileInputs = document.querySelectorAll('input[type="file"]');
+            var fileSelected = false;
 
-              // Check if at least one file input has a file selected
-              var hasFile = Array.from(fileInputs).some(function(input) {
-                return input.files.length > 0;
+            fileInputs.forEach(function (fileInput) {
+                if (fileInput.files.length > 0) {
+                    fileSelected = true;
+                }
             });
 
-            if (!hasFile && !errorMessageDisplayed) {
-                alert("Please upload at least one file.");
-                fileerror.innerHTML = 'Please upload at least one file among Proposal PDF, Special Order PDF, MOA PDF, Office Order PDF, Travel Order PDF.';
-                errorMessageDisplayed = true;
+            if (!fileSelected) {
+                alert('Please upload at least one file.');
+                blinkError();
                 event.preventDefault(); // Prevent form submission
             }
+        });
+
+        function blinkError() {
+            var count = 0;
+            intervalId = setInterval(function () {
+                if (count % 2 === 0) {
+                    fileerror.style.color = 'red';
+                    fileerror.style.textShadow = '4px 4px 4px rgba(255, 161, 176)';
+                } else {
+                    fileerror.style.color = '#780000';
+                    fileerror.style.textShadow = '3px 3px 4px rgba(255, 161, 176)';
+                }
+
+                count++;
+
+                if (count >= 6) {  // Adjust the number of blinks as needed
+                    clearInterval(intervalId);
+                    fileerror.style.color = '';  // Reset the color
+                    fileerror.style.textShadow = '';
+                }
+            }, 700);  // Adjust the interval (milliseconds) as needed
+        }
+
+
+
+        form.addEventListener("submit", function(event) {
 
             // Check if both buttons are not clicked
             if (leaderDiv.style.display === "none" && memberDiv.style.display === "none") {

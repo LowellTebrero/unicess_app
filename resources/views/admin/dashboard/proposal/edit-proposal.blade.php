@@ -411,21 +411,21 @@
                                             <div class="flex flex-col mb-1 w-full">
                                                 <label class="text-xs font-light tracking-wider mb-1">Update Proposal
                                                     (PDF)</label>
-                                                <input type="file" class="border text-xs" name="proposal_pdf">
+                                                <input type="file" class="border text-xs" name="proposal_pdf" accept="application/pdf">
                                                 @error('proposal_pdf')<span class="text-red-500  text-xs">{{ $message }}</span>@enderror
                                             </div>
 
                                             <div class="flex flex-col mb-1 w-full">
                                                 <label class="text-xs font-light tracking-wider mb-1">Update Special Order
                                                     (PDF)</label>
-                                                <input type="file" class="border text-xs" name="special_order_pdf">
+                                                <input type="file" class="border text-xs" name="special_order_pdf" accept="application/pdf">
                                                 @error('special_order_pdf')<span class="text-red-500  text-xs">{{ $message }}</span>@enderror
                                             </div>
 
                                             <div class="flex flex-col mb-1 w-full">
                                                 <label class="text-xs font-light tracking-wider mb-1">Update Memorandum of Agreement
                                                     (PDF)</label>
-                                                <input type="file" class="border text-xs" name="moa_pdf">
+                                                <input type="file" class="border text-xs" name="moa_pdf" accept="application/pdf">
                                                 @error('moa_pdf')<span class="text-red-500  text-xs">{{ $message }}</span>@enderror
                                             </div>
 
@@ -433,14 +433,14 @@
                                             <div class="flex flex-col  mb-1 w-full">
                                                 <label class="text-xs font-light tracking-wider mb-1">Update Travel order
                                                     (PDF)</label>
-                                                <input type="file"  class="border text-xs" name="travel_order">
+                                                <input type="file"  class="border text-xs" name="travel_order" accept="application/pdf">
                                                 @error('travel_order')<span class="text-red-500  text-xs">{{ $message }}</span>@enderror
                                             </div>
 
                                             <div class="flex flex-col  mb-1 w-full">
                                                 <label class="text-xs font-light tracking-wider mb-1">Update Office order
                                                     (PDF)</label>
-                                                <input type="file"  class="border text-xs" name="office_order">
+                                                <input type="file"  class="border text-xs" name="office_order" accept="application/pdf">
                                                 @error('office_order')<span class="text-red-500  text-xs">{{ $message }}</span>@enderror
                                             </div>
 
@@ -1773,7 +1773,7 @@
                 });
 
                 // Set the disabled property of the button based on the condition
-                $('button').prop('disabled', allFilesEmpty);
+                $('#upload-file').prop('disabled', allFilesEmpty);
             });
 
 

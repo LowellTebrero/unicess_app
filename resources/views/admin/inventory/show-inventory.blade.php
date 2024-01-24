@@ -34,14 +34,19 @@
 
 
     <script>
-        $('input[type=file]').change(function(){
-            if($('input[type=files]').val()==''){
-                $('button').attr('disabled',true)
+        $('input[type=file]').on('input', function() {
+            var allFilesEmpty = true;
 
-            }
-            else{
-            $('button').attr('disabled',false);
+            // Iterate over all file inputs
+            $('input[type=file]').each(function() {
+                if ($(this).val() !== '') {
+                    allFilesEmpty = false;
+                    return false; // exit the loop early if any file input has a value
+                }
+            });
 
-            }
-        })
+            // Set the disabled property of the button based on the condition
+            $('#upload-file').prop('disabled', allFilesEmpty);
+        });
+
     </script>

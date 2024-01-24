@@ -80,9 +80,9 @@
 
 
 
-                <div id="filemessagerror" class="text-xs text-red-500 tracking-wider mt-4 mb-2">
+                <h1 id="filemessagerror" class="text-xs text-red-500 tracking-wider mt-4 mb-2">
                     Please upload at least one file among Proposal PDF, Special Order PDF, MOA PDF, Office Order PDF, Travel Order PDF, Other File(s).
-                </div>
+                </h1>
                 <div class="grid grid-cols-3 2xl:grid-cols-2 gap-2">
                     <div class="w-full">
                         <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Project Proposal (PDF)</label>
@@ -127,32 +127,31 @@
 
                 </div>
 
-                <div>
-                    @error('proposal_pdf')
-                    <span class="text-red-500  text-xs">{{ $message }}</span>
-                    @enderror
-                </div>
 
 
 
-                <div class="flex space-x-4 items-center">
-                    <div class="w-1/2">
-                        <label class="text-xs block text-slate-600  font-medium 2xl:text-sm">Started Date (optional)</label>
-                        <input class="border-zinc-300 text-xs  appearance-none border  rounded w-full py-2 mt-2 px-3 text-slate-600  leading-tight focus:outline-none"
-                            value="{{ old('started_date') }}" name="started_date" id="started_date" type="date">
-                        @error('started_date')
-                            <span class="text-red-500  text-xs">{{ $message }}</span>
-                        @enderror
+
+                <div class="flex flex-col  space-y-4 2xl:flex-row 2xl:space-y-0 2xl:space-x-4 ">
+                    <div class="flex space-x-2 2xl:w-full">
+                        <div class="w-1/2">
+                            <label class="text-xs block text-slate-600  font-medium 2xl:text-sm">Started Date (optional)</label>
+                            <input class="border-zinc-300 text-xs  appearance-none border  rounded w-full py-2 mt-2 px-3 text-slate-600  leading-tight focus:outline-none"
+                                value="{{ old('started_date') }}" name="started_date" id="started_date" type="date">
+                            @error('started_date')
+                                <span class="text-red-500  text-xs">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        <div class="w-1/2">
+                            <label class="text-xs block text-slate-600  font-medium 2xl:text-sm">Ended Date (optional)</label>
+                            <input class="border-zinc-300 text-xs appearance-none border  rounded w-full py-2 mt-2 px-3 text-slate-600  leading-tight focus:outline-none"
+                                value="{{ old('finished_date') }}" name="finished_date" id="finished_date" type="date">
+                            @error('finished_date')
+                                <span class="text-red-500 text-xs">{{ $message }}</span>
+                            @enderror
+                        </div>
                     </div>
 
-                    <div class="w-1/2">
-                        <label class="text-xs block text-slate-600  font-medium 2xl:text-sm">Ended Date (optional)</label>
-                        <input class="border-zinc-300 text-xs appearance-none border  rounded w-full py-2 mt-2 px-3 text-slate-600  leading-tight focus:outline-none"
-                            value="{{ old('finished_date') }}" name="finished_date" id="finished_date" type="date">
-                        @error('finished_date')
-                            <span class="text-red-500 text-xs">{{ $message }}</span>
-                        @enderror
-                    </div>
 
                     <div class="pt-2 flex space-x-2 items-center w-full">
                         <div class="flex flex-col space-y-2">
@@ -451,20 +450,49 @@
             var fileerror = document.getElementById("filemessagerror");
             var errorMessageDisplayed = false;
             var fileInputs = document.querySelectorAll('input[type="file"]');
+            var intervalId;
 
-            form.addEventListener("submit", function(event) {
+            document.getElementById('FormSubmit').addEventListener('submit', function (event) {
+                var fileInputs = document.querySelectorAll('input[type="file"]');
+                var fileSelected = false;
 
-                // Check if at least one file input has a file selected
-                var hasFile = Array.from(fileInputs).some(function(input) {
-                    return input.files.length > 0;
+                fileInputs.forEach(function (fileInput) {
+                    if (fileInput.files.length > 0) {
+                        fileSelected = true;
+                    }
                 });
 
-                if (!hasFile && !errorMessageDisplayed) {
-                    alert("Please upload at least one file.");
-                    fileerror.innerHTML = 'Please upload at least one file among Proposal PDF, Special Order PDF, MOA PDF, Office Order PDF, Travel Order PDF.';
-                    errorMessageDisplayed = true;
+                if (!fileSelected) {
+                    alert('Please upload at least one file.');
+                    blinkError();
                     event.preventDefault(); // Prevent form submission
                 }
+            });
+
+            function blinkError() {
+                var count = 0;
+                intervalId = setInterval(function () {
+                    if (count % 2 === 0) {
+                        fileerror.style.color = 'red';
+                        fileerror.style.textShadow = '4px 4px 4px rgba(255, 161, 176)';
+                    } else {
+                        fileerror.style.color = '#780000';
+                        fileerror.style.textShadow = '3px 3px 4px rgba(255, 161, 176)';
+                    }
+
+                    count++;
+
+                    if (count >= 6) {  // Adjust the number of blinks as needed
+                        clearInterval(intervalId);
+                        fileerror.style.color = '';  // Reset the color
+                        fileerror.style.textShadow = '';
+                    }
+                }, 700);  // Adjust the interval (milliseconds) as needed
+            }
+
+
+
+            form.addEventListener("submit", function(event) {
 
                 // Check if both buttons are not clicked
                 if (leaderDiv.style.display === "none" && memberDiv.style.display === "none") {
@@ -474,7 +502,6 @@
                     event.preventDefault(); // Prevent form submission
                 }
             });
-
         });
     </script>
 
