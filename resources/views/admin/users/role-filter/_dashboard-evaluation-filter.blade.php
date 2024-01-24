@@ -19,12 +19,12 @@
                     <tr class="hover:bg-gray-100">
 
                         <td class="px-4 py-4 whitespace-nowrap text-xs text-gray-800">
-                            <a href={{ route('admin.evaluation.show', ['id' => $evaluation->id, 'year' => $evaluation->created_at]) }} target="__blank">
+                            <a href={{ route('admin.evaluation.show', ['id' => $evaluation->id, 'year' => $evaluation->created_at, 'notification' => $evaluation->id]) }} target="__blank">
                                 {{ $evaluation->created_at}}
                             </a>
                         </td>
                         <td class="px-4 py-4 whitespace-nowrap text-xs text-center text-gray-800">
-                            <a  href={{ route('admin.evaluation.show', ['id' => $evaluation->id, 'year' => $evaluation->created_at]) }} target="__blank">
+                            <a  href={{ route('admin.evaluation.show', ['id' => $evaluation->id, 'year' => $evaluation->created_at, 'notification' => $evaluation->id]) }} target="__blank">
                                @if ($evaluation->status == 'pending')
                                 pending
                                @else
@@ -33,12 +33,12 @@
                             </a>
                         </td>
                         <td class="px-4 py-4 whitespace-nowrap text-xs text-center text-gray-800">
-                            <a  href={{ route('admin.evaluation.show', ['id' => $evaluation->id, 'year' => $evaluation->created_at]) }} target="__blank">
+                            <a  href={{ route('admin.evaluation.show', ['id' => $evaluation->id, 'year' => $evaluation->created_at, 'notification' => $evaluation->id]) }} target="__blank">
                                 {{ $evaluation->period_of_evaluation}}
                             </a>
                         </td>
                         <td class="px-4 py-4 whitespace-nowrap text-xs text-center text-gray-800">
-                            <a  href={{ route('admin.evaluation.show', ['id' => $evaluation->id, 'year' => $evaluation->created_at]) }} target="__blank">
+                            <a  href={{ route('admin.evaluation.show', ['id' => $evaluation->id, 'year' => $evaluation->created_at, 'notification' => $evaluation->id]) }} target="__blank">
                                 {{$evaluation->total_points}}
                             </a>
                         </td>
