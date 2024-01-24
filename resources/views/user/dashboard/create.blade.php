@@ -87,35 +87,35 @@
                     <div class="w-full">
                         <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Project Proposal (PDF)</label>
                         <input class="custom-file bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
-                        name="proposal_pdf" id="proposal_pdf" type="file">
+                        name="proposal_pdf" id="proposal_pdf" type="file" accept="application/pdf">
 
                     </div>
 
                     <div class="w-full">
                         <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">MOA (PDF)</label>
                         <input class="custom-file bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
-                        name="moa_pdf" id="moa_pdf" type="file">
+                        name="moa_pdf" id="moa_pdf" type="file" accept="application/pdf">
 
                     </div>
 
                     <div class="w-full">
                         <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Office Order (PDF)</label>
                         <input class="custom-file bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
-                        name="office_order_pdf" id="office_order_pdf" type="file">
+                        name="office_order_pdf" id="office_order_pdf" type="file" accept="application/pdf">
 
                     </div>
 
                     <div class="w-full">
                         <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Travel Order (PDF)</label>
                         <input class="custom-file bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
-                        name="travel_order_pdf" id="travel_order_pdf" type="file">
+                        name="travel_order_pdf" id="travel_order_pdf" type="file" accept="application/pdf">
 
                     </div>
 
                     <div class="w-full">
                         <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Special Order (PDF)</label>
                         <input class="bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
-                        name="special_order_pdf" id="special_order_pdf" type="file">
+                        name="special_order_pdf" id="special_order_pdf" type="file" accept="application/pdf">
                     </div>
 
                     <div class="w-full">
