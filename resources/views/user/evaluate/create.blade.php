@@ -10,9 +10,6 @@
         color: #666666;
         }
 
-        .myClass {
-            display: none;
-        }
 
         input,
         input::placeholder {
@@ -35,7 +32,7 @@
                 </svg>
             </a>
 
-        <form action={{ route('evaluate.post') }} method="POST" enctype="multipart/form-data" id="form" class="form">
+        <form action={{ route('evaluate.post') }} method="POST" enctype="multipart/form-data" id="FormSubmit" class="form">
             @csrf
 
             <div>
@@ -105,7 +102,7 @@
                     </div>
 
                     <div class="mt-6 ">
-                    {{--  <h1 class="py-4  text-sm font-medium">4. OIC Function (depends on the length of time and what level)   <span class="text-xs xl:block 2xl:inline-block"> (1 pt. fore every 2 cumulative days)</span> </h1>  --}}
+                     <h1 class="py-4  text-sm font-medium">4. OIC Function (depends on the length of time and what level)   <span class="text-xs xl:block 2xl:inline-block"> (1 pt. fore every 2 cumulative days)</span> </h1>
                     <div class="mb-4">
                         <div>
                             <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" id="oic" name="oic" type="text" onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
@@ -205,10 +202,6 @@
                 </div>
             </div>
 
-
-
-
-
             <div class=" p-5 mt-12 border border-gray-400 bg-slate-100">
                 <p class="font-semibold  text-xs sm:text-sm 2xl:text-[1.1rem] ">
                     B. COMMUNITY OUTREACH -- 20 pts. (Ceiling Points)
@@ -223,87 +216,51 @@
             </div>
 
 
-
-
-            <div class="p-8  border-x border-b border-gray-400 input-group">
-
-
-                @foreach ($result2 as $row )
-
-                {{--  @if ($row->leader_member_type <= 0)
-                <h1 class="text-red-500">No Points</h1>
-                @else  --}}
-
-                @if ($row->leader_member_type == '1' && $row->location_id == '1')
+            <div class="p-8  border-x border-b border-gray-400">
 
                 <h1 class="text-sm">Training Director/Coordinator - Local/National  <span class="text-xs sm:text-sm">(10 pts. per Training)</span></h1>
-                <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="training_director_local"   type="text" id="inputfield1" placeholder="Points required" onkeypress="return isNumber(event)" required>
-                @endif
-
-                @if ($row->leader_member_type == '1' && $row->location_id == '2')
+                <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="training_director_local"  type="text" id="training_director_local"  onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
+                <input type="file" multiple credits="false" name="training_director_locals[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="training_director_local">
 
                 <h1 class="text-sm">Training Director/Coordinator - International   <span class="text-xs sm:text-sm">(15 pts. per Training)</span></h1>
-                <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="training_director_international" type="text" id="inputfield2" placeholder="Points required" onkeypress="return isNumber(event)" required>
-                @endif
-
-                @if ($row->leader_member_type == '2' && $row->location_id == '1')
+                <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="training_director_international" type="text" id="training_director_international"  onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
+                <input type="file" multiple credits="false" name="training_director_internationals[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="training_director_international">
 
                 <h1 class="text-sm">Resource Speaker/Trainer - Local/National  <span class="text-xs sm:text-sm">(7 pts. per Training)</span></h1>
-                <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="resource_speaker_local" type="text" placeholder="Points required" onkeypress="return isNumber(event)" required>
-                @endif
-
-                @if ($row->leader_member_type == '2' && $row->location_id == '2')
+                <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="resource_speaker_local" id="resource_speaker_local" type="text"  onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
+                <input type="file" multiple credits="false" name="resource_speaker_locals[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="resource_speaker_local">
 
                 <h1 class="text-sm" >Resource Speaker/Trainer - International   <span class="text-xs sm:text-sm">(10 pts. per Training)</span></h1>
-                <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="resource_speaker_international" type="text" placeholder="Points required" onkeypress="return isNumber(event)" required>
-                @endif
-
-
-                @if ($row->leader_member_type == '3' && $row->location_id == '1')
+                <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="resource_speaker_international" id="resource_speaker_international" type="text"  onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
+                <input type="file" multiple credits="false" name="resource_speaker_internationals[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="resource_speaker_international">
 
                 <h1 class="text-sm">Facilitator moderator - local   <span class="text-xs sm:text-sm">(3 pts. per Training)</span></h1>
-                <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="facilitator_moderator_local" type="text" placeholder="Points required" onkeypress="return isNumber(event)" required>
-                @endif
-
-                @if ($row->leader_member_type == '3' && $row->location_id == '2')
+                <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="facilitator_moderator_local" id="facilitator_moderator_local" type="text"  onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
+                <input type="file" multiple credits="false" name="facilitator_moderator_locals[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="facilitator_moderator_local">
 
                 <h1 class="text-sm">Facilitator moderator - International  <span class="text-xs sm:text-sm">(7 pts. per Training)</span></h1>
-                <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="facilitator_moderator_international" type="text" placeholder="Points required" onkeypress="return isNumber(event)" required>
-                @endif
-
-
-                @if ($row->leader_member_type == '4' && $row->location_id == '1')
+                <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="facilitator_moderator_international" id="facilitator_moderator_international" type="text"  onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
+                <input type="file" multiple credits="false" name="facilitator_moderator_internationals[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="facilitator_moderator_international">
 
                 <h1 class="text-sm">Reactor panel member - local  <span class="text-xs sm:text-sm">(2 pts. per Training)</span></h1>
-                <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="reactor_panel_member_local" type="text" placeholder="Points required" onkeypress="return isNumber(event)" required>
-                @endif
-
-                @if ($row->leader_member_type == '4' && $row->location_id == '2')
+                <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="reactor_panel_member_local" id="reactor_panel_member_local" type="text"  onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
+                <input type="file" multiple credits="false" name="reactor_panel_member_locals[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="reactor_panel_member_local">
 
                 <h1 class="text-sm">Reactor panel member - International  <span class="text-xs sm:text-sm">(5 pts. per Training)</span></h1>
-                <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="reactor_panel_member_international" type="text" placeholder="Points required" onkeypress="return isNumber(event)" required>
-                @endif
-
-
-                @if ($row->leader_member_type == '5' && empty($row->location_id))
+                <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="reactor_panel_member_international" id="reactor_panel_member_international" type="text"  onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
+                <input type="file" multiple credits="false" name="reactor_panel_member_internationals[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="reactor_panel_member_international">
 
                 <h1 class="text-sm">Technical Assistance/Consultancy  <span class="text-xs sm:text-sm">(7 pts. per project)</span></h1>
-                <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="technical_assistance"  type="text" placeholder="Points required" onkeypress="return isNumber(event)" required>
-                @endif
-
-                @if ($row->leader_member_type == '6' && empty($row->location_id))
+                <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="technical_assistance" id="technical_assistance" type="text"  onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
+                <input type="file" multiple credits="false" name="technical_assistances[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="technical_assistance">
 
                 <h1 class="text-sm">Judge  <span class="text-xs sm:text-sm">(3 pts.) Note: Only extra-curricular activities where are academic in nature (e.g., debates, orations, quiz shows)</span></h1>
-                <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="judge_community"  type="text" placeholder="Points required" onkeypress="return isNumber(event)" required>
-                @endif
-
-                @if ($row->leader_member_type == '7' && empty($row->location_id))
+                <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="judge_community" id="judge_community" type="text"  onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
+                <input type="file" multiple credits="false" name="judge_communitys[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="judge_community">
 
                 <h1 class="text-sm">Commencement/Guest Speaker: <span class="text-xs sm:text-sm">(4 pts.)</span></h1>
-                <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="commencement_guest_speaker" type="text" placeholder="Points required" onkeypress="return isNumber(event)" required>
-                @endif
-                {{--  @endif  --}}
-                @endforeach
+                <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="commencement_guest_speaker" id="commencement_guest_speaker" type="text"  onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
+                <input type="file" multiple credits="false" name="commencement_guest_speakers[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="commencement_guest_speaker">
 
 
             </div>
@@ -319,57 +276,44 @@
                 <div class="w-full border-x border-b p-8 border-gray-400">
                     <h1 class="text-md font-medium ">I. Participation in the extension and training per day:</h1>
 
-                    <div class="my-4 space-y-4 lg:space-y-0 lg:flex-row flex flex-col lg:space-x-12 input-group">
+                    <div class="my-4 space-y-4  flex flex-col 2xl:space-y-0 2xl:flex-row">
 
-                        @foreach ($result2 as $rows )
-
-                        @if ($rows->member_type == 'Coordinator/Organizer/consultants' )
                         <div class="w-full">
                         <h1 class="text-xs sm:text-sm">Coordinator/Organizer/consultants (10 pts. per day) </h1>
-                        <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm"  name="coordinator_organizer_consultants"  type="text" placeholder="Points required" required onkeypress="return isNumber(event)">
+                        <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm"  name="coordinator_organizer_consultants" id="coordinator_organizer_consultants"  type="text"  required onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
+                        <input type="file" multiple credits="false" name="coordinator_organizer_consultantses[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="coordinator_organizer_consultants">
                         </div>
-                        @endif
 
-                        @if ($rows->member_type == 'Facilitator' )
                         <div class="w-full">
                         <h1 class="text-xs sm:text-sm">Facilitator (6 pts. per day) </h1>
-                        <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm"   name="facilitator"   type="text" placeholder="Points required" required onkeypress="return isNumber(event)">
+                        <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="facilitator" id="facilitator"  type="text"  required onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
+                        <input type="file" multiple credits="false" name="facilitators[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="facilitator">
                         </div>
-                        @endif
 
-                        @if ($rows->member_type == 'Member' )
                         <div class="w-full">
                         <h1 class="text-xs sm:text-sm">Member (4 pts. per day) </h1>
-                        <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm"   name="member" type="text" placeholder="Points required" required onkeypress="return isNumber(event)">
+                        <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm"  id="member"  name="member" type="text"  required onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
+                        <input type="file" multiple credits="false" name="members[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="member">
                         </div>
-                        @endif
 
-                        @if ($rows->member_type == 'Resource person/lecturer' )
                         <div class="w-full">
                         <h1 class="text-xs sm:text-sm">Resource person/lecturer (8 pts. per day) </h1>
-                        <input class="input border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="resource_person_lecturer"  type="text" placeholder="Points required" required onkeypress="return isNumber(event)">
+                        <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="resource_person_lecturer" id="resource_person_lecturer"  type="text"  required onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
+                        <input type="file" multiple credits="false" name="resource_person_lecturers[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="resource_person_lecturer">
                         </div>
-
-                        @endif
-                        @endforeach
 
                     </div>
                 </div>
             </div>
 
 
-            <div class="py-12 submit-btn">
-                <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" type="button" class="btn w-full lg:w-[15rem] button block text-white bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-blue-800 disabled:hover:bg-slate-400  transition-all">
+            <div class="py-12">
+                <button id="confirmSubmitBtn" disabled data-modal-target="popup-modal" data-modal-toggle="popup-modal" type="button" class="btn w-full lg:w-[15rem] button block text-white bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-blue-800 disabled:hover:bg-slate-400  transition-all">
                     Submit here
                 </button>
 
 
-                {{--  <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" type="button">
-                    <svg class="hover:fill-red-600" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"><g fill="none" stroke="#ff4d4d" stroke-linecap="round" stroke-width="1.5"><path d="M9.17 4a3.001 3.001 0 0 1 5.66 0" opacity=".5"/><path d="M20.5 6h-17m15.333 2.5l-.46 6.9c-.177 2.654-.265 3.981-1.13 4.79c-.865.81-2.195.81-4.856.81h-.774c-2.66 0-3.99 0-4.856-.81c-.865-.809-.953-2.136-1.13-4.79l-.46-6.9"/><path d="m9.5 11l.5 5m4.5-5l-.5 5" opacity=".5"/></g></svg>
-                </button>  --}}
-
                 <div id="popup-modal" tabindex="-1" class="top-0 left-0 right-0 md:inset-0 m-0  fixed z-50 bg-black hidden bg-opacity-30 overflow-x-hidden overflow-y-auto max-h-full">
-                    {{--  fixed z-50 bg-red-500 bg-opacity-80 hidden overflow-x-hidden top-0 left-0 right-0  overflow-y-auto md:inset-0 max-h-full  --}}
 
                     <div class="relative w-full max-w-md max-h-full ">
                         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -387,7 +331,7 @@
 
                                 <div class="flex space-x-4 items-center justify-center">
 
-                                        <button data-modal-hide="popup-modal" type="submit" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                                        <button data-modal-hide="popup-modal" type="submit"  class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
                                             Yes, Im sure
                                         </button>
 
@@ -426,126 +370,68 @@
 
 
     <script>
-
-
-
-
         const inputElement = document.getElementById('chairmanship_university');
 
         inputElement.addEventListener('input', function () {
             const inputValue = inputElement.value;
             console.log('Input Value:', inputValue);
         });
-     /*   document.addEventListener('FilePond:loaded', () => {
-            const inputElements = document.querySelectorAll('input.filepond');
-            const textInput = document.getElementById('chairmanship_university');
 
-            inputElements.forEach(inputElement => {
-                const filepond = FilePond.create(inputElement);
+        document.addEventListener('FilePond:loaded', () => {
+    const fileInputs = document.querySelectorAll('input.filepond');
+    const formButton = document.getElementById('confirmSubmitBtn');
 
-                filepond.on('processfile', (error, file) => {
-                    const files = filepond.getFiles();
-                    if (files.length > 0) {
-                        const uploadedFile = files[0];
-                        console.log('FilePond Value:', uploadedFile.file);
-                    }
-                });
+    // Initialize an array to keep track of the state of each FilePond input
+    const filePondStates = Array.from(fileInputs).map(() => false);
 
+    fileInputs.forEach((fileInput, index) => {
+        const filepond = FilePond.create(fileInput);
+        const relatedTextInputId = fileInput.getAttribute('data-filepond');
+        const textInput = document.getElementById(relatedTextInputId);
 
-                filepond.on('processfile', () => {
-                    const files = filepond.getFiles();
-                    const isFileInputEmpty = files.length === 0;
+        filepond.on('processfile', (error, file) => {
+            const files = filepond.getFiles();
+            const hasFiles = files.length > 0;
 
-                    // Set the text input as required based on the FilePond input
-                    textInput.required = !isFileInputEmpty;
-                });
+            if (hasFiles) {
+                const uploadedFile = files[0];
+                console.log('FilePond Value:', uploadedFile.file);
+                textInput.required = true;
+                textInput.readOnly = false;
+                textInput.placeholder = 'Points required';
+            }
 
-            });
+            // Update the state of the FilePond input
+            filePondStates[index] = hasFiles;
 
-            document.addEventListener('FilePond:loaded', () => {
-                const inputElements = document.querySelectorAll('input.filepond');
-                const textInput = document.getElementById('chairmanship_university');
+            // Update the disabled status of the form button
+            updateFormButtonStatus();
+        });
 
-                inputElements.forEach(inputElement => {
-                    const filepond = FilePond.create(inputElement);
+        filepond.on('removefile', (error, file) => {
+            const files = filepond.getFiles();
+            const hasFiles = files.length > 0;
 
-                    function updateRequiredStatus() {
-                        const files = filepond.getFiles();
-                        const isFileInputEmpty = files.length === 0;
-                        const isTextInputEmpty = textInput.value.trim() === '';
+            if (!hasFiles) {
+                textInput.placeholder = 'Upload your file first';
+                textInput.readOnly = true;
+                textInput.value = '';
+            }
 
-                        // Set the text input as required based on the FilePond input
-                        textInput.required = !isFileInputEmpty;
+            // Update the state of the FilePond input
+            filePondStates[index] = hasFiles;
 
-                        // Set the FilePond input as required based on the text input
-                        inputElement.required = !isTextInputEmpty;
-                    }
+            // Update the disabled status of the form button
+            updateFormButtonStatus();
+        });
+    });
 
-                    filepond.on('processfile', updateRequiredStatus);
+    // Function to update the disabled status of the form button
+    function updateFormButtonStatus() {
+        const allFilePondInputsEmpty = filePondStates.every(state => !state);
+        formButton.disabled = allFilePondInputsEmpty;
+    }
 
-                        // Add an input event listener on the text input to update the status
-                        textInput.addEventListener('input', updateRequiredStatus);
-                });
-
-
-                 document.addEventListener('FilePond:loaded', () => {
-                    const fileInputs = document.querySelectorAll('input.filepond');
-
-                    fileInputs.forEach(fileInput => {
-                        const filepond = FilePond.create(fileInput);
-                        const relatedTextInputId = fileInput.getAttribute('data-filepond');
-                        const textInput = document.getElementById(relatedTextInputId);
-
-                        function toggleTextInputReadonly() {
-                            const files = filepond.getFiles();
-                            const isFileInputEmpty = files.length === 0;
-
-                            // Set the read-only property of the text input based on the FilePond input
-                            textInput.readOnly = isFileInputEmpty;
-                        }
-
-                        // Listen for the 'FilePond:processfile' event on the FilePond input
-                        fileInput.addEventListener('FilePond:processfile', toggleTextInputReadonly);
-
-                        // Initial read-only status check
-                        toggleTextInputReadonly();
-                    });
-
-
-                    */
-
-                     document.addEventListener('FilePond:loaded', () => {
-                        const fileInputs = document.querySelectorAll('input.filepond');
-
-                        fileInputs.forEach(fileInput => {
-                            const filepond = FilePond.create(fileInput);
-                            const relatedTextInputId = fileInput.getAttribute('data-filepond');
-                            const textInput = document.getElementById(relatedTextInputId);
-
-                            filepond.on('processfile', (error, file) => {
-                                const files = filepond.getFiles();
-                                if (files.length > 0) {
-                                    const uploadedFile = files[0];
-                                    console.log('FilePond Value:', uploadedFile.file);
-                                    textInput.required = true;
-                                    textInput.readOnly = false;
-                                    textInput.placeholder = 'Points required';
-                                }
-
-                            });
-
-                            filepond.on('removefile', (error, file) => {
-                                const files = filepond.getFiles();
-                                if (files.length === 0) {
-                                    textInput.placeholder = 'Upload your file first';
-                                    textInput.readOnly = true;
-                                    textInput.value = '';
-                                } else {
-                                    console.log(false);
-                                }
-                            });
-
-                        });
 
 
 
@@ -622,7 +508,10 @@
             }
             return true;
         }
+
     </script>
+
+
 
 
 

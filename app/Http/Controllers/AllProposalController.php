@@ -25,15 +25,10 @@ class AllProposalController extends Controller
 
         $myproposal = Proposal::with(['proposal_members' => function ($query) {
         $query->where('user_id', auth()->user()->id); }])->get();
-        $leader_member = CesoRole::orderBy('role_name')->pluck('role_name', 'id');
-        $participation_member = ParticipationName::orderBy('participation_name')->pluck('participation_name');
-        $locations = Location::orderBy('location_name')->pluck('location_name', 'id')->prepend('Select Location', '');
-        $proposalRequest = ProposalRequest::all();
         $proposalMembers = ProposalMember::all();
 
         return view('user.allProposal.index', compact('proposals','myproposal', 'allproposal',
-         'years', 'proposalmember', 'leader_member', 'participation_member',
-         'locations', 'proposalRequest', 'proposalMembers'));
+         'years', 'proposalmember'));
     }
 
     public function show($id){

@@ -205,6 +205,7 @@ class DashboardController extends Controller
         ->mapWithKeys(function ($user) {
             return [$user->id => $user->name];
         });
+        $narrativeCount = TerminalReport::distinct('user_id')->count();
         $terminalCount = TerminalReport::distinct('user_id')->count();
         $memberCount = ProposalMember::where('proposal_id', $id)->count();
 
@@ -281,14 +282,8 @@ class DashboardController extends Controller
             'finished_date' =>  $request->finished_date,
         ]);
 
-
-
         if($request->member !== null){
-
-
-            ProposalMember::whereNotNull('member_type')->where('proposal_id', $proposals->id)->delete();
-
-
+            ProposalMember::where('proposal_id', $proposals->id)->delete();
             foreach ($request->member as $item) {
 
                 $model = new ProposalMember();
@@ -298,7 +293,7 @@ class DashboardController extends Controller
             }
 
         }else{
-            ProposalMember::whereNotNull('member_type')->where('proposal_id', $proposals->id)->delete();
+            ProposalMember::where('proposal_id', $proposals->id)->delete();
         }
 
         flash()->addSuccess('Details Updated Successfully');

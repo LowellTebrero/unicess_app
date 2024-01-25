@@ -192,7 +192,7 @@
 
                                             @php($count=0)
                                             @foreach ($proposals->proposal_members as $proposal_mem)
-                                            @if ($proposal_mem->member_type !== null)
+                                            @if ($proposal_mem !== null)
                                             @php($count++)
 
 
@@ -201,7 +201,7 @@
                                                 <select name="member[{{ $count }}][id]" class="rounded-md xl:text-xs w-full border-zinc-400" id="member" required>
                                                     @foreach ($members as $id => $participation_name )
                                                         <option value="{{ $id }}"
-                                                            @if ($proposal_mem->member_type != null ? $proposal_mem->user_id == $id : '')
+                                                            @if ( $proposal_mem->user_id == $id)
                                                             selected="selected"
                                                             @endif>
                                                             {{ $participation_name }}

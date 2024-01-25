@@ -4,16 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Program;
-use App\Models\CesoRole;
-use App\Models\Location;
 use App\Models\Proposal;
 use App\Models\AdminYear;
 use Illuminate\Http\Request;
 use App\Models\ProposalMember;
 use App\Models\TerminalReport;
 use App\Models\NarrativeReport;
-use App\Models\ProposalProject;
-use App\Models\ParticipationName;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\CustomizeUserInventory;
@@ -113,7 +109,7 @@ class InventoryController extends Controller
 
             if($request->member !== null){
 
-                ProposalMember::whereNotNull('member_type')->where('proposal_id', $proposals->id)->delete();
+                ProposalMember::where('proposal_id', $proposals->id)->delete();
                 foreach ($request->member as $item) {
 
                     $model = new ProposalMember();
@@ -123,7 +119,7 @@ class InventoryController extends Controller
                 }
 
                 }else {
-                    ProposalMember::whereNotNull('member_type')->where('proposal_id', $proposals->id)->delete();
+                    ProposalMember::where('proposal_id', $proposals->id)->delete();
                 }
 
 

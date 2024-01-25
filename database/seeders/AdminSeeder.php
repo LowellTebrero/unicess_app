@@ -21,24 +21,24 @@ class AdminSeeder extends Seeder
     public function run()
     {
 
-        // $users =  User::create([
-        //     'name' => 'Administrator',
-        //     'first_name' =>'CesoAdmin',
-        //     'middle_name' =>'CesoAdmin',
-        //     'last_name' =>'Administrator',
-        //     'gender' =>'Male',
-        //     'email' => 'Admin@gmail.com',
-        //     'email_verified_at' => now(),
-        //     'address' => 'Tacloban City',
-        //     'contact_number' => '0955325345',
-        //     'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-        //     'faculty_id' => 2,
-        //     'authorize' => 'checked',
-        //     'provider' => 'google',
+        $admin =  User::create([
+            'name' => 'Administrator',
+            'first_name' =>'CesoAdmin',
+            'middle_name' =>'CesoAdmin',
+            'last_name' =>'Administrator',
+            'gender' =>'Male',
+            'email' => 'Admin@gmail.com',
+            'email_verified_at' => now(),
+            'address' => 'Tacloban City',
+            'contact_number' => '0955325345',
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'faculty_id' => 2,
+            'authorize' => 'checked',
+            'provider' => 'google',
 
-        // ]);
+        ]);
 
-        // $users->assignRole('admin');
+        $admin->assignRole('admin');
 
         $faker = Factory::create();
 

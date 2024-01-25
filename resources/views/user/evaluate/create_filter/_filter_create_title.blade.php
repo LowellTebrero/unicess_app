@@ -14,11 +14,11 @@
 <div class="pt-2 flex justify-center space-x-12 ">
     <div>
         <h1 class="text-xs xl:text-sm">Name of Faculty: </h1>
-        <input class="shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="faculty_id" type="text" readOnly value="{{ $user->faculty->name }}">
+        <input class="shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="faculty_id" type="text" readOnly value="{{ $user->faculty->name }}" required>
     </div>
 
     <div>
         <h1 class="text-xs xl:text-sm">Period of Evaluation: SY: </h1>
-        <input class="shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="period_of_evaluation" readOnly value="{{ $startYear }} - {{ $endYear }}" type="text" >
+        <input class="shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="period_of_evaluation" readOnly value="{{ $startYear }} - {{ $endYear }}" type="text" required>
     </div>
 </div>

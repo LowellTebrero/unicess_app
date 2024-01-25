@@ -37,12 +37,11 @@ use Illuminate\Support\Facades\Notification;
         $totalProposal = DB::table('proposals')->select('id')->count();
         $getCountProposals = DB::table('proposals')->whereDate('created_at', Carbon::today())->count();
         $getCountUsers = DB::table('users')->whereDate('created_at', Carbon::today())->count();
-        $getCountpropreq = DB::table('proposal_requests')->whereDate('created_at', Carbon::today())->count();
         $programs = Program::orderBy('program_name')->pluck('program_name', 'id')->prepend('Select Program', '');
         $evaluation = Evaluation::whereYear('created_at', date('Y'))->count();
         $narrativeCount = NarrativeReport::distinct('user_id')->count();
         $terminalCount = TerminalReport::distinct('user_id')->count();
-        $proposalrequest = ProposalRequest::whereYear('created_at', date('Y'))->count();
+
 
         $currentYear = date('Y');
         $previousYear = $currentYear + 1;
@@ -52,8 +51,7 @@ use Illuminate\Support\Facades\Notification;
 
         return view('admin.dashboard.index', compact('projectProposal', 'allProposal', 'getCountProposals', 'getCountUsers',
              'pendingAccount', 'totalAccount', 'ongoingProposal', 'currentYear' , 'previousYear',
-             'finishedProposal', 'totalProposal', 'programs', 'evaluation', 'proposalrequest'
-            ,'getCountpropreq', 'narrativeCount', 'terminalCount' ));
+             'finishedProposal', 'totalProposal', 'programs', 'evaluation', 'narrativeCount', 'terminalCount' ));
     }
 
     public function store(Request $request)
@@ -181,6 +179,3 @@ use Illuminate\Support\Facades\Notification;
         'finishedProposal', 'totalProposal', 'programs' ));
     }
 }
-
-
-

@@ -118,7 +118,7 @@
 
         @foreach ($status as $stats )
 
-            @if ($currentYear == date('Y') && $stats->status == "close" &&  $latestYear == $currentYear && $evaluation->isEmpty())
+            @if ($currentYear == date('Y') && $stats->status == "close" && $evaluation->isEmpty())
                 <div class="flex space-y-2 items-center justify-center flex-col ">
                     <img src="{{ asset('img/attention.png') }}" width="90" class="closed-image w-[5rem] sm:w-[7rem]">
                     <h1 class="sm:text-3xl font-semibold tracking-wider closed-title text-sm">Whoops..</h1>
@@ -128,7 +128,7 @@
 
 
             @foreach ($evaluation as $eval)
-                @if ($currentYear == date('Y') && $stats->status == "close" && $latestYear < $previousYear &&  $eval->status == 'evaluated' )
+                @if ($currentYear == date('Y') && $stats->status == "close" &&  $eval->status == 'evaluated' )
                 <div id="div1" class="animated-div-container animated-div flex flex-col items-center justify-center space-y-2 text-green-500">
                     <img src="{{ asset('img/confetti.png') }}" width="75" class="head-primary-main">
                     <h1 class="text-2xl font-medium tracking-wide head-primary-sub">Congratulations </h1>
@@ -156,7 +156,7 @@
             @endforeach
 
             @foreach ($evaluation as $eval)
-                @if ($currentYear == date('Y') && $stats->status == "close" && $latestYear < $previousYear &&  $eval->status == 'pending' )
+                @if ($currentYear == date('Y') && $stats->status == "close"  &&  $eval->status == 'pending' )
                 <div id="div1" class="animated-div-container animated-div flex space-y-3 items-center justify-center flex-col text-green-500 text-lg font-medium">
                     <img src="{{ asset('img/submit-successfully.png') }}" width="90" class="submitted-image">
                     <h1 class="text-xl submitted-text">Evaluation form submitted </h1>
@@ -186,7 +186,7 @@
             {{--  Stock Open for evaluation  --}}
             {{--  @foreach ($evaluation as $eval)  --}}
 
-            @if ($currentYear == date('Y') && $stats->status == "checked" && $latestYear == $currentYear && $latesEvaluationtYear != $latestYear && $evaluation->isEmpty())
+            @if ($currentYear == date('Y') && $stats->status == "checked" &&  $evaluation->isEmpty())
                 <div class="flex flex-col items-center space-y-2">
                     <h1 class="sm:text-lg text-center open-text">The evaluation form is now open. </h1>
                     <button type="submit" class="bg-blue-500 text-white px-4 hover:bg-blue-600 rounded-xl py-2 open-button text-sm sm:text-md">Click here to submit</button>
@@ -225,7 +225,7 @@
             {{--  Stock and searching for Evaluated  --}}
             @foreach ($result as $res)
             @foreach ($evaluation as $eval)
-                @if ($currentYear == date('Y')  && $stats->status == "checked" && $res->status == 'evaluated' &&  $latestYear == $currentYear && $res->max_year == $currentYear )
+                @if ($currentYear == date('Y')  && $stats->status == "checked" && $res->status == 'evaluated' &&  $res->max_year == $currentYear )
 
                     <div id="div1" class="animated-div-container animated-div flex flex-col items-center justify-center space-y-2 text-green-500">
                         <img src="{{ asset('img/confetti.png') }}" width="75" class="head-primary-main">

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\CesoRole;
 use App\Models\Proposal;
 use App\Models\AdminYear;
 use App\Models\Evaluation;
@@ -16,7 +15,6 @@ class PointsController extends Controller
 {
     public function index(Request $request){
 
-        $cesos = CesoRole::all();
         $currentYear = date('Y');
 
         $status = EvaluationStatus::select('status')->get();
@@ -25,14 +23,13 @@ class PointsController extends Controller
         ->get();
         $evaluation_status = Evaluation::select(DB::raw('YEAR(created_at) year') , 'status')->where('user_id', auth()->user()->id)->get();
         $latestYearPoints = Evaluation::select('created_at', 'total_points')->latest('created_at')->where('user_id', auth()->user()->id)->whereYear('created_at', $currentYear)->first();
-        $ceso_roles = CesoRole::all();
+
         $evaluations = Evaluation::where('user_id', Auth()->user()->id)->whereYear('created_at', $currentYear)->get();
 
         return view('user.point-system.index', compact('proposals',
-         'cesos',   'ceso_roles',
-         'currentYear',
-         'status', 'evaluation_status',
-          'latestYearPoints', 'years', 'evaluations'));
+        'currentYear',
+        'status', 'evaluation_status',
+        'latestYearPoints', 'years', 'evaluations'));
     }
 
     public function filter(Request $request){
@@ -49,15 +46,13 @@ class PointsController extends Controller
         $proposals = Proposal::whereYear('created_at', $startYear)
             ->get();
 
-        $cesos = CesoRole::whereYear('created_at', '>=', $startYear)
-        ->whereYear('created_at', '<=', $endYear)
-        ->get();
+
 
         $member = ProposalMember::where('user_id', auth()->user()->id)
         ->whereYear('created_at', '<=', $endYear)
         ->sum('points');
 
-        $ceso_roles = CesoRole::all();
+
 
         $count2 = ProposalMember::whereYear('created_at', '>=', $startYear)
         ->whereYear('created_at', '<=', $endYear)
@@ -73,9 +68,9 @@ class PointsController extends Controller
         $latestYearPoints = Evaluation::select('created_at', 'total_points')->latest('created_at')->whereYear('created_at', $startYear)->where('user_id', auth()->user()->id)->first();
 
 
-    return view('user.point-system.index', compact('latestYearPoints','proposals', 'cesos',
+    return view('user.point-system.index', compact('latestYearPoints','proposals',
     'result', 'countResult', 'currentYear', 'previousYear',
-    'status', 'evaluation_status', 'ceso_roles'));
+    'status', 'evaluation_status'));
 }
 
 
