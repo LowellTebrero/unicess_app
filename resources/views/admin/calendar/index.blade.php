@@ -1,3 +1,16 @@
+
+    <style>
+        [x-cloak] { display: none}
+
+            .active-tab {
+        /* Add your active styles here */
+        background-color: #ffbb00;
+        color: #ffffff;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+        }
+
+    </style>
 <x-admin-layout>
 
 
@@ -15,9 +28,24 @@
             <hr>
         </header>
 
-        <div class="bg-blue-500 p-10 flex flex-col-reverse 2xl:flex-row pt-12 2xl:space-x-5">
-            <div id="calendar" class="bg-white shadow rounded-lg  p-10 w-auto"></div>
-            <div class="bg-white w-auto 2xl:h-[40vh] 2xl:w-[30%] rounded-lg mb-5 2xl:mb-0 p-5">
+        <div class="p-5 sticky top-[4rem] z-10 bg-white">
+            <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-300">
+                <li class="me-2"  id="tab-calendar-data">
+                    <a href="#" onclick="showTab('calendar-data')" aria-current="page"  class="inline-block p-4 rounded-t-lg">Calendar Data</a>
+                </li>
+
+                <li class="me-2"  id="tab-calendar">
+                    <a href="#"  onclick="showTab('calendar')" class="inline-block p-4 rounded-t-lg">Calendar</a>
+                </li>
+            </ul>
+        </div>
+
+
+             <div class="tab-content" id="calendar-content" style="display: none;">
+                <div id="calendars" class="bg-white shadow rounded-lg  p-10 w-auto"></div>
+            </div>
+
+            <div class="tab-content bg-white w-auto 2xl:h-[40vh]  rounded-lg mb-5 2xl:mb-0 p-5" id="calendar-data-content" style="display: none;">
                 <header class="flex justify-between">
                     <h1 class="text-lg font-medium text-gray-600">Calendar Data</h1>
                     <!-- Modal toggle -->
@@ -196,7 +224,7 @@
                     </table>
                 </div>
             </div>
-        </div>
+
 
 
     </section>
@@ -247,7 +275,7 @@
                 });
             */
             $(document).ready(function() {
-                $('#calendar').fullCalendar({
+                $('#calendars').fullCalendar({
                     events: {!! json_encode($events) !!},
                     header: {
                         left: 'prev,next today',
@@ -273,3 +301,63 @@
         </script>
     @endpush
 </x-admin-layout>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(function (content) {
+                content.style.display = 'none';
+            });
+
+            // Check if there's a stored tab in localStorage
+            var storedTab = localStorage.getItem('selectedCalendarTab');
+            if (storedTab) {
+                // Show the stored tab content
+                document.getElementById(storedTab + '-content').style.display = 'block';
+
+                // Add 'active' class to the stored tab (if needed)
+                document.querySelector('[onclick="showTab(\'' + storedTab + '\')"]').classList.add('active');
+
+                // Add 'active' class to the corresponding <li>
+                document.getElementById('tab-' + storedTab).classList.add('active-tab');
+            } else {
+                // If no stored tab, show the 'narrative-content' by default
+                document.getElementById('calendar-data-content').style.display = 'block';
+
+                // Add 'active' class to the 'narrative' tab (if needed)
+                document.querySelector('[onclick="showTab(\'calendar-data\')"]').classList.add('active');
+
+                // Add 'active' class to the corresponding <li>
+                document.getElementById('tab-calendar-data').classList.add('active-tab');
+            }
+        });
+
+        function showTab(tabId) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(function (content) {
+                content.style.display = 'none';
+            });
+
+            // Remove 'active' class from all tabs (if needed)
+            document.querySelectorAll('.tab').forEach(function (tab) {
+                tab.classList.remove('active');
+            });
+
+            // Remove 'active-tab' class from all <li> elements (if needed)
+            document.querySelectorAll('li').forEach(function (li) {
+                li.classList.remove('active-tab');
+            });
+
+            // Show the selected tab content
+            document.getElementById(tabId + '-content').style.display = 'block';
+
+            // Add 'active' class to the clicked tab (if needed)
+            document.querySelector('[onclick="showTab(\'' + tabId + '\')"]').classList.add('active');
+
+            // Add 'active-tab' class to the corresponding <li>
+            document.getElementById('tab-' + tabId).classList.add('active-tab');
+
+            // Store the selected tab in localStorage
+            localStorage.setItem('selectedCalendarTab', tabId);
+        }
+    </script>

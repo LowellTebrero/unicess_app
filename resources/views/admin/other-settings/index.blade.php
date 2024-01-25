@@ -276,7 +276,7 @@
             });
 
             // Check if there's a stored tab in localStorage
-            var storedTab = localStorage.getItem('selectedTab');
+            var storedTab = localStorage.getItem('selectedOtherSettingsTab');
             if (storedTab) {
                 // Show the stored tab content
                 document.getElementById(storedTab + '-content').style.display = 'block';
@@ -324,7 +324,7 @@
             document.getElementById('tab-' + tabId).classList.add('active-tab');
 
             // Store the selected tab in localStorage
-            localStorage.setItem('selectedTab', tabId);
+            localStorage.setItem('selectedOtherSettingsTab', tabId);
         }
     </script>
 
