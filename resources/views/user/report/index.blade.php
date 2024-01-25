@@ -1,8 +1,8 @@
     <style>
         .active-tab {
     /* Add your active styles here */
-    background-color: #4292ed;
-    color: #333;
+    background-color: #ffbb00;
+    color: #ffffff;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
     }
@@ -29,12 +29,12 @@
                 <hr>
 
             <div class="p-5">
-                <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
+                <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-300">
                     <li class="me-2"  id="tab-narrative">
-                        <a href="#" onclick="showTab('narrative')" aria-current="page"  class="inline-block p-4   rounded-t-lg ">Narrative</a>
+                        <a href="#" onclick="showTab('narrative')" aria-current="page"  class="inline-block p-4 rounded-t-lg ">Narrative</a>
                     </li>
                     <li class="me-2"  id="tab-terminal">
-                        <a href="#"  onclick="showTab('terminal')" class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50">Terminal</a>
+                        <a href="#"  onclick="showTab('terminal')" class="inline-block p-4 rounded-t-lg">Terminal</a>
                     </li>
                 </ul>
 
@@ -66,7 +66,7 @@
                                 <tbody>
                                     @if ($proposals == null)
                                     <tr>
-                                        <td class="px-6 py-4 xl:text-[.9rem] text-red-400">No Proposal</td>
+                                        <td class="px-6 py-4 xl:text-[.9rem] text-red-400">No Project</td>
                                     </tr>
                                     @else
                                         @foreach ($proposals as $proposal )

@@ -10,7 +10,7 @@
             </div>
 
             <div class="p-2 sm:h-[16vh] md:h-[14vh] lg:h-[15vh] xl:h-[15vh] w-full">
-               <h1 class="text-blue-900 font-semibold sm:text-[.6rem] xl:text-sm text-[.6rem]">{{Str::limit($article->title, 99) }}</h1>
+               <h1 class="text-blue-900 font-semibold sm:text-[.6rem] xl:text-sm text-[.6rem]">{{Str::limit($article->title, 50) }}</h1>
                {{--  <h1 class="text-blue-900 font-bold xl:text-sm">{!! Str::limit($feature->description, 120) !!}</h1>  --}}
             </div>
 

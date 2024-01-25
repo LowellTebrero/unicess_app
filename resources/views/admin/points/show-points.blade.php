@@ -54,7 +54,7 @@
 
             <div class="w-full pt-5 ">
                 <div class="px-5 ">
-                    <h1 class="tracking-wider 2xl:text-lg text-sm font-medium">Proposal Information</h1>
+                    <h1 class="tracking-wider 2xl:text-lg text-sm font-medium">Project Title </h1>
                     <div class="flex justify-between mt-5 space-y-1 flex-col text-sm">
                         @foreach ($proposals as $proposal )
                         @foreach ($proposal->proposal_members as $prop )
