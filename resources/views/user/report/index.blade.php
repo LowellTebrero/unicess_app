@@ -1,7 +1,7 @@
     <style>
         .active-tab {
     /* Add your active styles here */
-    background-color: #ddd;
+    background-color: #4292ed;
     color: #333;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
@@ -34,7 +34,7 @@
                         <a href="#" onclick="showTab('narrative')" aria-current="page"  class="inline-block p-4   rounded-t-lg ">Narrative</a>
                     </li>
                     <li class="me-2"  id="tab-terminal">
-                        <a href="#"  onclick="showTab('terminal')" class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Terminal</a>
+                        <a href="#"  onclick="showTab('terminal')" class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50">Terminal</a>
                     </li>
                 </ul>
 
