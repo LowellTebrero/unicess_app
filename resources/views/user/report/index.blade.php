@@ -1,3 +1,12 @@
+    <style>
+        .active-tab {
+    /* Add your active styles here */
+    background-color: #ddd;
+    color: #333;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    }
+    </style>
 <x-app-layout>
     @section('title', 'Reports | ' . config('app.name', 'UniCESS'))
     @if (Auth::user()->authorize == 'checked')
@@ -19,10 +28,23 @@
                 </header>
                 <hr>
 
-                <div class="flex flex-col space-y-5 p-5 h-[50vh] mt-0 2xl:mt-8">
-                    <div class="border rounded-lg">
+            <div class="p-5">
+                <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
+                    <li class="me-2"  id="tab-narrative">
+                        <a href="#" onclick="showTab('narrative')" aria-current="page"  class="inline-block p-4   rounded-t-lg ">Narrative</a>
+                    </li>
+                    <li class="me-2"  id="tab-terminal">
+                        <a href="#"  onclick="showTab('terminal')" class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Terminal</a>
+                    </li>
+                </ul>
+
+            </div>
+
+
+
+                    <div id="narrative-content"  class="tab-content border rounded-lg m-4 p-2" style="display: none;">
                         <h1 class="text-lg font-medium mb-2 ml-2">Narrative Report</h1>
-                        <div class="overflow-x-auto xl:h-[25vh] 2xl:h-[20vh]">
+                        <div class="overflow-x-auto h-[40vh] 2xl:h-[60vh] ">
 
                             <table class="w-full text-left text-gray-500">
                                 <thead class="text-[.6rem] text-gray-700 uppercase bg-gray-200 relative">
@@ -322,9 +344,9 @@
                             </table>
                         </div>
                     </div>
-                    <div class="border rounded-lg">
+                    <div id="terminal-content" class="tab-content border rounded-lg m-4 p-2" style="display: none;">
                         <h1 class="text-lg font-medium mb-2 ml-2">Terminal Report</h1>
-                        <div class="overflow-x-auto xl:h-[25vh] 2xl:h-[20vh]">
+                        <div class="overflow-x-auto h-[45vh] 2xl:h-[60vh]">
 
                             <table class="w-full text-left text-gray-500">
                                 <thead class="text-[.6rem] text-gray-700 uppercase bg-gray-200 relative">
@@ -625,7 +647,7 @@
                             </table>
                         </div>
                     </div>
-                </div>
+
             </section>
 
         @endunlessrole
@@ -661,4 +683,73 @@
         </div>
     @endif
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(function (content) {
+                content.style.display = 'none';
+            });
+
+            // Check if there's a stored tab in localStorage
+            var storedTab = localStorage.getItem('selectedTab');
+            if (storedTab) {
+                // Show the stored tab content
+                document.getElementById(storedTab + '-content').style.display = 'block';
+
+                // Add 'active' class to the stored tab (if needed)
+                document.querySelector('[onclick="showTab(\'' + storedTab + '\')"]').classList.add('active');
+
+                // Add 'active' class to the corresponding <li>
+                document.getElementById('tab-' + storedTab).classList.add('active-tab');
+            } else {
+                // If no stored tab, show the 'narrative-content' by default
+                document.getElementById('narrative-content').style.display = 'block';
+
+                // Add 'active' class to the 'narrative' tab (if needed)
+                document.querySelector('[onclick="showTab(\'narrative\')"]').classList.add('active');
+
+                // Add 'active' class to the corresponding <li>
+                document.getElementById('tab-narrative').classList.add('active-tab');
+            }
+        });
+
+        function showTab(tabId) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(function (content) {
+                content.style.display = 'none';
+            });
+
+            // Remove 'active' class from all tabs (if needed)
+            document.querySelectorAll('.tab').forEach(function (tab) {
+                tab.classList.remove('active');
+            });
+
+            // Remove 'active-tab' class from all <li> elements (if needed)
+            document.querySelectorAll('li').forEach(function (li) {
+                li.classList.remove('active-tab');
+            });
+
+            // Show the selected tab content
+            document.getElementById(tabId + '-content').style.display = 'block';
+
+            // Add 'active' class to the clicked tab (if needed)
+            document.querySelector('[onclick="showTab(\'' + tabId + '\')"]').classList.add('active');
+
+            // Add 'active-tab' class to the corresponding <li>
+            document.getElementById('tab-' + tabId).classList.add('active-tab');
+
+            // Store the selected tab in localStorage
+            localStorage.setItem('selectedTab', tabId);
+        }
+    </script>
+
+
+
+
+
+
 </x-app-layout>
+
+
+
+

@@ -114,7 +114,7 @@
          <input class="outline-none border-0 p-0 border-transparent focus:border-transparent focus:ring-0" type="text" name="yearGetter"  value="{{ $currentYear }} - {{ $previousYear }}" hidden>
     </div>
 
-    <div class="mt-5 2xl:mt-12 flex justify-center min-h-[40vh]">
+    <div class="mt-5 xl:mt-0 2xl:mt-12 flex justify-center h-[60vh]">
 
         @foreach ($status as $stats )
 

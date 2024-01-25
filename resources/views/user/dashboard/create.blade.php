@@ -153,7 +153,7 @@
                     </div>
 
 
-                    <div class="pt-2 flex space-x-2 items-center w-full">
+                    <div class="pt-0 2xl:pt-2 flex space-x-2 items-center w-full">
                         <div class="flex flex-col space-y-2">
                             <div class="flex flex-col space-y-2  w-full">
                                 <div class="flex space-x-2">
