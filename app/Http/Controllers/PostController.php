@@ -47,8 +47,8 @@ class PostController extends Controller
     public function lnuShow()
     {
         $authorize = DB::table('users')->select('authorize')->get();
-        $slider = AdminEvent::where('status', 'open')->get();
-        $articles = AdminArticle::where('status', 'open')->get();
+        $slider = AdminEvent::where('status', 'open')->orderBy('created_at', 'desc')->take(4)->get();
+        $articles = AdminArticle::where('status', 'open')->orderBy('created_at', 'desc')->take(4)->get();
         $partners = AdminPartner::take(6)->get();
         $beneficiaries = AdminBeneficiary::take(6)->get();
         $programservices = AdminProgramServices::all();
