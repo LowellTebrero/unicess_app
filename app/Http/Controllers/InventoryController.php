@@ -74,9 +74,6 @@ class InventoryController extends Controller
         }])->first();
 
         $members = User::orderBy('name')->whereNot('name', 'Administrator')->pluck('name', 'id')->prepend('Select Username', '');
-        $ceso_roles = CesoRole::orderBy('role_name')->pluck('role_name', 'id')->prepend('Select Role', '');
-        $locations = Location::orderBy('location_name')->pluck('location_name', 'id')->prepend('Select Location', '');
-        $parts_names = ParticipationName::orderBy('participation_name')->pluck('participation_name', 'id')->prepend('Select Participation', '');
         $inventory = CustomizeUserInventory::where('id', 2)->get();
         $proposal = Proposal::where('id', $id)->with('programs')->where('authorize', 'finished')->first();
         $proposal_member = ProposalMember::where('user_id', auth()->user()->id)->first();
@@ -89,7 +86,7 @@ class InventoryController extends Controller
         }
 
         return view('user.inventory.show', compact('proposals', 'proposal', 'proposal_member', 'inventory', 'program', 'members'
-        ,'ceso_roles','locations', 'parts_names','formedia', 'latest', 'narrativeCount', 'terminalCount', 'memberCount'));
+        ,'formedia', 'latest', 'narrativeCount', 'terminalCount', 'memberCount'));
 
     }
 
@@ -114,19 +111,6 @@ class InventoryController extends Controller
 
         if ($proposed) {
 
-        if($request->leader_id !== null){
-
-            ProposalMember::whereNotNull('leader_member_type')->where('proposal_id', $proposals->id)->delete();
-            ProposalMember::whereNotNull('leader_member_type')->where('proposal_id', $proposals->id)->create([
-                    'proposal_id' => $proposals->id,
-                    'user_id'=> $request->leader_id,
-                    'leader_member_type' => $request->leader_member_type,
-                    'location_id' => $request->location_id,
-                ]);
-            }else{
-                ProposalMember::whereNotNull('leader_member_type')->where('proposal_id', $proposals->id)->delete();
-            }
-
             if($request->member !== null){
 
                 ProposalMember::whereNotNull('member_type')->where('proposal_id', $proposals->id)->delete();
@@ -135,7 +119,6 @@ class InventoryController extends Controller
                     $model = new ProposalMember();
                     $model->proposal_id = $proposals->id;
                     $model->user_id = $item['id'];
-                    $model->member_type = $item['type'];
                     $model->save();
                 }
 

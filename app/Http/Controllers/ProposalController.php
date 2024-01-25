@@ -7,8 +7,6 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Point;
 use App\Models\Program;
-use App\Models\CesoRole;
-use App\Models\Location;
 use App\Models\Proposal;
 use App\Models\Template;
 use App\Models\AdminYear;
@@ -17,7 +15,6 @@ use App\Rules\UniqueTitle;
 use Illuminate\Http\Request;
 use App\Models\ProposalMember;
 use Illuminate\Validation\Rule;
-use App\Models\ParticipationName;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Models\AdminProgramServices;
@@ -91,11 +88,7 @@ class ProposalController extends Controller
             return [$user->id => $user->name];
         })
         ->prepend('Select name', '');
-        $ceso_roles = CesoRole::orderBy('role_name')->pluck('role_name', 'id');
-        $locations = Location::orderBy('location_name')->pluck('location_name', 'id')->prepend('Select Location', '');
-        $parts_names = ParticipationName::orderBy('participation_name')->pluck('participation_name', 'id');
-
-        return view('user.dashboard.create', compact('programs', 'members','ceso_roles', 'locations','parts_names'  ));
+        return view('user.dashboard.create', compact('programs', 'members' ));
     }
 
     public function store(Request $request)
@@ -104,10 +97,6 @@ class ProposalController extends Controller
        $request->validate([
 
             'program_id' => 'required',
-            'location_id' => Rule::requiredIf(function () {
-                return in_array(request()->ceso_role_id,
-                ['Facilitator/Moderator','Reactor/Panel member','Technical Assistance/Consultancy','Resource Speaker/Trainer', 'nullable']);
-            }),
             'project_title' => ['regex:/^[^<>?:|\/"*]+$/','required','min:6' ,Rule::unique('proposals'), new UniqueTitle],
             'proposal_pdf' => "required_without_all:special_order_pdf,moa_pdf,office_order_pdf,travel_order_pdf,other_files|file|mimes:pdf|max:10048",
             'special_order_pdf' => "required_without_all:proposal_pdf,moa_pdf,office_order_pdf,travel_order_pdf,other_files|file|mimes:pdf|max:10048",
@@ -174,20 +163,6 @@ class ProposalController extends Controller
         Notification::send($admin, new ProposalNotification($post));
 
 
-        if($request->leader_id){
-
-            $model = new ProposalMember();
-            $model->proposal_id = $post->id;
-            $model->user_id = $request->input('leader_id');
-            $model->leader_member_type = $request->input('leader_member_type');
-            $model->location_id = $request->input('location_id');
-            $model->save();
-
-            $users = User::where('id', $request->leader_id)->get();
-            Notification::send($users, new UserTagProposalNotification($model));
-        };
-
-
         if($request->member !== null){
 
             foreach ($request->member as $item) {
@@ -195,7 +170,6 @@ class ProposalController extends Controller
             $model = new ProposalMember();
             $model->proposal_id = $post->id;
             $model->user_id = $item['id'];
-            $model->member_type = $item['type'];
             $model->save();
 
 
@@ -240,7 +214,6 @@ class ProposalController extends Controller
         $proposal_member = ProposalMember::with('user')->where('user_id', auth()->user()->id)->first();
         $proposal = Proposal::with('programs')->with('proposal_members')->with('user')->where('id', $id)->first();
         $program = Program::orderBy('program_name')->pluck('program_name', 'id')->prepend('Select Program', '');
-        $parts_names = ParticipationName::orderBy('participation_name')->pluck('participation_name', 'id');
         $members = User::orderBy('name')
         ->doesntHave('roles', 'and', function ($query) {
             $query->where('id', 1);
@@ -250,11 +223,10 @@ class ProposalController extends Controller
             return [$user->id => $user->name];
         })
         ->prepend('Select name', '');
-        $ceso_roles = CesoRole::orderBy('role_name')->pluck('role_name', 'id')->prepend('Select Role', '');
-        $locations = Location::orderBy('location_name')->pluck('location_name', 'id')->prepend('Select Location', '');
+
 
         return view('user.dashboard.show-user-proposal', compact('proposals', 'proposal', 'proposal_member', 'program'
-        ,'parts_names','members', 'ceso_roles', 'locations', 'users' ));
+        ,'members', 'users' ));
     }
 
 
@@ -327,8 +299,6 @@ class ProposalController extends Controller
 
 
                 foreach ($request->member as $item) {
-
-
 
                     $model = new ProposalMember();
                     $model->proposal_id = $proposals->id;
@@ -460,11 +430,8 @@ class ProposalController extends Controller
         $proposal = Proposal::with('programs')->get();
         $user = Auth::user();
         $programs = Program::orderBy('program_name')->pluck('program_name', 'id')->prepend('Select Program', '');
-        $locations = Location::orderBy('location_name')->pluck('location_name', 'id')->prepend('Select Location', '');
-        $ceso_roles = CesoRole::orderBy('role_name')->pluck('role_name', 'id')->prepend('Select Role', '');
         $counts = Proposal::where('user_id', auth()->user()->id)->where('authorize', 'finished')->whereYear('created_at', $currentYear)->count();
         $members = User::orderBy('name')->whereNot('name', 'Administrator')->pluck('name', 'id')->prepend('Select Username', '');
-        $parts_names = ParticipationName::orderBy('participation_name')->pluck('participation_name', 'id')->prepend('Select Participation', '');
         $second = ProposalMember::select('user_id')->with('proposal')->where('user_id', auth()->user()->id)->whereYear('created_at', $currentYear)->count();
         $Temporary = TemporaryEvaluationFile::all();
         $latestYearPoints = Evaluation::select(DB::raw('MAX(YEAR(created_at)) as max_year'), 'total_points')->groupBy('total_points')->latest('max_year')->where('user_id', auth()->user()->id)->whereYear('created_at', $currentYear)->first();
@@ -486,7 +453,7 @@ class ProposalController extends Controller
 
         return view('user.dashboard.user-dashboard._dashboard', compact(
         'proposalMembers','latestYearPoints','proposals', 'user', 'counts',
-        'programs', 'locations', 'ceso_roles', 'members' , 'parts_names','currentYear',
+        'programs', 'members','currentYear',
         'previousYear', 'second', 'Temporary'));
     }
 
@@ -500,11 +467,8 @@ class ProposalController extends Controller
         $proposal = Proposal::with('programs')->get();
         $user = Auth::user();
         $programs = Program::orderBy('program_name')->pluck('program_name', 'id')->prepend('Select Program', '');
-        $locations = Location::orderBy('location_name')->pluck('location_name', 'id')->prepend('Select Location', '');
-        $ceso_roles = CesoRole::orderBy('role_name')->pluck('role_name', 'id')->prepend('Select Role', '');
         $counts = Proposal::where('user_id', auth()->user()->id)->where('authorize', 'finished')->whereYear('created_at', $currentYear)->count();
         $members = User::orderBy('name')->whereNot('name', 'Administrator')->pluck('name', 'id')->prepend('Select Username', '');
-        $parts_names = ParticipationName::orderBy('participation_name')->pluck('participation_name', 'id')->prepend('Select Participation', '');
         $second = ProposalMember::select('user_id')->with('proposal')->where('user_id', auth()->user()->id)->whereYear('created_at', $currentYear)->count();
         $Temporary = TemporaryEvaluationFile::all();
         $latestYearPoints = Evaluation::select(DB::raw('MAX(YEAR(created_at)) as max_year'), 'total_points')->groupBy('total_points')->latest('max_year')->where('user_id', auth()->user()->id)->whereYear('created_at', $currentYear)->first();
@@ -524,7 +488,7 @@ class ProposalController extends Controller
 
         return view('user.dashboard.user-dashboard._dashboard', compact(
         'proposalMembers','latestYearPoints','proposals', 'user', 'counts',
-        'programs', 'locations', 'ceso_roles', 'members' , 'parts_names','currentYear',
+        'programs', 'members' ,'currentYear',
         'previousYear', 'second', 'Temporary'));
 
     }

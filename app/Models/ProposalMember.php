@@ -13,9 +13,7 @@ class ProposalMember extends Model
     use HasFactory;
     use Notifiable;
 
-    protected $fillable = ['proposal_id', 'user_id', 'leader_member_type' , 'member_type', 'location_id'];
-
-
+    protected $fillable = ['proposal_id', 'user_id',];
 
     public function proposal(){
         return $this->belongsTo(Proposal::class);
@@ -23,18 +21,6 @@ class ProposalMember extends Model
 
     public function user(){
         return $this->belongsTo(User::class, 'user_id');
-    }
-
-    public function participation_names(){
-        return $this->belongsTo(ParticipationName::class);
-    }
-
-    public function ceso_role(){
-        return $this->belongsTo(CesoRole::class, 'leader_member_type');
-    }
-
-    public function locations():BelongsTo{
-        return $this->belongsTo(Location::class, 'location_id');
     }
 
 }

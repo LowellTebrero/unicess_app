@@ -38,31 +38,6 @@
                 <h1 class="text-[.8rem] py-2">{{ $proposal->project_title }}</h1>
         </div>
 
-        <div class="flex space-x-4">
-            <div class="mb-4 text-gray-700 w-full">
-                <label class="block font-bold mb-2 text-[.7rem]" for="project_title">Project
-                    Leader</label>
-
-                    <h1 class="text-[.8rem] py-2">
-                        @foreach ($proposal->proposal_members as $proposal_mem)
-                        {{ $proposal_mem->leader_member_type != null ? $proposal_mem->user->name : '' }}
-                        @endforeach
-                    </h1>
-
-
-            </div>
-
-            <div class="mb-4 text-gray-700 w-full">
-                <label class="block font-bold mb-2 text-[.7rem]" for="project_title">Role of
-                    Leader
-                </label>
-                <h1 class="text-[.8rem] py-2">
-                    @foreach ($proposal->proposal_members as $proposal_mem)
-                    {{ $proposal_mem->leader_member_type != null ? $proposal_mem->ceso_role->role_name : '' }}
-                    @endforeach
-                </h1>
-            </div>
-        </div>
 
         <div class="flex space-x-4">
             <div class="mb-4 text-gray-700 w-full">
@@ -72,18 +47,6 @@
                     @foreach ($proposal->proposal_members as $proposal_mem)
                         @if ($proposal_mem->member_type !== null)
                                 <h1 class="text-[.8rem] py-2">{{ $proposal_mem->member_type !== null ? $proposal_mem->user->name : '' }}</h1>
-                        @endif
-                    @endforeach
-                </div>
-            </div>
-
-            <div class="mb-4 text-gray-700 w-full">
-                <label class="block font-bold mb-2 text-[.7rem]" for="project_title">Role of
-                    Project Member</label>
-                <div>
-                    @foreach ($proposal->proposal_members as $proposal_mem)
-                        @if ($proposal_mem->member_type !== null)
-                                <h1 class="text-[.8rem] py-2">{{ $proposal_mem->member_type }}</h1>
                         @endif
                     @endforeach
                 </div>
@@ -169,61 +132,6 @@
                                         </div>
                                     </div>
 
-                                    <div class="flex space-x-4 w-full">
-
-                                        <div class="w-full">
-                                            <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs">Project leader</label>
-                                            <select name="leader_id" class="rounded-md xl:text-xs w-full  border-zinc-400" value="{{ old('leader') }}" id="leader" onchange="RequiredGet(this)">
-
-                                                @foreach ($members as $id => $name )
-                                                    <option value="{{ $id }}"
-                                                    @foreach ($proposal->proposal_members as $proposal_mem)
-                                                    @if ($proposal_mem->leader_member_type != null ? $proposal_mem->user_id == $id : '')
-                                                    selected="selected"
-                                                    @endif
-                                                    @endforeach
-                                                >{{ $name }}</option>
-
-                                                @endforeach
-                                            </select>
-                                            @error('project_leader')  @enderror
-                                        </div>
-
-                                        <div class="w-full">
-                                            <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs">Role of Project Leader </label>
-                                            <select onchange="yesnoCheck(this)" id="leader_member_type" name="leader_member_type" value="{{ old('leader_member_type') }}" class="rounded-md xl:text-xs w-full border-zinc-400">
-                                                @foreach ($ceso_roles as $id => $role_name )
-
-                                                <option value="{{ $id }}"
-                                                @foreach ($proposal->proposal_members as $proposal_mem)
-                                                @if ($id == $proposal_mem->leader_member_type)
-                                                selected="selected"
-                                                @endif
-                                                @endforeach
-                                                >{{ $role_name }}
-                                                </option>
-                                                @endforeach
-                                            </select>
-                                            @error('role_name') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
-                                        </div>
-
-                                        <div class="w-full">
-                                            <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs">Location <span class="text-red-500">*</span></label>
-                                            <select id="location_id" type="text"  class="rounded-md xl:text-xs w-full border-zinc-400 " name="location_id" value="{{ old('location_id') }}">
-                                                @foreach ($locations as $id => $name )
-                                                <option value="{{ $id }}"
-                                                @foreach ($proposal->proposal_members as $proposal_mem)
-                                                @if ($id == $proposal_mem->location_id)
-                                                    selected="selected"
-                                                @endif
-                                                @endforeach
-                                                >{{ $name }}</option>
-                                            @endforeach
-                                            </select>
-                                            @error('location_name') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
-                                        </div>
-                                    </div>
-
                                     <div class="mt-4 w-full overflow-x-auto h-[20vh]">
 
                                         <div class="z-10 sticky top-0 bg-white">
@@ -234,7 +142,6 @@
                                             <thead class="z-10 sticky top-5 bg-white">
                                             <tr class="text-sm text-gray-500">
                                                 <th class="xl:text-xs text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs text-left">Member Name</th>
-                                                <th class="xl:text-xs text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs text-left">Member Type</th>
                                                 <th class="xl:text-xs text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs text-left">Action</th>
                                             </tr>
                                             </thead>
@@ -259,22 +166,6 @@
                                                         @endforeach
                                                     </select>
                                                 </td>
-
-                                                <td class="pr-4 pt-2">
-
-                                                    <select name="member[{{ $count }}][type]" class="rounded-md xl:text-xs w-full border-zinc-400">
-                                                        @foreach ($parts_names as $id => $name ) <option value="{{ $name }}"
-
-                                                            @if ($proposal_mem->member_type != null ? $proposal_mem->member_type == $name : '')
-                                                            selected="selected"
-                                                            @endif
-                                                            >
-                                                            {{ $name }}
-                                                        @endforeach
-                                                    </option>
-                                                </select>
-                                                </td>
-
                                                 <td>
                                                     <button type="button" class="bg-red-500 remove-table-row text-xs text-white px-2 py-1 rounded">Remove</button>
                                                 </td>
@@ -338,8 +229,6 @@
     </div>
 
 
-
-
 </x-alpine-modal>
 
     <script>
@@ -372,19 +261,6 @@
                             @endforeach
                         </select>
                     </td>
-
-                    <td class="pr-4 pt-2">
-                        <select  name="member[`+index+`][type]" class="rounded-md xl:text-xs w-full border-zinc-400" required >
-                            @foreach ($parts_names as $id => $name )
-                            <option value="{{ $name }}"
-                            @if ($id == old('parts_names_id'))
-                                selected="selected"
-                            @endif
-                            >{{ $name }}</option>
-                            @endforeach
-                        </select>
-                    </td>
-
                     <td class="pr-2">
                         <button type="button" class="bg-red-500 remove-table-row text-xs text-white px-2 py-1 rounded">Remove</button>
                     </td>

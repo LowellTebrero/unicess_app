@@ -175,72 +175,6 @@
                     </div>
                 </div>
 
-                    <div class="flex space-x-4 w-full" style="display: none" id="leaderDiv">
-
-                        <table class="w-full">
-                            <thead>
-                                <tr class="text-sm text-gray-500 sticky top-0 bg-white">
-                                    <th class="text-xs  text-slate-600 font-medium mb-2 2xl:text-sm text-left">Project
-                                        leader</th>
-                                    <th class="text-xs  text-slate-600 font-medium mb-2 2xl:text-sm text-left">Role of
-                                        Leader</th>
-                                    <th class="text-xs  text-slate-600 font-medium mb-2 2xl:text-sm text-left">
-                                        Location</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <tr>
-                                    <td class="pr-4">
-
-                                        <select name="leader_id" class="rounded-md text-xs w-full  border-zinc-300"
-                                            value="{{ old('leader_id') }}" id="leader">
-                                            @foreach ($members as $id => $name)
-                                                <option value="{{ $id }}">{{ $name }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('project_leader')
-                                            <span class="text-red-500  text-xs">{{ $message }}</span>
-                                        @enderror
-
-                                    </td>
-
-                                    <td class="pr-4">
-                                        <select onchange="yesnoCheck(this)" id="leader_member_type"
-                                            name="leader_member_type" value="{{ old('leader_member_type') }}"
-                                            class="rounded-md text-xs w-full border-zinc-300">
-                                            <option value="">Select Role</option>
-                                            @foreach ($ceso_roles as $id => $role_name)
-                                                <option value="{{ $id }}"
-                                                    @if ($id == old('leader_member_type')) selected="selected" @endif>
-                                                    {{ $role_name }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('role_name')
-                                            <span class="text-red-500  text-xs">{{ $message }}</span>
-                                        @enderror
-                                    </td>
-
-                                    <td>
-                                        <div>
-                                            <select id="location_id" type="text"
-                                                class="rounded-md text-xs w-full border-zinc-300 " name="location_id"
-                                                value="{{ old('location_id') }}">
-                                                @foreach ($locations as $id => $location_name)
-                                                    <option value="{{ $id }}"
-                                                        @if ($id == old('location_id')) selected="selected" @endif>
-                                                        {{ $location_name }}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('location_name')
-                                                <span class="text-red-500  text-xs">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
 
 
                     <div class="w-full overflow-x-auto h-[26vh] xl:h-[20vh] 2xl:h-[20vh]  mt-2"
@@ -251,8 +185,7 @@
                                 <tr class="text-sm text-gray-500 sticky top-0 bg-white">
                                     <th class="text-xs  text-slate-600 font-medium mb-2 2xl:text-sm text-left">Member
                                         Name</th>
-                                    <th class="text-xs  text-slate-600 font-medium mb-2 2xl:text-sm text-left">Member
-                                        Type</th>
+
                                     <th
                                         class="text-xs  text-slate-600 font-medium mb-2 2xl:text-sm text-left w-[11rem] 2xl:w-[10rem]">
                                         Action</th>
@@ -268,18 +201,6 @@
                                                 <option value="{{ $id }}"
                                                     @if ($id == old('member_id[0][id]')) selected="selected" @endif>
                                                     {{ $name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </td>
-
-                                    <td class="pr-4  xl:w-[21rem] 2xl:w-[30rem]">
-                                        <select name="member[0][type]"
-                                            class="rounded-md text-xs w-full border-zinc-300">
-                                            <option value="">Select Participation</option>
-                                            @foreach ($parts_names as $id => $participation_name)
-                                                <option value="{{ $participation_name }}"
-                                                    @if ($id == old('member[0][type]')) selected="selected" @endif>
-                                                    {{ $participation_name }}</option>
                                             @endforeach
                                         </select>
                                     </td>
@@ -323,17 +244,6 @@
                         </select>
                     </td>
 
-                    <td class="pr-4 pt-2">
-                        <select name="member[` + i + `][type]" class="rounded-md text-xs w-full border-zinc-300" required>
-                            @foreach ($parts_names as $id => $name)
-                            <option value="{{ $name }}"
-                            @if ($id == old('parts_names_id')) selected="selected" @endif
-                            >{{ $name }}</option>
-                            @endforeach
-                        </select>
-                    </td>
-
-
 
                     <td class="pr-2">
                         <button type="button" class="bg-red-500 remove-table-row text-xs text-white px-2 py-1 rounded">Remove</button>
@@ -347,45 +257,6 @@
             });
         </script>
 
-
-
-        <script type="text/javascript">
-            function yesnoCheck(answer) {
-
-                console.log(answer.value)
-                if (answer.value == 5) {
-                    document.getElementById('location_id').disabled = true;
-                    document.getElementById('points').disabled = false;
-                    document.getElementById('points').readOnly = false;
-                    document.getElementById('points').value = '';
-                    document.getElementById('label_points').innerHTML =
-                        '<label>Number of Projects <span class="text-red-500">*</span></label>';
-
-                } else if (answer.value == 6) {
-                    document.getElementById('location_id').disabled = true;
-                    document.getElementById('points').readOnly = true;
-                    document.getElementById('points').value = '3';
-                    document.getElementById('points').innerHTML = '<input value="3"/>';
-                    document.getElementById('label_points').innerHTML =
-                        '<label>Points <span class="text-red-500">*</span></label>';
-
-                } else if (answer.value == 7) {
-                    document.getElementById('location_id').disabled = true;
-                    document.getElementById('points').readOnly = true;
-                    document.getElementById('points').value = "4";
-                    document.getElementById('label_points').innerHTML =
-                        '<label>Points <span class="text-red-500">*</span></label>';
-
-                } else if (answer.value == 1, 2, 3, 4, 5) {
-                    document.getElementById('location_id').disabled = false;
-                    document.getElementById('points').disabled = false;
-                    document.getElementById('points').value = '';
-                    document.getElementById('points').readOnly = false;
-                    document.getElementById('label_points').innerHTML =
-                        '<label>Number of Training <span class="text-red-500">*</span></label>';
-                }
-            }
-        </script>
     @endsection
 
 </x-app-layout>

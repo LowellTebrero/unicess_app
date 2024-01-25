@@ -39,11 +39,7 @@ class DashboardController extends Controller
             return [$user->id => $user->name];
         })
         ->prepend('Select name', '');
-        $ceso_roles = CesoRole::orderBy('role_name')->pluck('role_name', 'id')->prepend('Select Role', '');
-        $locations = Location::orderBy('location_name')->pluck('location_name', 'id')->prepend('Select Location', '');
-        $parts_names = ParticipationName::orderBy('participation_name')->pluck('participation_name', 'id');
-
-        return view('admin.dashboard.upload-proposal', compact('programs', 'members','ceso_roles', 'locations','parts_names'  ));
+        return view('admin.dashboard.upload-proposal', compact('programs', 'members' ));
     }
 
     public function store(Request $request)
@@ -51,10 +47,6 @@ class DashboardController extends Controller
        $request->validate([
 
             'program_id' => 'required',
-            'location_id' => Rule::requiredIf(function () {
-                return in_array(request()->ceso_role_id,
-                ['Facilitator/Moderator','Reactor/Panel member','Technical Assistance/Consultancy','Resource Speaker/Trainer', 'nullable']);
-            }),
             'project_title' => ['regex:/^[^<>?:|\/"*]+$/','required','min:6' ,Rule::unique('proposals'), new UniqueTitle],
             'proposal_pdf' => "required_without_all:special_order_pdf,moa_pdf,office_order_pdf,travel_order_pdf|file|mimes:pdf|max:10048",
             'special_order_pdf' => "required_without_all:proposal_pdf,moa_pdf,office_order_pdf,travel_order_pdf|file|mimes:pdf|max:10048",
@@ -120,19 +112,6 @@ class DashboardController extends Controller
         Notification::send($admin, new ProposalNotification($post));
 
 
-        if($request->leader_id){
-
-            $model = new ProposalMember();
-            $model->proposal_id = $post->id;
-            $model->user_id = $request->input('leader_id');
-            $model->leader_member_type = $request->input('leader_member_type');
-            $model->location_id = $request->input('location_id');
-            $model->save();
-
-            $users = User::where('id', $request->leader_id)->get();
-            Notification::send($users, new UserTagProposalNotification($model));
-        };
-
 
         if($request->member !== null){
 
@@ -141,7 +120,6 @@ class DashboardController extends Controller
                 $model = new ProposalMember();
                 $model->proposal_id = $post->id;
                 $model->user_id = $item['id'];
-                $model->member_type = $item['type'];
                 $model->save();
 
 
@@ -227,17 +205,13 @@ class DashboardController extends Controller
         ->mapWithKeys(function ($user) {
             return [$user->id => $user->name];
         });
-        $ceso_roles = CesoRole::orderBy('role_name')->pluck('role_name', 'id');
-        $locations = Location::orderBy('location_name')->pluck('location_name', 'id');
-        $parts_names = ParticipationName::orderBy('participation_name')->pluck('participation_name', 'id');
-        $narrativeCount = NarrativeReport::distinct('user_id')->count();
         $terminalCount = TerminalReport::distinct('user_id')->count();
         $memberCount = ProposalMember::where('proposal_id', $id)->count();
 
         if($notification){
             auth()->user()->unreadNotifications->where('id', $notification)->markAsRead();
         }
-        return view('admin.dashboard.proposal.edit-proposal', compact('proposal','proposals', 'program', 'members', 'ceso_roles', 'locations', 'parts_names', 'formedia', 'latest',
+        return view('admin.dashboard.proposal.edit-proposal', compact('proposal','proposals', 'program', 'members', 'formedia', 'latest',
         'narrativeCount','terminalCount', 'memberCount' ));
     }
 
@@ -307,18 +281,7 @@ class DashboardController extends Controller
             'finished_date' =>  $request->finished_date,
         ]);
 
-        if($request->leader_id !== null){
 
-            ProposalMember::whereNotNull('leader_member_type')->where('proposal_id', $proposals->id)->delete();
-            ProposalMember::whereNotNull('leader_member_type')->where('proposal_id', $proposals->id)->create([
-                    'proposal_id' => $proposals->id,
-                    'user_id'=> $request->leader_id,
-                    'leader_member_type' => $request->leader_member_type,
-                    'location_id' => $request->location_id,
-                ]);
-        }else{
-                ProposalMember::whereNotNull('leader_member_type')->where('proposal_id', $proposals->id)->delete();
-        }
 
         if($request->member !== null){
 
@@ -331,7 +294,6 @@ class DashboardController extends Controller
                 $model = new ProposalMember();
                 $model->proposal_id = $proposals->id;
                 $model->user_id = $item['id'];
-                $model->member_type = $item['type'];
                 $model->save();
             }
 

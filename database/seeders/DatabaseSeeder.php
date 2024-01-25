@@ -22,10 +22,6 @@ class DatabaseSeeder extends Seeder
             RoleandPermissionSeeder::class,
             ProgramSeeder::class,
             FacultySeeder::class,
-            CesoRoleSeeder::class,
-            PartnerSeeder::class,
-            LocationSeeder::class,
-            ParticipationNameSeeder::class,
             YearSeeder::class,
             AdminSeeder::class,
         ]);

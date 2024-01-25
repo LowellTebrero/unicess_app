@@ -17,12 +17,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('proposal_id')->unsigned();
             $table->unsignedBigInteger('user_id')->unsigned()->nullable();
-            $table->unsignedBigInteger('leader_member_type')->nullable();
-            $table->string('member_type')->nullable();
-            $table->string('location_id')->nullable();
             $table->foreign('proposal_id')->references('id')->on('proposals')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('leader_member_type')->references('id')->on('ceso_roles')->onDelete('cascade');
             $table->timestamps();
         });
     }
