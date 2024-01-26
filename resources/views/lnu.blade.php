@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-site-verification" content="w7N0Q0vhIa8yGWZOjqjcDq0EL2jT8EZrbZzufeFa9LY" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>UniCESS</title>
 
