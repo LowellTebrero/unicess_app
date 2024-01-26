@@ -336,126 +336,126 @@ class EvaluateController extends Controller
 
         if ($request->has('training_director_locals')){
             foreach ($request['training_director_locals'] as $file){
-                $tmpfile = TemporaryEvaluationFile::where('training_director_locals', $file)->first();
-                Storage::copy('file/tmp/'. $tmpfile->training_director_locals. '/' . $tmpfile->training_director_locals_file, 'file/'. $tmpfile->training_director_locals. '/'. $tmpfile->training_director_locals_file);
+                $tmpfile = TemporaryEvaluationFile::where('training_director_local', $file)->first();
+                Storage::copy('file/tmp/'. $tmpfile->training_director_local. '/' . $tmpfile->training_director_local_file, 'file/'. $tmpfile->training_director_local. '/'. $tmpfile->training_director_local_file);
                 EvaluationFile::create([
                     'evaluation_id' => $evaluate->id,
-                    'training_director_locals' => $tmpfile->training_director_locals_file,
-                    'path' => $tmpfile->training_director_locals. '/'. $tmpfile->training_director_locals_file
+                    'training_director_locals' => $tmpfile->training_director_local_file,
+                    'path' => $tmpfile->training_director_local. '/'. $tmpfile->training_director_local_file
                 ]);
-                Storage::deleteDirectory(('file/tmp/'). $tmpfile->training_director_locals);
+                Storage::deleteDirectory(('file/tmp/'). $tmpfile->training_director_local);
                 $tmpfile->delete();
             }
         }
 
         if ($request->has('training_director_internationals')){
             foreach ($request['training_director_internationals'] as $file){
-                $tmpfile = TemporaryEvaluationFile::where('training_director_internationals', $file)->first();
-                Storage::copy('file/tmp/'. $tmpfile->training_director_internationals. '/' . $tmpfile->training_director_internationals_file, 'file/'. $tmpfile->training_director_internationals. '/'. $tmpfile->training_director_internationals_file);
+                $tmpfile = TemporaryEvaluationFile::where('training_director_international', $file)->first();
+                Storage::copy('file/tmp/'. $tmpfile->training_director_international. '/' . $tmpfile->training_director_international_file, 'file/'. $tmpfile->training_director_international. '/'. $tmpfile->training_director_international_file);
                 EvaluationFile::create([
                     'evaluation_id' => $evaluate->id,
-                    'training_director_internationals' => $tmpfile->training_director_internationals_file,
-                    'path' => $tmpfile->training_director_internationals. '/'. $tmpfile->training_director_internationals_file
+                    'training_director_internationals' => $tmpfile->training_director_international_file,
+                    'path' => $tmpfile->training_director_international. '/'. $tmpfile->training_director_international_file
                 ]);
-                Storage::deleteDirectory(('file/tmp/'). $tmpfile->training_director_internationals);
+                Storage::deleteDirectory(('file/tmp/'). $tmpfile->training_director_international);
                 $tmpfile->delete();
             }
         }
 
         if ($request->has('resource_speaker_locals')){
             foreach ($request['resource_speaker_locals'] as $file){
-                $tmpfile = TemporaryEvaluationFile::where('resource_speaker_locals', $file)->first();
-                Storage::copy('file/tmp/'. $tmpfile->resource_speaker_locals. '/' . $tmpfile->resource_speaker_locals_file, 'file/'. $tmpfile->resource_speaker_locals. '/'. $tmpfile->resource_speaker_locals_file);
+                $tmpfile = TemporaryEvaluationFile::where('resource_speaker_local', $file)->first();
+                Storage::copy('file/tmp/'. $tmpfile->resource_speaker_local. '/' . $tmpfile->resource_speaker_local_file, 'file/'. $tmpfile->resource_speaker_local. '/'. $tmpfile->resource_speaker_local_file);
                 EvaluationFile::create([
                     'evaluation_id' => $evaluate->id,
-                    'resource_speaker_locals' => $tmpfile->resource_speaker_locals_file,
-                    'path' => $tmpfile->resource_speaker_locals. '/'. $tmpfile->resource_speaker_locals_file
+                    'resource_speaker_locals' => $tmpfile->resource_speaker_local_file,
+                    'path' => $tmpfile->resource_speaker_local. '/'. $tmpfile->resource_speaker_local_file
                 ]);
-                Storage::deleteDirectory(('file/tmp/'). $tmpfile->resource_speaker_locals);
+                Storage::deleteDirectory(('file/tmp/'). $tmpfile->resource_speaker_local);
                 $tmpfile->delete();
             }
         }
 
         if ($request->has('resource_speaker_internationals')){
             foreach ($request['resource_speaker_internationals'] as $file){
-                $tmpfile = TemporaryEvaluationFile::where('resource_speaker_internationals', $file)->first();
-                Storage::copy('file/tmp/'. $tmpfile->resource_speaker_internationals. '/' . $tmpfile->resource_speaker_internationals_file, 'file/'. $tmpfile->resource_speaker_internationals. '/'. $tmpfile->resource_speaker_internationals_file);
+                $tmpfile = TemporaryEvaluationFile::where('resource_speaker_international', $file)->first();
+                Storage::copy('file/tmp/'. $tmpfile->resource_speaker_international. '/' . $tmpfile->resource_speaker_international_file, 'file/'. $tmpfile->resource_speaker_international. '/'. $tmpfile->resource_speaker_international_file);
                 EvaluationFile::create([
                     'evaluation_id' => $evaluate->id,
-                    'resource_speaker_internationals' => $tmpfile->resource_speaker_internationals_file,
-                    'path' => $tmpfile->resource_speaker_internationals. '/'. $tmpfile->resource_speaker_internationals_file
+                    'resource_speaker_internationals' => $tmpfile->resource_speaker_international_file,
+                    'path' => $tmpfile->resource_speaker_international. '/'. $tmpfile->resource_speaker_international_file
                 ]);
-                Storage::deleteDirectory(('file/tmp/'). $tmpfile->resource_speaker_internationals);
+                Storage::deleteDirectory(('file/tmp/'). $tmpfile->resource_speaker_international);
                 $tmpfile->delete();
             }
         }
 
         if ($request->has('facilitator_moderator_locals')){
             foreach ($request['facilitator_moderator_locals'] as $file){
-                $tmpfile = TemporaryEvaluationFile::where('facilitator_moderator_locals', $file)->first();
-                Storage::copy('file/tmp/'. $tmpfile->facilitator_moderator_locals. '/' . $tmpfile->facilitator_moderator_locals_file, 'file/'. $tmpfile->facilitator_moderator_locals. '/'. $tmpfile->facilitator_moderator_locals_file);
+                $tmpfile = TemporaryEvaluationFile::where('facilitator_moderator_local', $file)->first();
+                Storage::copy('file/tmp/'. $tmpfile->facilitator_moderator_local. '/' . $tmpfile->facilitator_moderator_local_file, 'file/'. $tmpfile->facilitator_moderator_local. '/'. $tmpfile->facilitator_moderator_local_file);
                 EvaluationFile::create([
                     'evaluation_id' => $evaluate->id,
-                    'facilitator_moderator_locals' => $tmpfile->facilitator_moderator_locals_file,
-                    'path' => $tmpfile->facilitator_moderator_locals. '/'. $tmpfile->facilitator_moderator_locals_file
+                    'facilitator_moderator_locals' => $tmpfile->facilitator_moderator_local_file,
+                    'path' => $tmpfile->facilitator_moderator_local. '/'. $tmpfile->facilitator_moderator_local_file
                 ]);
-                Storage::deleteDirectory(('file/tmp/'). $tmpfile->facilitator_moderator_locals);
+                Storage::deleteDirectory(('file/tmp/'). $tmpfile->facilitator_moderator_local);
                 $tmpfile->delete();
             }
         }
 
         if ($request->has('facilitator_moderator_internationals')){
             foreach ($request['facilitator_moderator_internationals'] as $file){
-                $tmpfile = TemporaryEvaluationFile::where('facilitator_moderator_internationals', $file)->first();
-                Storage::copy('file/tmp/'. $tmpfile->facilitator_moderator_internationals. '/' . $tmpfile->facilitator_moderator_internationals_file, 'file/'. $tmpfile->facilitator_moderator_internationals. '/'. $tmpfile->facilitator_moderator_internationals_file);
+                $tmpfile = TemporaryEvaluationFile::where('facilitator_moderator_international', $file)->first();
+                Storage::copy('file/tmp/'. $tmpfile->facilitator_moderator_international. '/' . $tmpfile->facilitator_moderator_international_file, 'file/'. $tmpfile->facilitator_moderator_international. '/'. $tmpfile->facilitator_moderator_international_file);
                 EvaluationFile::create([
                     'evaluation_id' => $evaluate->id,
-                    'facilitator_moderator_internationals' => $tmpfile->facilitator_moderator_internationals_file,
-                    'path' => $tmpfile->facilitator_moderator_internationals. '/'. $tmpfile->facilitator_moderator_internationals_file
+                    'facilitator_moderator_internationals' => $tmpfile->facilitator_moderator_international_file,
+                    'path' => $tmpfile->facilitator_moderator_international. '/'. $tmpfile->facilitator_moderator_international_file
                 ]);
-                Storage::deleteDirectory(('file/tmp/'). $tmpfile->facilitator_moderator_internationals);
+                Storage::deleteDirectory(('file/tmp/'). $tmpfile->facilitator_moderator_international);
                 $tmpfile->delete();
             }
         }
 
         if ($request->has('reactor_panel_member_locals')){
             foreach ($request['reactor_panel_member_locals'] as $file){
-                $tmpfile = TemporaryEvaluationFile::where('reactor_panel_member_locals', $file)->first();
-                Storage::copy('file/tmp/'. $tmpfile->reactor_panel_member_locals. '/' . $tmpfile->reactor_panel_member_locals_file, 'file/'. $tmpfile->reactor_panel_member_locals. '/'. $tmpfile->reactor_panel_member_locals_file);
+                $tmpfile = TemporaryEvaluationFile::where('reactor_panel_member_local', $file)->first();
+                Storage::copy('file/tmp/'. $tmpfile->reactor_panel_member_local. '/' . $tmpfile->reactor_panel_member_local_file, 'file/'. $tmpfile->reactor_panel_member_local. '/'. $tmpfile->reactor_panel_member_local_file);
                 EvaluationFile::create([
                     'evaluation_id' => $evaluate->id,
-                    'reactor_panel_member_locals' => $tmpfile->reactor_panel_member_locals_file,
-                    'path' => $tmpfile->reactor_panel_member_locals. '/'. $tmpfile->reactor_panel_member_locals_file
+                    'reactor_panel_member_locals' => $tmpfile->reactor_panel_member_local_file,
+                    'path' => $tmpfile->reactor_panel_member_local. '/'. $tmpfile->reactor_panel_member_local_file
                 ]);
-                Storage::deleteDirectory(('file/tmp/'). $tmpfile->reactor_panel_member_locals);
+                Storage::deleteDirectory(('file/tmp/'). $tmpfile->reactor_panel_member_local);
                 $tmpfile->delete();
             }
         }
 
         if ($request->has('reactor_panel_member_internationals')){
             foreach ($request['reactor_panel_member_internationals'] as $file){
-                $tmpfile = TemporaryEvaluationFile::where('reactor_panel_member_internationals', $file)->first();
-                Storage::copy('file/tmp/'. $tmpfile->reactor_panel_member_internationals. '/' . $tmpfile->reactor_panel_member_internationals_file, 'file/'. $tmpfile->reactor_panel_member_internationals. '/'. $tmpfile->reactor_panel_member_internationals_file);
+                $tmpfile = TemporaryEvaluationFile::where('reactor_panel_member_international', $file)->first();
+                Storage::copy('file/tmp/'. $tmpfile->reactor_panel_member_international. '/' . $tmpfile->reactor_panel_member_international_file, 'file/'. $tmpfile->reactor_panel_member_international. '/'. $tmpfile->reactor_panel_member_international_file);
                 EvaluationFile::create([
                     'evaluation_id' => $evaluate->id,
-                    'reactor_panel_member_internationals' => $tmpfile->reactor_panel_member_internationals_file,
-                    'path' => $tmpfile->reactor_panel_member_internationals. '/'. $tmpfile->reactor_panel_member_internationals_file
+                    'reactor_panel_member_internationals' => $tmpfile->reactor_panel_member_international_file,
+                    'path' => $tmpfile->reactor_panel_member_international. '/'. $tmpfile->reactor_panel_member_international_file
                 ]);
-                Storage::deleteDirectory(('file/tmp/'). $tmpfile->reactor_panel_member_internationals);
+                Storage::deleteDirectory(('file/tmp/'). $tmpfile->reactor_panel_member_international);
                 $tmpfile->delete();
             }
         }
 
         if ($request->has('technical_assistances')){
             foreach ($request['technical_assistances'] as $file){
-                $tmpfile = TemporaryEvaluationFile::where('technical_assistances', $file)->first();
-                Storage::copy('file/tmp/'. $tmpfile->technical_assistances. '/' . $tmpfile->technical_assistances_file, 'file/'. $tmpfile->technical_assistances. '/'. $tmpfile->technical_assistances_file);
+                $tmpfile = TemporaryEvaluationFile::where('technical_assistance', $file)->first();
+                Storage::copy('file/tmp/'. $tmpfile->technical_assistance. '/' . $tmpfile->technical_assistance_file, 'file/'. $tmpfile->technical_assistance. '/'. $tmpfile->technical_assistance_file);
                 EvaluationFile::create([
                     'evaluation_id' => $evaluate->id,
-                    'technical_assistances' => $tmpfile->technical_assistances_file,
-                    'path' => $tmpfile->technical_assistances. '/'. $tmpfile->technical_assistances_file
+                    'technical_assistances' => $tmpfile->technical_assistance_file,
+                    'path' => $tmpfile->technical_assistance. '/'. $tmpfile->technical_assistance_file
                 ]);
-                Storage::deleteDirectory(('file/tmp/'). $tmpfile->technical_assistances);
+                Storage::deleteDirectory(('file/tmp/'). $tmpfile->technical_assistance);
                 $tmpfile->delete();
             }
         }
@@ -463,84 +463,84 @@ class EvaluateController extends Controller
 
         if ($request->has('judge_communitys')){
             foreach ($request['judge_communitys'] as $file){
-                $tmpfile = TemporaryEvaluationFile::where('judge_communitys', $file)->first();
-                Storage::copy('file/tmp/'. $tmpfile->judge_communitys. '/' . $tmpfile->judge_communitys_file, 'file/'. $tmpfile->judge_communitys. '/'. $tmpfile->judge_communitys_file);
+                $tmpfile = TemporaryEvaluationFile::where('judge_community', $file)->first();
+                Storage::copy('file/tmp/'. $tmpfile->judge_community. '/' . $tmpfile->judge_community_file, 'file/'. $tmpfile->judge_community. '/'. $tmpfile->judge_community_file);
                 EvaluationFile::create([
                     'evaluation_id' => $evaluate->id,
-                    'judge_communitys' => $tmpfile->judge_communitys_file,
-                    'path' => $tmpfile->judge_communitys. '/'. $tmpfile->judge_communitys_file
+                    'judge_communitys' => $tmpfile->judge_community_file,
+                    'path' => $tmpfile->judge_community. '/'. $tmpfile->judge_community_file
                 ]);
-                Storage::deleteDirectory(('file/tmp/'). $tmpfile->judge_communitys);
+                Storage::deleteDirectory(('file/tmp/'). $tmpfile->judge_community);
                 $tmpfile->delete();
             }
         }
 
         if ($request->has('commencement_guest_speakers')){
             foreach ($request['commencement_guest_speakers'] as $file){
-                $tmpfile = TemporaryEvaluationFile::where('commencement_guest_speakers', $file)->first();
-                Storage::copy('file/tmp/'. $tmpfile->commencement_guest_speakers. '/' . $tmpfile->commencement_guest_speakers_file, 'file/'. $tmpfile->commencement_guest_speakers. '/'. $tmpfile->commencement_guest_speakers_file);
+                $tmpfile = TemporaryEvaluationFile::where('commencement_guest_speaker', $file)->first();
+                Storage::copy('file/tmp/'. $tmpfile->commencement_guest_speaker. '/' . $tmpfile->commencement_guest_speaker_file, 'file/'. $tmpfile->commencement_guest_speaker. '/'. $tmpfile->commencement_guest_speaker_file);
                 EvaluationFile::create([
                     'evaluation_id' => $evaluate->id,
-                    'commencement_guest_speakers' => $tmpfile->commencement_guest_speakers_file,
-                    'path' => $tmpfile->commencement_guest_speakers. '/'. $tmpfile->commencement_guest_speakers_file
+                    'commencement_guest_speakers' => $tmpfile->commencement_guest_speaker_file,
+                    'path' => $tmpfile->commencement_guest_speaker. '/'. $tmpfile->commencement_guest_speaker_file
                 ]);
-                Storage::deleteDirectory(('file/tmp/'). $tmpfile->commencement_guest_speakers);
+                Storage::deleteDirectory(('file/tmp/'). $tmpfile->commencement_guest_speaker);
                 $tmpfile->delete();
             }
         }
 
         if ($request->has('coordinator_organizer_consultantses')){
             foreach ($request['coordinator_organizer_consultantses'] as $file){
-                $tmpfile = TemporaryEvaluationFile::where('coordinator_organizer_consultantses', $file)->first();
-                Storage::copy('file/tmp/'. $tmpfile->coordinator_organizer_consultantses. '/' . $tmpfile->coordinator_organizer_consultantses_file, 'file/'. $tmpfile->coordinator_organizer_consultantses. '/'. $tmpfile->coordinator_organizer_consultantses_file);
+                $tmpfile = TemporaryEvaluationFile::where('coordinator_organizer_consultants', $file)->first();
+                Storage::copy('file/tmp/'. $tmpfile->coordinator_organizer_consultants. '/' . $tmpfile->coordinator_organizer_consultants_file, 'file/'. $tmpfile->coordinator_organizer_consultants. '/'. $tmpfile->coordinator_organizer_consultants_file);
                 EvaluationFile::create([
                     'evaluation_id' => $evaluate->id,
-                    'coordinator_organizer_consultantses' => $tmpfile->coordinator_organizer_consultantses_file,
-                    'path' => $tmpfile->coordinator_organizer_consultantses. '/'. $tmpfile->coordinator_organizer_consultantses_file
+                    'coordinator_organizer_consultantses' => $tmpfile->coordinator_organizer_consultants_file,
+                    'path' => $tmpfile->coordinator_organizer_consultants. '/'. $tmpfile->coordinator_organizer_consultants_file
                 ]);
-                Storage::deleteDirectory(('file/tmp/'). $tmpfile->coordinator_organizer_consultantses);
+                Storage::deleteDirectory(('file/tmp/'). $tmpfile->coordinator_organizer_consultants);
                 $tmpfile->delete();
             }
         }
 
         if ($request->has('facilitators')){
             foreach ($request['facilitators'] as $file){
-                $tmpfile = TemporaryEvaluationFile::where('facilitators', $file)->first();
-                Storage::copy('file/tmp/'. $tmpfile->facilitators. '/' . $tmpfile->facilitators_file, 'file/'. $tmpfile->facilitators. '/'. $tmpfile->facilitators_file);
+                $tmpfile = TemporaryEvaluationFile::where('facilitator', $file)->first();
+                Storage::copy('file/tmp/'. $tmpfile->facilitator. '/' . $tmpfile->facilitator_file, 'file/'. $tmpfile->facilitator. '/'. $tmpfile->facilitator_file);
                 EvaluationFile::create([
                     'evaluation_id' => $evaluate->id,
-                    'facilitators' => $tmpfile->facilitators_file,
-                    'path' => $tmpfile->facilitators. '/'. $tmpfile->facilitators_file
+                    'facilitators' => $tmpfile->facilitator_file,
+                    'path' => $tmpfile->facilitator. '/'. $tmpfile->facilitator_file
                 ]);
-                Storage::deleteDirectory(('file/tmp/'). $tmpfile->facilitators);
+                Storage::deleteDirectory(('file/tmp/'). $tmpfile->facilitator);
                 $tmpfile->delete();
             }
         }
 
         if ($request->has('members')){
             foreach ($request['members'] as $file){
-                $tmpfile = TemporaryEvaluationFile::where('members', $file)->first();
-                Storage::copy('file/tmp/'. $tmpfile->members. '/' . $tmpfile->members_file, 'file/'. $tmpfile->members. '/'. $tmpfile->members_file);
+                $tmpfile = TemporaryEvaluationFile::where('member', $file)->first();
+                Storage::copy('file/tmp/'. $tmpfile->member. '/' . $tmpfile->member_file, 'file/'. $tmpfile->member. '/'. $tmpfile->member_file);
                 EvaluationFile::create([
                     'evaluation_id' => $evaluate->id,
-                    'members' => $tmpfile->members_file,
-                    'path' => $tmpfile->members. '/'. $tmpfile->members_file
+                    'members' => $tmpfile->member_file,
+                    'path' => $tmpfile->member. '/'. $tmpfile->member_file
                 ]);
-                Storage::deleteDirectory(('file/tmp/'). $tmpfile->members);
+                Storage::deleteDirectory(('file/tmp/'). $tmpfile->member);
                 $tmpfile->delete();
             }
         }
 
         if ($request->has('resource_person_lecturers')){
             foreach ($request['resource_person_lecturers'] as $file){
-                $tmpfile = TemporaryEvaluationFile::where('resource_person_lecturers', $file)->first();
-                Storage::copy('file/tmp/'. $tmpfile->resource_person_lecturers. '/' . $tmpfile->resource_person_lecturers_file, 'file/'. $tmpfile->resource_person_lecturers. '/'. $tmpfile->resource_person_lecturers_file);
+                $tmpfile = TemporaryEvaluationFile::where('resource_person_lecturer', $file)->first();
+                Storage::copy('file/tmp/'. $tmpfile->resource_person_lecturer. '/' . $tmpfile->resource_person_lecturer_file, 'file/'. $tmpfile->resource_person_lecturer. '/'. $tmpfile->resource_person_lecturer_file);
                 EvaluationFile::create([
                     'evaluation_id' => $evaluate->id,
-                    'resource_person_lecturers' => $tmpfile->resource_person_lecturers_file,
-                    'path' => $tmpfile->resource_person_lecturers. '/'. $tmpfile->resource_person_lecturers_file
+                    'resource_person_lecturers' => $tmpfile->resource_person_lecturer_file,
+                    'path' => $tmpfile->resource_person_lecturer. '/'. $tmpfile->resource_person_lecturer_file
                 ]);
-                Storage::deleteDirectory(('file/tmp/'). $tmpfile->resource_person_lecturers);
+                Storage::deleteDirectory(('file/tmp/'). $tmpfile->resource_person_lecturer);
                 $tmpfile->delete();
             }
         }
@@ -578,31 +578,12 @@ class EvaluateController extends Controller
                 ]);
 
 
-
             }
             return $folder;
         }
 
 
-        if ($request->has('chairmanship_unit')){
-            $unit = $request->chairmanship_unit;
-            $file = uniqid('chairmanship_unit-', true);
 
-            foreach($unit as $imageunit){
-
-                $fileNames = $imageunit->getClientOriginalName();
-                $imageunit->storeAs('file/tmp/'. $file, $fileNames);
-
-                  TemporaryEvaluationFile::create([
-                     'user_id'  => $id->id,
-                    'chairmanship_unit' => $file,
-                    'chairmanship_unit_file' => $fileNames,
-                ]);
-
-
-            }
-            return $file;
-        }
 
         if ($request->has('membership_wide')){
             $unit = $request->membership_wide;
@@ -823,6 +804,310 @@ class EvaluateController extends Controller
             return $file;
         }
 
+        if ($request->has('training_director_locals')){
+            $unit = $request->training_director_locals;
+            $file = uniqid('training_director_locals-', true);
+
+            foreach($unit as $imageunit){
+
+                $fileNames = $imageunit->getClientOriginalName();
+                $imageunit->storeAs('file/tmp/'. $file, $fileNames);
+
+                  TemporaryEvaluationFile::create([
+                     'user_id'  => $id->id,
+                    'training_director_local' => $file,
+                    'training_director_local_file' => $fileNames,
+                ]);
+
+
+            }
+            return $file;
+        }
+
+        if ($request->has('training_director_internationals')){
+            $unit = $request->training_director_internationals;
+            $file = uniqid('training_director_internationals-', true);
+
+            foreach($unit as $imageunit){
+
+                $fileNames = $imageunit->getClientOriginalName();
+                $imageunit->storeAs('file/tmp/'. $file, $fileNames);
+
+                  TemporaryEvaluationFile::create([
+                     'user_id'  => $id->id,
+                    'training_director_international' => $file,
+                    'training_director_international_file' => $fileNames,
+                ]);
+
+
+            }
+            return $file;
+        }
+
+        if ($request->has('resource_speaker_locals')){
+            $unit = $request->resource_speaker_locals;
+            $file = uniqid('resource_speaker_locals-', true);
+
+            foreach($unit as $imageunit){
+
+                $fileNames = $imageunit->getClientOriginalName();
+                $imageunit->storeAs('file/tmp/'. $file, $fileNames);
+
+                  TemporaryEvaluationFile::create([
+                     'user_id'  => $id->id,
+                    'resource_speaker_local' => $file,
+                    'resource_speaker_local_file' => $fileNames,
+                ]);
+
+
+            }
+            return $file;
+        }
+        if ($request->has('resource_speaker_internationals')){
+            $unit = $request->resource_speaker_internationals;
+            $file = uniqid('resource_speaker_internationals-', true);
+
+            foreach($unit as $imageunit){
+
+                $fileNames = $imageunit->getClientOriginalName();
+                $imageunit->storeAs('file/tmp/'. $file, $fileNames);
+
+                  TemporaryEvaluationFile::create([
+                     'user_id'  => $id->id,
+                    'resource_speaker_international' => $file,
+                    'resource_speaker_international_file' => $fileNames,
+                ]);
+
+
+            }
+            return $file;
+        }
+
+        if ($request->has('facilitator_moderator_locals')){
+            $unit = $request->facilitator_moderator_locals;
+            $file = uniqid('facilitator_moderator_locals-', true);
+
+            foreach($unit as $imageunit){
+
+                $fileNames = $imageunit->getClientOriginalName();
+                $imageunit->storeAs('file/tmp/'. $file, $fileNames);
+
+                  TemporaryEvaluationFile::create([
+                     'user_id'  => $id->id,
+                    'facilitator_moderator_local' => $file,
+                    'facilitator_moderator_local_file' => $fileNames,
+                ]);
+
+
+            }
+            return $file;
+        }
+
+        if ($request->has('facilitator_moderator_internationals')){
+            $unit = $request->facilitator_moderator_internationals;
+            $file = uniqid('facilitator_moderator_internationals-', true);
+
+            foreach($unit as $imageunit){
+
+                $fileNames = $imageunit->getClientOriginalName();
+                $imageunit->storeAs('file/tmp/'. $file, $fileNames);
+
+                  TemporaryEvaluationFile::create([
+                     'user_id'  => $id->id,
+                    'facilitator_moderator_international' => $file,
+                    'facilitator_moderator_international_file' => $fileNames,
+                ]);
+
+
+            }
+            return $file;
+        }
+
+        if ($request->has('reactor_panel_member_locals')){
+            $unit = $request->reactor_panel_member_locals;
+            $file = uniqid('reactor_panel_member_locals-', true);
+
+            foreach($unit as $imageunit){
+
+                $fileNames = $imageunit->getClientOriginalName();
+                $imageunit->storeAs('file/tmp/'. $file, $fileNames);
+
+                  TemporaryEvaluationFile::create([
+                     'user_id'  => $id->id,
+                    'reactor_panel_member_local' => $file,
+                    'reactor_panel_member_local_file' => $fileNames,
+                ]);
+
+
+            }
+            return $file;
+        }
+
+
+        if ($request->has('reactor_panel_member_internationals')){
+            $unit = $request->reactor_panel_member_internationals;
+            $file = uniqid('reactor_panel_member_internationals-', true);
+
+            foreach($unit as $imageunit){
+
+                $fileNames = $imageunit->getClientOriginalName();
+                $imageunit->storeAs('file/tmp/'. $file, $fileNames);
+
+                  TemporaryEvaluationFile::create([
+                     'user_id'  => $id->id,
+                    'reactor_panel_member_international' => $file,
+                    'reactor_panel_member_international_file' => $fileNames,
+                ]);
+
+
+            }
+            return $file;
+        }
+
+        if ($request->has('technical_assistances')){
+            $unit = $request->technical_assistances;
+            $file = uniqid('technical_assistances-', true);
+
+            foreach($unit as $imageunit){
+
+                $fileNames = $imageunit->getClientOriginalName();
+                $imageunit->storeAs('file/tmp/'. $file, $fileNames);
+
+                  TemporaryEvaluationFile::create([
+                     'user_id'  => $id->id,
+                    'technical_assistance' => $file,
+                    'technical_assistance_file' => $fileNames,
+                ]);
+
+
+            }
+            return $file;
+        }
+
+        if ($request->has('judge_communitys')){
+            $unit = $request->judge_communitys;
+            $file = uniqid('judge_communitys-', true);
+
+            foreach($unit as $imageunit){
+
+                $fileNames = $imageunit->getClientOriginalName();
+                $imageunit->storeAs('file/tmp/'. $file, $fileNames);
+
+                  TemporaryEvaluationFile::create([
+                     'user_id'  => $id->id,
+                    'judge_community' => $file,
+                    'judge_community_file' => $fileNames,
+                ]);
+
+
+            }
+            return $file;
+        }
+
+        if ($request->has('commencement_guest_speakers')){
+            $unit = $request->commencement_guest_speakers;
+            $file = uniqid('commencement_guest_speakers-', true);
+
+            foreach($unit as $imageunit){
+
+                $fileNames = $imageunit->getClientOriginalName();
+                $imageunit->storeAs('file/tmp/'. $file, $fileNames);
+
+                  TemporaryEvaluationFile::create([
+                     'user_id'  => $id->id,
+                    'commencement_guest_speaker' => $file,
+                    'commencement_guest_speaker_file' => $fileNames,
+                ]);
+
+
+            }
+            return $file;
+        }
+        if ($request->has('coordinator_organizer_consultantses')){
+            $unit = $request->coordinator_organizer_consultantses;
+            $file = uniqid('coordinator_organizer_consultantses-', true);
+
+            foreach($unit as $imageunit){
+
+                $fileNames = $imageunit->getClientOriginalName();
+                $imageunit->storeAs('file/tmp/'. $file, $fileNames);
+
+                  TemporaryEvaluationFile::create([
+                     'user_id'  => $id->id,
+                    'coordinator_organizer_consultants' => $file,
+                    'coordinator_organizer_consultants_file' => $fileNames,
+                ]);
+
+
+            }
+            return $file;
+        }
+        if ($request->has('facilitators')){
+            $unit = $request->facilitators;
+            $file = uniqid('facilitators-', true);
+
+            foreach($unit as $imageunit){
+
+                $fileNames = $imageunit->getClientOriginalName();
+                $imageunit->storeAs('file/tmp/'. $file, $fileNames);
+
+                  TemporaryEvaluationFile::create([
+                     'user_id'  => $id->id,
+                    'facilitator' => $file,
+                    'facilitator_file' => $fileNames,
+                ]);
+
+
+            }
+            return $file;
+        }
+        if ($request->has('members')){
+            $unit = $request->members;
+            $file = uniqid('members-', true);
+
+            foreach($unit as $imageunit){
+
+                $fileNames = $imageunit->getClientOriginalName();
+                $imageunit->storeAs('file/tmp/'. $file, $fileNames);
+
+                  TemporaryEvaluationFile::create([
+                     'user_id'  => $id->id,
+                    'member' => $file,
+                    'member_file' => $fileNames,
+                ]);
+
+
+            }
+            return $file;
+        }
+
+        if ($request->has('resource_person_lecturers')){
+            $images = $request->resource_person_lecturers;
+            $folder = uniqid('resource_person_lecturers-', true);
+
+
+            foreach($images as $image){
+
+                $fileName = $image->getClientOriginalName();
+                $image->storeAs('file/tmp/'. $folder, $fileName);
+
+                TemporaryEvaluationFile::create([
+                    'user_id'  => $id->id,
+                    'resource_person_lecturer' => $folder,
+                    'resource_person_lecturer_file' => $fileName,
+                ]);
+
+
+
+            }
+            return $folder;
+        }
+
+
+
+
+
+
 
     }
 
@@ -902,6 +1187,67 @@ class EvaluateController extends Controller
             Storage::deleteDirectory('file/tmp/'. $file->facilitation_international);
             $file->delete();
         }
+        if($file->training_director_local){
+            Storage::deleteDirectory('file/tmp/'. $file->training_director_local);
+            $file->delete();
+        }
+        if($file->training_director_international){
+            Storage::deleteDirectory('file/tmp/'. $file->training_director_international);
+            $file->delete();
+        }
+        if($file->resource_speaker_local){
+            Storage::deleteDirectory('file/tmp/'. $file->resource_speaker_local);
+            $file->delete();
+        }
+        if($file->resource_speaker_international){
+            Storage::deleteDirectory('file/tmp/'. $file->resource_speaker_international);
+            $file->delete();
+        }
+        if($file->facilitator_moderator_local){
+            Storage::deleteDirectory('file/tmp/'. $file->facilitator_moderator_local);
+            $file->delete();
+        }
+        if($file->facilitator_moderator_international){
+            Storage::deleteDirectory('file/tmp/'. $file->facilitator_moderator_international);
+            $file->delete();
+        }
+        if($file->reactor_panel_member_local){
+            Storage::deleteDirectory('file/tmp/'. $file->reactor_panel_member_local);
+            $file->delete();
+        }
+        if($file->reactor_panel_member_international){
+            Storage::deleteDirectory('file/tmp/'. $file->reactor_panel_member_international);
+            $file->delete();
+        }
+        if($file->technical_assistance){
+            Storage::deleteDirectory('file/tmp/'. $file->technical_assistance);
+            $file->delete();
+        }
+        if($file->judge_community){
+            Storage::deleteDirectory('file/tmp/'. $file->judge_community);
+            $file->delete();
+        }
+        if($file->commencement_guest_speaker){
+            Storage::deleteDirectory('file/tmp/'. $file->commencement_guest_speaker);
+            $file->delete();
+        }
+        if($file->coordinator_organizer_consultants){
+            Storage::deleteDirectory('file/tmp/'. $file->coordinator_organizer_consultants);
+            $file->delete();
+        }
+        if($file->facilitator){
+            Storage::deleteDirectory('file/tmp/'. $file->facilitator);
+            $file->delete();
+        }
+        if($file->member){
+            Storage::deleteDirectory('file/tmp/'. $file->member);
+            $file->delete();
+        }
+        if($file->resource_person_lecturer){
+            Storage::deleteDirectory('file/tmp/'. $file->resource_person_lecturer);
+            $file->delete();
+        }
+
         }
 
         return response()->json(['error' => 'Your File not found'], 404);

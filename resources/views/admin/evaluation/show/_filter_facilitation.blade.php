@@ -1,6 +1,6 @@
 <div class="mt-6">
-    <h1 class="py-4  text-sm font-medium">3. Facilitation of Linkages  </h1>
-    <div class="mb-4  ">
+    <h1 class="py-4 text-sm font-medium">3. Facilitation of Linkages  </h1>
+    <div class="mb-4">
         <div>
             <label class="block  text-sm font mb-2" for="username">On-going <span class="text-xs"> (1 pts. per linkage)</span></label>
             <input onkeypress="return isNumber(event)" id="facilication_on_going" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none" name="facilication_on_going" value="{{ $evaluation->facilication_on_going }}" type="text">

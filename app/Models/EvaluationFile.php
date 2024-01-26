@@ -12,24 +12,7 @@ class EvaluationFile extends Model
     use HasFactory;
     use HasFilepond;
 
-    protected $fillable = [
-        'evaluation_id',
-        'chairmanship_wide',
-        'chairmanship_unit',
-        'membership_wide',
-        'membership_unit',
-        'advisorships',
-        'oics',
-        'judges',
-        'resource_generation',
-        'chairmanship',
-        'facilitation_ongoing',
-        'facilitation_regional',
-        'facilitation_national',
-        'facilitation_international',
-        'path',
-
-    ];
+    protected $guarded = [];
 
 
     public function evaluation(){
