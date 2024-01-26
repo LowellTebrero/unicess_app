@@ -67,6 +67,15 @@ class PostController extends Controller
         return view('lnu', compact('slider', 'authorize', 'articles', 'partners','beneficiaries', 'events', 'programservices' ));
     }
 
+    public function PrivacyPolicy(){
+
+        return view('privacy-policy');
+    }
+    public function TermsOfServices(){
+
+        return view('terms-of-services');
+    }
+
 
     public function markasread($id)
 

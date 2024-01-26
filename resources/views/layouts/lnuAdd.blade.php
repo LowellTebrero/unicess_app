@@ -1,3 +1,4 @@
+@auth
 @php
 $notifs = auth()
     ->user()
@@ -15,6 +16,7 @@ $notifs = auth()
 $notifications = auth()->user()->unreadNotifications;
 $proposals = App\Models\Proposal::all();
 @endphp
+@endauth
 
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">

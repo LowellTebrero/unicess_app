@@ -57,6 +57,8 @@ Route::controller(PostController::class)->group(function () {
     Route::get('/mark-as-read/{id}', 'markasread')->name('markasread');
     Route::get('/mark-all-as-read', 'markAllAsRead')->name('markallsread');
     Route::delete('/remove-notification/{id}', 'RemoveNotification')->name('remove-notification');
+    Route::get('/privacy-policy', 'PrivacyPolicy');
+    Route::get('/terms-of-services', 'TermsOfServices');
 });
 
 Route::controller(ProviderController::class)->group(function () {
@@ -73,6 +75,8 @@ Route::controller(LnuAdditionalController::class)->group(function () {
     Route::get('/show-articles/{id}', 'showFeatures')->name('lnu-show-details.show-article');
 
 });
+
+
 
 Route::get('/pusher', function (){
      return view('pusher');
