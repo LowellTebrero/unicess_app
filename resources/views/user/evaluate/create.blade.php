@@ -216,51 +216,74 @@
             </div>
 
 
-            <div class="p-8  border-x border-b border-gray-400">
+            <div class="p-8  border-x border-b border-gray-400 grid grid-cols-1 2xl:grid-cols-2 gap-4">
 
+
+                <div>
                 <h1 class="text-sm">Training Director/Coordinator - Local/National  <span class="text-xs sm:text-sm">(10 pts. per Training)</span></h1>
                 <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="training_director_local"  type="text" id="training_director_local"  onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
                 <input type="file" multiple credits="false" name="training_director_locals[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="training_director_local">
+                </div>
 
+                <div>
                 <h1 class="text-sm">Training Director/Coordinator - International   <span class="text-xs sm:text-sm">(15 pts. per Training)</span></h1>
                 <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="training_director_international" type="text" id="training_director_international"  onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
                 <input type="file" multiple credits="false" name="training_director_internationals[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="training_director_international">
+                </div>
 
+                <div>
                 <h1 class="text-sm">Resource Speaker/Trainer - Local/National  <span class="text-xs sm:text-sm">(7 pts. per Training)</span></h1>
                 <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="resource_speaker_local" id="resource_speaker_local" type="text"  onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
                 <input type="file" multiple credits="false" name="resource_speaker_locals[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="resource_speaker_local">
+                </div>
 
+                <div>
                 <h1 class="text-sm" >Resource Speaker/Trainer - International   <span class="text-xs sm:text-sm">(10 pts. per Training)</span></h1>
                 <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="resource_speaker_international" id="resource_speaker_international" type="text"  onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
                 <input type="file" multiple credits="false" name="resource_speaker_internationals[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="resource_speaker_international">
+                </div>
 
+                <div>
                 <h1 class="text-sm">Facilitator moderator - local   <span class="text-xs sm:text-sm">(3 pts. per Training)</span></h1>
                 <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="facilitator_moderator_local" id="facilitator_moderator_local" type="text"  onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
                 <input type="file" multiple credits="false" name="facilitator_moderator_locals[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="facilitator_moderator_local">
+                </div>
 
+                <div>
                 <h1 class="text-sm">Facilitator moderator - International  <span class="text-xs sm:text-sm">(7 pts. per Training)</span></h1>
                 <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="facilitator_moderator_international" id="facilitator_moderator_international" type="text"  onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
                 <input type="file" multiple credits="false" name="facilitator_moderator_internationals[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="facilitator_moderator_international">
+                </div>
 
+                <div>
                 <h1 class="text-sm">Reactor panel member - local  <span class="text-xs sm:text-sm">(2 pts. per Training)</span></h1>
                 <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="reactor_panel_member_local" id="reactor_panel_member_local" type="text"  onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
                 <input type="file" multiple credits="false" name="reactor_panel_member_locals[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="reactor_panel_member_local">
+                </div>
 
+                <div>
                 <h1 class="text-sm">Reactor panel member - International  <span class="text-xs sm:text-sm">(5 pts. per Training)</span></h1>
                 <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="reactor_panel_member_international" id="reactor_panel_member_international" type="text"  onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
                 <input type="file" multiple credits="false" name="reactor_panel_member_internationals[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="reactor_panel_member_international">
+                </div>
 
+                <div>
                 <h1 class="text-sm">Technical Assistance/Consultancy  <span class="text-xs sm:text-sm">(7 pts. per project)</span></h1>
                 <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="technical_assistance" id="technical_assistance" type="text"  onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
                 <input type="file" multiple credits="false" name="technical_assistances[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="technical_assistance">
+                </div>
 
-                <h1 class="text-sm">Judge  <span class="text-xs sm:text-sm">(3 pts.) Note: Only extra-curricular activities where are academic in nature (e.g., debates, orations, quiz shows)</span></h1>
+                <div>
+                <h1 class="text-sm">Judge  <span class="text-xs">(3 pts.) Note: Only extra-curricular activities where are academic in nature (e.g., debates, orations, quiz shows)</span></h1>
                 <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="judge_community" id="judge_community" type="text"  onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
                 <input type="file" multiple credits="false" name="judge_communitys[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="judge_community">
+                </div>
 
+                <div>
                 <h1 class="text-sm">Commencement/Guest Speaker: <span class="text-xs sm:text-sm">(4 pts.)</span></h1>
                 <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="commencement_guest_speaker" id="commencement_guest_speaker" type="text"  onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
                 <input type="file" multiple credits="false" name="commencement_guest_speakers[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="commencement_guest_speaker">
+                </div>
 
 
             </div>
@@ -276,7 +299,7 @@
                 <div class="w-full border-x border-b p-8 border-gray-400">
                     <h1 class="text-md font-medium ">I. Participation in the extension and training per day:</h1>
 
-                    <div class="my-4 space-y-4  flex flex-col 2xl:space-y-0 2xl:flex-row">
+                    <div class="my-4 grid 2xl:grid-cols-2 gap-4 grid-cols-1">
 
                         <div class="w-full">
                         <h1 class="text-xs sm:text-sm">Coordinator/Organizer/consultants (10 pts. per day) </h1>

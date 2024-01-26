@@ -49,7 +49,7 @@
                     <div class="flex space-x-12">
                         <div class="w-full">
                             <label class="block  text-sm font mb-2" for="username">Training Director/Coordinator - Local/National <span class="text-xs xl:block 2xl:inline-block">  (10 pts. per Training) </span></label>
-                            <input onkeypress="return isNumber(event)" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none"value="{{ $evaluation->training_director_local }}" name="training_director_local" type="text">
+                            <input onkeypress="return isNumber(event)" id="training_director_local" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none" value="{{ $evaluation->training_director_local }}" name="training_director_local" type="text">
                             <div class="py-2 training_director_locals">
                                 <x-alpine-modal>
 
@@ -125,7 +125,7 @@
 
                         <div  class="w-full">
                             <label class="block  text-sm font mb-2" for="username">Training Director/Coordinator - International <span class="text-xs xl:block 2xl:inline-block">  (10 pts. per Training) </span></label>
-                            <input onkeypress="return isNumber(event)" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none"value="{{ $evaluation->training_director_international }}" name="training_director_international" type="text">
+                            <input onkeypress="return isNumber(event)" id="training_director_international" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none"value="{{ $evaluation->training_director_international }}" name="training_director_international" type="text">
                             <div class="py-2 training_director_internationals">
                                 <x-alpine-modal>
 
@@ -203,7 +203,7 @@
                     <div class="flex space-x-12">
                         <div class="w-full">
                             <label class="block  text-sm font mb-2" for="username">Resource Speaker/Trainer - Local/National <span class="text-xs xl:block 2xl:inline-block">  (10 pts. per Training) </span></label>
-                            <input onkeypress="return isNumber(event)" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none"value="{{ $evaluation->resource_speaker_local }}" name="resource_speaker_local" type="text">
+                            <input onkeypress="return isNumber(event)" id="resource_speaker_local" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none"value="{{ $evaluation->resource_speaker_local }}" name="resource_speaker_local" type="text">
                             <div class="py-2 resource_speaker_locals">
                                 <x-alpine-modal>
 
@@ -279,7 +279,7 @@
 
                         <div  class="w-full">
                             <label class="block  text-sm font mb-2" for="username">Resource Speaker/Trainer - International <span class="text-xs xl:block 2xl:inline-block">  (10 pts. per Training) </span></label>
-                            <input onkeypress="return isNumber(event)" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none"value="{{ $evaluation->resource_speaker_international }}" name="resource_speaker_international" type="text">
+                            <input onkeypress="return isNumber(event)" id="resource_speaker_international" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none"value="{{ $evaluation->resource_speaker_international }}" name="resource_speaker_international" type="text">
                             <div class="py-2 resource_speaker_internationals">
                                 <x-alpine-modal>
 
@@ -357,7 +357,7 @@
                     <div class="flex space-x-12">
                         <div class="w-full">
                             <label class="block  text-sm font mb-2" for="username">Facilitator moderator - Local/National <span class="text-xs xl:block 2xl:inline-block">  (10 pts. per Training) </span></label>
-                            <input onkeypress="return isNumber(event)" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none"value="{{ $evaluation->facilitator_moderator_local }}" name="facilitator_moderator_local" type="text">
+                            <input onkeypress="return isNumber(event)" id="facilitator_moderator_local" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none"value="{{ $evaluation->facilitator_moderator_local }}" name="facilitator_moderator_local" type="text">
                             <div class="py-2 facilitator_moderator_locals">
                                 <x-alpine-modal>
 
@@ -433,7 +433,7 @@
 
                         <div  class="w-full">
                             <label class="block  text-sm font mb-2" for="username">Facilitator moderator - International <span class="text-xs xl:block 2xl:inline-block">  (10 pts. per Training) </span></label>
-                            <input onkeypress="return isNumber(event)" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none"value="{{ $evaluation->facilitator_moderator_international }}" name="facilitator_moderator_international" type="text">
+                            <input onkeypress="return isNumber(event)" id="facilitator_moderator_international" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none"value="{{ $evaluation->facilitator_moderator_international }}" name="facilitator_moderator_international" type="text">
                             <div class="py-2 facilitator_moderator_internationals">
                                 <x-alpine-modal>
 
@@ -511,7 +511,7 @@
                     <div class="flex space-x-12">
                         <div class="w-full">
                             <label class="block  text-sm font mb-2" for="username">Reactor panel member- Local/National <span class="text-xs xl:block 2xl:inline-block">  (10 pts. per Training) </span></label>
-                            <input onkeypress="return isNumber(event)" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none"value="{{ $evaluation->reactor_panel_member_local }}" name="reactor_panel_member_local" type="text">
+                            <input onkeypress="return isNumber(event)" id="reactor_panel_member_local" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none"value="{{ $evaluation->reactor_panel_member_local }}" name="reactor_panel_member_local" type="text">
                             <div class="py-2 reactor_panel_member_locals">
                                 <x-alpine-modal>
 
@@ -587,7 +587,7 @@
 
                         <div  class="w-full">
                             <label class="block  text-sm font mb-2" for="username">Reactor panel member- International  <span class="text-xs xl:block 2xl:inline-block">  (10 pts. per Training) </span></label>
-                            <input onkeypress="return isNumber(event)" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none"value="{{ $evaluation->reactor_panel_member_international }}" name="reactor_panel_member_international" type="text">
+                            <input onkeypress="return isNumber(event)" id="reactor_panel_member_international" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none"value="{{ $evaluation->reactor_panel_member_international }}" name="reactor_panel_member_international" type="text">
                             <div class="py-2 reactor_panel_member_internationals">
                                 <x-alpine-modal>
 
@@ -664,7 +664,7 @@
 
                     <div>
                         <label class="block  text-sm font mb-2" for="username">Technical Assistance/Consultancy  <span class="text-xs ">  (10 pts. per Training) </span></label>
-                        <input onkeypress="return isNumber(event)" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none"value="{{ $evaluation->technical_assistance }}" name="technical_assistance"  type="text">
+                        <input onkeypress="return isNumber(event)" id="techinical_assistance" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none"value="{{ $evaluation->technical_assistance }}" name="technical_assistance"  type="text">
                         <div class="py-2 techinical_assistances">
                             <x-alpine-modal>
 
@@ -740,7 +740,7 @@
 
                     <div>
                         <label class="block  text-sm font mb-2" for="username">Judge  <span class="text-xs ">  (10 pts. per Training) </span></label>
-                        <input onkeypress="return isNumber(event)" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none"value="{{ $evaluation->judge_community }}" name="judge_community"  type="text">
+                        <input onkeypress="return isNumber(event)" id="judge_community" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none"value="{{ $evaluation->judge_community }}" name="judge_community"  type="text">
                         <div class="py-2 judge_communitys">
                             <x-alpine-modal>
 
@@ -816,7 +816,7 @@
 
                     <div>
                         <label class="block  text-sm font mb-2" for="username">Commencement/Guest Speaker  <span class="text-xs ">  (10 pts. per Training) </span></label>
-                        <input onkeypress="return isNumber(event)" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none"value="{{ $evaluation->commencement_guest_speaker }}" name="commencement_guest_speaker" type="text">
+                        <input onkeypress="return isNumber(event)" id="commencement_guest_speaker" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none"value="{{ $evaluation->commencement_guest_speaker }}" name="commencement_guest_speaker" type="text">
                         <div class="py-2 commencement_guest_speakers">
                             <x-alpine-modal>
 
@@ -909,7 +909,7 @@
 
                             <div class="w-full">
                                 <h1 class="text-sm">Coordinator/Organizer/consultants <span class="text-xs">(10 pts. per day) </span> </h1>
-                                <input onkeypress="return isNumber(event)" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none" value="{{ $evaluation->coordinator_organizer_consultants }}"  name="coordinator_organizer_consultants"  type="text">
+                                <input onkeypress="return isNumber(event)" id="coordinator_organizer_consultants" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none" value="{{ $evaluation->coordinator_organizer_consultants }}"  name="coordinator_organizer_consultants"  type="text">
                                 <div class="py-2 coordinator_organizer_consultantses">
                                     <x-alpine-modal>
 
@@ -985,7 +985,7 @@
 
                             <div class="w-full">
                                 <label class="block  text-sm font mb-2" for="username">Resource person/lecturer <span class="text-xs"> (8 pts. per day)  </span></label>
-                                <input onkeypress="return isNumber(event)" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none" value="{{ $evaluation->resource_person_lecturer }}"  name="resource_person_lecturer"  type="text">
+                                <input onkeypress="return isNumber(event)" id="resource_person_lecturer" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none" value="{{ $evaluation->resource_person_lecturer }}"  name="resource_person_lecturer"  type="text">
                                 <div class="py-2 resource_person_lecturers">
                                     <x-alpine-modal>
 
@@ -1062,7 +1062,7 @@
 
                             <div class="w-full">
                                 <label class="block  text-sm font mb-2" for="username">Facilitator <span class="text-xs"> (6 pts. per day)  </span></label>
-                                <input onkeypress="return isNumber(event)" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none" value="{{ $evaluation->facilitator }}"   name="facilitator" type="text">
+                                <input onkeypress="return isNumber(event)" id="facilitator" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none" value="{{ $evaluation->facilitator }}"   name="facilitator" type="text">
                                 <div class="py-2 facilitators">
                                     <x-alpine-modal>
 
@@ -1139,7 +1139,7 @@
 
                             <div class="w-full">
                                 <label class="block  text-sm font mb-2" for="username">Member <span class="text-xs"> (4 pts. per day)  </span></label>
-                                <input onkeypress="return isNumber(event)" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none" value="{{ $evaluation->member }}"  name="member"  type="text">
+                                <input onkeypress="return isNumber(event)" id="member" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none" value="{{ $evaluation->member }}"  name="member"  type="text">
                                 <div class="py-2 members">
                                     <x-alpine-modal>
 
@@ -1154,7 +1154,7 @@
 
                                             <div class="bg-blue-600 w-full rounded-lg">
                                                 @foreach ($evaluation->evaluationfile as $image)
-                                                @if ($image->members !== null)
+                                                @if (!empty($image->members))
                                                     <div class="bg-white  flex w-full  xl:w-[30rem] rounded-lg hover:bg-slate-200  transition-all m-2 relative ">
 
                                                         {{--  Modal Starts here  --}}
