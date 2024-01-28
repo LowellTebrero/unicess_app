@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\AdminYear;
 use App\Models\Evaluation;
@@ -88,7 +89,6 @@ class EvaluateController extends Controller
 
         $status = EvaluationStatus::select('status')->get();
         $proposal_member = ProposalMember::where('user_id', auth()->user()->id)->with('proposal')->get();
-
 
         $temporary = TemporaryEvaluationFile::where('user_id', $id)->get();
         return view('user.evaluate.create', compact(
@@ -553,9 +553,11 @@ class EvaluateController extends Controller
 
     public function evaluatePdf($id){
 
+
         $evaluations = Evaluation::where('id', $id)->firstOrFail();
+        $createdAt = Carbon::parse($evaluations->created_at)->format('Y-m-d');
         $pdf = Pdf::loadView('user.evaluate.evaluate',  ['evaluations' => $evaluations]);
-        return $pdf->download('evaluation.pdf');
+        return $pdf->download($evaluations->users->name.'-'.'Evaluation'.'-'.$createdAt.'.pdf');
     }
 
 

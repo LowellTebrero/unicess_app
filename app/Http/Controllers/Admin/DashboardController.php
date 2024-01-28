@@ -53,12 +53,14 @@ class DashboardController extends Controller
 
         'program_id' => 'required',
         'project_title' => ['regex:/^[^<>?:|\/"*]+$/','required','min:6' ,Rule::unique('proposals'), new UniqueTitle],
-        'proposal_pdf' => "required_without_all:special_order_pdf,moa_pdf,office_order_pdf,travel_order_pdf,other_files|file|mimes:pdf|max:10048",
-        'moa_pdf' => "required_without_all:proposal_pdf,special_order_pdf,office_order_pdf,travel_order_pdf,other_files|file|mimes:pdf|max:10048",
-        'other_files' => "required_without_all:proposal_pdf,special_order_pdf,moa_pdf,office_order_pdf,travel_order_pdf|max:10048",
+        'proposal_pdf' => "required_without_all:special_order_pdf,moa_pdf,office_order_pdf,travel_order_pdf,other_files,attendance,attendancem|file|mimes:pdf|max:10048",
+        'moa_pdf' => "required_without_all:proposal_pdf,special_order_pdf,office_order_pdf,travel_order_pdf,other_files,attendance,attendancem|file|mimes:pdf|max:10048",
+        'other_files' => "required_without_all:proposal_pdf,special_order_pdf,moa_pdf,office_order_pdf,travel_order_pdf,attendance,attendancem|max:10048",
         'office_order_pdf' => "max:10048",
         'travel_order_pdf' => "max:10048",
         'special_order_pdf' => "max:10048",
+        'attendance' => "max:10048",
+        'attendancem' => "max:10048",
         ],
         [
         'required_without_all' => 'Please upload at least one file among Proposal PDF, Special Order PDF, MOA PDF, Office Order PDF, Travel Order PDF.',
@@ -117,6 +119,29 @@ class DashboardController extends Controller
 
             foreach ($officeorder as $offices) {
                 $office->addMedia($offices)->usingName('office_order_pdf')->toMediaCollection('officeOrderPdf');
+            }
+        }
+
+        if ($attendance = $request->file('attendance')) {
+
+            $attend = new UserAttendance();
+            $attend->user_id  = auth()->id();
+            $attend->proposal_id  = $post->id;
+            $attend->save();
+
+            foreach ($attendance as $attends) {
+                $attend->addMedia($attends)->usingName('attendance')->toMediaCollection('Attendance');
+            }
+        }
+        if ($attendancem = $request->file('attendancem')) {
+
+            $attendances = new UserAttendanceMonitoring();
+            $attendances->user_id  = auth()->id();
+            $attendances->proposal_id  = $post->id;
+            $attendances->save();
+
+            foreach ($attendancem as $attendm) {
+                $attendances->addMedia($attendm)->usingName('attendancemonitoring')->toMediaCollection('AttendanceMonitoring');
             }
         }
 
@@ -338,6 +363,8 @@ class DashboardController extends Controller
             'special_order_pdf' => "max:10048",
             'travel_order' => "max:10048",
             'office_order' => "max:10048",
+            'attendance' => "max:10048",
+            'attendancem' => "max:10048",
         ]);
 
        $proposals = Proposal::where('id', $id)->first();
@@ -386,6 +413,29 @@ class DashboardController extends Controller
 
             foreach ($officeorder as $offices) {
                 $office->addMedia($offices)->usingName('office_order_pdf')->toMediaCollection('officeOrderPdf');
+            }
+        }
+
+        if ($attendance = $request->file('attendance')) {
+
+            $attend = new UserAttendance();
+            $attend->user_id  = auth()->id();
+            $attend->proposal_id  = $proposals->id;
+            $attend->save();
+
+            foreach ($attendance as $attends) {
+                $attend->addMedia($attends)->usingName('attendance')->toMediaCollection('Attendance');
+            }
+        }
+        if ($attendancem = $request->file('attendancem')) {
+
+            $attendances = new UserAttendanceMonitoring();
+            $attendances->user_id  = auth()->id();
+            $attendances->proposal_id  = $proposals->id;
+            $attendances->save();
+
+            foreach ($attendancem as $attendm) {
+                $attendances->addMedia($attendm)->usingName('attendancemonitoring')->toMediaCollection('AttendanceMonitoring');
             }
         }
 

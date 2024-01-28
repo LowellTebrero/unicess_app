@@ -115,14 +115,14 @@
                     <div class="w-full">
                         <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Attendance <span class="text-xs">(Multiple files)</span></label>
                         <input class="bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
-                        name="attendance[]" multiple id="attendance" type="file" accept="application/pdf" onchange="displayAttendanceFileNames(this)">
+                        name="attendance[]" multiple id="attendance" type="file" onchange="displayAttendanceFileNames(this)">
                         <div id="file-attendance-container" class="text-xs mt-1 font-thin"></div>
                     </div>
 
                     <div class="w-full">
                         <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Attendance Monitoring <span class="text-xs">(Multiple files)</span></label>
                         <input class="bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
-                        name="attendancem[]" multiple id="attendancem" type="file" accept="application/pdf" onchange="displayAttendanceMFileNames(this)">
+                        name="attendancem[]" multiple id="attendancem" type="file" onchange="displayAttendanceMFileNames(this)">
                         <div id="file-attendancem-container" class="text-xs mt-1 font-thin"></div>
                     </div>
 
@@ -173,7 +173,7 @@
                         <div class="flex flex-col space-y-2">
                             <div class="flex flex-col space-y-2  w-full">
                                 <div class="flex space-x-2">
-                                    <h1 class="xl:text-sm text-xs">Select Role Type (optional)</h1>
+                                    <h1 class="xl:text-sm text-xs">Select Faculty Username/Personnel (optional)</h1>
                                 </div>
                                 <div>
                                 <button class="px-3 py-1 2xl:text-sm text-xs bg-blue-400 text-white rounded-lg" type="button"
@@ -248,7 +248,7 @@
                                     <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to submit?</h3>
                                     <div class="space-x-2">
                                     <button data-modal-hide="popup-modal"  type="submit" class="text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2">
-                                        Yes, I'm sure
+                                        Yes, I am sure
                                     </button>
                                     <button data-modal-hide="popup-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No, cancel</button>
                                     </div>
@@ -363,7 +363,7 @@
             });
 
             if (!fileSelected) {
-                alert('Please upload at least one file.');
+                alert('Please upload a file at least one on the input file field.');
                 blinkError();
                 event.preventDefault(); // Prevent form submission
             }

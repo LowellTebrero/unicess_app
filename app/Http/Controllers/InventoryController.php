@@ -355,16 +355,20 @@ class InventoryController extends Controller
     {
         $request->validate([
             'proposal_pdf' => 'mimes:pdf',
-            'moa' => 'mimes:pdf',
+            'moa_pdf' => 'mimes:pdf',
+            'special_order_pdf' => "max:10048",
+            'travel_order' => "max:10048",
+            'office_order' => "max:10048",
+            'attendance' => "max:10048",
+            'attendancem' => "max:10048",
         ]);
 
        $proposals = Proposal::where('id', $id)->first();
        $project_title = $proposals->project_title;
-
+       $proposals->update();
 
         if ($request->hasFile('proposal_pdf')) {
-            $proposals->clearMediaCollection('proposalPdf');
-            $proposals->addMediaFromRequest('proposal_pdf')->usingName('proposal')->usingFileName($project_title.'_proposal.pdf')->toMediaCollection('proposalPdf');
+        $proposals->addMediaFromRequest('proposal_pdf')->usingName('proposal')->usingFileName($project_title.'_proposal.pdf')->toMediaCollection('proposalPdf');
         }
 
         if ($request->hasFile('moa_pdf')) {
@@ -372,12 +376,73 @@ class InventoryController extends Controller
             $proposals->addMediaFromRequest('moa_pdf')->usingName('moa')->usingFileName($project_title.'_moa.pdf')->toMediaCollection('MoaPDF');
         }
 
-        if ($images = $request->file('other_files')) {
+        if ($specialorder = $request->file('special_order_pdf')) {
 
-            foreach ($images as $image) {
-                $proposals->addMedia($image)->usingName('other')->toMediaCollection('otherFile');
+            $special = new UserSpecialOrder();
+            $special->user_id  = auth()->id();
+            $special->proposal_id  = $proposals->id;
+            $special->save();
+
+            foreach ($specialorder as $specials) {
+                $special->addMedia($specials)->usingName('special_order')->toMediaCollection('specialOrderPdf');
             }
         }
+
+        if ($travelorder = $request->file('travel_order_pdf')) {
+
+            $travel = new UserTravelOrder();
+            $travel->user_id  = auth()->id();
+            $travel->proposal_id  = $proposals->id;
+            $travel->save();
+
+            foreach ($travelorder as $travels) {
+                $travel->addMedia($travels)->usingName('travel_order_pdf')->toMediaCollection('travelOrderPdf');
+            }
+        }
+
+        if ($officeorder = $request->file('office_order_pdf')) {
+
+            $office = new UserOfficeOrder();
+            $office->user_id  = auth()->id();
+            $office->proposal_id  = $proposals->id;
+            $office->save();
+
+            foreach ($officeorder as $offices) {
+                $office->addMedia($offices)->usingName('office_order_pdf')->toMediaCollection('officeOrderPdf');
+            }
+        }
+
+        if ($attendance = $request->file('attendance')) {
+
+            $attend = new UserAttendance();
+            $attend->user_id  = auth()->id();
+            $attend->proposal_id  = $proposals->id;
+            $attend->save();
+
+            foreach ($attendance as $attends) {
+                $attend->addMedia($attends)->usingName('attendance')->toMediaCollection('Attendance');
+            }
+        }
+        if ($attendancem = $request->file('attendancem')) {
+
+            $attendances = new UserAttendanceMonitoring();
+            $attendances->user_id  = auth()->id();
+            $attendances->proposal_id  = $proposals->id;
+            $attendances->save();
+
+            foreach ($attendancem as $attendm) {
+                $attendances->addMedia($attendm)->usingName('attendancemonitoring')->toMediaCollection('AttendanceMonitoring');
+            }
+        }
+
+
+        if ($files = $request->file('other_files')) {
+
+            foreach ($files as $file) {
+                $proposals->addMedia($file)->usingName('other')->toMediaCollection('otherFile');
+            }
+        }
+
 
         $proposals->update();
         app('flasher')->addSuccess('Files successfully updated.');

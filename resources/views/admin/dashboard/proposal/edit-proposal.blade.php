@@ -186,12 +186,12 @@
                                                             </div>
                                                             <div class="text-xs tracking-wider flex space-x-2 items-center">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="#15c160" d="m10.562 14.492l-2.497-2.496q-.14-.14-.344-.15q-.204-.01-.363.15q-.16.16-.16.354t.16.354l2.638 2.638q.242.243.566.243q.323 0 .565-.243l5.477-5.477q.14-.14.15-.344q.01-.204-.15-.363q-.16-.16-.354-.16t-.354.16zM12.003 21q-1.866 0-3.51-.708q-1.643-.709-2.859-1.924q-1.216-1.214-1.925-2.856Q3 13.87 3 12.003q0-1.866.708-3.51q.709-1.643 1.924-2.859q1.214-1.216 2.856-1.925Q10.13 3 11.997 3q1.866 0 3.51.708q1.643.709 2.859 1.924q1.216 1.214 1.925 2.856Q21 10.13 21 11.997q0 1.866-.708 3.51q-.709 1.643-1.924 2.859q-1.214 1.216-2.856 1.925Q13.87 21 12.003 21"/></svg>
-                                                                <h1>Uploaded Narrative</h1>
+                                                                <h1>Uploaded Narrative Report</h1>
                                                             </div>
 
                                                             <div class="text-xs tracking-wider flex space-x-2 items-center">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="#0091ff" d="m10.562 14.492l-2.497-2.496q-.14-.14-.344-.15q-.204-.01-.363.15q-.16.16-.16.354t.16.354l2.638 2.638q.242.243.566.243q.323 0 .565-.243l5.477-5.477q.14-.14.15-.344q.01-.204-.15-.363q-.16-.16-.354-.16t-.354.16zM12.003 21q-1.866 0-3.51-.708q-1.643-.709-2.859-1.924q-1.216-1.214-1.925-2.856Q3 13.87 3 12.003q0-1.866.708-3.51q.709-1.643 1.924-2.859q1.214-1.216 2.856-1.925Q10.13 3 11.997 3q1.866 0 3.51.708q1.643.709 2.859 1.924q1.216 1.214 1.925 2.856Q21 10.13 21 11.997q0 1.866-.708 3.51q-.709 1.643-1.924 2.859q-1.214 1.216-2.856 1.925Q13.87 21 12.003 21"/></svg>
-                                                                <h1>Uploaded Terminal</h1>
+                                                                <h1>Uploaded Terminal Report</h1>
                                                             </div>
                                                         </div>
 
@@ -239,7 +239,7 @@
                                                                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="#ff45e6" d="m10.562 14.492l-2.497-2.496q-.14-.14-.344-.15q-.204-.01-.363.15q-.16.16-.16.354t.16.354l2.638 2.638q.242.243.566.243q.323 0 .565-.243l5.477-5.477q.14-.14.15-.344q.01-.204-.15-.363q-.16-.16-.354-.16t-.354.16zM12.003 21q-1.866 0-3.51-.708q-1.643-.709-2.859-1.924q-1.216-1.214-1.925-2.856Q3 13.87 3 12.003q0-1.866.708-3.51q.709-1.643 1.924-2.859q1.214-1.216 2.856-1.925Q10.13 3 11.997 3q1.866 0 3.51.708q1.643.709 2.859 1.924q1.216 1.214 1.925 2.856Q21 10.13 21 11.997q0 1.866-.708 3.51q-.709 1.643-1.924 2.859q-1.214 1.216-2.856 1.925Q13.87 21 12.003 21"/></svg>
                                                                             @endif
                                                                             @endforeach
-                                                                           
+
                                                                             @foreach ($proposals->narrativereport as $narrative)
                                                                             @if ($narrative->user_id == $proposal_mem->user_id)
                                                                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="#15c160" d="m10.562 14.492l-2.497-2.496q-.14-.14-.344-.15q-.204-.01-.363.15q-.16.16-.16.354t.16.354l2.638 2.638q.242.243.566.243q.323 0 .565-.243l5.477-5.477q.14-.14.15-.344q.01-.204-.15-.363q-.16-.16-.354-.16t-.354.16zM12.003 21q-1.866 0-3.51-.708q-1.643-.709-2.859-1.924q-1.216-1.214-1.925-2.856Q3 13.87 3 12.003q0-1.866.708-3.51q.709-1.643 1.924-2.859q1.214-1.216 2.856-1.925Q10.13 3 11.997 3q1.866 0 3.51.708q1.643.709 2.859 1.924q1.216 1.214 1.925 2.856Q21 10.13 21 11.997q0 1.866-.708 3.51q-.709 1.643-1.924 2.859q-1.214 1.216-2.856 1.925Q13.87 21 12.003 21"/></svg>
@@ -407,6 +407,19 @@
                                                     <input type="file" multiple  class="border text-xs" name="office_order_pdf[]" accept="application/pdf" onchange="displayOfficeFileNames(this)">
                                                     @error('office_order_pdf')<span class="text-red-500  text-xs">{{ $message }}</span>@enderror
                                                     <div id="file-office-container" class="text-xs mt-1 font-thin"></div>
+                                                </div>
+
+                                                <div class="flex flex-col  mb-1 w-full">
+                                                    <label class="text-xs font-light tracking-wider mb-1">Attendance  <span class="text-xs">(Multiple Files)</span></label>
+                                                    <input type="file" multiple  class="border text-xs" name="attendance[]" onchange="displayAttendanceFileNames(this)">
+                                                    @error('attendance')<span class="text-red-500  text-xs">{{ $message }}</span>@enderror
+                                                    <div id="file-attendance-container" class="text-xs mt-1 font-thin"></div>
+                                                </div>
+                                                <div class="flex flex-col  mb-1 w-full">
+                                                    <label class="text-xs font-light tracking-wider mb-1">Attendance Monitoring  <span class="text-xs">(Multiple Files)</span></label>
+                                                    <input type="file" multiple  class="border text-xs" name="attendancem[]" onchange="displayAttendanceMFileNames(this)">
+                                                    @error('attendancem')<span class="text-red-500  text-xs">{{ $message }}</span>@enderror
+                                                    <div id="file-attendancem-container" class="text-xs mt-1 font-thin"></div>
                                                 </div>
 
                                                 <div class="flex flex-col mb-1 w-full">
@@ -2103,7 +2116,7 @@
                                         <!-- Modal toggle -->
                                         <button data-modal-target="default-modal-narrative{{ $proposals->id }}" data-modal-toggle="default-modal-narrative{{ $proposals->id }}" class="text-sm p-4 text-center h-full flex flex-col space-y-4 items-center w-full" type="button">
                                             <svg class="w-full" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 32 32"><g fill="none"><path fill="#FFB02E" d="m15.385 7.39l-2.477-2.475A3.121 3.121 0 0 0 10.698 4H4.126A2.125 2.125 0 0 0 2 6.125V13.5h28v-3.363a2.125 2.125 0 0 0-2.125-2.125H16.888a2.126 2.126 0 0 1-1.503-.621"/><path fill="#FCD53F" d="M27.875 30H4.125A2.118 2.118 0 0 1 2 27.888V13.112C2 11.945 2.951 11 4.125 11h23.75c1.174 0 2.125.945 2.125 2.112v14.776A2.118 2.118 0 0 1 27.875 30"/></g></svg>
-                                            <span class="text-xs mt-4">Narrative</span>
+                                            <span class="text-xs mt-4">Narrative Report</span>
                                         </button>
 
                                         <!-- Main modal -->
@@ -2114,7 +2127,7 @@
                                                     <!-- Modal header -->
                                                     <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t z-10 sticky top-0 bg-white">
                                                         <h3 class="text-xl font-semibold text-gray-600">
-                                                        Narrative
+                                                        Narrative Report
                                                         </h3>
                                                         <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal-narrative{{ $proposals->id }}">
                                                             <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -2324,7 +2337,7 @@
                                         <!-- Modal toggle -->
                                         <button data-modal-target="default-modal-terminal{{ $proposals->id }}" data-modal-toggle="default-modal-terminal{{ $proposals->id }}" class="text-sm p-4 text-center h-full flex flex-col space-y-4 items-center w-full" type="button">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 32 32"><g fill="none"><path fill="#FFB02E" d="m15.385 7.39l-2.477-2.475A3.121 3.121 0 0 0 10.698 4H4.126A2.125 2.125 0 0 0 2 6.125V13.5h28v-3.363a2.125 2.125 0 0 0-2.125-2.125H16.888a2.126 2.126 0 0 1-1.503-.621"/><path fill="#FCD53F" d="M27.875 30H4.125A2.118 2.118 0 0 1 2 27.888V13.112C2 11.945 2.951 11 4.125 11h23.75c1.174 0 2.125.945 2.125 2.112v14.776A2.118 2.118 0 0 1 27.875 30"/></g></svg>
-                                            <span class="text-xs mt-4">Terminal</span>
+                                            <span class="text-xs mt-4">Terminal Report</span>
                                         </button>
 
                                         <!-- Main modal -->
@@ -2335,7 +2348,7 @@
                                                     <!-- Modal header -->
                                                     <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t z-10 sticky top-0 bg-white">
                                                         <h3 class="text-xl font-semibold text-gray-600">
-                                                        Terminal
+                                                        Terminal Report
                                                         </h3>
                                                         <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal-terminal{{ $proposals->id }}">
                                                             <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -2896,6 +2909,50 @@
 
                 // Get the container where you want to display file names
                 var container = document.getElementById('file-othernames-container');
+
+                // Clear the container before adding new file names
+                container.innerHTML = '';
+
+                // Display file names
+                for (var i = 0; i < files.length; i++) {
+                    var fileName = files[i].name;
+
+                    // Create a paragraph element for each file name
+                    var p = document.createElement('p');
+                    p.textContent = fileName;
+
+                    // Append the paragraph to the container
+                    container.appendChild(p);
+                }
+            }
+            function displayAttendanceMFileNames(input) {
+                // Get the selected files
+                var files = input.files;
+
+                // Get the container where you want to display file names
+                var container = document.getElementById('file-attendancem-container');
+
+                // Clear the container before adding new file names
+                container.innerHTML = '';
+
+                // Display file names
+                for (var i = 0; i < files.length; i++) {
+                    var fileName = files[i].name;
+
+                    // Create a paragraph element for each file name
+                    var p = document.createElement('p');
+                    p.textContent = fileName;
+
+                    // Append the paragraph to the container
+                    container.appendChild(p);
+                }
+            }
+            function displayAttendanceFileNames(input) {
+                // Get the selected files
+                var files = input.files;
+
+                // Get the container where you want to display file names
+                var container = document.getElementById('file-attendance-container');
 
                 // Clear the container before adding new file names
                 container.innerHTML = '';
