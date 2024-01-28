@@ -37,26 +37,9 @@ class AdminPointController extends Controller
 
         $evaluations = Evaluation::where('user_id', $id)->whereYear('created_at', $year)->get();
 
-        $ceso_roles = CesoRole::all();
 
-        return view('admin.points.show-points', compact('filteredUsers', 'proposals', 'ceso_roles', 'evaluations' ));
+
+        return view('admin.points.show-points', compact('filteredUsers', 'proposals', 'evaluations' ));
     }
 
-    // public function AdminPointsfilter(Request $request){
-
-    //     $selectedYear = $request->input('year');
-
-    //     $currentYear = date('Y');
-    //     $previousYear = $currentYear + 1;
-
-    //     [$startYear, $endYear] = explode('-', $selectedYear);
-
-    //     $currentYear = $startYear;
-    //     $previousYear = $endYear;
-
-    //     $latestYear = Evaluation::selectRaw('YEAR(created_at) as year')->orderByDesc('created_at')->groupBy('year')->pluck('year')->first();
-    //     $latestData = Evaluation::whereYear('created_at', $startYear)->with('users')->get();
-
-    //     return view('admin.points.index', compact('currentYear', 'previousYear', 'latestData'));
-    // }
 }

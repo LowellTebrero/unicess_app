@@ -67,7 +67,7 @@
 
                     <div class="w-full">
                         <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm"
-                            for="project_title">Proposal Title <span class="text-red-500">*</span></label>
+                            for="project_title">Project Title <span class="text-red-500">*</span></label>
                         <input
                             class="border-zinc-300 text-xs  appearance-none border rounded w-full  py-2 px-3 text-slate-600 leading-tight focus:outline-none"
                             name="project_title" id="project_title" type="text" value="{{ old('project_title') }}"
@@ -99,39 +99,37 @@
                     </div>
 
                     <div class="w-full">
-                        <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Office Order (PDF)</label>
+                        <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Office Order (PDF) <span class="text-xs">(Multiple files)</span></label>
                         <input class="custom-file bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
-                        name="office_order_pdf" id="office_order_pdf" type="file" accept="application/pdf">
+                        name="office_order_pdf[]" multiple id="office_order_pdf" type="file" accept="application/pdf" onchange="displayOfficeFileNames(this)">
+                        <div id="file-office-container" class="text-xs mt-1 font-thin"></div>
 
                     </div>
 
                     <div class="w-full">
-                        <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Travel Order (PDF)</label>
+                        <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Travel Order (PDF) <span class="text-xs">(Multiple files)</span></label>
                         <input class="custom-file bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
-                        name="travel_order_pdf" id="travel_order_pdf" type="file" accept="application/pdf">
-
+                        name="travel_order_pdf[]" multiple id="travel_order_pdf" type="file" accept="application/pdf"  onchange="displayTravelFileNames(this)">
+                        <div id="file-travel-container" class="text-xs mt-1 font-thin"></div>
                     </div>
 
                     <div class="w-full">
-                        <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Special Order (PDF)</label>
+                        <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Special Order (PDF) <span class="text-xs">(Multiple files)</span></label>
                         <input class="bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
-                        name="special_order_pdf" id="special_order_pdf" type="file" accept="application/pdf">
+                        name="special_order_pdf[]" multiple id="special_order_pdf" type="file" accept="application/pdf" onchange="displaySpecialFileNames(this)">
+                        <div id="file-special-container" class="text-xs mt-1 font-thin"></div>
                     </div>
 
                     <div class="w-full">
                         <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Other Files <span class="text-xs">(Multiple files)</span></label>
                         <input class="bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
-                        name="other_files[]" multiple id="other_files" type="file" onchange="displayFileNames(this)">
-                        <div id="file-names-container" class="text-xs mt-1"></div>
+                        name="other_files[]" multiple id="other_files" type="file" onchange="displayOtherFileNames(this)">
+                        <div id="file-othernames-container" class="text-xs mt-1"></div>
                     </div>
 
                 </div>
 
-
-
-
-
-                <div class="flex flex-col  space-y-4 2xl:flex-row 2xl:space-y-0 2xl:space-x-4 ">
+                <div class="flex flex-col space-y-4 2xl:flex-row 2xl:space-y-0 2xl:space-x-4 mt-4">
                     <div class="flex space-x-2 2xl:w-full">
                         <div class="w-1/2">
                             <label class="text-xs block text-slate-600  font-medium 2xl:text-sm">Started Date (optional)</label>
@@ -157,13 +155,11 @@
                         <div class="flex flex-col space-y-2">
                             <div class="flex flex-col space-y-2  w-full">
                                 <div class="flex space-x-2">
-                                    <h1 class="xl:text-sm text-xs">Select Role Type<span class="text-red-500">*</span></h1>
-                                    <h4 class="text-xs">Note: (Choose what is applicable)</h4>
+                                    <h1 class="xl:text-sm text-xs">Select Name of Faculty/Personnel<span class="text-red-500">*</span></h1>
+
                                 </div>
                                 <div>
-                                    <button class="px-3 py-1 2xl:text-sm text-xs bg-blue-400 text-white rounded-lg" type="button"
-                                    id="leaderButton">Leader Type
-                                </button>
+
                                 <button class="px-3 py-1 2xl:text-sm text-xs bg-blue-400 text-white rounded-lg" type="button"
                                     id="MemberButton">Member Type
                                 </button>
@@ -217,11 +213,36 @@
 
 
                 <div class="bottom-2 left-0 xl:bottom-7">
-                    <button
-                        class="bg-blue-500 rounded-lg text-white 2xl:text-base xl:text-sm text-xs font-medium py-2 px-4 mt-4 focus:outline-none"
-                        type="submit">
+
+                    <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="block text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
                         Submit Project
                     </button>
+
+                    <div id="popup-modal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                        <div class="relative p-4 w-full max-w-md max-h-full">
+                            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="popup-modal">
+                                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                    </svg>
+                                    <span class="sr-only">Close modal</span>
+                                </button>
+                                <div class="p-4 md:p-5 text-center">
+                                    <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                    </svg>
+                                    <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to submit?</h3>
+                                    <div class="space-x-2">
+                                    <button data-modal-hide="popup-modal"  type="submit" class="text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2">
+                                        Yes, Im sure
+                                    </button>
+                                    <button data-modal-hide="popup-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No, cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </form>
@@ -262,20 +283,106 @@
 </x-app-layout>
 
     <script>
+        function displayTravelFileNames(input) {
+            // Get the selected files
+            var files = input.files;
+
+            // Get the container where you want to display file names
+            var container = document.getElementById('file-travel-container');
+
+            // Clear the container before adding new file names
+            container.innerHTML = '';
+
+            // Display file names
+            for (var i = 0; i < files.length; i++) {
+                var fileName = files[i].name;
+
+                // Create a paragraph element for each file name
+                var p = document.createElement('p');
+                p.textContent = fileName;
+
+                // Append the paragraph to the container
+                container.appendChild(p);
+            }
+        }
+        function displaySpecialFileNames(input) {
+            // Get the selected files
+            var files = input.files;
+
+            // Get the container where you want to display file names
+            var container = document.getElementById('file-special-container');
+
+            // Clear the container before adding new file names
+            container.innerHTML = '';
+
+            // Display file names
+            for (var i = 0; i < files.length; i++) {
+                var fileName = files[i].name;
+
+                // Create a paragraph element for each file name
+                var p = document.createElement('p');
+                p.textContent = fileName;
+
+                // Append the paragraph to the container
+                container.appendChild(p);
+            }
+        }
+        function displayOfficeFileNames(input) {
+            // Get the selected files
+            var files = input.files;
+
+            // Get the container where you want to display file names
+            var container = document.getElementById('file-office-container');
+
+            // Clear the container before adding new file names
+            container.innerHTML = '';
+
+            // Display file names
+            for (var i = 0; i < files.length; i++) {
+                var fileName = files[i].name;
+
+                // Create a paragraph element for each file name
+                var p = document.createElement('p');
+                p.textContent = fileName;
+
+                // Append the paragraph to the container
+                container.appendChild(p);
+            }
+        }
+        function displayOtherFileNames(input) {
+            // Get the selected files
+            var files = input.files;
+
+            // Get the container where you want to display file names
+            var container = document.getElementById('file-othernames-container');
+
+            // Clear the container before adding new file names
+            container.innerHTML = '';
+
+            // Display file names
+            for (var i = 0; i < files.length; i++) {
+                var fileName = files[i].name;
+
+                // Create a paragraph element for each file name
+                var p = document.createElement('p');
+                p.textContent = fileName;
+
+                // Append the paragraph to the container
+                container.appendChild(p);
+            }
+        }
+    </script>
+
+    <script>
         document.addEventListener("DOMContentLoaded", function() {
             // Get the buttons and corresponding divs
-            var leaderButton = document.getElementById("leaderButton");
+
             var memberButton = document.getElementById("MemberButton"); // Corrected ID
-            var leaderDiv = document.getElementById("leaderDiv");
+
             var memberDiv = document.getElementById("memberDiv");
 
             // Add click event listeners to the buttons
-            leaderButton.addEventListener("click", function() {
-                toggleVisibility(leaderDiv);
-                updateRequiredInputs(leaderDiv);
-                updateButtonStyle(leaderButton, leaderDiv);
-                resetFormInputs(leaderDiv);
-            });
+
 
             memberButton.addEventListener("click", function() {
                 toggleVisibility(memberDiv);
@@ -366,9 +473,9 @@
             form.addEventListener("submit", function(event) {
 
                 // Check if both buttons are not clicked
-                if (leaderDiv.style.display === "none" && memberDiv.style.display === "none") {
-                    alert("You must select at least one of the member types");
-                    errormessage.innerHTML = 'You must select at least one of the member types';
+                if ( memberDiv.style.display === "none") {
+                    alert("select at least one of the member in project");
+                    errormessage.innerHTML = 'You must select at least one of the member';
                     errorMessageDisplayed = true;
                     event.preventDefault(); // Prevent form submission
                 }

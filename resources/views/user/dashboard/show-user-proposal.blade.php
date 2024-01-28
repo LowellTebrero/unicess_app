@@ -112,9 +112,6 @@
                     @endif
                 @endforeach
 
-
-
-
         @endif
 
     </section>

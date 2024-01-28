@@ -9,10 +9,15 @@ use App\Models\AdminYear;
 use Illuminate\Http\Request;
 use App\Models\ProposalMember;
 use App\Models\TerminalReport;
+use App\Models\UserAttendance;
 use App\Models\NarrativeReport;
+use App\Models\UserOfficeOrder;
+use App\Models\UserTravelOrder;
+use App\Models\UserSpecialOrder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\CustomizeUserInventory;
+use App\Models\UserAttendanceMonitoring;
 use Spatie\MediaLibrary\Support\MediaStream;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use App\Notifications\UserDeletedTheirProposaleNotification;
@@ -49,40 +54,125 @@ class InventoryController extends Controller
             $query->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
             ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
         },
+        'travelorder' => function ($query) {
+            $query->with(['medias' => function ($query) {
+                $query->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
+            ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
+            }]);
+        },
+        'specialorder' => function ($query) {
+            $query->with(['medias' => function ($query) {
+                $query->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
+            ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
+            }]);
+        },
+        'officeorder' => function ($query) {
+            $query->with(['medias' => function ($query) {
+                $query->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
+            ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
+            }]);
+        },
+        'attendance' => function ($query) {
+            $query->with(['medias' => function ($query) {
+                $query->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
+            ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
+            }]);
+        },
+        'attendancemonitoring' => function ($query) {
+            $query->with(['medias' => function ($query) {
+                $query->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
+            ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
+            }]);
+        },
         'narrativereport' => function ($query) {
             $query->with(['medias' => function ($query) {
                 $query->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
             ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
-            }]); // Nested 'with' for 'medias' inside 'narrativereport'
+            }]);
         },
         'terminalreport' => function ($query) {
             $query->with(['medias' => function ($query) {
                 $query->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
                 ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
-            }]); // Nested 'with' for 'medias' inside 'narrativereport'
+            }]);
         },])->first();
 
         // dd($formedia);
 
-        $latest = Proposal::where('id', $id)
-        ->with(['medias' => function ($query) {
-            $query->latest()->first();
-        }])->first();
+
 
         $members = User::orderBy('name')->whereNot('name', 'Administrator')->pluck('name', 'id')->prepend('Select Username', '');
         $inventory = CustomizeUserInventory::where('id', 2)->get();
         $proposal = Proposal::where('id', $id)->with('programs')->where('authorize', 'finished')->first();
         $proposal_member = ProposalMember::where('user_id', auth()->user()->id)->first();
         $program = Program::orderBy('program_name')->pluck('program_name', 'id')->prepend('Select Program', '');
-        $narrativeCount = NarrativeReport::distinct('user_id')->count();
-        $terminalCount = TerminalReport::distinct('user_id')->count();
-        $memberCount = ProposalMember::where('proposal_id', $id)->count();
+
+
+        $travelCount = UserTravelOrder::where('proposal_id', $id)
+        ->join('model_has_roles', 'model_has_roles.model_id', '=', 'user_travel_orders.user_id')
+        ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
+        ->where('roles.name', '!=', 'admin')
+        ->distinct('user_travel_orders.user_id')
+        ->count();
+        $specialCount = UserSpecialOrder::where('proposal_id', $id)
+        ->join('model_has_roles', 'model_has_roles.model_id', '=', 'user_special_orders.user_id')
+        ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
+        ->where('roles.name', '!=', 'admin')
+        ->distinct('user_special_orders.user_id')
+        ->count();
+        $officeCount = UserOfficeOrder::where('proposal_id', $id)
+        ->join('model_has_roles', 'model_has_roles.model_id', '=', 'user_office_orders.user_id')
+        ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
+        ->where('roles.name', '!=', 'admin')
+        ->distinct('user_office_orders.user_id')
+        ->count();
+        $attendanceCount = UserAttendance::where('proposal_id', $id)
+        ->join('model_has_roles', 'model_has_roles.model_id', '=', 'user_attendances.user_id')
+        ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
+        ->where('roles.name', '!=', 'admin')
+        ->distinct('user_attendances.user_id')
+        ->count();
+
+        $attendancemCount = UserAttendanceMonitoring::where('proposal_id', $id)
+        ->join('model_has_roles', 'model_has_roles.model_id', '=', 'user_attendance_monitorings.user_id')
+        ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
+        ->where('roles.name', '!=', 'admin')
+        ->distinct('user_attendance_monitorings.user_id')
+        ->count();
+        $narrativeCount = NarrativeReport::where('proposal_id', $id)
+        ->join('model_has_roles', 'model_has_roles.model_id', '=', 'narrative_reports.user_id')
+        ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
+        ->where('roles.name', '!=', 'admin')
+        ->distinct('narrative_reports.user_id')
+        ->count();
+        $terminalCount = TerminalReport::where('proposal_id', $id)
+        ->join('model_has_roles', 'model_has_roles.model_id', '=', 'terminal_reports.user_id')
+        ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
+        ->where('roles.name', '!=', 'admin')
+        ->distinct('terminal_reports.user_id')
+        ->count();
+        $memberCount = ProposalMember::where('proposal_id', $id)
+        ->join('model_has_roles', 'model_has_roles.model_id', '=', 'proposal_members.user_id')
+        ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
+        ->where('roles.name', '!=', 'admin')
+        ->distinct('proposal_members.user_id')
+        ->count();
+
+        // $travelCount = UserTravelOrder::where('proposal_id', $id)->distinct('user_id')->count();
+        // $specialCount = UserSpecialOrder::where('proposal_id', $id)->distinct('user_id')->count();
+        // $officeCount = UserOfficeOrder::where('proposal_id', $id)->distinct('user_id')->count();
+        // $attendanceCount = UserAttendance::where('proposal_id', $id)->distinct('user_id')->count();
+        // $attendancemCount = UserAttendanceMonitoring::where('proposal_id', $id)->distinct('user_id')->count();
+        // $narrativeCount = NarrativeReport::where('proposal_id', $id)->distinct('user_id')->count();
+        // $terminalCount = TerminalReport::where('proposal_id', $id)->distinct('user_id')->count();
+        // $memberCount = ProposalMember::where('proposal_id', $id)->count();
         if($notification){
             auth()->user()->unreadNotifications->where('id', $notification)->markAsRead();
         }
 
         return view('user.inventory.show', compact('proposals', 'proposal', 'proposal_member', 'inventory', 'program', 'members'
-        ,'formedia', 'latest', 'narrativeCount', 'terminalCount', 'memberCount'));
+        ,'formedia','narrativeCount', 'terminalCount', 'memberCount','travelCount','specialCount','officeCount','attendanceCount'
+        ,'attendancemCount'));
 
     }
 
@@ -151,14 +241,14 @@ class InventoryController extends Controller
     public function downloadsOffice($id)
     {
         $proposal = Proposal::findorFail($id);
-        $pdf = $proposal->getFirstMedia('officeOrder');
+        $pdf = $proposal->getFirstMedia('officeOrderPdf');
         return $pdf;
     }
 
     public function downloadsTravel($id)
     {
         $proposal = Proposal::findorFail($id);
-        $pdf = $proposal->getFirstMedia('travelOrder');
+        $pdf = $proposal->getFirstMedia('travelOrderPdf');
         return $pdf;
     }
 
@@ -189,6 +279,43 @@ class InventoryController extends Controller
         $downloads = $terminal->getMedia('TerminalFile');
         return MediaStream::create($terminal->proposals->project_title.'-'.'TerminalFiles.zip')->addMedia($downloads);
     }
+
+
+    public function downloadTravelorder($id){
+
+        $travelorder = UserTravelOrder::where('proposal_id',$id)->first();
+        $downloads = $travelorder->getMedia('travelOrderPdf');
+        return MediaStream::create($travelorder->proposals->project_title.'-'.'TravelOrderFiles.zip')->addMedia($downloads);
+    }
+
+    public function downloadSpecialorder($id){
+
+        $specialorder = UserSpecialOrder::where('proposal_id',$id)->first();
+        $downloads = $specialorder->getMedia('specialOrderPdf');
+        return MediaStream::create($specialorder->proposals->project_title.'-'.'SpecialOrderFiles.zip')->addMedia($downloads);
+    }
+
+    public function downloadOfficeorder($id){
+
+        $officeorder = UserOfficeOrder::where('proposal_id',$id)->first();
+        $downloads = $officeorder->getMedia('officeOrderPdf');
+        return MediaStream::create($officeorder->proposals->project_title.'-'.'OfficeOrderFiles.zip')->addMedia($downloads);
+    }
+
+    public function downloadAttendance($id){
+
+        $attendance = UserAttendance::where('proposal_id',$id)->first();
+        $downloads = $attendance->getMedia('Attendance');
+        return MediaStream::create($attendance->proposals->project_title.'-'.'AttendanceFiles.zip')->addMedia($downloads);
+    }
+
+    public function downloadAttendancem($id){
+
+        $terminal = UserAttendanceMonitoring::where('proposal_id',$id)->first();
+        $downloads = $terminal->getMedia('AttendanceMonitoring');
+        return MediaStream::create($terminal->proposals->project_title.'-'.'AttendanceMonitoringFiles.zip')->addMedia($downloads);
+    }
+
 
     // Download All
     public function download($id)
@@ -240,23 +367,9 @@ class InventoryController extends Controller
             $proposals->addMediaFromRequest('proposal_pdf')->usingName('proposal')->usingFileName($project_title.'_proposal.pdf')->toMediaCollection('proposalPdf');
         }
 
-
-        if ($request->hasFile('special_order_pdf')) {
-            $proposals->addMediaFromRequest('special_order_pdf')->usingName('special_order')->usingFileName($project_title.'_special_order.pdf')->toMediaCollection('specialOrderPdf');
-        }
-
         if ($request->hasFile('moa_pdf')) {
             $proposals->clearMediaCollection('MoaPDF');
             $proposals->addMediaFromRequest('moa_pdf')->usingName('moa')->usingFileName($project_title.'_moa.pdf')->toMediaCollection('MoaPDF');
-        }
-
-        if ($request->hasFile('travel_order')) {
-            $proposals->clearMediaCollection('officeOrder');
-            $proposals->addMediaFromRequest('travel_order')->usingName('travel')->usingFileName($project_title.'_travel_order.pdf')->toMediaCollection('officeOrder');
-        }
-        if ($request->hasFile('office_order')) {
-            $proposals->clearMediaCollection('travelOrder');
-            $proposals->addMediaFromRequest('office_order')->usingName('office')->usingFileName($project_title.'_office_order.pdf')->toMediaCollection('travelOrder');
         }
 
         if ($images = $request->file('other_files')) {

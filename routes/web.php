@@ -320,6 +320,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/downloads-other/{id}','downloadsOther')->name('inventory-download-otherfile');
         Route::get('/downloads-narrative/{id}','downloadNarrative')->name('inventory-download-narrative');
         Route::get('/downloads-terminal/{id}','downloadTerminal')->name('inventory-download-terminal');
+        Route::get('/downloads-travelorder/{id}','downloadTravelorder')->name('inventory-download-travelorder');
+        Route::get('/downloads-specialorder/{id}','downloadSpecialorder')->name('inventory-download-specialorder');
+        Route::get('/downloads-officeorder/{id}','downloadOfficeorder')->name('inventory-download-officeorder');
+        Route::get('/downloads-attendance/{id}','downloadAttendance')->name('inventory-download-attendance');
+        Route::get('/downloads-attendancem/{id}','downloadAttendancem')->name('inventory-download-attendancem');
         Route::get('/download/{id}','download');
         Route::get('/download-media/{id}','downloadsMedia');
         Route::put('/update-inventory-project-details/{id}', 'UpdateShowInventory')->name('inventory.update-project-details');
@@ -334,6 +339,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/report-store-terminal',  'TerminalStore')->name('report-terminal.store');
         Route::delete('/report-delete-terminal/{id}/{terminalId}','deleteTerminalMedias')->name('report-terminal.delete');
         Route::post('/report-update-terminal/{id}','TerminalUpdate')->name('report-terminal.update');
+        Route::post('/report-store-travelorder',  'travelOrderStore')->name('report-travelorder.store');
+        Route::delete('/report-delete-travelorder/{id}/{travelOrderId}','deleteTravelOrderMedias')->name('report-travelorder.delete');
+        Route::post('/report-update-travelorder/{id}','travelOrderUpdate')->name('report-travelorder.update');
+        Route::post('/report-store-specialorder',  'specialOrderStore')->name('report-specialorder.store');
+        Route::delete('/report-delete-specialorder/{id}/{specialOrderId}','deleteSpecialOrderMedias')->name('report-specialorder.delete');
+        Route::post('/report-update-specialorder/{id}','specialOrderUpdate')->name('report-specialorder.update');
+        Route::post('/report-store-officeorder',  'officeOrderStore')->name('report-officeorder.store');
+        Route::delete('/report-delete-officeorder/{id}/{officeOrderId}','deleteOfficeOrderMedias')->name('report-officeorder.delete');
+        Route::post('/report-update-officeorder/{id}','officeOrderUpdate')->name('report-officeorder.update');
+        Route::post('/report-store-attendance',  'attendanceStore')->name('report-attendance.store');
+        Route::delete('/report-delete-attendance/{id}/{attendanceId}','deleteAttendanceMedias')->name('report-attendance.delete');
+        Route::post('/report-update-attendance/{id}','attendanceUpdate')->name('report-attendance.update');
+        Route::post('/report-store-attendancem',  'attendancemStore')->name('report-attendancem.store');
+        Route::delete('/report-delete-attendancem/{id}/{attendancemId}','deleteAttendancemMedias')->name('report-attendancem.delete');
+        Route::post('/report-update-attendancem/{id}','attendancemUpdate')->name('report-attendancem.update');
 
     });
 

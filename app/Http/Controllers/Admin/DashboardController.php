@@ -14,13 +14,18 @@ use Illuminate\Http\Request;
 use App\Charts\ProposalChart;
 use App\Models\ProposalMember;
 use App\Models\TerminalReport;
+use App\Models\UserAttendance;
 use App\Models\NarrativeReport;
+use App\Models\UserOfficeOrder;
+use App\Models\UserTravelOrder;
 use Illuminate\Validation\Rule;
+use App\Models\UserSpecialOrder;
 use App\Models\ParticipationName;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\AdminProgramServices;
 use App\Models\CustomizeAdminProposal;
+use App\Models\UserAttendanceMonitoring;
 use App\Notifications\ProposalNotification;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\UserTagProposalNotification;
@@ -44,22 +49,21 @@ class DashboardController extends Controller
 
     public function store(Request $request)
     {
-       $request->validate([
+        $request->validate([
 
-            'program_id' => 'required',
-            'project_title' => ['regex:/^[^<>?:|\/"*]+$/','required','min:6' ,Rule::unique('proposals'), new UniqueTitle],
-            'proposal_pdf' => "required_without_all:special_order_pdf,moa_pdf,office_order_pdf,travel_order_pdf|file|mimes:pdf|max:10048",
-            'special_order_pdf' => "required_without_all:proposal_pdf,moa_pdf,office_order_pdf,travel_order_pdf|file|mimes:pdf|max:10048",
-            'moa_pdf' => "required_without_all:proposal_pdf,special_order_pdf,office_order_pdf,travel_order_pdf|file|mimes:pdf|max:10048",
-            'office_order_pdf' => "required_without_all:proposal_pdf,special_order_pdf,moa_pdf,travel_order_pdf|file|mimes:pdf|max:10048",
-            'travel_order_pdf' => "required_without_all:proposal_pdf,special_order_pdf,moa_pdf,office_order_pdf|file|mimes:pdf|max:10048",
-            'other_files' => "required_without_all:proposal_pdf,special_order_pdf,moa_pdf,office_order_pdf,travel_order_pdf|max:10048",
-
-           ],
-           [
-            'required_without_all' => 'Please upload at least one file among Proposal PDF, Special Order PDF, MOA PDF, Office Order PDF, Travel Order PDF.',
-            'project_title.regex' => 'Invalid characters: \ / : * ? " < > |',
-           ]);
+        'program_id' => 'required',
+        'project_title' => ['regex:/^[^<>?:|\/"*]+$/','required','min:6' ,Rule::unique('proposals'), new UniqueTitle],
+        'proposal_pdf' => "required_without_all:special_order_pdf,moa_pdf,office_order_pdf,travel_order_pdf,other_files|file|mimes:pdf|max:10048",
+        'moa_pdf' => "required_without_all:proposal_pdf,special_order_pdf,office_order_pdf,travel_order_pdf,other_files|file|mimes:pdf|max:10048",
+        'other_files' => "required_without_all:proposal_pdf,special_order_pdf,moa_pdf,office_order_pdf,travel_order_pdf|max:10048",
+        'office_order_pdf' => "max:10048",
+        'travel_order_pdf' => "max:10048",
+        'special_order_pdf' => "max:10048",
+        ],
+        [
+        'required_without_all' => 'Please upload at least one file among Proposal PDF, Special Order PDF, MOA PDF, Office Order PDF, Travel Order PDF.',
+        'project_title.regex' => 'Invalid characters: \ / : * ? " < > |',
+        ]);
 
 
         $post = new Proposal();
@@ -68,28 +72,54 @@ class DashboardController extends Controller
         $post->started_date =  $request->started_date;
         $post->finished_date =  $request->finished_date;
         $post->user_id  = auth()->id();
+        $post->save();
 
         if ($request->hasFile('proposal_pdf')) {
             $post->addMediaFromRequest('proposal_pdf')->usingName('proposal')->usingFileName($request->project_title.'_proposal.pdf')->toMediaCollection('proposalPdf');
         }
 
-        if ($request->hasFile('special_order_pdf')) {
-            $post->addMediaFromRequest('special_order_pdf')->usingName('special_order')->usingFileName($request->project_title.'_special_order.pdf')->toMediaCollection('specialOrderPdf');
-        }
 
         if ($request->hasFile('moa_pdf')) {
             $post->clearMediaCollection('MoaPDF');
             $post->addMediaFromRequest('moa_pdf')->usingName('moa')->usingFileName($request->project_title.'_moa.pdf')->toMediaCollection('MoaPDF');
         }
 
-        if ($request->hasFile('travel_order_pdf')) {
-            $post->clearMediaCollection('officeOrder');
-            $post->addMediaFromRequest('travel_order_pdf')->usingName('travel')->usingFileName($request->project_title.'_travel_order.pdf')->toMediaCollection('officeOrder');
+        if ($specialorder = $request->file('special_order_pdf')) {
+
+            $special = new UserSpecialOrder();
+            $special->user_id  = auth()->id();
+            $special->proposal_id  = $post->id;
+            $special->save();
+
+            foreach ($specialorder as $specials) {
+                $special->addMedia($specials)->usingName('special_order')->toMediaCollection('specialOrderPdf');
+            }
         }
-        if ($request->hasFile('office_order_pdf')) {
-            $post->clearMediaCollection('travelOrder');
-            $post->addMediaFromRequest('office_order_pdf')->usingName('office')->usingFileName($request->project_title.'_office_order.pdf')->toMediaCollection('travelOrder');
+
+        if ($travelorder = $request->file('travel_order_pdf')) {
+
+            $travel = new UserTravelOrder();
+            $travel->user_id  = auth()->id();
+            $travel->proposal_id  = $post->id;
+            $travel->save();
+
+            foreach ($travelorder as $travels) {
+                $travel->addMedia($travels)->usingName('travel_order_pdf')->toMediaCollection('travelOrderPdf');
+            }
         }
+
+        if ($officeorder = $request->file('office_order_pdf')) {
+
+            $office = new UserOfficeOrder();
+            $office->user_id  = auth()->id();
+            $office->proposal_id  = $post->id;
+            $office->save();
+
+            foreach ($officeorder as $offices) {
+                $office->addMedia($offices)->usingName('office_order_pdf')->toMediaCollection('officeOrderPdf');
+            }
+        }
+
 
         if ($files = $request->file('other_files')) {
 
@@ -98,7 +128,6 @@ class DashboardController extends Controller
             }
         }
 
-        $post->save();
 
 
         AdminProgramServices::create([
@@ -177,17 +206,47 @@ class DashboardController extends Controller
             $query->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
             ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
         },
+        'travelorder' => function ($query) {
+            $query->with(['medias' => function ($query) {
+                $query->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
+            ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
+            }]);
+        },
+        'specialorder' => function ($query) {
+            $query->with(['medias' => function ($query) {
+                $query->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
+            ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
+            }]);
+        },
+        'officeorder' => function ($query) {
+            $query->with(['medias' => function ($query) {
+                $query->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
+            ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
+            }]);
+        },
+        'attendance' => function ($query) {
+            $query->with(['medias' => function ($query) {
+                $query->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
+            ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
+            }]);
+        },
+        'attendancemonitoring' => function ($query) {
+            $query->with(['medias' => function ($query) {
+                $query->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
+            ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
+            }]);
+        },
         'narrativereport' => function ($query) {
             $query->with(['medias' => function ($query) {
                 $query->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
             ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
-            }]); // Nested 'with' for 'medias' inside 'narrativereport'
+            }]);
         },
         'terminalreport' => function ($query) {
             $query->with(['medias' => function ($query) {
                 $query->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
                 ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
-            }]); // Nested 'with' for 'medias' inside 'narrativereport'
+            }]);
         },])->first();
 
 
@@ -205,15 +264,70 @@ class DashboardController extends Controller
         ->mapWithKeys(function ($user) {
             return [$user->id => $user->name];
         });
-        $narrativeCount = TerminalReport::distinct('user_id')->count();
-        $terminalCount = TerminalReport::distinct('user_id')->count();
-        $memberCount = ProposalMember::where('proposal_id', $id)->count();
+
+        $travelCount = UserTravelOrder::where('proposal_id', $id)
+        ->join('model_has_roles', 'model_has_roles.model_id', '=', 'user_travel_orders.user_id')
+        ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
+        ->where('roles.name', '!=', 'admin')
+        ->distinct('user_travel_orders.user_id')
+        ->count();
+        $specialCount = UserSpecialOrder::where('proposal_id', $id)
+        ->join('model_has_roles', 'model_has_roles.model_id', '=', 'user_special_orders.user_id')
+        ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
+        ->where('roles.name', '!=', 'admin')
+        ->distinct('user_special_orders.user_id')
+        ->count();
+        $officeCount = UserOfficeOrder::where('proposal_id', $id)
+        ->join('model_has_roles', 'model_has_roles.model_id', '=', 'user_office_orders.user_id')
+        ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
+        ->where('roles.name', '!=', 'admin')
+        ->distinct('user_office_orders.user_id')
+        ->count();
+        $attendanceCount = UserAttendance::where('proposal_id', $id)
+        ->join('model_has_roles', 'model_has_roles.model_id', '=', 'user_attendances.user_id')
+        ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
+        ->where('roles.name', '!=', 'admin')
+        ->distinct('user_attendances.user_id')
+        ->count();
+
+        $attendancemCount = UserAttendanceMonitoring::where('proposal_id', $id)
+        ->join('model_has_roles', 'model_has_roles.model_id', '=', 'user_attendance_monitorings.user_id')
+        ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
+        ->where('roles.name', '!=', 'admin')
+        ->distinct('user_attendance_monitorings.user_id')
+        ->count();
+        $narrativeCount = NarrativeReport::where('proposal_id', $id)
+        ->join('model_has_roles', 'model_has_roles.model_id', '=', 'narrative_reports.user_id')
+        ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
+        ->where('roles.name', '!=', 'admin')
+        ->distinct('narrative_reports.user_id')
+        ->count();
+        $terminalCount = TerminalReport::where('proposal_id', $id)
+        ->join('model_has_roles', 'model_has_roles.model_id', '=', 'terminal_reports.user_id')
+        ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
+        ->where('roles.name', '!=', 'admin')
+        ->distinct('terminal_reports.user_id')
+        ->count();
+        $memberCount = ProposalMember::where('proposal_id', $id)
+        ->join('model_has_roles', 'model_has_roles.model_id', '=', 'proposal_members.user_id')
+        ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
+        ->where('roles.name', '!=', 'admin')
+        ->distinct('proposal_members.user_id')
+        ->count();
+
+        // $specialCount = UserSpecialOrder::where('proposal_id', $id)->distinct('user_id')->count();
+        // $officeCount = UserOfficeOrder::where('proposal_id', $id)->distinct('user_id')->count();
+        // $attendanceCount = UserAttendance::where('proposal_id', $id)->distinct('user_id')->count();
+        // $attendancemCount = UserAttendanceMonitoring::where('proposal_id', $id)->distinct('user_id')->count();
+        // $narrativeCount = NarrativeReport::where('proposal_id', $id)->distinct('user_id')->count();
+        // $terminalCount = TerminalReport::where('proposal_id', $id)->distinct('user_id')->count();
+        // $memberCount = ProposalMember::where('proposal_id', $id)->count();
 
         if($notification){
             auth()->user()->unreadNotifications->where('id', $notification)->markAsRead();
         }
         return view('admin.dashboard.proposal.edit-proposal', compact('proposal','proposals', 'program', 'members', 'formedia', 'latest',
-        'narrativeCount','terminalCount', 'memberCount' ));
+        'narrativeCount','terminalCount', 'memberCount','travelCount','specialCount','officeCount','attendanceCount','attendancemCount' ));
     }
 
     public function AdminUpdateFiles(Request $request, $id)
@@ -221,20 +335,17 @@ class DashboardController extends Controller
         $request->validate([
             'proposal_pdf' => 'mimes:pdf',
             'moa_pdf' => 'mimes:pdf',
-            'special_order_pdf' => 'mimes:pdf',
-            'travel_order' => 'mimes:pdf',
-            'office_order' => 'mimes:pdf',
+            'special_order_pdf' => "max:10048",
+            'travel_order' => "max:10048",
+            'office_order' => "max:10048",
         ]);
 
        $proposals = Proposal::where('id', $id)->first();
        $project_title = $proposals->project_title;
+       $proposals->update();
 
-       if ($request->hasFile('proposal_pdf')) {
+        if ($request->hasFile('proposal_pdf')) {
         $proposals->addMediaFromRequest('proposal_pdf')->usingName('proposal')->usingFileName($project_title.'_proposal.pdf')->toMediaCollection('proposalPdf');
-        }
-
-        if ($request->hasFile('special_order_pdf')) {
-            $proposals->addMediaFromRequest('special_order_pdf')->usingName('special_order')->usingFileName($project_title.'_special_order.pdf')->toMediaCollection('specialOrderPdf');
         }
 
         if ($request->hasFile('moa_pdf')) {
@@ -242,14 +353,42 @@ class DashboardController extends Controller
             $proposals->addMediaFromRequest('moa_pdf')->usingName('moa')->usingFileName($project_title.'_moa.pdf')->toMediaCollection('MoaPDF');
         }
 
-        if ($request->hasFile('travel_order')) {
-            $proposals->clearMediaCollection('officeOrder');
-            $proposals->addMediaFromRequest('travel_order')->usingName('travel')->usingFileName($project_title.'_travel_order.pdf')->toMediaCollection('officeOrder');
+        if ($specialorder = $request->file('special_order_pdf')) {
+
+            $special = new UserSpecialOrder();
+            $special->user_id  = auth()->id();
+            $special->proposal_id  = $proposals->id;
+            $special->save();
+
+            foreach ($specialorder as $specials) {
+                $special->addMedia($specials)->usingName('special_order')->toMediaCollection('specialOrderPdf');
+            }
         }
-        if ($request->hasFile('office_order')) {
-            $proposals->clearMediaCollection('travelOrder');
-            $proposals->addMediaFromRequest('office_order')->usingName('office')->usingFileName($project_title.'_office_order.pdf')->toMediaCollection('travelOrder');
+
+        if ($travelorder = $request->file('travel_order_pdf')) {
+
+            $travel = new UserTravelOrder();
+            $travel->user_id  = auth()->id();
+            $travel->proposal_id  = $proposals->id;
+            $travel->save();
+
+            foreach ($travelorder as $travels) {
+                $travel->addMedia($travels)->usingName('travel_order_pdf')->toMediaCollection('travelOrderPdf');
+            }
         }
+
+        if ($officeorder = $request->file('office_order_pdf')) {
+
+            $office = new UserOfficeOrder();
+            $office->user_id  = auth()->id();
+            $office->proposal_id  = $proposals->id;
+            $office->save();
+
+            foreach ($officeorder as $offices) {
+                $office->addMedia($offices)->usingName('office_order_pdf')->toMediaCollection('officeOrderPdf');
+            }
+        }
+
 
         if ($files = $request->file('other_files')) {
 
@@ -258,7 +397,7 @@ class DashboardController extends Controller
             }
         }
 
-        $proposals->update();
+
         app('flasher')->addSuccess('Files successfully updated.');
         return back();
 

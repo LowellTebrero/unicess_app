@@ -97,10 +97,10 @@
                         <x-alpine-modal>
 
                             <x-slot name="scripts">
-                                <div class="bg-blue-600 px-2 py-2 rounded-md text-white xl:text-[.8rem] 2xl:text-base xl:text-xs flex text-xs">+ Upload Projects</div>
+                                <div class="bg-blue-600 px-2 py-2 rounded-md text-white xl:text-[.8rem] 2xl:text-base xl:text-xs flex text-xs">+ Upload Documents</div>
                             </x-slot>
 
-                            <x-slot name="title">Upload Project</x-slot>
+                            <x-slot name="title">Upload Documents</x-slot>
 
                             <!-- content -->
                             <div class="px-5 py-1 mt-5 flex flex-col items-center justify-center space-y-2">

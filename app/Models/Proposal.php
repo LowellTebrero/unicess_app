@@ -6,9 +6,14 @@ use App\Models\Location;
 use Spatie\Tags\HasTags;
 use App\Models\ProposalMember;
 use App\Models\TerminalReport;
+use App\Models\UserAttendance;
 use App\Models\NarrativeReport;
+use App\Models\UserOfficeOrder;
+use App\Models\UserTravelOrder;
+use App\Models\UserSpecialOrder;
 use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\UserAttendanceMonitoring;
 use Illuminate\Notifications\Notifiable;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -80,6 +85,27 @@ class Proposal extends Model implements HasMedia
     public function terminalreport()
     {
        return  $this->hasMany(TerminalReport::class);
+    }
+
+    public function travelorder()
+    {
+       return  $this->hasMany(UserTravelOrder::class);
+    }
+    public function specialorder()
+    {
+       return  $this->hasMany(UserSpecialOrder::class);
+    }
+    public function officeorder()
+    {
+       return  $this->hasMany(UserOfficeOrder::class);
+    }
+    public function attendance()
+    {
+       return  $this->hasMany(UserAttendance::class);
+    }
+    public function attendancemonitoring()
+    {
+       return  $this->hasMany(UserAttendanceMonitoring::class);
     }
 }
 
