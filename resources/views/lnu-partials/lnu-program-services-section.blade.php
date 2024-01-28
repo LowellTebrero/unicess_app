@@ -420,7 +420,7 @@
                         <!-- Modal body -->
                         <div class="p-4 md:p-5  grid grid-cols-1 2xl:grid-cols-2 gap-4">
                             @foreach ($programservices as $progserv )
-                            @if ($progserv->status == 'Livelihood, Technical and Business Management')
+                            @if ($progserv->status == 'Livelihood Technical & Business Management')
                                 <div class="w-full bg-white border border-gray-300 rounded-lg shadow flex flex-col sm:flex-row">
                                     <div class="w-full xl:w-3/4 2xl:w-full">
                                         <img class="rounded-tl-lg rounded-bl-lg physical-image h-full object-cover w-full" src="{{ (!empty($progserv->image))? url('upload/image-folder/program-services-folder/'. $progserv->image): url('upload/CESO.png') }}" alt="" />
@@ -514,7 +514,7 @@
                         <!-- Modal body -->
                         <div class="p-4 md:p-5  grid grid-cols-1 2xl:grid-cols-2 gap-4">
                             @foreach ($programservices as $progserv )
-                            @if ($progserv->status == 'Environmental Conservation & Disaster Preparedness')
+                            @if ($progserv->status == 'Environmental Conversation & Disaster Preparedness')
                                 <div class="w-full bg-white border border-gray-300 rounded-lg shadow flex flex-col sm:flex-row">
                                     <div class="w-full xl:w-3/4 2xl:w-full">
                                         <img class="rounded-tl-lg rounded-bl-lg physical-image h-full object-cover w-full" src="{{ (!empty($progserv->image))? url('upload/image-folder/program-services-folder/'. $progserv->image): url('upload/CESO.png') }}" alt="" />

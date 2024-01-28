@@ -17,7 +17,7 @@ class ProgramSeeder extends Seeder
     {
         Program::create(['program_name' => 'Physical Fitness & Sport Development' ]);
         Program::create(['program_name' => 'Information Communication & Education' ]);
-        Program::create(['program_name' => 'Literacy, Numeracy & Languange Enhancement' ]);
+        Program::create(['program_name' => 'Literacy, Numeracy & Language Enhancement' ]);
         Program::create(['program_name' => 'Cultural Development' ]);
         Program::create(['program_name' => 'Livelihood Technical & Business Management' ]);
         Program::create(['program_name' => 'Environmental Conversation & Disaster Preparedness' ]);
