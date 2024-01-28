@@ -1,5 +1,9 @@
-    <script src="{{ asset('js/lightbox.js') }}"></script>
-<x-app-layout>
+    <style>
+        [x-cloak] { display: none }
+    </style>
+
+
+    <x-app-layout>
 
     @php
     $maxLength = 18; // Adjust the maximum length as needed
@@ -1264,6 +1268,8 @@
     @endif
 
 </x-app-layout>
+
+    <script src="{{ asset('js/lightbox.js') }}"></script>
 
 
 
