@@ -102,7 +102,7 @@
                     </div>
 
                     <div class="mt-6 ">
-                     <h1 class="py-4  text-sm font-medium">4. OIC Function (depends on the length of time and what level)   <span class="text-xs xl:block 2xl:inline-block"> (1 pt. fore every 2 cumulative days)</span> </h1>
+                     <h1 class="py-4  text-sm font-medium">4. OIC Function depends on the length of time and what level <span class="text-xs xl:block 2xl:inline-block"> (1 pt. fore every 2 cumulative days)</span> </h1>
                     <div class="mb-4">
                         <div>
                             <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" id="oic" name="oic" type="text" onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
@@ -454,9 +454,6 @@
         const allFilePondInputsEmpty = filePondStates.every(state => !state);
         formButton.disabled = allFilePondInputsEmpty;
     }
-
-
-
 
             FilePond.setOptions({
                 credits: false,

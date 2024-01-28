@@ -92,17 +92,38 @@
                     </div>
 
                     <div class="w-full">
-                        <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Office Order (PDF)</label>
+                        <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Office Order (PDF) <span class="text-xs">(Multiple files)</span></label>
                         <input class="custom-file bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
                         name="office_order_pdf[]" multiple id="office_order_pdf" type="file" accept="application/pdf" onchange="displayOfficeFileNames(this)">
                         <div id="file-office-container" class="text-xs mt-1 font-thin"></div>
                     </div>
 
                     <div class="w-full">
-                        <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Travel Order (PDF)</label>
+                        <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Travel Order (PDF) <span class="text-xs">(Multiple files)</span></label>
                         <input class="custom-file bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
                         name="travel_order_pdf[]" multiple id="travel_order_pdf" type="file" accept="application/pdf" onchange="displayTravelFileNames(this)">
                         <div id="file-travel-container" class="text-xs mt-1 font-thin"></div>
+                    </div>
+
+                    <div class="w-full">
+                        <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Special Order (PDF) <span class="text-xs">(Multiple files)</span></label>
+                        <input class="bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
+                        name="special_order_pdf[]" multiple id="special_order_pdf" type="file" accept="application/pdf" onchange="displaySpecialFileNames(this)">
+                        <div id="file-special-container" class="text-xs mt-1 font-thin"></div>
+                    </div>
+
+                    <div class="w-full">
+                        <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Attendance <span class="text-xs">(Multiple files)</span></label>
+                        <input class="bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
+                        name="attendance[]" multiple id="attendance" type="file" accept="application/pdf" onchange="displayAttendanceFileNames(this)">
+                        <div id="file-attendance-container" class="text-xs mt-1 font-thin"></div>
+                    </div>
+
+                    <div class="w-full">
+                        <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Attendance Monitoring <span class="text-xs">(Multiple files)</span></label>
+                        <input class="bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
+                        name="attendancem[]" multiple id="attendancem" type="file" accept="application/pdf" onchange="displayAttendanceMFileNames(this)">
+                        <div id="file-attendancem-container" class="text-xs mt-1 font-thin"></div>
                     </div>
 
                     <div class="w-full">
@@ -152,11 +173,9 @@
                         <div class="flex flex-col space-y-2">
                             <div class="flex flex-col space-y-2  w-full">
                                 <div class="flex space-x-2">
-                                    <h1 class="xl:text-sm text-xs">Select Role Type<span class="text-red-500">*</span></h1>
-                                    <h4 class="text-xs">Note: (Choose what is applicable)</h4>
+                                    <h1 class="xl:text-sm text-xs">Select Role Type (optional)</h1>
                                 </div>
                                 <div>
-
                                 <button class="px-3 py-1 2xl:text-sm text-xs bg-blue-400 text-white rounded-lg" type="button"
                                     id="MemberButton">Member Type
                                 </button>
@@ -370,49 +389,34 @@
                 }
             }, 700);  // Adjust the interval (milliseconds) as needed
         }
-
-
-
-        form.addEventListener("submit", function(event) {
-
-            // Check if both buttons are not clicked
-            if (memberDiv.style.display === "none") {
-                alert("You must select at least one of the member");
-                errormessage.innerHTML = 'You must select at least one of the member ';
-                errorMessageDisplayed = true;
-                event.preventDefault(); // Prevent form submission
-            }
-        });
-
     });
 </script>
 
-<script>
-    function displayFileNames(input) {
-        // Get the selected files
-        var files = input.files;
 
-        // Get the container where you want to display file names
-        var container = document.getElementById('file-names-container');
-
-        // Clear the container before adding new file names
-        container.innerHTML = '';
-
-        // Display file names
-        for (var i = 0; i < files.length; i++) {
-            var fileName = files[i].name;
-
-            // Create a paragraph element for each file name
-            var p = document.createElement('p');
-            p.textContent = fileName;
-
-            // Append the paragraph to the container
-            container.appendChild(p);
-        }
-    }
-</script>
 
     <script>
+        function displayFileNames(input) {
+            // Get the selected files
+            var files = input.files;
+
+            // Get the container where you want to display file names
+            var container = document.getElementById('file-names-container');
+
+            // Clear the container before adding new file names
+            container.innerHTML = '';
+
+            // Display file names
+            for (var i = 0; i < files.length; i++) {
+                var fileName = files[i].name;
+
+                // Create a paragraph element for each file name
+                var p = document.createElement('p');
+                p.textContent = fileName;
+
+                // Append the paragraph to the container
+                container.appendChild(p);
+            }
+        }
         function displayTravelFileNames(input) {
             // Get the selected files
             var files = input.files;
@@ -441,6 +445,50 @@
 
             // Get the container where you want to display file names
             var container = document.getElementById('file-special-container');
+
+            // Clear the container before adding new file names
+            container.innerHTML = '';
+
+            // Display file names
+            for (var i = 0; i < files.length; i++) {
+                var fileName = files[i].name;
+
+                // Create a paragraph element for each file name
+                var p = document.createElement('p');
+                p.textContent = fileName;
+
+                // Append the paragraph to the container
+                container.appendChild(p);
+            }
+        }
+        function displayAttendanceFileNames(input) {
+            // Get the selected files
+            var files = input.files;
+
+            // Get the container where you want to display file names
+            var container = document.getElementById('file-attendance-container');
+
+            // Clear the container before adding new file names
+            container.innerHTML = '';
+
+            // Display file names
+            for (var i = 0; i < files.length; i++) {
+                var fileName = files[i].name;
+
+                // Create a paragraph element for each file name
+                var p = document.createElement('p');
+                p.textContent = fileName;
+
+                // Append the paragraph to the container
+                container.appendChild(p);
+            }
+        }
+        function displayAttendanceMFileNames(input) {
+            // Get the selected files
+            var files = input.files;
+
+            // Get the container where you want to display file names
+            var container = document.getElementById('file-attendancem-container');
 
             // Clear the container before adding new file names
             container.innerHTML = '';
