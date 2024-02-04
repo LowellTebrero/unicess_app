@@ -95,16 +95,16 @@
         @include('lnu-partials.lnu-footer')
     </section>
 
-    <!-- Messenger Chat plugin Code -->
+    {{--  <!-- Messenger Chat plugin Code -->
     <div id="fb-root"></div>
 
     <!-- Your Chat plugin code -->
     <div id="fb-customer-chat" class="fb-customerchat">
-    </div>
+    </div>  --}}
 
 
 
-    <script>
+    {{--  <script>
       var chatbox = document.getElementById('fb-customer-chat');
       chatbox.setAttribute("page_id", "176826635513427");
       chatbox.setAttribute("attribution", "biz_inbox");
@@ -126,7 +126,7 @@
         js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
         fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));
-    </script>
+    </script>  --}}
 
         <!-- Start of LiveChat (www.livechat.com) code -->
     <script>
