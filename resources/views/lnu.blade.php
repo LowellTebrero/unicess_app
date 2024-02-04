@@ -128,6 +128,8 @@
       }(document, 'script', 'facebook-jssdk'));
     </script>
 
+    <iframe src="https://mediafiles.botpress.cloud/0e2ec59e-1ba7-4f62-8697-7cb517de91d5/webchat/bot.html" style="width: 100%; height: 500px; border: none;"></iframe>
+
 
     {{--  <x-messages/>  --}}
     <script src="{{ asset('js/preloader.js') }}"></script>
