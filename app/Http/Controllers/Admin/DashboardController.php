@@ -12,6 +12,7 @@ use App\Models\AdminYear;
 use App\Rules\UniqueTitle;
 use Illuminate\Http\Request;
 use App\Charts\ProposalChart;
+use App\Models\ProposalFiles;
 use App\Models\ProposalMember;
 use App\Models\TerminalReport;
 use App\Models\UserAttendance;
@@ -88,21 +89,23 @@ class DashboardController extends Controller
 
         if ($specialorder = $request->file('special_order_pdf')) {
 
-            $special = new UserSpecialOrder();
+            $special = new ProposalFiles();
             $special->user_id  = auth()->id();
             $special->proposal_id  = $post->id;
+            $special->document_type  = 'specialorder';
             $special->save();
 
             foreach ($specialorder as $specials) {
-                $special->addMedia($specials)->usingName('special_order')->toMediaCollection('specialOrderPdf');
+                $special->addMedia($specials)->usingName('special_order_pdf')->toMediaCollection('specialOrderPdf');
             }
         }
 
         if ($travelorder = $request->file('travel_order_pdf')) {
 
-            $travel = new UserTravelOrder();
+            $travel = new ProposalFiles();
             $travel->user_id  = auth()->id();
             $travel->proposal_id  = $post->id;
+            $travel->document_type  = 'travelorder';
             $travel->save();
 
             foreach ($travelorder as $travels) {
@@ -112,9 +115,10 @@ class DashboardController extends Controller
 
         if ($officeorder = $request->file('office_order_pdf')) {
 
-            $office = new UserOfficeOrder();
+            $office = new ProposalFiles();
             $office->user_id  = auth()->id();
             $office->proposal_id  = $post->id;
+            $office->document_type  = 'officeorder';
             $office->save();
 
             foreach ($officeorder as $offices) {
@@ -124,9 +128,10 @@ class DashboardController extends Controller
 
         if ($attendance = $request->file('attendance')) {
 
-            $attend = new UserAttendance();
+            $attend = new ProposalFiles();
             $attend->user_id  = auth()->id();
             $attend->proposal_id  = $post->id;
+            $attend->document_type  = 'attendance';
             $attend->save();
 
             foreach ($attendance as $attends) {
@@ -135,9 +140,10 @@ class DashboardController extends Controller
         }
         if ($attendancem = $request->file('attendancem')) {
 
-            $attendances = new UserAttendanceMonitoring();
+            $attendances = new ProposalFiles();
             $attendances->user_id  = auth()->id();
             $attendances->proposal_id  = $post->id;
+            $attendances->document_type  = 'attendancem';
             $attendances->save();
 
             foreach ($attendancem as $attendm) {
@@ -214,65 +220,34 @@ class DashboardController extends Controller
     public function checkProposal(Request $request, $id, $notification )
     {
         $proposal = Proposal::where('id', $id)->first();
-        $proposals = Proposal::where('id', $id)
+
+
+        $proposals = Proposal::where('id', $id)->with(['proposalfiles' => function ($query) {
+            $query->with(['medias' => function ($mediaQuery) {
+                $mediaQuery->whereNot('collection_name', 'trash');
+            }]);
+            }])
         ->with(['medias' => function ($query) {
-            $query->orderBy('file_name', 'asc');
+            $query->whereNot('collection_name', 'trash')->orderBy('file_name', 'asc');
         }, 'programs'])
         ->first();
 
-        $proposals = Proposal::where('id', $id)
-        ->with(['medias' => function ($query) {
-            $query->orderBy('file_name', 'asc');
-        }, 'programs'])
-        ->first();
+        $uniqueProposalFiles = $proposals->proposalfiles->unique('document_type');
 
         $formedia = Proposal::where('id', $id)
         ->with(['medias' => function ($query) {
-            $query->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
-            ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
+        $query->whereNot('collection_name', 'trash')->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
+        ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
         },
-        'travelorder' => function ($query) {
+
+        'proposalfiles' => function ($query) {
             $query->with(['medias' => function ($query) {
-                $query->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
-            ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
-            }]);
-        },
-        'specialorder' => function ($query) {
-            $query->with(['medias' => function ($query) {
-                $query->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
-            ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
-            }]);
-        },
-        'officeorder' => function ($query) {
-            $query->with(['medias' => function ($query) {
-                $query->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
-            ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
-            }]);
-        },
-        'attendance' => function ($query) {
-            $query->with(['medias' => function ($query) {
-                $query->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
-            ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
-            }]);
-        },
-        'attendancemonitoring' => function ($query) {
-            $query->with(['medias' => function ($query) {
-                $query->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
-            ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
-            }]);
-        },
-        'narrativereport' => function ($query) {
-            $query->with(['medias' => function ($query) {
-                $query->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
-            ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
-            }]);
-        },
-        'terminalreport' => function ($query) {
-            $query->with(['medias' => function ($query) {
-                $query->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
+                $query->whereNot('collection_name', 'trash')->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
                 ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
             }]);
         },])->first();
+
+        $uniqueformedias = $formedia->proposalfiles->unique('document_type');
 
 
         $latest = Proposal::where('id', $id)
@@ -290,69 +265,12 @@ class DashboardController extends Controller
             return [$user->id => $user->name];
         });
 
-        $travelCount = UserTravelOrder::where('proposal_id', $id)
-        ->join('model_has_roles', 'model_has_roles.model_id', '=', 'user_travel_orders.user_id')
-        ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
-        ->where('roles.name', '!=', 'admin')
-        ->distinct('user_travel_orders.user_id')
-        ->count();
-        $specialCount = UserSpecialOrder::where('proposal_id', $id)
-        ->join('model_has_roles', 'model_has_roles.model_id', '=', 'user_special_orders.user_id')
-        ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
-        ->where('roles.name', '!=', 'admin')
-        ->distinct('user_special_orders.user_id')
-        ->count();
-        $officeCount = UserOfficeOrder::where('proposal_id', $id)
-        ->join('model_has_roles', 'model_has_roles.model_id', '=', 'user_office_orders.user_id')
-        ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
-        ->where('roles.name', '!=', 'admin')
-        ->distinct('user_office_orders.user_id')
-        ->count();
-        $attendanceCount = UserAttendance::where('proposal_id', $id)
-        ->join('model_has_roles', 'model_has_roles.model_id', '=', 'user_attendances.user_id')
-        ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
-        ->where('roles.name', '!=', 'admin')
-        ->distinct('user_attendances.user_id')
-        ->count();
-
-        $attendancemCount = UserAttendanceMonitoring::where('proposal_id', $id)
-        ->join('model_has_roles', 'model_has_roles.model_id', '=', 'user_attendance_monitorings.user_id')
-        ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
-        ->where('roles.name', '!=', 'admin')
-        ->distinct('user_attendance_monitorings.user_id')
-        ->count();
-        $narrativeCount = NarrativeReport::where('proposal_id', $id)
-        ->join('model_has_roles', 'model_has_roles.model_id', '=', 'narrative_reports.user_id')
-        ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
-        ->where('roles.name', '!=', 'admin')
-        ->distinct('narrative_reports.user_id')
-        ->count();
-        $terminalCount = TerminalReport::where('proposal_id', $id)
-        ->join('model_has_roles', 'model_has_roles.model_id', '=', 'terminal_reports.user_id')
-        ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
-        ->where('roles.name', '!=', 'admin')
-        ->distinct('terminal_reports.user_id')
-        ->count();
-        $memberCount = ProposalMember::where('proposal_id', $id)
-        ->join('model_has_roles', 'model_has_roles.model_id', '=', 'proposal_members.user_id')
-        ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
-        ->where('roles.name', '!=', 'admin')
-        ->distinct('proposal_members.user_id')
-        ->count();
-
-        // $specialCount = UserSpecialOrder::where('proposal_id', $id)->distinct('user_id')->count();
-        // $officeCount = UserOfficeOrder::where('proposal_id', $id)->distinct('user_id')->count();
-        // $attendanceCount = UserAttendance::where('proposal_id', $id)->distinct('user_id')->count();
-        // $attendancemCount = UserAttendanceMonitoring::where('proposal_id', $id)->distinct('user_id')->count();
-        // $narrativeCount = NarrativeReport::where('proposal_id', $id)->distinct('user_id')->count();
-        // $terminalCount = TerminalReport::where('proposal_id', $id)->distinct('user_id')->count();
-        // $memberCount = ProposalMember::where('proposal_id', $id)->count();
 
         if($notification){
             auth()->user()->unreadNotifications->where('id', $notification)->markAsRead();
         }
         return view('admin.dashboard.proposal.edit-proposal', compact('proposal','proposals', 'program', 'members', 'formedia', 'latest',
-        'narrativeCount','terminalCount', 'memberCount','travelCount','specialCount','officeCount','attendanceCount','attendancemCount' ));
+        'uniqueProposalFiles', 'uniqueformedias'));
     }
 
     public function AdminUpdateFiles(Request $request, $id)
@@ -382,9 +300,10 @@ class DashboardController extends Controller
 
         if ($specialorder = $request->file('special_order_pdf')) {
 
-            $special = new UserSpecialOrder();
+            $special = new ProposalFiles();
             $special->user_id  = auth()->id();
             $special->proposal_id  = $proposals->id;
+            $special->document_type  = 'specialorder';
             $special->save();
 
             foreach ($specialorder as $specials) {
@@ -394,9 +313,10 @@ class DashboardController extends Controller
 
         if ($travelorder = $request->file('travel_order_pdf')) {
 
-            $travel = new UserTravelOrder();
+            $travel = new ProposalFiles();
             $travel->user_id  = auth()->id();
             $travel->proposal_id  = $proposals->id;
+            $travel->document_type  = 'travelorder';
             $travel->save();
 
             foreach ($travelorder as $travels) {
@@ -406,9 +326,10 @@ class DashboardController extends Controller
 
         if ($officeorder = $request->file('office_order_pdf')) {
 
-            $office = new UserOfficeOrder();
+            $office = new ProposalFiles();
             $office->user_id  = auth()->id();
             $office->proposal_id  = $proposals->id;
+            $office->document_type  = 'officeorder';
             $office->save();
 
             foreach ($officeorder as $offices) {
@@ -418,9 +339,10 @@ class DashboardController extends Controller
 
         if ($attendance = $request->file('attendance')) {
 
-            $attend = new UserAttendance();
+            $attend = new ProposalFiles();
             $attend->user_id  = auth()->id();
             $attend->proposal_id  = $proposals->id;
+            $attend->document_type  = 'attendance';
             $attend->save();
 
             foreach ($attendance as $attends) {
@@ -429,9 +351,10 @@ class DashboardController extends Controller
         }
         if ($attendancem = $request->file('attendancem')) {
 
-            $attendances = new UserAttendanceMonitoring();
+            $attendances = new ProposalFiles();
             $attendances->user_id  = auth()->id();
             $attendances->proposal_id  = $proposals->id;
+            $attendances->document_type  = 'attendancem';
             $attendances->save();
 
             foreach ($attendancem as $attendm) {

@@ -44,6 +44,12 @@ class DeleteTemporaryEvaluationFilesController extends Controller
                 $membership_wide->delete();
             }
 
+            $membership_unit = TemporaryEvaluationFile::where('membership_unit', $fileId)->first();
+            if($membership_unit){
+                Storage::deleteDirectory('file/tmp/'. $fileId);
+                $membership_unit->delete();
+            }
+
             $advisorships = TemporaryEvaluationFile::where('advisorships', $fileId)->first();
             if($advisorships){
                 Storage::deleteDirectory('file/tmp/'. $fileId);
@@ -91,10 +97,86 @@ class DeleteTemporaryEvaluationFilesController extends Controller
                 Storage::deleteDirectory('file/tmp/'. $fileId);
                 $facilitation_national->delete();
             }
+
             $facilitation_international = TemporaryEvaluationFile::where('facilitation_international', $fileId)->first();
             if($facilitation_international){
                 Storage::deleteDirectory('file/tmp/'. $fileId);
                 $facilitation_international->delete();
+            }
+            $training_director_local = TemporaryEvaluationFile::where('training_director_local', $fileId)->first();
+            if($training_director_local){
+                Storage::deleteDirectory('file/tmp/'. $fileId);
+                $training_director_local->delete();
+            }
+            $training_director_international = TemporaryEvaluationFile::where('training_director_international', $fileId)->first();
+            if($training_director_international){
+                Storage::deleteDirectory('file/tmp/'. $fileId);
+                $training_director_international->delete();
+            }
+            $resource_speaker_local = TemporaryEvaluationFile::where('resource_speaker_local', $fileId)->first();
+            if($resource_speaker_local){
+                Storage::deleteDirectory('file/tmp/'. $fileId);
+                $resource_speaker_local->delete();
+            }
+            $resource_speaker_international = TemporaryEvaluationFile::where('resource_speaker_international', $fileId)->first();
+            if($resource_speaker_international){
+                Storage::deleteDirectory('file/tmp/'. $fileId);
+                $resource_speaker_international->delete();
+            }
+            $facilitator_moderator_local = TemporaryEvaluationFile::where('facilitator_moderator_local', $fileId)->first();
+            if($facilitator_moderator_local){
+                Storage::deleteDirectory('file/tmp/'. $fileId);
+                $facilitator_moderator_local->delete();
+            }
+            $facilitator_moderator_international = TemporaryEvaluationFile::where('facilitator_moderator_international', $fileId)->first();
+            if($facilitator_moderator_international){
+                Storage::deleteDirectory('file/tmp/'. $fileId);
+                $facilitator_moderator_international->delete();
+            }
+            $reactor_panel_member_local = TemporaryEvaluationFile::where('reactor_panel_member_local', $fileId)->first();
+            if($reactor_panel_member_local){
+                Storage::deleteDirectory('file/tmp/'. $fileId);
+                $reactor_panel_member_local->delete();
+            }
+            $reactor_panel_member_international = TemporaryEvaluationFile::where('reactor_panel_member_international', $fileId)->first();
+            if($reactor_panel_member_international){
+                Storage::deleteDirectory('file/tmp/'. $fileId);
+                $reactor_panel_member_international->delete();
+            }
+            $technical_assistance = TemporaryEvaluationFile::where('technical_assistance', $fileId)->first();
+            if($technical_assistance){
+                Storage::deleteDirectory('file/tmp/'. $fileId);
+                $technical_assistance->delete();
+            }
+            $judge_community = TemporaryEvaluationFile::where('judge_community', $fileId)->first();
+            if($judge_community){
+                Storage::deleteDirectory('file/tmp/'. $fileId);
+                $judge_community->delete();
+            }
+            $commencement_guest_speaker = TemporaryEvaluationFile::where('commencement_guest_speaker', $fileId)->first();
+            if($commencement_guest_speaker){
+                Storage::deleteDirectory('file/tmp/'. $fileId);
+                $commencement_guest_speaker->delete();
+            }
+            $coordinator_organizer_consultants = TemporaryEvaluationFile::where('coordinator_organizer_consultants', $fileId)->first();
+            if($coordinator_organizer_consultants){
+                Storage::deleteDirectory('file/tmp/'. $fileId);
+                $coordinator_organizer_consultants->delete();
+            }
+            $facilitator = TemporaryEvaluationFile::where('facilitator', $fileId)->first();
+            if($facilitator){
+                Storage::deleteDirectory('file/tmp/'. $fileId);
+                $facilitator->delete();
+            }
+            $member = TemporaryEvaluationFile::where('member', $fileId)->first();
+            if($member){
+                Storage::deleteDirectory('file/tmp/'. $fileId);
+                $member->delete();
+            }
+            $resource_person_lecturer = TemporaryEvaluationFile::where('resource_person_lecturer', $fileId)->first();
+            if($resource_person_lecturer){
+                Storage::deleteDirectory('file/tmp/'. $fileId);
+                $resource_person_lecturer->delete();
             }
 
     }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Location;
 use Spatie\Tags\HasTags;
+use App\Models\ProposalFiles;
 use App\Models\ProposalMember;
 use App\Models\TerminalReport;
 use App\Models\UserAttendance;
@@ -16,6 +17,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\UserAttendanceMonitoring;
 use Illuminate\Notifications\Notifiable;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -25,6 +27,7 @@ class Proposal extends Model implements HasMedia
     use HasFactory;
     use InteractsWithMedia;
     use Notifiable;
+    use SoftDeletes;
 
     protected $guarded = [];
 
@@ -106,6 +109,10 @@ class Proposal extends Model implements HasMedia
     public function attendancemonitoring()
     {
        return  $this->hasMany(UserAttendanceMonitoring::class);
+    }
+    public function proposalfiles()
+    {
+       return  $this->hasMany(ProposalFiles::class);
     }
 }
 

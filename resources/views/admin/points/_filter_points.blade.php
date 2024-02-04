@@ -10,7 +10,7 @@
                 <th scope="col" class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-2 py-4 font-medium text-gray-600">Username</th>
                 <th scope="col" class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-2 py-4 font-medium text-gray-600">Role Name</th>
                 <th scope="col" class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-2 py-4 font-medium text-gray-600">Faculty Name</th>
-                <th scope="col" class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-2 py-4 font-medium text-gray-600">Total Proposal</th>
+                <th scope="col" class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-2 py-4 font-medium text-gray-600">Total Project</th>
                 <th scope="col" class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-2 py-4 font-medium text-gray-600">Created</th>
                 <th scope="col" class="px-4 xl:pl-4 xl:px-2 2xl:px-4 2xl:pl-2 py-4 font-medium text-gray-600">Points</th>
             </tr>

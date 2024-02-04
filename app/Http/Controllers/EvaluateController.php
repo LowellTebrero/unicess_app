@@ -585,6 +585,28 @@ class EvaluateController extends Controller
         }
 
 
+        if ($request->has('chairmanship_unit')){
+            $images = $request->chairmanship_unit;
+            $folder = uniqid('chairmanship_unit-', true);
+
+
+            foreach($images as $image){
+
+                $fileName = $image->getClientOriginalName();
+                $image->storeAs('file/tmp/'. $folder, $fileName);
+
+                TemporaryEvaluationFile::create([
+                    'user_id'  => $id->id,
+                    'chairmanship_unit' => $folder,
+                    'chairmanship_unit_file' => $fileName,
+                ]);
+
+
+            }
+            return $folder;
+        }
+
+
 
 
         if ($request->has('membership_wide')){
@@ -808,7 +830,7 @@ class EvaluateController extends Controller
 
         if ($request->has('training_director_locals')){
             $unit = $request->training_director_locals;
-            $file = uniqid('training_director_locals-', true);
+            $file = uniqid('training_director_local-', true);
 
             foreach($unit as $imageunit){
 
@@ -828,7 +850,7 @@ class EvaluateController extends Controller
 
         if ($request->has('training_director_internationals')){
             $unit = $request->training_director_internationals;
-            $file = uniqid('training_director_internationals-', true);
+            $file = uniqid('training_director_international-', true);
 
             foreach($unit as $imageunit){
 
@@ -848,7 +870,7 @@ class EvaluateController extends Controller
 
         if ($request->has('resource_speaker_locals')){
             $unit = $request->resource_speaker_locals;
-            $file = uniqid('resource_speaker_locals-', true);
+            $file = uniqid('resource_speaker_local-', true);
 
             foreach($unit as $imageunit){
 
@@ -867,7 +889,7 @@ class EvaluateController extends Controller
         }
         if ($request->has('resource_speaker_internationals')){
             $unit = $request->resource_speaker_internationals;
-            $file = uniqid('resource_speaker_internationals-', true);
+            $file = uniqid('resource_speaker_international-', true);
 
             foreach($unit as $imageunit){
 
@@ -887,7 +909,7 @@ class EvaluateController extends Controller
 
         if ($request->has('facilitator_moderator_locals')){
             $unit = $request->facilitator_moderator_locals;
-            $file = uniqid('facilitator_moderator_locals-', true);
+            $file = uniqid('facilitator_moderator_local-', true);
 
             foreach($unit as $imageunit){
 
@@ -907,7 +929,7 @@ class EvaluateController extends Controller
 
         if ($request->has('facilitator_moderator_internationals')){
             $unit = $request->facilitator_moderator_internationals;
-            $file = uniqid('facilitator_moderator_internationals-', true);
+            $file = uniqid('facilitator_moderator_international-', true);
 
             foreach($unit as $imageunit){
 
@@ -927,7 +949,7 @@ class EvaluateController extends Controller
 
         if ($request->has('reactor_panel_member_locals')){
             $unit = $request->reactor_panel_member_locals;
-            $file = uniqid('reactor_panel_member_locals-', true);
+            $file = uniqid('reactor_panel_member_local-', true);
 
             foreach($unit as $imageunit){
 
@@ -948,7 +970,7 @@ class EvaluateController extends Controller
 
         if ($request->has('reactor_panel_member_internationals')){
             $unit = $request->reactor_panel_member_internationals;
-            $file = uniqid('reactor_panel_member_internationals-', true);
+            $file = uniqid('reactor_panel_member_international-', true);
 
             foreach($unit as $imageunit){
 
@@ -968,7 +990,7 @@ class EvaluateController extends Controller
 
         if ($request->has('technical_assistances')){
             $unit = $request->technical_assistances;
-            $file = uniqid('technical_assistances-', true);
+            $file = uniqid('technical_assistance-', true);
 
             foreach($unit as $imageunit){
 
@@ -988,7 +1010,7 @@ class EvaluateController extends Controller
 
         if ($request->has('judge_communitys')){
             $unit = $request->judge_communitys;
-            $file = uniqid('judge_communitys-', true);
+            $file = uniqid('judge_community-', true);
 
             foreach($unit as $imageunit){
 
@@ -1008,7 +1030,7 @@ class EvaluateController extends Controller
 
         if ($request->has('commencement_guest_speakers')){
             $unit = $request->commencement_guest_speakers;
-            $file = uniqid('commencement_guest_speakers-', true);
+            $file = uniqid('commencement_guest_speaker-', true);
 
             foreach($unit as $imageunit){
 
@@ -1027,7 +1049,7 @@ class EvaluateController extends Controller
         }
         if ($request->has('coordinator_organizer_consultantses')){
             $unit = $request->coordinator_organizer_consultantses;
-            $file = uniqid('coordinator_organizer_consultantses-', true);
+            $file = uniqid('coordinator_organizer_consultants-', true);
 
             foreach($unit as $imageunit){
 
@@ -1046,7 +1068,7 @@ class EvaluateController extends Controller
         }
         if ($request->has('facilitators')){
             $unit = $request->facilitators;
-            $file = uniqid('facilitators-', true);
+            $file = uniqid('facilitator-', true);
 
             foreach($unit as $imageunit){
 
@@ -1065,7 +1087,7 @@ class EvaluateController extends Controller
         }
         if ($request->has('members')){
             $unit = $request->members;
-            $file = uniqid('members-', true);
+            $file = uniqid('member-', true);
 
             foreach($unit as $imageunit){
 
@@ -1085,7 +1107,7 @@ class EvaluateController extends Controller
 
         if ($request->has('resource_person_lecturers')){
             $images = $request->resource_person_lecturers;
-            $folder = uniqid('resource_person_lecturers-', true);
+            $folder = uniqid('resource_person_lecturer-', true);
 
 
             foreach($images as $image){

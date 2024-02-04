@@ -10,12 +10,14 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class UserAttendance extends Model implements HasMedia
 {
     use HasFactory;
     use InteractsWithMedia;
     use Notifiable;
+    use SoftDeletes;
 
     protected $guarded = [];
 

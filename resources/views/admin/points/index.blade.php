@@ -8,7 +8,7 @@
             <h1 class="font-semibold xl:text-lg 2xl:text-2xl tracking-wider">Evaluation Points Overview </h1>
         </div>
         <div>
-            <input type="text" placeholder="Search name and email..." class="text-xs  border-slate-400 rounded-lg" id="searchInput">
+            <input type="text" placeholder="Search name or email..." class="text-xs  border-slate-400 rounded-lg" id="searchInput">
             <select name="myDropdown" id="myDropdown" class="text-xs border-slate-400 rounded-lg">
               @foreach ($years as $year )
                   <option value="{{ $year }}" @if ($year == date('Y')) selected="selected" @endif>{{ $year }}</option>

@@ -165,7 +165,9 @@ class EvaluationController extends Controller
 
     public function deleteEvaluation($id){
 
-        $delete = Evaluation::findorFail($id);
+
+        $delete = Evaluation::withTrashed()->findorFail($id);
+
         $files = EvaluationFile::where('evaluation_id', $id)->get();
 
         foreach ($files as $file) {
@@ -189,9 +191,33 @@ class EvaluationController extends Controller
         $user = User::where('id', $delete->user_id)->get();
         Notification::send($user, new AdminDeleteUserEvaluationNotification($delete));
 
+        $delete->forceDelete();
+
+        flash()->addSuccess('Evaluation has been deleted');
+        return back();
+    }
+
+
+    public function RestoreEvaluation($id){
+
+        $restore = Evaluation::withTrashed()->where('id', $id)->first();
+
+        if($restore && $restore->trashed()){
+            $restore->restore();
+        }
+
+        flash()->addSuccess('Evaluation has been restored');
+        return back();
+    }
+
+    public function TrashEvaluation($id){
+
+        $delete = Evaluation::findorFail($id);
         $delete->delete();
 
-        return response()->json(['success' => 'Deleted Successfully']);
+        return response()->json(['success' => 'Trashed Successfully']);
     }
+
+
 
 }

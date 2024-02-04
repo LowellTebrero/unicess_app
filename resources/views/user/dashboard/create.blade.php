@@ -21,14 +21,16 @@
             font-size: .7rem;
             padding: .6rem;
         }
+
+
     </style>
 
     <section class="mt-4 2xl:mt-5 m-8 rounded-xl 2xl:h-[87vh] h-[82vh] overflow-x-auto bg-white text-gray-700">
 
         <header class="flex justify-between items-center p-4 xl:py-3 2xl:py-4 sticky top-0 bg-white z-10">
             <h1 class="2xl:text-2xl xl:text-lg text-[.9rem] font-semibold text-slate-600">Upload Project <span
-                    class="text-red-500 text-xs tracking-wide font-light"> * required fields</span></h1>
-            <a href="/User-dashboard" class="text-red-500 text-xl font-medium focus:bg-gray-300 focus:rounded">
+                    class="text-red-500 text-xs tracking-wide font-light"> (*) required fields</span></h1>
+            <a href="/User-dashboard" class="text-red-500 text-xl hover:bg-gray-200 rounded-md  focus:bg-gray-300 focus:rounded">
                 <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -47,174 +49,171 @@
             action="{{ route('User-dashboard.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
-            <div class="w-4/4 2xl:w-3/4 mx-auto 2xl:py-4 py-2 p-4 border relative rounded-md">
-                <div class="flex space-x-2 flex-row  w-full">
-                    <div class="w-1/2">
-                        <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm"
-                            for="program_id">Program Name <span class="text-red-500">*</span></label>
-                        <select id="program_id" class="rounded-md text-xs w-full border-zinc-300  py-2 px-3"
-                            name="program_id" value="{{ old('program_id') }}" required>
-                            @foreach ($programs as $id => $program_name)
-                                <option value="{{ $id }}"
-                                    @if ($id == old('program_id')) selected="selected" @endif>{{ $program_name }}
-                                </option>
-                            @endforeach
-                        </select>
-                        @error('program_id')
-                            <span class="text-red-500  text-xs">{{ $message }}</span>
-                        @enderror
-                    </div>
+            <div class="p-4 grid gap-6 grid-cols 2xl:grid-cols-2 relative rounded-md">
 
-                    <div class="w-full">
-                        <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm"
-                            for="project_title">Project Title <span class="text-red-500">*</span></label>
-                        <input
-                            class="border-zinc-300 text-xs  appearance-none border rounded w-full  py-2 px-3 text-slate-600 leading-tight focus:outline-none"
-                            name="project_title" id="project_title" type="text" value="{{ old('project_title') }}"
-                            placeholder="project title" required>
-                        @error('project_title')
-                            <span class="text-red-500  text-xs">{{ $message }}</span>
-                        @enderror
-                    </div>
-                </div>
+                <div class="space-y-6">
 
-
-
-                <h1 id="filemessagerror" class="text-xs text-red-500 tracking-wider mt-4 mb-2">
-                    Please upload at least one file among Proposal PDF, Special Order PDF, MOA PDF, Office Order PDF, Travel Order PDF, Other File(s).
-                </h1>
-                <div class="grid grid-cols-3 2xl:grid-cols-2 gap-2">
-                    <div class="w-full">
-                        <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Project Proposal (PDF)</label>
-                        <input class="custom-file bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
-                        name="proposal_pdf" id="proposal_pdf" type="file" accept="application/pdf">
-
-                    </div>
-
-                    <div class="w-full">
-                        <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">MOA (PDF)</label>
-                        <input class="custom-file bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
-                        name="moa_pdf" id="moa_pdf" type="file" accept="application/pdf">
-
-                    </div>
-
-                    <div class="w-full">
-                        <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Office Order (PDF) <span class="text-xs">(Multiple files)</span></label>
-                        <input class="custom-file bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
-                        name="office_order_pdf[]" multiple id="office_order_pdf" type="file" accept="application/pdf" onchange="displayOfficeFileNames(this)">
-                        <div id="file-office-container" class="text-xs mt-1 font-thin"></div>
-
-                    </div>
-
-                    <div class="w-full">
-                        <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Travel Order (PDF) <span class="text-xs">(Multiple files)</span></label>
-                        <input class="custom-file bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
-                        name="travel_order_pdf[]" multiple id="travel_order_pdf" type="file" accept="application/pdf"  onchange="displayTravelFileNames(this)">
-                        <div id="file-travel-container" class="text-xs mt-1 font-thin"></div>
-                    </div>
-
-                    <div class="w-full">
-                        <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Special Order (PDF) <span class="text-xs">(Multiple files)</span></label>
-                        <input class="bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
-                        name="special_order_pdf[]" multiple id="special_order_pdf" type="file" accept="application/pdf" onchange="displaySpecialFileNames(this)">
-                        <div id="file-special-container" class="text-xs mt-1 font-thin"></div>
-                    </div>
-
-                    <div class="w-full">
-                        <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Other Files <span class="text-xs">(Multiple files)</span></label>
-                        <input class="bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
-                        name="other_files[]" multiple id="other_files" type="file" onchange="displayOtherFileNames(this)">
-                        <div id="file-othernames-container" class="text-xs mt-1"></div>
-                    </div>
-
-                </div>
-
-                <div class="flex flex-col space-y-4 2xl:flex-row 2xl:space-y-0 2xl:space-x-4 mt-4">
-                    <div class="flex space-x-2 2xl:w-full">
-                        <div class="w-1/2">
-                            <label class="text-xs block text-slate-600  font-medium 2xl:text-sm">Started Date (optional)</label>
-                            <input class="border-zinc-300 text-xs  appearance-none border  rounded w-full py-2 mt-2 px-3 text-slate-600  leading-tight focus:outline-none"
-                                value="{{ old('started_date') }}" name="started_date" id="started_date" type="date">
-                            @error('started_date')
-                                <span class="text-red-500  text-xs">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <div class="w-1/2">
-                            <label class="text-xs block text-slate-600  font-medium 2xl:text-sm">Ended Date (optional)</label>
-                            <input class="border-zinc-300 text-xs appearance-none border  rounded w-full py-2 mt-2 px-3 text-slate-600  leading-tight focus:outline-none"
-                                value="{{ old('finished_date') }}" name="finished_date" id="finished_date" type="date">
-                            @error('finished_date')
-                                <span class="text-red-500 text-xs">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-
-
-                    <div class="pt-0 2xl:pt-2 flex space-x-2 items-center w-full">
-                        <div class="flex flex-col space-y-2">
-                            <div class="flex flex-col space-y-2  w-full">
-                                <div class="flex space-x-2">
-                                    <h1 class="xl:text-sm text-xs">Select Name of Faculty/Personnel<span class="text-red-500">*</span></h1>
-
-                                </div>
-                                <div>
-
-                                <button class="px-3 py-1 2xl:text-sm text-xs bg-blue-400 text-white rounded-lg" type="button"
-                                    id="MemberButton">Member Type
-                                </button>
-                                </div>
-
+                    <!-- Project details -->
+                    <div class=" w-full border border-gray-400 rounded-md p-5">
+                        <h1 class="text-lg mb-5 tracking-wide font-semibold text-gray-600">Project Details</h1>
+                        <div class="gap-2 grid-cols-2 grid w-full">
+                            <div class="w-full">
+                                <label class="text-xs block text-slate-600  mb-2 2xl:text-sm"
+                                    for="program_id">Program Name <span class="text-red-500">*</span></label>
+                                <select id="program_id" class="rounded-md text-xs w-full border-zinc-300  py-2 px-3"
+                                    name="program_id" value="{{ old('program_id') }}" required>
+                                    @foreach ($programs as $id => $program_name)
+                                        <option value="{{ $id }}"
+                                            @if ($id == old('program_id')) selected="selected" @endif>{{ $program_name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('program_id')
+                                    <span class="text-red-500  text-xs">{{ $message }}</span>
+                                @enderror
                             </div>
-                            <div id="error-message" class="text-xs text-red-500 tracking-wider "></div>
+
+                            <div class="w-full">
+                                <label class="text-xs block text-slate-600   mb-2 2xl:text-sm"
+                                    for="project_title">Project Title <span class="text-red-500">*</span></label>
+                                <input
+                                    class="border-zinc-300 text-xs  appearance-none border rounded w-full  py-2 px-3 text-slate-600 leading-tight focus:outline-none"
+                                    name="project_title" id="project_title" type="text" value="{{ old('project_title') }}"
+                                    placeholder="Input your project title" required>
+                                @error('project_title')
+                                    <span class="text-red-500  text-xs">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <div class="w-full">
+                                <label class="text-xs block text-slate-600   2xl:text-sm">Start Date (optional)</label>
+                                <input class="border-zinc-300 text-xs  appearance-none border  rounded w-full py-2 mt-2 px-3 text-slate-600  leading-tight focus:outline-none"
+                                    value="{{ old('started_date') }}" name="started_date" id="started_date" type="date">
+                                @error('started_date')
+                                    <span class="text-red-500  text-xs">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <div class="w-full">
+                                <label class="text-xs block text-slate-600   2xl:text-sm">Ended Date (optional)</label>
+                                <input class="border-zinc-300 text-xs appearance-none border  rounded w-full py-2 mt-2 px-3 text-slate-600  leading-tight focus:outline-none"
+                                    value="{{ old('finished_date') }}" name="finished_date" id="finished_date" type="date">
+                                @error('finished_date')
+                                    <span class="text-red-500 text-xs">{{ $message }}</span>
+                                @enderror
+                            </div>
                         </div>
+                    </div>
+
+                    <!-- Project member -->
+                    <div class="border border-gray-400 rounded-md p-5">
+                        <h1 class="text-lg mb-5 tracking-wide font-semibold text-gray-600">Project Member</h1>
+                        <div class="flex flex-col space-y-4 2xl:flex-row 2xl:space-y-0 2xl:space-x-4 mt-4 ">
+
+                            <div class="pt-0 2xl:pt-2 flex space-x-2 items-center w-full">
+                                <div class="flex flex-col space-y-2">
+                                    <div class="flex flex-col space-y-2  w-full">
+                                        <div class="flex space-x-2 w-full items-center">
+                                            <h1 class="xl:text-sm text-xs text-slate-600 ">Select Name of Faculty/Personnel <span class="text-red-500">*</span></h1>
+                                            <button name="add" id="add" type="button" class=" bg-blue-400 hover:bg-blue-500 rounded-lg text-white px-2 py-2  text-xs  border-zinc-300">Add more user</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-full overflow-x-auto h-[26vh] xl:h-[20vh] 2xl:h-[20vh]  mt-2">
+
+                            <table id="table" class="w-full">
+                                <thead>
+                                    <tr class="text-sm text-gray-500 sticky top-0 bg-white">
+                                        <th class="text-xs  text-slate-600  mb-2 2xl:text-sm text-left"></th>
+                                        <th class="text-xs  text-slate-600  mb-2 2xl:text-sm text-left w-[11rem] 2xl:w-[10rem]"></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                        <td class="pr-4 xl:w-[21rem] 2xl:w-[30rem]">
+                                            <select name="member[0][id]" class="rounded-md text-xs w-full border-zinc-300"
+                                                id="member" required>
+                                                @foreach ($members as $id => $name)
+                                                    <option value="{{ $id }}"
+                                                        @if ($id == old('member_id[0][id]')) selected="selected" @endif>
+                                                        {{ $name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </td>
+
+                                        <td>
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Project documents -->
+                <div class="border border-gray-400 rounded-md p-5">
+                    <h1 class="text-lg mb-5 tracking-wide font-semibold text-gray-600">Project Documents</h1>
+                    <h1 id="filemessagerror" class="text-xs tracking-wider mt-4 mb-2">
+                     Please upload at least one file among Proposal PDF, Special Order PDF, MOA PDF, Office Order PDF, Travel Order PDF, Other File(s). <span class="text-red-500">*</span>
+                    </h1>
+
+                    <div class="grid grid-cols-3 2xl:grid-cols-2 gap-2 mt-4">
+                        <div class="w-full">
+                            <label class="text-xs block text-slate-600   mb-2 2xl:text-sm">Project Proposal (PDF)</label>
+                            <input class="custom-file bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
+                            name="proposal_pdf" id="proposal_pdf" type="file" accept="application/pdf">
+
+                        </div>
+
+                        <div class="w-full">
+                            <label class="text-xs block text-slate-600   mb-2 2xl:text-sm">MOA (PDF)</label>
+                            <input class="custom-file bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
+                            name="moa_pdf" id="moa_pdf" type="file" accept="application/pdf">
+
+                        </div>
+
+                        <div class="w-full">
+                            <label class="text-xs block text-slate-600   mb-2 2xl:text-sm">Office Order (PDF) <span class="text-xs">(Multiple files)</span></label>
+                            <input class="custom-file bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
+                            name="office_order_pdf[]" multiple id="office_order_pdf" type="file" accept="application/pdf" onchange="displayOfficeFileNames(this)">
+                            <div id="file-office-container" class="text-xs mt-1 font-thin"></div>
+
+                        </div>
+
+                        <div class="w-full">
+                            <label class="text-xs block text-slate-600   mb-2 2xl:text-sm">Travel Order (PDF) <span class="text-xs">(Multiple files)</span></label>
+                            <input class="custom-file bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
+                            name="travel_order_pdf[]" multiple id="travel_order_pdf" type="file" accept="application/pdf"  onchange="displayTravelFileNames(this)">
+                            <div id="file-travel-container" class="text-xs mt-1 font-thin"></div>
+                        </div>
+
+                        <div class="w-full">
+                            <label class="text-xs block text-slate-600   mb-2 2xl:text-sm">Special Order (PDF) <span class="text-xs">(Multiple files)</span></label>
+                            <input class="bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
+                            name="special_order_pdf[]" multiple id="special_order_pdf" type="file" accept="application/pdf" onchange="displaySpecialFileNames(this)">
+                            <div id="file-special-container" class="text-xs mt-1 font-thin"></div>
+                        </div>
+
+                        <div class="w-full">
+                            <label class="text-xs block text-slate-600   mb-2 2xl:text-sm">Other Files <span class="text-xs">(Multiple files)</span></label>
+                            <input class="bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
+                            name="other_files[]" multiple id="other_files" type="file" onchange="displayOtherFileNames(this)">
+                            <div id="file-othernames-container" class="text-xs mt-1"></div>
+                        </div>
+
                     </div>
                 </div>
 
 
-
-                    <div class="w-full overflow-x-auto h-[26vh] xl:h-[20vh] 2xl:h-[20vh]  mt-2"
-                        style="display: none" id="memberDiv">
-
-                        <table id="table" class="w-full">
-                            <thead>
-                                <tr class="text-sm text-gray-500 sticky top-0 bg-white">
-                                    <th class="text-xs  text-slate-600 font-medium mb-2 2xl:text-sm text-left">Member
-                                        Name</th>
-
-                                    <th
-                                        class="text-xs  text-slate-600 font-medium mb-2 2xl:text-sm text-left w-[11rem] 2xl:w-[10rem]">
-                                        Action</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <tr>
-                                    <td class="pr-4 xl:w-[21rem] 2xl:w-[30rem]">
-                                        <select name="member[0][id]" class="rounded-md text-xs w-full border-zinc-300"
-                                            id="member">
-                                            @foreach ($members as $id => $name)
-                                                <option value="{{ $id }}"
-                                                    @if ($id == old('member_id[0][id]')) selected="selected" @endif>
-                                                    {{ $name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </td>
-
-                                    <td>
-                                        <button name="add" id="add" type="button"
-                                            class="w-full bg-slate-500 rounded-md text-white px-2 py-2  text-xs  border-zinc-300">Add
-                                            more user</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-
+                <!-- Submit button -->
                 <div class="bottom-2 left-0 xl:bottom-7">
 
-                    <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="block text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
+                    <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="block text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300  rounded-lg text-sm px-5 py-2.5 text-center " type="button">
                         Submit Project
                     </button>
 
@@ -233,10 +232,10 @@
                                     </svg>
                                     <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to submit?</h3>
                                     <div class="space-x-2">
-                                    <button data-modal-hide="popup-modal"  type="submit" class="text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2">
+                                    <button data-modal-hide="popup-modal"  type="submit" class="text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800  rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2">
                                         Yes, Im sure
                                     </button>
-                                    <button data-modal-hide="popup-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No, cancel</button>
+                                    <button data-modal-hide="popup-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm  px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No, cancel</button>
                                     </div>
                                 </div>
                             </div>
@@ -375,21 +374,7 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // Get the buttons and corresponding divs
 
-            var memberButton = document.getElementById("MemberButton"); // Corrected ID
-
-            var memberDiv = document.getElementById("memberDiv");
-
-            // Add click event listeners to the buttons
-
-
-            memberButton.addEventListener("click", function() {
-                toggleVisibility(memberDiv);
-                updateRequiredInputs(memberDiv);
-                updateButtonStyle(memberButton, memberDiv);
-                resetFormInputs(memberDiv);
-            });
 
             // Function to toggle the visibility of a div
             function toggleVisibility(div) {
@@ -468,18 +453,6 @@
                 }, 700);  // Adjust the interval (milliseconds) as needed
             }
 
-
-
-            form.addEventListener("submit", function(event) {
-
-                // Check if both buttons are not clicked
-                if ( memberDiv.style.display === "none") {
-                    alert("select at least one of the member in project");
-                    errormessage.innerHTML = 'You must select at least one of the member';
-                    errorMessageDisplayed = true;
-                    event.preventDefault(); // Prevent form submission
-                }
-            });
         });
     </script>
 

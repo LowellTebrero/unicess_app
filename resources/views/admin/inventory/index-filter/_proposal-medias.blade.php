@@ -185,7 +185,7 @@
                             <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                             </svg>
-                            <h3 class="mb-5 text-sm font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete this project?</h3>
+                            <h3 class="mb-5 text-sm font-normal text-gray-500 dark:text-gray-400">Are you sure you want to Trash this project?</h3>
 
                             <div class="flex space-x-4 items-center justify-center">
                                 <form action={{ route('admin.inventory.delete-project-proposal', $proposal->id) }} method="POST">
@@ -221,7 +221,7 @@
                     </a>
 
                     <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="hover:bg-gray-200 w-full focus:bg-red-200 py-2 text-xs px-3  text-left" type="button">
-                        Delete this Project
+                        Trash this Project
                     </button>
                 </div>
             </div>

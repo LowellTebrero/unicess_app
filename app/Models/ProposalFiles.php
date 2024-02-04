@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class UserTravelOrder extends Model implements HasMedia
+class ProposalFiles extends Model implements HasMedia
 {
     use HasFactory;
     use InteractsWithMedia;
@@ -20,6 +20,7 @@ class UserTravelOrder extends Model implements HasMedia
     use SoftDeletes;
 
     protected $guarded = [];
+
 
     public function proposals(){
         return $this->belongsTo(Proposal::class, 'proposal_id');

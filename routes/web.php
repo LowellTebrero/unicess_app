@@ -3,6 +3,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\TrashController;
 use App\Http\Controllers\PointsController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SelectController;
@@ -19,12 +20,14 @@ use App\Http\Controllers\AllProposalController;
 use App\Http\Controllers\ProfileRoleController;
 use App\Http\Controllers\UserWelcomeController;
 use App\Http\Controllers\Admin\ToggleController;
+use App\Http\Controllers\CreateFolderController;
 use App\Http\Controllers\Auth\ProviderController;
 use App\Http\Controllers\LnuAdditionalController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\ProjectProposalController;
 use App\Http\Controllers\UserAuthProfileController;
 use App\Http\Controllers\Admin\AdminPointController;
+use App\Http\Controllers\Admin\AdminTrashController;
 use App\Http\Controllers\Admin\EvaluationController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\AdminCalendarController;
@@ -127,6 +130,8 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
         Route::patch('/evaluation-update/{id}', 'update')->name('evaluation.update');
         Route::get('/filters','filters')->name('evaluation.filters');
         Route::delete('/evaluation-delete/{id}','deleteEvaluation')->name('evaluation.delete');
+        Route::delete('/evaluation-trash/{id}','TrashEvaluation')->name('evaluation.trash');
+        Route::delete('/evaluation-restore/{id}','RestoreEvaluation')->name('evaluation.restore');
     });
 
     Route::controller(UserController::class)->group(function () {
@@ -220,6 +225,7 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
     Route::controller(ProjectProposalController::class)->group(function () {
         Route::put('/rename/files/{id}','RenameFile')->name('proposal.rename-ongoing-proposal');
         Route::delete('/delete-Mediafile','deleteMedia')->name('proposal.delete-media-proposal');
+        Route::delete('/trash-Mediafile','MoveToTrashMedia')->name('proposal.trash-media-proposal');
         Route::delete('/delete-proposal-folder','DeleteProposalFolder')->name('proposal.delete-folder-proposal');
         Route::get('/project/{id}','showFaculty')->name('proposal.show_faculty');
         Route::get('download-media/{id}','DownloadMedia')->name('proposal.download-media-files');
@@ -244,6 +250,8 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
         Route::patch('/calendar-update/{id}', 'update')->name('calendar.update');
         Route::delete('/calendar-delete/{id}', 'delete')->name('calendar.delete');
     });
+
+    Route::get('/admin-trash', [AdminTrashController::class, 'index'])->name('trash.index');
 
 });
 
@@ -271,6 +279,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/get-current-time',  'getCurrentTime');
 
     });
+
+    Route::get('create-folder-index', [CreateFolderController::class, 'index']);
+    Route::post('create-folder-store', [CreateFolderController::class, 'store'])->name('folder.store');
+
+
 
 
     Route::controller(ProfileRoleController::class)->group(function () {
@@ -309,7 +322,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::put('/rename-medias/{id}','RenameFiles')->name('inventory-rename-media');
         Route::put('/update-user/files/{id}','userUpdateFiles')->name('inventroy-update-user-proposal');
         Route::get('/downloads-medias/{id}','DownloadMedias')->name('inventory-download-media');
+        Route::delete('/to-trash-medias/{id}','MoveToTrash')->name('inventory-trash-media');
         Route::delete('/delete-medias/{id}','deleteMedias')->name('inventory-delete-media');
+        Route::delete('/delete-medias-permanently/{id}/{proposalId}','deleteMediasPermanently')->name('inventory-delete-media-permanently');
+        Route::delete('/restore-medias/{id}','RestoreFile')->name('inventory-restore-media');
         Route::get('/inventory','index')->name('inventory.index');
         Route::get('/inventory/{id}/{notification}','show')->name('inventory.show');
         Route::get('/downloads-moa/{id}','downloadsMoa')->name('inventory-download-moa');
@@ -333,25 +349,49 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::controller(ReportController::class)->group(function () {
         Route::get('/report-index', 'index')->name('report.index');
+
+        Route::delete('/report-restore-project/{id}', 'RestoreProjectFolder')->name('report-project.restore');
+        Route::delete('/report-delete-project/{id}', 'DeleteProjectFolder')->name('report-project.delete');
+
         Route::post('/report-store-narrative',  'NarrativeStore')->name('report-narrative.store');
+        Route::delete('/report-trash-narrative/{id}/{narrativeId}','TrashNarrativeMedias')->name('report-narrative.trash');
+        Route::delete('/report-restore-narrative/{id}','RestoreNarrativeMedias')->name('report-narrative.restore');
         Route::delete('/report-delete-narrative/{id}/{narrativeId}','deleteNarrativeMedias')->name('report-narrative.delete');
         Route::post('/report-update-narrative/{id}','NarrativeUpdate')->name('report-narrative.update');
-        Route::post('/report-store-terminal',  'TerminalStore')->name('report-terminal.store');
+
+        Route::post('/report-store-terminal', 'TerminalStore')->name('report-terminal.store');
+        Route::delete('/report-trash-terminal/{id}/{terminalId}','TrashTerminaMedias')->name('report-terminal.trash');
+        Route::delete('/report-restore-terminal/{id}/{terminalId}','RestoreTerminalMedias')->name('report-terminal.restore');
         Route::delete('/report-delete-terminal/{id}/{terminalId}','deleteTerminalMedias')->name('report-terminal.delete');
         Route::post('/report-update-terminal/{id}','TerminalUpdate')->name('report-terminal.update');
+
         Route::post('/report-store-travelorder',  'travelOrderStore')->name('report-travelorder.store');
+        Route::delete('/report-trash-travelorder/{id}/{travelOrderId}','TrashTravelOrderMedias')->name('report-travelorder.trash');
+        Route::delete('/report-restore-travelorder/{id}','RestoreTravelOrderMedias')->name('report-travelorder.restore');
         Route::delete('/report-delete-travelorder/{id}/{travelOrderId}','deleteTravelOrderMedias')->name('report-travelorder.delete');
         Route::post('/report-update-travelorder/{id}','travelOrderUpdate')->name('report-travelorder.update');
+
         Route::post('/report-store-specialorder',  'specialOrderStore')->name('report-specialorder.store');
+        Route::delete('/report-trash-specialorder/{id}/{specialOrderId}','TrashSpecialOrderMedias')->name('report-specialorder.trash');
+        Route::delete('/report-restore-specialorder/{id}/{specialOrderId}','RestoreSpecialOrderMedias')->name('report-specialorder.restore');
         Route::delete('/report-delete-specialorder/{id}/{specialOrderId}','deleteSpecialOrderMedias')->name('report-specialorder.delete');
         Route::post('/report-update-specialorder/{id}','specialOrderUpdate')->name('report-specialorder.update');
+
         Route::post('/report-store-officeorder',  'officeOrderStore')->name('report-officeorder.store');
+        Route::delete('/report-trash-officeorder/{id}/{officeOrderId}','TrashOfficeOrderMedias')->name('report-officeorder.trash');
+        Route::delete('/report-restore-officeorder/{id}/{officeOrderId}','RestoreOfficeOrderMedias')->name('report-officeorder.restore');
         Route::delete('/report-delete-officeorder/{id}/{officeOrderId}','deleteOfficeOrderMedias')->name('report-officeorder.delete');
         Route::post('/report-update-officeorder/{id}','officeOrderUpdate')->name('report-officeorder.update');
+
         Route::post('/report-store-attendance',  'attendanceStore')->name('report-attendance.store');
+        Route::delete('/report-trash-attendance/{id}/{attendanceId}','TrashAttendanceMedias')->name('report-attendance.trash');
+        Route::delete('/report-restore-attendance/{id}/{attendanceId}','RestoreAttendanceMedias')->name('report-attendance.restore');
         Route::delete('/report-delete-attendance/{id}/{attendanceId}','deleteAttendanceMedias')->name('report-attendance.delete');
         Route::post('/report-update-attendance/{id}','attendanceUpdate')->name('report-attendance.update');
+
         Route::post('/report-store-attendancem',  'attendancemStore')->name('report-attendancem.store');
+        Route::delete('/report-trash-attendancem/{id}/{attendancemId}','TrashAttendancemMedias')->name('report-attendancem.trash');
+        Route::delete('/report-restore-attendancem/{id}/{attendancemId}','RestoreAttendancemMedias')->name('report-attendancem.restore');
         Route::delete('/report-delete-attendancem/{id}/{attendancemId}','deleteAttendancemMedias')->name('report-attendancem.delete');
         Route::post('/report-update-attendancem/{id}','attendancemUpdate')->name('report-attendancem.update');
 
@@ -384,7 +424,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('update-proposal/{proposal}', [SelectController::class, 'update']);
     Route::delete('/delete-uploaded-file/{id}', [EvaluateController::class, 'deleteFile']);
 
-
+    Route::get('trash', [TrashController::class, 'index'])->name('trash.index');
 
 });
 

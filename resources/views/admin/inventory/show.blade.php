@@ -103,7 +103,7 @@
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="text-xs pl-2 p-1 hover:bg-gray-200 w-full text-left">
-                                                Delete Project
+                                                Trash this Project
                                             </button>
                                             </form>
                                     </x-tooltip-modal>

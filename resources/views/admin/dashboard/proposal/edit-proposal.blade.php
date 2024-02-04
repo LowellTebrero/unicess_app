@@ -571,7 +571,7 @@
                                         <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                                         </svg>
-                                        <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete this project?</h3>
+                                        <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to trash this project?</h3>
                                         <div class="flex space-x-2 items-center justify-center">
                                             <form action={{ route('admin.proposal.admin-delete-project-proposal', $proposals->id) }} method="POST" class="">
                                                 @csrf @method('DELETE')
@@ -655,128 +655,123 @@
                                             @endforeach
 
 
-                                            @foreach ($formedia->travelorder as $travel)
-                                                @foreach ($travel->medias as $mediaLibrary )
-                                                    @if (!empty($mediaLibrary->collection_name == 'travelOrderPdf'))
-                                                    <li class="mb-10 mx-8 ">
-                                                        <span class="absolute flex items-center justify-center w-6 h-6  rounded-full -left-3 ring-8 ring-white dark:ring-gray-700 dark:bg-gray-600">
-                                                            <svg class="w-2.5 h-2.5 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20"><path fill="currentColor" d="M6 1a1 1 0 0 0-2 0h2ZM4 4a1 1 0 0 0 2 0H4Zm7-3a1 1 0 1 0-2 0h2ZM9 4a1 1 0 1 0 2 0H9Zm7-3a1 1 0 1 0-2 0h2Zm-2 3a1 1 0 1 0 2 0h-2ZM1 6a1 1 0 0 0 0 2V6Zm18 2a1 1 0 1 0 0-2v2ZM5 11v-1H4v1h1Zm0 .01H4v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM10 11v-1H9v1h1Zm0 .01H9v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM10 15v-1H9v1h1Zm0 .01H9v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM15 15v-1h-1v1h1Zm0 .01h-1v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM15 11v-1h-1v1h1Zm0 .01h-1v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM5 15v-1H4v1h1Zm0 .01H4v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM2 4h16V2H2v2Zm16 0h2a2 2 0 0 0-2-2v2Zm0 0v14h2V4h-2Zm0 14v2a2 2 0 0 0 2-2h-2Zm0 0H2v2h16v-2ZM2 18H0a2 2 0 0 0 2 2v-2Zm0 0V4H0v14h2ZM2 4V2a2 2 0 0 0-2 2h2Zm2-3v3h2V1H4Zm5 0v3h2V1H9Zm5 0v3h2V1h-2ZM1 8h18V6H1v2Zm3 3v.01h2V11H4Zm1 1.01h.01v-2H5v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H5v2h.01v-2ZM9 11v.01h2V11H9Zm1 1.01h.01v-2H10v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H10v2h.01v-2ZM9 15v.01h2V15H9Zm1 1.01h.01v-2H10v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H10v2h.01v-2ZM14 15v.01h2V15h-2Zm1 1.01h.01v-2H15v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H15v2h.01v-2ZM14 11v.01h2V11h-2Zm1 1.01h.01v-2H15v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H15v2h.01v-2ZM4 15v.01h2V15H4Zm1 1.01h.01v-2H5v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H5v2h.01v-2Z"/></svg>
-                                                        </span>
-                                                        <h3 class="flex items-start mb-1 text-lg font-semibold text-gray-900 dark:text-white">Travel Order File <span class="text-xs font-normal ml-2 mt-1">( <span class="text-sm font-medium">{{ $travelCount }} / {{ $memberCount }}</span> ) User has been uploaded</span></h3>
-                                                        <h1 class="block mb-3 text-sm font-normal leading-none text-gray-500 dark:text-gray-400">Uploaded on {{ \Carbon\Carbon::parse($mediaLibrary->created_at)->format('M d, y g:i:s A') }}</h1>
-                                                        <a href={{ route('inventory-download-travelorder', $formedia->id) }} type="button" class="inline-flex items-center py-2 px-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-700 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-600">
-                                                            <svg class="w-3 h-3 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z"/><path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>
-                                                            Download
-                                                        </a>
-                                                    </li>
-                                                    @endif
-                                                @endforeach
+                                            @foreach ($uniqueformedias as $proposalfile)
+                                            @foreach ($proposalfile->medias as $mediaLibrary )
+                                                @if (!empty($mediaLibrary->collection_name == 'travelOrderPdf'))
+                                                <li class="mb-10 mx-8 ">
+                                                    <span class="absolute flex items-center justify-center w-6 h-6  rounded-full -left-3 ring-8 ring-white dark:ring-gray-700 dark:bg-gray-600">
+                                                        <svg class="w-2.5 h-2.5 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20"><path fill="currentColor" d="M6 1a1 1 0 0 0-2 0h2ZM4 4a1 1 0 0 0 2 0H4Zm7-3a1 1 0 1 0-2 0h2ZM9 4a1 1 0 1 0 2 0H9Zm7-3a1 1 0 1 0-2 0h2Zm-2 3a1 1 0 1 0 2 0h-2ZM1 6a1 1 0 0 0 0 2V6Zm18 2a1 1 0 1 0 0-2v2ZM5 11v-1H4v1h1Zm0 .01H4v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM10 11v-1H9v1h1Zm0 .01H9v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM10 15v-1H9v1h1Zm0 .01H9v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM15 15v-1h-1v1h1Zm0 .01h-1v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM15 11v-1h-1v1h1Zm0 .01h-1v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM5 15v-1H4v1h1Zm0 .01H4v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM2 4h16V2H2v2Zm16 0h2a2 2 0 0 0-2-2v2Zm0 0v14h2V4h-2Zm0 14v2a2 2 0 0 0 2-2h-2Zm0 0H2v2h16v-2ZM2 18H0a2 2 0 0 0 2 2v-2Zm0 0V4H0v14h2ZM2 4V2a2 2 0 0 0-2 2h2Zm2-3v3h2V1H4Zm5 0v3h2V1H9Zm5 0v3h2V1h-2ZM1 8h18V6H1v2Zm3 3v.01h2V11H4Zm1 1.01h.01v-2H5v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H5v2h.01v-2ZM9 11v.01h2V11H9Zm1 1.01h.01v-2H10v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H10v2h.01v-2ZM9 15v.01h2V15H9Zm1 1.01h.01v-2H10v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H10v2h.01v-2ZM14 15v.01h2V15h-2Zm1 1.01h.01v-2H15v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H15v2h.01v-2ZM14 11v.01h2V11h-2Zm1 1.01h.01v-2H15v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H15v2h.01v-2ZM4 15v.01h2V15H4Zm1 1.01h.01v-2H5v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H5v2h.01v-2Z"/></svg>
+                                                    </span>
+                                                    <h3 class="flex items-start mb-1 text-lg font-semibold text-gray-900 dark:text-white">Travel Order File  </h3>
+                                                    <h1 class="block mb-3 text-sm font-normal leading-none text-gray-500 dark:text-gray-400">Uploaded on {{ \Carbon\Carbon::parse($mediaLibrary->created_at)->format('M d, y g:i:s A') }}</h1>
+                                                    <a href={{ route('inventory-download-travelorder', $proposalfile->proposal_id) }} type="button" class="inline-flex items-center py-2 px-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-700 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-600">
+                                                        <svg class="w-3 h-3 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z"/><path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>
+                                                        Download
+                                                    </a>
+                                                </li>
+                                                @endif
                                             @endforeach
 
-                                            @foreach ($formedia->specialorder as $special)
-                                                @foreach ($special->medias as $mediaLibrary )
-                                                    @if (!empty($mediaLibrary->collection_name == 'specialOrderPdf'))
-                                                    <li class="mb-10 mx-8 ">
-                                                        <span class="absolute flex items-center justify-center w-6 h-6  rounded-full -left-3 ring-8 ring-white dark:ring-gray-700 dark:bg-gray-600">
-                                                            <svg class="w-2.5 h-2.5 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20"><path fill="currentColor" d="M6 1a1 1 0 0 0-2 0h2ZM4 4a1 1 0 0 0 2 0H4Zm7-3a1 1 0 1 0-2 0h2ZM9 4a1 1 0 1 0 2 0H9Zm7-3a1 1 0 1 0-2 0h2Zm-2 3a1 1 0 1 0 2 0h-2ZM1 6a1 1 0 0 0 0 2V6Zm18 2a1 1 0 1 0 0-2v2ZM5 11v-1H4v1h1Zm0 .01H4v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM10 11v-1H9v1h1Zm0 .01H9v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM10 15v-1H9v1h1Zm0 .01H9v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM15 15v-1h-1v1h1Zm0 .01h-1v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM15 11v-1h-1v1h1Zm0 .01h-1v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM5 15v-1H4v1h1Zm0 .01H4v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM2 4h16V2H2v2Zm16 0h2a2 2 0 0 0-2-2v2Zm0 0v14h2V4h-2Zm0 14v2a2 2 0 0 0 2-2h-2Zm0 0H2v2h16v-2ZM2 18H0a2 2 0 0 0 2 2v-2Zm0 0V4H0v14h2ZM2 4V2a2 2 0 0 0-2 2h2Zm2-3v3h2V1H4Zm5 0v3h2V1H9Zm5 0v3h2V1h-2ZM1 8h18V6H1v2Zm3 3v.01h2V11H4Zm1 1.01h.01v-2H5v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H5v2h.01v-2ZM9 11v.01h2V11H9Zm1 1.01h.01v-2H10v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H10v2h.01v-2ZM9 15v.01h2V15H9Zm1 1.01h.01v-2H10v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H10v2h.01v-2ZM14 15v.01h2V15h-2Zm1 1.01h.01v-2H15v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H15v2h.01v-2ZM14 11v.01h2V11h-2Zm1 1.01h.01v-2H15v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H15v2h.01v-2ZM4 15v.01h2V15H4Zm1 1.01h.01v-2H5v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H5v2h.01v-2Z"/></svg>
-                                                        </span>
-                                                        <h3 class="flex items-start mb-1 text-lg font-semibold text-gray-900 dark:text-white">Special Order File <span class="text-xs font-normal ml-2 mt-1">( <span class="text-sm font-medium">{{ $specialCount }} / {{ $memberCount }}</span> ) User has been uploaded</span></h3>
-                                                        <h1 class="block mb-3 text-sm font-normal leading-none text-gray-500 dark:text-gray-400">Uploaded on {{ \Carbon\Carbon::parse($mediaLibrary->created_at)->format('M d, y g:i:s A') }}</h1>
-                                                        <a href={{ route('inventory-download-specialorder', $formedia->id) }} type="button" class="inline-flex items-center py-2 px-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-700 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-600">
-                                                            <svg class="w-3 h-3 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z"/><path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>
-                                                            Download
-                                                        </a>
-                                                    </li>
-                                                    @endif
-                                                @endforeach
-                                            @endforeach
-                                            @foreach ($formedia->officeorder as $office)
-                                                @foreach ($office->medias as $mediaLibrary )
-                                                    @if (!empty($mediaLibrary->collection_name == 'officeOrderPdf'))
-                                                    <li class="mb-10 mx-8 ">
-                                                        <span class="absolute flex items-center justify-center w-6 h-6  rounded-full -left-3 ring-8 ring-white dark:ring-gray-700 dark:bg-gray-600">
-                                                            <svg class="w-2.5 h-2.5 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20"><path fill="currentColor" d="M6 1a1 1 0 0 0-2 0h2ZM4 4a1 1 0 0 0 2 0H4Zm7-3a1 1 0 1 0-2 0h2ZM9 4a1 1 0 1 0 2 0H9Zm7-3a1 1 0 1 0-2 0h2Zm-2 3a1 1 0 1 0 2 0h-2ZM1 6a1 1 0 0 0 0 2V6Zm18 2a1 1 0 1 0 0-2v2ZM5 11v-1H4v1h1Zm0 .01H4v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM10 11v-1H9v1h1Zm0 .01H9v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM10 15v-1H9v1h1Zm0 .01H9v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM15 15v-1h-1v1h1Zm0 .01h-1v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM15 11v-1h-1v1h1Zm0 .01h-1v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM5 15v-1H4v1h1Zm0 .01H4v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM2 4h16V2H2v2Zm16 0h2a2 2 0 0 0-2-2v2Zm0 0v14h2V4h-2Zm0 14v2a2 2 0 0 0 2-2h-2Zm0 0H2v2h16v-2ZM2 18H0a2 2 0 0 0 2 2v-2Zm0 0V4H0v14h2ZM2 4V2a2 2 0 0 0-2 2h2Zm2-3v3h2V1H4Zm5 0v3h2V1H9Zm5 0v3h2V1h-2ZM1 8h18V6H1v2Zm3 3v.01h2V11H4Zm1 1.01h.01v-2H5v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H5v2h.01v-2ZM9 11v.01h2V11H9Zm1 1.01h.01v-2H10v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H10v2h.01v-2ZM9 15v.01h2V15H9Zm1 1.01h.01v-2H10v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H10v2h.01v-2ZM14 15v.01h2V15h-2Zm1 1.01h.01v-2H15v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H15v2h.01v-2ZM14 11v.01h2V11h-2Zm1 1.01h.01v-2H15v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H15v2h.01v-2ZM4 15v.01h2V15H4Zm1 1.01h.01v-2H5v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H5v2h.01v-2Z"/></svg>
-                                                        </span>
-                                                        <h3 class="flex items-start mb-1 text-lg font-semibold text-gray-900 dark:text-white">Office Order File <span class="text-xs font-normal ml-2 mt-1">( <span class="text-sm font-medium">{{ $officeCount }} / {{ $memberCount }}</span> ) User has been uploaded</span></h3>
-                                                        <h1 class="block mb-3 text-sm font-normal leading-none text-gray-500 dark:text-gray-400">Uploaded on {{ \Carbon\Carbon::parse($mediaLibrary->created_at)->format('M d, y g:i:s A') }}</h1>
-                                                        <a href={{ route('inventory-download-officeorder', $formedia->id) }} type="button" class="inline-flex items-center py-2 px-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-700 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-600">
-                                                            <svg class="w-3 h-3 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z"/><path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>
-                                                            Download
-                                                        </a>
-                                                    </li>
-                                                    @endif
-                                                @endforeach
-                                            @endforeach
-                                            @foreach ($formedia->attendance as $attend)
-                                                @foreach ($attend->medias as $mediaLibrary )
-                                                    @if (!empty($mediaLibrary->collection_name == 'Attendance'))
-                                                    <li class="mb-10 mx-8 ">
-                                                        <span class="absolute flex items-center justify-center w-6 h-6  rounded-full -left-3 ring-8 ring-white dark:ring-gray-700 dark:bg-gray-600">
-                                                            <svg class="w-2.5 h-2.5 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20"><path fill="currentColor" d="M6 1a1 1 0 0 0-2 0h2ZM4 4a1 1 0 0 0 2 0H4Zm7-3a1 1 0 1 0-2 0h2ZM9 4a1 1 0 1 0 2 0H9Zm7-3a1 1 0 1 0-2 0h2Zm-2 3a1 1 0 1 0 2 0h-2ZM1 6a1 1 0 0 0 0 2V6Zm18 2a1 1 0 1 0 0-2v2ZM5 11v-1H4v1h1Zm0 .01H4v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM10 11v-1H9v1h1Zm0 .01H9v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM10 15v-1H9v1h1Zm0 .01H9v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM15 15v-1h-1v1h1Zm0 .01h-1v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM15 11v-1h-1v1h1Zm0 .01h-1v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM5 15v-1H4v1h1Zm0 .01H4v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM2 4h16V2H2v2Zm16 0h2a2 2 0 0 0-2-2v2Zm0 0v14h2V4h-2Zm0 14v2a2 2 0 0 0 2-2h-2Zm0 0H2v2h16v-2ZM2 18H0a2 2 0 0 0 2 2v-2Zm0 0V4H0v14h2ZM2 4V2a2 2 0 0 0-2 2h2Zm2-3v3h2V1H4Zm5 0v3h2V1H9Zm5 0v3h2V1h-2ZM1 8h18V6H1v2Zm3 3v.01h2V11H4Zm1 1.01h.01v-2H5v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H5v2h.01v-2ZM9 11v.01h2V11H9Zm1 1.01h.01v-2H10v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H10v2h.01v-2ZM9 15v.01h2V15H9Zm1 1.01h.01v-2H10v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H10v2h.01v-2ZM14 15v.01h2V15h-2Zm1 1.01h.01v-2H15v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H15v2h.01v-2ZM14 11v.01h2V11h-2Zm1 1.01h.01v-2H15v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H15v2h.01v-2ZM4 15v.01h2V15H4Zm1 1.01h.01v-2H5v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H5v2h.01v-2Z"/></svg>
-                                                        </span>
-                                                        <h3 class="flex items-start mb-1 text-lg font-semibold text-gray-900 dark:text-white">Attendance File <span class="text-xs font-normal ml-2 mt-1">( <span class="text-sm font-medium">{{ $attendanceCount }} / {{ $memberCount }}</span> ) User has been uploaded</span></h3>
-                                                        <h1 class="block mb-3 text-sm font-normal leading-none text-gray-500 dark:text-gray-400">Uploaded on {{ \Carbon\Carbon::parse($mediaLibrary->created_at)->format('M d, y g:i:s A') }}</h1>
-                                                        <a href={{ route('inventory-download-attendance', $formedia->id) }} type="button" class="inline-flex items-center py-2 px-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-700 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-600">
-                                                            <svg class="w-3 h-3 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z"/><path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>
-                                                            Download
-                                                        </a>
-                                                    </li>
-                                                    @endif
-                                                @endforeach
-                                            @endforeach
-                                            @foreach ($formedia->attendancemonitoring as $attendancem)
-                                                @foreach ($attendancem->medias as $mediaLibrary )
-                                                    @if (!empty($mediaLibrary->collection_name == 'AttendanceMonitoring'))
-                                                    <li class="mb-10 mx-8 ">
-                                                        <span class="absolute flex items-center justify-center w-6 h-6  rounded-full -left-3 ring-8 ring-white dark:ring-gray-700 dark:bg-gray-600">
-                                                            <svg class="w-2.5 h-2.5 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20"><path fill="currentColor" d="M6 1a1 1 0 0 0-2 0h2ZM4 4a1 1 0 0 0 2 0H4Zm7-3a1 1 0 1 0-2 0h2ZM9 4a1 1 0 1 0 2 0H9Zm7-3a1 1 0 1 0-2 0h2Zm-2 3a1 1 0 1 0 2 0h-2ZM1 6a1 1 0 0 0 0 2V6Zm18 2a1 1 0 1 0 0-2v2ZM5 11v-1H4v1h1Zm0 .01H4v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM10 11v-1H9v1h1Zm0 .01H9v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM10 15v-1H9v1h1Zm0 .01H9v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM15 15v-1h-1v1h1Zm0 .01h-1v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM15 11v-1h-1v1h1Zm0 .01h-1v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM5 15v-1H4v1h1Zm0 .01H4v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM2 4h16V2H2v2Zm16 0h2a2 2 0 0 0-2-2v2Zm0 0v14h2V4h-2Zm0 14v2a2 2 0 0 0 2-2h-2Zm0 0H2v2h16v-2ZM2 18H0a2 2 0 0 0 2 2v-2Zm0 0V4H0v14h2ZM2 4V2a2 2 0 0 0-2 2h2Zm2-3v3h2V1H4Zm5 0v3h2V1H9Zm5 0v3h2V1h-2ZM1 8h18V6H1v2Zm3 3v.01h2V11H4Zm1 1.01h.01v-2H5v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H5v2h.01v-2ZM9 11v.01h2V11H9Zm1 1.01h.01v-2H10v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H10v2h.01v-2ZM9 15v.01h2V15H9Zm1 1.01h.01v-2H10v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H10v2h.01v-2ZM14 15v.01h2V15h-2Zm1 1.01h.01v-2H15v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H15v2h.01v-2ZM14 11v.01h2V11h-2Zm1 1.01h.01v-2H15v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H15v2h.01v-2ZM4 15v.01h2V15H4Zm1 1.01h.01v-2H5v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H5v2h.01v-2Z"/></svg>
-                                                        </span>
-                                                        <h3 class="flex items-start mb-1 text-lg font-semibold text-gray-900 dark:text-white">Attendance Monitoring File <span class="text-xs font-normal ml-2 mt-1">( <span class="text-sm font-medium">{{ $attendancemCount }} / {{ $memberCount }}</span> ) User has been uploaded</span></h3>
-                                                        <h1 class="block mb-3 text-sm font-normal leading-none text-gray-500 dark:text-gray-400">Uploaded on {{ \Carbon\Carbon::parse($mediaLibrary->created_at)->format('M d, y g:i:s A') }}</h1>
-                                                        <a href={{ route('inventory-download-attendancem', $formedia->id) }} type="button" class="inline-flex items-center py-2 px-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-700 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-600">
-                                                            <svg class="w-3 h-3 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z"/><path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>
-                                                            Download
-                                                        </a>
-                                                    </li>
-                                                    @endif
-                                                @endforeach
+                                            @foreach ($proposalfile->medias as $mediaLibrary )
+                                                @if (!empty($mediaLibrary->collection_name == 'specialOrderPdf'))
+                                                <li class="mb-10 mx-8 ">
+                                                    <span class="absolute flex items-center justify-center w-6 h-6  rounded-full -left-3 ring-8 ring-white dark:ring-gray-700 dark:bg-gray-600">
+                                                        <svg class="w-2.5 h-2.5 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20"><path fill="currentColor" d="M6 1a1 1 0 0 0-2 0h2ZM4 4a1 1 0 0 0 2 0H4Zm7-3a1 1 0 1 0-2 0h2ZM9 4a1 1 0 1 0 2 0H9Zm7-3a1 1 0 1 0-2 0h2Zm-2 3a1 1 0 1 0 2 0h-2ZM1 6a1 1 0 0 0 0 2V6Zm18 2a1 1 0 1 0 0-2v2ZM5 11v-1H4v1h1Zm0 .01H4v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM10 11v-1H9v1h1Zm0 .01H9v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM10 15v-1H9v1h1Zm0 .01H9v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM15 15v-1h-1v1h1Zm0 .01h-1v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM15 11v-1h-1v1h1Zm0 .01h-1v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM5 15v-1H4v1h1Zm0 .01H4v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM2 4h16V2H2v2Zm16 0h2a2 2 0 0 0-2-2v2Zm0 0v14h2V4h-2Zm0 14v2a2 2 0 0 0 2-2h-2Zm0 0H2v2h16v-2ZM2 18H0a2 2 0 0 0 2 2v-2Zm0 0V4H0v14h2ZM2 4V2a2 2 0 0 0-2 2h2Zm2-3v3h2V1H4Zm5 0v3h2V1H9Zm5 0v3h2V1h-2ZM1 8h18V6H1v2Zm3 3v.01h2V11H4Zm1 1.01h.01v-2H5v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H5v2h.01v-2ZM9 11v.01h2V11H9Zm1 1.01h.01v-2H10v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H10v2h.01v-2ZM9 15v.01h2V15H9Zm1 1.01h.01v-2H10v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H10v2h.01v-2ZM14 15v.01h2V15h-2Zm1 1.01h.01v-2H15v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H15v2h.01v-2ZM14 11v.01h2V11h-2Zm1 1.01h.01v-2H15v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H15v2h.01v-2ZM4 15v.01h2V15H4Zm1 1.01h.01v-2H5v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H5v2h.01v-2Z"/></svg>
+                                                    </span>
+                                                    <h3 class="flex items-start mb-1 text-lg font-semibold text-gray-900 dark:text-white">Special Order File  </h3>
+                                                    <h1 class="block mb-3 text-sm font-normal leading-none text-gray-500 dark:text-gray-400">Uploaded on {{ \Carbon\Carbon::parse($mediaLibrary->created_at)->format('M d, y g:i:s A') }}</h1>
+                                                    <a href={{ route('inventory-download-specialorder', $proposalfile->proposal_id) }} type="button" class="inline-flex items-center py-2 px-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-700 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-600">
+                                                        <svg class="w-3 h-3 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z"/><path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>
+                                                        Download
+                                                    </a>
+                                                </li>
+                                                @endif
                                             @endforeach
 
-                                            @foreach ($formedia->narrativereport as $narrative)
-                                                @foreach ($narrative->medias as $mediaLibrary )
-                                                    @if (!empty($mediaLibrary->collection_name == 'NarrativeFile'))
-                                                    <li class="mb-10 mx-8 ">
-                                                        <span class="absolute flex items-center justify-center w-6 h-6  rounded-full -left-3 ring-8 ring-white dark:ring-gray-700 dark:bg-gray-600">
-                                                            <svg class="w-2.5 h-2.5 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20"><path fill="currentColor" d="M6 1a1 1 0 0 0-2 0h2ZM4 4a1 1 0 0 0 2 0H4Zm7-3a1 1 0 1 0-2 0h2ZM9 4a1 1 0 1 0 2 0H9Zm7-3a1 1 0 1 0-2 0h2Zm-2 3a1 1 0 1 0 2 0h-2ZM1 6a1 1 0 0 0 0 2V6Zm18 2a1 1 0 1 0 0-2v2ZM5 11v-1H4v1h1Zm0 .01H4v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM10 11v-1H9v1h1Zm0 .01H9v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM10 15v-1H9v1h1Zm0 .01H9v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM15 15v-1h-1v1h1Zm0 .01h-1v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM15 11v-1h-1v1h1Zm0 .01h-1v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM5 15v-1H4v1h1Zm0 .01H4v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM2 4h16V2H2v2Zm16 0h2a2 2 0 0 0-2-2v2Zm0 0v14h2V4h-2Zm0 14v2a2 2 0 0 0 2-2h-2Zm0 0H2v2h16v-2ZM2 18H0a2 2 0 0 0 2 2v-2Zm0 0V4H0v14h2ZM2 4V2a2 2 0 0 0-2 2h2Zm2-3v3h2V1H4Zm5 0v3h2V1H9Zm5 0v3h2V1h-2ZM1 8h18V6H1v2Zm3 3v.01h2V11H4Zm1 1.01h.01v-2H5v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H5v2h.01v-2ZM9 11v.01h2V11H9Zm1 1.01h.01v-2H10v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H10v2h.01v-2ZM9 15v.01h2V15H9Zm1 1.01h.01v-2H10v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H10v2h.01v-2ZM14 15v.01h2V15h-2Zm1 1.01h.01v-2H15v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H15v2h.01v-2ZM14 11v.01h2V11h-2Zm1 1.01h.01v-2H15v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H15v2h.01v-2ZM4 15v.01h2V15H4Zm1 1.01h.01v-2H5v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H5v2h.01v-2Z"/></svg>
-                                                        </span>
-                                                        <h3 class="flex items-start mb-1 text-lg font-semibold text-gray-900 dark:text-white">Narrative Report File <span class="text-xs font-normal ml-2 mt-1">( <span class="text-sm font-medium">{{ $narrativeCount }} / {{ $memberCount }}</span> ) User has been uploaded</span></h3>
-                                                        <time class="block mb-3 text-sm font-normal leading-none text-gray-500 dark:text-gray-400">Uploaded on {{ \Carbon\Carbon::parse($mediaLibrary->created_at)->format('M d, y g:i:s A') }}</time>
-                                                        <a href={{ route('inventory-download-narrative', $formedia->id) }} type="button" class="inline-flex items-center py-2 px-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-700 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-600">
-                                                            <svg class="w-3 h-3 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z"/><path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>
-                                                            Download
-                                                        </a>
-                                                    </li>
-                                                    @endif
-                                                @endforeach
+
+                                            @foreach ($proposalfile->medias as $mediaLibrary )
+                                                @if (!empty($mediaLibrary->collection_name == 'officeOrderPdf'))
+                                                <li class="mb-10 mx-8 ">
+                                                    <span class="absolute flex items-center justify-center w-6 h-6  rounded-full -left-3 ring-8 ring-white dark:ring-gray-700 dark:bg-gray-600">
+                                                        <svg class="w-2.5 h-2.5 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20"><path fill="currentColor" d="M6 1a1 1 0 0 0-2 0h2ZM4 4a1 1 0 0 0 2 0H4Zm7-3a1 1 0 1 0-2 0h2ZM9 4a1 1 0 1 0 2 0H9Zm7-3a1 1 0 1 0-2 0h2Zm-2 3a1 1 0 1 0 2 0h-2ZM1 6a1 1 0 0 0 0 2V6Zm18 2a1 1 0 1 0 0-2v2ZM5 11v-1H4v1h1Zm0 .01H4v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM10 11v-1H9v1h1Zm0 .01H9v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM10 15v-1H9v1h1Zm0 .01H9v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM15 15v-1h-1v1h1Zm0 .01h-1v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM15 11v-1h-1v1h1Zm0 .01h-1v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM5 15v-1H4v1h1Zm0 .01H4v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM2 4h16V2H2v2Zm16 0h2a2 2 0 0 0-2-2v2Zm0 0v14h2V4h-2Zm0 14v2a2 2 0 0 0 2-2h-2Zm0 0H2v2h16v-2ZM2 18H0a2 2 0 0 0 2 2v-2Zm0 0V4H0v14h2ZM2 4V2a2 2 0 0 0-2 2h2Zm2-3v3h2V1H4Zm5 0v3h2V1H9Zm5 0v3h2V1h-2ZM1 8h18V6H1v2Zm3 3v.01h2V11H4Zm1 1.01h.01v-2H5v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H5v2h.01v-2ZM9 11v.01h2V11H9Zm1 1.01h.01v-2H10v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H10v2h.01v-2ZM9 15v.01h2V15H9Zm1 1.01h.01v-2H10v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H10v2h.01v-2ZM14 15v.01h2V15h-2Zm1 1.01h.01v-2H15v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H15v2h.01v-2ZM14 11v.01h2V11h-2Zm1 1.01h.01v-2H15v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H15v2h.01v-2ZM4 15v.01h2V15H4Zm1 1.01h.01v-2H5v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H5v2h.01v-2Z"/></svg>
+                                                    </span>
+                                                    <h3 class="flex items-start mb-1 text-lg font-semibold text-gray-900 dark:text-white">Office Order File </h3>
+                                                    <h1 class="block mb-3 text-sm font-normal leading-none text-gray-500 dark:text-gray-400">Uploaded on {{ \Carbon\Carbon::parse($mediaLibrary->created_at)->format('M d, y g:i:s A') }}</h1>
+                                                    <a href={{ route('inventory-download-officeorder', $proposalfile->proposal_id) }} type="button" class="inline-flex items-center py-2 px-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-700 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-600">
+                                                        <svg class="w-3 h-3 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z"/><path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>
+                                                        Download
+                                                    </a>
+                                                </li>
+                                                @endif
                                             @endforeach
 
-                                            @foreach ($formedia->terminalreport as $terminal)
-                                                @foreach ($terminal->medias as $mediaLibrary )
-                                                    @if (!empty($mediaLibrary->collection_name == 'TerminalFile'))
-                                                    <li class="mb-10 mx-8 ">
-                                                        <span class="absolute flex items-center justify-center w-6 h-6  rounded-full -left-3 ring-8 ring-white dark:ring-gray-700 dark:bg-gray-600">
-                                                            <svg class="w-2.5 h-2.5 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20"><path fill="currentColor" d="M6 1a1 1 0 0 0-2 0h2ZM4 4a1 1 0 0 0 2 0H4Zm7-3a1 1 0 1 0-2 0h2ZM9 4a1 1 0 1 0 2 0H9Zm7-3a1 1 0 1 0-2 0h2Zm-2 3a1 1 0 1 0 2 0h-2ZM1 6a1 1 0 0 0 0 2V6Zm18 2a1 1 0 1 0 0-2v2ZM5 11v-1H4v1h1Zm0 .01H4v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM10 11v-1H9v1h1Zm0 .01H9v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM10 15v-1H9v1h1Zm0 .01H9v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM15 15v-1h-1v1h1Zm0 .01h-1v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM15 11v-1h-1v1h1Zm0 .01h-1v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM5 15v-1H4v1h1Zm0 .01H4v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM2 4h16V2H2v2Zm16 0h2a2 2 0 0 0-2-2v2Zm0 0v14h2V4h-2Zm0 14v2a2 2 0 0 0 2-2h-2Zm0 0H2v2h16v-2ZM2 18H0a2 2 0 0 0 2 2v-2Zm0 0V4H0v14h2ZM2 4V2a2 2 0 0 0-2 2h2Zm2-3v3h2V1H4Zm5 0v3h2V1H9Zm5 0v3h2V1h-2ZM1 8h18V6H1v2Zm3 3v.01h2V11H4Zm1 1.01h.01v-2H5v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H5v2h.01v-2ZM9 11v.01h2V11H9Zm1 1.01h.01v-2H10v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H10v2h.01v-2ZM9 15v.01h2V15H9Zm1 1.01h.01v-2H10v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H10v2h.01v-2ZM14 15v.01h2V15h-2Zm1 1.01h.01v-2H15v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H15v2h.01v-2ZM14 11v.01h2V11h-2Zm1 1.01h.01v-2H15v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H15v2h.01v-2ZM4 15v.01h2V15H4Zm1 1.01h.01v-2H5v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H5v2h.01v-2Z"/></svg>
-                                                        </span>
-                                                        <h3 class="flex items-start mb-1 text-lg font-semibold text-gray-900 dark:text-white">Terminal Report File <span class="text-xs font-normal ml-2 mt-1">( <span class="text-sm font-medium">{{ $terminalCount }} / {{ $memberCount }}</span> ) User has been uploaded</span></h3>
-                                                        <time class="block mb-3 text-sm font-normal leading-none text-gray-500 dark:text-gray-400">Uploaded on {{ \Carbon\Carbon::parse($mediaLibrary->created_at)->format('M d, y g:i:s A') }} </time>
-                                                        <a href={{ route('inventory-download-terminal', $formedia->id) }}  class="inline-flex items-center py-2 px-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-700 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-600">
-                                                            <svg class="w-3 h-3 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z"/><path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>
-                                                            Download
-                                                        </a>
-                                                    </li>
-                                                    @endif
-                                                @endforeach
+                                            @foreach ($proposalfile->medias as $mediaLibrary )
+                                                @if (!empty($mediaLibrary->collection_name == 'Attendance'))
+                                                <li class="mb-10 mx-8 ">
+                                                    <span class="absolute flex items-center justify-center w-6 h-6  rounded-full -left-3 ring-8 ring-white dark:ring-gray-700 dark:bg-gray-600">
+                                                        <svg class="w-2.5 h-2.5 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20"><path fill="currentColor" d="M6 1a1 1 0 0 0-2 0h2ZM4 4a1 1 0 0 0 2 0H4Zm7-3a1 1 0 1 0-2 0h2ZM9 4a1 1 0 1 0 2 0H9Zm7-3a1 1 0 1 0-2 0h2Zm-2 3a1 1 0 1 0 2 0h-2ZM1 6a1 1 0 0 0 0 2V6Zm18 2a1 1 0 1 0 0-2v2ZM5 11v-1H4v1h1Zm0 .01H4v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM10 11v-1H9v1h1Zm0 .01H9v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM10 15v-1H9v1h1Zm0 .01H9v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM15 15v-1h-1v1h1Zm0 .01h-1v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM15 11v-1h-1v1h1Zm0 .01h-1v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM5 15v-1H4v1h1Zm0 .01H4v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM2 4h16V2H2v2Zm16 0h2a2 2 0 0 0-2-2v2Zm0 0v14h2V4h-2Zm0 14v2a2 2 0 0 0 2-2h-2Zm0 0H2v2h16v-2ZM2 18H0a2 2 0 0 0 2 2v-2Zm0 0V4H0v14h2ZM2 4V2a2 2 0 0 0-2 2h2Zm2-3v3h2V1H4Zm5 0v3h2V1H9Zm5 0v3h2V1h-2ZM1 8h18V6H1v2Zm3 3v.01h2V11H4Zm1 1.01h.01v-2H5v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H5v2h.01v-2ZM9 11v.01h2V11H9Zm1 1.01h.01v-2H10v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H10v2h.01v-2ZM9 15v.01h2V15H9Zm1 1.01h.01v-2H10v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H10v2h.01v-2ZM14 15v.01h2V15h-2Zm1 1.01h.01v-2H15v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H15v2h.01v-2ZM14 11v.01h2V11h-2Zm1 1.01h.01v-2H15v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H15v2h.01v-2ZM4 15v.01h2V15H4Zm1 1.01h.01v-2H5v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H5v2h.01v-2Z"/></svg>
+                                                    </span>
+                                                    <h3 class="flex items-start mb-1 text-lg font-semibold text-gray-900 dark:text-white">Attendance File </h3>
+                                                    <h1 class="block mb-3 text-sm font-normal leading-none text-gray-500 dark:text-gray-400">Uploaded on {{ \Carbon\Carbon::parse($mediaLibrary->created_at)->format('M d, y g:i:s A') }}</h1>
+                                                    <a href={{ route('inventory-download-attendance', $proposalfile->proposal_id) }} type="button" class="inline-flex items-center py-2 px-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-700 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-600">
+                                                        <svg class="w-3 h-3 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z"/><path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>
+                                                        Download
+                                                    </a>
+                                                </li>
+                                                @endif
                                             @endforeach
+
+
+                                            @foreach ($proposalfile->medias as $mediaLibrary )
+                                                @if (!empty($mediaLibrary->collection_name == 'AttendanceMonitoring'))
+                                                <li class="mb-10 mx-8 ">
+                                                    <span class="absolute flex items-center justify-center w-6 h-6  rounded-full -left-3 ring-8 ring-white dark:ring-gray-700 dark:bg-gray-600">
+                                                        <svg class="w-2.5 h-2.5 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20"><path fill="currentColor" d="M6 1a1 1 0 0 0-2 0h2ZM4 4a1 1 0 0 0 2 0H4Zm7-3a1 1 0 1 0-2 0h2ZM9 4a1 1 0 1 0 2 0H9Zm7-3a1 1 0 1 0-2 0h2Zm-2 3a1 1 0 1 0 2 0h-2ZM1 6a1 1 0 0 0 0 2V6Zm18 2a1 1 0 1 0 0-2v2ZM5 11v-1H4v1h1Zm0 .01H4v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM10 11v-1H9v1h1Zm0 .01H9v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM10 15v-1H9v1h1Zm0 .01H9v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM15 15v-1h-1v1h1Zm0 .01h-1v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM15 11v-1h-1v1h1Zm0 .01h-1v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM5 15v-1H4v1h1Zm0 .01H4v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM2 4h16V2H2v2Zm16 0h2a2 2 0 0 0-2-2v2Zm0 0v14h2V4h-2Zm0 14v2a2 2 0 0 0 2-2h-2Zm0 0H2v2h16v-2ZM2 18H0a2 2 0 0 0 2 2v-2Zm0 0V4H0v14h2ZM2 4V2a2 2 0 0 0-2 2h2Zm2-3v3h2V1H4Zm5 0v3h2V1H9Zm5 0v3h2V1h-2ZM1 8h18V6H1v2Zm3 3v.01h2V11H4Zm1 1.01h.01v-2H5v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H5v2h.01v-2ZM9 11v.01h2V11H9Zm1 1.01h.01v-2H10v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H10v2h.01v-2ZM9 15v.01h2V15H9Zm1 1.01h.01v-2H10v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H10v2h.01v-2ZM14 15v.01h2V15h-2Zm1 1.01h.01v-2H15v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H15v2h.01v-2ZM14 11v.01h2V11h-2Zm1 1.01h.01v-2H15v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H15v2h.01v-2ZM4 15v.01h2V15H4Zm1 1.01h.01v-2H5v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H5v2h.01v-2Z"/></svg>
+                                                    </span>
+                                                    <h3 class="flex items-start mb-1 text-lg font-semibold text-gray-900 dark:text-white">Attendance Monitoring File </h3>
+                                                    <h1 class="block mb-3 text-sm font-normal leading-none text-gray-500 dark:text-gray-400">Uploaded on {{ \Carbon\Carbon::parse($mediaLibrary->created_at)->format('M d, y g:i:s A') }}</h1>
+                                                    <a href={{ route('inventory-download-attendancem', $proposalfile->proposal_id) }} type="button" class="inline-flex items-center py-2 px-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-700 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-600">
+                                                        <svg class="w-3 h-3 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z"/><path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>
+                                                        Download
+                                                    </a>
+                                                </li>
+                                                @endif
+                                            @endforeach
+
+
+                                            @foreach ($proposalfile->medias as $mediaLibrary )
+                                                @if (!empty($mediaLibrary->collection_name == 'NarrativeFile'))
+                                                <li class="mb-10 mx-8 ">
+                                                    <span class="absolute flex items-center justify-center w-6 h-6  rounded-full -left-3 ring-8 ring-white dark:ring-gray-700 dark:bg-gray-600">
+                                                        <svg class="w-2.5 h-2.5 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20"><path fill="currentColor" d="M6 1a1 1 0 0 0-2 0h2ZM4 4a1 1 0 0 0 2 0H4Zm7-3a1 1 0 1 0-2 0h2ZM9 4a1 1 0 1 0 2 0H9Zm7-3a1 1 0 1 0-2 0h2Zm-2 3a1 1 0 1 0 2 0h-2ZM1 6a1 1 0 0 0 0 2V6Zm18 2a1 1 0 1 0 0-2v2ZM5 11v-1H4v1h1Zm0 .01H4v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM10 11v-1H9v1h1Zm0 .01H9v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM10 15v-1H9v1h1Zm0 .01H9v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM15 15v-1h-1v1h1Zm0 .01h-1v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM15 11v-1h-1v1h1Zm0 .01h-1v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM5 15v-1H4v1h1Zm0 .01H4v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM2 4h16V2H2v2Zm16 0h2a2 2 0 0 0-2-2v2Zm0 0v14h2V4h-2Zm0 14v2a2 2 0 0 0 2-2h-2Zm0 0H2v2h16v-2ZM2 18H0a2 2 0 0 0 2 2v-2Zm0 0V4H0v14h2ZM2 4V2a2 2 0 0 0-2 2h2Zm2-3v3h2V1H4Zm5 0v3h2V1H9Zm5 0v3h2V1h-2ZM1 8h18V6H1v2Zm3 3v.01h2V11H4Zm1 1.01h.01v-2H5v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H5v2h.01v-2ZM9 11v.01h2V11H9Zm1 1.01h.01v-2H10v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H10v2h.01v-2ZM9 15v.01h2V15H9Zm1 1.01h.01v-2H10v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H10v2h.01v-2ZM14 15v.01h2V15h-2Zm1 1.01h.01v-2H15v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H15v2h.01v-2ZM14 11v.01h2V11h-2Zm1 1.01h.01v-2H15v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H15v2h.01v-2ZM4 15v.01h2V15H4Zm1 1.01h.01v-2H5v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H5v2h.01v-2Z"/></svg>
+                                                    </span>
+                                                    <h3 class="flex items-start mb-1 text-lg font-semibold text-gray-900 dark:text-white">Narrative Report File  </h3>
+                                                    <h1 class="block mb-3 text-sm font-normal leading-none text-gray-500 dark:text-gray-400">Uploaded on {{ \Carbon\Carbon::parse($mediaLibrary->created_at)->format('M d, y g:i:s A') }}</h1>
+                                                    <a href={{ route('inventory-download-narrative', $proposalfile->proposal_id) }} type="button" class="inline-flex items-center py-2 px-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-700 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-600">
+                                                        <svg class="w-3 h-3 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z"/><path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>
+                                                        Download
+                                                    </a>
+                                                </li>
+                                                @endif
+                                            @endforeach
+
+
+                                            @foreach ($proposalfile->medias as $mediaLibrary )
+                                                @if (!empty($mediaLibrary->collection_name == 'TerminalFile'))
+                                                <li class="mb-10 mx-8 ">
+                                                    <span class="absolute flex items-center justify-center w-6 h-6  rounded-full -left-3 ring-8 ring-white dark:ring-gray-700 dark:bg-gray-600">
+                                                        <svg class="w-2.5 h-2.5 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20"><path fill="currentColor" d="M6 1a1 1 0 0 0-2 0h2ZM4 4a1 1 0 0 0 2 0H4Zm7-3a1 1 0 1 0-2 0h2ZM9 4a1 1 0 1 0 2 0H9Zm7-3a1 1 0 1 0-2 0h2Zm-2 3a1 1 0 1 0 2 0h-2ZM1 6a1 1 0 0 0 0 2V6Zm18 2a1 1 0 1 0 0-2v2ZM5 11v-1H4v1h1Zm0 .01H4v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM10 11v-1H9v1h1Zm0 .01H9v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM10 15v-1H9v1h1Zm0 .01H9v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM15 15v-1h-1v1h1Zm0 .01h-1v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM15 11v-1h-1v1h1Zm0 .01h-1v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM5 15v-1H4v1h1Zm0 .01H4v1h1v-1Zm.01 0v1h1v-1h-1Zm0-.01h1v-1h-1v1ZM2 4h16V2H2v2Zm16 0h2a2 2 0 0 0-2-2v2Zm0 0v14h2V4h-2Zm0 14v2a2 2 0 0 0 2-2h-2Zm0 0H2v2h16v-2ZM2 18H0a2 2 0 0 0 2 2v-2Zm0 0V4H0v14h2ZM2 4V2a2 2 0 0 0-2 2h2Zm2-3v3h2V1H4Zm5 0v3h2V1H9Zm5 0v3h2V1h-2ZM1 8h18V6H1v2Zm3 3v.01h2V11H4Zm1 1.01h.01v-2H5v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H5v2h.01v-2ZM9 11v.01h2V11H9Zm1 1.01h.01v-2H10v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H10v2h.01v-2ZM9 15v.01h2V15H9Zm1 1.01h.01v-2H10v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H10v2h.01v-2ZM14 15v.01h2V15h-2Zm1 1.01h.01v-2H15v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H15v2h.01v-2ZM14 11v.01h2V11h-2Zm1 1.01h.01v-2H15v2Zm1.01-1V11h-2v.01h2Zm-1-1.01H15v2h.01v-2ZM4 15v.01h2V15H4Zm1 1.01h.01v-2H5v2Zm1.01-1V15h-2v.01h2Zm-1-1.01H5v2h.01v-2Z"/></svg>
+                                                    </span>
+                                                    <h3 class="flex items-start mb-1 text-lg font-semibold text-gray-900 dark:text-white">Terminal Report File </h3>
+                                                    <h1 class="block mb-3 text-sm font-normal leading-none text-gray-500 dark:text-gray-400">Uploaded on {{ \Carbon\Carbon::parse($mediaLibrary->created_at)->format('M d, y g:i:s A') }} </h1>
+                                                    <a href={{ route('inventory-download-terminal', $proposalfile->proposal_id) }}  class="inline-flex items-center py-2 px-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-700 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-600">
+                                                        <svg class="w-3 h-3 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z"/><path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>
+                                                        Download
+                                                    </a>
+                                                </li>
+                                                @endif
+                                            @endforeach
+                                        @endforeach
                                         </ul>
                                     </div>
                                 </div>
@@ -831,7 +826,7 @@
                                         </a>
                                         <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="bg-white border w-full border-blue-600 rounded-xl text-blue-600 2xl:text-xs text-xs space-x-2 flex p-2 hover:bg-blue-600 hover:text-white" type="button">
                                             <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 32 32"><path fill="currentColor" d="M12 12h2v12h-2zm6 0h2v12h-2z"/><path fill="currentColor" d="M4 6v2h2v20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8h2V6zm4 22V8h16v20zm4-26h8v2h-8z"/></svg>
-                                                Delete this Project
+                                                Trash this Project
                                         </button>
                                         <button data-modal-target="modal-track-documents" data-modal-toggle="modal-track-documents" class="px-2 py-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 text-xs xl:text-[.8rem] 2xl:text-xs xl:text-xs space-x-2 flex hover:bg-blue-600 hover:text-white" type="button">
                                             <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 256 256"><path fill="currentColor" d="M88 112a8 8 0 0 1 8-8h80a8 8 0 0 1 0 16H96a8 8 0 0 1-8-8m8 40h80a8 8 0 0 0 0-16H96a8 8 0 0 0 0 16m136-88v120a24 24 0 0 1-24 24H32a24 24 0 0 1-24-23.89V88a8 8 0 0 1 16 0v96a8 8 0 0 0 16 0V64a16 16 0 0 1 16-16h160a16 16 0 0 1 16 16m-16 0H56v120a23.84 23.84 0 0 1-1.37 8H208a8 8 0 0 0 8-8Z"/></svg>
@@ -1001,7 +996,7 @@
                                                         <button data-modal-target="detail-project-media-modal{{ $mediaLibrary->id }}" data-modal-toggle="detail-project-media-modal{{ $mediaLibrary->id }}" class="text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left" type="button">Details</button>
                                                         <button class="text-xs px-2 hover:bg-gray-200 w-full text-left" type="button" @click="showModal = true">Rename</button>
                                                         <a href={{ url('download-media', $mediaLibrary->id) }} class="block text-xs px-2 hover:text-black hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
-                                                        <button class="deleteAllButton block text-slate-800 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="submit" id="deleteAllButton">Delete</button>
+                                                        <button class="deleteAllButton block text-slate-800 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="submit" id="deleteAllButton">Move to Trash</button>
 
                                                     </div>
                                                 </div>
@@ -1011,40 +1006,43 @@
                                 @endif
                                 @endforeach
 
-                                @if ($proposals->travelorder->isNotEmpty())
 
-                                    <div class="w-[10rem] sm:w-[10rem] xl:w-[10rem] xl:h-[17vh] 2xl:h-[12vh] bg-white  shadow-md rounded-lg hover:bg-slate-100 transition-all m-2 relative" id="travelorder">
+                                @foreach($uniqueProposalFiles as $proposalfile)
+                                    @if (($proposalfile->document_type == 'travelorder') != null)
+                                        <div class="w-[10rem] sm:w-[10rem] xl:w-[10rem] xl:h-[17vh] 2xl:h-[12vh] bg-white  shadow-md rounded-lg hover:bg-slate-100 transition-all m-2 relative" id="travelorder">
 
-                                        <!-- Modal toggle -->
-                                        <button data-modal-target="default-modal-travelorder" data-modal-toggle="default-modal-travelorder" class="text-sm p-4 text-center h-full flex flex-col space-y-4 items-center w-full" type="button">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 32 32"><g fill="none"><path fill="#FFB02E" d="m15.385 7.39l-2.477-2.475A3.121 3.121 0 0 0 10.698 4H4.126A2.125 2.125 0 0 0 2 6.125V13.5h28v-3.363a2.125 2.125 0 0 0-2.125-2.125H16.888a2.126 2.126 0 0 1-1.503-.621"/><path fill="#FCD53F" d="M27.875 30H4.125A2.118 2.118 0 0 1 2 27.888V13.112C2 11.945 2.951 11 4.125 11h23.75c1.174 0 2.125.945 2.125 2.112v14.776A2.118 2.118 0 0 1 27.875 30"/></g></svg>
-                                            <span class="text-xs mt-4">Travel Order</span>
-                                        </button>
+                                            <!-- Modal toggle -->
+                                            <button data-modal-target="default-modal-travelorder" data-modal-toggle="default-modal-travelorder" class="text-sm p-4 text-center h-full flex flex-col space-y-4 items-center w-full" type="button">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 32 32"><g fill="none"><path fill="#FFB02E" d="m15.385 7.39l-2.477-2.475A3.121 3.121 0 0 0 10.698 4H4.126A2.125 2.125 0 0 0 2 6.125V13.5h28v-3.363a2.125 2.125 0 0 0-2.125-2.125H16.888a2.126 2.126 0 0 1-1.503-.621"/><path fill="#FCD53F" d="M27.875 30H4.125A2.118 2.118 0 0 1 2 27.888V13.112C2 11.945 2.951 11 4.125 11h23.75c1.174 0 2.125.945 2.125 2.112v14.776A2.118 2.118 0 0 1 27.875 30"/></g></svg>
+                                                <span class="text-xs mt-4">Travel Order Folder</span>
+                                            </button>
 
-                                        <!-- Main modal -->
-                                        <div id="default-modal-travelorder" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                                            <div class="relative p-4 w-full max-w-5xl h-[80%]">
-                                                <!-- Modal content -->
-                                                <div class="relative bg-white rounded-lg shadow h-full overflow-x-auto">
-                                                    <!-- Modal header -->
-                                                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t z-10 sticky top-0 bg-white">
-                                                        <h3 class="text-xl font-semibold text-gray-600">
-                                                           Travel Order
-                                                        </h3>
-                                                        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal-travelorder">
-                                                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                                                            </svg>
-                                                            <span class="sr-only">Close modal</span>
-                                                        </button>
-                                                    </div>
-                                                    <!-- Modal body -->
-                                                    <div class="p-4 grid grid-cols-3 gap-3">
-                                                       @foreach ($proposals->travelorder as $travel )
-                                                           @foreach ($travel->medias as $media )
-                                                                <div data-tooltip-target="tooltip-proposal" type="button" class="w-full shadow rounded-lg transition-all  relative" id="">
+                                            <!-- Main modal -->
+                                            <div id="default-modal-travelorder" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                                <div class="relative p-4 w-full max-w-5xl h-[80%]">
+                                                    <!-- Modal content -->
+                                                    <div class="relative bg-white rounded-lg shadow h-full overflow-x-auto">
+                                                        <!-- Modal header -->
+                                                        <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t z-10 sticky top-0 bg-white">
+                                                            <h3 class="text-xl font-semibold text-gray-600">
+                                                            Travel Order Folder
+                                                            </h3>
+                                                            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal-travelorder">
+                                                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                                                </svg>
+                                                                <span class="sr-only">Close modal</span>
+                                                            </button>
+                                                        </div>
+                                                        <!-- Modal body -->
+                                                        <div class="p-4 grid grid-cols-3 gap-3">
+                                                            @foreach($proposals->proposalfiles as $propos)
+                                                            @foreach ($propos->medias as $media)
+                                                            @if ($media->collection_name == 'travelOrderPdf')
+
+                                                            <div data-tooltip-target="tooltip-proposal" type="button" class="w-full shadow rounded-lg transition-all  relative" id="">
                                                                     <!-- Modal toggle -->
-                                                                    <button data-modal-target="travelorder-media-modal{{ $media->id}}" data-modal-toggle="travelorder-media-modal{{ $media->id}}"  class="space-x-2 p-4 flex bg-gray-100 hover:bg-gray-200 justify-start items-center rounded w-full" type="button">
+                                                                <button data-modal-target="travelorder-media-modal{{ $media->id}}" data-modal-toggle="travelorder-media-modal{{ $media->id}}"  class="space-x-2 p-4 flex bg-gray-100 hover:bg-gray-200 justify-start items-center rounded w-full" type="button">
                                                                         @if ($media->mime_type == 'image/jpeg' || $media->mime_type == 'image/png' || $media->mime_type == 'image/jpg')
                                                                             <img src="{{asset('img/image-icon.png') }}" class="xl:w-[2.5rem] w-[3rem]" width="30">
                                                                         @elseif ($media->mime_type == 'text/plain')
@@ -1055,8 +1053,7 @@
                                                                             <img src="{{asset('img/pdf.png')}}" class="xl:w-[2.5rem] w-[3rem]" width="30">
                                                                         @endif
                                                                         <span class="text-xs">{{ Str::limit($media->file_name, 25) }}</span>
-                                                                    </button>
-
+                                                                </button>
                                                                     <div x-cloak  x-data="{ 'showModalTravelOrder{{ $media->id }}': false }" @keydown.escape="showModalTravelOrder{{ $media->id }} = false" class="absolute right-0 top-1 ">
                                                                         <!-- Detail modal -->
                                                                         <div id="detail-travelorder-modal{{ $media->id }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0  left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -1089,13 +1086,17 @@
                                                                                         <p class="text-sm leading-relaxed text-white">
                                                                                             File size: {{ $media->size }} kb
                                                                                         </p>
+
                                                                                         <p class="text-sm leading-relaxed text-white">
                                                                                             File type: {{ $media->mime_type }}
                                                                                         </p>
+
                                                                                         <p class="text-sm leading-relaxed text-white">
-                                                                                            Username uploader: {{ $travel->users->name }}
+                                                                                            Username uploader: {{ $propos->users->name }}
                                                                                         </p>
+
                                                                                     </div>
+
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -1152,7 +1153,7 @@
                                                                                     <button data-modal-target="detail-travelorder-modal{{ $media->id }}" data-modal-toggle="detail-travelorder-modal{{ $media->id }}" class="text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left" type="button">Details</button>
                                                                                     <button class="text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left" type="button" @click="showModal = true">Rename</button>
                                                                                     <a href={{ url('download-media', $media->id) }} class="block text-xs px-2 hover:text-black text-gray-700 hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
-                                                                                    <form action={{ route('report-travelorder.delete',[ 'id' => $media->id, 'travelOrderId' => $travel->id]) }} method="POST" enctype="multipart/form-data" onsubmit="return confirm ('Are you sure?')" >
+                                                                                    <form action={{ route('report-travelorder.trash',[ 'id' => $media->id, 'travelOrderId' => $proposalfile->id]) }} method="POST" enctype="multipart/form-data" onsubmit="return confirm ('Are you sure?')" >
                                                                                         @csrf
                                                                                         @method('DELETE')
                                                                                         <button class="block text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="submit">Delete</button>
@@ -1160,7 +1161,6 @@
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-
                                                                     </div>
                                                                 </div>
 
@@ -1197,1366 +1197,1413 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                           @endforeach
-                                                       @endforeach
+                                                                @endif
+                                                                @endforeach
+                                                            @endforeach
+
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <div data-tooltip-target="tooltip-travelorder" type="button">
-                                            <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = false" class="absolute right-0 top-1 ">
+                                            <div data-tooltip-target="tooltip-travelorder" type="button">
+                                                <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = false" class="absolute right-0 top-1 ">
 
-                                                <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0">
-                                                    <!-- Dropdown toggle button -->
-                                                    <button @click="dropdownMenu = ! dropdownMenu" class="tooltipButton  flex items-center p-2 rounded-md" style="display: block">
-                                                        <svg class=" absolute hover:fill-blue-500 top-2 right-0 fill-slate-700" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z"/></svg>
-                                                    </button>
-                                                    <!-- Dropdown list -->
-                                                    <div x-show="dropdownMenu" class="z-50 absolute right-[-5] py-2 mt-2 bg-white rounded-md shadow-xl w-32 space-y-2" x-on:keydown.escape.window="dropdownMenu = false"  @click.away="dropdownMenu = false" @click="dropdownMenu = ! dropdownMenu"
-                                                        x-transition:enter="motion-safe:ease-out duration-100" x-transition:enter-start="opacity-0 scale-90"
-                                                        x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-200"
-                                                        x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
-                                                        x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
-
-                                                        <a href={{ route('inventory-download-travelorder', $proposals->id) }} class="block text-xs px-2 hover:text-black hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endif
-
-                                @if ($proposals->specialorder->isNotEmpty())
-
-                                    <div class="w-[10rem] sm:w-[10rem] xl:w-[10rem] xl:h-[17vh] 2xl:h-[12vh] bg-white  shadow-md rounded-lg hover:bg-slate-100 transition-all m-2 relative" id="specialorder">
-
-                                        <!-- Modal toggle -->
-                                        <button data-modal-target="default-modal-specialorder" data-modal-toggle="default-modal-specialorder" class="text-sm p-4 text-center h-full flex flex-col space-y-4 items-center w-full" type="button">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 32 32"><g fill="none"><path fill="#FFB02E" d="m15.385 7.39l-2.477-2.475A3.121 3.121 0 0 0 10.698 4H4.126A2.125 2.125 0 0 0 2 6.125V13.5h28v-3.363a2.125 2.125 0 0 0-2.125-2.125H16.888a2.126 2.126 0 0 1-1.503-.621"/><path fill="#FCD53F" d="M27.875 30H4.125A2.118 2.118 0 0 1 2 27.888V13.112C2 11.945 2.951 11 4.125 11h23.75c1.174 0 2.125.945 2.125 2.112v14.776A2.118 2.118 0 0 1 27.875 30"/></g></svg>
-                                            <span class="text-xs mt-4">Special Order</span>
-                                        </button>
-
-                                        <!-- Main modal -->
-                                        <div id="default-modal-specialorder" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                                            <div class="relative p-4 w-full max-w-5xl h-[80%]">
-                                                <!-- Modal content -->
-                                                <div class="relative bg-white rounded-lg shadow h-full overflow-x-auto">
-                                                    <!-- Modal header -->
-                                                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t z-10 sticky top-0 bg-white">
-                                                        <h3 class="text-xl font-semibold text-gray-600">
-                                                            Special Order
-                                                        </h3>
-                                                        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal-specialorder">
-                                                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                                                            </svg>
-                                                            <span class="sr-only">Close modal</span>
+                                                    <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0">
+                                                        <!-- Dropdown toggle button -->
+                                                        <button @click="dropdownMenu = ! dropdownMenu" class="tooltipButton  flex items-center p-2 rounded-md" style="display: block">
+                                                            <svg class=" absolute hover:fill-blue-500 top-2 right-0 fill-slate-700" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z"/></svg>
                                                         </button>
-                                                    </div>
-                                                    <!-- Modal body -->
-                                                    <div class="p-4 grid grid-cols-3 gap-3">
-                                                    @foreach ($proposals->specialorder as $special )
-                                                        @foreach ($special->medias as $media )
+                                                        <!-- Dropdown list -->
+                                                        <div x-show="dropdownMenu" class="z-50 absolute right-[-5] py-2 mt-2 bg-white rounded-md shadow-xl w-32 space-y-2" x-on:keydown.escape.window="dropdownMenu = false"  @click.away="dropdownMenu = false" @click="dropdownMenu = ! dropdownMenu"
+                                                            x-transition:enter="motion-safe:ease-out duration-100" x-transition:enter-start="opacity-0 scale-90"
+                                                            x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-200"
+                                                            x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                                                            x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
 
-                                                        <div data-tooltip-target="tooltip-proposal" type="button" class="w-full shadow rounded-lg transition-all  relative" id="">
-                                                                <!-- Modal toggle -->
-                                                            <button data-modal-target="specialorder-media-modal{{ $media->id}}" data-modal-toggle="specialorder-media-modal{{ $media->id}}"  class="space-x-2 p-4 flex bg-gray-100 hover:bg-gray-200 justify-start items-center rounded w-full" type="button">
-                                                                    @if ($media->mime_type == 'image/jpeg' || $media->mime_type == 'image/png' || $media->mime_type == 'image/jpg')
-                                                                        <img src="{{asset('img/image-icon.png') }}" class="xl:w-[2.5rem] w-[3rem]" width="30">
-                                                                    @elseif ($media->mime_type == 'text/plain')
-                                                                        <img src="{{asset('img/text-document.png') }}" class="xl:w-[2.5rem] w-[3rem]" width="30">
-                                                                    @elseif ($media->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-                                                                        <img src="{{asset('img/docx.png')}}" class="xl:w-[2.5rem] w-[3rem]" width="30">
-                                                                    @else
-                                                                        <img src="{{asset('img/pdf.png')}}" class="xl:w-[2.5rem] w-[3rem]" width="30">
-                                                                    @endif
-                                                                    <span class="text-xs">{{ Str::limit($media->file_name, 25) }}</span>
+                                                            <a href={{ route('inventory-download-travelorder', $proposals->id) }} class="block text-xs px-2 hover:text-black hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+
+                                    @if (($proposalfile->document_type == 'specialorder') != null)
+                                        <div class="w-[10rem] sm:w-[10rem] xl:w-[10rem] xl:h-[17vh] 2xl:h-[12vh] bg-white  shadow-md rounded-lg hover:bg-slate-100 transition-all m-2 relative" id="specialorder">
+
+                                            <!-- Modal toggle -->
+                                            <button data-modal-target="default-modal-specialorder" data-modal-toggle="default-modal-specialorder" class="text-sm p-4 text-center h-full flex flex-col space-y-4 items-center w-full" type="button">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 32 32"><g fill="none"><path fill="#FFB02E" d="m15.385 7.39l-2.477-2.475A3.121 3.121 0 0 0 10.698 4H4.126A2.125 2.125 0 0 0 2 6.125V13.5h28v-3.363a2.125 2.125 0 0 0-2.125-2.125H16.888a2.126 2.126 0 0 1-1.503-.621"/><path fill="#FCD53F" d="M27.875 30H4.125A2.118 2.118 0 0 1 2 27.888V13.112C2 11.945 2.951 11 4.125 11h23.75c1.174 0 2.125.945 2.125 2.112v14.776A2.118 2.118 0 0 1 27.875 30"/></g></svg>
+                                                <span class="text-xs mt-4">Special Order Folder</span>
+                                            </button>
+
+                                            <!-- Main modal -->
+                                            <div id="default-modal-specialorder" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                                <div class="relative p-4 w-full max-w-5xl h-[80%]">
+                                                    <!-- Modal content -->
+                                                    <div class="relative bg-white rounded-lg shadow h-full overflow-x-auto">
+                                                        <!-- Modal header -->
+                                                        <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t z-10 sticky top-0 bg-white">
+                                                            <h3 class="text-xl font-semibold text-gray-600">
+                                                                Special Order Folder
+                                                            </h3>
+                                                            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal-specialorder">
+                                                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                                                </svg>
+                                                                <span class="sr-only">Close modal</span>
                                                             </button>
-                                                                <div x-cloak  x-data="{ 'showModalSpecialOrder{{ $media->id }}': false }" @keydown.escape="showModalSpecialOrder{{ $media->id }} = false" class="absolute right-0 top-1 ">
-                                                                    <!-- Detail modal -->
-                                                                    <div id="detail-specialorder-modal{{ $media->id }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0  left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                                                                        <div class="relative p-4 w-full max-w-2xl max-h-full bg-opacity-0">
-                                                                            <!-- Modal content -->
-                                                                            <div class="relative bg-gray-700 rounded-lg shadow">
-                                                                                <!-- Modal header -->
-                                                                                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
-                                                                                    <h3 class="text-xl font-semibold text-white">
-                                                                                        Details
-                                                                                    </h3>
-                                                                                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="detail-specialorder-modal{{ $media->id }}">
-                                                                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                                                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                                                                                        </svg>
-                                                                                        <span class="sr-only">Close modal</span>
-                                                                                    </button>
+                                                        </div>
+                                                        <!-- Modal body -->
+                                                        <div class="p-4 grid grid-cols-3 gap-3">
+                                                            @foreach($proposals->proposalfiles as $propos)
+                                                            @foreach ($propos->medias as $media)
+                                                            @if ($media->collection_name == 'specialOrderPdf')
+
+                                                            <div data-tooltip-target="tooltip-proposal" type="button" class="w-full shadow rounded-lg transition-all  relative" id="">
+                                                                    <!-- Modal toggle -->
+                                                                <button data-modal-target="specialorder-media-modal{{ $media->id}}" data-modal-toggle="specialorder-media-modal{{ $media->id}}"  class="space-x-2 p-4 flex bg-gray-100 hover:bg-gray-200 justify-start items-center rounded w-full" type="button">
+                                                                        @if ($media->mime_type == 'image/jpeg' || $media->mime_type == 'image/png' || $media->mime_type == 'image/jpg')
+                                                                            <img src="{{asset('img/image-icon.png') }}" class="xl:w-[2.5rem] w-[3rem]" width="30">
+                                                                        @elseif ($media->mime_type == 'text/plain')
+                                                                            <img src="{{asset('img/text-document.png') }}" class="xl:w-[2.5rem] w-[3rem]" width="30">
+                                                                        @elseif ($media->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+                                                                            <img src="{{asset('img/docx.png')}}" class="xl:w-[2.5rem] w-[3rem]" width="30">
+                                                                        @else
+                                                                            <img src="{{asset('img/pdf.png')}}" class="xl:w-[2.5rem] w-[3rem]" width="30">
+                                                                        @endif
+                                                                        <span class="text-xs">{{ Str::limit($media->file_name, 25) }}</span>
+                                                                </button>
+                                                                    <div x-cloak  x-data="{ 'showModalSpecialOrder{{ $media->id }}': false }" @keydown.escape="showModalSpecialOrder{{ $media->id }} = false" class="absolute right-0 top-1 ">
+                                                                        <!-- Detail modal -->
+                                                                        <div id="detail-specialorder-modal{{ $media->id }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0  left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                                                            <div class="relative p-4 w-full max-w-2xl max-h-full bg-opacity-0">
+                                                                                <!-- Modal content -->
+                                                                                <div class="relative bg-gray-700 rounded-lg shadow">
+                                                                                    <!-- Modal header -->
+                                                                                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+                                                                                        <h3 class="text-xl font-semibold text-white">
+                                                                                            Details
+                                                                                        </h3>
+                                                                                        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="detail-specialorder-modal{{ $media->id }}">
+                                                                                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                                                                            </svg>
+                                                                                            <span class="sr-only">Close modal</span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <!-- Modal body -->
+                                                                                    <div class="p-4 md:p-5 space-y-2">
+                                                                                        <p class="text-sm leading-relaxed text-white">
+                                                                                            Uploaded at: {{ \Carbon\Carbon::parse($media->created_at)->format('M d, y g:i:s A') }}
+                                                                                        </p>
+                                                                                        <p class="text-sm leading-relaxed text-white">
+                                                                                            Report Type: Special Order
+                                                                                        </p>
+                                                                                        <p class="text-sm leading-relaxed text-white">
+                                                                                            File name: {{ $media->file_name }}
+                                                                                        </p>
+                                                                                        <p class="text-sm leading-relaxed text-white">
+                                                                                            File size: {{ $media->size }} kb
+                                                                                        </p>
+
+                                                                                        <p class="text-sm leading-relaxed text-white">
+                                                                                            File type: {{ $media->mime_type }}
+                                                                                        </p>
+
+                                                                                        <p class="text-sm leading-relaxed text-white">
+                                                                                            Username uploader: {{ $propos->users->name }}
+                                                                                        </p>
+
+                                                                                    </div>
+
                                                                                 </div>
-                                                                                <!-- Modal body -->
-                                                                                <div class="p-4 md:p-5 space-y-2">
-                                                                                    <p class="text-sm leading-relaxed text-white">
-                                                                                        Uploaded at: {{ \Carbon\Carbon::parse($media->created_at)->format('M d, y g:i:s A') }}
-                                                                                    </p>
-                                                                                    <p class="text-sm leading-relaxed text-white">
-                                                                                        Report Type: Special Order
-                                                                                    </p>
-                                                                                    <p class="text-sm leading-relaxed text-white">
-                                                                                        File name: {{ $media->file_name }}
-                                                                                    </p>
-                                                                                    <p class="text-sm leading-relaxed text-white">
-                                                                                        File size: {{ $media->size }} kb
-                                                                                    </p>
-
-                                                                                    <p class="text-sm leading-relaxed text-white">
-                                                                                        File type: {{ $media->mime_type }}
-                                                                                    </p>
-
-                                                                                    <p class="text-sm leading-relaxed text-white">
-                                                                                        Username uploader: {{ $special->users->name }}
-                                                                                    </p>
-
-                                                                                </div>
-
                                                                             </div>
                                                                         </div>
-                                                                    </div>
 
-                                                                    <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = false" class="absolute right-0 top-1 ">
+                                                                        <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = false" class="absolute right-0 top-1 ">
 
-                                                                        <!-- Modal -->
-                                                                        <div class="fixed inset-0 z-50  flex items-center justify-center overflow-auto bg-black bg-opacity-50" x-show="showModal">
+                                                                            <!-- Modal -->
+                                                                            <div class="fixed inset-0 z-50  flex items-center justify-center overflow-auto bg-black bg-opacity-50" x-show="showModal">
 
-                                                                            <!-- Modal inner -->
-                                                                            <div class="w-1/4 py-4 text-left bg-white rounded-lg shadow-lg" x-show="showModal"
-                                                                                x-transition:enter="motion-safe:ease-out duration-300"
-                                                                                x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
-                                                                                x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
-                                                                                x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" @click.away="showModal = true">
+                                                                                <!-- Modal inner -->
+                                                                                <div class="w-1/4 py-4 text-left bg-white rounded-lg shadow-lg" x-show="showModal"
+                                                                                    x-transition:enter="motion-safe:ease-out duration-300"
+                                                                                    x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
+                                                                                    x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                                                                                    x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" @click.away="showModal = true">
 
-                                                                                <!-- Title / Close-->
-                                                                                <div class="flex items-center justify-between px-4 py-1">
-                                                                                    <h5 class="mr-3 text-black max-w-none text-xs">Rename file</h5>
-                                                                                    <button type="button" class="z-50 cursor-pointer text-red-500 hover:bg-gray-200 rounded px-2 py-1 text-xl font-semibold" @click="showModal = false">
-                                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                                                                        </svg>
-                                                                                    </button>
-                                                                                </div>
-                                                                                <hr>
-
-                                                                                <!-- content -->
-                                                                                <div>
-                                                                                    <form action="{{route('inventory-rename-media', $media->id)}}" method="POST">
-                                                                                        @csrf @method('PUT')
-                                                                                        <div class="flex flex-col items-center pt-5 px-4">
-                                                                                        <input type="text" value="{{ $media->file_name }}" name="file_name" class="text-gray-700 w-full rounded">
-                                                                                        <button type="submit" class="p-2 bg-blue-500 rounded mt-5 text-gray-700">Rename</button>
+                                                                                    <!-- Title / Close-->
+                                                                                    <div class="flex items-center justify-between px-4 py-1">
+                                                                                        <h5 class="mr-3 text-black max-w-none text-xs">Rename file</h5>
+                                                                                        <button type="button" class="z-50 cursor-pointer text-red-500 hover:bg-gray-200 rounded px-2 py-1 text-xl font-semibold" @click="showModal = false">
+                                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                                                            </svg>
+                                                                                        </button>
                                                                                     </div>
+                                                                                    <hr>
+
+                                                                                    <!-- content -->
+                                                                                    <div>
+                                                                                        <form action="{{route('inventory-rename-media', $media->id)}}" method="POST">
+                                                                                            @csrf @method('PUT')
+                                                                                            <div class="flex flex-col items-center pt-5 px-4">
+                                                                                            <input type="text" value="{{ $media->file_name }}" name="file_name" class="text-gray-700 w-full rounded">
+                                                                                            <button type="submit" class="p-2 bg-blue-500 rounded mt-5 text-gray-700">Rename</button>
+                                                                                        </div>
+                                                                                        </form>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+
+                                                                            <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0">
+                                                                                <!-- Dropdown toggle button -->
+                                                                                <button @click="dropdownMenu = ! dropdownMenu" class="tooltipButton  flex items-center p-2 rounded-md" style="display: block">
+                                                                                    <svg class=" absolute hover:fill-blue-500 top-2 right-0 fill-slate-700" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z"/></svg>
+                                                                                </button>
+                                                                                <!-- Dropdown list -->
+                                                                                <div x-show="dropdownMenu" class="z-50 absolute right-5 py-2 mt-2 bg-white rounded-md shadow-xl w-32 space-y-2" x-on:keydown.escape.window="dropdownMenu = false"  @click.away="dropdownMenu = false" @click="dropdownMenu = ! dropdownMenu"
+                                                                                    x-transition:enter="motion-safe:ease-out duration-100" x-transition:enter-start="opacity-0 scale-90"
+                                                                                    x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-200"
+                                                                                    x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                                                                                    x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+
+                                                                                    <button data-modal-target="detail-specialorder-modal{{ $media->id }}" data-modal-toggle="detail-specialorder-modal{{ $media->id }}" class="text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left" type="button">Details</button>
+                                                                                    <button class="text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left" type="button" @click="showModal = true">Rename</button>
+                                                                                    <a href={{ url('download-media', $media->id) }} class="block text-xs px-2 hover:text-black text-gray-700 hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
+                                                                                    <form action={{ route('report-specialorder.trash',[ 'id' => $media->id, 'specialOrderId' => $proposalfile->id]) }} method="POST" enctype="multipart/form-data" onsubmit="return confirm ('Are you sure?')" >
+                                                                                        @csrf
+                                                                                        @method('DELETE')
+                                                                                        <button class="block text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="submit">Delete</button>
                                                                                     </form>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-
-
-                                                                        <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0">
-                                                                            <!-- Dropdown toggle button -->
-                                                                            <button @click="dropdownMenu = ! dropdownMenu" class="tooltipButton  flex items-center p-2 rounded-md" style="display: block">
-                                                                                <svg class=" absolute hover:fill-blue-500 top-2 right-0 fill-slate-700" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z"/></svg>
-                                                                            </button>
-                                                                            <!-- Dropdown list -->
-                                                                            <div x-show="dropdownMenu" class="z-50 absolute right-5 py-2 mt-2 bg-white rounded-md shadow-xl w-32 space-y-2" x-on:keydown.escape.window="dropdownMenu = false"  @click.away="dropdownMenu = false" @click="dropdownMenu = ! dropdownMenu"
-                                                                                x-transition:enter="motion-safe:ease-out duration-100" x-transition:enter-start="opacity-0 scale-90"
-                                                                                x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-200"
-                                                                                x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
-                                                                                x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
-
-                                                                                <button data-modal-target="detail-specialorder-modal{{ $media->id }}" data-modal-toggle="detail-specialorder-modal{{ $media->id }}" class="text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left" type="button">Details</button>
-                                                                                <button class="text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left" type="button" @click="showModal = true">Rename</button>
-                                                                                <a href={{ url('download-media', $media->id) }} class="block text-xs px-2 hover:text-black text-gray-700 hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
-                                                                                <form action={{ route('report-specialorder.delete',[ 'id' => $media->id, 'specialOrderId' => $special->id]) }} method="POST" enctype="multipart/form-data" onsubmit="return confirm ('Are you sure?')" >
-                                                                                    @csrf
-                                                                                    @method('DELETE')
-                                                                                    <button class="block text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="submit">Delete</button>
-                                                                                </form>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-                                                            </div>
-
-                                                            <div id="specialorder-media-modal{{ $media->id}}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                                                                <div class="relative p-4 w-full max-w-5xl h-[90%]">
-                                                                    <!-- Modal content -->
-                                                                    <div class="relative bg-white rounded-lg shadow h-full overflow-hidden">
-                                                                        <!-- Modal header -->
-                                                                        <div class="flex items-center justify-between p-2 md:p-5 border-b rounded-t">
-                                                                            <h3 class="text-md font-semibold text-gray-600">
-                                                                            {{ $media->file_name }}
-                                                                            </h3>
-                                                                            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="specialorder-media-modal{{ $media->id}}">
-                                                                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                                                                                </svg>
-                                                                                <span class="sr-only">Close modal</span>
-                                                                            </button>
-                                                                        </div>
-                                                                        <!-- Modal body -->
-                                                                        <div>
-                                                                            @if ($media->mime_type == 'image/jpeg' || $media->mime_type == 'image/png' || $media->mime_type == 'image/jpg')
-                                                                            <div><img class="shadow w-full " src="{{  $media->getUrl() }}"></div>
-                                                                            @elseif ($media->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-                                                                            <div class="p-5 flex items-center flex-col">
-                                                                                <h1 class="text-center">This file format does not support viewing download only.</h1>
-                                                                                <a href={{ url('download-media', $media->id) }} class="text-sm hover:text-red-600 text-red-500">Click here to download</a>
-                                                                            </div>
-
-                                                                            @else
-                                                                                <div><iframe class="shadow mt-2 w-full h-[80vh]" src="{{  $media->getUrl() }}"></iframe></div>
-                                                                            @endif
-                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        @endforeach
-                                                    @endforeach
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
 
-                                        <div data-tooltip-target="tooltip-specialorder" type="button">
-                                            <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = false" class="absolute right-0 top-1 ">
-
-                                                <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0">
-                                                    <!-- Dropdown toggle button -->
-                                                    <button @click="dropdownMenu = ! dropdownMenu" class="tooltipButton  flex items-center p-2 rounded-md" style="display: block">
-                                                        <svg class=" absolute hover:fill-blue-500 top-2 right-0 fill-slate-700" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z"/></svg>
-                                                    </button>
-                                                    <!-- Dropdown list -->
-                                                    <div x-show="dropdownMenu" class="z-50 absolute right-[-5] py-2 mt-2 bg-white rounded-md shadow-xl w-32 space-y-2" x-on:keydown.escape.window="dropdownMenu = false"  @click.away="dropdownMenu = false" @click="dropdownMenu = ! dropdownMenu"
-                                                        x-transition:enter="motion-safe:ease-out duration-100" x-transition:enter-start="opacity-0 scale-90"
-                                                        x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-200"
-                                                        x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
-                                                        x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
-
-                                                        <a href={{ route('inventory-download-specialorder', $proposals->id) }} class="block text-xs px-2 hover:text-black hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endif
-
-                                @if ($proposals->officeorder->isNotEmpty())
-
-                                    <div class="w-[10rem] sm:w-[10rem] xl:w-[10rem] xl:h-[17vh] 2xl:h-[12vh] bg-white  shadow-md rounded-lg hover:bg-slate-100 transition-all m-2 relative" id="officeorder">
-
-                                        <!-- Modal toggle -->
-                                        <button data-modal-target="default-modal-officeorder" data-modal-toggle="default-modal-officeorder" class="text-sm p-4 text-center h-full flex flex-col space-y-4 items-center w-full" type="button">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 32 32"><g fill="none"><path fill="#FFB02E" d="m15.385 7.39l-2.477-2.475A3.121 3.121 0 0 0 10.698 4H4.126A2.125 2.125 0 0 0 2 6.125V13.5h28v-3.363a2.125 2.125 0 0 0-2.125-2.125H16.888a2.126 2.126 0 0 1-1.503-.621"/><path fill="#FCD53F" d="M27.875 30H4.125A2.118 2.118 0 0 1 2 27.888V13.112C2 11.945 2.951 11 4.125 11h23.75c1.174 0 2.125.945 2.125 2.112v14.776A2.118 2.118 0 0 1 27.875 30"/></g></svg>
-                                            <span class="text-xs mt-4">Office Order</span>
-                                        </button>
-
-                                        <!-- Main modal -->
-                                        <div id="default-modal-officeorder" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                                            <div class="relative p-4 w-full max-w-5xl h-[80%]">
-                                                <!-- Modal content -->
-                                                <div class="relative bg-white rounded-lg shadow h-full overflow-x-auto">
-                                                    <!-- Modal header -->
-                                                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t z-10 sticky top-0 bg-white">
-                                                        <h3 class="text-xl font-semibold text-gray-600">
-                                                            Office Order
-                                                        </h3>
-                                                        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal-officeorder">
-                                                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                                                            </svg>
-                                                            <span class="sr-only">Close modal</span>
-                                                        </button>
-                                                    </div>
-                                                    <!-- Modal body -->
-                                                    <div class="p-4 grid grid-cols-3 gap-3">
-                                                       @foreach ($proposals->officeorder as $office )
-                                                           @foreach ($office->medias as $media )
-
-                                                           <div data-tooltip-target="tooltip-proposal" type="button" class="w-full shadow rounded-lg transition-all  relative" id="">
-                                                                <!-- Modal toggle -->
-                                                               <button data-modal-target="officeorder-media-modal{{ $media->id}}" data-modal-toggle="officeorder-media-modal{{ $media->id}}"  class="space-x-2 p-4 flex bg-gray-100 hover:bg-gray-200 justify-start items-center rounded w-full" type="button">
-                                                                    @if ($media->mime_type == 'image/jpeg' || $media->mime_type == 'image/png' || $media->mime_type == 'image/jpg')
-                                                                        <img src="{{asset('img/image-icon.png') }}" class="xl:w-[2.5rem] w-[3rem]" width="30">
-                                                                    @elseif ($media->mime_type == 'text/plain')
-                                                                        <img src="{{asset('img/text-document.png') }}" class="xl:w-[2.5rem] w-[3rem]" width="30">
-                                                                    @elseif ($media->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-                                                                        <img src="{{asset('img/docx.png')}}" class="xl:w-[2.5rem] w-[3rem]" width="30">
-                                                                    @else
-                                                                        <img src="{{asset('img/pdf.png')}}" class="xl:w-[2.5rem] w-[3rem]" width="30">
-                                                                    @endif
-                                                                    <span class="text-xs">{{ Str::limit($media->file_name, 25) }}</span>
-                                                               </button>
-                                                                <div x-cloak  x-data="{ 'showModalOfficeOrder{{ $media->id }}': false }" @keydown.escape="showModalOfficeOrder{{ $media->id }} = false" class="absolute right-0 top-1 ">
-                                                                    <!-- Detail modal -->
-                                                                    <div id="detail-officeorder-modal{{ $media->id }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0  left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                                                                        <div class="relative p-4 w-full max-w-2xl max-h-full bg-opacity-0">
-                                                                            <!-- Modal content -->
-                                                                            <div class="relative bg-gray-700 rounded-lg shadow">
-                                                                                <!-- Modal header -->
-                                                                                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
-                                                                                    <h3 class="text-xl font-semibold text-white">
-                                                                                        Details
-                                                                                    </h3>
-                                                                                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="detail-officeorder-modal{{ $media->id }}">
-                                                                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                                                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                                                                                        </svg>
-                                                                                        <span class="sr-only">Close modal</span>
-                                                                                    </button>
-                                                                                </div>
-                                                                                <!-- Modal body -->
-                                                                                <div class="p-4 md:p-5 space-y-2">
-                                                                                    <p class="text-sm leading-relaxed text-white">
-                                                                                        Uploaded at: {{ \Carbon\Carbon::parse($media->created_at)->format('M d, y g:i:s A') }}
-                                                                                    </p>
-                                                                                    <p class="text-sm leading-relaxed text-white">
-                                                                                        Report Type: Office Order
-                                                                                    </p>
-                                                                                    <p class="text-sm leading-relaxed text-white">
-                                                                                        File name: {{ $media->file_name }}
-                                                                                    </p>
-                                                                                    <p class="text-sm leading-relaxed text-white">
-                                                                                        File size: {{ $media->size }} kb
-                                                                                    </p>
-
-                                                                                    <p class="text-sm leading-relaxed text-white">
-                                                                                        File type: {{ $media->mime_type }}
-                                                                                    </p>
-
-                                                                                    <p class="text-sm leading-relaxed text-white">
-                                                                                        Username uploader: {{ $office->users->name }}
-                                                                                    </p>
-
-                                                                                </div>
-
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = false" class="absolute right-0 top-1 ">
-
-                                                                        <!-- Modal -->
-                                                                        <div class="fixed inset-0 z-50  flex items-center justify-center overflow-auto bg-black bg-opacity-50" x-show="showModal">
-
-                                                                            <!-- Modal inner -->
-                                                                            <div class="w-1/4 py-4 text-left bg-white rounded-lg shadow-lg" x-show="showModal"
-                                                                                x-transition:enter="motion-safe:ease-out duration-300"
-                                                                                x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
-                                                                                x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
-                                                                                x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" @click.away="showModal = true">
-
-                                                                                <!-- Title / Close-->
-                                                                                <div class="flex items-center justify-between px-4 py-1">
-                                                                                    <h5 class="mr-3 text-black max-w-none text-xs">Rename file</h5>
-                                                                                    <button type="button" class="z-50 cursor-pointer text-red-500 hover:bg-gray-200 rounded px-2 py-1 text-xl font-semibold" @click="showModal = false">
-                                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                                                                        </svg>
-                                                                                    </button>
-                                                                                </div>
-                                                                                <hr>
-
-                                                                                <!-- content -->
-                                                                                <div>
-                                                                                    <form action="{{route('inventory-rename-media', $media->id)}}" method="POST">
-                                                                                        @csrf @method('PUT')
-                                                                                        <div class="flex flex-col items-center pt-5 px-4">
-                                                                                        <input type="text" value="{{ $media->file_name }}" name="file_name" class="text-gray-700 w-full rounded">
-                                                                                        <button type="submit" class="p-2 bg-blue-500 rounded mt-5 text-gray-700">Rename</button>
-                                                                                    </div>
-                                                                                    </form>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-
-
-                                                                        <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0">
-                                                                            <!-- Dropdown toggle button -->
-                                                                            <button @click="dropdownMenu = ! dropdownMenu" class="tooltipButton  flex items-center p-2 rounded-md" style="display: block">
-                                                                                <svg class=" absolute hover:fill-blue-500 top-2 right-0 fill-slate-700" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z"/></svg>
-                                                                            </button>
-                                                                            <!-- Dropdown list -->
-                                                                            <div x-show="dropdownMenu" class="z-50 absolute right-5 py-2 mt-2 bg-white rounded-md shadow-xl w-32 space-y-2" x-on:keydown.escape.window="dropdownMenu = false"  @click.away="dropdownMenu = false" @click="dropdownMenu = ! dropdownMenu"
-                                                                                x-transition:enter="motion-safe:ease-out duration-100" x-transition:enter-start="opacity-0 scale-90"
-                                                                                x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-200"
-                                                                                x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
-                                                                                x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
-
-                                                                                <button data-modal-target="detail-officeorder-modal{{ $media->id }}" data-modal-toggle="detail-officeorder-modal{{ $media->id }}" class="text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left" type="button">Details</button>
-                                                                                <button class="text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left" type="button" @click="showModal = true">Rename</button>
-                                                                                <a href={{ url('download-media', $media->id) }} class="block text-xs px-2 hover:text-black text-gray-700 hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
-                                                                                <form action={{ route('report-officeorder.delete',[ 'id' => $media->id, 'officeOrderId' => $office->id]) }} method="POST" enctype="multipart/form-data" onsubmit="return confirm ('Are you sure?')" >
-                                                                                    @csrf
-                                                                                    @method('DELETE')
-                                                                                    <button class="block text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="submit">Delete</button>
-                                                                                </form>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                               <div id="officeorder-media-modal{{ $media->id}}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                                                                <div class="relative p-4 w-full max-w-5xl h-[90%]">
-                                                                    <!-- Modal content -->
-                                                                    <div class="relative bg-white rounded-lg shadow h-full overflow-hidden">
-                                                                        <!-- Modal header -->
-                                                                        <div class="flex items-center justify-between p-2 md:p-5 border-b rounded-t">
-                                                                            <h3 class="text-md font-semibold text-gray-600">
-                                                                               {{ $media->file_name }}
-                                                                            </h3>
-                                                                            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="officeorder-media-modal{{ $media->id}}">
-                                                                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                                                                                </svg>
-                                                                                <span class="sr-only">Close modal</span>
-                                                                            </button>
-                                                                        </div>
-                                                                        <!-- Modal body -->
-                                                                        <div>
-                                                                            @if ($media->mime_type == 'image/jpeg' || $media->mime_type == 'image/png' || $media->mime_type == 'image/jpg')
-                                                                            <div><img class="shadow w-full " src="{{  $media->getUrl() }}"></div>
-                                                                            @elseif ($media->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-                                                                            <div class="p-5 flex items-center flex-col">
-                                                                                <h1 class="text-center">This file format does not support viewing download only.</h1>
-                                                                                <a href={{ url('download-media', $media->id) }} class="text-sm hover:text-red-600 text-red-500">Click here to download</a>
-                                                                            </div>
-
-                                                                            @else
-                                                                                <div><iframe class="shadow mt-2 w-full h-[80vh]" src="{{  $media->getUrl() }}"></iframe></div>
-                                                                            @endif
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                           @endforeach
-                                                       @endforeach
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div data-tooltip-target="tooltip-specialorder" type="button">
-                                            <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = false" class="absolute right-0 top-1 ">
-
-                                                <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0">
-                                                    <!-- Dropdown toggle button -->
-                                                    <button @click="dropdownMenu = ! dropdownMenu" class="tooltipButton  flex items-center p-2 rounded-md" style="display: block">
-                                                        <svg class=" absolute hover:fill-blue-500 top-2 right-0 fill-slate-700" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z"/></svg>
-                                                    </button>
-                                                    <!-- Dropdown list -->
-                                                    <div x-show="dropdownMenu" class="z-50 absolute right-[-5] py-2 mt-2 bg-white rounded-md shadow-xl w-32 space-y-2" x-on:keydown.escape.window="dropdownMenu = false"  @click.away="dropdownMenu = false" @click="dropdownMenu = ! dropdownMenu"
-                                                        x-transition:enter="motion-safe:ease-out duration-100" x-transition:enter-start="opacity-0 scale-90"
-                                                        x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-200"
-                                                        x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
-                                                        x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
-
-                                                        <a href={{ route('inventory-download-officeorder', $proposals->id) }} class="block text-xs px-2 hover:text-black hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endif
-
-                                @if ($proposals->attendance->isNotEmpty())
-
-                                    <div class="w-[10rem] sm:w-[10rem] xl:w-[10rem] xl:h-[17vh] 2xl:h-[12vh] bg-white  shadow-md rounded-lg hover:bg-slate-100 transition-all m-2 relative" id="attendance">
-
-                                        <!-- Modal toggle -->
-                                        <button data-modal-target="default-modal-attendance" data-modal-toggle="default-modal-attendance" class="text-sm p-4 text-center h-full flex flex-col space-y-4 items-center w-full" type="button">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 32 32"><g fill="none"><path fill="#FFB02E" d="m15.385 7.39l-2.477-2.475A3.121 3.121 0 0 0 10.698 4H4.126A2.125 2.125 0 0 0 2 6.125V13.5h28v-3.363a2.125 2.125 0 0 0-2.125-2.125H16.888a2.126 2.126 0 0 1-1.503-.621"/><path fill="#FCD53F" d="M27.875 30H4.125A2.118 2.118 0 0 1 2 27.888V13.112C2 11.945 2.951 11 4.125 11h23.75c1.174 0 2.125.945 2.125 2.112v14.776A2.118 2.118 0 0 1 27.875 30"/></g></svg>
-                                            <span class="text-xs mt-4">Attendance</span>
-                                        </button>
-
-                                        <!-- Main modal -->
-                                        <div id="default-modal-attendance" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                                            <div class="relative p-4 w-full max-w-5xl h-[80%]">
-                                                <!-- Modal content -->
-                                                <div class="relative bg-white rounded-lg shadow h-full overflow-x-auto">
-                                                    <!-- Modal header -->
-                                                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t z-10 sticky top-0 bg-white">
-                                                        <h3 class="text-xl font-semibold text-gray-600">
-                                                            Attendance
-                                                        </h3>
-                                                        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal-attendance">
-                                                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                                                            </svg>
-                                                            <span class="sr-only">Close modal</span>
-                                                        </button>
-                                                    </div>
-                                                    <!-- Modal body -->
-                                                    <div class="p-4 grid grid-cols-3 gap-3">
-                                                       @foreach ($proposals->attendance as $attend )
-                                                           @foreach ($attend->medias as $media )
-
-                                                           <div data-tooltip-target="tooltip-proposal" type="button" class="w-full shadow rounded-lg transition-all  relative" id="">
-                                                                <!-- Modal toggle -->
-                                                               <button data-modal-target="attendance-media-modal{{ $media->id}}" data-modal-toggle="attendance-media-modal{{ $media->id}}"  class="space-x-2 p-4 flex bg-gray-100 hover:bg-gray-200 justify-start items-center rounded w-full" type="button">
-                                                                    @if ($media->mime_type == 'image/jpeg' || $media->mime_type == 'image/png' || $media->mime_type == 'image/jpg')
-                                                                        <img src="{{asset('img/image-icon.png') }}" class="xl:w-[2.5rem] w-[3rem]" width="30">
-                                                                    @elseif ($media->mime_type == 'text/plain')
-                                                                        <img src="{{asset('img/text-document.png') }}" class="xl:w-[2.5rem] w-[3rem]" width="30">
-                                                                    @elseif ($media->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-                                                                        <img src="{{asset('img/docx.png')}}" class="xl:w-[2.5rem] w-[3rem]" width="30">
-                                                                    @else
-                                                                        <img src="{{asset('img/pdf.png')}}" class="xl:w-[2.5rem] w-[3rem]" width="30">
-                                                                    @endif
-                                                                    <span class="text-xs">{{ Str::limit($media->file_name, 25) }}</span>
-                                                               </button>
-                                                                <div x-cloak  x-data="{ 'showModalAttendance{{ $media->id }}': false }" @keydown.escape="showModalAttendance{{ $media->id }} = false" class="absolute right-0 top-1 ">
-                                                                    <!-- Detail modal -->
-                                                                    <div id="detail-attendance-modal{{ $media->id }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0  left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                                                                        <div class="relative p-4 w-full max-w-2xl max-h-full bg-opacity-0">
-                                                                            <!-- Modal content -->
-                                                                            <div class="relative bg-gray-700 rounded-lg shadow">
-                                                                                <!-- Modal header -->
-                                                                                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
-                                                                                    <h3 class="text-xl font-semibold text-white">
-                                                                                        Details
-                                                                                    </h3>
-                                                                                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="detail-attendance-modal{{ $media->id }}">
-                                                                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                                                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                                                                                        </svg>
-                                                                                        <span class="sr-only">Close modal</span>
-                                                                                    </button>
-                                                                                </div>
-                                                                                <!-- Modal body -->
-                                                                                <div class="p-4 md:p-5 space-y-2">
-                                                                                    <p class="text-sm leading-relaxed text-white">
-                                                                                        Uploaded at: {{ \Carbon\Carbon::parse($media->created_at)->format('M d, y g:i:s A') }}
-                                                                                    </p>
-                                                                                    <p class="text-sm leading-relaxed text-white">
-                                                                                        Report Type: Attendance
-                                                                                    </p>
-                                                                                    <p class="text-sm leading-relaxed text-white">
-                                                                                        File name: {{ $media->file_name }}
-                                                                                    </p>
-                                                                                    <p class="text-sm leading-relaxed text-white">
-                                                                                        File size: {{ $media->size }} kb
-                                                                                    </p>
-
-                                                                                    <p class="text-sm leading-relaxed text-white">
-                                                                                        File type: {{ $media->mime_type }}
-                                                                                    </p>
-
-                                                                                    <p class="text-sm leading-relaxed text-white">
-                                                                                        Username uploader: {{ $attend->users->name }}
-                                                                                    </p>
-
-                                                                                </div>
-
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = false" class="absolute right-0 top-1 ">
-
-                                                                        <!-- Modal -->
-                                                                        <div class="fixed inset-0 z-50  flex items-center justify-center overflow-auto bg-black bg-opacity-50" x-show="showModal">
-
-                                                                            <!-- Modal inner -->
-                                                                            <div class="w-1/4 py-4 text-left bg-white rounded-lg shadow-lg" x-show="showModal"
-                                                                                x-transition:enter="motion-safe:ease-out duration-300"
-                                                                                x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
-                                                                                x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
-                                                                                x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" @click.away="showModal = true">
-
-                                                                                <!-- Title / Close-->
-                                                                                <div class="flex items-center justify-between px-4 py-1">
-                                                                                    <h5 class="mr-3 text-black max-w-none text-xs">Rename file</h5>
-                                                                                    <button type="button" class="z-50 cursor-pointer text-red-500 hover:bg-gray-200 rounded px-2 py-1 text-xl font-semibold" @click="showModal = false">
-                                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                                                                        </svg>
-                                                                                    </button>
-                                                                                </div>
-                                                                                <hr>
-
-                                                                                <!-- content -->
-                                                                                <div>
-                                                                                    <form action="{{route('inventory-rename-media', $media->id)}}" method="POST">
-                                                                                        @csrf @method('PUT')
-                                                                                        <div class="flex flex-col items-center pt-5 px-4">
-                                                                                        <input type="text" value="{{ $media->file_name }}" name="file_name" class="text-gray-700 w-full rounded">
-                                                                                        <button type="submit" class="p-2 bg-blue-500 rounded mt-5 text-gray-700">Rename</button>
-                                                                                    </div>
-                                                                                    </form>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-
-
-                                                                        <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0">
-                                                                            <!-- Dropdown toggle button -->
-                                                                            <button @click="dropdownMenu = ! dropdownMenu" class="tooltipButton  flex items-center p-2 rounded-md" style="display: block">
-                                                                                <svg class=" absolute hover:fill-blue-500 top-2 right-0 fill-slate-700" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z"/></svg>
-                                                                            </button>
-                                                                            <!-- Dropdown list -->
-                                                                            <div x-show="dropdownMenu" class="z-50 absolute right-5 py-2 mt-2 bg-white rounded-md shadow-xl w-32 space-y-2" x-on:keydown.escape.window="dropdownMenu = false"  @click.away="dropdownMenu = false" @click="dropdownMenu = ! dropdownMenu"
-                                                                                x-transition:enter="motion-safe:ease-out duration-100" x-transition:enter-start="opacity-0 scale-90"
-                                                                                x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-200"
-                                                                                x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
-                                                                                x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
-
-                                                                                <button data-modal-target="detail-attendance-modal{{ $media->id }}" data-modal-toggle="detail-attendance-modal{{ $media->id }}" class="text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left" type="button">Details</button>
-                                                                                <button class="text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left" type="button" @click="showModal = true">Rename</button>
-                                                                                <a href={{ url('download-media', $media->id) }} class="block text-xs px-2 hover:text-black text-gray-700 hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
-                                                                                <form action={{ route('report-attendance.delete',[ 'id' => $media->id, 'attendanceId' => $attend->id]) }} method="POST" enctype="multipart/form-data" onsubmit="return confirm ('Are you sure?')" >
-                                                                                    @csrf
-                                                                                    @method('DELETE')
-                                                                                    <button class="block text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="submit">Delete</button>
-                                                                                </form>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                               <div id="attendance-media-modal{{ $media->id}}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                                                                <div class="relative p-4 w-full max-w-5xl h-[90%]">
-                                                                    <!-- Modal content -->
-                                                                    <div class="relative bg-white rounded-lg shadow h-full overflow-hidden">
-                                                                        <!-- Modal header -->
-                                                                        <div class="flex items-center justify-between p-2 md:p-5 border-b rounded-t">
-                                                                            <h3 class="text-md font-semibold text-gray-600">
-                                                                               {{ $media->file_name }}
-                                                                            </h3>
-                                                                            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="attendance-media-modal{{ $media->id}}">
-                                                                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                                                                                </svg>
-                                                                                <span class="sr-only">Close modal</span>
-                                                                            </button>
-                                                                        </div>
-                                                                        <!-- Modal body -->
-                                                                        <div>
-                                                                            @if ($media->mime_type == 'image/jpeg' || $media->mime_type == 'image/png' || $media->mime_type == 'image/jpg')
-                                                                            <div><img class="shadow w-full " src="{{  $media->getUrl() }}"></div>
-                                                                            @elseif ($media->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-                                                                            <div class="p-5 flex items-center flex-col">
-                                                                                <h1 class="text-center">This file format does not support viewing download only.</h1>
-                                                                                <a href={{ url('download-media', $media->id) }} class="text-sm hover:text-red-600 text-red-500">Click here to download</a>
-                                                                            </div>
-
-                                                                            @else
-                                                                                <div><iframe class="shadow mt-2 w-full h-[80vh]" src="{{  $media->getUrl() }}"></iframe></div>
-                                                                            @endif
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                           @endforeach
-                                                       @endforeach
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div data-tooltip-target="tooltip-attendance" type="button">
-                                            <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = false" class="absolute right-0 top-1 ">
-
-                                                <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0">
-                                                    <!-- Dropdown toggle button -->
-                                                    <button @click="dropdownMenu = ! dropdownMenu" class="tooltipButton  flex items-center p-2 rounded-md" style="display: block">
-                                                        <svg class=" absolute hover:fill-blue-500 top-2 right-0 fill-slate-700" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z"/></svg>
-                                                    </button>
-                                                    <!-- Dropdown list -->
-                                                    <div x-show="dropdownMenu" class="z-50 absolute right-[-5] py-2 mt-2 bg-white rounded-md shadow-xl w-32 space-y-2" x-on:keydown.escape.window="dropdownMenu = false"  @click.away="dropdownMenu = false" @click="dropdownMenu = ! dropdownMenu"
-                                                        x-transition:enter="motion-safe:ease-out duration-100" x-transition:enter-start="opacity-0 scale-90"
-                                                        x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-200"
-                                                        x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
-                                                        x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
-
-                                                        <a href={{ route('inventory-download-attendance', $proposals->id) }} class="block text-xs px-2 hover:text-black hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endif
-
-                                @if ($proposals->attendancemonitoring->isNotEmpty())
-
-                                    <div class="w-[10rem] sm:w-[10rem] xl:w-[10rem] xl:h-[17vh] 2xl:h-[12vh] bg-white  shadow-md rounded-lg hover:bg-slate-100 transition-all m-2 relative" id="attendancemonitoring">
-
-                                        <!-- Modal toggle -->
-                                        <button data-modal-target="default-modal-attendancemonitoring" data-modal-toggle="default-modal-attendancemonitoring" class="text-sm p-4 text-center h-full flex flex-col space-y-4 items-center w-full" type="button">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 32 32"><g fill="none"><path fill="#FFB02E" d="m15.385 7.39l-2.477-2.475A3.121 3.121 0 0 0 10.698 4H4.126A2.125 2.125 0 0 0 2 6.125V13.5h28v-3.363a2.125 2.125 0 0 0-2.125-2.125H16.888a2.126 2.126 0 0 1-1.503-.621"/><path fill="#FCD53F" d="M27.875 30H4.125A2.118 2.118 0 0 1 2 27.888V13.112C2 11.945 2.951 11 4.125 11h23.75c1.174 0 2.125.945 2.125 2.112v14.776A2.118 2.118 0 0 1 27.875 30"/></g></svg>
-                                            <span class="text-xs mt-4">Attendance Monitoring</span>
-                                        </button>
-
-                                        <!-- Main modal -->
-                                        <div id="default-modal-attendancemonitoring" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                                            <div class="relative p-4 w-full max-w-5xl h-[80%]">
-                                                <!-- Modal content -->
-                                                <div class="relative bg-white rounded-lg shadow h-full overflow-x-auto">
-                                                    <!-- Modal header -->
-                                                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t z-10 sticky top-0 bg-white">
-                                                        <h3 class="text-xl font-semibold text-gray-600">
-                                                            Attendance Monitoring
-                                                        </h3>
-                                                        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal-attendancemonitoring">
-                                                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                                                            </svg>
-                                                            <span class="sr-only">Close modal</span>
-                                                        </button>
-                                                    </div>
-                                                    <!-- Modal body -->
-                                                    <div class="p-4 grid grid-cols-3 gap-3">
-                                                       @foreach ($proposals->attendancemonitoring as $attendm )
-                                                           @foreach ($attendm->medias as $media )
-
-                                                           <div data-tooltip-target="tooltip-proposal" type="button" class="w-full shadow rounded-lg transition-all  relative" id="">
-                                                                <!-- Modal toggle -->
-                                                               <button data-modal-target="attendancemonitoring-media-modal{{ $media->id}}" data-modal-toggle="attendancemonitoring-media-modal{{ $media->id}}"  class="space-x-2 p-4 flex bg-gray-100 hover:bg-gray-200 justify-start items-center rounded w-full" type="button">
-                                                                    @if ($media->mime_type == 'image/jpeg' || $media->mime_type == 'image/png' || $media->mime_type == 'image/jpg')
-                                                                        <img src="{{asset('img/image-icon.png') }}" class="xl:w-[2.5rem] w-[3rem]" width="30">
-                                                                    @elseif ($media->mime_type == 'text/plain')
-                                                                        <img src="{{asset('img/text-document.png') }}" class="xl:w-[2.5rem] w-[3rem]" width="30">
-                                                                    @elseif ($media->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-                                                                        <img src="{{asset('img/docx.png')}}" class="xl:w-[2.5rem] w-[3rem]" width="30">
-                                                                    @else
-                                                                        <img src="{{asset('img/pdf.png')}}" class="xl:w-[2.5rem] w-[3rem]" width="30">
-                                                                    @endif
-                                                                    <span class="text-xs">{{ Str::limit($media->file_name, 25) }}</span>
-                                                               </button>
-                                                                <div x-cloak  x-data="{ 'showModalAttendanceM{{ $media->id }}': false }" @keydown.escape="showModalAttendanceM{{ $media->id }} = false" class="absolute right-0 top-1 ">
-                                                                    <!-- Detail modal -->
-                                                                    <div id="detail-attendancemonitoring-modal{{ $media->id }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0  left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                                                                        <div class="relative p-4 w-full max-w-2xl max-h-full bg-opacity-0">
-                                                                            <!-- Modal content -->
-                                                                            <div class="relative bg-gray-700 rounded-lg shadow">
-                                                                                <!-- Modal header -->
-                                                                                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
-                                                                                    <h3 class="text-xl font-semibold text-white">
-                                                                                        Details
-                                                                                    </h3>
-                                                                                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="detail-attendancemonitoring-modal{{ $media->id }}">
-                                                                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                                                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                                                                                        </svg>
-                                                                                        <span class="sr-only">Close modal</span>
-                                                                                    </button>
-                                                                                </div>
-                                                                                <!-- Modal body -->
-                                                                                <div class="p-4 md:p-5 space-y-2">
-                                                                                    <p class="text-sm leading-relaxed text-white">
-                                                                                        Uploaded at: {{ \Carbon\Carbon::parse($media->created_at)->format('M d, y g:i:s A') }}
-                                                                                    </p>
-                                                                                    <p class="text-sm leading-relaxed text-white">
-                                                                                        Report Type: Attendance Monitoring
-                                                                                    </p>
-                                                                                    <p class="text-sm leading-relaxed text-white">
-                                                                                        File name: {{ $media->file_name }}
-                                                                                    </p>
-                                                                                    <p class="text-sm leading-relaxed text-white">
-                                                                                        File size: {{ $media->size }} kb
-                                                                                    </p>
-
-                                                                                    <p class="text-sm leading-relaxed text-white">
-                                                                                        File type: {{ $media->mime_type }}
-                                                                                    </p>
-
-                                                                                    <p class="text-sm leading-relaxed text-white">
-                                                                                        Username uploader: {{ $attendm->users->name }}
-                                                                                    </p>
-
-                                                                                </div>
-
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = false" class="absolute right-0 top-1 ">
-
-                                                                        <!-- Modal -->
-                                                                        <div class="fixed inset-0 z-50  flex items-center justify-center overflow-auto bg-black bg-opacity-50" x-show="showModal">
-
-                                                                            <!-- Modal inner -->
-                                                                            <div class="w-1/4 py-4 text-left bg-white rounded-lg shadow-lg" x-show="showModal"
-                                                                                x-transition:enter="motion-safe:ease-out duration-300"
-                                                                                x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
-                                                                                x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
-                                                                                x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" @click.away="showModal = true">
-
-                                                                                <!-- Title / Close-->
-                                                                                <div class="flex items-center justify-between px-4 py-1">
-                                                                                    <h5 class="mr-3 text-black max-w-none text-xs">Rename file</h5>
-                                                                                    <button type="button" class="z-50 cursor-pointer text-red-500 hover:bg-gray-200 rounded px-2 py-1 text-xl font-semibold" @click="showModal = false">
-                                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                                                                        </svg>
-                                                                                    </button>
-                                                                                </div>
-                                                                                <hr>
-
-                                                                                <!-- content -->
-                                                                                <div>
-                                                                                    <form action="{{route('inventory-rename-media', $media->id)}}" method="POST">
-                                                                                        @csrf @method('PUT')
-                                                                                        <div class="flex flex-col items-center pt-5 px-4">
-                                                                                        <input type="text" value="{{ $media->file_name }}" name="file_name" class="text-gray-700 w-full rounded">
-                                                                                        <button type="submit" class="p-2 bg-blue-500 rounded mt-5 text-gray-700">Rename</button>
-                                                                                    </div>
-                                                                                    </form>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-
-
-                                                                        <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0">
-                                                                            <!-- Dropdown toggle button -->
-                                                                            <button @click="dropdownMenu = ! dropdownMenu" class="tooltipButton  flex items-center p-2 rounded-md" style="display: block">
-                                                                                <svg class=" absolute hover:fill-blue-500 top-2 right-0 fill-slate-700" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z"/></svg>
-                                                                            </button>
-                                                                            <!-- Dropdown list -->
-                                                                            <div x-show="dropdownMenu" class="z-50 absolute right-5 py-2 mt-2 bg-white rounded-md shadow-xl w-32 space-y-2" x-on:keydown.escape.window="dropdownMenu = false"  @click.away="dropdownMenu = false" @click="dropdownMenu = ! dropdownMenu"
-                                                                                x-transition:enter="motion-safe:ease-out duration-100" x-transition:enter-start="opacity-0 scale-90"
-                                                                                x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-200"
-                                                                                x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
-                                                                                x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
-
-                                                                                <button data-modal-target="detail-attendancemonitoring-modal{{ $media->id }}" data-modal-toggle="detail-attendancemonitoring-modal{{ $media->id }}" class="text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left" type="button">Details</button>
-                                                                                <button class="text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left" type="button" @click="showModal = true">Rename</button>
-                                                                                <a href={{ url('download-media', $media->id) }} class="block text-xs px-2 hover:text-black text-gray-700 hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
-                                                                                <form action={{ route('report-attendancem.delete',[ 'id' => $media->id, 'attendancemId' => $attendm->id]) }} method="POST" enctype="multipart/form-data" onsubmit="return confirm ('Are you sure?')" >
-                                                                                    @csrf
-                                                                                    @method('DELETE')
-                                                                                    <button class="block text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="submit">Delete</button>
-                                                                                </form>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                               <div id="attendancemonitoring-media-modal{{ $media->id}}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                                                                <div class="relative p-4 w-full max-w-5xl h-[90%]">
-                                                                    <!-- Modal content -->
-                                                                    <div class="relative bg-white rounded-lg shadow h-full overflow-hidden">
-                                                                        <!-- Modal header -->
-                                                                        <div class="flex items-center justify-between p-2 md:p-5 border-b rounded-t">
-                                                                            <h3 class="text-md font-semibold text-gray-600">
-                                                                               {{ $media->file_name }}
-                                                                            </h3>
-                                                                            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="attendancemonitoring-media-modal{{ $media->id}}">
-                                                                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                                                                                </svg>
-                                                                                <span class="sr-only">Close modal</span>
-                                                                            </button>
-                                                                        </div>
-                                                                        <!-- Modal body -->
-                                                                        <div>
-                                                                            @if ($media->mime_type == 'image/jpeg' || $media->mime_type == 'image/png' || $media->mime_type == 'image/jpg')
-                                                                            <div><img class="shadow w-full " src="{{  $media->getUrl() }}"></div>
-                                                                            @elseif ($media->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-                                                                            <div class="p-5 flex items-center flex-col">
-                                                                                <h1 class="text-center">This file format does not support viewing download only.</h1>
-                                                                                <a href={{ url('download-media', $media->id) }} class="text-sm hover:text-red-600 text-red-500">Click here to download</a>
-                                                                            </div>
-
-                                                                            @else
-                                                                                <div><iframe class="shadow mt-2 w-full h-[80vh]" src="{{  $media->getUrl() }}"></iframe></div>
-                                                                            @endif
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                           @endforeach
-                                                       @endforeach
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div data-tooltip-target="tooltip-attendancemonitoring" type="button">
-                                            <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = false" class="absolute right-0 top-1 ">
-
-                                                <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0">
-                                                    <!-- Dropdown toggle button -->
-                                                    <button @click="dropdownMenu = ! dropdownMenu" class="tooltipButton  flex items-center p-2 rounded-md" style="display: block">
-                                                        <svg class=" absolute hover:fill-blue-500 top-2 right-0 fill-slate-700" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z"/></svg>
-                                                    </button>
-                                                    <!-- Dropdown list -->
-                                                    <div x-show="dropdownMenu" class="z-50 absolute right-[-5] py-2 mt-2 bg-white rounded-md shadow-xl w-32 space-y-2" x-on:keydown.escape.window="dropdownMenu = false"  @click.away="dropdownMenu = false" @click="dropdownMenu = ! dropdownMenu"
-                                                        x-transition:enter="motion-safe:ease-out duration-100" x-transition:enter-start="opacity-0 scale-90"
-                                                        x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-200"
-                                                        x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
-                                                        x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
-
-                                                        <a href={{ route('inventory-download-attendancem', $proposals->id) }} class="block text-xs px-2 hover:text-black hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endif
-
-                                @if ($proposals->narrativereport->isNotEmpty())
-
-                                    <div class="bg-white w-[10rem] sm:w-[10rem] xl:w-[10rem] xl:h-[17vh] 2xl:h-[12vh] shadow-md rounded-lg hover:bg-slate-100 transition-all m-2 relative" id="narrativereport">
-
-                                        <!-- Modal toggle -->
-                                        <button data-modal-target="default-modal-narrative{{ $proposals->id }}" data-modal-toggle="default-modal-narrative{{ $proposals->id }}" class="text-sm p-4 text-center h-full flex flex-col space-y-4 items-center w-full" type="button">
-                                            <svg class="w-full" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 32 32"><g fill="none"><path fill="#FFB02E" d="m15.385 7.39l-2.477-2.475A3.121 3.121 0 0 0 10.698 4H4.126A2.125 2.125 0 0 0 2 6.125V13.5h28v-3.363a2.125 2.125 0 0 0-2.125-2.125H16.888a2.126 2.126 0 0 1-1.503-.621"/><path fill="#FCD53F" d="M27.875 30H4.125A2.118 2.118 0 0 1 2 27.888V13.112C2 11.945 2.951 11 4.125 11h23.75c1.174 0 2.125.945 2.125 2.112v14.776A2.118 2.118 0 0 1 27.875 30"/></g></svg>
-                                            <span class="text-xs mt-4">Narrative Report</span>
-                                        </button>
-
-                                        <!-- Main modal -->
-                                        <div id="default-modal-narrative{{ $proposals->id }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                                            <div class="relative p-4 w-full max-w-5xl h-[80%]">
-                                                <!-- Modal content -->
-                                                <div class="relative bg-white rounded-lg shadow h-full overflow-x-auto">
-                                                    <!-- Modal header -->
-                                                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t z-10 sticky top-0 bg-white">
-                                                        <h3 class="text-xl font-semibold text-gray-600">
-                                                        Narrative Report
-                                                        </h3>
-                                                        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal-narrative{{ $proposals->id }}">
-                                                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                                                            </svg>
-                                                            <span class="sr-only">Close modal</span>
-                                                        </button>
-                                                    </div>
-                                                    <!-- Modal body -->
-                                                    <div class="p-4 grid grid-cols-3 gap-3">
-                                                    @foreach ($proposals->narrativereport as $narrative )
-                                                        @foreach ($narrative->medias as $media )
-
-                                                        <div data-tooltip-target="tooltip-proposal" type="button" class="w-full shadow rounded-lg transition-all  relative" id="">
-                                                                <!-- Modal toggle -->
-                                                            <button data-modal-target="narrative-media-modal{{ $media->id}}" data-modal-toggle="narrative-media-modal{{ $media->id}}"  class="space-x-2 p-4 flex bg-gray-100 hover:bg-gray-200 justify-start items-center rounded w-full" type="button">
-                                                                    @if ($media->mime_type == 'image/jpeg' || $media->mime_type == 'image/png' || $media->mime_type == 'image/jpg')
-                                                                        <img src="{{asset('img/image-icon.png') }}" class="xl:w-[2.5rem] w-[3rem]" width="30">
-                                                                    @elseif ($media->mime_type == 'text/plain')
-                                                                        <img src="{{asset('img/text-document.png') }}" class="xl:w-[2.5rem] w-[3rem]" width="30">
-                                                                    @elseif ($media->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-                                                                        <img src="{{asset('img/docx.png')}}" class="xl:w-[2.5rem] w-[3rem]" width="30">
-                                                                    @else
-                                                                        <img src="{{asset('img/pdf.png')}}" class="xl:w-[2.5rem] w-[3rem]" width="30">
-                                                                    @endif
-                                                                    <span class="text-xs">{{ Str::limit($media->file_name, 25) }}</span>
-                                                            </button>
-                                                                <div x-cloak  x-data="{ 'showModalNarrative{{ $media->id }}': false }" @keydown.escape="showModalNarrative{{ $media->id }} = false" class="absolute right-0 top-1 ">
-
-                                                                    <!-- Modal -->
-                                                                    <div class="fixed inset-0 z-50  flex items-center justify-center overflow-auto bg-black bg-opacity-50" x-show="showModalNarrative{{ $media->id }}">
-
-                                                                        <!-- Modal inner -->
-                                                                        <div class="w-1/4 py-4 text-left bg-white rounded-lg shadow-lg" x-show="showModalNarrative{{ $media->id }}"
-                                                                            x-transition:enter="motion-safe:ease-out duration-300"
-                                                                            x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
-                                                                            x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
-                                                                            x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" @click.away="showModalNarrative{{ $media->id }} = true">
-
-                                                                            <!-- Title / Close-->
-                                                                            <div class="flex items-center justify-between px-4 py-1">
-                                                                                <h5 class="mr-3 text-black max-w-none text-xs">Rename file</h5>
-                                                                                <button type="button" class="z-50 cursor-pointer text-red-500 hover:bg-gray-200 rounded px-2 py-1 text-xl font-semibold" @click="showModalNarrative{{ $media->id }} = false">
-                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                                <div id="specialorder-media-modal{{ $media->id}}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                                                    <div class="relative p-4 w-full max-w-5xl h-[90%]">
+                                                                        <!-- Modal content -->
+                                                                        <div class="relative bg-white rounded-lg shadow h-full overflow-hidden">
+                                                                            <!-- Modal header -->
+                                                                            <div class="flex items-center justify-between p-2 md:p-5 border-b rounded-t">
+                                                                                <h3 class="text-md font-semibold text-gray-600">
+                                                                                {{ $media->file_name }}
+                                                                                </h3>
+                                                                                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="specialorder-media-modal{{ $media->id}}">
+                                                                                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                                                                                     </svg>
+                                                                                    <span class="sr-only">Close modal</span>
                                                                                 </button>
                                                                             </div>
-                                                                            <hr>
-
-                                                                            <!-- content -->
+                                                                            <!-- Modal body -->
                                                                             <div>
-                                                                                <form action="{{route('inventory-rename-media', $media->id)}}" method="POST">
-                                                                                    @csrf @method('PUT')
-                                                                                    <div class="flex flex-col items-center pt-5 px-4">
-                                                                                    <input type="text" value="{{ $media->file_name }}" name="file_name" class="text-gray-700 w-full rounded" required>
-                                                                                    <button type="submit" class="p-2 bg-blue-500 rounded mt-5 text-gray-700">Rename</button>
+                                                                                @if ($media->mime_type == 'image/jpeg' || $media->mime_type == 'image/png' || $media->mime_type == 'image/jpg')
+                                                                                <div><img class="shadow w-full " src="{{  $media->getUrl() }}"></div>
+                                                                                @elseif ($media->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+                                                                                <div class="p-5 flex items-center flex-col">
+                                                                                    <h1 class="text-center">This file format does not support viewing download only.</h1>
+                                                                                    <a href={{ url('download-media', $media->id) }} class="text-sm hover:text-red-600 text-red-500">Click here to download</a>
                                                                                 </div>
-                                                                                </form>
+
+                                                                                @else
+                                                                                    <div><iframe class="shadow mt-2 w-full h-[80vh]" src="{{  $media->getUrl() }}"></iframe></div>
+                                                                                @endif
                                                                             </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <!-- Detail modal -->
-                                                                    <div id="detail-narrative-modal{{ $media->id }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0  left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                                                                        <div class="relative p-4 w-full max-w-2xl max-h-full bg-opacity-0">
-                                                                            <!-- Modal content -->
-                                                                            <div class="relative bg-gray-700 rounded-lg shadow">
-                                                                                <!-- Modal header -->
-                                                                                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
-                                                                                    <h3 class="text-xl font-semibold text-white">
-                                                                                        Details
-                                                                                    </h3>
-                                                                                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="detail-narrative-modal{{ $media->id }}">
-                                                                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                                                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                                                                                        </svg>
-                                                                                        <span class="sr-only">Close modal</span>
-                                                                                    </button>
-                                                                                </div>
-                                                                                <!-- Modal body -->
-                                                                                <div class="p-4 md:p-5 space-y-2">
-                                                                                    <p class="text-sm leading-relaxed text-white">
-                                                                                        Uploaded at: {{ \Carbon\Carbon::parse($media->created_at)->format('M d, y g:i:s A') }}
-                                                                                    </p>
-                                                                                    <p class="text-sm leading-relaxed text-white">
-                                                                                        Report Type: Narrative
-                                                                                    </p>
-                                                                                    <p class="text-sm leading-relaxed text-white">
-                                                                                        File name: {{ $media->file_name }}
-                                                                                    </p>
-                                                                                    <p class="text-sm leading-relaxed text-white">
-                                                                                        File size: {{ $media->size }} kb
-                                                                                    </p>
-
-                                                                                    <p class="text-sm leading-relaxed text-white">
-                                                                                        File type: {{ $media->mime_type }}
-                                                                                    </p>
-
-                                                                                    <p class="text-sm leading-relaxed text-white">
-                                                                                        Username uploader: {{ $narrative->users->name }}
-                                                                                    </p>
-
-                                                                                </div>
-
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0">
-                                                                        <!-- Dropdown toggle button -->
-                                                                        <button @click="dropdownMenu = ! dropdownMenu" class="tooltipButton  flex items-center p-2 rounded-md" style="display: block">
-                                                                            <svg class=" absolute hover:fill-blue-600 top-2 right-0 fill-slate-500" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z"/></svg>
-                                                                        </button>
-                                                                        <!-- Dropdown list -->
-                                                                        <div x-show="dropdownMenu" class="z-50 absolute right-5 py-2 mt-2 bg-white rounded-md shadow-xl w-32 space-y-2" x-on:keydown.escape.window="dropdownMenu = false"  @click.away="dropdownMenu = false" @click="dropdownMenu = ! dropdownMenu"
-                                                                            x-transition:enter="motion-safe:ease-out duration-100" x-transition:enter-start="opacity-0 scale-90"
-                                                                            x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-200"
-                                                                            x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
-                                                                            x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
-
-                                                                            <button data-modal-target="detail-narrative-modal{{ $media->id }}" data-modal-toggle="detail-narrative-modal{{ $media->id }}" class="text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left" type="button">Details</button>
-                                                                            <button class="text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left" type="button" @click="showModalNarrative{{ $media->id }} = true">Rename</button>
-                                                                            <a href={{ url('download-media', $media->id) }} class="block text-xs px-2 hover:text-black hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
-                                                                            <form action={{ route('report-narrative.delete',[ 'id' => $media->id, 'narrativeId' => $narrative->id]) }} method="POST" enctype="multipart/form-data" onsubmit="return confirm ('Are you sure?')" >
-                                                                                @csrf
-                                                                                @method('DELETE')
-                                                                                <button class="block text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="submit">Delete</button>
-                                                                            </form>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
+                                                                @endif
+                                                                @endforeach
+                                                            @endforeach
 
-                                                            <div id="narrative-media-modal{{ $media->id}}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                                                                <div class="relative p-4 w-full max-w-5xl h-[90%]">
-                                                                    <!-- Modal content -->
-                                                                    <div class="relative bg-white rounded-lg shadow h-full overflow-hidden">
-                                                                        <!-- Modal header -->
-                                                                        <div class="flex items-center justify-between p-2 md:p-5 border-b rounded-t">
-                                                                            <h3 class="text-md font-semibold text-gray-600">
-                                                                            {{ $media->file_name }}
-                                                                            </h3>
-                                                                            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="narrative-media-modal{{ $media->id}}">
-                                                                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                                                                                </svg>
-                                                                                <span class="sr-only">Close modal</span>
-                                                                            </button>
-                                                                        </div>
-                                                                        <!-- Modal body -->
-                                                                        <div>
-                                                                            @if ($media->mime_type == 'image/jpeg' || $media->mime_type == 'image/png' || $media->mime_type == 'image/jpg')
-                                                                            <div><img class="shadow w-full " src="{{  $media->getUrl() }}"></div>
-                                                                            @elseif ($media->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-                                                                            <div class="p-5 flex items-center flex-col">
-                                                                                <h1 class="text-center">This file format does not support viewing download only.</h1>
-                                                                                <a href={{ url('download-media', $media->id) }} class="text-sm hover:text-red-600 text-red-500">Click here to download</a>
-                                                                            </div>
-
-                                                                            @else
-                                                                                <div><iframe class="shadow mt-2 w-full h-[80vh]" src="{{  $media->getUrl() }}"></iframe></div>
-                                                                            @endif
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        @endforeach
-                                                    @endforeach
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <div data-tooltip-target="tooltip-narrativereport" type="button">
-                                            <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = false" class="absolute right-0 top-1 ">
+                                            <div data-tooltip-target="tooltip-specialorder" type="button">
+                                                <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = false" class="absolute right-0 top-1 ">
 
-                                                <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0">
-                                                    <!-- Dropdown toggle button -->
-                                                    <button @click="dropdownMenu = ! dropdownMenu" class="tooltipButton  flex items-center p-2 rounded-md" style="display: block">
-                                                        <svg class=" absolute hover:fill-blue-500 top-2 right-0 fill-slate-700" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z"/></svg>
-                                                    </button>
-                                                    <!-- Dropdown list -->
-                                                    <div x-show="dropdownMenu" class="z-50 absolute right-[-5] py-2 mt-2 bg-white rounded-md shadow-xl w-32 space-y-2" x-on:keydown.escape.window="dropdownMenu = false"  @click.away="dropdownMenu = false" @click="dropdownMenu = ! dropdownMenu"
-                                                        x-transition:enter="motion-safe:ease-out duration-100" x-transition:enter-start="opacity-0 scale-90"
-                                                        x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-200"
-                                                        x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
-                                                        x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
-
-                                                        <a href={{ route('inventory-download-narrative', $proposals->id) }} class="block text-xs px-2 hover:text-black hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
-                                                        <form action={{ route('admin.dashboard.narrative-delete',$proposals->id) }} method="POST" enctype="multipart/form-data" onsubmit="return confirm ('Are you sure?')" >
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button class="block text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="submit">Delete</button>
-                                                        </form>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endif
-
-                                @if ($proposals->terminalreport->isNotEmpty())
-                                    <div class="bg-white w-[10rem] sm:w-[10rem] xl:w-[10rem] xl:h-[17vh] 2xl:h-[12vh] shadow-md rounded-lg hover:bg-slate-100 transition-all m-2 relative" id="narrativereport">
-
-                                        <!-- Modal toggle -->
-                                        <button data-modal-target="default-modal-terminal{{ $proposals->id }}" data-modal-toggle="default-modal-terminal{{ $proposals->id }}" class="text-sm p-4 text-center h-full flex flex-col space-y-4 items-center w-full" type="button">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 32 32"><g fill="none"><path fill="#FFB02E" d="m15.385 7.39l-2.477-2.475A3.121 3.121 0 0 0 10.698 4H4.126A2.125 2.125 0 0 0 2 6.125V13.5h28v-3.363a2.125 2.125 0 0 0-2.125-2.125H16.888a2.126 2.126 0 0 1-1.503-.621"/><path fill="#FCD53F" d="M27.875 30H4.125A2.118 2.118 0 0 1 2 27.888V13.112C2 11.945 2.951 11 4.125 11h23.75c1.174 0 2.125.945 2.125 2.112v14.776A2.118 2.118 0 0 1 27.875 30"/></g></svg>
-                                            <span class="text-xs mt-4">Terminal Report</span>
-                                        </button>
-
-                                        <!-- Main modal -->
-                                        <div id="default-modal-terminal{{ $proposals->id }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                                            <div class="relative p-4 w-full max-w-5xl h-[80%]">
-                                                <!-- Modal content -->
-                                                <div class="relative bg-white rounded-lg shadow h-full overflow-x-auto">
-                                                    <!-- Modal header -->
-                                                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t z-10 sticky top-0 bg-white">
-                                                        <h3 class="text-xl font-semibold text-gray-600">
-                                                        Terminal Report
-                                                        </h3>
-                                                        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal-terminal{{ $proposals->id }}">
-                                                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                                                            </svg>
-                                                            <span class="sr-only">Close modal</span>
+                                                    <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0">
+                                                        <!-- Dropdown toggle button -->
+                                                        <button @click="dropdownMenu = ! dropdownMenu" class="tooltipButton  flex items-center p-2 rounded-md" style="display: block">
+                                                            <svg class=" absolute hover:fill-blue-500 top-2 right-0 fill-slate-700" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z"/></svg>
                                                         </button>
+                                                        <!-- Dropdown list -->
+                                                        <div x-show="dropdownMenu" class="z-50 absolute right-[-5] py-2 mt-2 bg-white rounded-md shadow-xl w-32 space-y-2" x-on:keydown.escape.window="dropdownMenu = false"  @click.away="dropdownMenu = false" @click="dropdownMenu = ! dropdownMenu"
+                                                            x-transition:enter="motion-safe:ease-out duration-100" x-transition:enter-start="opacity-0 scale-90"
+                                                            x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-200"
+                                                            x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                                                            x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+
+                                                            <a href={{ route('inventory-download-specialorder', $proposals->id) }} class="block text-xs px-2 hover:text-black hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
+
+                                                        </div>
                                                     </div>
-                                                    <!-- Modal body -->
-                                                    <div class="p-4 grid grid-cols-3 gap-3">
-                                                    @foreach ($proposals->terminalreport as $terminal )
-                                                        @foreach ($terminal->medias as $media )
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
 
-                                                        <div class="w-full shadow rounded-lg transition-all  relative">
-                                                            <!-- Modal toggle -->
-                                                            <button data-modal-target="terminal-media-modal{{ $media->id}}" data-modal-toggle="terminal-media-modal{{ $media->id}}"  class="space-x-2 p-4 flex bg-gray-100 hover:bg-gray-200 justify-start items-center rounded w-full" type="button">
-                                                                    @if ($media->mime_type == 'image/jpeg' || $media->mime_type == 'image/png' || $media->mime_type == 'image/jpg')
-                                                                        <img src="{{asset('img/image-icon.png') }}" class="xl:w-[2.5rem] w-[3rem]" width="30">
-                                                                    @elseif ($media->mime_type == 'text/plain')
-                                                                        <img src="{{asset('img/text-document.png') }}" class="xl:w-[2.5rem] w-[3rem]" width="30">
-                                                                    @elseif ($media->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-                                                                        <img src="{{asset('img/docx.png')}}" class="xl:w-[2.5rem] w-[3rem]" width="30">
-                                                                    @else
-                                                                        <img src="{{asset('img/pdf.png')}}" class="xl:w-[2.5rem] w-[3rem]" width="30">
-                                                                    @endif
-                                                                    <span class="text-xs">{{ Str::limit($media->file_name, 25) }}</span>
 
+                                    @if (($proposalfile->document_type == 'officeorder') != null)
+                                        <div class="w-[10rem] sm:w-[10rem] xl:w-[10rem] xl:h-[17vh] 2xl:h-[12vh] bg-white  shadow-md rounded-lg hover:bg-slate-100 transition-all m-2 relative" id="officeorder">
+
+                                            <!-- Modal toggle -->
+                                            <button data-modal-target="default-modal-officeorder" data-modal-toggle="default-modal-officeorder" class="text-sm p-4 text-center h-full flex flex-col space-y-4 items-center w-full" type="button">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 32 32"><g fill="none"><path fill="#FFB02E" d="m15.385 7.39l-2.477-2.475A3.121 3.121 0 0 0 10.698 4H4.126A2.125 2.125 0 0 0 2 6.125V13.5h28v-3.363a2.125 2.125 0 0 0-2.125-2.125H16.888a2.126 2.126 0 0 1-1.503-.621"/><path fill="#FCD53F" d="M27.875 30H4.125A2.118 2.118 0 0 1 2 27.888V13.112C2 11.945 2.951 11 4.125 11h23.75c1.174 0 2.125.945 2.125 2.112v14.776A2.118 2.118 0 0 1 27.875 30"/></g></svg>
+                                                <span class="text-xs mt-4">Office Order Folder</span>
+                                            </button>
+
+                                            <!-- Main modal -->
+                                            <div id="default-modal-officeorder" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                                <div class="relative p-4 w-full max-w-5xl h-[80%]">
+                                                    <!-- Modal content -->
+                                                    <div class="relative bg-white rounded-lg shadow h-full overflow-x-auto">
+                                                        <!-- Modal header -->
+                                                        <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t z-10 sticky top-0 bg-white">
+                                                            <h3 class="text-xl font-semibold text-gray-600">
+                                                                Office Order Folder
+                                                            </h3>
+                                                            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal-officeorder">
+                                                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                                                </svg>
+                                                                <span class="sr-only">Close modal</span>
                                                             </button>
+                                                        </div>
+                                                        <!-- Modal body -->
+                                                        <div class="p-4 grid grid-cols-3 gap-3">
+                                                            @foreach($proposals->proposalfiles as $propos)
+                                                            @foreach ($propos->medias as $media)
+                                                            @if ($media->collection_name == 'officeOrderPdf')
+                                                                <div data-tooltip-target="tooltip-proposal" type="button" class="w-full shadow rounded-lg transition-all  relative" id="">
+                                                                    <!-- Modal toggle -->
+                                                                    <button data-modal-target="officeorder-media-modal{{ $media->id}}" data-modal-toggle="officeorder-media-modal{{ $media->id}}"  class="space-x-2 p-4 flex bg-gray-100 hover:bg-gray-200 justify-start items-center rounded w-full" type="button">
+                                                                            @if ($media->mime_type == 'image/jpeg' || $media->mime_type == 'image/png' || $media->mime_type == 'image/jpg')
+                                                                                <img src="{{asset('img/image-icon.png') }}" class="xl:w-[2.5rem] w-[3rem]" width="30">
+                                                                            @elseif ($media->mime_type == 'text/plain')
+                                                                                <img src="{{asset('img/text-document.png') }}" class="xl:w-[2.5rem] w-[3rem]" width="30">
+                                                                            @elseif ($media->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+                                                                                <img src="{{asset('img/docx.png')}}" class="xl:w-[2.5rem] w-[3rem]" width="30">
+                                                                            @else
+                                                                                <img src="{{asset('img/pdf.png')}}" class="xl:w-[2.5rem] w-[3rem]" width="30">
+                                                                            @endif
+                                                                            <span class="text-xs">{{ Str::limit($media->file_name, 25) }}</span>
+                                                                    </button>
+                                                                    <div x-cloak  x-data="{ 'showModalOfficeOrder{{ $media->id }}': false }" @keydown.escape="showModalOfficeOrder{{ $media->id }} = false" class="absolute right-0 top-1 ">
+                                                                        <!-- Detail modal -->
+                                                                        <div id="detail-officeorder-modal{{ $media->id }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0  left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                                                            <div class="relative p-4 w-full max-w-2xl max-h-full bg-opacity-0">
+                                                                                <!-- Modal content -->
+                                                                                <div class="relative bg-gray-700 rounded-lg shadow">
+                                                                                    <!-- Modal header -->
+                                                                                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+                                                                                        <h3 class="text-xl font-semibold text-white">
+                                                                                            Details
+                                                                                        </h3>
+                                                                                        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="detail-officeorder-modal{{ $media->id }}">
+                                                                                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                                                                            </svg>
+                                                                                            <span class="sr-only">Close modal</span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <!-- Modal body -->
+                                                                                    <div class="p-4 md:p-5 space-y-2">
+                                                                                        <p class="text-sm leading-relaxed text-white">
+                                                                                            Uploaded at: {{ \Carbon\Carbon::parse($media->created_at)->format('M d, y g:i:s A') }}
+                                                                                        </p>
+                                                                                        <p class="text-sm leading-relaxed text-white">
+                                                                                            Report Type: Office Order
+                                                                                        </p>
+                                                                                        <p class="text-sm leading-relaxed text-white">
+                                                                                            File name: {{ $media->file_name }}
+                                                                                        </p>
+                                                                                        <p class="text-sm leading-relaxed text-white">
+                                                                                            File size: {{ $media->size }} kb
+                                                                                        </p>
 
-                                                                <div x-cloak  x-data="{ 'showModalTerminal{{ $media->id }}': false }" @keydown.escape="showModalTerminal{{ $media->id }} = false"  x-data="{ 'showModalTerminalDetail{{ $media->id }}': false }" @keydown.escape="showModalTerminalDetail{{ $media->id }} = false" class="absolute right-0 top-1">
+                                                                                        <p class="text-sm leading-relaxed text-white">
+                                                                                            File type: {{ $media->mime_type }}
+                                                                                        </p>
 
-                                                                    <!-- Modal -->
-                                                                    <div class="fixed inset-0 z-50  flex items-center justify-center overflow-auto bg-black bg-opacity-50" x-show="showModalTerminal{{ $media->id }}">
+                                                                                        <p class="text-sm leading-relaxed text-white">
+                                                                                            Username uploader: {{ $propos->users->name }}
+                                                                                        </p>
 
-                                                                        <!-- Modal inner -->
-                                                                        <div class="w-1/4 py-4 text-left bg-white rounded-lg shadow-lg" x-show="showModalTerminal{{ $media->id }}"
-                                                                            x-transition:enter="motion-safe:ease-out duration-300"
-                                                                            x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
-                                                                            x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
-                                                                            x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" @click.away="showModalTerminal{{ $media->id }} = true">
+                                                                                    </div>
 
-                                                                            <!-- Title / Close-->
-                                                                            <div class="flex items-center justify-between px-4 py-1">
-                                                                                <h5 class="mr-3 text-black max-w-none text-xs">Rename file</h5>
-                                                                                <button type="button" class="z-50 cursor-pointer text-red-500 hover:bg-gray-200 rounded px-2 py-1 text-xl font-semibold" @click="showModalTerminal{{ $media->id }} = false">
-                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = false" class="absolute right-0 top-1 ">
+
+                                                                            <!-- Modal -->
+                                                                            <div class="fixed inset-0 z-50  flex items-center justify-center overflow-auto bg-black bg-opacity-50" x-show="showModal">
+
+                                                                                <!-- Modal inner -->
+                                                                                <div class="w-1/4 py-4 text-left bg-white rounded-lg shadow-lg" x-show="showModal"
+                                                                                    x-transition:enter="motion-safe:ease-out duration-300"
+                                                                                    x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
+                                                                                    x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                                                                                    x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" @click.away="showModal = true">
+
+                                                                                    <!-- Title / Close-->
+                                                                                    <div class="flex items-center justify-between px-4 py-1">
+                                                                                        <h5 class="mr-3 text-black max-w-none text-xs">Rename file</h5>
+                                                                                        <button type="button" class="z-50 cursor-pointer text-red-500 hover:bg-gray-200 rounded px-2 py-1 text-xl font-semibold" @click="showModal = false">
+                                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                                                            </svg>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <hr>
+
+                                                                                    <!-- content -->
+                                                                                    <div>
+                                                                                        <form action="{{route('inventory-rename-media', $media->id)}}" method="POST">
+                                                                                            @csrf @method('PUT')
+                                                                                            <div class="flex flex-col items-center pt-5 px-4">
+                                                                                            <input type="text" value="{{ $media->file_name }}" name="file_name" class="text-gray-700 w-full rounded">
+                                                                                            <button type="submit" class="p-2 bg-blue-500 rounded mt-5 text-gray-700">Rename</button>
+                                                                                        </div>
+                                                                                        </form>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+
+                                                                            <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0">
+                                                                                <!-- Dropdown toggle button -->
+                                                                                <button @click="dropdownMenu = ! dropdownMenu" class="tooltipButton  flex items-center p-2 rounded-md" style="display: block">
+                                                                                    <svg class=" absolute hover:fill-blue-500 top-2 right-0 fill-slate-700" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z"/></svg>
+                                                                                </button>
+                                                                                <!-- Dropdown list -->
+                                                                                <div x-show="dropdownMenu" class="z-50 absolute right-5 py-2 mt-2 bg-white rounded-md shadow-xl w-32 space-y-2" x-on:keydown.escape.window="dropdownMenu = false"  @click.away="dropdownMenu = false" @click="dropdownMenu = ! dropdownMenu"
+                                                                                    x-transition:enter="motion-safe:ease-out duration-100" x-transition:enter-start="opacity-0 scale-90"
+                                                                                    x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-200"
+                                                                                    x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                                                                                    x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+
+                                                                                    <button data-modal-target="detail-officeorder-modal{{ $media->id }}" data-modal-toggle="detail-officeorder-modal{{ $media->id }}" class="text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left" type="button">Details</button>
+                                                                                    <button class="text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left" type="button" @click="showModal = true">Rename</button>
+                                                                                    <a href={{ url('download-media', $media->id) }} class="block text-xs px-2 hover:text-black text-gray-700 hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
+                                                                                    <form action={{ route('report-officeorder.trash',[ 'id' => $media->id, 'officeOrderId' => $proposalfile->id]) }} method="POST" enctype="multipart/form-data" onsubmit="return confirm ('Are you sure?')" >
+                                                                                        @csrf
+                                                                                        @method('DELETE')
+                                                                                        <button class="block text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="submit">Delete</button>
+                                                                                    </form>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div id="officeorder-media-modal{{ $media->id}}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                                                    <div class="relative p-4 w-full max-w-5xl h-[90%]">
+                                                                        <!-- Modal content -->
+                                                                        <div class="relative bg-white rounded-lg shadow h-full overflow-hidden">
+                                                                            <!-- Modal header -->
+                                                                            <div class="flex items-center justify-between p-2 md:p-5 border-b rounded-t">
+                                                                                <h3 class="text-md font-semibold text-gray-600">
+                                                                                {{ $media->file_name }}
+                                                                                </h3>
+                                                                                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="officeorder-media-modal{{ $media->id}}">
+                                                                                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                                                                                     </svg>
+                                                                                    <span class="sr-only">Close modal</span>
                                                                                 </button>
                                                                             </div>
-                                                                            <hr>
-
-                                                                            <!-- content -->
+                                                                            <!-- Modal body -->
                                                                             <div>
-                                                                                <form action="{{route('inventory-rename-media', $media->id)}}" method="POST">
-                                                                                    @csrf @method('PUT')
-                                                                                    <div class="flex flex-col items-center pt-5 px-4">
-                                                                                    <input type="text" value="{{ $media->file_name }}" name="file_name" class="text-gray-700 w-full rounded" required>
-                                                                                    <button type="submit" class="p-2 bg-blue-500 rounded mt-5 text-gray-700">Rename</button>
+                                                                                @if ($media->mime_type == 'image/jpeg' || $media->mime_type == 'image/png' || $media->mime_type == 'image/jpg')
+                                                                                <div><img class="shadow w-full " src="{{  $media->getUrl() }}"></div>
+                                                                                @elseif ($media->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+                                                                                <div class="p-5 flex items-center flex-col">
+                                                                                    <h1 class="text-center">This file format does not support viewing download only.</h1>
+                                                                                    <a href={{ url('download-media', $media->id) }} class="text-sm hover:text-red-600 text-red-500">Click here to download</a>
                                                                                 </div>
-                                                                                </form>
+
+                                                                                @else
+                                                                                    <div><iframe class="shadow mt-2 w-full h-[80vh]" src="{{  $media->getUrl() }}"></iframe></div>
+                                                                                @endif
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            @endif
+                                                            @endforeach
+                                                            @endforeach
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div data-tooltip-target="tooltip-specialorder" type="button">
+                                                <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = false" class="absolute right-0 top-1 ">
+
+                                                    <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0">
+                                                        <!-- Dropdown toggle button -->
+                                                        <button @click="dropdownMenu = ! dropdownMenu" class="tooltipButton  flex items-center p-2 rounded-md" style="display: block">
+                                                            <svg class=" absolute hover:fill-blue-500 top-2 right-0 fill-slate-700" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z"/></svg>
+                                                        </button>
+                                                        <!-- Dropdown list -->
+                                                        <div x-show="dropdownMenu" class="z-50 absolute right-[-5] py-2 mt-2 bg-white rounded-md shadow-xl w-32 space-y-2" x-on:keydown.escape.window="dropdownMenu = false"  @click.away="dropdownMenu = false" @click="dropdownMenu = ! dropdownMenu"
+                                                            x-transition:enter="motion-safe:ease-out duration-100" x-transition:enter-start="opacity-0 scale-90"
+                                                            x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-200"
+                                                            x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                                                            x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+
+                                                            <a href={{ route('inventory-download-officeorder', $proposals->id) }} class="block text-xs px-2 hover:text-black hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+
+                                    @if (($proposalfile->document_type == 'attendance') != null)
+                                        <div class="w-[10rem] sm:w-[10rem] xl:w-[10rem] xl:h-[17vh] 2xl:h-[12vh] bg-white  shadow-md rounded-lg hover:bg-slate-100 transition-all m-2 relative" id="attendance">
+
+                                            <!-- Modal toggle -->
+                                            <button data-modal-target="default-modal-attendance" data-modal-toggle="default-modal-attendance" class="text-sm p-4 text-center h-full flex flex-col space-y-4 items-center w-full" type="button">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 32 32"><g fill="none"><path fill="#FFB02E" d="m15.385 7.39l-2.477-2.475A3.121 3.121 0 0 0 10.698 4H4.126A2.125 2.125 0 0 0 2 6.125V13.5h28v-3.363a2.125 2.125 0 0 0-2.125-2.125H16.888a2.126 2.126 0 0 1-1.503-.621"/><path fill="#FCD53F" d="M27.875 30H4.125A2.118 2.118 0 0 1 2 27.888V13.112C2 11.945 2.951 11 4.125 11h23.75c1.174 0 2.125.945 2.125 2.112v14.776A2.118 2.118 0 0 1 27.875 30"/></g></svg>
+                                                <span class="text-xs mt-4">Attendance Folder</span>
+                                            </button>
+
+                                            <!-- Main modal -->
+                                            <div id="default-modal-attendance" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                                <div class="relative p-4 w-full max-w-5xl h-[80%]">
+                                                    <!-- Modal content -->
+                                                    <div class="relative bg-white rounded-lg shadow h-full overflow-x-auto">
+                                                        <!-- Modal header -->
+                                                        <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t z-10 sticky top-0 bg-white">
+                                                            <h3 class="text-xl font-semibold text-gray-600">
+                                                                Attendance Folder
+                                                            </h3>
+                                                            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal-attendance">
+                                                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                                                </svg>
+                                                                <span class="sr-only">Close modal</span>
+                                                            </button>
+                                                        </div>
+                                                        <!-- Modal body -->
+                                                        <div class="p-4 grid grid-cols-3 gap-3">
+                                                            @foreach($proposals->proposalfiles as $propos)
+                                                            @foreach ($propos->medias as $media)
+                                                            @if ($media->collection_name == 'Attendance')
+
+                                                                <div data-tooltip-target="tooltip-proposal" type="button" class="w-full shadow rounded-lg transition-all  relative" id="">
+                                                                    <!-- Modal toggle -->
+                                                                    <button data-modal-target="attendance-media-modal{{ $media->id}}" data-modal-toggle="attendance-media-modal{{ $media->id}}"  class="space-x-2 p-4 flex bg-gray-100 hover:bg-gray-200 justify-start items-center rounded w-full" type="button">
+                                                                        @if ($media->mime_type == 'image/jpeg' || $media->mime_type == 'image/png' || $media->mime_type == 'image/jpg')
+                                                                            <img src="{{asset('img/image-icon.png') }}" class="xl:w-[2.5rem] w-[3rem]" width="30">
+                                                                        @elseif ($media->mime_type == 'text/plain')
+                                                                            <img src="{{asset('img/text-document.png') }}" class="xl:w-[2.5rem] w-[3rem]" width="30">
+                                                                        @elseif ($media->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+                                                                            <img src="{{asset('img/docx.png')}}" class="xl:w-[2.5rem] w-[3rem]" width="30">
+                                                                        @else
+                                                                            <img src="{{asset('img/pdf.png')}}" class="xl:w-[2.5rem] w-[3rem]" width="30">
+                                                                        @endif
+                                                                        <span class="text-xs">{{ Str::limit($media->file_name, 25) }}</span>
+                                                                    </button>
+                                                                    <div x-cloak  x-data="{ 'showModalAttendance{{ $media->id }}': false }" @keydown.escape="showModalAttendance{{ $media->id }} = false" class="absolute right-0 top-1 ">
+                                                                        <!-- Detail modal -->
+                                                                        <div id="detail-attendance-modal{{ $media->id }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0  left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                                                            <div class="relative p-4 w-full max-w-2xl max-h-full bg-opacity-0">
+                                                                                <!-- Modal content -->
+                                                                                <div class="relative bg-gray-700 rounded-lg shadow">
+                                                                                    <!-- Modal header -->
+                                                                                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+                                                                                        <h3 class="text-xl font-semibold text-white">
+                                                                                            Details
+                                                                                        </h3>
+                                                                                        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="detail-attendance-modal{{ $media->id }}">
+                                                                                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                                                                            </svg>
+                                                                                            <span class="sr-only">Close modal</span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <!-- Modal body -->
+                                                                                    <div class="p-4 md:p-5 space-y-2">
+                                                                                        <p class="text-sm leading-relaxed text-white">
+                                                                                            Uploaded at: {{ \Carbon\Carbon::parse($media->created_at)->format('M d, y g:i:s A') }}
+                                                                                        </p>
+                                                                                        <p class="text-sm leading-relaxed text-white">
+                                                                                            Report Type: Attendance
+                                                                                        </p>
+                                                                                        <p class="text-sm leading-relaxed text-white">
+                                                                                            File name: {{ $media->file_name }}
+                                                                                        </p>
+                                                                                        <p class="text-sm leading-relaxed text-white">
+                                                                                            File size: {{ $media->size }} kb
+                                                                                        </p>
+
+                                                                                        <p class="text-sm leading-relaxed text-white">
+                                                                                            File type: {{ $media->mime_type }}
+                                                                                        </p>
+
+                                                                                        <p class="text-sm leading-relaxed text-white">
+                                                                                            Username uploader: {{ $propos->users->name }}
+                                                                                        </p>
+
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = false" class="absolute right-0 top-1 ">
+
+                                                                            <!-- Modal -->
+                                                                            <div class="fixed inset-0 z-50  flex items-center justify-center overflow-auto bg-black bg-opacity-50" x-show="showModal">
+
+                                                                                <!-- Modal inner -->
+                                                                                <div class="w-1/4 py-4 text-left bg-white rounded-lg shadow-lg" x-show="showModal"
+                                                                                    x-transition:enter="motion-safe:ease-out duration-300"
+                                                                                    x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
+                                                                                    x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                                                                                    x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" @click.away="showModal = true">
+
+                                                                                    <!-- Title / Close-->
+                                                                                    <div class="flex items-center justify-between px-4 py-1">
+                                                                                        <h5 class="mr-3 text-black max-w-none text-xs">Rename file</h5>
+                                                                                        <button type="button" class="z-50 cursor-pointer text-red-500 hover:bg-gray-200 rounded px-2 py-1 text-xl font-semibold" @click="showModal = false">
+                                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                                                            </svg>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <hr>
+
+                                                                                    <!-- content -->
+                                                                                    <div>
+                                                                                        <form action="{{route('inventory-rename-media', $media->id)}}" method="POST">
+                                                                                            @csrf @method('PUT')
+                                                                                            <div class="flex flex-col items-center pt-5 px-4">
+                                                                                            <input type="text" value="{{ $media->file_name }}" name="file_name" class="text-gray-700 w-full rounded">
+                                                                                            <button type="submit" class="p-2 bg-blue-500 rounded mt-5 text-gray-700">Rename</button>
+                                                                                        </div>
+                                                                                        </form>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+
+                                                                            <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0">
+                                                                                <!-- Dropdown toggle button -->
+                                                                                <button @click="dropdownMenu = ! dropdownMenu" class="tooltipButton  flex items-center p-2 rounded-md" style="display: block">
+                                                                                    <svg class=" absolute hover:fill-blue-500 top-2 right-0 fill-slate-700" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z"/></svg>
+                                                                                </button>
+                                                                                <!-- Dropdown list -->
+                                                                                <div x-show="dropdownMenu" class="z-50 absolute right-5 py-2 mt-2 bg-white rounded-md shadow-xl w-32 space-y-2" x-on:keydown.escape.window="dropdownMenu = false"  @click.away="dropdownMenu = false" @click="dropdownMenu = ! dropdownMenu"
+                                                                                    x-transition:enter="motion-safe:ease-out duration-100" x-transition:enter-start="opacity-0 scale-90"
+                                                                                    x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-200"
+                                                                                    x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                                                                                    x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+
+                                                                                    <button data-modal-target="detail-attendance-modal{{ $media->id }}" data-modal-toggle="detail-attendance-modal{{ $media->id }}" class="text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left" type="button">Details</button>
+                                                                                    <button class="text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left" type="button" @click="showModal = true">Rename</button>
+                                                                                    <a href={{ url('download-media', $media->id) }} class="block text-xs px-2 hover:text-black text-gray-700 hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
+                                                                                    <form action={{ route('report-attendance.trash',[ 'id' => $media->id, 'attendanceId' => $proposalfile->id]) }} method="POST" enctype="multipart/form-data" onsubmit="return confirm ('Are you sure?')" >
+                                                                                        @csrf
+                                                                                        @method('DELETE')
+                                                                                        <button class="block text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="submit">Delete</button>
+                                                                                    </form>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                    <div id="attendance-media-modal{{ $media->id}}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                                                    <div class="relative p-4 w-full max-w-5xl h-[90%]">
+                                                                        <!-- Modal content -->
+                                                                        <div class="relative bg-white rounded-lg shadow h-full overflow-hidden">
+                                                                            <!-- Modal header -->
+                                                                            <div class="flex items-center justify-between p-2 md:p-5 border-b rounded-t">
+                                                                                <h3 class="text-md font-semibold text-gray-600">
+                                                                                    {{ $media->file_name }}
+                                                                                </h3>
+                                                                                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="attendance-media-modal{{ $media->id}}">
+                                                                                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                                                                    </svg>
+                                                                                    <span class="sr-only">Close modal</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <!-- Modal body -->
+                                                                            <div>
+                                                                                @if ($media->mime_type == 'image/jpeg' || $media->mime_type == 'image/png' || $media->mime_type == 'image/jpg')
+                                                                                <div><img class="shadow w-full " src="{{  $media->getUrl() }}"></div>
+                                                                                @elseif ($media->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+                                                                                <div class="p-5 flex items-center flex-col">
+                                                                                    <h1 class="text-center">This file format does not support viewing download only.</h1>
+                                                                                    <a href={{ url('download-media', $media->id) }} class="text-sm hover:text-red-600 text-red-500">Click here to download</a>
+                                                                                </div>
+
+                                                                                @else
+                                                                                    <div><iframe class="shadow mt-2 w-full h-[80vh]" src="{{  $media->getUrl() }}"></iframe></div>
+                                                                                @endif
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                @endif
+                                                                @endforeach
+                                                                @endforeach
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div data-tooltip-target="tooltip-attendance" type="button">
+                                                <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = false" class="absolute right-0 top-1 ">
+
+                                                    <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0">
+                                                        <!-- Dropdown toggle button -->
+                                                        <button @click="dropdownMenu = ! dropdownMenu" class="tooltipButton  flex items-center p-2 rounded-md" style="display: block">
+                                                            <svg class=" absolute hover:fill-blue-500 top-2 right-0 fill-slate-700" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z"/></svg>
+                                                        </button>
+                                                        <!-- Dropdown list -->
+                                                        <div x-show="dropdownMenu" class="z-50 absolute right-[-5] py-2 mt-2 bg-white rounded-md shadow-xl w-32 space-y-2" x-on:keydown.escape.window="dropdownMenu = false"  @click.away="dropdownMenu = false" @click="dropdownMenu = ! dropdownMenu"
+                                                            x-transition:enter="motion-safe:ease-out duration-100" x-transition:enter-start="opacity-0 scale-90"
+                                                            x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-200"
+                                                            x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                                                            x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+
+                                                            <a href={{ route('inventory-download-attendance', $proposals->id) }} class="block text-xs px-2 hover:text-black hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+
+                                    @if (($proposalfile->document_type == 'attendancem') != null)
+                                        <div class="w-[10rem] sm:w-[10rem] xl:w-[10rem] xl:h-[17vh] 2xl:h-[12vh] bg-white  shadow-md rounded-lg hover:bg-slate-100 transition-all m-2 relative" id="attendancemonitoring">
+
+                                            <!-- Modal toggle -->
+                                            <button data-modal-target="default-modal-attendancemonitoring" data-modal-toggle="default-modal-attendancemonitoring" class="text-sm p-4 text-center h-full flex flex-col space-y-4 items-center w-full" type="button">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 32 32"><g fill="none"><path fill="#FFB02E" d="m15.385 7.39l-2.477-2.475A3.121 3.121 0 0 0 10.698 4H4.126A2.125 2.125 0 0 0 2 6.125V13.5h28v-3.363a2.125 2.125 0 0 0-2.125-2.125H16.888a2.126 2.126 0 0 1-1.503-.621"/><path fill="#FCD53F" d="M27.875 30H4.125A2.118 2.118 0 0 1 2 27.888V13.112C2 11.945 2.951 11 4.125 11h23.75c1.174 0 2.125.945 2.125 2.112v14.776A2.118 2.118 0 0 1 27.875 30"/></g></svg>
+                                                <span class="text-xs mt-4">Attendance Monitoring Folder</span>
+                                            </button>
+
+                                            <!-- Main modal -->
+                                            <div id="default-modal-attendancemonitoring" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                                <div class="relative p-4 w-full max-w-5xl h-[80%]">
+                                                    <!-- Modal content -->
+                                                    <div class="relative bg-white rounded-lg shadow h-full overflow-x-auto">
+                                                        <!-- Modal header -->
+                                                        <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t z-10 sticky top-0 bg-white">
+                                                            <h3 class="text-xl font-semibold text-gray-600">
+                                                                Attendance Monitoring Folder
+                                                            </h3>
+                                                            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal-attendancemonitoring">
+                                                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                                                </svg>
+                                                                <span class="sr-only">Close modal</span>
+                                                            </button>
+                                                        </div>
+                                                        <!-- Modal body -->
+                                                        <div class="p-4 grid grid-cols-3 gap-3">
+                                                            @foreach($proposals->proposalfiles as $propos)
+                                                            @foreach ($propos->medias as $media)
+                                                            @if ($media->collection_name == 'AttendanceMonitoring')
+
+                                                                <div data-tooltip-target="tooltip-proposal" type="button" class="w-full shadow rounded-lg transition-all  relative" id="">
+                                                                    <!-- Modal toggle -->
+                                                                    <button data-modal-target="attendancemonitoring-media-modal{{ $media->id}}" data-modal-toggle="attendancemonitoring-media-modal{{ $media->id}}"  class="space-x-2 p-4 flex bg-gray-100 hover:bg-gray-200 justify-start items-center rounded w-full" type="button">
+                                                                        @if ($media->mime_type == 'image/jpeg' || $media->mime_type == 'image/png' || $media->mime_type == 'image/jpg')
+                                                                            <img src="{{asset('img/image-icon.png') }}" class="xl:w-[2.5rem] w-[3rem]" width="30">
+                                                                        @elseif ($media->mime_type == 'text/plain')
+                                                                            <img src="{{asset('img/text-document.png') }}" class="xl:w-[2.5rem] w-[3rem]" width="30">
+                                                                        @elseif ($media->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+                                                                            <img src="{{asset('img/docx.png')}}" class="xl:w-[2.5rem] w-[3rem]" width="30">
+                                                                        @else
+                                                                            <img src="{{asset('img/pdf.png')}}" class="xl:w-[2.5rem] w-[3rem]" width="30">
+                                                                        @endif
+                                                                        <span class="text-xs">{{ Str::limit($media->file_name, 25) }}</span>
+                                                                    </button>
+                                                                    <div x-cloak  x-data="{ 'showModalAttendanceM{{ $media->id }}': false }" @keydown.escape="showModalAttendanceM{{ $media->id }} = false" class="absolute right-0 top-1 ">
+                                                                        <!-- Detail modal -->
+                                                                        <div id="detail-attendancemonitoring-modal{{ $media->id }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0  left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                                                            <div class="relative p-4 w-full max-w-2xl max-h-full bg-opacity-0">
+                                                                                <!-- Modal content -->
+                                                                                <div class="relative bg-gray-700 rounded-lg shadow">
+                                                                                    <!-- Modal header -->
+                                                                                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+                                                                                        <h3 class="text-xl font-semibold text-white">
+                                                                                            Details
+                                                                                        </h3>
+                                                                                        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="detail-attendancemonitoring-modal{{ $media->id }}">
+                                                                                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                                                                            </svg>
+                                                                                            <span class="sr-only">Close modal</span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <!-- Modal body -->
+                                                                                    <div class="p-4 md:p-5 space-y-2">
+                                                                                        <p class="text-sm leading-relaxed text-white">
+                                                                                            Uploaded at: {{ \Carbon\Carbon::parse($media->created_at)->format('M d, y g:i:s A') }}
+                                                                                        </p>
+                                                                                        <p class="text-sm leading-relaxed text-white">
+                                                                                            Report Type: Attendance Monitoring
+                                                                                        </p>
+                                                                                        <p class="text-sm leading-relaxed text-white">
+                                                                                            File name: {{ $media->file_name }}
+                                                                                        </p>
+                                                                                        <p class="text-sm leading-relaxed text-white">
+                                                                                            File size: {{ $media->size }} kb
+                                                                                        </p>
+
+                                                                                        <p class="text-sm leading-relaxed text-white">
+                                                                                            File type: {{ $media->mime_type }}
+                                                                                        </p>
+
+                                                                                        <p class="text-sm leading-relaxed text-white">
+                                                                                            Username uploader: {{ $propos->users->name }}
+                                                                                        </p>
+
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = false" class="absolute right-0 top-1 ">
+
+                                                                            <!-- Modal -->
+                                                                            <div class="fixed inset-0 z-50  flex items-center justify-center overflow-auto bg-black bg-opacity-50" x-show="showModal">
+
+                                                                                <!-- Modal inner -->
+                                                                                <div class="w-1/4 py-4 text-left bg-white rounded-lg shadow-lg" x-show="showModal"
+                                                                                    x-transition:enter="motion-safe:ease-out duration-300"
+                                                                                    x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
+                                                                                    x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                                                                                    x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" @click.away="showModal = true">
+
+                                                                                    <!-- Title / Close-->
+                                                                                    <div class="flex items-center justify-between px-4 py-1">
+                                                                                        <h5 class="mr-3 text-black max-w-none text-xs">Rename file</h5>
+                                                                                        <button type="button" class="z-50 cursor-pointer text-red-500 hover:bg-gray-200 rounded px-2 py-1 text-xl font-semibold" @click="showModal = false">
+                                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                                                            </svg>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <hr>
+
+                                                                                    <!-- content -->
+                                                                                    <div>
+                                                                                        <form action="{{route('inventory-rename-media', $media->id)}}" method="POST">
+                                                                                            @csrf @method('PUT')
+                                                                                            <div class="flex flex-col items-center pt-5 px-4">
+                                                                                            <input type="text" value="{{ $media->file_name }}" name="file_name" class="text-gray-700 w-full rounded">
+                                                                                            <button type="submit" class="p-2 bg-blue-500 rounded mt-5 text-gray-700">Rename</button>
+                                                                                        </div>
+                                                                                        </form>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+
+                                                                            <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0">
+                                                                                <!-- Dropdown toggle button -->
+                                                                                <button @click="dropdownMenu = ! dropdownMenu" class="tooltipButton  flex items-center p-2 rounded-md" style="display: block">
+                                                                                    <svg class=" absolute hover:fill-blue-500 top-2 right-0 fill-slate-700" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z"/></svg>
+                                                                                </button>
+                                                                                <!-- Dropdown list -->
+                                                                                <div x-show="dropdownMenu" class="z-50 absolute right-5 py-2 mt-2 bg-white rounded-md shadow-xl w-32 space-y-2" x-on:keydown.escape.window="dropdownMenu = false"  @click.away="dropdownMenu = false" @click="dropdownMenu = ! dropdownMenu"
+                                                                                    x-transition:enter="motion-safe:ease-out duration-100" x-transition:enter-start="opacity-0 scale-90"
+                                                                                    x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-200"
+                                                                                    x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                                                                                    x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+
+                                                                                    <button data-modal-target="detail-attendancemonitoring-modal{{ $media->id }}" data-modal-toggle="detail-attendancemonitoring-modal{{ $media->id }}" class="text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left" type="button">Details</button>
+                                                                                    <button class="text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left" type="button" @click="showModal = true">Rename</button>
+                                                                                    <a href={{ url('download-media', $media->id) }} class="block text-xs px-2 hover:text-black text-gray-700 hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
+                                                                                    <form action={{ route('report-attendancem.trash',[ 'id' => $media->id, 'attendancemId' => $proposalfile->id]) }} method="POST" enctype="multipart/form-data" onsubmit="return confirm ('Are you sure?')" >
+                                                                                        @csrf
+                                                                                        @method('DELETE')
+                                                                                        <button class="block text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="submit">Delete</button>
+                                                                                    </form>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                    <div id="attendancemonitoring-media-modal{{ $media->id}}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                                                    <div class="relative p-4 w-full max-w-5xl h-[90%]">
+                                                                        <!-- Modal content -->
+                                                                        <div class="relative bg-white rounded-lg shadow h-full overflow-hidden">
+                                                                            <!-- Modal header -->
+                                                                            <div class="flex items-center justify-between p-2 md:p-5 border-b rounded-t">
+                                                                                <h3 class="text-md font-semibold text-gray-600">
+                                                                                    {{ $media->file_name }}
+                                                                                </h3>
+                                                                                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="attendancemonitoring-media-modal{{ $media->id}}">
+                                                                                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                                                                    </svg>
+                                                                                    <span class="sr-only">Close modal</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <!-- Modal body -->
+                                                                            <div>
+                                                                                @if ($media->mime_type == 'image/jpeg' || $media->mime_type == 'image/png' || $media->mime_type == 'image/jpg')
+                                                                                <div><img class="shadow w-full " src="{{  $media->getUrl() }}"></div>
+                                                                                @elseif ($media->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+                                                                                <div class="p-5 flex items-center flex-col">
+                                                                                    <h1 class="text-center">This file format does not support viewing download only.</h1>
+                                                                                    <a href={{ url('download-media', $media->id) }} class="text-sm hover:text-red-600 text-red-500">Click here to download</a>
+                                                                                </div>
+
+                                                                                @else
+                                                                                    <div><iframe class="shadow mt-2 w-full h-[80vh]" src="{{  $media->getUrl() }}"></iframe></div>
+                                                                                @endif
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            @endif
+                                                            @endforeach
+                                                            @endforeach
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div data-tooltip-target="tooltip-attendancemonitoring" type="button">
+                                                <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = false" class="absolute right-0 top-1 ">
+
+                                                    <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0">
+                                                        <!-- Dropdown toggle button -->
+                                                        <button @click="dropdownMenu = ! dropdownMenu" class="tooltipButton  flex items-center p-2 rounded-md" style="display: block">
+                                                            <svg class=" absolute hover:fill-blue-500 top-2 right-0 fill-slate-700" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z"/></svg>
+                                                        </button>
+                                                        <!-- Dropdown list -->
+                                                        <div x-show="dropdownMenu" class="z-50 absolute right-[-5] py-2 mt-2 bg-white rounded-md shadow-xl w-32 space-y-2" x-on:keydown.escape.window="dropdownMenu = false"  @click.away="dropdownMenu = false" @click="dropdownMenu = ! dropdownMenu"
+                                                            x-transition:enter="motion-safe:ease-out duration-100" x-transition:enter-start="opacity-0 scale-90"
+                                                            x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-200"
+                                                            x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                                                            x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+
+                                                            <a href={{ route('inventory-download-attendancem', $proposals->id) }} class="block text-xs px-2 hover:text-black hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+
+
+                                    @if (($proposalfile->document_type == 'narrativereport') != null)
+
+                                        <div class="w-[10rem] sm:w-[10rem] xl:w-[10rem] xl:h-[17vh] 2xl:h-[12vh] bg-white  shadow-md rounded-lg hover:bg-slate-100 transition-all m-2 relative" id="narrativereport">
+
+                                            <!-- Modal toggle -->
+                                            <button data-modal-target="default-modal-narrative" data-modal-toggle="default-modal-narrative" class="text-sm p-4 text-center h-full flex flex-col space-y-4 items-center w-full" type="button">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 32 32"><g fill="none"><path fill="#FFB02E" d="m15.385 7.39l-2.477-2.475A3.121 3.121 0 0 0 10.698 4H4.126A2.125 2.125 0 0 0 2 6.125V13.5h28v-3.363a2.125 2.125 0 0 0-2.125-2.125H16.888a2.126 2.126 0 0 1-1.503-.621"/><path fill="#FCD53F" d="M27.875 30H4.125A2.118 2.118 0 0 1 2 27.888V13.112C2 11.945 2.951 11 4.125 11h23.75c1.174 0 2.125.945 2.125 2.112v14.776A2.118 2.118 0 0 1 27.875 30"/></g></svg>
+                                                <span class="text-xs mt-4">Narrative Folder</span>
+                                            </button>
+
+                                            <!-- Main modal -->
+                                            <div id="default-modal-narrative" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                                <div class="relative p-4 w-full max-w-5xl h-[80%]">
+                                                    <!-- Modal content -->
+                                                    <div class="relative bg-white rounded-lg shadow h-full overflow-x-auto">
+                                                        <!-- Modal header -->
+                                                        <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t z-10 sticky top-0 bg-white">
+                                                            <h3 class="text-xl font-semibold text-gray-600">
+                                                                Narrative Folder
+                                                            </h3>
+                                                            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal-narrative">
+                                                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                                                </svg>
+                                                                <span class="sr-only">Close modal</span>
+                                                            </button>
+                                                        </div>
+                                                        <!-- Modal body -->
+                                                        <div class="p-4 grid grid-cols-3 gap-3">
+                                                            @foreach($proposals->proposalfiles as $propos)
+                                                                @foreach ($propos->medias as $media)
+                                                                @if ($media->collection_name == 'NarrativeFile')
+                                                                    <div data-tooltip-target="tooltip-proposal" type="button" class="w-full shadow rounded-lg transition-all  relative" id="">
+                                                                        <!-- Modal toggle -->
+                                                                        <button data-modal-target="narrative-media-modal{{ $media->id}}" data-modal-toggle="narrative-media-modal{{ $media->id}}"  class="space-x-2 p-4 flex bg-gray-100 hover:bg-gray-200 justify-start items-center rounded w-full" type="button">
+                                                                            @if ($media->mime_type == 'image/jpeg' || $media->mime_type == 'image/png' || $media->mime_type == 'image/jpg')
+                                                                                <img src="{{asset('img/image-icon.png') }}" class="xl:w-[2.5rem] w-[3rem]" width="30">
+                                                                            @elseif ($media->mime_type == 'text/plain')
+                                                                                <img src="{{asset('img/text-document.png') }}" class="xl:w-[2.5rem] w-[3rem]" width="30">
+                                                                            @elseif ($media->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+                                                                                <img src="{{asset('img/docx.png')}}" class="xl:w-[2.5rem] w-[3rem]" width="30">
+                                                                            @else
+                                                                                <img src="{{asset('img/pdf.png')}}" class="xl:w-[2.5rem] w-[3rem]" width="30">
+                                                                            @endif
+                                                                            <span class="text-xs">{{ Str::limit($media->file_name, 25) }}</span>
+                                                                        </button>
+                                                                        <div x-cloak  x-data="{ 'showModalNarrative{{ $media->id }}': false }" @keydown.escape="showModalNarrative{{ $media->id }} = false" class="absolute right-0 top-1 ">
+
+
+
+                                                                            <!-- Detail modal -->
+                                                                            <div id="detail-narrative-modal{{ $media->id }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0  left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                                                                <div class="relative p-4 w-full max-w-2xl max-h-full bg-opacity-0">
+                                                                                    <!-- Modal content -->
+                                                                                    <div class="relative bg-gray-700 rounded-lg shadow">
+                                                                                        <!-- Modal header -->
+                                                                                        <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+                                                                                            <h3 class="text-xl font-semibold text-white">
+                                                                                                Details
+                                                                                            </h3>
+                                                                                            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="detail-narrative-modal{{ $media->id }}">
+                                                                                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                                                                                </svg>
+                                                                                                <span class="sr-only">Close modal</span>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                        <!-- Modal body -->
+                                                                                        <div class="p-4 md:p-5 space-y-2">
+                                                                                            <p class="text-sm leading-relaxed text-white">
+                                                                                                Uploaded at: {{ \Carbon\Carbon::parse($media->created_at)->format('M d, y g:i:s A') }}
+                                                                                            </p>
+                                                                                            <p class="text-sm leading-relaxed text-white">
+                                                                                                Report Type: Narrative
+                                                                                            </p>
+                                                                                            <p class="text-sm leading-relaxed text-white">
+                                                                                                File name: {{ $media->file_name }}
+                                                                                            </p>
+                                                                                            <p class="text-sm leading-relaxed text-white">
+                                                                                                File size: {{ $media->size }} kb
+                                                                                            </p>
+
+                                                                                            <p class="text-sm leading-relaxed text-white">
+                                                                                                File type: {{ $proposalfile->mime_type }}
+                                                                                            </p>
+
+                                                                                            <p class="text-sm leading-relaxed text-white">
+                                                                                                Username uploader: {{ $propos->users->name }}
+                                                                                            </p>
+
+                                                                                        </div>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = false" class="absolute right-0 top-1 ">
+
+                                                                                <!-- Modal -->
+                                                                                <div class="fixed inset-0 z-50  flex items-center justify-center overflow-auto bg-black bg-opacity-50" x-show="showModal">
+
+                                                                                    <!-- Modal inner -->
+                                                                                    <div class="w-1/4 py-4 text-left bg-white rounded-lg shadow-lg" x-show="showModal"
+                                                                                        x-transition:enter="motion-safe:ease-out duration-300"
+                                                                                        x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
+                                                                                        x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                                                                                        x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" @click.away="showModal = true">
+
+                                                                                        <!-- Title / Close-->
+                                                                                        <div class="flex items-center justify-between px-4 py-1">
+                                                                                            <h5 class="mr-3 text-black max-w-none text-xs">Rename file</h5>
+                                                                                            <button type="button" class="z-50 cursor-pointer text-red-500 hover:bg-gray-200 rounded px-2 py-1 text-xl font-semibold" @click="showModal = false">
+                                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                                                                </svg>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                        <hr>
+
+                                                                                        <!-- content -->
+                                                                                        <div>
+                                                                                            <form action="{{route('inventory-rename-media', $media->id)}}" method="POST">
+                                                                                                @csrf @method('PUT')
+                                                                                                <div class="flex flex-col items-center pt-5 px-4">
+                                                                                                <input type="text" value="{{ $media->file_name }}" name="file_name" class="text-gray-700 w-full rounded">
+                                                                                                <button type="submit" class="p-2 bg-blue-500 rounded mt-5 text-gray-700">Rename</button>
+                                                                                            </div>
+                                                                                            </form>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+
+                                                                                <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0">
+                                                                                    <!-- Dropdown toggle button -->
+                                                                                    <button @click="dropdownMenu = ! dropdownMenu" class="tooltipButton  flex items-center p-2 rounded-md" style="display: block">
+                                                                                        <svg class=" absolute hover:fill-blue-500 top-2 right-0 fill-slate-700" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z"/></svg>
+                                                                                    </button>
+                                                                                    <!-- Dropdown list -->
+                                                                                    <div x-show="dropdownMenu" class="z-50 absolute right-5 py-2 mt-2 bg-white rounded-md shadow-xl w-32 space-y-2" x-on:keydown.escape.window="dropdownMenu = false"  @click.away="dropdownMenu = false" @click="dropdownMenu = ! dropdownMenu"
+                                                                                        x-transition:enter="motion-safe:ease-out duration-100" x-transition:enter-start="opacity-0 scale-90"
+                                                                                        x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-200"
+                                                                                        x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                                                                                        x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+
+                                                                                        <button data-modal-target="detail-narrative-modal{{ $media->id }}" data-modal-toggle="detail-narrative-modal{{ $media->id }}" class="text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left" type="button">Details</button>
+                                                                                        <button class="text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left" type="button" @click="showModal = true">Rename</button>
+                                                                                        <a href={{ url('download-media', $media->id) }} class="block text-xs px-2 hover:text-black text-gray-700 hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
+                                                                                        <form action={{ route('report-narrative.trash',[ 'id' => $media->id, 'narrativeId' => $proposalfile->id]) }} method="POST" enctype="multipart/form-data" onsubmit="return confirm ('Are you sure?')" >
+                                                                                            @csrf
+                                                                                            @method('DELETE')
+                                                                                            <button class="block text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="submit">Delete</button>
+                                                                                        </form>
+                                                                                    </div>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
 
-                                                                    <!-- Detail modal -->
-                                                                    <div id="detail-terminal-modal{{ $media->id }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0  left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                                                                        <div class="relative p-4 w-full max-w-2xl max-h-full bg-opacity-0">
-                                                                            <!-- Modal content -->
-                                                                            <div class="relative bg-gray-700 rounded-lg shadow">
-                                                                                <!-- Modal header -->
-                                                                                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
-                                                                                    <h3 class="text-xl font-semibold text-gray-600">
-                                                                                        Details
-                                                                                    </h3>
-                                                                                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="detail-terminal-modal{{ $media->id }}">
-                                                                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                                                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                                                    <div id="narrative-media-modal{{ $media->id}}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                                                    <div class="relative p-4 w-full max-w-5xl h-[90%]">
+                                                                        <!-- Modal content -->
+                                                                        <div class="relative bg-white rounded-lg shadow h-full overflow-hidden">
+                                                                            <!-- Modal header -->
+                                                                            <div class="flex items-center justify-between p-2 md:p-5 border-b rounded-t">
+                                                                                <h3 class="text-md font-semibold text-gray-600">
+                                                                                    {{ $media->file_name }}
+                                                                                </h3>
+                                                                                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="narrative-media-modal{{ $media->id}}">
+                                                                                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                                                                    </svg>
+                                                                                    <span class="sr-only">Close modal</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <!-- Modal body -->
+                                                                            <div>
+                                                                                @if ($media->mime_type == 'image/jpeg' || $media->mime_type == 'image/png' || $media->mime_type == 'image/jpg')
+                                                                                <div><img class="shadow w-full " src="{{  $media->getUrl() }}"></div>
+                                                                                @elseif ($media->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+                                                                                <div class="p-5 flex items-center flex-col">
+                                                                                    <h1 class="text-center">This file format does not support viewing download only.</h1>
+                                                                                    <a href={{ url('download-media', $media->id) }} class="text-sm hover:text-red-600 text-red-500">Click here to download</a>
+                                                                                </div>
+
+                                                                                @else
+                                                                                    <div><iframe class="shadow mt-2 w-full h-[80vh]" src="{{  $media->getUrl() }}"></iframe></div>
+                                                                                @endif
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    </div>
+                                                                    @endif
+                                                                @endforeach
+                                                            @endforeach
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div data-tooltip-target="tooltip-narrativereport" type="button">
+                                                <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = false" class="absolute right-0 top-1 ">
+
+                                                    <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0">
+                                                        <!-- Dropdown toggle button -->
+                                                        <button @click="dropdownMenu = ! dropdownMenu" class="tooltipButton  flex items-center p-2 rounded-md" style="display: block">
+                                                            <svg class=" absolute hover:fill-blue-500 top-2 right-0 fill-slate-700" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z"/></svg>
+                                                        </button>
+                                                        <!-- Dropdown list -->
+                                                        <div x-show="dropdownMenu" class="z-50 absolute right-[-5] py-2 mt-2 bg-white rounded-md shadow-xl w-32 space-y-2" x-on:keydown.escape.window="dropdownMenu = false"  @click.away="dropdownMenu = false" @click="dropdownMenu = ! dropdownMenu"
+                                                            x-transition:enter="motion-safe:ease-out duration-100" x-transition:enter-start="opacity-0 scale-90"
+                                                            x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-200"
+                                                            x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                                                            x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+
+                                                            <a href={{ route('inventory-download-narrative', $proposals->id) }} class="block text-xs px-2 hover:text-black hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+
+
+                                    @if (($proposalfile->document_type == 'terminalreport') != null)
+                                        <div class="bg-white w-[10rem] sm:w-[10rem] xl:w-[10rem] xl:h-[17vh] 2xl:h-[12vh] shadow-md rounded-lg hover:bg-slate-100 transition-all m-2 relative" id="terminalreport">
+
+                                            <!-- Modal toggle -->
+                                            <button data-modal-target="default-modal-terminal" data-modal-toggle="default-modal-terminal" class="text-sm p-4 text-center h-full flex flex-col space-y-4 items-center w-full" type="button">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 32 32"><g fill="none"><path fill="#FFB02E" d="m15.385 7.39l-2.477-2.475A3.121 3.121 0 0 0 10.698 4H4.126A2.125 2.125 0 0 0 2 6.125V13.5h28v-3.363a2.125 2.125 0 0 0-2.125-2.125H16.888a2.126 2.126 0 0 1-1.503-.621"/><path fill="#FCD53F" d="M27.875 30H4.125A2.118 2.118 0 0 1 2 27.888V13.112C2 11.945 2.951 11 4.125 11h23.75c1.174 0 2.125.945 2.125 2.112v14.776A2.118 2.118 0 0 1 27.875 30"/></g></svg>
+                                                <span class="text-xs mt-4">Terminal Folder</span>
+                                            </button>
+
+                                            <!-- Main modal -->
+                                            <div id="default-modal-terminal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                                <div class="relative p-4 w-full max-w-5xl h-[80%]">
+                                                    <!-- Modal content -->
+                                                    <div class="relative bg-white rounded-lg shadow h-full overflow-x-auto">
+                                                        <!-- Modal header -->
+                                                        <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t z-10 sticky top-0 bg-white">
+                                                            <h3 class="text-xl font-semibold text-gray-600">
+                                                                Terminal Folder
+                                                            </h3>
+                                                            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal-terminal">
+                                                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                                                </svg>
+                                                                <span class="sr-only">Close modal</span>
+                                                            </button>
+                                                        </div>
+                                                        <!-- Modal body -->
+                                                        <div class="p-4 grid grid-cols-3 gap-3">
+                                                            @foreach($proposals->proposalfiles as $propos)
+                                                            @foreach ($propos->medias as $media)
+                                                            @if ($media->collection_name == 'TerminalFile')
+
+                                                                <div class="w-full shadow rounded-lg transition-all  relative">
+                                                                <!-- Modal toggle -->
+                                                                    <button data-modal-target="terminal-media-modal{{ $media->id}}" data-modal-toggle="terminal-media-modal{{ $media->id}}"  class="space-x-2 p-4 flex bg-gray-100 hover:bg-gray-200 justify-start items-center rounded w-full" type="button">
+                                                                        @if ($media->mime_type == 'image/jpeg' || $media->mime_type == 'image/png' || $media->mime_type == 'image/jpg')
+                                                                            <img src="{{asset('img/image-icon.png') }}" class="xl:w-[2.5rem] w-[3rem]" width="30">
+                                                                        @elseif ($media->mime_type == 'text/plain')
+                                                                            <img src="{{asset('img/text-document.png') }}" class="xl:w-[2.5rem] w-[3rem]" width="30">
+                                                                        @elseif ($media->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+                                                                            <img src="{{asset('img/docx.png')}}" class="xl:w-[2.5rem] w-[3rem]" width="30">
+                                                                        @else
+                                                                            <img src="{{asset('img/pdf.png')}}" class="xl:w-[2.5rem] w-[3rem]" width="30">
+                                                                        @endif
+                                                                        <span class="text-xs">{{ Str::limit($media->file_name, 25) }}</span>
+
+                                                                    </button>
+
+                                                                    <div x-cloak  x-data="{ 'showModalTerminal{{ $media->id }}': false }" @keydown.escape="showModalTerminal{{ $media->id }} = false"  x-data="{ 'showModalTerminalDetail{{ $media->id }}': false }" @keydown.escape="showModalTerminalDetail{{ $media->id }} = false" class="absolute right-0 top-1">
+
+                                                                        <!-- Modal -->
+                                                                        <div class="fixed inset-0 z-50  flex items-center justify-center overflow-auto bg-black bg-opacity-50" x-show="showModalTerminal{{ $media->id }}">
+
+                                                                            {{--  <!-- Modal inner -->
+                                                                            <div class="w-1/4 py-4 text-left bg-white rounded-lg shadow-lg" x-show="showModalTerminal{{ $media->id }}"
+                                                                                x-transition:enter="motion-safe:ease-out duration-300"
+                                                                                x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
+                                                                                x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                                                                                x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" @click.away="showModalTerminal{{ $media->id }} = true">
+
+                                                                                <!-- Title / Close-->
+                                                                                <div class="flex items-center justify-between px-4 py-1">
+                                                                                    <h5 class="mr-3 text-black max-w-none text-xs">Rename file</h5>
+                                                                                    <button type="button" class="z-50 cursor-pointer text-red-500 hover:bg-gray-200 rounded px-2 py-1 text-xl font-semibold" @click="showModalTerminal{{ $media->id }} = false">
+                                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                                                                                         </svg>
-                                                                                        <span class="sr-only">Close modal</span>
                                                                                     </button>
                                                                                 </div>
-                                                                                <!-- Modal body -->
-                                                                                <div class="p-4 md:p-5 space-y-2">
-                                                                                    <p class="text-sm leading-relaxed text-white">
-                                                                                        Uploaded at: {{ \Carbon\Carbon::parse($media->created_at)->format('M d, y g:i:s A') }}
-                                                                                    </p>
-                                                                                    <p class="text-sm leading-relaxed text-white">
-                                                                                        Report Type: Terminal
-                                                                                    </p>
-                                                                                    <p class="text-sm leading-relaxed text-white">
-                                                                                        File name: {{ $media->file_name }}
-                                                                                    </p>
-                                                                                    <p class="text-sm leading-relaxed text-white">
-                                                                                        File size: {{ $media->size }} kb
-                                                                                    </p>
+                                                                                <hr>
 
-                                                                                    <p class="text-sm leading-relaxed text-white">
-                                                                                        File type: {{ $media->mime_type }}
-                                                                                    </p>
+                                                                                <!-- content -->
+                                                                                <div>
+                                                                                    <form action="{{route('inventory-rename-media', $media->id)}}" method="POST">
+                                                                                        @csrf @method('PUT')
+                                                                                        <div class="flex flex-col items-center pt-5 px-4">
+                                                                                        <input type="text" value="{{ $media->file_name }}" name="file_name" class="text-gray-700 w-full rounded">
+                                                                                        <button type="submit" class="p-2 bg-blue-500 rounded mt-5 text-gray-700">Rename</button>
+                                                                                    </div>
+                                                                                    </form>
+                                                                                </div>
+                                                                            </div>  --}}
+                                                                        </div>
 
-                                                                                    <p class="text-sm leading-relaxed text-white">
-                                                                                        Username uploader: {{ $terminal->users->name }}
-                                                                                    </p>
+                                                                        <!-- Detail modal -->
+                                                                        <div id="detail-terminal-modal{{ $media->id }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0  left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                                                            <div class="relative p-4 w-full max-w-2xl max-h-full bg-opacity-0">
+                                                                                <!-- Modal content -->
+                                                                                <div class="relative bg-gray-700 rounded-lg shadow">
+                                                                                    <!-- Modal header -->
+                                                                                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+                                                                                        <h3 class="text-xl font-semibold text-gray-600">
+                                                                                            Details
+                                                                                        </h3>
+                                                                                        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="detail-terminal-modal{{ $media->id }}">
+                                                                                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                                                                            </svg>
+                                                                                            <span class="sr-only">Close modal</span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <!-- Modal body -->
+                                                                                    <div class="p-4 md:p-5 space-y-2">
+                                                                                        <p class="text-sm leading-relaxed text-white">
+                                                                                            Uploaded at: {{ \Carbon\Carbon::parse($media->created_at)->format('M d, y g:i:s A') }}
+                                                                                        </p>
+                                                                                        <p class="text-sm leading-relaxed text-white">
+                                                                                            Report Type: Terminal
+                                                                                        </p>
+                                                                                        <p class="text-sm leading-relaxed text-white">
+                                                                                            File name: {{ $media->file_name }}
+                                                                                        </p>
+                                                                                        <p class="text-sm leading-relaxed text-white">
+                                                                                            File size: {{ $media->size }} kb
+                                                                                        </p>
+
+                                                                                        <p class="text-sm leading-relaxed text-white">
+                                                                                            File type: {{ $media->mime_type }}
+                                                                                        </p>
+
+                                                                                        <p class="text-sm leading-relaxed text-white">
+                                                                                            Username uploader: {{ $propos->users->name }}
+                                                                                        </p>
+
+                                                                                    </div>
 
                                                                                 </div>
+                                                                            </div>
+                                                                        </div>
 
+
+                                                                        <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = false" class="absolute right-0 top-1 ">
+
+                                                                            <!-- Modal -->
+                                                                            <div class="fixed inset-0 z-50  flex items-center justify-center overflow-auto bg-black bg-opacity-50" x-show="showModal">
+
+                                                                                <!-- Modal inner -->
+                                                                                <div class="w-1/4 py-4 text-left bg-white rounded-lg shadow-lg" x-show="showModal"
+                                                                                    x-transition:enter="motion-safe:ease-out duration-300"
+                                                                                    x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
+                                                                                    x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                                                                                    x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" @click.away="showModal = true">
+
+                                                                                    <!-- Title / Close-->
+                                                                                    <div class="flex items-center justify-between px-4 py-1">
+                                                                                        <h5 class="mr-3 text-black max-w-none text-xs">Rename file</h5>
+                                                                                        <button type="button" class="z-50 cursor-pointer text-red-500 hover:bg-gray-200 rounded px-2 py-1 text-xl font-semibold" @click="showModal = false">
+                                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                                                            </svg>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <hr>
+
+                                                                                    <!-- content -->
+                                                                                    <div>
+                                                                                        <form action="{{route('inventory-rename-media', $media->id)}}" method="POST">
+                                                                                            @csrf @method('PUT')
+                                                                                            <div class="flex flex-col items-center pt-5 px-4">
+                                                                                            <input type="text" value="{{ $media->file_name }}" name="file_name" class="text-gray-700 w-full rounded">
+                                                                                            <button type="submit" class="p-2 bg-blue-500 rounded mt-5 text-gray-700">Rename</button>
+                                                                                        </div>
+                                                                                        </form>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+
+                                                                            <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0">
+                                                                                <!-- Dropdown toggle button -->
+                                                                                <button @click="dropdownMenu = ! dropdownMenu" class="tooltipButton  flex items-center p-2 rounded-md" style="display: block">
+                                                                                    <svg class=" absolute hover:fill-blue-500 top-2 right-0 fill-slate-700" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z"/></svg>
+                                                                                </button>
+                                                                                <!-- Dropdown list -->
+                                                                                <div x-show="dropdownMenu" class="z-50 absolute right-5 py-2 mt-2 bg-white rounded-md shadow-xl w-32 space-y-2" x-on:keydown.escape.window="dropdownMenu = false"  @click.away="dropdownMenu = false" @click="dropdownMenu = ! dropdownMenu"
+                                                                                    x-transition:enter="motion-safe:ease-out duration-100" x-transition:enter-start="opacity-0 scale-90"
+                                                                                    x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-200"
+                                                                                    x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                                                                                    x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+
+                                                                                    <button data-modal-target="detail-terminal-modal{{ $media->id }}" data-modal-toggle="detail-terminal-modal{{ $media->id }}" class="text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left" type="button">Details</button>
+                                                                                    <button class="text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left" type="button" @click="showModal = true">Rename</button>
+                                                                                    <a href={{ url('download-media', $media->id) }} class="block text-xs px-2 hover:text-black text-gray-700 hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
+                                                                                    <form action={{ route('report-terminal.trash',[ 'id' => $media->id, 'terminalId' => $proposalfile->id]) }} method="POST" enctype="multipart/form-data" onsubmit="return confirm ('Are you sure?')" >
+                                                                                        @csrf
+                                                                                        @method('DELETE')
+                                                                                        <button class="block text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="submit">Delete</button>
+                                                                                    </form>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-
-
-                                                                    <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0">
-
-                                                                        <!-- Dropdown toggle button -->
-                                                                        <button @click="dropdownMenu = ! dropdownMenu" class="tooltipButton  flex items-center p-2 rounded-md" style="display: block">
-                                                                            <svg class=" absolute hover:fill-blue-600 top-2 right-0 fill-slate-500" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z"/></svg>
-                                                                        </button>
-                                                                        <!-- Dropdown list -->
-                                                                        <div x-show="dropdownMenu" class="z-50 absolute right-5 py-2 mt-2 bg-white rounded-md shadow-xl w-32 space-y-2" x-on:keydown.escape.window="dropdownMenu = false"  @click.away="dropdownMenu = false" @click="dropdownMenu = ! dropdownMenu"
-                                                                            x-transition:enter="motion-safe:ease-out duration-100" x-transition:enter-start="opacity-0 scale-90"
-                                                                            x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-200"
-                                                                            x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
-                                                                            x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
-
-                                                                            <!-- Modal toggle -->
-                                                                            <button data-modal-target="detail-terminal-modal{{ $media->id }}" data-modal-toggle="detail-terminal-modal{{ $media->id }}" class="text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left" type="button">Details</button>
-                                                                            <button class="text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left" type="button" @click="showModalTerminal{{ $media->id }} = true">Rename</button>
-                                                                            <a href={{ url('download-media', $media->id) }} class="block text-xs px-2 hover:text-black hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
-                                                                            <form action={{ route('report-terminal.delete',[ 'id' => $media->id, 'terminalId' => $terminal->id]) }} method="POST" enctype="multipart/form-data" onsubmit="return confirm ('Are you sure?')" >
-                                                                                @csrf
-                                                                                @method('DELETE')
-                                                                                <button class="block text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="submit">Delete</button>
-                                                                            </form>
-                                                                        </div>
-                                                                    </div>
                                                                 </div>
-                                                            </div>
 
-                                                            <div id="terminal-media-modal{{ $media->id}}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                                                                <div class="relative p-4 w-full max-w-5xl h-[90%]">
-                                                                    <!-- Modal content -->
-                                                                    <div class="relative bg-white rounded-lg shadow h-full overflow-hidden">
-                                                                        <!-- Modal header -->
-                                                                        <div class="flex items-center justify-between p-2 md:p-5 border-b rounded-t">
-                                                                            <h3 class="text-md font-semibold text-gray-600">
-                                                                            {{ $media->file_name }}
-                                                                            </h3>
-                                                                            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="terminal-media-modal{{ $media->id}}">
-                                                                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                                                                                </svg>
-                                                                                <span class="sr-only">Close modal</span>
-                                                                            </button>
-                                                                        </div>
-                                                                        <!-- Modal body -->
-                                                                        <div>
-                                                                            @if ($media->mime_type == 'image/jpeg' || $media->mime_type == 'image/png' || $media->mime_type == 'image/jpg')
-                                                                            <div><img class="shadow w-full " src="{{  $media->getUrl() }}"></div>
-                                                                            @elseif ($media->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-                                                                            <div class="p-5 flex items-center flex-col">
-                                                                                <h1 class="text-center">This file format does not support viewing download only.</h1>
-                                                                                <a href={{ url('download-media', $media->id) }} class="text-sm hover:text-red-600 text-red-500">Click here to download</a>
+                                                                    <div id="terminal-media-modal{{ $media->id}}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                                                    <div class="relative p-4 w-full max-w-5xl h-[90%]">
+                                                                        <!-- Modal content -->
+                                                                        <div class="relative bg-white rounded-lg shadow h-full overflow-hidden">
+                                                                            <!-- Modal header -->
+                                                                            <div class="flex items-center justify-between p-2 md:p-5 border-b rounded-t">
+                                                                                <h3 class="text-md font-semibold text-gray-600">
+                                                                                    {{ $media->file_name }}
+                                                                                </h3>
+                                                                                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="terminal-media-modal{{ $media->id}}">
+                                                                                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                                                                    </svg>
+                                                                                    <span class="sr-only">Close modal</span>
+                                                                                </button>
                                                                             </div>
+                                                                            <!-- Modal body -->
+                                                                            <div>
+                                                                                @if ($media->mime_type == 'image/jpeg' || $media->mime_type == 'image/png' || $media->mime_type == 'image/jpg')
+                                                                                <div><img class="shadow w-full " src="{{  $media->getUrl() }}"></div>
+                                                                                @elseif ($media->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+                                                                                <div class="p-5 flex items-center flex-col">
+                                                                                    <h1 class="text-center">This file format does not support viewing download only.</h1>
+                                                                                    <a href={{ url('download-media', $media->id) }} class="text-sm hover:text-red-600 text-red-500">Click here to download</a>
+                                                                                </div>
 
-                                                                            @else
-                                                                                <div><iframe class="shadow mt-2 w-full h-[80vh]" src="{{$media->getUrl() }}"></iframe></div>
-                                                                            @endif
+                                                                                @else
+                                                                                    <div><iframe class="shadow mt-2 w-full h-[80vh]" src="{{$media->getUrl() }}"></iframe></div>
+                                                                                @endif
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        @endforeach
-                                                    @endforeach
+                                                                @endif
+                                                                @endforeach
+                                                                @endforeach
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div data-tooltip-target="tooltip-terminalreport" type="button">
+
+                                                <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = false" class="absolute right-0 top-1 ">
+
+                                                    <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0">
+                                                        <!-- Dropdown toggle button -->
+                                                        <button @click="dropdownMenu = ! dropdownMenu" class="tooltipButton  flex items-center p-2 rounded-md" style="display: block">
+                                                            <svg class=" absolute hover:fill-blue-500 top-2 right-0 fill-slate-700" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z"/></svg>
+                                                        </button>
+                                                        <!-- Dropdown list -->
+                                                        <div x-show="dropdownMenu" class="z-50 absolute right-[-5] py-2 mt-2 bg-white rounded-md shadow-xl w-32 space-y-2" x-on:keydown.escape.window="dropdownMenu = false"  @click.away="dropdownMenu = false" @click="dropdownMenu = ! dropdownMenu"
+                                                            x-transition:enter="motion-safe:ease-out duration-100" x-transition:enter-start="opacity-0 scale-90"
+                                                            x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-200"
+                                                            x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                                                            x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+
+                                                            <a href={{ route('inventory-download-terminal', $proposals->id) }} class="block text-xs px-2 hover:text-black hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <div data-tooltip-target="tooltip-narrativereport" type="button">
-
-                                            <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = false" class="absolute right-0 top-1 ">
-
-                                                <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0">
-                                                    <!-- Dropdown toggle button -->
-                                                    <button @click="dropdownMenu = ! dropdownMenu" class="tooltipButton  flex items-center p-2 rounded-md" style="display: block">
-                                                        <svg class=" absolute hover:fill-blue-500 top-2 right-0 fill-slate-700" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z"/></svg>
-                                                    </button>
-                                                    <!-- Dropdown list -->
-                                                    <div x-show="dropdownMenu" class="z-50 absolute right-[-5] py-2 mt-2 bg-white rounded-md shadow-xl w-32 space-y-2" x-on:keydown.escape.window="dropdownMenu = false"  @click.away="dropdownMenu = false" @click="dropdownMenu = ! dropdownMenu"
-                                                        x-transition:enter="motion-safe:ease-out duration-100" x-transition:enter-start="opacity-0 scale-90"
-                                                        x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-200"
-                                                        x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
-                                                        x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
-
-                                                        <a href={{ route('inventory-download-terminal', $proposals->id) }} class="block text-xs px-2 hover:text-black hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
-                                                        <form action={{ route('admin.dashboard.terminal-delete',$proposals->id) }} method="POST" enctype="multipart/form-data" onsubmit="return confirm ('Are you sure?')" >
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button class="block text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="submit">Delete</button>
-                                                        </form>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endif
+                                    @endif
+                                @endforeach
 
                             </div>
                         </div>
@@ -2632,10 +2679,10 @@
 
                     if (all_ids.length > 0 ) {
                         // Perform deletion logic for the checked checkboxes
-                        if (confirm('Are you sure you want to delete?')) {
+                        if (confirm('Are you sure you want to move this to trash?')) {
 
                             $.ajax({
-                                url: "{{ route('admin.proposal.delete-media-proposal') }}",
+                                url: "{{ route('admin.proposal.trash-media-proposal') }}",
                                 type: "DELETE",
                                 data: {
                                     ids: all_ids,

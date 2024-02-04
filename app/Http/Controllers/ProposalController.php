@@ -13,6 +13,7 @@ use App\Models\AdminYear;
 use App\Models\Evaluation;
 use App\Rules\UniqueTitle;
 use Illuminate\Http\Request;
+use App\Models\ProposalFiles;
 use App\Models\ProposalMember;
 use App\Models\UserOfficeOrder;
 use App\Models\UserTravelOrder;
@@ -127,26 +128,28 @@ class ProposalController extends Controller
         }
 
         if ($request->hasFile('moa_pdf')) {
-            $post->addMediaFromRequest('moa_pdf')->usingName('moa')->usingFileName($request->project_title.'_moa.pdf')->toMediaCollection('MoaPDF');
+            $post->addMediaFromRequest('moa_pdf')->usingName('moa')->usingFileName($request->project_title.'_moa.pdf')->toMediaCollection('MoaPdf');
         }
 
         if ($specialorder = $request->file('special_order_pdf')) {
 
-            $special = new UserSpecialOrder();
+            $special = new ProposalFiles();
             $special->user_id  = auth()->id();
             $special->proposal_id  = $post->id;
+            $special->document_type  = 'specialorder';
             $special->save();
 
             foreach ($specialorder as $specials) {
-                $special->addMedia($specials)->usingName('special_order')->toMediaCollection('specialOrderPdf');
+                $special->addMedia($specials)->usingName('special_order_pdf')->toMediaCollection('specialOrderPdf');
             }
         }
 
         if ($travelorder = $request->file('travel_order_pdf')) {
 
-            $travel = new UserTravelOrder();
+            $travel = new ProposalFiles();
             $travel->user_id  = auth()->id();
             $travel->proposal_id  = $post->id;
+            $travel->document_type  = 'travelorder';
             $travel->save();
 
             foreach ($travelorder as $travels) {
@@ -156,9 +159,10 @@ class ProposalController extends Controller
 
         if ($officeorder = $request->file('office_order_pdf')) {
 
-            $office = new UserOfficeOrder();
+            $office = new ProposalFiles();
             $office->user_id  = auth()->id();
             $office->proposal_id  = $post->id;
+            $office->document_type  = 'officeorder';
             $office->save();
 
             foreach ($officeorder as $offices) {

@@ -8,6 +8,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
@@ -16,6 +17,7 @@ class NarrativeReport extends Model implements HasMedia
     use HasFactory;
     use InteractsWithMedia;
     use Notifiable;
+    use SoftDeletes;
 
     protected $guarded = [];
 

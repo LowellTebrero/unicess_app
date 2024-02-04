@@ -66,119 +66,40 @@ class AdminInventoryController extends Controller
 
      public function showInventory($id){
 
-        $proposals = Proposal::where('id', $id)
+        $proposals = Proposal::where('id', $id)->with(['proposalfiles' => function ($query) {
+            $query->with(['medias' => function ($mediaQuery) {
+                $mediaQuery->whereNot('collection_name', 'trash');
+            }]);
+            }])
         ->with(['medias' => function ($query) {
-            $query->orderBy('file_name', 'asc');
+            $query->whereNot('collection_name', 'trash')->orderBy('file_name', 'asc');
         }, 'programs'])
         ->first();
 
+        $uniqueProposalFiles = $proposals->proposalfiles->unique('document_type');
+
 
         $formedia = Proposal::where('id', $id)
-        ->with(['medias' => function ($query) {
-            $query->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
+            ->with(['medias' => function ($query) {
+            $query->whereNot('collection_name', 'trash')->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
             ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
-        },
-        'travelorder' => function ($query) {
-            $query->with(['medias' => function ($query) {
-                $query->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
-            ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
-            }]);
-        },
-        'specialorder' => function ($query) {
-            $query->with(['medias' => function ($query) {
-                $query->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
-            ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
-            }]);
-        },
-        'officeorder' => function ($query) {
-            $query->with(['medias' => function ($query) {
-                $query->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
-            ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
-            }]);
-        },
-        'attendance' => function ($query) {
-            $query->with(['medias' => function ($query) {
-                $query->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
-            ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
-            }]);
-        },
-        'attendancemonitoring' => function ($query) {
-            $query->with(['medias' => function ($query) {
-                $query->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
-            ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
-            }]);
-        },
-        'narrativereport' => function ($query) {
-            $query->with(['medias' => function ($query) {
-                $query->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
-            ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
-            }]);
-        },
-        'terminalreport' => function ($query) {
-            $query->with(['medias' => function ($query) {
-                $query->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
-                ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
-            }]);
+            },
+
+            'proposalfiles' => function ($query) {
+                $query->with(['medias' => function ($query) {
+                    $query->whereNot('collection_name', 'trash')->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
+                    ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
+                }]);
         },])->first();
 
+        $uniqueformedias = $formedia->proposalfiles->unique('document_type');
         $latest = Proposal::where('id', $id)
         ->with(['medias' => function ($query) {
             $query->latest()->first();
         }])->first();
 
-        $travelCount = UserTravelOrder::where('proposal_id', $id)
-        ->join('model_has_roles', 'model_has_roles.model_id', '=', 'user_travel_orders.user_id')
-        ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
-        ->where('roles.name', '!=', 'admin')
-        ->distinct('user_travel_orders.user_id')
-        ->count();
-        $specialCount = UserSpecialOrder::where('proposal_id', $id)
-        ->join('model_has_roles', 'model_has_roles.model_id', '=', 'user_special_orders.user_id')
-        ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
-        ->where('roles.name', '!=', 'admin')
-        ->distinct('user_special_orders.user_id')
-        ->count();
-        $officeCount = UserOfficeOrder::where('proposal_id', $id)
-        ->join('model_has_roles', 'model_has_roles.model_id', '=', 'user_office_orders.user_id')
-        ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
-        ->where('roles.name', '!=', 'admin')
-        ->distinct('user_office_orders.user_id')
-        ->count();
-        $attendanceCount = UserAttendance::where('proposal_id', $id)
-        ->join('model_has_roles', 'model_has_roles.model_id', '=', 'user_attendances.user_id')
-        ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
-        ->where('roles.name', '!=', 'admin')
-        ->distinct('user_attendances.user_id')
-        ->count();
 
-        $attendancemCount = UserAttendanceMonitoring::where('proposal_id', $id)
-        ->join('model_has_roles', 'model_has_roles.model_id', '=', 'user_attendance_monitorings.user_id')
-        ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
-        ->where('roles.name', '!=', 'admin')
-        ->distinct('user_attendance_monitorings.user_id')
-        ->count();
-        $narrativeCount = NarrativeReport::where('proposal_id', $id)
-        ->join('model_has_roles', 'model_has_roles.model_id', '=', 'narrative_reports.user_id')
-        ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
-        ->where('roles.name', '!=', 'admin')
-        ->distinct('narrative_reports.user_id')
-        ->count();
-        $terminalCount = TerminalReport::where('proposal_id', $id)
-        ->join('model_has_roles', 'model_has_roles.model_id', '=', 'terminal_reports.user_id')
-        ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
-        ->where('roles.name', '!=', 'admin')
-        ->distinct('terminal_reports.user_id')
-        ->count();
-        $memberCount = ProposalMember::where('proposal_id', $id)
-        ->join('model_has_roles', 'model_has_roles.model_id', '=', 'proposal_members.user_id')
-        ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
-        ->where('roles.name', '!=', 'admin')
-        ->distinct('proposal_members.user_id')
-        ->count();
-
-        return view('admin.inventory.show-inventory', compact('proposals', 'formedia','latest','narrativeCount','terminalCount','memberCount',
-        'travelCount','specialCount','officeCount','attendanceCount'
-        ,'attendancemCount'));
+        return view('admin.inventory.show-inventory', compact('proposals', 'formedia','uniqueformedias','uniqueProposalFiles'));
      }
 
 

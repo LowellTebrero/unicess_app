@@ -36,6 +36,7 @@ class TemporaryEvaluationFile extends Model
         'facilitation_national',
         'facilitation_national_file',
         'facilitation_international',
+        'facilitation_international_file',
         'training_director_local',
         'training_director_local_file',
         'training_director_international',

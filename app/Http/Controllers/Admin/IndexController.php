@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Notifications\ProposalNotification;
 use Illuminate\Support\Facades\Notification;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
     class IndexController extends Controller
 {
@@ -41,7 +42,11 @@ use Illuminate\Support\Facades\Notification;
         $evaluation = Evaluation::whereYear('created_at', date('Y'))->count();
         $narrativeCount = NarrativeReport::distinct('user_id')->count();
         $terminalCount = TerminalReport::distinct('user_id')->count();
-
+        $latestfour = Proposal::latest()->take(4)->get();
+        $latestfourfile = Media::latest()->take(4)->get();
+        $latestfouruser = User::latest()->take(4)->get();
+        $latestfourevaluation = Evaluation::latest()->take(4)->get();
+        $latestfourpoints = Evaluation::latest()->take(4)->orderBy('total_points', 'desc')->get();
 
         $currentYear = date('Y');
         $previousYear = $currentYear + 1;
@@ -51,7 +56,8 @@ use Illuminate\Support\Facades\Notification;
 
         return view('admin.dashboard.index', compact('projectProposal', 'allProposal', 'getCountProposals', 'getCountUsers',
              'pendingAccount', 'totalAccount', 'ongoingProposal', 'currentYear' , 'previousYear',
-             'finishedProposal', 'totalProposal', 'programs', 'evaluation', 'narrativeCount', 'terminalCount' ));
+             'finishedProposal', 'totalProposal', 'programs', 'evaluation', 'narrativeCount', 'terminalCount','latestfour','latestfourfile'
+            ,'latestfouruser','latestfourevaluation','latestfourpoints' ));
     }
 
     public function store(Request $request)

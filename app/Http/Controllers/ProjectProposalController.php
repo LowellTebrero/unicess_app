@@ -22,10 +22,31 @@ class ProjectProposalController extends Controller
 {
 
     // Delete Media
-    public function deleteMedia(Request $request)
+    public function MoveToTrashMedia(Request $request)
     {
         $ids = $request->ids;
-        $proposalDelete =  Media::destroy($ids);
+
+        // Update each media item
+        foreach ($ids as $id) {
+            $media = Media::findOrFail($id);
+            $media->collection_name = 'trash';
+            $media->save();
+        }
+        if ($media) {
+            // Flash a success message
+            return response()->json(['success' => 'Trashed Successfully']);
+        } else {
+            // Flash an error message
+            return response()->json(['error' => 'Error Moving file'], 500);
+        }
+
+    }
+
+    // Delete Media
+    public function deleteMedia(Request $request)
+    {
+        $id = $request->id;
+        $proposalDelete =  Media::destroy($id);
 
 
         if ($proposalDelete) {

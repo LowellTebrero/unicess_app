@@ -33,8 +33,18 @@ class AllProposalController extends Controller
 
     public function show($id){
 
-        $proposal = Proposal::find($id);
-        return view('user.allProposal.show', compact('proposal'));
+        // $proposal = Proposal::find($id);
+
+        $proposal = Proposal::where('id', $id)->with(['proposalfiles' => function ($query) {
+            $query->with(['medias' => function ($mediaQuery) {
+                $mediaQuery->whereNot('collection_name', 'trash');}])
+            ;}])->with(['medias' => function ($query) {
+            $query->whereNot('collection_name', 'trash')->orderBy('file_name', 'asc');
+        }, 'programs'])
+        ->first();
+
+        $uniqueProposalFiles = $proposal->proposalfiles->unique('document_type');
+        return view('user.allProposal.show', compact('proposal','uniqueProposalFiles'));
     }
 
     public function filterAllProposal(Request $request){

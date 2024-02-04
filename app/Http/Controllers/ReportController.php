@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Proposal;
 use Illuminate\Http\Request;
+use App\Models\ProposalFiles;
 use App\Models\ProposalMember;
 use App\Models\TerminalReport;
 use App\Models\UserAttendance;
@@ -22,46 +23,114 @@ class ReportController extends Controller
     public function index(){
 
         $proposalMembers = ProposalMember::with('proposal')->where('user_id', auth()->user()->id)->orderBy('created_at', 'DESC')->get();
+
         $proposals = Proposal::with(['proposal_members' => function ($query) {
             $query->select('proposal_id')->where('user_id', auth()->user()->id)->distinct();
         }])
-        ->with(['narrativereport' => function ($query) {
-            $query->where('user_id', auth()->user()->id)->distinct();
-        }])
-        ->with(['terminalreport' => function ($query) {
-            $query->where('user_id', auth()->user()->id)->distinct();
-        }])
-        ->with(['attendance' => function ($query) {
-            $query->where('user_id', auth()->user()->id)->distinct();
-        }])
-        ->with(['attendancemonitoring' => function ($query) {
-            $query->where('user_id', auth()->user()->id)->distinct();
-        }])
-        ->with(['travelorder' => function ($query) {
-            $query->where('user_id', auth()->user()->id)->distinct();
-        }])
-        ->with(['specialorder' => function ($query) {
-            $query->where('user_id', auth()->user()->id)->distinct();
-        }])
-        ->with(['officeorder' => function ($query) {
-            $query->where('user_id', auth()->user()->id)->distinct();
-        }])
-        ->orderBy('created_at', 'DESC')->whereYear('created_at', date('Y'))->get();
+        ->with(['proposalfiles' => function ($query) {
+        $query->with(['medias' => function ($mediaQuery) {
+            $mediaQuery->whereNot('collection_name', 'trash');
+        }])->where('user_id', auth()->user()->id)->whereNull('deleted_at'); }])
 
+        ->orderBy('created_at', 'DESC')->whereYear('created_at', date('Y'))->distinct('proposal_id')->get();
 
+        // dd($proposals);
         return view('user.report.index', compact('proposalMembers', 'proposals'));
     }
 
-    // Store
+
+    public function RestoreProjectFolder($id){
+        $proposal = Proposal::withTrashed()->where('id', $id)->first();
+
+        if($proposal && $proposal->trashed()){ // Check if the model is soft-deleted
+            $proposal->restore(); // Restore the soft-deleted model
+        }
+
+        $NarrativeReports = NarrativeReport::withTrashed()->where('proposal_id', $proposal->id)->first();
+        if($NarrativeReports && $NarrativeReports->trashed()){
+            $NarrativeReports->restore();
+        }
+
+
+        $TerminalReport = TerminalReport::withTrashed()->where('proposal_id', $proposal->id)->first();
+        if($TerminalReport && $TerminalReport->trashed()){
+            $TerminalReport->restore();
+        }
+
+        $UserTravelOrder = UserTravelOrder::withTrashed()->where('proposal_id', $proposal->id)->first();
+        if($UserTravelOrder && $UserTravelOrder->trashed()){
+            $UserTravelOrder->restore();
+        }
+
+
+        $UserOfficeOrder = UserOfficeOrder::withTrashed()->where('proposal_id', $proposal->id)->first();
+        if($UserOfficeOrder && $UserOfficeOrder->trashed()){
+            $UserOfficeOrder->restore();
+        }
+
+        $UserSpecialOrder = UserSpecialOrder::withTrashed()->where('proposal_id', $proposal->id)->first();
+        if($UserSpecialOrder && $UserSpecialOrder->trashed()){
+            $UserSpecialOrder->restore();
+        }
+
+        $UserAttendance = UserAttendance::withTrashed()->where('proposal_id', $proposal->id)->first();
+        if($UserAttendance && $UserAttendance->trashed()){
+            $UserAttendance->restore();
+        }
+
+        $UserAttendanceMonitoring = UserAttendanceMonitoring::withTrashed()->where('proposal_id', $proposal->id)->first();
+        if($UserAttendanceMonitoring && $UserAttendanceMonitoring->trashed()){
+            $UserAttendanceMonitoring->restore();
+        }
+
+        flash()->addSuccess('Project restored successfully.');
+        return back();
+    }
+
+    public function DeleteProjectFolder($id){
+        $proposal = Proposal::where('id', $id)->withTrashed()->first();
+
+
+        $proposalfiles = ProposalFiles::withTrashed()->where('proposal_id', $proposal->id)->first();
+        if($proposalfiles && $proposalfiles->trashed()){
+            $proposalfiles->forceDelete();
+        }
+
+        if($proposal && $proposal->trashed()){ // Check if the model is soft-deleted
+            $proposal->forceDelete(); // Restore the soft-deleted model
+        }
+
+        flash()->addSuccess('Project deleted permanently.');
+        return back();
+    }
+
+    // NarrativeStore
     public function NarrativeStore(Request $request){
 
         $request->validate([
             'narrative_file' => "required|max:10048",
         ]);
 
-        $post = new NarrativeReport();
+        $post = new ProposalFiles();
         $post->user_id  = auth()->id();
         $post->proposal_id =  $request->proposal_id;
+        $post->document_type =  'narrativereport';
+
+        // Check if there's an existing UserTravelOrder with trashed records
+        $existingNarrative = ProposalFiles::withTrashed()
+        ->where('user_id', auth()->id())
+        ->where('proposal_id', $request->proposal_id)->where('document_type', 'narrativereport')
+        ->first();
+
+        if ($existingNarrative) {
+            // If existing record is soft-deleted, restore it
+            if ($existingNarrative->trashed()) {
+                $existingNarrative->restore();
+            }
+            // Use existing UserTravelOrder
+            $post = $existingNarrative;
+        }
+
 
         if ($narratives = $request->file('narrative_file')) {
             foreach ($narratives as $narrative) {
@@ -78,32 +147,72 @@ class ReportController extends Controller
         flash()->addSuccess('Project Uploaded Successfully.');
         return back();
     }
-    // Delete
-    public function deleteNarrativeMedias($id, $narrativeId)
-    {
-    $media = Media::findOrFail($id);
-    $narrativeReport = NarrativeReport::findOrFail($narrativeId);
-    $media->delete();
+    // TrashNarrative
+    public function TrashNarrativeMedias($id, $narrativeId){
 
-    // Check if the related NarrativeReport should be deleted
-    if ($narrativeReport->medias()->count() === 0) {
-        $narrativeReport->delete();
-        flash()->addSuccess('File and related NarrativeReport deleted successfully.');
-    } else {
-        flash()->addSuccess('File deleted successfully.');
+        $narrativeReport = ProposalFiles::findOrFail($narrativeId);
+        $media = Media::findOrFail($id);
+        $media->collection_name = 'trash';
+        $media->save();
+
+        if ($narrativeReport->medias()->where('collection_name', '!=', 'trash')->count() === 0) {
+            $narrativeReport->delete();
+            flash()->addSuccess('File and related Narrative Report deleted successfully.');
+        } else {
+            flash()->addSuccess('File deleted successfully.');
+        }
+
+        return back();
     }
+    // RestoreNarrativeMedias
+    public function RestoreNarrativeMedias($id){
+        $media = Media::findOrFail($id);
+        $narrative = ProposalFiles::withTrashed()->where('id', $media->model_id)->first();
+        // $proposal = Proposal::withTrashed()->where('id', $narrative->proposal_id)->first();
+        $media->collection_name = 'NarrativeFile';
 
-    return back();
 
+        if($narrative && $narrative->trashed()){ // Check if the model is soft-deleted
+            $narrative->restore(); // Restore the soft-deleted model
+        }
+        // if($proposal && $proposal->trashed()){ // Check if the model is soft-deleted
+        //     $proposal->restore(); // Restore the soft-deleted model
+        // }
+        $media->save();
+
+
+
+        flash()->addSuccess('File Restored successfully.');
+        return back();
     }
-    // Update
+    // deleteNarrativeMedias
+    public function deleteNarrativeMedias($id, $narrativeId){
+
+        $media = Media::findOrFail($id);
+        $media->delete();
+        // $travelOrder = UserTravelOrder::findOrFail($travelOrderId);
+        $narrative = ProposalFiles::withTrashed()->where('id', $narrativeId)->first();
+
+        // Check if the related NarrativeReport should be deleted
+        if ($narrative->medias()->count() === 0) {
+
+            $narrative->forceDelete();
+            flash()->addSuccess('File and related Travel Order deleted successfully.');
+        } else {
+
+            flash()->addSuccess('File deleted successfully.');
+        }
+
+        return back();
+    }
+    // NarrativeUpdate
     public function NarrativeUpdate(Request $request, $id){
 
         $request->validate([
             'narrative_file' => "required|max:10048",
            ]);
 
-        $post = NarrativeReport::where('id', $id)->first();
+        $post = ProposalFiles::where('id', $id)->first();
 
         if ($narratives = $request->file('narrative_file')) {
             foreach ($narratives as $narrative) {
@@ -115,6 +224,8 @@ class ReportController extends Controller
         return back();
     }
 
+
+
     // TerminalStore
     public function TerminalStore(Request $request){
 
@@ -122,9 +233,25 @@ class ReportController extends Controller
             'terminal_file' => "required|max:10048",
            ]);
 
-        $post = new TerminalReport();
+        $post = new ProposalFiles();
         $post->user_id  = auth()->id();
         $post->proposal_id =  $request->proposal_id;
+        $post->document_type =  'terminalreport';
+
+         // Check if there's an existing UserTravelOrder with trashed records
+         $existingTerminal = ProposalFiles::withTrashed()
+         ->where('user_id', auth()->id())
+         ->where('proposal_id', $request->proposal_id)->with('document_type', 'terminalreport')
+         ->first();
+
+         if ($existingTerminal) {
+             // If existing record is soft-deleted, restore it
+             if ($existingTerminal->trashed()) {
+                 $existingTerminal->restore();
+             }
+             // Use existing UserTravelOrder
+             $post = $existingTerminal;
+         }
 
         if ($terminals = $request->file('terminal_file')) {
             foreach ($terminals as $terminal) {
@@ -137,6 +264,63 @@ class ReportController extends Controller
         flash()->addSuccess('Project Uploaded Successfully.');
         return back();
     }
+    // TrashTerminaMedias
+    public function TrashTerminaMedias($id, $terminalId){
+
+        $terminalreport = ProposalFiles::findOrFail($terminalId);
+        $media = Media::findOrFail($id);
+        $media->collection_name = 'trash';
+        $media->save();
+
+        if ($terminalreport->medias()->where('collection_name', '!=', 'trash')->count() === 0) {
+            $terminalreport->delete();
+            flash()->addSuccess('File and related Terminal Report deleted successfully.');
+        } else {
+            flash()->addSuccess('File deleted successfully.');
+        }
+
+        return back();
+    }
+    // RestoreTerminalMedias
+    public function RestoreTerminalMedias($id, $terminalId){
+
+        $media = Media::findOrFail($id);
+        $terminal = ProposalFiles::withTrashed()->where('id',$terminalId)->first();
+        // $proposal = Proposal::withTrashed()->where('id', $terminal->proposal_id)->first();
+        $media->collection_name = 'TerminalFile';
+
+
+        if($terminal && $terminal->trashed()){ // Check if the model is soft-deleted
+            $terminal->restore(); // Restore the soft-deleted model
+        }
+        // if($proposal && $proposal->trashed()){ // Check if the model is soft-deleted
+        //     $proposal->restore(); // Restore the soft-deleted model
+        // }
+        $media->save();
+
+        flash()->addSuccess('File Restored successfully.');
+        return back();
+    }
+    // deleteTerminalMedias
+    public function deleteTerminalMedias($id, $terminalId){
+
+        $media = Media::findOrFail($id);
+        $media->delete();
+        // $travelOrder = UserTravelOrder::findOrFail($travelOrderId);
+        $terminal = ProposalFiles::withTrashed()->where('id', $terminalId)->first();
+
+        // Check if the related TerminalReport should be deleted
+        if ($terminal->medias()->count() === 0) {
+
+            $terminal->forceDelete();
+            flash()->addSuccess('File and related Terminal Report deleted successfully.');
+        } else {
+
+            flash()->addSuccess('File deleted successfully.');
+        }
+
+        return back();
+    }
     // TerminalUpdate
     public function TerminalUpdate(Request $request, $id){
 
@@ -144,7 +328,7 @@ class ReportController extends Controller
             'terminal_file' => "required|max:10048",
            ]);
 
-        $post = TerminalReport::where('id', $id)->first();
+        $post = ProposalFiles::where('id', $id)->first();
 
         if ($terminals = $request->file('terminal_file')) {
             foreach ($terminals as $terminal) {
@@ -155,24 +339,7 @@ class ReportController extends Controller
         flash()->addSuccess('Project Uploaded Successfully.');
         return back();
     }
-    // deleteTerminalMedias
-    public function deleteTerminalMedias($id, $terminalId)
-    {
-       $media = Media::findOrFail($id);
-       $terminalReport = TerminalReport::findOrFail($terminalId);
-       $media->delete();
 
-       // Check if the related terminalReport should be deleted
-       if ($terminalReport->medias()->count() === 0) {
-           $terminalReport->delete();
-           flash()->addSuccess('File and related TerminalReport deleted successfully.');
-       } else {
-           flash()->addSuccess('File deleted successfully.');
-       }
-
-       return back();
-
-    }
 
     // travelOrderStore
     public function travelOrderStore(Request $request){
@@ -181,9 +348,26 @@ class ReportController extends Controller
             'travelorder_file' => "required|max:10048",
         ]);
 
-        $post = new UserTravelOrder();
+        $post = new ProposalFiles();
         $post->user_id  = auth()->id();
         $post->proposal_id =  $request->proposal_id;
+        $post->document_type =  'travelorder';
+
+        // Check if there's an existing UserTravelOrder with trashed records
+        $existingTravelOrder = ProposalFiles::withTrashed()
+        ->where('user_id', auth()->id())
+        ->where('proposal_id', $request->proposal_id)
+        ->where('document_type', 'travelorder')
+        ->first();
+
+        if ($existingTravelOrder) {
+            // If existing record is soft-deleted, restore it
+            if ($existingTravelOrder->trashed()) {
+                $existingTravelOrder->restore();
+            }
+            // Use existing UserTravelOrder
+            $post = $existingTravelOrder;
+        }
 
         if ($travelorder = $request->file('travelorder_file')) {
             foreach ($travelorder as $travel) {
@@ -200,17 +384,57 @@ class ReportController extends Controller
         flash()->addSuccess('Travel Order Uploaded Successfully.');
         return back();
     }
-    // deleteTravelOrderMedias
-    public function deleteTravelOrderMedias($id, $travelOrderId){
-        $media = Media::findOrFail($id);
-        $travelOrder = UserTravelOrder::findOrFail($travelOrderId);
-        $media->delete();
+    // TrashTravelOrderMedias
+    public function TrashTravelOrderMedias($id, $travelOrderId){
 
-        // Check if the related NarrativeReport should be deleted
-        if ($travelOrder->medias()->count() === 0) {
+        $travelOrder = ProposalFiles::findOrFail($travelOrderId);
+        $media = Media::findOrFail($id);
+        $media->collection_name = 'trash';
+        $media->save();
+
+        if ($travelOrder->medias()->where('collection_name', '!=', 'trash')->count() === 0) {
             $travelOrder->delete();
             flash()->addSuccess('File and related Travel Order deleted successfully.');
         } else {
+            flash()->addSuccess('File deleted successfully.');
+        }
+
+        return back();
+    }
+    // RestoreTravelOrderMedias
+    public function RestoreTravelOrderMedias($id){
+        $media = Media::findOrFail($id);
+        $travelorder = ProposalFiles::withTrashed()->where('id', $media->model_id)->first();
+        // $proposal = Proposal::withTrashed()->where('id', $travelorder->proposal_id)->first();
+        $media->collection_name = 'travelOrderPdf';
+
+
+        if($travelorder && $travelorder->trashed()){ // Check if the model is soft-deleted
+            $travelorder->restore(); // Restore the soft-deleted model
+        }
+        // if($proposal && $proposal->trashed()){ // Check if the model is soft-deleted
+        //     $proposal->restore(); // Restore the soft-deleted model
+        // }
+        $media->save();
+
+        flash()->addSuccess('File deleted successfully.');
+        return back();
+    }
+    // deleteTravelOrderMedias
+    public function deleteTravelOrderMedias($id, $travelOrderId){
+
+        $media = Media::findOrFail($id);
+        $media->delete();
+        // $travelOrder = UserTravelOrder::findOrFail($travelOrderId);
+        $travelOrder = ProposalFiles::withTrashed()->where('id', $travelOrderId)->first();
+
+        // Check if the related NarrativeReport should be deleted
+        if ($travelOrder->medias()->count() === 0) {
+
+            $travelOrder->forceDelete();
+            flash()->addSuccess('File and related Travel Order deleted successfully.');
+        } else {
+
             flash()->addSuccess('File deleted successfully.');
         }
 
@@ -221,9 +445,9 @@ class ReportController extends Controller
 
         $request->validate([
             'travelorder_file' => "required|max:10048",
-           ]);
+        ]);
 
-        $post = UserTravelOrder::where('id', $id)->first();
+        $post = ProposalFiles::where('id', $id)->first();
 
         if ($travelorder = $request->file('travelorder_file')) {
             foreach ($travelorder as $travel) {
@@ -236,6 +460,8 @@ class ReportController extends Controller
     }
 
 
+
+
     // specialOrderStore
     public function specialOrderStore(Request $request){
 
@@ -243,9 +469,26 @@ class ReportController extends Controller
             'specialorder_file' => "required|max:10048",
         ]);
 
-        $post = new UserSpecialOrder();
+        $post = new ProposalFiles();
         $post->user_id  = auth()->id();
         $post->proposal_id =  $request->proposal_id;
+        $post->document_type  = 'travelorder';
+
+         // Check if there's an existing UserTravelOrder with trashed records
+         $existingSpecialOrder = ProposalFiles::withTrashed()
+         ->where('user_id', auth()->id())
+         ->where('proposal_id', $request->proposal_id)
+         ->where('document_type', 'specialorder')
+         ->first();
+
+         if ($existingSpecialOrder) {
+             // If existing record is soft-deleted, restore it
+             if ($existingSpecialOrder->trashed()) {
+                 $existingSpecialOrder->restore();
+             }
+             // Use existing UserTravelOrder
+             $post = $existingSpecialOrder;
+         }
 
         if ($specialorder = $request->file('specialorder_file')) {
             foreach ($specialorder as $special) {
@@ -262,18 +505,56 @@ class ReportController extends Controller
         flash()->addSuccess('Special Order Uploaded Successfully.');
         return back();
     }
-    // deleteSpecialOrderMedias
-    public function deleteSpecialOrderMedias($id, $specialOrderId)
-    {
-        $media = Media::findOrFail($id);
-        $specialOrder = UserSpecialOrder::findOrFail($specialOrderId);
-        $media->delete();
+     // TrashSpecialOrderMedias
+     public function TrashSpecialOrderMedias($id, $specialOrderId){
 
-        // Check if the related NarrativeReport should be deleted
-        if ($specialOrder->medias()->count() === 0) {
+        $specialOrder = ProposalFiles::findOrFail($specialOrderId);
+        $media = Media::findOrFail($id);
+        $media->collection_name = 'trash';
+        $media->save();
+
+        if ($specialOrder->medias()->where('collection_name', '!=', 'trash')->count() === 0) {
             $specialOrder->delete();
             flash()->addSuccess('File and related Special Order deleted successfully.');
         } else {
+            flash()->addSuccess('File deleted successfully.');
+        }
+
+        return back();
+    }
+    // RestoreSpecialOrderMedias
+    public function RestoreSpecialOrderMedias($id){
+        $media = Media::findOrFail($id);
+        $specialorder = ProposalFiles::withTrashed()->where('id', $media->model_id)->first();
+        // $proposal = Proposal::withTrashed()->where('id', $specialorder->proposal_id)->first();
+        $media->collection_name = 'specialOrderPdf';
+
+        if($specialorder && $specialorder->trashed()){ // Check if the model is soft-deleted
+            $specialorder->restore(); // Restore the soft-deleted model
+        }
+        // if($proposal && $proposal->trashed()){ // Check if the model is soft-deleted
+        //     $proposal->restore(); // Restore the soft-deleted model
+        // }
+        $media->save();
+
+        flash()->addSuccess('File deleted successfully.');
+        return back();
+    }
+    // deleteSpecialOrderMedias
+    public function deleteSpecialOrderMedias($id, $specialOrderId){
+
+        $media = Media::findOrFail($id);
+        $media->delete();
+        // $specialOrder = UserspecialOrder::findOrFail($specialOrderId);
+        $specialOrder = ProposalFiles::withTrashed()->where('id', $specialOrderId)->first();
+
+        // Check if the related NarrativeReport should be deleted
+        if ($specialOrder->medias()->count() === 0) {
+
+            $specialOrder->forceDelete();
+            flash()->addSuccess('File and related Special Order deleted successfully.');
+        } else {
+
             flash()->addSuccess('File deleted successfully.');
         }
 
@@ -286,7 +567,7 @@ class ReportController extends Controller
             'specialorder_file' => "required|max:10048",
            ]);
 
-        $post = UserSpecialOrder::where('id', $id)->first();
+        $post = ProposalFiles::where('id', $id)->first();
 
         if ($specialorder = $request->file('specialorder_file')) {
             foreach ($specialorder as $special) {
@@ -299,6 +580,7 @@ class ReportController extends Controller
     }
 
 
+
     // officeOrderStore
     public function officeOrderStore(Request $request){
 
@@ -306,13 +588,31 @@ class ReportController extends Controller
             'officeorder_file' => "required|max:10048",
         ]);
 
-        $post = new UserOfficeOrder();
+        $post = new ProposalFiles();
         $post->user_id  = auth()->id();
         $post->proposal_id =  $request->proposal_id;
+        $post->document_type = 'travelorder';
+
+          // Check if there's an existing UserTravelOrder with trashed records
+          $existingOfficeOrder = ProposalFiles::withTrashed()
+          ->where('user_id', auth()->id())
+          ->where('proposal_id', $request->proposal_id)
+          ->where('document_type', 'officeorder')
+          ->first();
+
+          if ($existingOfficeOrder) {
+              // If existing record is soft-deleted, restore it
+              if ($existingOfficeOrder->trashed()) {
+                  $existingOfficeOrder->restore();
+              }
+              // Use existing UserTravelOrder
+              $post = $existingOfficeOrder;
+          }
+
 
         if ($officeorder = $request->file('officeorder_file')) {
             foreach ($officeorder as $office) {
-                $post->addMedia($office)->usingName('office_order')->toMediaCollection('officeOrderPdf');
+                $post->addMedia($office)->usingName('office_order_pdf')->toMediaCollection('officeOrderPdf');
             }
         }
 
@@ -325,18 +625,58 @@ class ReportController extends Controller
         flash()->addSuccess('Office Order Uploaded Successfully.');
         return back();
     }
-    // deleteofficeOrderMedias
-    public function deleteOfficeOrderMedias($id, $officeOrderId)
-    {
+
+    // TrashOfficeOrderMedias
+    public function TrashOfficeOrderMedias($id, $officeOrderId){
+
+        $officeorder = ProposalFiles::findOrFail($officeOrderId);
         $media = Media::findOrFail($id);
-        $officeOrder = UserOfficeOrder::findOrFail($officeOrderId);
+        $media->collection_name = 'trash';
+        $media->save();
+
+        if ($officeorder->medias()->where('collection_name', '!=', 'trash')->count() === 0) {
+            $officeorder->delete();
+            flash()->addSuccess('File and related Office Order deleted successfully.');
+        } else {
+            flash()->addSuccess('File deleted successfully.');
+        }
+
+        return back();
+    }
+
+    // RestoreOfficeOrderMedias
+    public function RestoreOfficeOrderMedias($id){
+        $media = Media::findOrFail($id);
+        $officeorder = ProposalFiles::withTrashed()->where('id', $media->model_id)->first();
+        // $proposal = Proposal::withTrashed()->where('id', $officeorder->proposal_id)->first();
+        $media->collection_name = 'officeOrderPdf';
+
+        if($officeorder && $officeorder->trashed()){ // Check if the model is soft-deleted
+            $officeorder->restore(); // Restore the soft-deleted model
+        }
+        // if($proposal && $proposal->trashed()){ // Check if the model is soft-deleted
+        //     $proposal->restore(); // Restore the soft-deleted model
+        // }
+        $media->save();
+
+        flash()->addSuccess('File deleted successfully.');
+        return back();
+    }
+    // deleteOfficeOrderMedias
+    public function deleteOfficeOrderMedias($id, $officeOrderId){
+
+        $media = Media::findOrFail($id);
         $media->delete();
+        // $officeorder = UserOfficeOrder::findOrFail($officeorderId);
+        $officeorder = ProposalFiles::withTrashed()->where('id', $officeOrderId)->first();
 
         // Check if the related NarrativeReport should be deleted
-        if ($officeOrder->medias()->count() === 0) {
-            $officeOrder->delete();
-            flash()->addSuccess('File and related office Order deleted successfully.');
+        if ($officeorder->medias()->count() === 0) {
+
+            $officeorder->forceDelete();
+            flash()->addSuccess('File and related Special Order deleted successfully.');
         } else {
+
             flash()->addSuccess('File deleted successfully.');
         }
 
@@ -349,17 +689,20 @@ class ReportController extends Controller
             'officeorder_file' => "required|max:10048",
            ]);
 
-        $post = UserOfficeOrder::where('id', $id)->first();
+        $post = ProposalFiles::where('id', $id)->where('user_id', Auth()->user()->id)->where('document_type', 'officeorder')->first();
 
         if ($officeorder = $request->file('officeorder_file')) {
             foreach ($officeorder as $office) {
-                $post->addMedia($office)->usingName('office_order')->toMediaCollection('officeOrderPdf');
+                $post->addMedia($office)->usingName('office_order_pdf')->toMediaCollection('officeOrderPdf');
             }
         }
 
         flash()->addSuccess('Office Order Uploaded Successfully.');
         return back();
     }
+
+
+
 
     // attendanceStore
     public function attendanceStore(Request $request){
@@ -368,9 +711,24 @@ class ReportController extends Controller
             'attendance_file' => "required|max:10048",
         ]);
 
-        $post = new UserAttendance();
+        $post = new ProposalFiles();
         $post->user_id  = auth()->id();
         $post->proposal_id =  $request->proposal_id;
+
+        $existingAttendance = ProposalFiles::withTrashed()
+        ->where('user_id', auth()->id())
+        ->where('proposal_id', $request->proposal_id)
+        ->where('document_type', 'attendance')
+        ->first();
+
+        if ($existingAttendance) {
+            // If existing record is soft-deleted, restore it
+            if ($existingAttendance->trashed()) {
+                $existingAttendance->restore();
+            }
+            // Use existing UserTravelOrder
+            $post = $existingAttendance;
+        }
 
         if ($attendance = $request->file('attendance_file')) {
             foreach ($attendance as $office) {
@@ -385,18 +743,56 @@ class ReportController extends Controller
         flash()->addSuccess('Attendance Uploaded Successfully.');
         return back();
     }
-    // deleteattendanceMedias
-    public function deleteAttendanceMedias($id, $attendanceId)
-    {
-        $media = Media::findOrFail($id);
-        $attendance = UserAttendance::findOrFail($attendanceId);
-        $media->delete();
+    // TrashAttendanceMedias
+    public function TrashAttendanceMedias($id, $attendanceId){
 
-        // Check if the related NarrativeReport should be deleted
-        if ($attendance->medias()->count() === 0) {
+        $attendance = ProposalFiles::findOrFail($attendanceId);
+        $media = Media::findOrFail($id);
+        $media->collection_name = 'trash';
+        $media->save();
+
+        if ($attendance->medias()->where('collection_name', '!=', 'trash')->count() === 0) {
             $attendance->delete();
             flash()->addSuccess('File and related Attendance deleted successfully.');
         } else {
+            flash()->addSuccess('File deleted successfully.');
+        }
+
+        return back();
+    }
+    // RestoreAttendanceMedias
+    public function RestoreAttendanceMedias($id){
+        $media = Media::findOrFail($id);
+        $attendance = ProposalFiles::withTrashed()->where('id', $media->model_id)->first();
+        // $proposal = Proposal::withTrashed()->where('id', $attendance->proposal_id)->first();
+        $media->collection_name = 'Attendance';
+
+        if($attendance && $attendance->trashed()){ // Check if the model is soft-deleted
+            $attendance->restore(); // Restore the soft-deleted model
+        }
+        // if($proposal && $proposal->trashed()){ // Check if the model is soft-deleted
+        //     $proposal->restore(); // Restore the soft-deleted model
+        // }
+        $media->save();
+
+        flash()->addSuccess('File deleted successfully.');
+        return back();
+    }
+    // deleteAttendanceMedias
+    public function deleteAttendanceMedias($id, $attendanceId){
+
+        $media = Media::findOrFail($id);
+        $media->delete();
+        // $attendance = UserAttendance::findOrFail($attendanceId);
+        $attendance = ProposalFiles::withTrashed()->where('id', $attendanceId)->first();
+
+        // Check if the related NarrativeReport should be deleted
+        if ($attendance->medias()->count() === 0) {
+
+            $attendance->forceDelete();
+            flash()->addSuccess('File and related Attendance deleted successfully.');
+        } else {
+
             flash()->addSuccess('File deleted successfully.');
         }
 
@@ -409,7 +805,7 @@ class ReportController extends Controller
             'attendance_file' => "required|max:10048",
            ]);
 
-        $post = UserAttendance::where('id', $id)->first();
+        $post = ProposalFiles::where('id', $id)->first();
 
         if ($attendance = $request->file('attendance_file')) {
             foreach ($attendance as $att) {
@@ -421,16 +817,36 @@ class ReportController extends Controller
         return back();
     }
 
-    // attendanceStore
+
+
+
+    // attendancemStore
     public function attendancemStore(Request $request){
 
         $request->validate([
             'attendancem_file' => "required|max:10048",
         ]);
 
-        $post = new UserAttendanceMonitoring();
+        $post = new ProposalFiles();
         $post->user_id  = auth()->id();
         $post->proposal_id =  $request->proposal_id;
+        $post->document_type =  'attendancem';
+
+
+        $existingAttendancem = ProposalFiles::withTrashed()
+        ->where('user_id', auth()->id())
+        ->where('proposal_id', $request->proposal_id)
+        ->where('document_type', 'attendancem')
+        ->first();
+
+        if ($existingAttendancem) {
+            // If existing record is soft-deleted, restore it
+            if ($existingAttendancem->trashed()) {
+                $existingAttendancem->restore();
+            }
+            // Use existing UserTravelOrder
+            $post = $existingAttendancem;
+        }
 
         if ($attendancem = $request->file('attendancem_file')) {
             foreach ($attendancem as $attendm) {
@@ -445,15 +861,15 @@ class ReportController extends Controller
         flash()->addSuccess('Attendance Monitoring Uploaded Successfully.');
         return back();
     }
-    // deleteattendanceMedias
-    public function deleteAttendancemMedias($id, $attendancemId)
-    {
-        $media = Media::findOrFail($id);
-        $attendancem = UserAttendanceMonitoring::findOrFail($attendancemId);
-        $media->delete();
+    // TrashAttendanceMonitoringMedias
+    public function TrashAttendancemMedias($id, $attendancemId){
 
-        // Check if the related NarrativeReport should be deleted
-        if ($attendancem->medias()->count() === 0) {
+        $attendancem = ProposalFiles::findOrFail($attendancemId);
+        $media = Media::findOrFail($id);
+        $media->collection_name = 'trash';
+        $media->save();
+
+        if ($attendancem->medias()->where('collection_name', '!=', 'trash')->count() === 0) {
             $attendancem->delete();
             flash()->addSuccess('File and related Attendance Monitoring deleted successfully.');
         } else {
@@ -462,14 +878,53 @@ class ReportController extends Controller
 
         return back();
     }
-    // attendanceUpdate
+    // RestoreAttendanceMonitoringMedias
+    public function RestoreAttendancemMedias($id){
+        $media = Media::findOrFail($id);
+        $attendancem = ProposalFiles::withTrashed()->where('id', $media->model_id)->first();
+        // $proposal = Proposal::withTrashed()->where('id', $attendancem->proposal_id)->first();
+        $media->collection_name = 'AttendanceMonitoring';
+
+        if($attendancem && $attendancem->trashed()){ // Check if the model is soft-deleted
+            $attendancem->restore(); // Restore the soft-deleted model
+        }
+        // if($proposal && $proposal->trashed()){ // Check if the model is soft-deleted
+        //     $proposal->restore(); // Restore the soft-deleted model
+        // }
+        $media->save();
+
+        flash()->addSuccess('File deleted successfully.');
+        return back();
+    }
+    // deleteAttendanceMonitoringMedias
+    public function deleteAttendancemMedias($id, $attendancemId){
+
+        $media = Media::findOrFail($id);
+        $media->delete();
+        // $attendance = UserAttendanceMonitoring::findOrFail($attendanceId);
+        $attendancem = ProposalFiles::withTrashed()->where('id', $attendancemId)->first();
+
+
+        // Check if the related NarrativeReport should be deleted
+        if ($attendancem->medias()->count() === 0) {
+
+            $attendancem->forceDelete();
+            flash()->addSuccess('File and related Attendance Monitoring deleted successfully.');
+        } else {
+
+            flash()->addSuccess('File deleted successfully.');
+        }
+
+        return back();
+    }
+    // attendancemUpdate
     public function attendancemUpdate(Request $request, $id){
 
         $request->validate([
             'attendancem_file' => "required|max:10048",
            ]);
 
-        $post = UserAttendanceMonitoring::where('id', $id)->first();
+        $post = ProposalFiles::where('id', $id)->first();
 
         if ($attendancem = $request->file('attendancem_file')) {
             foreach ($attendancem as $attm) {
