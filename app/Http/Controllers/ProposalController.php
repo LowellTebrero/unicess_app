@@ -292,7 +292,6 @@ class ProposalController extends Controller
                     $model = new ProposalMember();
                     $model->proposal_id = $proposals->id;
                     $model->user_id = $item['id'];
-                    $model->member_type = $item['type'];
                     $model->save();
 
                     $tags =  DB::table('notifications')->whereJsonDoesntContain('data->tag_id', $item['id'])

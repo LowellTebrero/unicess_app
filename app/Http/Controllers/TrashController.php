@@ -10,6 +10,7 @@ class TrashController extends Controller
     public function index(){
 
 
+
         $proposals = Proposal::onlyTrashed()->whereYear('created_at',  date('Y'))->with(['proposal_members' => function ($query) {
             $query->where('user_id', auth()->user()->id);
         }])->orderBy('created_at', 'DESC')->with('programs')->distinct()->get();

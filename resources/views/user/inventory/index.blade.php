@@ -29,10 +29,10 @@
 
                 <hr>
                 @if ($proposalmember->isEmpty())
-                <div class="flex space-x-2 items-center justify-center text-gray-500  h-[25vh]">
-                    <h1 class="text-xs 2xl:text-sm">It’s empty here</h1>
-                    <svg class="fill-gray-500" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 20 20"><path fill="currentColor" d="M8.5 8.5a1 1 0 1 1-2 0a1 1 0 0 1 2 0m4 1a1 1 0 1 0 0-2a1 1 0 0 0 0 2m.303 2.5c-1.274 0-2.52.377-3.58 1.084a.5.5 0 0 0 .554.832A5.454 5.454 0 0 1 12.803 13h.797a.5.5 0 0 0 0-1zM2 10a8 8 0 1 1 16 0a8 8 0 0 1-16 0m8-7a7 7 0 1 0 0 14a7 7 0 0 0 0-14"/></svg>
-                </div>
+                <div class="h-[45vh] 2xl:h-[60vh] flex flex-col items-center justify-center space-y-2">
+                    <img class="w-[13rem]" src="{{ asset('img/Empty.jpg') }}">
+                    <h1 class="text-md text-gray-500">It’s empty here</h1>
+                   </div>
                 @else
                 <div id="filtered-data">
                     @include('user.inventory.index._filter_index')

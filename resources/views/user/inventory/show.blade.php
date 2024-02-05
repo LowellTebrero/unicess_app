@@ -183,7 +183,7 @@
                             </button>
                         </div>
                         <!-- Modal body -->
-                        <form action={{ route('inventory.update-project-details', $proposals->id ) }} method="POST">
+                        <form action={{ route('inventory.update-project-details', $proposals->id ) }} method="POST"  onsubmit="return confirm ('Are you sure?')">
                             @csrf @method('PUT')
                         <div class="p-4 md:p-5">
                             <div class="flex 2xl:space-y-4 2xl:space-x-0 space-x-4 2xl:flex-col flex-row">
@@ -220,15 +220,16 @@
 
                                 <div class="mt-4 w-full h-[25vh] 2xl:h-[20vh] overflow-x-auto">
 
-                                    <div class="sticky top-0 bg-gray-700 w-full">
+                                    <div class="sticky top-0 bg-gray-700 w-full flex space-x-2 items-center">
+                                        <label class="xl:text-xs block text-white text-sm font-medium tracking-wider 2xl:text-xs">Project Member <span class="text-red-500">*</span></label>
                                         <button name="add" id="add" type="button" class="bg-slate-500 rounded text-white px-2 py-1  text-sm xl:text-xs border-zinc-400">Add Member</button>
                                     </div>
 
                                     <table id="table" class="w-full">
                                         <thead class="sticky top-6 bg-gray-700">
                                         <tr class="text-sm text-gray-500">
-                                            <th class="xl:text-xs  text-white text-sm font-medium mb-2 tracking-wider 2xl:text-xs text-left">Member Name</th>
-                                            <th class="xl:text-xs  text-white text-sm font-medium mb-2 tracking-wider 2xl:text-xs text-left">Action</th>
+                                            <th class="xl:text-xs  text-white text-sm font-medium mb-2 tracking-wider 2xl:text-xs text-left"></th>
+                                            <th class="xl:text-xs  text-white text-sm font-medium mb-2 tracking-wider 2xl:text-xs text-left"></th>
                                         </tr>
                                         </thead>
 
@@ -269,8 +270,8 @@
                         </div>
                         <!-- Modal footer -->
                         <div class="flex items-center justify-between p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
-                            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Submit here</button>
-                            <button data-modal-hide="modal-edit-project-details" type="button" class="ms-3 text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Decline</button>
+                            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Update</button>
+                            <button data-modal-hide="modal-edit-project-details" type="button" class="ms-3 text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
                         </div>
                         </form>
                     </div>

@@ -12,12 +12,12 @@
     "src": "public/img/mission-vision.jpg"
   },
   "resources/css/app.css": {
-    "file": "assets/app-35d8f3d3.css",
+    "file": "assets/app-4ad50bfb.css",
     "isEntry": true,
     "src": "resources/css/app.css"
   },
   "resources/css/lnu-additional.css": {
-    "file": "assets/lnu-additional-ceb48af2.css",
+    "file": "assets/lnu-additional-17f45635.css",
     "isEntry": true,
     "src": "resources/css/lnu-additional.css"
   },

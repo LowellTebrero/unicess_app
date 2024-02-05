@@ -80,12 +80,12 @@
             <div id="defaultModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-70 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
                 <div class="relative w-full max-w-2xl max-h-full">
                     <!-- Modal content -->
-                    <div class="relative bg-white rounded-lg shadow min-h-[70vh]">
+                    <div class="relative bg-white rounded-lg shadow h-[60%]">
 
 
                         <!-- Modal header -->
-                        <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
-                            <h3 class="text-lg font-semibold text-gray-900 ">
+                        <div class="flex items-start justify-between p-4 border-b rounded-t ">
+                            <h3 class="text-lg font-semibold text-gray-700 ">
                                 Edit Project Information
                             </h3>
                             <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="defaultModal">
@@ -96,7 +96,7 @@
                             </button>
                         </div>
 
-                        <form action={{ route('User-dashboard.update-project-details', $proposal->id) }} method="POST">
+                        <form action={{ route('User-dashboard.update-project-details', $proposal->id) }} method="POST" onsubmit="return confirm ('Are you sure?')" >
                             @csrf @method('PUT')
                             <!-- Modal body -->
                             <div class="p-6 space-y-6">
@@ -134,15 +134,16 @@
 
                                     <div class="mt-4 w-full overflow-x-auto h-[20vh]">
 
-                                        <div class="z-10 sticky top-0 bg-white">
+                                        <div class="z-10 sticky top-0 bg-white flex space-x-2 items-center">
+                                            <label class="xl:text-xs block text-gray-700 text-sm font-medium tracking-wider 2xl:text-xs">Project Member</label>
                                             <button name="add" id="add" type="button" class="bg-slate-500 rounded text-white px-2 py-1  text-sm xl:text-xs border-zinc-400">Add Member</button>
                                         </div>
 
                                         <table id="table" class="w-full">
                                             <thead class="z-10 sticky top-5 bg-white">
                                             <tr class="text-sm text-gray-500">
-                                                <th class="xl:text-xs text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs text-left">Member Name</th>
-                                                <th class="xl:text-xs text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs text-left">Action</th>
+                                                <th class="xl:text-xs text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs text-left"></th>
+                                                <th class="xl:text-xs text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs text-left"></th>
                                             </tr>
                                             </thead>
 
@@ -180,8 +181,8 @@
 
                             </div>
                             <!-- Modal footer -->
-                            <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+                            <div class="flex justify-between items-center p-6 space-x-2 border-t border-gray-200 rounded-b">
+                                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Update</button>
                                 <button data-modal-hide="defaultModal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
                             </div>
                         </form>

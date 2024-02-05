@@ -1,9 +1,11 @@
 
-<div class="border rounded h-[59vh] 2xl:h-[62vh] overflow-x-auto 2xl:w-[70rem] text-gray-600">
-    <h1 class="text-center my-2">CES FACULTY PERFORMANCE EVALUATION FORM {{ $currentYear  }}</h1>
+<div class="border rounded h-[59vh] 2xl:h-[62vh] overflow-x-auto 2xl:w-[70rem] text-gray-600 relative">
+    <div class=" sticky top-0 z-10 bg-white py-2 border-b">
+        <h1 class="text-center w-full">CES FACULTY PERFORMANCE EVALUATION FORM {{ $currentYear  }}</h1>
+    </div>
    @foreach ( $evaluation as $evaluate )
-       {{--  <h1 class="text-xs"> Status: {{ $evaluate->status }}</h1>  --}}
-       <h1 class="text-xs text-left ml-5">A. SERVICE TO THE UNIVERSITY -- 30 points (Ceiling Points) (Should show proof of involvement e.g., T.O/S.O, Certificate of Appearance/Activity Attendance Monitoring Form)</h1>
+       <h1 class="text-xs text-left ml-5 mt-5">A. SERVICE TO THE UNIVERSITY</h1>
+
         @if ($evaluate->chairmanship_university || $evaluate->chairmanship_college ||
         $evaluate->membership_university || $evaluate->membership_college ||
         $evaluate->advisorship || $evaluate->oic || $evaluate->judge)
@@ -158,7 +160,7 @@
             </div>
         </div>
         <hr>
-        <h1 class="text-xs text-left mt-12 ml-5">B. COMMUNITY OUTREACH ---20 pts. (Ceiling Points) (Should show proof of involvement e.g., TOUS.O, Certificate of Appearance/Activity Attendance Monitoring Form)</h1>
+        <h1 class="text-xs text-left mt-12 ml-5">B. COMMUNITY OUTREACH</h1>
 
         <div class="px-4 pb-8 mt-5 text-xs  gap-2 grid grid-cols-3 ">
 
@@ -241,7 +243,7 @@
         </div>
 
         <hr>
-        <h1 class="text-xs text-left mt-12 pl-4">C. Service to the Adopted Barangay/institutions ----50 pts. (Ceiling Points) (Should show proof of involvement e.g., T.O/S.O, Activity Attendance Monitoring Form)</h1>
+        <h1 class="text-xs text-left mt-12 pl-4">C. Service to the Adopted Barangay/institutions</h1>
 
         @if ($evaluate->coordinator_organizer_consultants || $evaluate->resource_person_lecturer || $evaluate->facilitator || $evaluate->member )
         <h1 class="text-xs font-medium pl-4 mt-7">I. Participation in the extension and training per day:</h1>

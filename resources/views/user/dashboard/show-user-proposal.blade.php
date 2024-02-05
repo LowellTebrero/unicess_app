@@ -30,8 +30,9 @@
             </a>
         </div>
         <hr>
-        <div class="flex items-center justify-center h-[100%]">
-            <h1 class="text-2xl tracking-wide text-gray-700">404 Error:<span class="text-red-500"> Not Found</span> </h1>
+        <div class="flex flex-col space-y-4 items-center justify-center h-[100%]">
+            <img class="w-[12rem]" src="{{ asset('img/not-found.svg') }}" alt="">
+            <h1 class="tracking-wide text-gray-700">404 Error:<span class="text-red-500"> Not Found</span> </h1>
         </div>
         @else
 
@@ -85,23 +86,31 @@
                                 <div class="m-5 overflow-x-auto h-[40vh] 2xl:h-[50vh] bg-gray-200 space-y-2 text-sm tracking-wider rounded">
 
                                     <div class="flex justify-between py-2 px-4  tracking-wide bg-gray-600 text-white sticky top-0">
-                                        <h1>Time</h1>
+                                        <h1>Date</h1>
                                         <h1>Information</h1>
                                     </div>
 
                                     <div class="px-4 space-y-1">
                                         <div class="flex justify-between w-full text-[.7rem] 2xl:text-[.8rem]">
-                                            <h1>{{ $proposal->created_at }} </h1>
+                                            <h1>{{ \Carbon\Carbon::parse($proposal->created_at)->format('M d, y g:i:s A') }}</h1>
+
                                             <h1> Proposal uploaded</h1>
                                         </div>
 
                                         @foreach ($proposal->medias as $mediaLibrary)
-                                        @if (!empty($mediaLibrary->model_id) && !empty($mediaLibrary->collection_name))
                                         <div class="flex justify-between w-full text-[.7rem] 2xl:text-[.8rem] ">
-                                            <span class="block">{{ $mediaLibrary->created_at }}</span>
+                                              <h1>{{ \Carbon\Carbon::parse($mediaLibrary->created_at)->format('M d, y g:i:s A') }}</h1>
                                             <h1>{{ Str::limit($mediaLibrary->file_name, 90) }} file uploaded</h1>
                                         </div>
-                                        @endif
+                                        @endforeach
+
+                                        @foreach ($proposal->proposalfiles as $proposalfile)
+                                        @foreach ($proposalfile->medias as $mediaLibrary)
+                                        <div class="flex justify-between w-full text-[.7rem] 2xl:text-[.8rem] ">
+                                              <h1>{{ \Carbon\Carbon::parse($mediaLibrary->created_at)->format('M d, y g:i:s A') }}</h1>
+                                            <h1>{{ Str::limit($mediaLibrary->file_name, 90) }} file uploaded</h1>
+                                        </div>
+                                        @endforeach
                                         @endforeach
                                     </div>
 

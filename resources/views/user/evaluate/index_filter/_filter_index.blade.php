@@ -128,7 +128,7 @@
 
 
             @foreach ($evaluation as $eval)
-                @if ($currentYear == date('Y') && $stats->status == "close" &&  $eval->status == 'evaluated' )
+                @if ($currentYear == date('Y') && ($stats->status == "checked" || $stats->status == "close") &&  $eval->status == 'evaluated' && $eval->created_at->format(('Y')) === date('Y') )
                 <div id="div1" class="animated-div-container animated-div flex flex-col items-center justify-center space-y-2 text-green-500">
                     <img src="{{ asset('img/confetti.png') }}" width="75" class="head-primary-main">
                     <h1 class="text-2xl font-medium tracking-wide head-primary-sub">Congratulations </h1>
@@ -138,7 +138,6 @@
                 <div id="div2" class="hidden-div-container hidden-div flex flex-col text-green-500">
                     <div class=" py-2 flex space-x-2 text-green-400 text-lg font-medium items-center justify-between">
                         <div class="flex items-center space-x-2">
-                            {{--  <svg class="submitted-image" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#68bf7b" d="M12 23c6.075 0 11-4.925 11-11S18.075 1 12 1S1 5.925 1 12s4.925 11 11 11ZM7.5 10.586l3 3l6-6L17.914 9L10.5 16.414L6.086 12L7.5 10.586Z"/></svg>  --}}
                             <img src="{{ asset('img/confetti.png') }}" width="35" class="head-primary-main">
                             <div>
                                 <h1 class="text-lg submitted-text ">Congratulations</h1>
@@ -153,10 +152,8 @@
                     @include('user.evaluate.index_filter._filter_userform_index')
                 </div>
                 @endif
-            @endforeach
 
-            @foreach ($evaluation as $eval)
-                @if ($currentYear == date('Y') && $stats->status == "close"  &&  $eval->status == 'pending' )
+                @if ($currentYear == date('Y') && ($stats->status == "checked" || $stats->status == "close")  &&  $eval->status == 'pending' )
                 <div id="div1" class="animated-div-container animated-div flex space-y-3 items-center justify-center flex-col text-green-500 text-lg font-medium">
                     <img src="{{ asset('img/submit-successfully.png') }}" width="90" class="submitted-image">
                     <h1 class="text-xl submitted-text">Evaluation form submitted </h1>
@@ -189,14 +186,14 @@
             @if ($currentYear == date('Y') && $stats->status == "checked" &&  $evaluation->isEmpty())
                 <div class="flex flex-col items-center space-y-2">
                     <h1 class="sm:text-lg text-center open-text">The evaluation form is now open. </h1>
-                    <button type="submit" class="bg-blue-500 text-white px-4 hover:bg-blue-600 rounded-xl py-2 open-button text-sm sm:text-md">Click here to submit</button>
+                    <button type="submit" class="bg-blue-500 text-white px-4 hover:bg-blue-600 rounded-xl py-2 open-button text-sm sm:text-md">Click here to create</button>
                 </div>
             @endif
             {{--  @endforeach  --}}
 
             {{--  Stock and Searching for pending  --}}
-            @foreach ($evaluation_status as $Estatus)
-                @if ($currentYear == date('Y')  && $stats->status == "checked" && $Estatus->status == 'pending' && $Estatus->year == date('Y'))
+            {{--  @foreach ($evaluation_status as $Estatus)
+                @if ($currentYear == date('Y')  && ($stats->status == "checked" || $stats->status == "close") && $Estatus->status == 'pending' && $Estatus->year == date('Y'))
                     <div id="div1" class="animated-div-container animated-div flex space-y-3 items-center justify-center flex-col text-green-500 text-lg font-medium">
                         <img src="{{ asset('img/submit-successfully.png') }}" width="90" class="submitted-image">
                         <h1 class="text-xl submitted-text">Evaluation form submitted </h1>
@@ -220,12 +217,12 @@
                         @include('user.evaluate.index_filter._filter_userform_index')
                     </div>
                 @endif
-            @endforeach
+            @endforeach  --}}
 
             {{--  Stock and searching for Evaluated  --}}
             @foreach ($result as $res)
-            @foreach ($evaluation as $eval)
-                @if ($currentYear == date('Y')  && $stats->status == "checked" && $res->status == 'evaluated' &&  $res->max_year == $currentYear )
+            {{--  @foreach ($evaluation as $eval)
+                @if ($currentYear == date('Y')  && ($stats->status == "checked" || $stats->status == "close")  && $res->status == 'evaluated' &&  $res->max_year == $currentYear )
 
                     <div id="div1" class="animated-div-container animated-div flex flex-col items-center justify-center space-y-2 text-green-500">
                         <img src="{{ asset('img/confetti.png') }}" width="75" class="head-primary-main">
@@ -236,7 +233,7 @@
                     <div id="div2" class="hidden-div-container hidden-div flex flex-col text-green-500">
                         <div class=" py-2 flex space-x-2 text-green-400 text-lg font-medium items-center justify-between">
                             <div class="flex items-center space-x-2">
-                                {{--  <svg class="submitted-image" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#68bf7b" d="M12 23c6.075 0 11-4.925 11-11S18.075 1 12 1S1 5.925 1 12s4.925 11 11 11ZM7.5 10.586l3 3l6-6L17.914 9L10.5 16.414L6.086 12L7.5 10.586Z"/></svg>  --}}
+
                                 <img src="{{ asset('img/confetti.png') }}" width="35" class="head-primary-main">
                                 <div>
                                     <h1 class="text-lg submitted-text ">Congratulations</h1>
@@ -251,7 +248,7 @@
                         @include('user.evaluate.index_filter._filter_userform_index')
                     </div>
                 @endif
-            @endforeach
+            @endforeach  --}}
             @endforeach
 
             {{--  For Old Years  --}}

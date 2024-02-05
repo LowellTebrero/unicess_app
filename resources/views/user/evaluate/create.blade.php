@@ -55,7 +55,7 @@
                             University Wide <span class="text-xs xl:inline-block"> (7 pts. per committee)</span>
                             </label>
                             <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  text-sm leading-tight" id="chairmanship_university" name="chairmanship_university"
-                            type="text" onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
+                            type="text" onkeypress="return isNumber(event)" readOnly placeholder="Upload your file first">
                             <input type="file" name="chairmanship_wide[]" class="filepond my-1 text-xs  rounded file:rounded"  multiple credits="false" data-filepond="chairmanship_university">
                         </div>
 
@@ -63,7 +63,7 @@
                             <label class="block  text-sm font mb-2" for="username">
                                 College/Unit  <span class="text-xs xl:inline-block"> (4 pts. per committee) </span>
                             </label>
-                        <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" id="chairmanship_college" name="chairmanship_college" type="text" onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
+                        <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" id="chairmanship_college" name="chairmanship_college" type="text" onkeypress="return isNumber(event)" readOnly placeholder="Upload your file first">
                         <input type="file" name="chairmanship_unit[]" class="filepond my-1 text-xs rounded file:rounded" multiple credits="false" data-filepond="chairmanship_college">
                         </div>
                     </div>
@@ -76,7 +76,7 @@
                             <label class="block  text-sm font mb-2" for="username">
                             University Wide <span class="text-xs xl:inline-block"> (5 pts. per committee)</span>
                             </label>
-                            <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" id="membership_university" name="membership_university" type="text" onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
+                            <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" id="membership_university" name="membership_university" type="text" onkeypress="return isNumber(event)" readOnly placeholder="Upload your file first">
                             <input type="file" multiple credits="false" name="membership_wide[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="membership_university">
                         </div>
 
@@ -84,7 +84,7 @@
                             <label class="block  text-sm font mb-2" for="username">
                                 College/Unit  <span class="text-xs xl:inline-block"> (3 pts. per committee) </span>
                             </label>
-                        <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" id="membership_college" name="membership_college" type="text" onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
+                        <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" id="membership_college" name="membership_college" type="text" onkeypress="return isNumber(event)" readOnly placeholder="Upload your file first">
                         <input type="file" multiple credits="false" name="membership_unit[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="membership_college">
                     </div>
                     </div>
@@ -94,7 +94,7 @@
                     <h1 class="py-4  text-sm font-medium">3. Advisorship of student organization/special assignment as trainer/coach   <span class="text-xs xl:inline-block"> (5 pts. per assignment)</span></h1>
                     <div class="mb-4">
                         <div>
-                            <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" id="advisorship"  name="advisorship" type="text" onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
+                            <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" id="advisorship"  name="advisorship" type="text" onkeypress="return isNumber(event)" readOnly placeholder="Upload your file first">
                             <input type="file" multiple credits="false" name="advisorships[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="advisorship">
                         </div>
 
@@ -105,7 +105,7 @@
                      <h1 class="py-4  text-sm font-medium">4. OIC Function depends on the length of time and what level <span class="text-xs xl:block 2xl:inline-block"> (1 pt. fore every 2 cumulative days)</span> </h1>
                     <div class="mb-4">
                         <div>
-                            <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" id="oic" name="oic" type="text" onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
+                            <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" id="oic" name="oic" type="text" onkeypress="return isNumber(event)" readOnly placeholder="Upload your file first">
                             <input type="file" multiple credits="false" name="oics[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="oic">
                         </div>
 
@@ -120,7 +120,7 @@
                                 Note: Only-extra-curricular activities which are academic in nature (e.g., debates, orations, quiz shows)
                              <span class="text-xs"> (3 pts.)</span>
                             </label>
-                            <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" id="judge" name="judge" type="text" onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
+                            <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" id="judge" name="judge" type="text" onkeypress="return isNumber(event)" readOnly placeholder="Upload your file first">
                             <input type="file" multiple credits="false" name="judges[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="judge">
                         </div>
 
@@ -140,7 +140,7 @@
                             <label class="block  text-sm font mb-2" for="username">
                              <span class="text-xs"> (1 point for every Php 10,000.00 worth of resource generated)</span>
                             </label>
-                            <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  text-sm leading-tight" id="resource" name="resource" type="text" onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
+                            <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  text-sm leading-tight" id="resource" name="resource" type="text" onkeypress="return isNumber(event)" readOnly placeholder="Upload your file first">
                             <input type="file" multiple credits="false" name="resource_generation[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="resource">
                         </div>
 
@@ -159,7 +159,7 @@
                             <label class="block  text-sm font mb-2" for="username">
                             <span class="text-xs"> (5 pts. per committee)</span>
                             </label>
-                            <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" id="chairmanship_membership" name="chairmanship_membership" type="text" onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
+                            <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" id="chairmanship_membership" name="chairmanship_membership" type="text" onkeypress="return isNumber(event)" readOnly placeholder="Upload your file first">
                             <input type="file" multiple credits="false" name="chairmanship[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="chairmanship_membership">
                         </div>
                     </div>
@@ -172,28 +172,28 @@
                             <label class="block  text-sm font mb-2" for="username">
                              On-going <span class="text-xs"> (1 pl. per linkage)</span>
                             </label>
-                            <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" id="facilication_on_going" name="facilication_on_going" type="text" onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
+                            <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" id="facilication_on_going" name="facilication_on_going" type="text" onkeypress="return isNumber(event)" readOnly placeholder="Upload your file first">
                             <input type="file" multiple credits="false" name="facilitation_ongoing[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="facilication_on_going">
                         </div>
                         <div class="mb-4">
                             <label class="block  text-sm font mb-2" for="username">
                             Regional <span class="text-xs">  (3 pts per linkage) </span>
                             </label>
-                            <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" id="facilication_regional" name="facilication_regional" type="text" onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
+                            <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" id="facilication_regional" name="facilication_regional" type="text" onkeypress="return isNumber(event)" readOnly placeholder="Upload your file first">
                             <input type="file" multiple credits="false" name="facilitation_regional[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="facilication_regional">
                         </div>
                         <div class="mb-4">
                             <label class="block  text-sm font mb-2" for="username">
                                 National  <span class="text-xs"> (6 pts per linkage)</span>
                             </label>
-                            <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm"  id="facilication_national" name="facilication_national" type="text" onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
+                            <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm"  id="facilication_national" name="facilication_national" type="text" onkeypress="return isNumber(event)" readOnly placeholder="Upload your file first">
                             <input type="file" multiple credits="false" name="facilitation_national[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="facilication_national">
                         </div>
                         <div>
                             <label class="block  text-sm font mb-2" for="username">
                                 International <span class="text-xs"> (11 pts per linkage)</span>
                             </label>
-                            <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" id="facilication_international" name="facilication_international" type="text" onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
+                            <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" id="facilication_international" name="facilication_international" type="text" onkeypress="return isNumber(event)" readOnly placeholder="Upload your file first">
                             <input type="file" multiple credits="false" name="facilitation_international[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="facilication_international">
                         </div>
 
@@ -221,67 +221,67 @@
 
                 <div>
                 <h1 class="text-sm">Training Director/Coordinator - Local/National  <span class="text-xs sm:text-sm">(10 pts. per Training)</span></h1>
-                <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="training_director_local"  type="text" id="training_director_local"  onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
+                <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="training_director_local"  type="text" id="training_director_local"  onkeypress="return isNumber(event)" readOnly placeholder="Upload your file first">
                 <input type="file" multiple credits="false" name="training_director_locals[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="training_director_local">
                 </div>
 
                 <div>
                 <h1 class="text-sm">Training Director/Coordinator - International   <span class="text-xs sm:text-sm">(15 pts. per Training)</span></h1>
-                <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="training_director_international" type="text" id="training_director_international"  onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
+                <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="training_director_international" type="text" id="training_director_international"  onkeypress="return isNumber(event)" readOnly placeholder="Upload your file first">
                 <input type="file" multiple credits="false" name="training_director_internationals[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="training_director_international">
                 </div>
 
                 <div>
                 <h1 class="text-sm">Resource Speaker/Trainer - Local/National  <span class="text-xs sm:text-sm">(7 pts. per Training)</span></h1>
-                <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="resource_speaker_local" id="resource_speaker_local" type="text"  onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
+                <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="resource_speaker_local" id="resource_speaker_local" type="text"  onkeypress="return isNumber(event)" readOnly placeholder="Upload your file first">
                 <input type="file" multiple credits="false" name="resource_speaker_locals[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="resource_speaker_local">
                 </div>
 
                 <div>
                 <h1 class="text-sm" >Resource Speaker/Trainer - International   <span class="text-xs sm:text-sm">(10 pts. per Training)</span></h1>
-                <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="resource_speaker_international" id="resource_speaker_international" type="text"  onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
+                <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="resource_speaker_international" id="resource_speaker_international" type="text"  onkeypress="return isNumber(event)" readOnly placeholder="Upload your file first">
                 <input type="file" multiple credits="false" name="resource_speaker_internationals[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="resource_speaker_international">
                 </div>
 
                 <div>
                 <h1 class="text-sm">Facilitator moderator - local   <span class="text-xs sm:text-sm">(3 pts. per Training)</span></h1>
-                <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="facilitator_moderator_local" id="facilitator_moderator_local" type="text"  onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
+                <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="facilitator_moderator_local" id="facilitator_moderator_local" type="text"  onkeypress="return isNumber(event)" readOnly placeholder="Upload your file first">
                 <input type="file" multiple credits="false" name="facilitator_moderator_locals[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="facilitator_moderator_local">
                 </div>
 
                 <div>
                 <h1 class="text-sm">Facilitator moderator - International  <span class="text-xs sm:text-sm">(7 pts. per Training)</span></h1>
-                <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="facilitator_moderator_international" id="facilitator_moderator_international" type="text"  onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
+                <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="facilitator_moderator_international" id="facilitator_moderator_international" type="text"  onkeypress="return isNumber(event)" readOnly placeholder="Upload your file first">
                 <input type="file" multiple credits="false" name="facilitator_moderator_internationals[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="facilitator_moderator_international">
                 </div>
 
                 <div>
                 <h1 class="text-sm">Reactor panel member - local  <span class="text-xs sm:text-sm">(2 pts. per Training)</span></h1>
-                <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="reactor_panel_member_local" id="reactor_panel_member_local" type="text"  onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
+                <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="reactor_panel_member_local" id="reactor_panel_member_local" type="text"  onkeypress="return isNumber(event)" readOnly placeholder="Upload your file first">
                 <input type="file" multiple credits="false" name="reactor_panel_member_locals[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="reactor_panel_member_local">
                 </div>
 
                 <div>
                 <h1 class="text-sm">Reactor panel member - International  <span class="text-xs sm:text-sm">(5 pts. per Training)</span></h1>
-                <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="reactor_panel_member_international" id="reactor_panel_member_international" type="text"  onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
+                <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="reactor_panel_member_international" id="reactor_panel_member_international" type="text"  onkeypress="return isNumber(event)" readOnly placeholder="Upload your file first">
                 <input type="file" multiple credits="false" name="reactor_panel_member_internationals[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="reactor_panel_member_international">
                 </div>
 
                 <div>
                 <h1 class="text-sm">Technical Assistance/Consultancy  <span class="text-xs sm:text-sm">(7 pts. per project)</span></h1>
-                <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="technical_assistance" id="technical_assistance" type="text"  onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
+                <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="technical_assistance" id="technical_assistance" type="text"  onkeypress="return isNumber(event)" readOnly placeholder="Upload your file first">
                 <input type="file" multiple credits="false" name="technical_assistances[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="technical_assistance">
                 </div>
 
                 <div>
                 <h1 class="text-sm">Judge  <span class="text-xs">(3 pts.) Note: Only extra-curricular activities where are academic in nature (e.g., debates, orations, quiz shows)</span></h1>
-                <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="judge_community" id="judge_community" type="text"  onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
+                <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="judge_community" id="judge_community" type="text"  onkeypress="return isNumber(event)" readOnly placeholder="Upload your file first">
                 <input type="file" multiple credits="false" name="judge_communitys[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="judge_community">
                 </div>
 
                 <div>
                 <h1 class="text-sm">Commencement/Guest Speaker: <span class="text-xs sm:text-sm">(4 pts.)</span></h1>
-                <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="commencement_guest_speaker" id="commencement_guest_speaker" type="text"  onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
+                <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="commencement_guest_speaker" id="commencement_guest_speaker" type="text"  onkeypress="return isNumber(event)" readOnly placeholder="Upload your file first">
                 <input type="file" multiple credits="false" name="commencement_guest_speakers[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="commencement_guest_speaker">
                 </div>
 
@@ -303,25 +303,25 @@
 
                         <div class="w-full">
                         <h1 class="text-xs sm:text-sm">Coordinator/Organizer/consultants (10 pts. per day) </h1>
-                        <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm"  name="coordinator_organizer_consultants" id="coordinator_organizer_consultants"  type="text"  required onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
+                        <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm"  name="coordinator_organizer_consultants" id="coordinator_organizer_consultants"  type="text"  required onkeypress="return isNumber(event)" readOnly placeholder="Upload your file first">
                         <input type="file" multiple credits="false" name="coordinator_organizer_consultantses[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="coordinator_organizer_consultants">
                         </div>
 
                         <div class="w-full">
                         <h1 class="text-xs sm:text-sm">Facilitator (6 pts. per day) </h1>
-                        <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="facilitator" id="facilitator"  type="text"  required onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
+                        <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="facilitator" id="facilitator"  type="text"  required onkeypress="return isNumber(event)" readOnly placeholder="Upload your file first">
                         <input type="file" multiple credits="false" name="facilitators[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="facilitator">
                         </div>
 
                         <div class="w-full">
                         <h1 class="text-xs sm:text-sm">Member (4 pts. per day) </h1>
-                        <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm"  id="member"  name="member" type="text"  required onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
+                        <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm"  id="member"  name="member" type="text"  required onkeypress="return isNumber(event)" readOnly placeholder="Upload your file first">
                         <input type="file" multiple credits="false" name="members[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="member">
                         </div>
 
                         <div class="w-full">
                         <h1 class="text-xs sm:text-sm">Resource person/lecturer (8 pts. per day) </h1>
-                        <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="resource_person_lecturer" id="resource_person_lecturer"  type="text"  required onkeypress="return isNumber(event)" readOnly placeholder="Upload file your first">
+                        <input class="border-zinc-400 shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="resource_person_lecturer" id="resource_person_lecturer"  type="text"  required onkeypress="return isNumber(event)" readOnly placeholder="Upload your file first">
                         <input type="file" multiple credits="false" name="resource_person_lecturers[]" class="filepond my-1 text-xs rounded file:rounded" data-filepond="resource_person_lecturer">
                         </div>
 
