@@ -2,17 +2,16 @@
 
     @section('title', 'Dashboard | ' . config('app.name', 'UniCESS'))
 
-    <section class="flex h-[85vh] 2xl:h-[87vh] flex-col-reverse xl:flex-row  xl:justify-between ">
-        <div class="xl:px-4 2xl:px-8 flex w-full flex-col p-4">
+    <section class="flex mt-4 2xl:mt-5 m-8 h-[82vh] 2xl:h-[87vh] xl:justify-between  overflow-hidden">
 
+        <div class="xl:pr-4 2xl:pr-8 flex w-full flex-col ">
 
             <!-- 4 Button Modal -->
             @include('admin.dashboard._button-modal')
 
 
             <!-- Proposal Dashboard -->
-            <section
-                class="w-full flex-col h-full flex mt-5 bg-white 2xl:shadow rounded-xl text-white sm:w-full xl:shadow-none">
+            <section  class="w-full flex-col h-full flex mt-5 bg-white 2xl:shadow rounded-xl text-white sm:w-full xl:shadow-none">
 
                 <div class="flex justify-between items-center p-4 pb-2">
                     <h2 class="font-semibold text-gray-600 2xl:text-sm xl:text-xs xl:mr-2 text-xs hidden md:block">
@@ -68,75 +67,76 @@
 </x-admin-layout>
 
 
-<script>
-    $('input[type=file]').change(function() {
-        if ($('input[type=files]').val() == '') {
-            $('button').attr('disabled', true)
+    <script>
+        $('input[type=file]').change(function() {
+            if ($('input[type=files]').val() == '') {
+                $('button').attr('disabled', true)
 
-        } else {
-            $('button').attr('disabled', false);
+            } else {
+                $('button').attr('disabled', false);
 
-        }
-    })
+            }
+        })
 
-    $(document).ready(function() {
+        $(document).ready(function() {
 
-        $('#myDropdown').on('change', function() {
-            var selectedValue = $(this).val();
-            var query = $('#searchInput').val();
-
-            $.ajax({
-                url: "{{ route('admin.proposal.admin-dashboard-filter') }}",
-                type: 'GET',
-                data: {
-                    selected_value: selectedValue,
-                    query: query
-                },
-                success: function(data) {
-                    let resultsTable = $('#filtered-data');
-                    resultsTable.empty();
-
-                    // Update the filtered data container with the response
-                    $('#filtered-data').html(data);
-
-                }
-            });
-
-
-        });
-
-
-    });
-
-
-    $(document).ready(function() {
-        let timer;
-
-        $('#searchInput').on('input', function() {
-            clearTimeout(timer);
-
-            let query = $(this).val();
-            var selected_value = $('#myDropdown').val();
-
-            timer = setTimeout(function() {
+            $('#myDropdown').on('change', function() {
+                var selectedValue = $(this).val();
+                var query = $('#searchInput').val();
 
                 $.ajax({
-                    url: "{{ route('admin.proposal.admin-dashboard-search') }}",
-                    method: 'GET',
+                    url: "{{ route('admin.proposal.admin-dashboard-filter') }}",
+                    type: 'GET',
                     data: {
-                        query: query,
-                        selected_value: selected_value
+                        selected_value: selectedValue,
+                        query: query
                     },
                     success: function(data) {
                         let resultsTable = $('#filtered-data');
                         resultsTable.empty();
-                        $('#filtered-data').append(data);
+
+                        // Update the filtered data container with the response
+                        $('#filtered-data').html(data);
+
                     }
                 });
-
-            }, 300);
-            // Adjust the delay as needed
+            });
         });
 
-    });
-</script>
+
+        $(document).ready(function() {
+            let timer;
+
+            $('#searchInput').on('input', function() {
+                clearTimeout(timer);
+
+                let query = $(this).val();
+                var selected_value = $('#myDropdown').val();
+
+                timer = setTimeout(function() {
+
+                    $.ajax({
+                        url: "{{ route('admin.proposal.admin-dashboard-search') }}",
+                        method: 'GET',
+                        data: {
+                            query: query,
+                            selected_value: selected_value
+                        },
+                        success: function(data) {
+                            let resultsTable = $('#filtered-data');
+                            resultsTable.empty();
+                            $('#filtered-data').append(data);
+                        }
+                    });
+
+                }, 300);
+                // Adjust the delay as needed
+            });
+
+        });
+    </script>  
+
+
+
+
+

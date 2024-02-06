@@ -31,6 +31,8 @@
 
 <body class="font-sans antialiased min-h-full">
 
+
+
     {{--  <h1>Pusher Test</h1>
     <p>
       Try publishing an event to channel <code>my-channel</code>

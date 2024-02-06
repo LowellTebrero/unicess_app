@@ -75,7 +75,7 @@
                             </button>
                         </div>
                         <!-- Modal body -->
-                        <form action={{ route('inventroy-update-user-proposal', $proposals->id) }} method="POST" enctype="multipart/form-data">
+                        <form action={{ route('inventroy-update-user-proposal', $proposals->id) }} method="POST" enctype="multipart/form-data" onsubmit="return confirm ('Are you sure?')">
                             @csrf @method('PUT')
                         <div class="p-4 md:p-5">
                             <p class="text-sm leading-relaxed text-white tracking-wider">
@@ -84,15 +84,13 @@
 
                                 <div class="py-1 mt-5 grid grid-cols-2 gap-3 text-white">
                                     <div class="flex flex-col mb-1 w-full">
-                                        <label class="text-xs font-light tracking-wider mb-1 2xl:text-sm">Update Proposal
-                                            (PDF)</label>
+                                        <label class="text-xs font-light tracking-wider mb-1 2xl:text-sm">Update Proposal (PDF)</label>
                                         <input type="file" class="border text-xs" name="proposal_pdf">
                                         @error('proposal_pdf')<span class="text-red-500  text-xs">{{ $message }}</span>@enderror
                                     </div>
 
                                     <div class="flex flex-col mb-1 w-full ">
-                                        <label class="text-xs font-light tracking-wider mb-1 2xl:text-sm">Update Memorandum of Agreement
-                                            (PDF)</label>
+                                        <label class="text-xs font-light tracking-wider mb-1 2xl:text-sm">Update Memorandum of Agreement (PDF)</label>
                                         <input type="file" class="border text-xs" name="moa_pdf">
                                         @error('moa_pdf')<span class="text-red-500  text-xs">{{ $message }}</span>@enderror
                                     </div>
@@ -183,7 +181,7 @@
                             </button>
                         </div>
                         <!-- Modal body -->
-                        <form action={{ route('inventory.update-project-details', $proposals->id ) }} method="POST"  onsubmit="return confirm ('Are you sure?')">
+                        <form action={{ route('inventory.update-project-details', $proposals->id ) }} method="POST"  onsubmit="return confirmAndCheckEmpty()">
                             @csrf @method('PUT')
                         <div class="p-4 md:p-5">
                             <div class="flex 2xl:space-y-4 2xl:space-x-0 space-x-4 2xl:flex-col flex-row">
@@ -206,13 +204,13 @@
 
                                 <div class="flex space-x-4 w-full" >
                                     <div class="w-full">
-                                        <label class="xl:text-xs block text-white text-sm font-medium mb-2 tracking-wider 2xl:text-xs">Started Date<span class="text-red-500">*</span></label>
+                                        <label class="xl:text-xs block text-white text-sm font-medium mb-2 tracking-wider 2xl:text-xs">Started Date <span class="text-xs">(optional)</span></label>
                                         <input  class="border-zinc-400 xl:text-xs shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" value="{{ $proposals->started_date }}" name="started_date" id="started_date" type="datetime-local">
                                         @error('started_date') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
                                     </div>
 
                                     <div class="w-full">
-                                        <label class="xl:text-xs block text-white text-sm font-medium mb-2 tracking-wider 2xl:text-xs">Ended Date<span class="text-red-500">*</span></label>
+                                        <label class="xl:text-xs block text-white text-sm font-medium mb-2 tracking-wider 2xl:text-xs">Ended Date <span class="text-xs">(optional)</span></label>
                                         <input class="border-zinc-400 xl:text-xs shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" value="{{ $proposals->finished_date }}" name="finished_date" id="finished_date" type="datetime-local">
                                         @error('finished_date') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
                                     </div>
@@ -233,7 +231,7 @@
                                         </tr>
                                         </thead>
 
-                                        <tbody>
+                                        <tbody id="tbody">
 
                                             @php($count=0)
                                             @foreach ($proposals->proposal_members as $proposal_mem)
@@ -838,6 +836,48 @@
     </div>
 @endif
 </x-app-layout>
+
+
+<script>
+    function confirmAndCheckEmpty() {
+        // Ask for confirmation
+        var confirmation = confirm('Are you sure?');
+
+        // If user confirms, check for empty tbody or tr
+        if (confirmation) {
+            var tbody = document.getElementById('tbody');
+
+            if (!tbody || !tbody.querySelector('tr')) {
+                alert('At least one member must be added.');
+                return false; // Prevent form submission
+            }
+
+            var rows = tbody.querySelectorAll('tr');
+            var emptyFound = false;
+
+            rows.forEach(function(row) {
+                var cells = row.querySelectorAll('td select');
+                var isEmptyRow = true;
+                cells.forEach(function(cell) {
+                    if (cell.value.trim() !== '') {
+                        isEmptyRow = false;
+                    }
+                });
+                if (isEmptyRow) {
+                    emptyFound = true;
+                }
+            });
+
+            if (emptyFound) {
+                alert('Every row must have a member.');
+                return false; // Prevent form submission
+            }
+            return true; // Allow form submission
+        } else {
+            return false; // Prevent form submission if user cancels
+        }
+    }
+    </script>
 
 
 

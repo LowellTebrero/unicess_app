@@ -240,10 +240,10 @@
                                         </span>
                                     </td>
 
-                                    <td class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-4 py-4 text-xs">
+                                    {{--  <td class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-4 py-4 text-xs">
                                         {{ $mediaLibrary->size }} KB
 
-                                    </td>
+                                    </td>  --}}
 
                                     <td class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-4 py-4 text-xs 2xl:text-xs">
                                         {{ \Carbon\Carbon::parse($mediaLibrary->updated_at)->format('M d, Y,  g:i:s A')}}

@@ -1,3 +1,4 @@
+
 @if ($allProposal->isEmpty())
     <div class="flex items-center justify-center h-[50vh]">
         <h1 class="text-gray-400 text-sm">Its empty here</h1>
@@ -46,10 +47,10 @@
                     </td>
                     <td class="p-3 whitespace-nowrap">
                         <a href={{ route('admin.dashboard.edit-proposal', ['id' => $proposal->id, 'notification' => $proposal->id ]) }}>
-                        <div
-                            class="text-left text-gray-600 xl:text-[.7rem]">
-                                {{ Str::limit($proposal->project_title, 80) }}
-                        </div>
+                                                                                            
+                            <div class="text-left text-gray-600">
+                                {{ Str::limit($proposal->project_title, 70) }}
+                            </div>
                         </a>
                     </td>
 
@@ -86,3 +87,6 @@
 </div>
 @endif
 
+
+        
+   

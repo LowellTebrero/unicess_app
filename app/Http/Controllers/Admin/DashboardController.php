@@ -290,7 +290,8 @@ class DashboardController extends Controller
        $proposals->update();
 
         if ($request->hasFile('proposal_pdf')) {
-        $proposals->addMediaFromRequest('proposal_pdf')->usingName('proposal')->usingFileName($project_title.'_proposal.pdf')->toMediaCollection('proposalPdf');
+            $proposals->clearMediaCollection('proposalPdf');
+            $proposals->addMediaFromRequest('proposal_pdf')->usingName('proposal')->usingFileName($project_title.'_proposal.pdf')->toMediaCollection('proposalPdf');
         }
 
         if ($request->hasFile('moa_pdf')) {

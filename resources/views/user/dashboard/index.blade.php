@@ -23,7 +23,7 @@
                     @elseif($user->gender == 'Male')
                     <img src="{{ asset('/img/male.svg') }}" class="2xl:w-24 xl:mr-5 2xl:mr-8  xl:w-16 xl:h-16 2xl:h-20 w-12 lg:w-[4rem]">
                     @else
-                    <img src="{{ asset('/upload/profile.png') }}" class="2xl:w-24 xl:mr-5 2xl:mr-8  xl:w-16 xl:h-12 2xl:h-20 w-16 lg:w-[4rem]">
+                    <img src="{{ asset('/upload/profile.png') }}" class="2xl:w-20 xl:mr-5 2xl:mr-8  xl:w-16 xl:h-12 2xl:h-20 w-16 lg:w-[4rem]">
                     @endif
                     <h1 class="font-thick text-gray-700 tracking-wide xl:text-xs 2xl:text-base lg:text-center text-xs md:text-center">Your Role
                         <span class="block font-semibold xl:text-sm 2xl:text-lg lg:text-sm text-xs">

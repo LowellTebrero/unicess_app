@@ -96,7 +96,7 @@
                             </button>
                         </div>
 
-                        <form action={{ route('User-dashboard.update-project-details', $proposal->id) }} method="POST" onsubmit="return confirm ('Are you sure?')" >
+                        <form action={{ route('User-dashboard.update-project-details', $proposal->id) }} method="POST"  onsubmit="return confirmAndCheckEmpty()">
                             @csrf @method('PUT')
                             <!-- Modal body -->
                             <div class="p-6 space-y-6">
@@ -147,7 +147,7 @@
                                             </tr>
                                             </thead>
 
-                                            <tbody>
+                                            <tbody id="tbody">
                                                 @php($count=0)
                                                 @foreach ($proposals->proposal_members as $proposal_mem)
                                                 @if ($proposal_mem !== null)
@@ -271,3 +271,47 @@
 
 
     </script>
+
+    <script>
+        function confirmAndCheckEmpty() {
+            // Ask for confirmation
+            var confirmation = confirm('Are you sure?');
+
+            // If user confirms, check for empty tbody or tr
+            if (confirmation) {
+                var tbody = document.getElementById('tbody');
+
+                if (!tbody || !tbody.querySelector('tr')) {
+                    alert('At least one member must be added.');
+                    return false; // Prevent form submission
+                }
+
+                var rows = tbody.querySelectorAll('tr');
+                var emptyFound = false;
+
+                rows.forEach(function(row) {
+                    var cells = row.querySelectorAll('td select');
+                    var isEmptyRow = true;
+                    cells.forEach(function(cell) {
+                        if (cell.value.trim() !== '') {
+                            isEmptyRow = false;
+                        }
+                    });
+                    if (isEmptyRow) {
+                        emptyFound = true;
+                    }
+                });
+
+                if (emptyFound) {
+                    alert('Every row must have a member.');
+                    return false; // Prevent form submission
+                }
+                return true; // Allow form submission
+            } else {
+                return false; // Prevent form submission if user cancels
+            }
+        }
+        </script>
+
+
+
