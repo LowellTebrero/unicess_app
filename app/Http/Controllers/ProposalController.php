@@ -12,9 +12,12 @@ use App\Models\Template;
 use App\Models\AdminYear;
 use App\Models\Evaluation;
 use App\Rules\UniqueTitle;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\ProposalFiles;
+use App\Models\TrashedRecord;
 use App\Models\ProposalMember;
+use App\Models\CollectionMedia;
 use App\Models\UserOfficeOrder;
 use App\Models\UserTravelOrder;
 use Illuminate\Validation\Rule;
@@ -98,7 +101,7 @@ class ProposalController extends Controller
     public function store(Request $request)
     {
 
-       $request->validate([
+        $data = $request->validate([
 
             'program_id' => 'required',
             'project_title' => ['regex:/^[^<>?:|\/"*]+$/','required','min:6' ,Rule::unique('proposals'), new UniqueTitle],
@@ -108,14 +111,17 @@ class ProposalController extends Controller
             'office_order_pdf' => "max:10048",
             'travel_order_pdf' => "max:10048",
             'special_order_pdf' => "max:10048",
+            'tags' => 'required|array', // Ensure tags is an array
+            'tags.*' => 'exists:users,id', // Ensure each tag exists in users table
            ],
            [
             'required_without_all' => 'Please upload at least one file among Proposal PDF, Special Order PDF, MOA PDF, Office Order PDF, Travel Order PDF, Other Files.',
             'project_title.regex' => 'Invalid characters: \ / : * ? " < > |',
         ]);
 
-
+        $uuid = Str::random(7);
         $post = new Proposal();
+        $post->uuid = $uuid;
         $post->program_id =  $request->program_id;
         $post->project_title =  $request->project_title;
         $post->started_date =  $request->started_date;
@@ -123,57 +129,91 @@ class ProposalController extends Controller
         $post->user_id  = auth()->id();
         $post->save();
 
+        foreach ($request->tags as $tag) {
+            ProposalMember::create([
+                'proposal_id' => $post->id, // Set proposal_id to the newly created proposal's ID
+                'user_id' => $tag, // Set user_id to the current tag (user's ID)
+            ]);
+        }
+
+
         if ($request->hasFile('proposal_pdf')) {
-            $post->addMediaFromRequest('proposal_pdf')->usingName('proposal')->usingFileName($request->project_title.'_proposal.pdf')->toMediaCollection('proposalPdf');
+            $media =  $post->addMediaFromRequest('proposal_pdf')->usingName(auth()->id())->usingFileName($request->project_title.'_proposal.pdf')->toMediaCollection('proposalPdf');
+
+            $collect = new CollectionMedia();
+            $collect->media_id = $media->id ;
+            $collect->proposal_id =  $post->id;
+            $collect->user_id = auth()->id();
+            $collect->collection_name = 'proposalPdf' ;
+            $collect->save();
         }
 
         if ($request->hasFile('moa_pdf')) {
-            $post->addMediaFromRequest('moa_pdf')->usingName('moa')->usingFileName($request->project_title.'_moa.pdf')->toMediaCollection('MoaPdf');
+            $media =  $post->addMediaFromRequest('moa_pdf')->usingName(auth()->id())->usingFileName($request->project_title.'_moa.pdf')->toMediaCollection('moaPdf');
+
+            $collect = new CollectionMedia();
+            $collect->media_id = $media->id ;
+            $collect->proposal_id =  $post->id;
+            $collect->user_id = auth()->id();
+            $collect->collection_name = 'moaPdf';
+            $collect->save();
         }
 
         if ($specialorder = $request->file('special_order_pdf')) {
 
-            $special = new ProposalFiles();
-            $special->user_id  = auth()->id();
-            $special->proposal_id  = $post->id;
-            $special->document_type  = 'specialorder';
-            $special->save();
-
             foreach ($specialorder as $specials) {
-                $special->addMedia($specials)->usingName('special_order_pdf')->toMediaCollection('specialOrderPdf');
+                $media =   $post->addMedia($specials)->usingName(auth()->id())->toMediaCollection('specialOrderPdf');
+
+                $collect = new CollectionMedia();
+                $collect->media_id = $media->id ;
+                $collect->proposal_id =  $post->id;
+                $collect->user_id = auth()->id();
+                $collect->collection_name = 'specialOrderPdf';
+                $collect->save();
             }
         }
 
         if ($travelorder = $request->file('travel_order_pdf')) {
 
-            $travel = new ProposalFiles();
-            $travel->user_id  = auth()->id();
-            $travel->proposal_id  = $post->id;
-            $travel->document_type  = 'travelorder';
-            $travel->save();
-
             foreach ($travelorder as $travels) {
-                $travel->addMedia($travels)->usingName('travel_order_pdf')->toMediaCollection('travelOrderPdf');
+                $media = $post->addMedia($travels)->usingName(auth()->id())->toMediaCollection('travelOrderPdf');
+
+                $collect = new CollectionMedia();
+                $collect->media_id = $media->id ;
+                $collect->proposal_id =  $post->id;
+                $collect->user_id = auth()->id();
+                $collect->collection_name = 'travelOrderPdf';
+                $collect->save();
             }
         }
 
         if ($officeorder = $request->file('office_order_pdf')) {
 
-            $office = new ProposalFiles();
-            $office->user_id  = auth()->id();
-            $office->proposal_id  = $post->id;
-            $office->document_type  = 'officeorder';
-            $office->save();
+
 
             foreach ($officeorder as $offices) {
-                $office->addMedia($offices)->usingName('office_order_pdf')->toMediaCollection('officeOrderPdf');
+                $media =  $post->addMedia($offices)->usingName(auth()->id())->toMediaCollection('officeOrderPdf');
+
+                $collect = new CollectionMedia();
+                $collect->media_id = $media->id ;
+                $collect->proposal_id =  $post->id;
+                $collect->user_id = auth()->id();
+                $collect->collection_name = 'officeOrderPdf';
+                $collect->save();
             }
         }
 
         if ($files = $request->file('other_files')) {
 
             foreach ($files as $file) {
-                $post->addMedia($file)->usingName('other')->toMediaCollection('otherFile');
+                $media =  $post->addMedia($file)->usingName(auth()->id())->toMediaCollection('otherFile');
+
+                $collect = new CollectionMedia();
+                $collect->media_id = $media->id ;
+                $collect->proposal_id =  $post->id;
+                $collect->user_id = auth()->id();
+                $collect->collection_name = 'otherFile';
+                $collect->save();
             }
         }
 
@@ -250,9 +290,14 @@ class ProposalController extends Controller
         })
         ->prepend('Select name', '');
 
+        $existingTagIds  = $proposals->proposal_members()->pluck('user_id')->toArray();
+        $existingTags = User::whereIn('id', $existingTagIds)->pluck('name', 'id')->toArray();
+
+        // dd($existingTags);
+
 
         return view('user.dashboard.show-user-proposal', compact('proposals', 'proposal', 'proposal_member', 'program'
-        ,'members', 'users' ));
+        ,'members', 'users','existingTags' ));
     }
 
 
@@ -280,35 +325,56 @@ class ProposalController extends Controller
             'finished_date' =>  $request->finished_date,
         ]);
 
+        $existingTags  = $proposals->proposal_members()->pluck('user_id')->toArray();
 
-            if($request->member !== null){
+        $newTags = $request->input('tags');
 
+        // Find tags to add (new tags not in existing tags)
+        $tagsToAdd = array_diff($newTags, $existingTags);
+        // Find tags to remove (existing tags not in new tags)
+        $tagsToRemove = array_diff($existingTags, $newTags);
 
-                ProposalMember::where('proposal_id', $proposals->id)->delete();
-
-
-                foreach ($request->member as $item) {
-
-                    $model = new ProposalMember();
-                    $model->proposal_id = $proposals->id;
-                    $model->user_id = $item['id'];
-                    $model->save();
-
-                    $tags =  DB::table('notifications')->whereJsonDoesntContain('data->tag_id', $item['id'])
-                    ->whereJsonContains('data->proposal_id', $proposals->id)
-                    ->where('type', 'App\Notifications\UserTagProposalNotification')->delete();
-
-                }
-
-
-            }else {
-
-                DB::table('notifications')->whereJsonContains('data->proposal_id', $proposals->id)
-                ->where('type', 'App\Notifications\UserTagProposalNotification')->delete();
-                ProposalMember::where('proposal_id', $proposals->id)->delete();
-
+        foreach ($tagsToAdd as $tag) {
+            // Check if the tag already exists
+            if (!ProposalMember::where('proposal_id', $proposals->id)->where('user_id', $tag)->exists()) {
+                ProposalMember::create([
+                    'proposal_id' => $proposals->id,
+                    'user_id' => $tag,
+                ]);
             }
-            app('flasher')->addSuccess('Updated Successfully.');
+        }
+
+        // Remove tags
+        ProposalMember::where('proposal_id', $proposals->id)
+            ->whereIn('user_id', $tagsToRemove)
+            ->delete();
+
+
+        // if($request->member !== null){
+
+        //     ProposalMember::where('proposal_id', $proposals->id)->delete();
+
+        //     foreach ($request->member as $item) {
+
+        //         $model = new ProposalMember();
+        //         $model->proposal_id = $proposals->id;
+        //         $model->user_id = $item['id'];
+        //         $model->save();
+
+        //         $tags =  DB::table('notifications')->whereJsonDoesntContain('data->tag_id', $item['id'])
+        //         ->whereJsonContains('data->proposal_id', $proposals->id)
+        //         ->where('type', 'App\Notifications\UserTagProposalNotification')->delete();
+
+        //     }
+
+        // }else {
+
+        //     DB::table('notifications')->whereJsonContains('data->proposal_id', $proposals->id)
+        //     ->where('type', 'App\Notifications\UserTagProposalNotification')->delete();
+        //     ProposalMember::where('proposal_id', $proposals->id)->delete();
+
+        // }
+        app('flasher')->addSuccess('Updated Successfully.');
 
         return redirect(route('User-dashboard.show-proposal', $proposals->id ));
     }
@@ -369,15 +435,21 @@ class ProposalController extends Controller
         // Notify Users
        foreach($proposal->proposal_members as $member){
 
-            $users = User::where('id', $member->user_id )->get();
-            foreach($users as $user){
-                $user->notify(new UserDeletedTheirProposaleNotification($proposal));
-            }
+        $users = User::where('id', $member->user_id )->get();
+        foreach($users as $user){
+            $user->notify(new UserDeletedTheirProposaleNotification($proposal));
+        }
 
        }
        // proposal delete
+
        $proposal->delete();
 
+       $uuid = Str::random(7);
+       $trashRecord = new TrashedRecord();
+       $trashRecord->uuid = $proposal->uuid;
+       $trashRecord->user_id = Auth()->user()->id;
+       $trashRecord->save();
 
        $notifications = DB::table('notifications')->get();
 
@@ -550,5 +622,19 @@ class ProposalController extends Controller
 
         return view('user.dashboard.MyProposal._filter-dashboard', compact('proposals', 'years', 'count'));
     }
+
+
+    public function GetUserName(Request $request)
+    {
+        $tags = [];
+        if ($search = $request->name) {
+            $tags = User::where('name', 'LIKE', "%$search%")->get();
+        }
+
+        return response()->json($tags);
+    }
+
+
+
 
 }

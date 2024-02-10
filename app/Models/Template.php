@@ -23,7 +23,7 @@ class Template extends Model implements HasMedia
        return  $this->belongsTo(Program::class, 'program_id');
     }
 
-   public function users():BelongsTo
+    public function users():BelongsTo
     {
        return  $this->belongsTo(User::class, 'user_id');
     }

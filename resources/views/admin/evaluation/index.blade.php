@@ -20,7 +20,7 @@
             </div>
 
             <div>
-                <input type="text" placeholder="Search name and email..." class="xl:text-xs border-slate-400 rounded-lg text-sm" id="searchInput">
+                <input type="text" placeholder="Search name or email..." class="xl:text-xs border-slate-400 rounded-lg text-sm" id="searchInput">
                 <select name="myDropdown" id="myDropdown" class="xl:text-xs border-slate-400 rounded-lg text-sm">
                     @foreach ($years as $year )
                         <option value="{{ $year }}" @if ($year == date('Y')) selected="selected" @endif>{{ $year }}</option>
@@ -31,7 +31,14 @@
         <hr>
 
         <div id="filtered-data">
-            @include('admin.evaluation._filter_evaluation')
+            @if ($latestData->isEmpty())
+                <div class="h-[45vh] 2xl:h-[50vh] flex flex-col items-center justify-center space-y-2">
+                    <img class="w-[12rem]" src="{{ asset('img/Empty.jpg') }}">
+                    <h1 class="text-md text-gray-500">It’s empty here</h1>
+                </div>
+            @else
+                @include('admin.evaluation._filter_evaluation')
+            @endif
         </div>
 
 

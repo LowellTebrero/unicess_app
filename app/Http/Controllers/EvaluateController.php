@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\AdminYear;
 use App\Models\Evaluation;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\EvaluationFile;
 use App\Models\ProposalMember;
@@ -108,8 +109,9 @@ class EvaluateController extends Controller
         + $request->input('judge_community') + $request->input('commencement_guest_speaker') +  $request->input('coordinator_organizer_consultants') + $request->input('resource_person_lecturer')
         + $request->input('facilitator') + $request->input('member');
 
-
+        $uuid = Str::random(7);
         $evaluate = new Evaluation();
+            $evaluate->uuid = $uuid;
             $evaluate->faculty_id = $request->faculty_id;
             $evaluate->period_of_evaluation = $request->period_of_evaluation;
             $evaluate->chairmanship_university = $request->chairmanship_university;

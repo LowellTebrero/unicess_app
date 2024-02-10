@@ -3,7 +3,7 @@
     <div class="mb-4">
         <div class="w-full">
             <label class="block  text-sm font mb-2" for="username"><span class="text-xs"> (5 pts. per committee)</span></label>
-            <input onkeypress="return isNumber(event)" id="chairmanship_membership" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none" name="chairmanship_membership" value="{{ $evaluation->chairmanship_membership }}" type="text">
+            <input onkeypress="return isNumber(event)" id="chairmanship_membership" class="input-number border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none" name="chairmanship_membership" value="{{ $evaluation->chairmanship_membership }}" type="text">
             <div class="py-2 chairmanship_membership">
                 <x-alpine-modal>
 

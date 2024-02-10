@@ -2,7 +2,7 @@
     <h1 class="py-4  text-sm font-medium">3. Advisorship of student organization/special assignment as trainer/coach <span class="text-xs 2xl:block xl:inline-block"> (5 pts. per assignment)</span> </h1>
 
     <div class="mb-4">
-            <input onkeypress="return isNumber(event)" id="advisorship" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none" name="advisorship" value="{{ $evaluation->advisorship }}"  type="text">
+            <input onkeypress="return isNumber(event)" id="advisorship" class="input-number border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none" name="advisorship" value="{{ $evaluation->advisorship }}"  type="text">
             <div class="py-2 advisorship">
                 <x-alpine-modal>
 

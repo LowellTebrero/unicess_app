@@ -252,6 +252,8 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
     });
 
     Route::get('/admin-trash', [AdminTrashController::class, 'index'])->name('trash.index');
+    Route::delete('/admin-trash-restore', [AdminTrashController::class, 'RestoreFile'])->name('trash.restore');
+    Route::delete('/admin-trash-hardelete', [AdminTrashController::class, 'DeleteFile'])->name('trash.hardelete');
 
 });
 
@@ -261,6 +263,7 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
 Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/calendar', [GoogleCalendarController::class, 'GoogleCalendar'])->name('calendar');
+
     Route::controller(ProposalController::class)->group(function () {
         Route::put('update-project-details/{id}',  'updateDetails')->name('User-dashboard.update-project-details');
         Route::get('/show-proposal/{id}',  'showProposal')->name('User-dashboard.show-proposal');
@@ -277,6 +280,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/my-proposal-search/{id}',  'MyProposalSearch')->name('User-dashboard.my-proposal-search');
         Route::get('/my-proposal-filter-year/{id}',  'MyProposalFilterYear')->name('User-dashboard.my-proposal-filter-year');
         Route::get('/get-current-time',  'getCurrentTime');
+        Route::post('/get-tag-username', 'GetUserName')->name('proposal.getusername');
+        Route::post('/post-tag-username', 'StoreTagName')->name('proposal.storename');
 
     });
 
@@ -345,6 +350,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/download-media/{id}','downloadsMedia');
         Route::put('/update-inventory-project-details/{id}', 'UpdateShowInventory')->name('inventory.update-project-details');
         Route::delete('/delete-inventory-proposals/{id}','UserDeleteInventoryProposal')->name('inventory-delete-proposals');
+        Route::delete('/inventory-trashMediafile','MoveToTrashMediaJson')->name('inventory.trash-media-json');
+        Route::delete('/inventory-trashFolderMedia','TrashFolderMediaJS')->name('inventory.trash-folder-media-json');
     });
 
     Route::controller(ReportController::class)->group(function () {
@@ -408,6 +415,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::controller(AllProposalController::class)->group(function () {
         Route::get('/all-projects', 'index')->name('allProposal.index');
         Route::get('/all-projects-show/{id}', 'show')->name('allProposal.show');
+
     });
 
     Route::get('/welcome-user',[UserWelcomeController::class, 'WelcomeUser'])->name('auth.welcome-user');
@@ -425,6 +433,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/delete-uploaded-file/{id}', [EvaluateController::class, 'deleteFile']);
 
     Route::get('trash', [TrashController::class, 'index'])->name('trash.index');
+    Route::delete('/trash-restore-fileorfolder', [TrashController::class, 'RestoreFileOrFolder'])->name('trash.restore-fileorfolder');
+    Route::delete('/trash-hardelete-fileorfolder', [TrashController::class, 'DeleteFileOrFolder'])->name('trash.hardelete-fileorfolder');
+
 
 });
 

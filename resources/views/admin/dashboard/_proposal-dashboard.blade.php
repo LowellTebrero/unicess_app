@@ -1,8 +1,9 @@
 
 @if ($allProposal->isEmpty())
-    <div class="flex items-center justify-center h-[50vh]">
-        <h1 class="text-gray-400 text-sm">Its empty here</h1>
-    </div>
+    <div class="h-[45vh] 2xl:h-[50vh] flex flex-col items-center justify-center space-y-2">
+        <img class="w-[12rem]" src="{{ asset('img/Empty.jpg') }}">
+        <h1 class="text-md text-gray-500">It’s empty here</h1>
+   </div>
 @else
 <div class="p-3 pt-0 px-0 overflow-x-auto h-[45vh] 2xl:h-[57vh] text-gray-700">
     <table class="table-auto w-full relative">

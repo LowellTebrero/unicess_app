@@ -114,14 +114,14 @@
                                 <div class="flex flex-col space-y-2">
                                     <div class="flex flex-col space-y-2  w-full">
                                         <div class="flex space-x-2 w-full items-center">
-                                            <h1 class="xl:text-sm text-xs text-slate-600 ">Select Name of Faculty/Personnel <span class="text-red-500">*</span></h1>
-                                            <button name="add" id="add" type="button" class=" bg-blue-400 hover:bg-blue-500 rounded-lg text-white px-2 py-2  text-xs  border-zinc-300">Add more user</button>
+                                            <h1 class="xl:text-sm text-xs text-slate-600 ">Search and tag a name of Faculty/Personnel <span class="text-red-500">*</span></h1>
+                                            {{--  <button name="add" id="add" type="button" class=" bg-blue-400 hover:bg-blue-500 rounded-lg text-white px-2 py-2  text-xs  border-zinc-300">Add more user</button>  --}}
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="w-full overflow-x-auto h-[26vh] xl:h-[20vh] 2xl:h-[20vh]  mt-2">
+                        {{--  <div class="w-full overflow-x-auto h-[26vh] xl:h-[20vh] 2xl:h-[20vh]  mt-2">
 
                             <table id="table" class="w-full">
                                 <thead>
@@ -150,7 +150,10 @@
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>
+                        </div>  --}}
+
+                        <select name="tags[]" id="tags" class="tags w-full text-xs" multiple="multiple" required></select>
+
                     </div>
 
                 </div>
@@ -248,6 +251,7 @@
     </section>
 
     @section('scripts')
+
         <script>
             var i = 0;
             $('#add').click(function() {
@@ -372,6 +376,10 @@
         }
     </script>
 
+    <!-- Select2 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
 
@@ -479,4 +487,55 @@
                 container.appendChild(p);
             }
         }
+
+        $(document).ready(function(){
+            $('.tags').select2({
+                placeholder: 'Select Option',
+                allowClear: true,
+            });
+
+            $('#tags').select2({
+                ajax: {
+                    url: "{{ route('proposal.getusername') }}",
+                    type: "post",
+                    delay: 250,
+                    dataType: 'json',
+                    data: function(params){
+                        return {
+                            name: params.term,
+                            "_token": "{{ csrf_token() }}",
+                        };
+                    },
+                    processResults: function(data){
+                        return {
+                            results: $.map(data, function(user){
+                                return {
+                                    id: user.id,
+                                    text: user.name
+                                }
+                            })
+                        };
+                    },
+                },
+            });
+        });
+
+
+         // Validate form before submission
+        document.getElementById('FormSubmit').addEventListener('submit', function(event) {
+            var tagsSelect = document.getElementById('tags');
+            var selectedTags = Array.from(tagsSelect.selectedOptions).map(option => option.value);
+
+            if (selectedTags.length === 0) {
+                event.preventDefault(); // Prevent form submission
+                // Display error message or highlight the tags select box to indicate it's required
+                // For example, you can add a CSS class to highlight the select box
+                tagsSelect.classList.add('error');
+                alert('Please tag at least one member.');
+            }
+        });
+
     </script>
+
+
+

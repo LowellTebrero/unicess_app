@@ -96,7 +96,7 @@
                             </button>
                         </div>
 
-                        <form action={{ route('User-dashboard.update-project-details', $proposal->id) }} method="POST"  onsubmit="return confirmAndCheckEmpty()">
+                        <form action={{ route('User-dashboard.update-project-details', $proposal->id) }} method="POST"  onsubmit="return confirm('Are you sure?')">
                             @csrf @method('PUT')
                             <!-- Modal body -->
                             <div class="p-6 space-y-6">
@@ -134,12 +134,12 @@
 
                                     <div class="mt-4 w-full overflow-x-auto h-[20vh]">
 
-                                        <div class="z-10 sticky top-0 bg-white flex space-x-2 items-center">
-                                            <label class="xl:text-xs block text-gray-700 text-sm font-medium tracking-wider 2xl:text-xs">Project Member</label>
-                                            <button name="add" id="add" type="button" class="bg-slate-500 rounded text-white px-2 py-1  text-sm xl:text-xs border-zinc-400">Add Member</button>
-                                        </div>
 
-                                        <table id="table" class="w-full">
+                                        <label class="xl:text-xs block text-gray-700 text-sm font-medium tracking-wider mb-2">Project Member</label>
+                                        {{--  <button name="add" id="add" type="button" class="bg-slate-500 rounded text-white px-2 py-1  text-sm xl:text-xs border-zinc-400">Add Member</button>  --}}
+
+
+                                        {{--  <table id="table" class="w-full">
                                             <thead class="z-10 sticky top-5 bg-white">
                                             <tr class="text-sm text-gray-500">
                                                 <th class="xl:text-xs text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs text-left"></th>
@@ -175,8 +175,16 @@
                                                 @endforeach
 
                                             </tbody>
-                                        </table>
+                                        </table>  --}}
+
+                                        <select name="tags[]" id="tags" class="tags w-full" multiple="multiple" required>
+                                            @foreach($existingTags as $userId => $userName)
+                                                <option value="{{ $userId }}" selected>{{ $userName }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
+
+
                                 </div>
 
                             </div>
@@ -232,6 +240,8 @@
 
 </x-alpine-modal>
 
+
+
     <script>
 
         var count = {{ $count }};
@@ -272,46 +282,10 @@
 
     </script>
 
-    <script>
-        function confirmAndCheckEmpty() {
-            // Ask for confirmation
-            var confirmation = confirm('Are you sure?');
 
-            // If user confirms, check for empty tbody or tr
-            if (confirmation) {
-                var tbody = document.getElementById('tbody');
 
-                if (!tbody || !tbody.querySelector('tr')) {
-                    alert('At least one member must be added.');
-                    return false; // Prevent form submission
-                }
 
-                var rows = tbody.querySelectorAll('tr');
-                var emptyFound = false;
 
-                rows.forEach(function(row) {
-                    var cells = row.querySelectorAll('td select');
-                    var isEmptyRow = true;
-                    cells.forEach(function(cell) {
-                        if (cell.value.trim() !== '') {
-                            isEmptyRow = false;
-                        }
-                    });
-                    if (isEmptyRow) {
-                        emptyFound = true;
-                    }
-                });
-
-                if (emptyFound) {
-                    alert('Every row must have a member.');
-                    return false; // Prevent form submission
-                }
-                return true; // Allow form submission
-            } else {
-                return false; // Prevent form submission if user cancels
-            }
-        }
-        </script>
 
 
 

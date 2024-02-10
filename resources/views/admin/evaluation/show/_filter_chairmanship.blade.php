@@ -3,7 +3,7 @@
     <div class="mb-4 flex space-x-4">
         <div class="w-full">
             <label class="block  text-sm font mb-2" for="username"> University Wide <span class="text-xs  2xl:block xl:inline-block"> (7 pts. per committee)</span></label>
-            <input onkeypress="return isNumber(event)" id="chairmanship_university" class=" border-zinc-500 appearance-none border rounded w-full py-2 px-3 font-medium text-sm leading-tight focus:outline-none"
+            <input onkeypress="return isNumber(event)" id="chairmanship_university" class=" input-number border-zinc-400 appearance-none border rounded w-full py-2 px-3 font-medium text-sm leading-tight focus:outline-none"
             name="chairmanship_university" value="{{ $evaluation->chairmanship_university }}" type="text">
 
             <div class="py-2 chairmanship_university">
@@ -77,7 +77,7 @@
 
         <div class="w-full">
             <label class="block  text-sm font mb-2" for="username">College/Unit<span class="text-xs 2xl:block xl:inline-block"> (4 pts. per committee)</span></label>
-            <input onkeypress="return isNumber(event)" id="chairmanship_college" class="border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none" name="chairmanship_college" value="{{ $evaluation->chairmanship_college }}" type="text">
+            <input onkeypress="return isNumber(event)" id="chairmanship_college" class="input-number border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none" name="chairmanship_college" value="{{ $evaluation->chairmanship_college }}" type="text">
 
             <div class="chairmanship_college py-2">
                 <x-alpine-modal>

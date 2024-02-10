@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('evaluations', function (Blueprint $table) {
             $table->id();
+            $table->string('uuid', 7);
             $table->unsignedBigInteger('user_id')->unsigned();
             $table->string('faculty_id');
             $table->string('period_of_evaluation');

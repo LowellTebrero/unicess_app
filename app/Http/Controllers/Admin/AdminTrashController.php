@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\User;
 use App\Models\Proposal;
 use App\Models\Evaluation;
 use Illuminate\Http\Request;
+use App\Models\CollectionMedia;
 use App\Http\Controllers\Controller;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+
 
 class AdminTrashController extends Controller
 {
@@ -17,32 +21,79 @@ class AdminTrashController extends Controller
         $evaluations = Evaluation::onlyTrashed()->get();
 
 
-
         $trash = Proposal::withTrashed()->
         with(['medias' => function ($query) {
-        $query->where('collection_name', 'trash')
-        ->where(function ($query) {
-            $query->whereIn('model_id', function ($subQuery) {
-                $subQuery->select('id')
-                ->from('proposals')
-                ->where('name', 'like', '%proposal%')
-                ->orWhere('name', 'like', '%moa%')
-                ->orWhere('name', 'like', '%other%');
-            });
-        });
+        $query->where('collection_name', 'trash');
         }])
-        ->with(['proposalfiles' => function ($query) {
-            $query->with(['medias' => function ($mediaQuery) {
-                $mediaQuery->where('collection_name', 'trash');
-            }])
-            ->withTrashed();
-        }])
-
         ->orderBy('created_at', 'DESC')
         ->distinct()->get();
 
+        $users = User::get();
 
-        // dd($trash);
-        return view('admin.trash.index', compact('trash', 'proposals', 'evaluations'));
+
+        return view('admin.trash.index', compact('trash', 'proposals', 'evaluations','users'));
+    }
+
+
+    public function RestoreFile(Request $request){
+
+        $ids = $request->ids;
+
+        // Update each media item
+        foreach ($ids as $id) {
+
+            $media = Media::where('uuid', $id)->first();
+            $proposal = Proposal::where('uuid', $id)->withTrashed()->first();
+            $evaluation = Evaluation::where('uuid', $id)->withTrashed()->first();
+
+            if ($media) {
+                $collect = CollectionMedia::where('media_id', $media->id)->first();
+                $media->collection_name = $collect->collection_name;
+                $media->save();
+
+            } elseif ($proposal) {
+                // If the file exists in Proposal, restore it
+                $proposal->restore();
+
+            } elseif ($evaluation) {
+                // If the file exists in Proposal, restore it
+                $evaluation->restore();
+            }
+        }
+
+        // Flash a success message
+        return response()->json(['success' => 'Trashed Successfully']);
+
+    }
+
+    public function DeleteFile(Request $request){
+
+        $ids = $request->ids;
+
+        // Update each media item
+        foreach ($ids as $id) {
+
+            $media = Media::where('uuid', $id)->first();
+            $proposal = Proposal::where('uuid', $id)->withTrashed()->first();
+            $evaluation = Evaluation::where('uuid', $id)->withTrashed()->first();
+
+            if ($media) {
+                $collect = CollectionMedia::where('media_id', $media->id)->first();
+                $collect->delete();
+                $media->delete();
+
+            } elseif ($proposal) {
+                // If the file exists in Proposal, restore it
+                $proposal->forceDelete();
+            }
+            elseif ($evaluation) {
+                // If the file exists in Proposal, restore it
+                $evaluation->forceDelete();
+            }
+        }
+
+        // Flash a success message
+        return response()->json(['success' => 'Deleted Successfully']);
+
     }
 }

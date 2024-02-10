@@ -1,9 +1,9 @@
-<div class="mt-8">
+    <div class="mt-8">
     <h1 class="py-4 text-sm font-medium">1. Resource generation (eg. endowment, scholarships professional chair, acquisition of assorted books, and/or substantial library collection, equipment, etc)</h1>
     <div class="mb-4">
         <div class="w-full">
             <label class="block  text-sm font mb-2" for="username"><span class="text-xs"> (1 point for every Php 10,000.00 worth of resource generated)</span></label>
-            <input onkeypress="return isNumber(event)" id="resource" class="dynamic-input border-zinc-400 appearance-none border rounded w-full py-2 px-3  text-sm leading-tight focus:outline-none"
+            <input onkeypress="return isNumber(event)" id="resource" class="input-number dynamic-input border-zinc-400 appearance-none border rounded w-full py-2 px-3  text-sm leading-tight focus:outline-none"
              name="resource" value="{{ $evaluation->resource }}" type="text" oninput="checkAndToggleReadonly(this)">
             <div class="py-2 resource">
                 <x-alpine-modal>

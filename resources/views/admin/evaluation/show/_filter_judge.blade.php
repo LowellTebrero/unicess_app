@@ -3,7 +3,7 @@
     <div class="mb-4 ">
         <div>
             <label class="block  text-sm font mb-2" for="username">Note: Only-extra-curricular activities which are academic in nature (e.g., debates, orations, quiz shows)<span class="text-xs"> (3 pts.)</span></label>
-            <input onkeypress="return isNumber(event)" id="judge" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none" value="{{ $evaluation->judge }}" name="judge" type="text">
+            <input onkeypress="return isNumber(event)" id="judge" class="input-number border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none" value="{{ $evaluation->judge }}" name="judge" type="text">
             <div class="py-2 judge">
                 <x-alpine-modal>
 

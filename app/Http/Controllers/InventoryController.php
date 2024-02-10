@@ -8,9 +8,11 @@ use App\Models\Proposal;
 use App\Models\AdminYear;
 use Illuminate\Http\Request;
 use App\Models\ProposalFiles;
+use App\Models\TrashedRecord;
 use App\Models\ProposalMember;
 use App\Models\TerminalReport;
 use App\Models\UserAttendance;
+use App\Models\CollectionMedia;
 use App\Models\NarrativeReport;
 use App\Models\UserOfficeOrder;
 use App\Models\UserTravelOrder;
@@ -44,34 +46,29 @@ class InventoryController extends Controller
 
     public function show($id, $notification){
 
-
-        $proposals = Proposal::where('id', $id)->with(['proposalfiles' => function ($query) {
-            $query->with(['medias' => function ($mediaQuery) {
-                $mediaQuery->whereNot('collection_name', 'trash');
-            }]);
-            }])
-        ->with(['medias' => function ($query) {
+        $proposals = Proposal::where('id', $id)->with(['medias' => function ($query) {
             $query->whereNot('collection_name', 'trash')->orderBy('file_name', 'asc');
         }, 'programs'])
         ->first();
 
-        $uniqueProposalFiles = $proposals->proposalfiles->unique('document_type');
+        $myfiles = Proposal::where('id', $id)->with(['medias' => function ($query) {
+            $query->whereNot('collection_name', 'trash')
+                  ->where('name', Auth()->user()->id)
+                  ->orderBy('file_name', 'asc');
+        }])->first();
+
+        $uniqueProposalFiles = $proposals->medias->unique('collection_name');
+
+        $myuniqueProposalFiles = $myfiles->medias->unique('collection_name');
 
 
         $formedia = Proposal::where('id', $id)
-            ->with(['medias' => function ($query) {
-            $query->whereNot('collection_name', 'trash')->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
-            ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
-            },
-
-            'proposalfiles' => function ($query) {
-                $query->with(['medias' => function ($query) {
-                    $query->whereNot('collection_name', 'trash')->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
-                    ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
-                }]);
+        ->with(['medias' => function ($query) {
+        $query->whereNot('collection_name', 'trash')->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
+        ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
         },])->first();
 
-        $uniqueformedias = $formedia->proposalfiles->unique('document_type');
+        $uniqueformedias = $formedia->medias->unique('collection_name');
 
         $members = User::orderBy('name')->whereNot('name', 'Administrator')->pluck('name', 'id')->prepend('Select Username', '');
         $inventory = CustomizeUserInventory::where('id', 2)->get();
@@ -79,64 +76,24 @@ class InventoryController extends Controller
         $proposal_member = ProposalMember::where('user_id', auth()->user()->id)->first();
         $program = Program::orderBy('program_name')->pluck('program_name', 'id')->prepend('Select Program', '');
 
-
-        $travelCount = UserTravelOrder::where('proposal_id', $id)
-        ->join('model_has_roles', 'model_has_roles.model_id', '=', 'user_travel_orders.user_id')
-        ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
-        ->where('roles.name', '!=', 'admin')
-        ->distinct('user_travel_orders.user_id')
-        ->count();
-        $specialCount = UserSpecialOrder::where('proposal_id', $id)
-        ->join('model_has_roles', 'model_has_roles.model_id', '=', 'user_special_orders.user_id')
-        ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
-        ->where('roles.name', '!=', 'admin')
-        ->distinct('user_special_orders.user_id')
-        ->count();
-        $officeCount = UserOfficeOrder::where('proposal_id', $id)
-        ->join('model_has_roles', 'model_has_roles.model_id', '=', 'user_office_orders.user_id')
-        ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
-        ->where('roles.name', '!=', 'admin')
-        ->distinct('user_office_orders.user_id')
-        ->count();
-        $attendanceCount = UserAttendance::where('proposal_id', $id)
-        ->join('model_has_roles', 'model_has_roles.model_id', '=', 'user_attendances.user_id')
-        ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
-        ->where('roles.name', '!=', 'admin')
-        ->distinct('user_attendances.user_id')
-        ->count();
-
-        $attendancemCount = UserAttendanceMonitoring::where('proposal_id', $id)
-        ->join('model_has_roles', 'model_has_roles.model_id', '=', 'user_attendance_monitorings.user_id')
-        ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
-        ->where('roles.name', '!=', 'admin')
-        ->distinct('user_attendance_monitorings.user_id')
-        ->count();
-        $narrativeCount = NarrativeReport::where('proposal_id', $id)
-        ->join('model_has_roles', 'model_has_roles.model_id', '=', 'narrative_reports.user_id')
-        ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
-        ->where('roles.name', '!=', 'admin')
-        ->distinct('narrative_reports.user_id')
-        ->count();
-        $terminalCount = TerminalReport::where('proposal_id', $id)
-        ->join('model_has_roles', 'model_has_roles.model_id', '=', 'terminal_reports.user_id')
-        ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
-        ->where('roles.name', '!=', 'admin')
-        ->distinct('terminal_reports.user_id')
-        ->count();
-        $memberCount = ProposalMember::where('proposal_id', $id)
-        ->join('model_has_roles', 'model_has_roles.model_id', '=', 'proposal_members.user_id')
-        ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
-        ->where('roles.name', '!=', 'admin')
-        ->distinct('proposal_members.user_id')
-        ->count();
-
         if($notification){
             auth()->user()->unreadNotifications->where('id', $notification)->markAsRead();
         }
 
+        $users = User::all();
+        $otherFilePdfCount = Media::where('collection_name', 'otherFile')->count();
+        $travelCount = Media::where('collection_name', 'travelOrderPdf')->count();
+        $officeCount = Media::where('collection_name', 'officeOrderPdf')->count();
+        $specialPdfCount = Media::where('collection_name', 'specialOrderPdf')->count();
+        $attendancePdfCount = Media::where('collection_name', 'Attendance')->count();
+        $attendancemPdfCount = Media::where('collection_name', 'AttendanceMonitoring')->count();
+        $narrativePdfCount = Media::where('collection_name', 'NarrativeFile')->count();
+        $terminalPdfCount = Media::where('collection_name', 'TerminalFile')->count();
+        $mediaCount = Media::whereNot('collection_name','trash')->count();
         return view('user.inventory.show', compact('proposals', 'proposal', 'proposal_member', 'inventory', 'program', 'members'
-        ,'formedia','narrativeCount', 'terminalCount', 'memberCount','travelCount','specialCount','officeCount','attendanceCount'
-        ,'attendancemCount','uniqueProposalFiles','uniqueformedias'));
+        ,'formedia','uniqueProposalFiles','uniqueformedias', 'myuniqueProposalFiles','myfiles','users','mediaCount'
+        ,'otherFilePdfCount','travelCount','officeCount','specialPdfCount','attendancePdfCount','attendancemPdfCount',
+        'narrativePdfCount','terminalPdfCount'));
 
     }
 
@@ -195,21 +152,21 @@ class InventoryController extends Controller
 
     public function downloadsSpecialOrder($id)
     {
-        $proposal = ProposalFiles::findorFail($id);
+        $proposal = Proposal::findorFail($id);
         $pdf = $proposal->getFirstMedia('specialOrderPdf');
         return $pdf;
     }
 
     public function downloadsOffice($id)
     {
-        $proposal = ProposalFiles::findorFail($id);
+        $proposal = Proposal::findorFail($id);
         $pdf = $proposal->getFirstMedia('officeOrderPdf');
         return $pdf;
     }
 
     public function downloadsTravel($id)
     {
-        $proposal = ProposalFiles::findorFail($id);
+        $proposal = Proposal::findorFail($id);
         $pdf = $proposal->getFirstMedia('travelOrderPdf');
         return $pdf;
     }
@@ -230,8 +187,7 @@ class InventoryController extends Controller
 
     public function downloadNarrative($id){
 
-
-        $narratives = ProposalFiles::where('proposal_id', $id)
+        $narratives = Proposal::where('proposal_id', $id)
         ->where('document_type', 'narrativereport')->get();
 
         if ($narratives->isNotEmpty()) {
@@ -244,12 +200,11 @@ class InventoryController extends Controller
             return MediaStream::create($narratives->first()->proposals->project_title . '-NarrativeFiles.zip')
             ->addMedia($downloads);
         }
-
     }
 
     public function downloadTerminal($id){
 
-        $terminals = ProposalFiles::where('proposal_id', $id)
+        $terminals = Proposal::where('proposal_id', $id)
         ->where('document_type', 'terminalreport')->get();
 
         if ($terminals->isNotEmpty()) {
@@ -262,14 +217,11 @@ class InventoryController extends Controller
             return MediaStream::create($terminals->first()->proposals->project_title . '-TerminalFiles.zip')
             ->addMedia($downloads);
         }
-
-
     }
-
 
     public function downloadTravelorder($id){
 
-        $travelorders = ProposalFiles::where('proposal_id', $id)
+        $travelorders = Proposal::where('proposal_id', $id)
         ->where('document_type', 'travelorder')->get();
 
         if ($travelorders->isNotEmpty()) {
@@ -282,13 +234,11 @@ class InventoryController extends Controller
             return MediaStream::create($travelorders->first()->proposals->project_title . '-TravelOrderFiles.zip')
             ->addMedia($downloads);
         }
-
-
     }
 
     public function downloadSpecialorder($id){
 
-        $specialorders = ProposalFiles::where('proposal_id', $id)
+        $specialorders = Proposal::where('proposal_id', $id)
         ->where('document_type', 'specialorder')->get();
 
         if ($specialorders->isNotEmpty()) {
@@ -301,13 +251,11 @@ class InventoryController extends Controller
             return MediaStream::create($specialorders->first()->proposals->project_title . '-SpecialOrderFiles.zip')
             ->addMedia($downloads);
         }
-
-
     }
 
     public function downloadOfficeorder($id){
 
-        $officeorders = ProposalFiles::where('proposal_id', $id)
+        $officeorders = Proposal::where('proposal_id', $id)
         ->where('document_type', 'officeorder')->get();
 
         if ($officeorders->isNotEmpty()) {
@@ -320,13 +268,11 @@ class InventoryController extends Controller
             return MediaStream::create($officeorders->first()->proposals->project_title . '-OfficeOrderFiles.zip')
             ->addMedia($downloads);
         }
-
-
     }
 
     public function downloadAttendance($id){
 
-        $attedance = ProposalFiles::where('proposal_id', $id)
+        $attedance = Proposal::where('proposal_id', $id)
         ->where('document_type', 'attendance')->get();
 
         if ($attedance->isNotEmpty()) {
@@ -339,14 +285,11 @@ class InventoryController extends Controller
             return MediaStream::create($attedance->first()->proposals->project_title . '-AttendanceFiles.zip')
             ->addMedia($downloads);
         }
-
-
     }
 
     public function downloadAttendancem($id){
 
-
-        $attedances = ProposalFiles::where('proposal_id', $id)
+        $attedances = Proposal::where('proposal_id', $id)
         ->where('document_type', 'attendancem')->get();
 
         if ($attedances->isNotEmpty()) {
@@ -359,53 +302,44 @@ class InventoryController extends Controller
             return MediaStream::create($attedances->first()->proposals->project_title . '-AttendanceMonitoringFiles.zip')
             ->addMedia($downloads);
         }
-
     }
-
 
     // Download All
     public function download($id)
     {
         $proposals = Proposal::where('id', $id)->first();
-        $proposalfiles = ProposalFiles::where('proposal_id', $id)->get();
-
         $download1 = Media::where('model_id',$proposals->id)->whereNot('collection_name', 'trash')->get();
-        $download2 = $proposalfiles ? Media::where('model_type', ProposalFiles::class)
-        ->whereIn('model_id', $proposalfiles->pluck('id'))
-        ->where('collection_name', '<>', 'trash')
-        ->get() : [];
 
-        return MediaStream::create($proposals->project_title.'.zip')->addMedia($download1,$download2,);
+        return MediaStream::create($proposals->project_title.'.zip')->addMedia($download1);
     }
 
-
-
-
-    // Delete
+    // Restore
     public function RestoreFile($id)
     {
-        $media = Media::findOrFail($id);
-        // $proposal = Proposal::where('id',$media->model_id)->withTrashed()->first();
+        $media = Media::where('uuid', $id)->first();
 
-        // if($proposal && $proposal->trashed()){ // Check if the model is soft-deleted
-        //     $proposal->restore(); // Restore the soft-deleted model
-        // }
+        $proposal = Proposal::where('uuid', $id)->first();
+        $removeTrashed = TrashedRecord::where('uuid', $id)->first();
 
-        if($media->name == 'proposal'){
-            $media->collection_name = 'proposalPdf';
+        if ($media) {
+            // If the file exists in Media, restore it and save
+            $collect = CollectionMedia::where('media_id', $id)->first();
+            $media->collection_name = $collect->collection_name;
             $media->save();
-        }elseif($media->name == 'moa'){
-            $media->collection_name = 'MoaPdf';
-            $media->save();
-        }elseif($media->name == 'other'){
-            $media->collection_name = 'otherFile';
-            $media->save();
+            $removeTrashed->delete();
+        } elseif ($proposal) {
+            // If the file exists in Proposal, restore it
+            $proposal->restore();
+            $removeTrashed->delete();
+        } else {
+            // Handle the case where the file does not exist in either model
+            return back()->with('error', 'File not found');
         }
 
-
-        return back()->with('message', 'Resotored successfully');
-
+        return back()->with('message', 'Restored successfully');
     }
+
+    // Trash
     public function MoveToTrash($id)
     {
         $media = Media::findOrFail($id);
@@ -413,20 +347,57 @@ class InventoryController extends Controller
         // Set the collection name to 'trash'
         $media->collection_name = 'trash';
         $media->save();
-        return back()->with('message', 'Deleted successfully');
 
+        $trashRecord = new TrashedRecord();
+        $trashRecord->uuid = $media->uuid;
+        $trashRecord->user_id = Auth()->user()->id;
+        $trashRecord->save();
+
+
+        flash()->addSuccess('Trashed Successfully');
+        return back();
     }
 
 
+    // Delete Media
+    public function MoveToTrashMediaJson(Request $request)
+    {
+        $ids = $request->ids;
+
+        // Update each media item
+        foreach ($ids as $id) {
+            $media = Media::findOrFail($id);
+            $media->collection_name = 'trash';
+            $media->save();
+
+            $trashRecord = new TrashedRecord();
+            $trashRecord->uuid = $media->uuid;
+            $trashRecord->user_id = Auth()->user()->id;
+            $trashRecord->save();
+
+        }
+        if ($media) {
+            // Flash a success message
+            return response()->json(['success' => 'Trashed Successfully']);
+        } else {
+            // Flash an error message
+            return response()->json(['error' => 'Error Moving file'], 500);
+        }
+
+    }
+
+     // Delete Media
     public function deleteMedias($id)
     {
         $media = Media::findOrFail($id);
+        $collection = CollectionMedia::where('media_id', $id)->first();
         $media->delete();
-
+        $collection->delete();
 
         return back()->with('message', 'Deleted successfully');
 
     }
+
     public function deleteMediasPermanently($id, $proposalId)
     {
         $media = Media::findOrFail($id);
@@ -449,22 +420,19 @@ class InventoryController extends Controller
     }
 
     // Download
-    public function DownloadMedias($id)
-    {
+    public function DownloadMedias($id){
         $downloads = Media::where('id',$id)->first();
         return $downloads;
     }
 
     // Rename
-    public function RenameFiles(Request $request, $id)
-    {
+    public function RenameFiles(Request $request, $id){
         Media::findorFail($id)->update(['file_name' => $request->file_name, ]);
         return back()->with('message', 'Status updated successfully');
     }
 
 
-    public function userUpdateFiles(Request $request, $id)
-    {
+    public function userUpdateFiles(Request $request, $id){
         $request->validate([
             'proposal_pdf' => 'mimes:pdf',
             'moa_pdf' => 'mimes:pdf',
@@ -481,120 +449,149 @@ class InventoryController extends Controller
 
         if ($request->hasFile('proposal_pdf')) {
 
-            $media = $proposals->getMedia('trash')->where('name', 'proposal')->first();
-            if ($media) {
-                $media->delete();
+            $medias = $proposals->getMedia('trash')->where('name', 'proposal')->first();
+            if ($medias) {
+                $medias->delete();
             }
-        $proposals->clearMediaCollection('proposalPdf');
-        $proposals->addMediaFromRequest('proposal_pdf')->usingName('proposal')->usingFileName($project_title.'_proposal.pdf')->toMediaCollection('proposalPdf');
+            $proposals->clearMediaCollection('proposalPdf');
+            $media = $proposals->addMediaFromRequest('proposal_pdf')->usingName(auth()->id())->usingFileName($project_title.'_proposal.pdf')->toMediaCollection('proposalPdf');
+
+            $collect = new CollectionMedia();
+            $collect->media_id = $media->id ;
+            $collect->proposal_id =  $proposals->id;
+            $collect->user_id = auth()->id();
+            $collect->collection_name = 'proposalPdf';
+            $collect->save();
+
         }
 
         if ($request->hasFile('moa_pdf')) {
 
-            $media = $proposals->getMedia('trash')->where('name', 'moa')->first();
-            if ($media) {
-                $media->delete();
+            $medias = $proposals->getMedia('trash')->where('name', 'moa')->first();
+            if ($medias) {
+                $medias->delete();
             }
-            $proposals->clearMediaCollection('MoaPDF');
-            $proposals->addMediaFromRequest('moa_pdf')->usingName('moa')->usingFileName($project_title.'_moa.pdf')->toMediaCollection('MoaPDF');
+            $proposals->clearMediaCollection('moaPdf');
+            $media = $proposals->addMediaFromRequest('moa_pdf')->usingName(auth()->id())->usingFileName($project_title.'_moa.pdf')->toMediaCollection('moaPdf');
+
+            $collect = new CollectionMedia();
+            $collect->media_id = $media->id ;
+            $collect->proposal_id =  $proposals->id;
+            $collect->user_id = auth()->id();
+            $collect->collection_name = 'moaPdf';
+            $collect->save();
         }
 
         if ($specialorder = $request->file('special_order_pdf')) {
 
-            $special = new ProposalFiles();
-            $special->user_id  = auth()->id();
-            $special->proposal_id  = $proposals->id;
-            $special->document_type  = 'specialorder';
-            $special->save();
-
             foreach ($specialorder as $specials) {
-                $special->addMedia($specials)->usingName('special_order_pdf')->toMediaCollection('specialOrderPdf');
+               $media = $proposals->addMedia($specials)->usingName(auth()->id())->toMediaCollection('specialOrderPdf');
+
+                $collect = new CollectionMedia();
+                $collect->media_id = $media->id ;
+                $collect->proposal_id =  $proposals->id;
+                $collect->user_id = auth()->id();
+                $collect->collection_name = 'specialOrderPdf';
+                $collect->save();
             }
         }
 
         if ($travelorder = $request->file('travel_order_pdf')) {
 
-            $travel = new ProposalFiles();
-            $travel->user_id  = auth()->id();
-            $travel->proposal_id  = $proposals->id;
-            $travel->document_type  = 'travelorder';
-            $travel->save();
-
             foreach ($travelorder as $travels) {
-                $travel->addMedia($travels)->usingName('travel_order_pdf')->toMediaCollection('travelOrderPdf');
+               $media = $proposals->addMedia($travels)->usingName(auth()->id())->toMediaCollection('travelOrderPdf');
+
+               $collect = new CollectionMedia();
+                $collect->media_id = $media->id ;
+                $collect->proposal_id =  $proposals->id;
+                $collect->user_id = auth()->id();
+                $collect->collection_name = 'travelOrderPdf';
+                $collect->save();
             }
         }
 
         if ($officeorder = $request->file('office_order_pdf')) {
 
-            $office = new ProposalFiles();
-            $office->user_id  = auth()->id();
-            $office->proposal_id  = $proposals->id;
-            $office->document_type  = 'officeorder';
-            $office->save();
-
             foreach ($officeorder as $offices) {
-                $office->addMedia($offices)->usingName('office_order_pdf')->toMediaCollection('officeOrderPdf');
+               $media = $proposals->addMedia($offices)->usingName(auth()->id())->toMediaCollection('officeOrderPdf');
+
+                $collect = new CollectionMedia();
+                $collect->media_id = $media->id ;
+                $collect->proposal_id =  $proposals->id;
+                $collect->user_id = auth()->id();
+                $collect->collection_name = 'officeOrderPdf';
+                $collect->save();
             }
         }
 
         if ($attendance = $request->file('attendance')) {
 
-            $attend = new ProposalFiles();
-            $attend->user_id  = auth()->id();
-            $attend->proposal_id  = $proposals->id;
-            $attend->document_type  = 'attendance';
-            $attend->save();
-
             foreach ($attendance as $attends) {
-                $attend->addMedia($attends)->usingName('attendance')->toMediaCollection('Attendance');
+               $media = $proposals->addMedia($attends)->usingName(auth()->id())->toMediaCollection('Attendance');
+
+                $collect = new CollectionMedia();
+                $collect->media_id = $media->id ;
+                $collect->proposal_id =  $proposals->id;
+                $collect->user_id = auth()->id();
+                $collect->collection_name = 'Attendance';
+                $collect->save();
             }
         }
+
         if ($attendancem = $request->file('attendancem')) {
 
-            $attendances = new ProposalFiles();
-            $attendances->user_id  = auth()->id();
-            $attendances->proposal_id  = $proposals->id;
-            $attendances->document_type  = 'attendancem';
-            $attendances->save();
-
             foreach ($attendancem as $attendm) {
-                $attendances->addMedia($attendm)->usingName('attendancemonitoring')->toMediaCollection('AttendanceMonitoring');
+               $media = $proposals->addMedia($attendm)->usingName(auth()->id())->toMediaCollection('AttendanceMonitoring');
+
+                $collect = new CollectionMedia();
+                $collect->media_id = $media->id ;
+                $collect->proposal_id =  $proposals->id;
+                $collect->user_id = auth()->id();
+                $collect->collection_name = 'AttendanceMonitoring';
+                $collect->save();
             }
         }
+
         if ($narrativereport = $request->file('narrative_report')) {
 
-            $narrative = new ProposalFiles();
-            $narrative->user_id  = auth()->id();
-            $narrative->proposal_id  = $proposals->id;
-            $narrative->document_type  = 'narrativereport';
-            $narrative->save();
-
             foreach ($narrativereport as $narr) {
-                $narrative->addMedia($narr)->usingName('narrative')->toMediaCollection('NarrativeFile');
+               $media = $proposals->addMedia($narr)->usingName(auth()->id())->toMediaCollection('NarrativeFile');
+
+                $collect = new CollectionMedia();
+                $collect->media_id = $media->id ;
+                $collect->proposal_id =  $proposals->id;
+                $collect->user_id = auth()->id();
+                $collect->collection_name = 'NarrativeFile';
+                $collect->save();
             }
         }
+
         if ($terminalreport = $request->file('terminal_report')) {
 
-            $terminal = new ProposalFiles();
-            $terminal->user_id  = auth()->id();
-            $terminal->proposal_id  = $proposals->id;
-            $terminal->document_type  = 'terminalreport';
-            $terminal->save();
-
             foreach ($terminalreport as $term) {
-                $terminal->addMedia($term)->usingName('terminal')->toMediaCollection('TerminalFile');
+               $media = $proposals->addMedia($term)->usingName(auth()->id())->toMediaCollection('TerminalFile');
+
+                $collect = new CollectionMedia();
+                $collect->media_id = $media->id ;
+                $collect->proposal_id =  $proposals->id;
+                $collect->user_id = auth()->id();
+                $collect->collection_name = 'TerminalFile';
+                $collect->save();
             }
         }
-
 
         if ($files = $request->file('other_files')) {
-
             foreach ($files as $file) {
-                $proposals->addMedia($file)->usingName('other')->toMediaCollection('otherFile');
+               $media = $proposals->addMedia($file)->usingName(auth()->id())->toMediaCollection('otherFile');
+
+                $collect = new CollectionMedia();
+                $collect->media_id = $media->id ;
+                $collect->proposal_id =  $proposals->id;
+                $collect->user_id = auth()->id();
+                $collect->collection_name = 'otherFile';
+                $collect->save();
             }
         }
-
 
         $proposals->update();
         app('flasher')->addSuccess('Files successfully updated.');
@@ -603,14 +600,12 @@ class InventoryController extends Controller
     }
 
     // Admin Inventory
-    public function ShowFiles($id)
-    {
+    public function ShowFiles($id){
         $proposals = Proposal::where('id', $id)->with('medias')->with('programs')->first();
         $proposal = Proposal::where('id', $id)->with('programs')->where('authorize', 'finished')->first();
         $proposal_member = ProposalMember::where('user_id', auth()->user()->id)->first();
         return view('admin.inventory.show-inventory', compact('proposals', 'proposal', 'proposal_member'));
     }
-
 
 
     public function updateData(Request $request, $id){
@@ -627,8 +622,6 @@ class InventoryController extends Controller
 
         return response()->json(['message' => 'Data updated successfully']);
     }
-
-
 
     public function filterInventoryYear(Request $request, $id){
 
@@ -660,8 +653,7 @@ class InventoryController extends Controller
 
     }
 
-    public function search(Request $request, $id)
-    {
+    public function search(Request $request, $id){
         $search = $request->input('query');
         $inventory = CustomizeUserInventory::where('id', 1)->get();
         $years = AdminYear::orderBy('year', 'DESC')->pluck('year');
@@ -687,11 +679,9 @@ class InventoryController extends Controller
         return view('user.inventory.index._filter_index' )->with($data);
     }
 
-    public function downloadsMedia(Media $id)
-    {
+    public function downloadsMedia(Media $id){
         return response()->download($id->getPath(), $id->file_name);
     }
-
 
     public function updateShowData(Request $request, $id){
         // Find the model instance you want to update
@@ -711,59 +701,12 @@ class InventoryController extends Controller
     public function UserDeleteInventoryProposal($id){
 
         // $proposal = Proposal::findorFail($id);
-        $proposal = Proposal::with(['travelorder', 'specialorder', 'officeorder', 'attendance', 'attendancemonitoring', 'narrativereport', 'terminalreport'])
-        ->with(['medias' => function ($mediaQuery) {
+        $proposal = Proposal::with(['medias' => function ($mediaQuery) {
             $mediaQuery->whereNot('collection_name', 'trash');
         }])
         ->orderBy('created_at', 'DESC')
         ->distinct()
         ->first();
-
-
-        // dd($proposal);
-        // proposal delete
-
-        // foreach($proposal->medias as $media){
-        //     $media->collection_name = 'trash';
-        //     $media->save();
-        // }
-
-        $NarrativeReports = NarrativeReport::where('proposal_id', $proposal->id)->first();
-        if($NarrativeReports){
-            $NarrativeReports->delete();
-        }
-
-
-        $TerminalReport = TerminalReport::where('proposal_id', $proposal->id)->first();
-        if($TerminalReport){
-            $TerminalReport->delete();
-        }
-
-        $UserTravelOrder = UserTravelOrder::where('proposal_id', $proposal->id)->first();
-        if($UserTravelOrder){
-            $UserTravelOrder->delete();
-        }
-
-
-        $UserOfficeOrder = UserOfficeOrder::where('proposal_id', $proposal->id)->first();
-        if($UserOfficeOrder){
-            $UserOfficeOrder->delete();
-        }
-
-        $UserSpecialOrder = UserSpecialOrder::where('proposal_id', $proposal->id)->first();
-        if($UserSpecialOrder){
-            $UserSpecialOrder->delete();
-        }
-
-        $UserAttendance = UserAttendance::where('proposal_id', $proposal->id)->first();
-        if($UserAttendance){
-            $UserAttendance->delete();
-        }
-
-        $UserAttendanceMonitoring = UserAttendanceMonitoring::where('proposal_id', $proposal->id)->first();
-        if($UserAttendanceMonitoring){
-            $UserAttendanceMonitoring->delete();
-        }
 
         $admin = User::whereHas('roles', function ($query) { $query->where('id', 1);})->get();
 
@@ -780,8 +723,6 @@ class InventoryController extends Controller
             }
 
         }
-
-
 
        $notifications = DB::table('notifications')->get();
 
@@ -803,7 +744,14 @@ class InventoryController extends Controller
             }
         }
 
+        $trashRecord = new TrashedRecord();
+        $trashRecord->uuid = $proposal->uuid;
+        $trashRecord->user_id = Auth()->user()->id;
+        $trashRecord->save();
+
         $proposal->delete();
+
+
 
         app('flasher')->addSuccess('Proposal Delete successfully');
 
@@ -811,5 +759,44 @@ class InventoryController extends Controller
     }
 
 
+    public function TrashFolderMediaJS(Request $request){
+
+
+        $ids = $request->ids;
+
+        foreach ($ids as $id) {
+
+            $find = Media::where('uuid', $id)->first();
+            $trashCollection = Media::where('collection_name', $find->collection_name)->get();
+
+            foreach($trashCollection as $trashCollect){
+
+                $trashCollect->collection_name = 'trash';
+                $trashCollect->save();
+
+                $trashRecord = new TrashedRecord();
+                $trashRecord->uuid = $trashCollect->uuid;
+                $trashRecord->user_id = Auth()->user()->id;
+                $trashRecord->save();
+            }
+
+        }
+
+        if ($find) {
+            // Flash a success message
+            return response()->json(['success' => 'Trashed Successfully']);
+        } else {
+            // Flash an error message
+            return response()->json(['error' => 'Error Moving file'], 500);
+        }
+
+
+
+
+
+
+
+
+    }
 
 }

@@ -33,10 +33,11 @@ class AdminInventoryController extends Controller
         $proposal = DB::table('proposals')->select('program_id', DB::raw('count(*) as qty'))->groupBy('program_id')->get();
         $inventory = CustomizeAdminInventory::where('id', 1)->get();
         $years = AdminYear::orderBy('year', 'DESC')->pluck('year');
-        $medias = Media::orderBy('file_name', 'ASC')->get();
+        $medias = Media::whereNot('collection_name', 'trash')->get();
         $proposals = Proposal::orderBy('created_at', 'ASC')->get();
+        $users = User::all();
 
-        return view('admin.inventory.index', compact('program' , 'proposal', 'inventory', 'medias', 'years', 'proposals'));
+        return view('admin.inventory.index', compact('program' , 'proposal', 'inventory', 'medias', 'years', 'proposals','users'));
     }
 
      // Show Faculty Admin
@@ -59,54 +60,42 @@ class AdminInventoryController extends Controller
       $userfaculty = User::where('id', $id)->first();
       $programID =   Program::where('id', $id)->first();
       $allFaculty = Faculty::orderBy('name')->pluck('name', 'id')->prepend('All Faculty', '');
+      $users = User::all();
 
-      return view('admin.inventory.show' , compact('proposalID', 'programID', 'userfaculty', 'facs', 'allFaculty'));
-     }
+      return view('admin.inventory.show' , compact('proposalID', 'programID', 'userfaculty', 'facs', 'allFaculty','users'));
+    }
 
 
-     public function showInventory($id){
+    public function showInventory($id){
 
-        $proposals = Proposal::where('id', $id)->with(['proposalfiles' => function ($query) {
-            $query->with(['medias' => function ($mediaQuery) {
-                $mediaQuery->whereNot('collection_name', 'trash');
-            }]);
-            }])
-        ->with(['medias' => function ($query) {
+        $users = User::all();
+        $proposals = Proposal::where('id', $id)->with(['medias' => function ($query) {
             $query->whereNot('collection_name', 'trash')->orderBy('file_name', 'asc');
         }, 'programs'])
         ->first();
 
-        $uniqueProposalFiles = $proposals->proposalfiles->unique('document_type');
-
+        $uniqueProposalFiles = $proposals->medias->unique('collection_name');
 
         $formedia = Proposal::where('id', $id)
             ->with(['medias' => function ($query) {
             $query->whereNot('collection_name', 'trash')->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
             ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
-            },
+            }])->first();
 
-            'proposalfiles' => function ($query) {
-                $query->with(['medias' => function ($query) {
-                    $query->whereNot('collection_name', 'trash')->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
-                    ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
-                }]);
-        },])->first();
-
-        $uniqueformedias = $formedia->proposalfiles->unique('document_type');
+        $uniqueformedias = $formedia->medias->unique('collection_name');
         $latest = Proposal::where('id', $id)
         ->with(['medias' => function ($query) {
             $query->latest()->first();
         }])->first();
 
 
-        return view('admin.inventory.show-inventory', compact('proposals', 'formedia','uniqueformedias','uniqueProposalFiles'));
-     }
+        return view('admin.inventory.show-inventory', compact('proposals', 'formedia','uniqueformedias','uniqueProposalFiles','users'));
+    }
 
 
     public function search(Request $request)
     {
         $query = $request->input('query');
-
         $program = Program::all();
         $years = AdminYear::orderBy('year', 'DESC')->pluck('year');
         $proposal = DB::table('proposals')->select('program_id', DB::raw('count(*) as qty'))->groupBy('program_id')->get();
@@ -122,11 +111,11 @@ class AdminInventoryController extends Controller
                 }})
             ->when($query, function ($querys) use ($query) {
                 return $querys->where('file_name', 'like', "%$query%");
-            })->orderBy('file_name', 'ASC')->get();
+            })->orderBy('file_name', 'ASC')->whereNot('collection_name', 'trash')->get();
+            $users = User::all();
 
 
-        return view('admin.inventory.index-filter._all-files-medias', compact('program' , 'proposal', 'inventory', 'medias', 'years'));
-
+        return view('admin.inventory.index-filter._all-files-medias', compact('program' , 'proposal', 'inventory', 'medias', 'years', 'users'));
     }
 
     public function filter(Request $request){
@@ -147,11 +136,11 @@ class AdminInventoryController extends Controller
         ->where(function ($query) {
             if($companyId = request('year')){
                 $query->whereYear('created_at', $companyId);}})
-        ->orderBy('file_name', 'ASC')->get();
+        ->orderBy('file_name', 'ASC')->whereNot('collection_name', 'trash')->get();
+        $users = User::all();
 
 
-        return view('admin.inventory.index-filter._all-files-medias', compact('program' , 'proposal', 'inventory', 'medias', 'years'));
-
+        return view('admin.inventory.index-filter._all-files-medias', compact('program' , 'proposal', 'inventory', 'medias', 'years', 'users'));
     }
 
 
@@ -165,17 +154,17 @@ class AdminInventoryController extends Controller
 
         $medias = Media::when($query, function ($querys) use ($query) {
             return $querys->where('file_name', 'like', "%$query%");})
-                        ->where(function ($query) {
-                            if($companyId = request('year')){
-                                $query->whereYear('created_at', $companyId);}})
-                        ->where(function ($query) {
-                            if($companyId = request('selected_value')){
-                                $query->where('collection_name', $companyId);}})
-                                    ->orderBy('file_name', 'ASC')->get();
+            ->where(function ($query) {
+                if($companyId = request('year')){
+                    $query->whereYear('created_at', $companyId);}})
+            ->where(function ($query) {
+                if($companyId = request('selected_value')){
+                    $query->where('collection_name', $companyId);}})
+            ->orderBy('file_name', 'ASC')->whereNot('collection_name', 'trash')->get();
+            $users = User::all();
 
 
-        return view('admin.inventory.index-filter._all-files-medias', compact('program' , 'proposal', 'inventory', 'medias', 'years'));
-
+        return view('admin.inventory.index-filter._all-files-medias', compact('program' , 'proposal', 'inventory', 'medias', 'years', 'users'));
     }
 
     public function sort(Request $request){
@@ -189,33 +178,29 @@ class AdminInventoryController extends Controller
 
         $medias = Media::when($query, function ($querys) use ($query) {
             return $querys->where('file_name', 'like', "%$query%");})
-                        ->where(function ($query) {
-                            if($companyId = request('year')){
-                                $query->whereYear('created_at', $companyId);}})
-                        ->where(function ($query) {
-                            if($companyId = request('files')){
-                                $query->where('collection_name', $companyId);}})
-                        ->orderBy('file_name', $sort)->get();
+            ->where(function ($query) {
+                if($companyId = request('year')){
+                    $query->whereYear('created_at', $companyId);}})
+            ->where(function ($query) {
+                if($companyId = request('files')){
+                    $query->where('collection_name', $companyId);}})
+            ->orderBy('file_name', $sort)->whereNot('collection_name', 'trash')->get();
+            $users = User::all();
 
-        return view('admin.inventory.index-filter._all-files-medias', compact('program' , 'proposal', 'inventory', 'medias', 'years'));
-
+        return view('admin.inventory.index-filter._all-files-medias', compact('program' , 'proposal', 'inventory', 'medias', 'years', 'users'));
     }
 
     public function InventorydownloadMedia(Media $id){
 
         return response()->download($id->getPath(), $id->file_name);
-
     }
 
     public function deleteMedia($id)
     {
-
         Media::destroy($id);
-
 
         flash()->addSuccess('File Deleted Successfully');
         return back();
-
     }
 
     public function AdminDeleteInventoryProposal($id)
@@ -227,15 +212,14 @@ class AdminInventoryController extends Controller
         foreach ($admin as $adminUser) {
             $adminUser->notify(new AdmindDeletedProposaleNotification($proposalDelete));
         }
-        // Notify Users
-       foreach($proposalDelete->proposal_members as $member){
 
+        // Notify Users
+        foreach($proposalDelete->proposal_members as $member){
             $users = User::where('id', $member->user_id )->get();
             foreach($users as $user){
                 $user->notify(new UserDeletedProposaleNotification($proposalDelete));
             }
-
-       }
+        }
        // proposal delete
        $proposalDelete->delete();
 

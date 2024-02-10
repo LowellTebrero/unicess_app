@@ -32,7 +32,7 @@
                 <div class="h-[45vh] 2xl:h-[60vh] flex flex-col items-center justify-center space-y-2">
                     <img class="w-[13rem]" src="{{ asset('img/Empty.jpg') }}">
                     <h1 class="text-md text-gray-500">It’s empty here</h1>
-                   </div>
+                </div>
                 @else
                 <div id="filtered-data">
                     @include('user.inventory.index._filter_index')

@@ -13,12 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_office_orders', function (Blueprint $table) {
+        Schema::create('collection_media', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('proposal_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->integer('media_id');
+            $table->unsignedBigInteger('proposal_id')->unsigned();
+            $table->unsignedBigInteger('user_id')->unsigned()->nullable();
+            $table->string('collection_name');
             $table->foreign('proposal_id')->references('id')->on('proposals')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -30,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_office_orders');
+        Schema::dropIfExists('collection_media');
     }
 };

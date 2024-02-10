@@ -55,8 +55,6 @@
 
             </div>
 
-
-
             <div id="travel-content"  class="tab-content border rounded-lg m-4 p-2" style="display: none;">
                 <h1 class="text-lg font-medium mb-2 ml-2">Travel Order</h1>
                 <div class="overflow-x-auto h-[40vh] 2xl:h-[60vh] ">
@@ -88,8 +86,8 @@
                                     @foreach ($proposal->proposal_members as $prop )
                                         @if ($proposal->id == $prop->proposal_id)
 
-                                            @foreach ($proposal->proposalfiles as $proposalfile )
-                                                @if (($proposalfile->document_type == 'travelorder') != null)
+                                            @foreach ($proposal->medias as $mediaLibrary )
+                                                @if (($mediaLibrary->collection_name == 'travelOrderPdf') != null && $mediaLibrary->name == Auth()->user()->id)
                                                 <tr class="border-b text-gray-700 bg-white hover:bg-gray-100 text-xs ">
 
                                                     <td class=" 2xl:px-6 xl:px-4 xl:pl-4 py-4 xl:text-[.6rem] 2xl:text-[.7rem]">
@@ -106,7 +104,7 @@
 
                                                     <td class=" 2xl:px-6 xl:px-4 xl:pl-0 py-4  xl:text-[.6rem] 2xl:text-[.8rem]">
 
-                                                        @if (($proposalfile->document_type == 'travelorder') == null)
+                                                        @if (($mediaLibrary->collection_name == 'travelOrderPdf') != null && $mediaLibrary->name == Auth()->user()->id)
                                                         <div class="text-md  text-red-400">pending</div>
                                                         @else
                                                         <div class="text-md  text-green-500">uploaded</div>
@@ -116,7 +114,7 @@
 
                                                     <td class=" w-[20rem] 2xl:px-6 xl:px-4 xl:pl-0 py-4  xl:text-[.6rem] 2xl:text-[.8rem]">
 
-                                                        @if (($proposalfile->document_type == 'travelorder') == null)
+                                                        @if (($mediaLibrary->collection_name == 'travelOrderPdf') != null && $mediaLibrary->name == Auth()->user()->id)
                                                             <button data-modal-target="default-upload-modal-travelorder{{ $proposal->id }}" data-modal-toggle="default-upload-modal-travelorder{{ $proposal->id }}" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
                                                                 Upload Travel Order
                                                             </button>
@@ -145,8 +143,8 @@
                                                                     </div>
 
                                                                     <div class="p-4 md:p-5 grid grid-cols-2 gap-2">
-                                                                        @if (($proposalfile->document_type == 'travelorder') != null)
-                                                                            @foreach ($proposalfile->medias as $mediaLibrary)
+                                                                        @if (($mediaLibrary->collection_name == 'travelOrderPdf') != null && $mediaLibrary->name == Auth()->user()->id)
+
                                                                             <div data-tooltip-target="tooltip-proposal" type="button" class="text-white shadow-md rounded-lg hover:bg-gray-600 transition-all m-2 relative" id="proposal_id{{ $mediaLibrary->id }}">
 
                                                                                 <x-alpine-modal>
@@ -248,7 +246,7 @@
                                                                                             <button class="text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left" type="button" @click="showModal = true">Rename</button>
                                                                                             <a href={{ url('download-media', $mediaLibrary->id) }} class="block text-xs px-2 hover:text-black text-gray-700 hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
 
-                                                                                            <form action={{ route('report-travelorder.trash', [ 'id' => $mediaLibrary->id, 'travelOrderId' => $proposalfile->id]) }} method="POST" enctype="multipart/form-data" onsubmit="return confirm ('Are you sure?')" >
+                                                                                            <form action={{ route('report-travelorder.trash', [ 'id' => $mediaLibrary->id, 'travelOrderId' => $mediaLibrary->id]) }} method="POST" enctype="multipart/form-data" onsubmit="return confirm ('Are you sure?')" >
                                                                                                 @csrf
                                                                                                 @method('DELETE')
                                                                                                 <button class="block text-gray-700 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="submit">Move to trash</button>
@@ -258,7 +256,7 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                            @endforeach
+
                                                                         @endif
                                                                     </div>
                                                                     <input type="text" value="{{ $proposal->id }}" name="proposal_id" hidden>
@@ -291,7 +289,7 @@
                                                                         </button>
                                                                     </div>
 
-                                                                    <form action={{ route('report-travelorder.update', $proposalfile->id) }} method="POST" enctype="multipart/form-data">
+                                                                    <form action={{ route('report-travelorder.update', $mediaLibrary->id) }} method="POST" enctype="multipart/form-data">
                                                                         @csrf
                                                                         <!-- Modal body -->
                                                                         <div class="p-4 md:p-5 space-y-4 flex flex-col text-white">

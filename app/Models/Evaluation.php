@@ -23,43 +23,7 @@ class Evaluation extends Model implements HasMedia
 
 
 
-    protected $fillable = [
-
-        'user_id',
-        'faculty_id',
-        'period_of_evaluation',
-        'chairmanship_university',
-        'chairmanship_college',
-        'membership_university',
-        'membership_college',
-        'advisorship',
-        'oic',
-        'judge',
-        'resource',
-        'chairmanship_membership',
-        'facilication_on_going',
-        'facilication_regional',
-        'facilication_national',
-        'facilication_international',
-        'training_director_local',
-        'training_director_international',
-        'resource_speaker_local',
-        'resource_speaker_international',
-        'facilitator_moderator_local',
-        'facilitator_moderator_international',
-        'reactor_panel_member_local',
-        'reactor_panel_member_international',
-        'technical_assistance',
-        'judge_community',
-        'commencement_guest_speaker',
-        'coordinator_organizer_consultants',
-        'resource_person_lecturer',
-        'facilitator',
-        'member',
-        'name_of_faculty',
-        'university_wide',
-
-    ];
+    protected $guarded = [];
 
 
     public function users():BelongsTo{

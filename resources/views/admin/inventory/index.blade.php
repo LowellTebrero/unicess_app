@@ -43,8 +43,9 @@
             @if ($invent->number == 1)
 
             @if ($proposal->isEmpty())
-            <div class="flex items-center justify-center h-[30vh]">
-                <h1 class="text-gray-400 text-sm">Its empty here</h1>
+                <div class="h-[45vh] 2xl:h-[50vh] flex flex-col items-center justify-center space-y-2">
+                    <img class="w-[12rem]" src="{{ asset('img/Empty.jpg') }}">
+                    <h1 class="text-md text-gray-500">It’s empty here</h1>
             </div>
             @else
             <div class="grid 2xl:grid-cols-4 gap-3 p-4 pt-7">
@@ -69,8 +70,9 @@
             @elseif ($invent->number == 3)
 
             @if ($medias->isEmpty())
-            <div class="flex items-center justify-center h-[30vh]">
-                <h1 class="text-gray-400 text-sm">Its empty here</h1>
+                <div class="h-[45vh] 2xl:h-[50vh] flex flex-col items-center justify-center space-y-2">
+                    <img class="w-[12rem]" src="{{ asset('img/Empty.jpg') }}">
+                    <h1 class="text-md text-gray-500">It’s empty here</h1>
             </div>
             @else
             <div class="px-5 flex justify-between space-x-2">
@@ -81,7 +83,7 @@
                     </select>
                 </div>
                 <div>
-                    <input type="text"  class="text-xs border-slate-500 rounded-lg w-[20rem]" placeholder="Search name..." id="searchInput">
+                    <input type="text"  class="text-xs border-slate-500 rounded-lg w-[20rem]" placeholder="Search Filename..." id="searchInput">
                     <select class="text-xs border-slate-500 rounded-lg" id="MyYear">
                         <option {{ '' == request('selected_value') ? 'selected ' : '' }} value="">Select Year</option>
                         @foreach ($years as $year )
@@ -92,14 +94,16 @@
                     <select id="myFiles" class="text-xs border-slate-500 rounded-lg">
                         <option value="">Select File</option>
                         <option value="proposalPdf">Proposal</option>
-                        <option value="MoaPDF">MOA</option>
+                        <option value="moaPdf">MOA</option>
                         <option value="specialOrderPdf">Special Order</option>
-                        <option value="travelOrder">Travel Order</option>
-                        <option value="officeOrder">Office Order</option>
+                        <option value="travelOrderPdf">Travel Order</option>
+                        <option value="officeOrderPdf">Office Order</option>
                         <option value="otherFile">Others</option>
                         <option value="TemplateFile">Template</option>
                         <option value="NarrativeFile">Narrative</option>
                         <option value="TerminalFile">Terminal</option>
+                        <option value="Attendance">Attendance</option>
+                        <option value="AttendanceMonitoring">Attendance Monitor</option>
                     </select>
                 </div>
             </div>
@@ -114,9 +118,10 @@
             @elseif ($invent->number == 4)
 
                 @if ($proposals->isEmpty())
-                    <div class="flex items-center justify-center h-[30vh]">
-                        <h1 class="text-gray-400 text-sm">Its empty here</h1>
-                    </div>
+                    <div class="h-[45vh] 2xl:h-[50vh] flex flex-col items-center justify-center space-y-2">
+                        <img class="w-[12rem]" src="{{ asset('img/Empty.jpg') }}">
+                        <h1 class="text-md text-gray-500">It’s empty here</h1>
+                </div>
                 @else
                     <div class="px-5 flex justify-between space-x-2">
                         {{--  <div>
@@ -211,12 +216,10 @@
                     data: { year: year, query: query , files : files},
                     success: function(data) {
                         let resultsTable = $('#filtered-data');
-                            resultsTable.empty();
+                        resultsTable.empty();
+                        $('#filtered-data').html(data);
 
-                // Update the filtered data container with the response
-                $('#filtered-data').html(data);
-
-                }
+                    }
                 });
             });
         });
@@ -237,10 +240,8 @@
                         let resultsTable = $('#filtered-data');
                             resultsTable.empty();
 
-                // Update the filtered data container with the response
-                $('#filtered-data').html(data);
-
-                }
+                        $('#filtered-data').html(data);
+                    }
                 });
             });
         });
@@ -257,12 +258,13 @@
                     data: { selected_value: selectedValue, query: query, year: year},
                     success: function(data) {
                         let resultsTable = $('#filtered-data');
-                            resultsTable.empty();
+                        resultsTable.empty();
+                        $('#filtered-data').html(data);
 
-                // Update the filtered data container with the response
-                $('#filtered-data').html(data);
-
-                }
+                        $('#showModalButton').on('click', function() {
+                            $('#default-modal').modal('show');
+                        });
+                            }
                 });
             });
         });

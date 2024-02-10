@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('proposals', function (Blueprint $table) {
             $table->id();
+            $table->string('uuid', 7);
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('program_id');
             $table->dateTime('started_date')->nullable();

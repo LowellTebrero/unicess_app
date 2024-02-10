@@ -49,7 +49,7 @@ class Proposal extends Model implements HasMedia
        return  $this->belongsTo(Program::class, 'program_id');
     }
 
-   public function user():BelongsTo
+    public function user():BelongsTo
     {
        return  $this->belongsTo(User::class );
     }
@@ -58,13 +58,6 @@ class Proposal extends Model implements HasMedia
         return $this->belongsToMany(User::class, 'proposal_members', )->withPivot('created_at', 'proposal_id', 'leader_member_type' , 'member_type')->withTimestamps();
     }
 
-    public function projectLeader(){
-        return $this->belongsTo(User::class, 'project_leader');
-    }
-
-    public function ceso():BelongsTo{
-        return $this->belongsTo(CesoRole::class, 'ceso_role_id');
-    }
 
     public function proposal_members(){
         return $this->hasMany(ProposalMember::class );
@@ -76,44 +69,8 @@ class Proposal extends Model implements HasMedia
         return $this->hasMany(Media::class, 'model_id');
     }
 
-    public function locations():BelongsTo{
-        return $this->belongsTo(Location::class, 'location_id');
-    }
 
-    public function narrativereport()
-    {
-       return  $this->hasMany(NarrativeReport::class);
-    }
 
-    public function terminalreport()
-    {
-       return  $this->hasMany(TerminalReport::class);
-    }
-
-    public function travelorder()
-    {
-       return  $this->hasMany(UserTravelOrder::class);
-    }
-    public function specialorder()
-    {
-       return  $this->hasMany(UserSpecialOrder::class);
-    }
-    public function officeorder()
-    {
-       return  $this->hasMany(UserOfficeOrder::class);
-    }
-    public function attendance()
-    {
-       return  $this->hasMany(UserAttendance::class);
-    }
-    public function attendancemonitoring()
-    {
-       return  $this->hasMany(UserAttendanceMonitoring::class);
-    }
-    public function proposalfiles()
-    {
-       return  $this->hasMany(ProposalFiles::class);
-    }
 }
 
 

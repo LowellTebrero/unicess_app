@@ -30,6 +30,7 @@ use App\Models\UserAttendanceMonitoring;
 use App\Notifications\ProposalNotification;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\UserTagProposalNotification;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class DashboardController extends Controller
 {
@@ -215,39 +216,28 @@ class DashboardController extends Controller
         return redirect(route('admin.dashboard.index'));
     }
 
-
-       //  Edit Proposal
+    //  Edit Proposal
     public function checkProposal(Request $request, $id, $notification )
     {
+        $users = User::all();
         $proposal = Proposal::where('id', $id)->first();
 
-
-        $proposals = Proposal::where('id', $id)->with(['proposalfiles' => function ($query) {
-            $query->with(['medias' => function ($mediaQuery) {
-                $mediaQuery->whereNot('collection_name', 'trash');
-            }]);
-            }])
-        ->with(['medias' => function ($query) {
+        $proposals = Proposal::where('id', $id)->with(['medias' => function ($query) {
             $query->whereNot('collection_name', 'trash')->orderBy('file_name', 'asc');
         }, 'programs'])
         ->first();
 
-        $uniqueProposalFiles = $proposals->proposalfiles->unique('document_type');
+
+
+        $uniqueProposalFiles = $proposals->medias->unique('collection_name');
 
         $formedia = Proposal::where('id', $id)
         ->with(['medias' => function ($query) {
         $query->whereNot('collection_name', 'trash')->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
         ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
-        },
-
-        'proposalfiles' => function ($query) {
-            $query->with(['medias' => function ($query) {
-                $query->whereNot('collection_name', 'trash')->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
-                ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
-            }]);
         },])->first();
 
-        $uniqueformedias = $formedia->proposalfiles->unique('document_type');
+        $uniqueformedias = $formedia->medias->unique('collection_name');
 
 
         $latest = Proposal::where('id', $id)
@@ -269,8 +259,22 @@ class DashboardController extends Controller
         if($notification){
             auth()->user()->unreadNotifications->where('id', $notification)->markAsRead();
         }
+
+
+        $otherFilePdfCount = Media::where('collection_name', 'otherFile')->count();
+        $travelCount = Media::where('collection_name', 'travelOrderPdf')->count();
+        $officeCount = Media::where('collection_name', 'officeOrderPdf')->count();
+        $specialPdfCount = Media::where('collection_name', 'specialOrderPdf')->count();
+        $attendancePdfCount = Media::where('collection_name', 'Attendance')->count();
+        $attendancemPdfCount = Media::where('collection_name', 'AttendanceMonitoring')->count();
+        $narrativePdfCount = Media::where('collection_name', 'NarrativeFile')->count();
+        $terminalPdfCount = Media::where('collection_name', 'TerminalFile')->count();
+        $mediaCount = Media::whereNot('collection_name','trash')->count();
+
+
         return view('admin.dashboard.proposal.edit-proposal', compact('proposal','proposals', 'program', 'members', 'formedia', 'latest',
-        'uniqueProposalFiles', 'uniqueformedias'));
+        'uniqueProposalFiles', 'uniqueformedias','users','otherFilePdfCount','travelCount','officeCount','specialPdfCount','attendancePdfCount',
+        'attendancemPdfCount','narrativePdfCount','terminalPdfCount','mediaCount'));
     }
 
     public function AdminUpdateFiles(Request $request, $id)
@@ -377,7 +381,6 @@ class DashboardController extends Controller
 
     }
 
-
     public function updateDetails(Request $request, $id)
     {
         $proposals = Proposal::where('id', $id)->first();
@@ -421,7 +424,6 @@ class DashboardController extends Controller
         return response()->json(["success", "Proposal has been deleted"]);
     }
 
-
     public function chart(Request $request){
 
         $customizes = CustomizeAdminProposal::where('id', 1)->get();
@@ -459,7 +461,6 @@ class DashboardController extends Controller
             'labels','data','customizes', 'allProposal', 'years'));
     }
 
-
     public function updateData(Request $request, $id){
         // Find the model instance you want to update
         $model = CustomizeAdminProposal::find($id);
@@ -474,7 +475,6 @@ class DashboardController extends Controller
 
         return response()->json(['message' => 'Data updated successfully']);
     }
-
 
     public function FilterStatus(Request $request)
     {
@@ -626,7 +626,6 @@ class DashboardController extends Controller
             'labels','data','customizes', 'allProposal', 'years'));
     }
 
-
     public function FilterYears(Request $request)
     {
         $query = $request->input('query');
@@ -700,7 +699,6 @@ class DashboardController extends Controller
         return view('admin.dashboard.chart.filter_index._index-dashboard',compact( 'programLabel', 'programData', 'statusCount', 'pendingCount', 'ongoingCount', 'finishedCount',
             'labels','data','customizes', 'allProposal', 'years'));
     }
-
 
     public function NarrativeIndex(){
 

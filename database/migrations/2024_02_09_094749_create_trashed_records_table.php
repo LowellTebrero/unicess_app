@@ -13,9 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('user_attendance_monitorings', function (Blueprint $table) {
-            $table->softDeletes();
-
+        Schema::create('trashed_records', function (Blueprint $table) {
+            $table->id();
+            $table->string('uuid');
+            $table->unsignedBigInteger('user_id')->unsigned()->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
@@ -26,8 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('user_attendance_monitorings', function (Blueprint $table) {
-            $table->dropSoftDeletes();
-        });
+        Schema::dropIfExists('trashed_records');
     }
 };

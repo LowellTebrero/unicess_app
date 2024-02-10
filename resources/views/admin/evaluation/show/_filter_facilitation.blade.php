@@ -3,7 +3,7 @@
     <div class="mb-4">
         <div>
             <label class="block  text-sm font mb-2" for="username">On-going <span class="text-xs"> (1 pts. per linkage)</span></label>
-            <input onkeypress="return isNumber(event)" id="facilication_on_going" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none" name="facilication_on_going" value="{{ $evaluation->facilication_on_going }}" type="text">
+            <input onkeypress="return isNumber(event)" id="facilication_on_going" class="input-number border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none" name="facilication_on_going" value="{{ $evaluation->facilication_on_going }}" type="text">
             <div class="py-2 facilication_on_going">
                 <x-alpine-modal>
 
@@ -78,7 +78,7 @@
         </div>
         <div>
             <label class="block  text-sm font mb-2" for="username">Regional <span class="text-xs">  (3 pts per linkage) </span></label>
-            <input onkeypress="return isNumber(event)" id="facilication_regional" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none" name="facilication_regional" value="{{ $evaluation->facilication_regional }}"  type="text">
+            <input onkeypress="return isNumber(event)" id="facilication_regional" class="input-number border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none" name="facilication_regional" value="{{ $evaluation->facilication_regional }}"  type="text">
             <div class="py-2 facilication_regional">
                 <x-alpine-modal>
 
@@ -144,7 +144,7 @@
         </div>
         <div>
             <label class="block  text-sm font mb-2" for="username">National  <span class="text-xs"> (6 pts per linkage)</span></label>
-            <input onkeypress="return isNumber(event)" id="facilication_national" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none" name="facilication_national" value="{{ $evaluation->facilication_national }}" type="text">
+            <input onkeypress="return isNumber(event)" id="facilication_national" class="input-number border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none" name="facilication_national" value="{{ $evaluation->facilication_national }}" type="text">
             <div class="py-2 facilication_national">
                 <x-alpine-modal>
 
@@ -219,7 +219,7 @@
         </div>
         <div>
             <label class="block  text-sm font mb-2" for="username">International <span class="text-xs"> (11 pts per linkage)</span></label>
-            <input onkeypress="return isNumber(event)" id="facilication_international" class=" border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none" name="facilication_international" value="{{ $evaluation->facilication_international }}" type="text">
+            <input onkeypress="return isNumber(event)" id="facilication_international" class="input-number border-zinc-400 appearance-none border rounded w-full py-2 px-3  leading-tight text-sm focus:outline-none" name="facilication_international" value="{{ $evaluation->facilication_international }}" type="text">
             <div class="py-2 facilication_international">
                 <x-alpine-modal>
 
