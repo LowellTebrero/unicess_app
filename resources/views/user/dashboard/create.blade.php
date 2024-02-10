@@ -121,36 +121,6 @@
                                 </div>
                             </div>
                         </div>
-                        {{--  <div class="w-full overflow-x-auto h-[26vh] xl:h-[20vh] 2xl:h-[20vh]  mt-2">
-
-                            <table id="table" class="w-full">
-                                <thead>
-                                    <tr class="text-sm text-gray-500 sticky top-0 bg-white">
-                                        <th class="text-xs  text-slate-600  mb-2 2xl:text-sm text-left"></th>
-                                        <th class="text-xs  text-slate-600  mb-2 2xl:text-sm text-left w-[11rem] 2xl:w-[10rem]"></th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-                                    <tr>
-                                        <td class="pr-4 xl:w-[21rem] 2xl:w-[30rem]">
-                                            <select name="member[0][id]" class="rounded-md text-xs w-full border-zinc-300"
-                                                id="member" required>
-                                                @foreach ($members as $id => $name)
-                                                    <option value="{{ $id }}"
-                                                        @if ($id == old('member_id[0][id]')) selected="selected" @endif>
-                                                        {{ $name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </td>
-
-                                        <td>
-
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>  --}}
 
                         <select name="tags[]" id="tags" class="tags w-full text-xs" multiple="multiple" required></select>
 

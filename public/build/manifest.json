@@ -16,6 +16,11 @@
     "isEntry": true,
     "src": "resources/css/app.css"
   },
+  "resources/css/checkbox.css": {
+    "file": "assets/checkbox-b1acd789.css",
+    "isEntry": true,
+    "src": "resources/css/checkbox.css"
+  },
   "resources/css/lnu-additional.css": {
     "file": "assets/lnu-additional-a450c7b4.css",
     "isEntry": true,
