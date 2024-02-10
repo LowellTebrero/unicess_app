@@ -58,7 +58,6 @@ class InventoryController extends Controller
         }])->first();
 
         $uniqueProposalFiles = $proposals->medias->unique('collection_name');
-
         $myuniqueProposalFiles = $myfiles->medias->unique('collection_name');
 
 
@@ -90,10 +89,14 @@ class InventoryController extends Controller
         $narrativePdfCount = Media::where('collection_name', 'NarrativeFile')->count();
         $terminalPdfCount = Media::where('collection_name', 'TerminalFile')->count();
         $mediaCount = Media::whereNot('collection_name','trash')->count();
+
+        $existingTagIds  = $proposals->proposal_members()->pluck('user_id')->toArray();
+        $existingTags = User::whereIn('id', $existingTagIds)->pluck('name', 'id')->toArray();
+
         return view('user.inventory.show', compact('proposals', 'proposal', 'proposal_member', 'inventory', 'program', 'members'
         ,'formedia','uniqueProposalFiles','uniqueformedias', 'myuniqueProposalFiles','myfiles','users','mediaCount'
         ,'otherFilePdfCount','travelCount','officeCount','specialPdfCount','attendancePdfCount','attendancemPdfCount',
-        'narrativePdfCount','terminalPdfCount'));
+        'narrativePdfCount','terminalPdfCount','existingTags'));
 
     }
 
@@ -106,39 +109,38 @@ class InventoryController extends Controller
             'project_title' => 'required',
         ]);
 
-      $proposed = Proposal::where('id', $proposals->id)->update([
+        Proposal::where('id', $proposals->id)->update([
 
-            'program_id' => $request->program_id,
-            'project_title' => $request->project_title,
-            'started_date' =>  $request->started_date,
-            'finished_date' =>  $request->finished_date,
+        'program_id' => $request->program_id,
+        'project_title' => $request->project_title,
+        'started_date' =>  $request->started_date,
+        'finished_date' =>  $request->finished_date,
         ]);
 
-        if ($proposed) {
+        $existingTags  = $proposals->proposal_members()->pluck('user_id')->toArray();
+        $newTags = $request->input('tags');
 
-            if($request->member !== null){
+        // Find tags to add (new tags not in existing tags)
+        $tagsToAdd = array_diff($newTags, $existingTags);
+        // Find tags to remove (existing tags not in new tags)
+        $tagsToRemove = array_diff($existingTags, $newTags);
 
-                ProposalMember::where('proposal_id', $proposals->id)->delete();
-                foreach ($request->member as $item) {
-
-                    $model = new ProposalMember();
-                    $model->proposal_id = $proposals->id;
-                    $model->user_id = $item['id'];
-                    $model->save();
-                }
-
-                }else {
-                    ProposalMember::where('proposal_id', $proposals->id)->delete();
-                }
-
-
-            app('flasher')->addSuccess('Proposal details successfully updated.');
-
-
-            return back();
+        foreach ($tagsToAdd as $tag) {
+            // Check if the tag already exists
+            if (!ProposalMember::where('proposal_id', $proposals->id)->where('user_id', $tag)->exists()) {
+                ProposalMember::create([
+                    'proposal_id' => $proposals->id,
+                    'user_id' => $tag,
+                ]);
+            }
         }
 
-        app('flasher')->addError('Something went wrong.');
+        // Remove tags
+        ProposalMember::where('proposal_id', $proposals->id)
+        ->whereIn('user_id', $tagsToRemove)
+        ->delete();
+
+        app('flasher')->addSuccess('Update successfully');
         return back();
     }
 

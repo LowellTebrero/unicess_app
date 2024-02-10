@@ -17,7 +17,6 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('faculty_id')->nullable();
-            $table->unsignedBigInteger('partners_id')->nullable();
             $table->string('avatar')->nullable();
             $table->string('name');
             $table->string('suffix')->nullable();
@@ -41,7 +40,6 @@ return new class extends Migration
             $table->string('google_access_token')->nullable();
             $table->text('google_refresh_token')->nullable();
             $table->foreign('faculty_id')->references('id')->on('faculties')->onDelete('cascade');
-            $table->foreign('partners_id')->references('id')->on('partners')->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
 

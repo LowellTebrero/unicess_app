@@ -37,8 +37,6 @@ use App\Notifications\UserDeletedTheirProposaleNotification;
 use App\Notifications\AdminDeletedProposaleFromUserNotification;
 
 
-
-
 class ProposalController extends Controller
 {
 
@@ -47,13 +45,7 @@ class ProposalController extends Controller
         $this->middleware('auth');
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
-    {
+    public function index(Request $request){
         $userId = Auth::id();
         $user = Auth::user();
         $currentYear = date('Y');
@@ -78,13 +70,11 @@ class ProposalController extends Controller
                'currentYear',  'second', 'Temporary', 'templates'));
     }
 
-    public function getCurrentTime()
-    {
+    public function getCurrentTime(){
         return response()->json(['time' => Carbon::now()->format('h:i A')]);
     }
 
-    public function create()
-    {
+    public function create(){
         $programs = Program::orderBy('program_name')->pluck('program_name', 'id')->prepend('Select Program', '');
         $members = User::orderBy('name')
         ->doesntHave('roles', 'and', function ($query) {
@@ -111,8 +101,6 @@ class ProposalController extends Controller
             'office_order_pdf' => "max:10048",
             'travel_order_pdf' => "max:10048",
             'special_order_pdf' => "max:10048",
-            'tags' => 'required|array', // Ensure tags is an array
-            'tags.*' => 'exists:users,id', // Ensure each tag exists in users table
            ],
            [
             'required_without_all' => 'Please upload at least one file among Proposal PDF, Special Order PDF, MOA PDF, Office Order PDF, Travel Order PDF, Other Files.',
@@ -229,46 +217,43 @@ class ProposalController extends Controller
         Notification::send($admin, new ProposalNotification($post));
 
 
-        if($request->member !== null){
+        // if($request->member !== null){
 
-            foreach ($request->member as $item) {
+        //     foreach ($request->member as $item) {
 
-            $model = new ProposalMember();
-            $model->proposal_id = $post->id;
-            $model->user_id = $item['id'];
-            $model->save();
+        //     $model = new ProposalMember();
+        //     $model->proposal_id = $post->id;
+        //     $model->user_id = $item['id'];
+        //     $model->save();
 
 
-            $users = User::where('id', $item['id'])->get();
-            Notification::send($users, new UserTagProposalNotification($model));
+        //     $users = User::where('id', $item['id'])->get();
+        //     Notification::send($users, new UserTagProposalNotification($model));
 
-            $duplicateCount = DB::table('notifications')
-            ->whereJsonContains('data->tag_id', $item['id'])
-            ->whereJsonContains('data->proposal_id', $post->id)
-            ->count();
+        //     $duplicateCount = DB::table('notifications')
+        //     ->whereJsonContains('data->tag_id', $item['id'])
+        //     ->whereJsonContains('data->proposal_id', $post->id)
+        //     ->count();
 
-            if ($duplicateCount > 1) {
-                // Use the offset method to skip the first occurrence
-                $firstDuplicate = DB::table('notifications')
-                ->whereJsonContains('data->tag_id', $item['id'])
-                ->whereJsonContains('data->proposal_id', $post->id)
-                ->offset(1)
-                ->first();
+        //     if ($duplicateCount > 1) {
+        //         // Use the offset method to skip the first occurrence
+        //         $firstDuplicate = DB::table('notifications')
+        //         ->whereJsonContains('data->tag_id', $item['id'])
+        //         ->whereJsonContains('data->proposal_id', $post->id)
+        //         ->offset(1)
+        //         ->first();
 
-                // Delete the second occurrence of duplicated data
-                DB::table('notifications')->where('id', $firstDuplicate->id)->delete();
+        //         // Delete the second occurrence of duplicated data
+        //         DB::table('notifications')->where('id', $firstDuplicate->id)->delete();
 
-            }
-            }
+        //     }
+        //     }
 
-            ProposalMember::whereNull('user_id')->where('proposal_id', $post->id)->delete();
+        //     ProposalMember::whereNull('user_id')->where('proposal_id', $post->id)->delete();
 
-        }
+        // }
 
         flash()->addSuccess('Project Uploaded Successfully.');
-
-
-
         return redirect(route('User-dashboard.index'));
     }
 
@@ -346,8 +331,8 @@ class ProposalController extends Controller
 
         // Remove tags
         ProposalMember::where('proposal_id', $proposals->id)
-            ->whereIn('user_id', $tagsToRemove)
-            ->delete();
+        ->whereIn('user_id', $tagsToRemove)
+        ->delete();
 
 
         // if($request->member !== null){
@@ -628,7 +613,7 @@ class ProposalController extends Controller
     {
         $tags = [];
         if ($search = $request->name) {
-            $tags = User::where('name', 'LIKE', "%$search%")->get();
+            $tags = User::where('name', 'LIKE', "%$search%")->orderBy('name')->get();
         }
 
         return response()->json($tags);

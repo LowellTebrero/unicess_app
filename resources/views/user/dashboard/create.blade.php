@@ -22,7 +22,6 @@
             padding: .6rem;
         }
 
-
     </style>
 
     <section class="mt-4 2xl:mt-5 m-8 rounded-xl 2xl:h-[87vh] h-[82vh] overflow-x-auto bg-white text-gray-700">
@@ -220,38 +219,7 @@
         </form>
     </section>
 
-    @section('scripts')
 
-        <script>
-            var i = 0;
-            $('#add').click(function() {
-                ++i;
-                $('#table').append(
-                    `<tr>
-                    <td class="pr-4 pt-2">
-                        <select name="member[` + i + `][id]" class="rounded-md text-xs w-full border-zinc-300" required>
-                            @foreach ($members as $id => $name)
-                            <option value="{{ $id }}"
-                            @if ($id == old('member_id')) selected="selected" @endif
-                            >{{ $name }}</option>
-                            @endforeach
-                        </select>
-                    </td>
-
-
-                    <td class="pr-2">
-                        <button type="button" class="bg-red-500 remove-table-row text-xs text-white px-2 py-1 rounded">Remove</button>
-                    </td>
-                </tr>`
-                );
-            });
-
-            $(document).on('click', '.remove-table-row', function() {
-                $(this).parents('tr').remove();
-            });
-        </script>
-
-    @endsection
 
 </x-app-layout>
 

@@ -10,6 +10,7 @@ use App\Models\Location;
 use App\Models\Proposal;
 use App\Models\AdminYear;
 use App\Rules\UniqueTitle;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Charts\ProposalChart;
 use App\Models\ProposalFiles;
@@ -69,8 +70,9 @@ class DashboardController extends Controller
         'project_title.regex' => 'Invalid characters: \ / : * ? " < > |',
         ]);
 
-
+        $uuid = Str::random(7);
         $post = new Proposal();
+        $post->uuid = $uuid;
         $post->program_id =  $request->program_id;
         $post->project_title =  $request->project_title;
         $post->started_date =  $request->started_date;
@@ -78,10 +80,16 @@ class DashboardController extends Controller
         $post->user_id  = auth()->id();
         $post->save();
 
+        foreach ($request->tags as $tag) {
+            ProposalMember::create([
+                'proposal_id' => $post->id, // Set proposal_id to the newly created proposal's ID
+                'user_id' => $tag, // Set user_id to the current tag (user's ID)
+            ]);
+        }
+
         if ($request->hasFile('proposal_pdf')) {
             $post->addMediaFromRequest('proposal_pdf')->usingName('proposal')->usingFileName($request->project_title.'_proposal.pdf')->toMediaCollection('proposalPdf');
         }
-
 
         if ($request->hasFile('moa_pdf')) {
             $post->clearMediaCollection('MoaPDF');
@@ -152,13 +160,13 @@ class DashboardController extends Controller
             }
         }
 
-
         if ($files = $request->file('other_files')) {
 
             foreach ($files as $file) {
                 $post->addMedia($file)->usingName('other')->toMediaCollection('otherFile');
             }
         }
+
 
 
 
@@ -174,41 +182,42 @@ class DashboardController extends Controller
 
 
 
-        if($request->member !== null){
 
-            foreach ($request->member as $item) {
+        // if($request->member !== null){
 
-                $model = new ProposalMember();
-                $model->proposal_id = $post->id;
-                $model->user_id = $item['id'];
-                $model->save();
+        //     foreach ($request->member as $item) {
+
+        //         $model = new ProposalMember();
+        //         $model->proposal_id = $post->id;
+        //         $model->user_id = $item['id'];
+        //         $model->save();
 
 
-                $users = User::where('id', $item['id'])->get();
-                Notification::send($users, new UserTagProposalNotification($model));
+        //         $users = User::where('id', $item['id'])->get();
+        //         Notification::send($users, new UserTagProposalNotification($model));
 
-                $duplicateCount = DB::table('notifications')
-                ->whereJsonContains('data->tag_id', $item['id'])
-                ->whereJsonContains('data->proposal_id', $post->id)
-                ->count();
+        //         $duplicateCount = DB::table('notifications')
+        //         ->whereJsonContains('data->tag_id', $item['id'])
+        //         ->whereJsonContains('data->proposal_id', $post->id)
+        //         ->count();
 
-                if ($duplicateCount > 1) {
-                    // Use the offset method to skip the first occurrence
-                    $firstDuplicate = DB::table('notifications')
-                    ->whereJsonContains('data->tag_id', $item['id'])
-                    ->whereJsonContains('data->proposal_id', $post->id)
-                    ->offset(1)
-                    ->first();
+        //         if ($duplicateCount > 1) {
+        //             // Use the offset method to skip the first occurrence
+        //             $firstDuplicate = DB::table('notifications')
+        //             ->whereJsonContains('data->tag_id', $item['id'])
+        //             ->whereJsonContains('data->proposal_id', $post->id)
+        //             ->offset(1)
+        //             ->first();
 
-                    // Delete the second occurrence of duplicated data
-                    DB::table('notifications')->where('id', $firstDuplicate->id)->delete();
-                }
+        //             // Delete the second occurrence of duplicated data
+        //             DB::table('notifications')->where('id', $firstDuplicate->id)->delete();
+        //         }
 
-            }
+        //     }
 
-            ProposalMember::whereNull('user_id')->where('proposal_id', $post->id)->delete();
+        //     ProposalMember::whereNull('user_id')->where('proposal_id', $post->id)->delete();
 
-        }
+        // }
 
         flash()->addSuccess('Project Uploaded Successfully.');
 
@@ -226,8 +235,6 @@ class DashboardController extends Controller
             $query->whereNot('collection_name', 'trash')->orderBy('file_name', 'asc');
         }, 'programs'])
         ->first();
-
-
 
         $uniqueProposalFiles = $proposals->medias->unique('collection_name');
 
@@ -260,7 +267,6 @@ class DashboardController extends Controller
             auth()->user()->unreadNotifications->where('id', $notification)->markAsRead();
         }
 
-
         $otherFilePdfCount = Media::where('collection_name', 'otherFile')->count();
         $travelCount = Media::where('collection_name', 'travelOrderPdf')->count();
         $officeCount = Media::where('collection_name', 'officeOrderPdf')->count();
@@ -271,10 +277,13 @@ class DashboardController extends Controller
         $terminalPdfCount = Media::where('collection_name', 'TerminalFile')->count();
         $mediaCount = Media::whereNot('collection_name','trash')->count();
 
+        $existingTagIds  = $proposals->proposal_members()->pluck('user_id')->toArray();
+        $existingTags = User::whereIn('id', $existingTagIds)->pluck('name', 'id')->toArray();
+
 
         return view('admin.dashboard.proposal.edit-proposal', compact('proposal','proposals', 'program', 'members', 'formedia', 'latest',
         'uniqueProposalFiles', 'uniqueformedias','users','otherFilePdfCount','travelCount','officeCount','specialPdfCount','attendancePdfCount',
-        'attendancemPdfCount','narrativePdfCount','terminalPdfCount','mediaCount'));
+        'attendancemPdfCount','narrativePdfCount','terminalPdfCount','mediaCount','existingTags'));
     }
 
     public function AdminUpdateFiles(Request $request, $id)
@@ -398,19 +407,28 @@ class DashboardController extends Controller
             'finished_date' =>  $request->finished_date,
         ]);
 
-        if($request->member !== null){
-            ProposalMember::where('proposal_id', $proposals->id)->delete();
-            foreach ($request->member as $item) {
+        $existingTags  = $proposals->proposal_members()->pluck('user_id')->toArray();
+        $newTags = $request->input('tags');
 
-                $model = new ProposalMember();
-                $model->proposal_id = $proposals->id;
-                $model->user_id = $item['id'];
-                $model->save();
+        // Find tags to add (new tags not in existing tags)
+        $tagsToAdd = array_diff($newTags, $existingTags);
+        // Find tags to remove (existing tags not in new tags)
+        $tagsToRemove = array_diff($existingTags, $newTags);
+
+        foreach ($tagsToAdd as $tag) {
+            // Check if the tag already exists
+            if (!ProposalMember::where('proposal_id', $proposals->id)->where('user_id', $tag)->exists()) {
+                ProposalMember::create([
+                    'proposal_id' => $proposals->id,
+                    'user_id' => $tag,
+                ]);
             }
-
-        }else{
-            ProposalMember::where('proposal_id', $proposals->id)->delete();
         }
+
+        // Remove tags
+        ProposalMember::where('proposal_id', $proposals->id)
+        ->whereIn('user_id', $tagsToRemove)
+        ->delete();
 
         flash()->addSuccess('Details Updated Successfully');
         return redirect("/admin/dashboard/user-proposal/{$proposals->id}/{$proposals->id}");

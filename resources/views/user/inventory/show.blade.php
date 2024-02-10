@@ -187,7 +187,7 @@
                             </button>
                         </div>
                         <!-- Modal body -->
-                        <form action={{ route('inventory.update-project-details', $proposals->id ) }} method="POST"  onsubmit="return confirmAndCheckEmpty()">
+                        <form action={{ route('inventory.update-project-details', $proposals->id ) }} method="POST"  onsubmit="return confirm('Are you sure?')">
                             @csrf @method('PUT')
                         <div class="p-4 md:p-5">
                             <div class="flex 2xl:space-y-4 2xl:space-x-0 space-x-4 2xl:flex-col flex-row">
@@ -224,50 +224,17 @@
 
                                 <div class="mt-4 w-full h-[25vh] 2xl:h-[20vh] overflow-x-auto">
 
-                                    <div class="sticky top-0 bg-gray-700 w-full flex space-x-2 items-center">
-                                        <label class="xl:text-xs block text-white text-sm font-medium tracking-wider 2xl:text-xs">Project Member <span class="text-red-500">*</span></label>
-                                        <button name="add" id="add" type="button" class="bg-slate-500 rounded text-white px-2 py-1  text-sm xl:text-xs border-zinc-400">Add Member</button>
-                                    </div>
 
-                                    <table id="table" class="w-full">
-                                        <thead class="sticky top-6 bg-gray-700">
-                                        <tr class="text-sm text-gray-500">
-                                            <th class="xl:text-xs  text-white text-sm font-medium mb-2 tracking-wider 2xl:text-xs text-left"></th>
-                                            <th class="xl:text-xs  text-white text-sm font-medium mb-2 tracking-wider 2xl:text-xs text-left"></th>
-                                        </tr>
-                                        </thead>
+                                    <label class="xl:text-xs block text-white text-sm font-medium tracking-wider mb-2">Project Member <span class="text-red-500">*</span></label>
 
-                                        <tbody id="tbody">
-
-                                            @php($count=0)
-                                            @foreach ($proposals->proposal_members as $proposal_mem)
-                                            @if ($proposal_mem !== null)
-                                            @php($count++)
+                                    <select name="tags[]" id="tags" class="tags w-full text-xs" multiple="multiple" required>
+                                        @foreach($existingTags as $userId => $userName)
+                                            <option value="{{ $userId }}" selected>{{ $userName }}</option>
+                                        @endforeach
+                                    </select>
 
 
-                                            <tr>
-                                            <td class="pr-4 pt-2">
-                                                <select name="member[{{ $count }}][id]" class="rounded-md xl:text-xs w-full border-zinc-400" id="member" required>
-                                                    @foreach ($members as $id => $participation_name )
-                                                        <option value="{{ $id }}"
-                                                            @if ( $proposal_mem->user_id == $id)
-                                                            selected="selected"
-                                                            @endif>
-                                                            {{ $participation_name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </td>
 
-                                            <td>
-                                                <button type="button" class="bg-red-500 remove-table-row text-xs text-white px-2 py-1 rounded">Remove</button>
-                                            </td>
-                                        </tr>
-                                            @endif
-                                            @endforeach
-
-                                    </tbody>
-                                    </table>
                                 </div>
                             </div>
 
@@ -601,42 +568,6 @@
 
 
 
-            var count = {{ isset($count) ? $count : 'null' }};
-
-
-            $(document).on('click', '.remove-table-row', function(){
-                count--;
-                $(this).parents('tr').remove();
-
-            });
-
-
-            $('#add').click(function(){
-                count++;
-                addDivAndSetSelectName(count);
-            });
-
-
-            function addDivAndSetSelectName(index){
-
-                $('#table').append(
-                    `<tr>
-                        <td class="pr-4 pt-2">
-                            <select name="member[`+index+`][id]" class="rounded-md xl:text-xs w-full border-zinc-400" id="member" required >
-                                @foreach ($members as $id => $name )
-                                <option value="{{ $id }}"
-                                >{{ $name }}</option>
-                                @endforeach
-                            </select>
-                        </td>
-
-
-                        <td class="pr-2">
-                            <button type="button" class="bg-red-500 remove-table-row text-xs text-white px-2 py-1 rounded">Remove</button>
-                        </td>
-                    </tr>`
-                );
-            }
 
         </script>
 
@@ -845,47 +776,8 @@
 @endif
 </x-app-layout>
 
-
-    <script>
-        function confirmAndCheckEmpty() {
-            // Ask for confirmation
-            var confirmation = confirm('Are you sure?');
-
-            // If user confirms, check for empty tbody or tr
-            if (confirmation) {
-                var tbody = document.getElementById('tbody');
-
-                if (!tbody || !tbody.querySelector('tr')) {
-                    alert('At least one member must be added.');
-                    return false; // Prevent form submission
-                }
-
-                var rows = tbody.querySelectorAll('tr');
-                var emptyFound = false;
-
-                rows.forEach(function(row) {
-                    var cells = row.querySelectorAll('td select');
-                    var isEmptyRow = true;
-                    cells.forEach(function(cell) {
-                        if (cell.value.trim() !== '') {
-                            isEmptyRow = false;
-                        }
-                    });
-                    if (isEmptyRow) {
-                        emptyFound = true;
-                    }
-                });
-
-                if (emptyFound) {
-                    alert('Every row must have a member.');
-                    return false; // Prevent form submission
-                }
-                return true; // Allow form submission
-            } else {
-                return false; // Prevent form submission if user cancels
-            }
-        }
-    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
         function showTab(tabId) {
@@ -923,4 +815,46 @@
                 showTab('document');
             }
         });
+    </script>
+
+
+
+    <script>
+        $(document).ready(function(){
+            $('.tags').select2({
+                placeholder: 'Select Option',
+                allowClear: true,
+                tags: true,
+                width: '100%',
+            });
+
+            $('#tags').select2({
+                ajax: {
+                    url: "{{ route('proposal.getusername') }}",
+                    type: "post",
+                    delay: 250,
+                    dataType: 'json',
+                    data: function(params){
+                        return {
+                            name: params.term,
+                            "_token": "{{ csrf_token() }}",
+                        };
+                    },
+                    processResults: function(data){
+                        return {
+                            results: $.map(data, function(user){
+                                return {
+                                    id: user.id,
+                                    text: user.name
+                                }
+                            })
+                        };
+                    },
+                },
+                placeholder: "Start typing to search name",
+                width: '100%',
+
+            });
+        });
+
     </script>
