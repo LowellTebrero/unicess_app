@@ -16,12 +16,11 @@ class UserAuthProfileController extends Controller
 {
     public function editAuthUser($id)
     {
-        $role = Role::orderBy('name')->whereNotIn('name',['admin'])->whereNotIn('name',['New User'])->whereNotIn('name',['Partners/Linkages'])->pluck('name', 'id');
+        $role = Role::orderBy('name')->whereNotIn('name',['admin'])->whereNotIn('name',['New User'])->pluck('name', 'id');
         $faculties = Faculty::orderBy('name')->pluck('name', 'id');
-        $partners = Partner::orderBy('partners_name')->pluck('partners_name', 'id')->prepend('Select Partner', '');
         $users = User::with('faculty')->get();
         $user = User::where('id', $id)->first();
-        return view('profile.edit', compact('role', 'faculties', 'users', 'user', 'partners'));
+        return view('profile.edit', compact('role', 'faculties', 'users', 'user', ));
     }
 
     public function updateAuthUser(Request $request, $id )

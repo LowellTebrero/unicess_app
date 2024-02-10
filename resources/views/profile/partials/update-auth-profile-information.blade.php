@@ -158,12 +158,8 @@
                         <h1 class="text-xs">Department Name:</h1>
                         <h1 class="text-xs 2xl:text-base">{{ $user->faculty->name }}</h1>
                         @endrole
-                        @elseif ($user->partners == !null)
 
-
-                            <h1 class="text-xs">Partners Name:</h1>
-                            <h1 class="">{{ $user->partners->partners_name }}</h1>
-                        @elseif ($user->partners == null && $user->faculty == null)
+                        @elseif ($user->faculty == null)
                             <h1 class="text-sm">&nbsp;</h1>
                         @endif
 

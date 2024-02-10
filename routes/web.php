@@ -425,6 +425,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/evaluate/index', [EvaluateController::class, 'index'])->name('evaluate.index');
     Route::get('/evaluate/{id}', [EvaluateController::class, 'create'])->name('evaluate.create');
+    Route::get('/evaluate-created/{id}', [EvaluateController::class, 'createdEvaluation'])->name('evaluate.created');
     Route::post('/post-evaluate', [EvaluateController::class, 'post'])->name('evaluate.post');
     // Route::get('/filter/evaluate/index', [EvaluateController::class, 'EvaluateFilterIndex'])->name('evaluate.EvaluateFilterIndex');
     Route::get('/evaluate-pdf/{id}', [EvaluateController::class, 'evaluatePdf'])->name('evaluate-pdf')->middleware('auth');

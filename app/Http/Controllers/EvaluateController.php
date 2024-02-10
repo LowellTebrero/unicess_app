@@ -26,10 +26,24 @@ class EvaluateController extends Controller
     public function index(){
 
         $currentYear = date('Y');
+        $dateNow = date('Y-m-d');
         $previousYear = $currentYear + 1;
+
+        // First Semester: January to June
+        $firstSemesterStart = "{$currentYear}-01-01";
+        $firstSemesterEnd = "{$currentYear}-06-30";
+
+        // Second Semester: July to December
+        $secondSemesterStart = "{$currentYear}-07-01";
+        $secondSemesterEnd = "{$currentYear}-12-31";
+
+        $firstSemesterEvaluations = Evaluation::where('user_id', Auth()->user()->id)->whereBetween('created_at', [$firstSemesterStart, $firstSemesterEnd])->first();
+        $secondSemesterEvaluations = Evaluation::whereBetween('created_at', [$secondSemesterStart, $secondSemesterEnd])->first();
+
+
         $evaluation = Evaluation::where('user_id', Auth()->user()->id)->whereYear('created_at', '>=', $currentYear)->whereYear('created_at', '<=', $previousYear)->get();
         $evaluation_status = Evaluation::select(DB::raw('YEAR(created_at) year') , 'status', 'id')->where('user_id', auth()->user()->id)->get();
-        $status = EvaluationStatus::select('status')->get();
+        $status = EvaluationStatus::where('id', 1)->first();
         $proposal_member = ProposalMember::where('user_id', auth()->user()->id)->with('proposal')->get();
         // $latestYear = ProposalMember::select(DB::raw('MAX(YEAR(created_at)) as max_year'))->where('user_id', auth()->user()->id)->value('max_year');
 
@@ -39,10 +53,22 @@ class EvaluateController extends Controller
         $id = Auth()->user()->id;
         $years = AdminYear::orderBy('year', 'DESC')->pluck('year');
 
+
         return view('user.evaluate.index',
         compact('latestYearAndId','id','result',
         'currentYear', 'previousYear', 'evaluation_status', 'status',
-        'proposal_member', 'latesEvaluationtYear' , 'evaluation', 'years'));
+        'proposal_member', 'latesEvaluationtYear' , 'evaluation', 'years','dateNow','firstSemesterStart','firstSemesterEnd'
+        ,'secondSemesterStart','secondSemesterEnd', 'firstSemesterEvaluations','secondSemesterEvaluations'));
+    }
+
+
+    public function createdEvaluation($id){
+
+        $Evaluation = Evaluation::where('user_id', Auth()->user()->id)->first();
+        $currentYear = date('Y');
+
+        return view('user.evaluate.created_evaluation', compact('Evaluation',  'currentYear'));
+
     }
 
 
@@ -84,16 +110,16 @@ class EvaluateController extends Controller
 
         $selectedYear = $request->yearGetter;
 
-        [$startYear, $endYear] = explode('-', $selectedYear);
+        // [$startYear, $endYear] = explode('-', $selectedYear);
 
-        $proposals = ProposalMember::where('user_id', auth()->user()->id)->whereYear('created_at', '>=', $startYear)->whereYear('created_at', '<=', $endYear)->get();
+        $proposals = ProposalMember::where('user_id', auth()->user()->id)->whereYear('created_at', '>=', $currentYear)->whereYear('created_at', '<=', $previousYear)->get();
 
         $status = EvaluationStatus::select('status')->get();
         $proposal_member = ProposalMember::where('user_id', auth()->user()->id)->with('proposal')->get();
 
         $temporary = TemporaryEvaluationFile::where('user_id', $id)->get();
         return view('user.evaluate.create', compact(
-        'user', 'startYear', 'endYear',
+        'user',
         'proposals', 'status',
         'proposal_member' , 'currentYear', 'previousYear', 'temporary'));
     }
