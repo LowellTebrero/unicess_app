@@ -123,7 +123,7 @@
 
                                 <td class="p-3 whitespace-nowrap ">
                                     <div class="text-left text-gray-700 w-[5rem] h-[5vh]">
-                                        <img class="rounded-lg h-[100%]" id="showImage"  src="{{ (!empty($article->image))? url('upload/image-folder/features-folder/'. $article->image): url('upload/no-image.png') }}">
+                                        <img class="rounded-lg h-[100%]" id="showImage"  src="{{ (!empty($article->image))? url('upload/image-folder/article-folder/'. $article->image): url('upload/no-image.png') }}">
                                     </div>
                                 </td>
 

@@ -13,7 +13,7 @@
         <div class="col-md-6 col-xl-4">
             <div class="card mb-3  ">
             <div class="overflow-hidden">
-              <img src="{{ (!empty($articles->image))? url('upload/image-folder/features-folder/'. $articles->image): url('upload/no-image.png') }}" class="card-img-top"  alt="...">
+              <img src="{{ (!empty($articles->image))? url('upload/image-folder/article-folder/'. $articles->image): url('upload/no-image.png') }}" class="card-img-top"  alt="...">
             </div>
               <div class="card-body">
                 <p class="card-text my-2"><small class="text-muted">All Right Reserved 2023 ©</small></p>

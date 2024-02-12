@@ -6,7 +6,7 @@
 
         <div class="bg-white flex flex-row sm:flex-col  sm:w-[8.5rem] md:w-[10rem]  lg:w-[12rem] xl:w-[15rem]  relative rounded overflow-hidden">
             <div class="">
-                <img id="article_image" class="h-[100%]" src="{{ (!empty($article->image))? url('upload/image-folder/features-folder/'. $article->image): url('upload/no-image.png') }}">
+                <img id="article_image" class="h-[100%]" src="{{ (!empty($article->image))? url('upload/image-folder/article-folder/'. $article->image): url('upload/no-image.png') }}">
             </div>
 
             <div class="p-2 sm:h-[16vh] md:h-[14vh] lg:h-[15vh] xl:h-[15vh] w-full">
