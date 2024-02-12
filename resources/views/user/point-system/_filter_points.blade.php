@@ -92,7 +92,6 @@
                 @endforeach
             </div>
 
-
             <div class="text-center pr-20">
                 <h1>Total Points: </h1>
                 <h3 class="mt-7 2xl:text-7xl text-4xl">@if ($latestYearPoints == null) 0 @else {{ $latestYearPoints->total_points }} @endif</h3>

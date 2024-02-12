@@ -17,7 +17,7 @@ class YearSeeder extends Seeder
     public function run()
     {
         $currentYear = Carbon::now()->year;
-        $startYear = 1990; // Change this to the desired starting year
+        $startYear = 2023; // Change this to the desired starting year
 
         // Loop through the years and insert records
         for ($year = $startYear; $year <= $currentYear; $year++) {

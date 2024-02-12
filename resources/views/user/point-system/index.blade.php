@@ -19,6 +19,8 @@
             <div>
                 <h1 class="2xl:text-2xl text-lg font-semibold tracking-wider">Evaluation Points Overview <button data-tooltip-target="tooltip-right3" data-tooltip-placement="bottom" class="inline-block" type="button"><img src="{{ asset('img/i.png') }}" width="18" alt=""></button></h1>
             </div>
+
+          
             <select name="myDropdown" id="myDropdown" class="xl:text-sm border-slate-500 rounded-lg">
                 @foreach ($years as $year )
                 <option value="{{ $year }}">{{ $year }}</option>
@@ -30,19 +32,25 @@
 
         @include('user.point-system._header')
 
-        @if ($latestYearPoints == null && $evaluations->isEmpty() )
-        <div class="h-[45vh] 2xl:h-[52vh] flex flex-col items-center justify-center space-y-2">
+        {{--  @if ($latestYearPoints == null && $evaluations->isEmpty() )
+            <div class="h-[45vh] 2xl:h-[52vh] flex flex-col items-center justify-center space-y-2">
+                <img class="w-[15rem]" src="{{ asset('img/Empty.jpg') }}">
+                <h1 class="text-md text-gray-500">It’s empty here</h1>
+            </div>
 
-            <img class="w-[15rem]" src="{{ asset('img/Empty.jpg') }}">
-            <h1 class="text-md text-gray-500">It’s empty here</h1>
+        @else
 
-
-           </div>
-            @else
             <div id="filtered-data" class="p-8">
                 @include('user.point-system._filter_points')
             </div>
-        @endif
+
+        @endif  --}}
+
+
+        <div id="filtered-data" class="p-8">
+            @include('user.point-system._filter_index')
+        </div>
+
 
 
     </section>

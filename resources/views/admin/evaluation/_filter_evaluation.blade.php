@@ -62,20 +62,12 @@
 
                             <td class="xl:pl-4 2xl:pr-0 xl:px-0 2xl:px-2 py-4">
 
-                                <div class="flex text-gray-800 space-x-3 items-center justify-center">
+                                <div class="flex text-gray-800 space-x-3 items-end">
                                     <a href="{{ route('admin.evaluation.show', ['id' => $evaluation->id, 'year' => $currentYear, 'notification' => $evaluation->id]) }}" class="bg-blue-500 hover:bg-blue-600 text-white px-2 py-2 rounded-lg flex space-x-2">
                                         <span class="text-xs">Update</span>
                                         <svg class="fill-white hidden 2xl:block" xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 96 960 960" width="18"><path d="M480.118 726Q551 726 600.5 676.382q49.5-49.617 49.5-120.5Q650 485 600.382 435.5q-49.617-49.5-120.5-49.5Q409 386 359.5 435.618q-49.5 49.617-49.5 120.5Q310 627 359.618 676.5q49.617 49.5 120.5 49.5Zm-.353-58Q433 668 400.5 635.265q-32.5-32.736-32.5-79.5Q368 509 400.735 476.5q32.736-32.5 79.5-32.5Q527 444 559.5 476.735q32.5 32.736 32.5 79.5Q592 603 559.265 635.5q-32.736 32.5-79.5 32.5ZM480 856q-146 0-264-83T40 556q58-134 176-217t264-83q146 0 264 83t176 217q-58 134-176 217t-264 83Zm0-300Zm-.169 240Q601 796 702.5 730.5 804 665 857 556q-53-109-154.331-174.5-101.332-65.5-222.5-65.5Q359 316 257.5 381.5 156 447 102 556q54 109 155.331 174.5 101.332 65.5 222.5 65.5Z"/></svg>
                                     </a>
 
-                                    @if ($evaluation->status  == 'evaluated')
-                                        <a href="{{ route('evaluate-pdf',$evaluation->id ) }}" class="text-white 2xl:text-sm text-[.6rem] px-1 2xl:px-3 rounded-lg ">
-                                            <svg class="fill-green-500 mr-1 hover:fill-green-600" xmlns="http://www.w3.org/2000/svg" height="25" viewBox="0 96 960 960" width="25">
-                                            <path
-                                            d="M220 896q-24 0-42-18t-18-42V693h60v143h520V693h60v143q0 24-18 42t-42 18H220Zm260-153L287 550l43-43 120 120V256h60v371l120-120 43 43-193 193Z" />
-                                        </svg>
-                                        </a>
-                                    @endif
 
                                     <button data-modal-target="popup-modal{{ $evaluation->id }}" data-modal-toggle="popup-modal{{ $evaluation->id }}" type="button" class="first-delete-button">
                                         <svg class="hover:fill-red-600" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"><g fill="none" stroke="#ff4d4d" stroke-linecap="round" stroke-width="1.5"><path d="M9.17 4a3.001 3.001 0 0 1 5.66 0" opacity=".5"/><path d="M20.5 6h-17m15.333 2.5l-.46 6.9c-.177 2.654-.265 3.981-1.13 4.79c-.865.81-2.195.81-4.856.81h-.774c-2.66 0-3.99 0-4.856-.81c-.865-.809-.953-2.136-1.13-4.79l-.46-6.9"/><path d="m9.5 11l.5 5m4.5-5l-.5 5" opacity=".5"/></g></svg>
@@ -111,6 +103,16 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    @if ($evaluation->status  == 'evaluated')
+                                    <a href="{{ route('evaluate-pdf',$evaluation->id ) }}" class="text-white 2xl:text-sm text-[.6rem] px-1 2xl:px-3 rounded-lg ">
+                                        <svg class="fill-green-500 mr-1 hover:fill-green-600" xmlns="http://www.w3.org/2000/svg" height="25" viewBox="0 96 960 960" width="25">
+                                        <path
+                                        d="M220 896q-24 0-42-18t-18-42V693h60v143h520V693h60v143q0 24-18 42t-42 18H220Zm260-153L287 550l43-43 120 120V256h60v371l120-120 43 43-193 193Z" />
+                                    </svg>
+                                    </a>
+                                @endif
+
                                 </div>
                             </td>
                         </tr>
