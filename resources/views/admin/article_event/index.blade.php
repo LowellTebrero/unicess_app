@@ -59,8 +59,8 @@
 
                                         <div class="flex flex-col">
                                             <label class="text-sm 2xl:text-base leading-relaxed text-gray-200">Image</label>
-                                            <input type="file" class="text-sm 2xl:text-base leading-relaxed text-white" name="image">
-                                            @error('image') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                            <input type="file" class="text-sm 2xl:text-base leading-relaxed text-white" name="image" accept=".jpg, .jpeg, .png">
+                                            @error('image') <span class="text-red-500 text-xs" accept>{{ $message }}</span> @enderror
                                         </div>
                                     </div>
                                     <!-- Modal footer -->
@@ -175,7 +175,7 @@
 
                                                                 <div class="flex flex-col">
                                                                     <label class="text-sm 2xl:text-base leading-relaxed text-gray-200">Image</label>
-                                                                    <input type="file" class="text-sm 2xl:text-base leading-relaxed text-white" name="image">
+                                                                    <input type="file" class="text-sm 2xl:text-base leading-relaxed text-white" name="image" accept=".jpg, .jpeg, .png">
                                                                     @error('image')<span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                                                 </div>
                                                             </div>
@@ -249,7 +249,7 @@
 
                                         <div class="flex flex-col">
                                             <label class="text-sm 2xl:text-base leading-relaxed text-gray-200">Image</label>
-                                            <input type="file" class="text-sm 2xl:text-base leading-relaxed text-white" name="image">
+                                            <input type="file" class="text-sm 2xl:text-base leading-relaxed text-white" name="image" accept=".jpg, .jpeg, .png">
                                             @error('image') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                         </div>
                                     </div>
@@ -371,7 +371,7 @@
 
                                                                 <div class="flex flex-col">
                                                                     <label class="text-sm 2xl:text-base leading-relaxed text-gray-200">Image</label>
-                                                                    <input type="file" class="text-sm 2xl:text-base leading-relaxed text-gray-600" name="image">
+                                                                    <input type="file" class="text-sm 2xl:text-base leading-relaxed text-gray-600" name="image" accept=".jpg, .jpeg, .png">
                                                                     @error('image') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                                                 </div>
                                                             </div>
