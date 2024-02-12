@@ -36,7 +36,7 @@ class AdminArticleEventController extends Controller
             $filename = Str::limit($request->title, 15).'.'. $image->getClientOriginalExtension();
             $resize_image = Image::make($image->getRealPath());
               $resize_image->resize(600, 500);
-            $resize_image->save(public_path('upload/image-folder/features-folder/'. $filename));
+            $resize_image->save(public_path('upload/image-folder/article-folder/'. $filename));
 
             if(File::exists($resize_image)){
                 unlink($resize_image);
@@ -71,7 +71,7 @@ class AdminArticleEventController extends Controller
                 $filename =  Str::limit($request->title, 15).'.'.$image->getClientOriginalExtension();
                 $resize_image = Image::make($image->getRealPath());
                   $resize_image->resize(600, 500);
-                $resize_image->save(public_path('upload/image-folder/features-folder/'. $filename));
+                $resize_image->save(public_path('upload/image-folder/article-folder/'. $filename));
 
                 if(File::exists($resize_image)){
                     unlink($resize_image);
@@ -103,7 +103,7 @@ class AdminArticleEventController extends Controller
     public function ArticleDelete($id){
 
         $article = AdminArticle::find($id);
-        $destination = public_path(('upload/image-folder/features-folder/'. $article->image));
+        $destination = public_path(('upload/image-folder/article-folder/'. $article->image));
         if(File::exists($destination))
         {
             File::delete($destination);
