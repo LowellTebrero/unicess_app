@@ -35,7 +35,7 @@ class AdminArticleEventController extends Controller
             $image = $request->image;
             $filename = Str::limit($request->title, 15).'.'. $image->getClientOriginalExtension();
             $resize_image = Image::make($image->getRealPath());
-              $resize_image->resize(600, 500);
+            $resize_image->resize(600, 500);
             $resize_image->save(public_path('upload/image-folder/article-folder/'. $filename));
 
             if(File::exists($resize_image)){
