@@ -20,15 +20,32 @@ class EvaluationController extends Controller
 {
     public function index(){
 
-        $evaluations = Evaluation::with('users')->with('evaluationfile')->get();
+
         $currentYear = date('Y');
+        $previousYear = $currentYear + 1;
+
+        // First Semester: January to June
+        $firstSemesterStart = "{$currentYear}-01-01";
+        $firstSemesterEnd = "{$currentYear}-06-30";
+
+        // Second Semester: July to December
+        $secondSemesterStart = "{$currentYear}-07-01";
+        $secondSemesterEnd = "{$currentYear}-12-31";
+
+        $firstSemesterEvaluations = Evaluation::with('users')->with('evaluationfile')->whereBetween('created_at', [$firstSemesterStart, $firstSemesterEnd])->get();
+        $secondSemesterEvaluations = Evaluation::with('users')->with('evaluationfile')->whereBetween('created_at', [$secondSemesterStart, $secondSemesterEnd])->get();
+
+
         $id = 1;
         $toggle = EvaluationStatus::findorFail($id);
         $years = AdminYear::orderBy('year', 'DESC')->pluck('year');
-        $latestData = Evaluation::whereYear('created_at', $currentYear)->get();
-        $users = User::with('evaluation')->get();
+        // $latestData = Evaluation::whereYear('created_at', $currentYear)->get();
+        // $users = User::with('evaluation')->get();
 
-        return view('admin.evaluation.index', compact( 'latestData','currentYear',  'evaluations', 'toggle' ,'years' ,'users'));
+
+
+        return view('admin.evaluation.index', compact('currentYear', 'toggle' ,'years'
+        ,'firstSemesterEvaluations','secondSemesterEvaluations'));
     }
 
 

@@ -38,14 +38,12 @@ class EvaluateController extends Controller
         $secondSemesterEnd = "{$currentYear}-12-31";
 
         $firstSemesterEvaluations = Evaluation::where('user_id', Auth()->user()->id)->whereBetween('created_at', [$firstSemesterStart, $firstSemesterEnd])->first();
-        $secondSemesterEvaluations = Evaluation::whereBetween('created_at', [$secondSemesterStart, $secondSemesterEnd])->first();
-
+        $secondSemesterEvaluations = Evaluation::where('user_id', Auth()->user()->id)->whereBetween('created_at', [$secondSemesterStart, $secondSemesterEnd])->first();
 
         $evaluation = Evaluation::where('user_id', Auth()->user()->id)->whereYear('created_at', '>=', $currentYear)->whereYear('created_at', '<=', $previousYear)->get();
         $evaluation_status = Evaluation::select(DB::raw('YEAR(created_at) year') , 'status', 'id')->where('user_id', auth()->user()->id)->get();
         $status = EvaluationStatus::where('id', 1)->first();
         $proposal_member = ProposalMember::where('user_id', auth()->user()->id)->with('proposal')->get();
-        // $latestYear = ProposalMember::select(DB::raw('MAX(YEAR(created_at)) as max_year'))->where('user_id', auth()->user()->id)->value('max_year');
 
         $latesEvaluationtYear = Evaluation::select(DB::raw('MAX(YEAR(created_at)) as max_year'))->where('user_id', auth()->user()->id)->value('max_year');
         $result = Evaluation::select('status', DB::raw('MAX(YEAR(created_at)) as max_year'))->groupBy('status')->where('user_id', auth()->user()->id)->get();

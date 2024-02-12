@@ -70,28 +70,50 @@ class AdminFilterController extends Controller
 
     public function filter_evaluation(){
 
-        $currentYear = date('Y');
+
+
+        $year = request('selected_value');
         $query = request('query');
-        $latestYear = Evaluation::selectRaw('YEAR(created_at) as year')->orderByDesc('created_at')->groupBy('year')->pluck('year')->first();
+        $currentYear = $year;
 
-        $latestData = Evaluation::where(function ($query) {
-            if($year = request('selected_value')){
-            $query->whereYear('created_at', $year);
-            }})->get();
+        $searchTerm = $query ? $query : '';
 
-        $users = User::with('evaluation')
-        ->when($query, function ($querys) use ($query) {
-        return
-        $querys->where('name', 'like', "%$query%")
-                ->orWhere('email', 'like',   "%$query%");
-        })->get();
+        $firstSemesterStart = "{$currentYear}-01-01";
+        $firstSemesterEnd = "{$currentYear}-06-30";
+
+        // Second Semester: July to December
+        $secondSemesterStart = "{$currentYear}-07-01";
+        $secondSemesterEnd = "{$currentYear}-12-31";
+
+
+        $firstSemesterEvaluations = Evaluation::with('users')
+        ->when($searchTerm, function ($query) use ($searchTerm) {
+            $query->whereHas('users', function ($q) use ($searchTerm) {
+                $q->where('name', 'like', "%$searchTerm%")
+                ->orWhere('email', 'like', "%$searchTerm%");
+            });
+        })->whereBetween('created_at', [$firstSemesterStart, $firstSemesterEnd])
+        ->get();
+
+
+
+        $secondSemesterEvaluations = Evaluation::with('users')
+        ->when($searchTerm, function ($query) use ($searchTerm) {
+            $query->whereHas('users', function ($q) use ($searchTerm) {
+                $q->where('name', 'like', "%$searchTerm%")
+                ->orWhere('email', 'like', "%$searchTerm%");
+            });
+        })->whereBetween('created_at', [$secondSemesterStart, $secondSemesterEnd])
+        ->get();
+
+
 
 
         $data = [
-            'latestYear'  => $latestYear,
-            'latestData'  => $latestData,
+            // 'latestData'  => $latestData,
             'currentYear'   => $currentYear,
-            'users'   => $users,
+            'firstSemesterEvaluations'   => $firstSemesterEvaluations,
+            'secondSemesterEvaluations'   => $secondSemesterEvaluations,
         ];
 
 
@@ -102,27 +124,47 @@ class AdminFilterController extends Controller
 
         $year = request('selected_value');
         $query = request('query');
+        $currentYear = $year;
 
-        $latestYear = Evaluation::selectRaw('YEAR(created_at) as year')->orderByDesc('created_at')->groupBy('year')->pluck('year')->first();
+        $searchTerm = request('query');
 
-        $latestData = Evaluation::where(function ($query) {
-            if($year = request('selected_value')){
-            $query->whereYear('created_at', $year);
-            }})->get();
+        $currentYear = $year;
+        $firstSemesterStart = "{$currentYear}-01-01";
+        $firstSemesterEnd = "{$currentYear}-06-30";
 
-        $users = User::with('evaluation')
-        ->when($query, function ($querys) use ($query) {
-        return
-        $querys->where('name', 'like', "%$query%")
-             ->orWhere('email', 'like',   "%$query%");
-        })->get();
+        // Second Semester: July to December
+        $secondSemesterStart = "{$currentYear}-07-01";
+        $secondSemesterEnd = "{$currentYear}-12-31";
+
+        $firstSemesterEvaluations = Evaluation::with('users')
+        ->whereBetween('created_at', [$firstSemesterStart, $firstSemesterEnd])
+        ->when($searchTerm, function ($query) use ($searchTerm) {
+            $query->whereHas('users', function ($q) use ($searchTerm) {
+                $q->where('name', 'like', "%$searchTerm%")
+                ->orWhere('email', 'like', "%$searchTerm%");
+            });
+        })
+        ->get();
+
+        dd($firstSemesterEvaluations);
+
+        $secondSemesterEvaluations = Evaluation::with('users')
+        ->whereBetween('created_at', [$secondSemesterStart, $secondSemesterEnd])
+        ->when($searchTerm, function ($query) use ($searchTerm) {
+            $query->whereHas('users', function ($q) use ($searchTerm) {
+                $q->where('name', 'like', "%$searchTerm%")
+                ->orWhere('email', 'like', "%$searchTerm%");
+
+            });
+        })
+        ->get();
 
 
         $data = [
-            'latestYear'  => $latestYear,
-            'latestData'  => $latestData,
-            'currentYear' => $year,
-            'users' => $users,
+
+            'currentYear'   => $currentYear,
+            'firstSemesterEvaluations'   => $firstSemesterEvaluations,
+            'secondSemesterEvaluations'   => $secondSemesterEvaluations,
         ];
 
         return view('admin.evaluation._filter_evaluation')->with( $data );
