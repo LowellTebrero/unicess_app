@@ -18,11 +18,7 @@
         @include('user.evaluate.index_filter._header_index')
 
 
-        {{--  <div id="filtered-data" class="p-8">
-            @include('user.evaluate.index_filter._filter_index')
-        </div>  --}}
-
-        <div id="filtered-data" class="p-8">
+        <div id="filtered-data" class="">
             @include('user.evaluate.index_filter._filter_new_index')
         </div>
 
