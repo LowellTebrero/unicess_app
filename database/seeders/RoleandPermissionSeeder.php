@@ -31,7 +31,7 @@ class RoleandPermissionSeeder extends Seeder
         $editorRole = Role::create(['name' => 'Extension Staff ']);
 
         Role::create(['name' => 'New User']);
-        Role::create(['name' => 'Partners/Linkages']);
+        // Role::create(['name' => 'Partners/Linkages']);
 
         $adminRole->givePermissionTo([
             'create-user',
