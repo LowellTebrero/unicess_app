@@ -58,12 +58,8 @@ class ProposalController extends Controller
         $counts = Proposal::where('user_id', auth()->user()->id)->where('authorize', 'finished')->whereYear('created_at', $currentYear)->count();
         $second = ProposalMember::where('user_id', auth()->user()->id)->whereYear('created_at', date('Y'))->count();
         $proposalMembers = ProposalMember::with('proposal')->where('user_id', auth()->user()->id)->orderBy('created_at', 'DESC')->paginate(6);
-        $latestYearPoints = Evaluation::select(DB::raw('MAX(YEAR(created_at)) as max_year'), 'total_points')
-        ->groupBy('total_points')
-        ->latest('max_year')
-        ->where('user_id', auth()->user()->id)
-        ->whereYear('created_at', $currentYear)
-        ->first();
+        $latestYearPoints = Evaluation::where('user_id', auth()->user()->id)->latest()->first();
+
 
         return view('user.dashboard.index',compact(
         'proposalMembers','latestYearPoints','proposals', 'user', 'counts',
@@ -205,53 +201,32 @@ class ProposalController extends Controller
             }
         }
 
-
         AdminProgramServices::create([
             'proposal_id' => $post->id,
             'title' => $post->project_title,
             'status' => $post->programs->program_name,
         ]);
 
+        // Get the year from the created_at timestamp of the Proposal
+        $year = Carbon::parse($post->created_at)->format('Y');
+
+        // Check if the year already exists in the AdminYear database
+        $existingYear = AdminYear::where('year', $year)->first();
+
+        // If the year does not exist, save it to the AdminYear database
+        if (!$existingYear) {
+            AdminYear::create([
+                'year' => $year,
+        ]);
+
+        }
+
+
+
         $admin = User::whereHas('roles', function ($query) { $query->where('id', 1);})->get();
 
         Notification::send($admin, new ProposalNotification($post));
 
-
-        // if($request->member !== null){
-
-        //     foreach ($request->member as $item) {
-
-        //     $model = new ProposalMember();
-        //     $model->proposal_id = $post->id;
-        //     $model->user_id = $item['id'];
-        //     $model->save();
-
-
-        //     $users = User::where('id', $item['id'])->get();
-        //     Notification::send($users, new UserTagProposalNotification($model));
-
-        //     $duplicateCount = DB::table('notifications')
-        //     ->whereJsonContains('data->tag_id', $item['id'])
-        //     ->whereJsonContains('data->proposal_id', $post->id)
-        //     ->count();
-
-        //     if ($duplicateCount > 1) {
-        //         // Use the offset method to skip the first occurrence
-        //         $firstDuplicate = DB::table('notifications')
-        //         ->whereJsonContains('data->tag_id', $item['id'])
-        //         ->whereJsonContains('data->proposal_id', $post->id)
-        //         ->offset(1)
-        //         ->first();
-
-        //         // Delete the second occurrence of duplicated data
-        //         DB::table('notifications')->where('id', $firstDuplicate->id)->delete();
-
-        //     }
-        //     }
-
-        //     ProposalMember::whereNull('user_id')->where('proposal_id', $post->id)->delete();
-
-        // }
 
         flash()->addSuccess('Project Uploaded Successfully.');
         return redirect(route('User-dashboard.index'));

@@ -184,7 +184,7 @@ $maxLength = 18; // Adjust the maximum length as needed
             </div>
         @elseif ($invent->number == 2)
 
-            <div class="flex flex-row space-x-1 p-2 absolute z-20 top-[4.5rem] left-[5rem]" style="display:none" id="showOptionFolder">
+            <div class="flex flex-row space-x-1 p-2 absolute z-10 top-[4.5rem] left-[5rem]" style="display:none" id="showOptionFolder">
                 <button class="text-xs rounded text-white px-2 py-1 bg-red-500" id="TrashFolder">Trash</button>
                 <button class="text-xs rounded text-white px-2 py-1 bg-red-500" id="SelectFolder">Select all</button>
                 <button class="text-xs rounded text-white px-2 py-1 bg-red-500" id="CancelFolder">Cancel</button>
@@ -233,7 +233,6 @@ $maxLength = 18; // Adjust the maximum length as needed
                                         </div>
                                         <!-- Modal body -->
                                         <div class="p-4 grid grid-cols-3 gap-3">
-
                                             @foreach ($proposals->medias as $media)
                                             @if ($media->collection_name == 'proposalPdf')
 
@@ -404,8 +403,6 @@ $maxLength = 18; // Adjust the maximum length as needed
                                                 </div>
                                             @endif
                                             @endforeach
-
-
                                         </div>
                                     </div>
                                 </div>
@@ -426,7 +423,7 @@ $maxLength = 18; // Adjust the maximum length as needed
                                             x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
                                             x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
 
-                                            <a href={{ route('inventory-download-travelorder', $proposals->id) }} class="block text-xs px-2 hover:text-black hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
+                                            <a href={{ route('inventory-download-proposalPdf', $proposals->id) }} class="block text-xs px-2 hover:text-black hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
                                             <button class="TrashButton block text-xs px-2 hover:text-black hover:bg-gray-200 w-full text-left">Trash</button>
                                         </div>
                                     </div>
@@ -664,7 +661,7 @@ $maxLength = 18; // Adjust the maximum length as needed
                                             x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
                                             x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
 
-                                            <a href={{ route('inventory-download-travelorder', $proposals->id) }} class="block text-xs px-2 hover:text-black hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
+                                            <a href={{ route('inventory-download-moa', $proposals->id) }} class="block text-xs px-2 hover:text-black hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
                                             <button class="TrashButton block text-xs px-2 hover:text-black hover:bg-gray-200 w-full text-left">Trash</button>
                                         </div>
                                     </div>
@@ -929,7 +926,7 @@ $maxLength = 18; // Adjust the maximum length as needed
                                             x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
                                             x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
 
-                                            <a href={{ route('inventory-download-travelorder', $proposals->id) }} class="block text-xs px-2 hover:text-black hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
+                                            <a href={{ route('inventory-download-otherfile', $proposals->id) }} class="block text-xs px-2 hover:text-black hover:bg-gray-200 w-full text-left" x-data="{dropdownMenu: false}">Download</a>
                                             <button class="TrashButton block text-xs px-2 hover:text-black hover:bg-gray-200 w-full text-left">Trash</button>
                                         </div>
                                     </div>

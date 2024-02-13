@@ -16,7 +16,7 @@
         <div class="flex text-gray-700 mt-2 space-x-2">
             <div class="text-[.7rem] w-full">
                 <label class="block font-bold mb-2" for="description">Project ID:</label>
-                        <h1 class="text-[.8rem] py-2">{{ $proposal->id }}</h1>
+                        <h1 class="text-[.8rem] py-2">{{ $proposal->uuid }}</h1>
 
             </div>
 
@@ -159,7 +159,7 @@
             </div>
 
             <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="block text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-xs px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800" type="button">
-                Delete this Proposal
+                Trash this Proposal
             </button>
 
             <div id="popup-modal" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-80 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -175,7 +175,7 @@
                             <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                             </svg>
-                            <h3 class="mb-5 text-sm font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete this project?</h3>
+                            <h3 class="mb-5 text-sm font-normal text-gray-500 dark:text-gray-400">Are you sure you want to trash this project?</h3>
 
                             <div class="flex space-x-4 items-center justify-center">
                                 <form action={{ route('User-dashboard.delete-proposal', $proposal->id) }} method="POST">

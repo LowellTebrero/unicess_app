@@ -46,8 +46,6 @@
                     </div>
                 </div>
 
-
-
                 <a href={{route('User-dashboard.my-proposal')}} class="relative w-full rounded-lg  hover:from-red-400 hover:to-pink-500  bg-gradient-to-tl from-red-500 to-pink-400 xl:px-5  xl:py-5 2xl:px-10 2xl:py-5 flex">
 
                     <div class="flex-1 text-gray-800 flex  md:flex-col  pl-5 justify-center">
@@ -60,9 +58,7 @@
                     </div>
                 </a>
 
-
-
-                <a href={{ route('points-system.index') }} class="relative text-gray-800 w-full rounded-lg hover:from-sky-600 hover:to-sky-500  bg-gradient-to-tl from-sky-500 to-sky-400 xl:px-5  xl:py-5 2xl:px-10 2xl:py-5 flex ">
+                <a href={{ route('evaluate.index') }} class="relative text-gray-800 w-full rounded-lg hover:from-sky-600 hover:to-sky-500  bg-gradient-to-tl from-sky-500 to-sky-400 xl:px-5  xl:py-5 2xl:px-10 2xl:py-5 flex ">
                     <div class="flex-1 text-gray-800 flex  md:flex-col  pl-5 justify-center">
                         <span  class=" font-medium text-5xl 2xl:text-6xl"> @if ($latestYearPoints == null) 0 @else {{ $latestYearPoints->total_points }} @endif</span>
                         <h1 class="font-thick  tracking-wide text-xs 2xl:text-sm">Total Points</h1>

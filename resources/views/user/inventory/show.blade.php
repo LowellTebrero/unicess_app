@@ -223,8 +223,6 @@
                                 </div>
 
                                 <div class="mt-4 w-full h-[25vh] 2xl:h-[20vh] overflow-x-auto">
-
-
                                     <label class="xl:text-xs block text-white text-sm font-medium tracking-wider mb-2">Project Member <span class="text-red-500">*</span></label>
 
                                     <select name="tags[]" id="tags" class="tags w-full text-xs" multiple="multiple" required>
@@ -232,9 +230,6 @@
                                             <option value="{{ $userId }}" selected>{{ $userName }}</option>
                                         @endforeach
                                     </select>
-
-
-
                                 </div>
                             </div>
 
@@ -752,28 +747,28 @@
 
     @else
 
-    <div class="flex items-center justify-center">
-        <h1 class="text-gray-500 tracking-wide">Its Empty here </h1>
-    </div>
+        <div class="flex items-center justify-center">
+            <h1 class="text-gray-500 tracking-wide">Its Empty here </h1>
+        </div>
 
 
-    @endunlessrole
+        @endunlessrole
 
     @elseif (Auth::user()->authorize == 'close')
 
-    <div class="flex items-center justify-center h-[80vh]">
-        <div class="mt-14">
-        <iframe src="https://embed.lottiefiles.com/animation/133760"></iframe>
+        <div class="flex items-center justify-center h-[80vh]">
+            <div class="mt-14">
+            <iframe src="https://embed.lottiefiles.com/animation/133760"></iframe>
+            </div>
+            <h1 class="text-2xl text-slate-700 font-bold">
+                <span> <img src="{{ asset('img/caution-1.png') }}" class="xl:w-[4rem] " width="200" alt=""></span>
+                Your account has been declined for some reason, <br> the admin is reviewing your account details
+                <span class="block text-lg mt-3 font-medium">Here are the hint to get authorize:</span>
+                <span class="block text-sm mt-1 font-medium ml-3"><li>Select your role</li></span>
+                <span class="block text-sm mt-1 font-medium ml-3"><li>Fill out your Profile Information</li></span>
+            </h1>
         </div>
-        <h1 class="text-2xl text-slate-700 font-bold">
-            <span> <img src="{{ asset('img/caution-1.png') }}" class="xl:w-[4rem] " width="200" alt=""></span>
-            Your account has been declined for some reason, <br> the admin is reviewing your account details
-            <span class="block text-lg mt-3 font-medium">Here are the hint to get authorize:</span>
-            <span class="block text-sm mt-1 font-medium ml-3"><li>Select your role</li></span>
-            <span class="block text-sm mt-1 font-medium ml-3"><li>Fill out your Profile Information</li></span>
-        </h1>
-    </div>
-@endif
+    @endif
 </x-app-layout>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -816,8 +811,6 @@
             }
         });
     </script>
-
-
 
     <script>
         $(document).ready(function(){

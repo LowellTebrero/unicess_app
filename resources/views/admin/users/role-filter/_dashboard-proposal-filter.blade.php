@@ -25,7 +25,7 @@
                         </td>
                         <td class="p-2 lg:px-4 lg:py-4 whitespace-nowrap text-[.7rem] lg:text-xs">
                             <a href={{route('admin.inventory.show-inventory', $proposal->id)}} target="__blank">
-                                {{ Str::limit($proposal->project_title, 95)}}
+                                {{ Str::limit($proposal->project_title, 49)}}
                             </a>
                         </td>
                         <td class="p-2 lg:px-4 lg:py-4 whitespace-nowrap text-[.7rem] lg:text-xs">

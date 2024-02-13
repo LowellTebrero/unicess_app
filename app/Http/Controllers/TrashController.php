@@ -26,8 +26,8 @@ class TrashController extends Controller
        }])->orderBy('created_at', 'DESC')->distinct()->get();
        $trashedRecord = TrashedRecord::all();
 
-        // dd($trash);
-        return view('user.trash.index', compact('trash', 'proposals','trashedRecord'));
+        $mediaCollection = CollectionMedia::all();
+        return view('user.trash.index', compact('trash', 'proposals','trashedRecord','mediaCollection'));
     }
 
 

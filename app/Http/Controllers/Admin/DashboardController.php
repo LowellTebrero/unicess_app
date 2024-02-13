@@ -90,76 +90,39 @@ class DashboardController extends Controller
         if ($request->hasFile('proposal_pdf')) {
             $post->addMediaFromRequest('proposal_pdf')->usingName('proposal')->usingFileName($request->project_title.'_proposal.pdf')->toMediaCollection('proposalPdf');
         }
-
         if ($request->hasFile('moa_pdf')) {
             $post->clearMediaCollection('MoaPDF');
             $post->addMediaFromRequest('moa_pdf')->usingName('moa')->usingFileName($request->project_title.'_moa.pdf')->toMediaCollection('MoaPDF');
         }
-
         if ($specialorder = $request->file('special_order_pdf')) {
 
-            $special = new ProposalFiles();
-            $special->user_id  = auth()->id();
-            $special->proposal_id  = $post->id;
-            $special->document_type  = 'specialorder';
-            $special->save();
-
             foreach ($specialorder as $specials) {
-                $special->addMedia($specials)->usingName('special_order_pdf')->toMediaCollection('specialOrderPdf');
+                $post->addMedia($specials)->usingName('special_order_pdf')->toMediaCollection('specialOrderPdf');
             }
         }
-
         if ($travelorder = $request->file('travel_order_pdf')) {
-
-            $travel = new ProposalFiles();
-            $travel->user_id  = auth()->id();
-            $travel->proposal_id  = $post->id;
-            $travel->document_type  = 'travelorder';
-            $travel->save();
-
             foreach ($travelorder as $travels) {
-                $travel->addMedia($travels)->usingName('travel_order_pdf')->toMediaCollection('travelOrderPdf');
+                $post->addMedia($travels)->usingName('travel_order_pdf')->toMediaCollection('travelOrderPdf');
             }
         }
-
         if ($officeorder = $request->file('office_order_pdf')) {
 
-            $office = new ProposalFiles();
-            $office->user_id  = auth()->id();
-            $office->proposal_id  = $post->id;
-            $office->document_type  = 'officeorder';
-            $office->save();
-
             foreach ($officeorder as $offices) {
-                $office->addMedia($offices)->usingName('office_order_pdf')->toMediaCollection('officeOrderPdf');
+                $post->addMedia($offices)->usingName('office_order_pdf')->toMediaCollection('officeOrderPdf');
             }
         }
-
         if ($attendance = $request->file('attendance')) {
 
-            $attend = new ProposalFiles();
-            $attend->user_id  = auth()->id();
-            $attend->proposal_id  = $post->id;
-            $attend->document_type  = 'attendance';
-            $attend->save();
-
             foreach ($attendance as $attends) {
-                $attend->addMedia($attends)->usingName('attendance')->toMediaCollection('Attendance');
+                $post->addMedia($attends)->usingName('attendance')->toMediaCollection('Attendance');
             }
         }
         if ($attendancem = $request->file('attendancem')) {
 
-            $attendances = new ProposalFiles();
-            $attendances->user_id  = auth()->id();
-            $attendances->proposal_id  = $post->id;
-            $attendances->document_type  = 'attendancem';
-            $attendances->save();
-
             foreach ($attendancem as $attendm) {
-                $attendances->addMedia($attendm)->usingName('attendancemonitoring')->toMediaCollection('AttendanceMonitoring');
+                $post->addMedia($attendm)->usingName('attendancemonitoring')->toMediaCollection('AttendanceMonitoring');
             }
         }
-
         if ($files = $request->file('other_files')) {
 
             foreach ($files as $file) {
@@ -168,13 +131,25 @@ class DashboardController extends Controller
         }
 
 
-
-
         AdminProgramServices::create([
             'proposal_id' => $post->id,
             'title' => $post->project_title,
             'status' => $post->programs->program_name,
         ]);
+
+        // Get the year from the created_at timestamp of the Proposal
+        $year = Carbon::parse($post->created_at)->format('Y');
+
+        // Check if the year already exists in the AdminYear database
+        $existingYear = AdminYear::where('year', $year)->first();
+
+        // If the year does not exist, save it to the AdminYear database
+        if (!$existingYear) {
+            AdminYear::create([
+                'year' => $year,
+        ]);
+
+        }
 
         $admin = User::whereHas('roles', function ($query) { $query->where('id', 1);})->get();
 
@@ -314,65 +289,37 @@ class DashboardController extends Controller
 
         if ($specialorder = $request->file('special_order_pdf')) {
 
-            $special = new ProposalFiles();
-            $special->user_id  = auth()->id();
-            $special->proposal_id  = $proposals->id;
-            $special->document_type  = 'specialorder';
-            $special->save();
-
             foreach ($specialorder as $specials) {
-                $special->addMedia($specials)->usingName('special_order')->toMediaCollection('specialOrderPdf');
+                $proposals->addMedia($specials)->usingName('special_order')->toMediaCollection('specialOrderPdf');
             }
         }
 
         if ($travelorder = $request->file('travel_order_pdf')) {
 
-            $travel = new ProposalFiles();
-            $travel->user_id  = auth()->id();
-            $travel->proposal_id  = $proposals->id;
-            $travel->document_type  = 'travelorder';
-            $travel->save();
-
             foreach ($travelorder as $travels) {
-                $travel->addMedia($travels)->usingName('travel_order_pdf')->toMediaCollection('travelOrderPdf');
+                $proposals->addMedia($travels)->usingName('travel_order_pdf')->toMediaCollection('travelOrderPdf');
             }
         }
 
         if ($officeorder = $request->file('office_order_pdf')) {
 
-            $office = new ProposalFiles();
-            $office->user_id  = auth()->id();
-            $office->proposal_id  = $proposals->id;
-            $office->document_type  = 'officeorder';
-            $office->save();
 
             foreach ($officeorder as $offices) {
-                $office->addMedia($offices)->usingName('office_order_pdf')->toMediaCollection('officeOrderPdf');
+                $proposals->addMedia($offices)->usingName('office_order_pdf')->toMediaCollection('officeOrderPdf');
             }
         }
 
         if ($attendance = $request->file('attendance')) {
 
-            $attend = new ProposalFiles();
-            $attend->user_id  = auth()->id();
-            $attend->proposal_id  = $proposals->id;
-            $attend->document_type  = 'attendance';
-            $attend->save();
 
             foreach ($attendance as $attends) {
-                $attend->addMedia($attends)->usingName('attendance')->toMediaCollection('Attendance');
+                $proposals->addMedia($attends)->usingName('attendance')->toMediaCollection('Attendance');
             }
         }
         if ($attendancem = $request->file('attendancem')) {
 
-            $attendances = new ProposalFiles();
-            $attendances->user_id  = auth()->id();
-            $attendances->proposal_id  = $proposals->id;
-            $attendances->document_type  = 'attendancem';
-            $attendances->save();
-
             foreach ($attendancem as $attendm) {
-                $attendances->addMedia($attendm)->usingName('attendancemonitoring')->toMediaCollection('AttendanceMonitoring');
+                $proposals->addMedia($attendm)->usingName('attendancemonitoring')->toMediaCollection('AttendanceMonitoring');
             }
         }
 

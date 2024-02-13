@@ -19,6 +19,6 @@
 
     <div>
         <h1 class="text-xs xl:text-sm">Period of Evaluation: SY: </h1>
-        <input class="shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="period_of_evaluation" type="text" required>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3  leading-tight text-sm" name="period_of_evaluation" placeholder="e.g. 2024-2025" type="text" required>
     </div>
 </div>

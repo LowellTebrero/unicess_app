@@ -16,7 +16,6 @@ class AdminCalendarController extends Controller
         foreach ($appointments as $appointment) {
             $events[] = [
                 'title' => $appointment->title,
-                'description' => $appointment->description,
                 'start' => $appointment->start_time,
                 'end' => $appointment->finish_time,
             ];
@@ -28,7 +27,6 @@ class AdminCalendarController extends Controller
     {
         $data = $request->validate([
             'title' => 'required',
-            'description' => 'required',
             'start_time' => 'required|date',
             'end_time' => 'required|date|after:start_time',
         ]);
@@ -44,13 +42,11 @@ class AdminCalendarController extends Controller
         $request->validate([
 
             'title' => 'required',
-            'description' => 'required',
         ]);
 
         AdminCalendar::where('id', $id)->update([
 
             'title' => $request->title,
-            'description' => $request->description,
             'start_time' => $request->start_time,
             'end_time' => $request->end_time,
         ]);

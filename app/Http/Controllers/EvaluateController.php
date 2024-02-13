@@ -572,13 +572,12 @@ class EvaluateController extends Controller
         }
 
 
-
+        flash()->addSuccess('Evaluation Created Successfully.');
         return redirect(route('evaluate.index'));
     }
 
 
     public function evaluatePdf($id){
-
 
         $evaluations = Evaluation::where('id', $id)->firstOrFail();
         $createdAt = Carbon::parse($evaluations->created_at)->format('Y-m-d');

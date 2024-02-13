@@ -31,7 +31,6 @@ class TagUserController extends Controller
 
         if($search=$request->name){
             $tags = User::where('name', 'LIKE', "%$search%")->get();
-
         }
 
         return response()->json($tags);

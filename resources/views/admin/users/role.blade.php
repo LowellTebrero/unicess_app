@@ -89,10 +89,10 @@
             </div>
         </div>
 
-        <div class="lg:space-x-0 lg:space-y-3 xl:space-x-4 xl:space-y-0 flex-col xl:flex-row 2xl:space-x-2 2xl:p-7 p-4 xl:p-4 xl:pt-0 2xl:pt-4 pt-0  flex text-gray-700 pb-0 bg-blue-500">
+        <div class="lg:space-x-0 lg:space-y-3 xl:space-x-4 xl:space-y-0 flex-col xl:flex-row 2xl:space-x-2 2xl:p-7 p-4 xl:p-4 xl:pt-0 2xl:pt-4 pt-0  flex text-gray-700 pb-0">
 
             <div class="flex space-y-0 xl:space-x-0 xl:space-y-3 flex-row xl:flex-col rounded-lg 2xl:w-[30rem] xl:w-[20rem] 2xl:p-5 space-x-3 lg:space-x-4 xl:pt-2 ">
-                <div class="bg-white full rounded shadow xl:py-2 2xl:py-4 p-4 lg:space-y-1 2xl:space-x-2 w-full 2xl:h-full">
+                <div class="bg-white border full rounded xl:py-2 2xl:py-4 p-4 lg:space-y-1 2xl:space-x-2 w-full 2xl:h-full">
                     <div class="flex justify-between items-center">
                         <h1 class="tracking-wider 2xl:text-lg text-sm">Basic Information</h1>
                       <h1 class="2xl:text-[.7rem] text-[.6rem] tracking-wider"> Joined: {{ $user->created_at->diffForHumans() }}</h1>
@@ -108,7 +108,7 @@
 
                 </div>
 
-                <div class="bg-white lg:mt-4 rounded shadow xl:py-2 2xl:py-4 p-4 lg:space-y-1 2xl:space-x-2 w-full 2xl:h-full">
+                <div class="bg-white border lg:mt-4 rounded xl:py-2 2xl:py-4 p-4 lg:space-y-1 2xl:space-x-2 w-full 2xl:h-full">
                     <h1 class="tracking-wider text-sm 2xl:text-base">Address Information</h1>
                     <hr>
                     <h1 class="text-[.6rem] xl:text-[.67rem] 2xl:text-xs tracking-wider"> Contact no.:  {{ $user->contact_number == null ? 'N/A' : $user->contact_number }}</h1>
@@ -134,7 +134,7 @@
             <div class="rounded-lg flex-auto lg:w-auto xl:w-56 2xl:w-64 2xl:p-5 p-2 xl:p-4  xl:pt-2 xl:px-0 ">
                 @foreach ($customs as $custom )
                     @if ($custom->number == '1')
-                    <div class="bg-white rounded p-4">
+                    <div class="bg-white rounded border p-4">
                         <div class="flex justify-between items-center mb-1">
                            <h1 class="tracking-wider text-[.7rem] 2xl:text-base">Projects</h1>
                            <div>
@@ -168,12 +168,11 @@
                    </div>
                    @elseif ($custom->number == '2')
 
-                   <div class="bg-white rounded p-4 h-full">
+                   <div class="bg-white rounded border p-4 h-full">
                     <div class="flex justify-between items-center mb-1">
                        <h1 class="tracking-wider text-xs 2xl:text-sm">Evaluation Overview</h1>
                        <div>
                             <select  class="text-xs border-gray-400 rounded-md" id="EvaluationYears">
-                               <option value="">All Year</option>
                                @foreach ($years as $year )
                                    <option value="{{ $year }}" >{{ $year }}</option>
                                @endforeach

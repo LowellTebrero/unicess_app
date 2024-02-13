@@ -12,7 +12,6 @@
                     <div class="sm:space-x-2 space-y-2">
                         <input id="searchInput"  class="text-xs rounded border border-slate-400 sm:w-[15rem] xl:w-[20rem] w-full" type="text" placeholder="Search Project Title...">
                         <select name="Years" id="Years" class="md:text-xs text-xs  border-slate-400 rounded w-full sm:w-[8rem]">
-                            <option value="">All Year</option>
                             @foreach ($years as $year )
                             <option value="{{ $year }}" @if ($year == date('Y')) selected="selected" @endif >{{ $year }}</option>
                             @endforeach

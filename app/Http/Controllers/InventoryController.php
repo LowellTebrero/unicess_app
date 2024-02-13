@@ -187,123 +187,57 @@ class InventoryController extends Controller
         return MediaStream::create($proposals->project_title.'-'.'otherFile.zip')->addMedia($downloads);
     }
 
+
+    // Download by Zip
     public function downloadNarrative($id){
 
-        $narratives = Proposal::where('proposal_id', $id)
-        ->where('document_type', 'narrativereport')->get();
-
-        if ($narratives->isNotEmpty()) {
-            $downloads = collect();
-
-            foreach ($narratives as $narrative) {
-                $downloads = $downloads->merge($narrative->getMedia('NarrativeFile'));
-            }
-
-            return MediaStream::create($narratives->first()->proposals->project_title . '-NarrativeFiles.zip')
-            ->addMedia($downloads);
-        }
+        $proposals = Proposal::findorFail($id);
+        $downloads = $proposals->getMedia('NarrativeFile');
+        return MediaStream::create($proposals->project_title.'-'.'NarrativeFile.zip')->addMedia($downloads);
     }
 
     public function downloadTerminal($id){
 
-        $terminals = Proposal::where('proposal_id', $id)
-        ->where('document_type', 'terminalreport')->get();
+        $proposals = Proposal::findorFail($id);
+        $downloads = $proposals->getMedia('TerminalFile');
+        return MediaStream::create($proposals->project_title.'-'.'TerminalFile.zip')->addMedia($downloads);
 
-        if ($terminals->isNotEmpty()) {
-            $downloads = collect();
-
-            foreach ($terminals as $terminal) {
-                $downloads = $downloads->merge($terminal->getMedia('TerminalFile'));
-            }
-
-            return MediaStream::create($terminals->first()->proposals->project_title . '-TerminalFiles.zip')
-            ->addMedia($downloads);
-        }
     }
 
     public function downloadTravelorder($id){
 
-        $travelorders = Proposal::where('proposal_id', $id)
-        ->where('document_type', 'travelorder')->get();
-
-        if ($travelorders->isNotEmpty()) {
-            $downloads = collect();
-
-            foreach ($travelorders as $travelorder) {
-                $downloads = $downloads->merge($travelorder->getMedia('travelOrderPdf'));
-            }
-
-            return MediaStream::create($travelorders->first()->proposals->project_title . '-TravelOrderFiles.zip')
-            ->addMedia($downloads);
-        }
+        $proposals = Proposal::findorFail($id);
+        $downloads = $proposals->getMedia('travelOrderPdf');
+        return MediaStream::create($proposals->project_title.'-'.'travelOrderPdf.zip')->addMedia($downloads);
     }
 
     public function downloadSpecialorder($id){
 
-        $specialorders = Proposal::where('proposal_id', $id)
-        ->where('document_type', 'specialorder')->get();
-
-        if ($specialorders->isNotEmpty()) {
-            $downloads = collect();
-
-            foreach ($specialorders as $specialorder) {
-                $downloads = $downloads->merge($specialorder->getMedia('specialOrderPdf'));
-            }
-
-            return MediaStream::create($specialorders->first()->proposals->project_title . '-SpecialOrderFiles.zip')
-            ->addMedia($downloads);
-        }
+        $proposals = Proposal::findorFail($id);
+        $downloads = $proposals->getMedia('specialOrderPdf');
+        return MediaStream::create($proposals->project_title.'-'.'specialOrderPdf.zip')->addMedia($downloads);
     }
 
     public function downloadOfficeorder($id){
 
-        $officeorders = Proposal::where('proposal_id', $id)
-        ->where('document_type', 'officeorder')->get();
 
-        if ($officeorders->isNotEmpty()) {
-            $downloads = collect();
-
-            foreach ($officeorders as $officeorder) {
-                $downloads = $downloads->merge($officeorder->getMedia('officeOrderPdf'));
-            }
-
-            return MediaStream::create($officeorders->first()->proposals->project_title . '-OfficeOrderFiles.zip')
-            ->addMedia($downloads);
-        }
+        $proposals = Proposal::findorFail($id);
+        $downloads = $proposals->getMedia('officeOrderPdf');
+        return MediaStream::create($proposals->project_title.'-'.'officeOrderPdf.zip')->addMedia($downloads);
     }
 
     public function downloadAttendance($id){
 
-        $attedance = Proposal::where('proposal_id', $id)
-        ->where('document_type', 'attendance')->get();
-
-        if ($attedance->isNotEmpty()) {
-            $downloads = collect();
-
-            foreach ($attedance as $attend) {
-                $downloads = $downloads->merge($attend->getMedia('Attendance'));
-            }
-
-            return MediaStream::create($attedance->first()->proposals->project_title . '-AttendanceFiles.zip')
-            ->addMedia($downloads);
-        }
+        $proposals = Proposal::findorFail($id);
+        $downloads = $proposals->getMedia('Attendance');
+        return MediaStream::create($proposals->project_title.'-'.'Attendance.zip')->addMedia($downloads);
     }
 
     public function downloadAttendancem($id){
 
-        $attedances = Proposal::where('proposal_id', $id)
-        ->where('document_type', 'attendancem')->get();
-
-        if ($attedances->isNotEmpty()) {
-            $downloads = collect();
-
-            foreach ($attedances as $attend) {
-                $downloads = $downloads->merge($attend->getMedia('AttendanceMonitoring'));
-            }
-
-            return MediaStream::create($attedances->first()->proposals->project_title . '-AttendanceMonitoringFiles.zip')
-            ->addMedia($downloads);
-        }
+        $proposals = Proposal::findorFail($id);
+        $downloads = $proposals->getMedia('AttendanceMonitoring');
+        return MediaStream::create($proposals->project_title.'-'.'AttendanceMonitoring.zip')->addMedia($downloads);
     }
 
     // Download All

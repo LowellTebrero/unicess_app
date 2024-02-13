@@ -85,7 +85,6 @@
                 <div>
                     <input type="text"  class="text-xs border-slate-500 rounded-lg w-[20rem]" placeholder="Search Filename..." id="searchInput">
                     <select class="text-xs border-slate-500 rounded-lg" id="MyYear">
-                        <option {{ '' == request('selected_value') ? 'selected ' : '' }} value="">Select Year</option>
                         @foreach ($years as $year )
                         <option value="{{ $year }}">{{ $year }}</option>
                         @endforeach

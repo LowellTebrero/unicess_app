@@ -19,7 +19,6 @@
                                 <input type="text" id="searchInput" class="rounded text-xs border-gray-300 w-full  sm:w-[15rem] md:w-[20rem]" placeholder="Search Project Title...">
 
                                 <select name="MyAllDropdown" id="MyAllDropdown" class="text-xs border-gray-300 rounded w-full 2xl:w-[7rem] sm:w-[8rem]">
-                                    <option value="">All Year</option>
                                         @foreach ($years as $year )
                                     <option value="{{ $year }}">{{ $year }}</option>
                                     @endforeach

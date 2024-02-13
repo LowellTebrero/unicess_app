@@ -58,13 +58,7 @@ class ProfileRoleController extends Controller
         $request->validate([
 
             'role' => ['required'],
-            'faculty_id' => Rule::requiredIf(function ()  {
-                return in_array(request()->role,['Faculty extensionist','Extension coordinator','nullable']);
-            }),
-
-            'parnters_id' => Rule::requiredIf(function ()  {
-                return in_array(request()->role,['Parnters/Linkages','nullable']);
-            }),
+            'faculty_id' => ['required'],
 
         ]);
         $user = User::find($id);
@@ -75,24 +69,13 @@ class ProfileRoleController extends Controller
         if($faculties = ($request->input('faculty_id'))){
             $request->input('faculty_id');
             $request->faculty_id;
-            $user->partners_id = null;
-            $user->save();
-        }
-
-        if($partners = ($request->input('partners_id'))){
-            $request->input('partners_id');
-            $request->partners_id;
-            $user->faculty_id = null;
             $user->save();
         }
 
 
         User::where('id', $id)->update([
 
-
         'faculty_id' => $faculties,
-
-        'partners_id' => $partners,
         ]);
 
 

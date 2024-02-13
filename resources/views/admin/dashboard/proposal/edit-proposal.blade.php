@@ -706,7 +706,7 @@
                                                     </li>
                                                     @endif
                                                 @endforeach
-                                            /ul>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
@@ -783,7 +783,7 @@
                             <button class="openbtn" onclick="openNav()">☰</button>
                         </div>
 
-                        {{--  Media  --}}
+                        <!-- Media -->
                         <div class="overflow-x-auto h-[74vh] 2xl:h-[77vh]">
                             <div class="flex py-3 items-center flex-wrap px-2">
 
@@ -1679,7 +1679,7 @@
                                                                         </svg>
                                                                         </div>
 
-                                                                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                                                        {{--  <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
                                                                         <defs>
                                                                             <filter id="goo-12">
                                                                             <feGaussianBlur result="blur" stdDeviation="4" in="SourceGraphic"></feGaussianBlur>
@@ -1687,10 +1687,10 @@
                                                                             <feBlend in2="goo-12" in="SourceGraphic"></feBlend>
                                                                             </filter>
                                                                         </defs>
-                                                                        </svg>
+                                                                        </svg>  --}}
                                                                     </div>
 
-                                                                    <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0">
+                                                                    <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0 top-0">
                                                                         <!-- Dropdown toggle button -->
                                                                         <button @click="dropdownMenu = ! dropdownMenu" class="dropdownButtons  flex items-center p-2 rounded-md" style="display: block">
                                                                             <svg class=" absolute hover:fill-blue-600 top-2 right-0 fill-slate-500" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z"/></svg>
@@ -1945,7 +1945,7 @@
                                                                         </svg>  --}}
                                                                     </div>
 
-                                                                    <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0">
+                                                                    <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0 top-0">
                                                                         <!-- Dropdown toggle button -->
                                                                         <button @click="dropdownMenu = ! dropdownMenu" class="dropdownButtons  flex items-center p-2 rounded-md" style="display: block">
                                                                             <svg class=" absolute hover:fill-blue-600 top-2 right-0 fill-slate-500" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z"/></svg>
@@ -2199,7 +2199,7 @@
                                                                         </svg>  --}}
                                                                     </div>
 
-                                                                    <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0">
+                                                                    <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0 top-0">
                                                                         <!-- Dropdown toggle button -->
                                                                         <button @click="dropdownMenu = ! dropdownMenu" class="dropdownButtons  flex items-center p-2 rounded-md" style="display: block">
                                                                             <svg class=" absolute hover:fill-blue-600 top-2 right-0 fill-slate-500" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z"/></svg>
@@ -2453,7 +2453,7 @@
                                                                         </svg>  --}}
                                                                     </div>
 
-                                                                    <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0">
+                                                                    <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0 top-0">
                                                                         <!-- Dropdown toggle button -->
                                                                         <button @click="dropdownMenu = ! dropdownMenu" class="dropdownButtons  flex items-center p-2 rounded-md" style="display: block">
                                                                             <svg class=" absolute hover:fill-blue-600 top-2 right-0 fill-slate-500" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z"/></svg>
@@ -2708,7 +2708,7 @@
                                                                         </svg>  --}}
                                                                     </div>
 
-                                                                    <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0">
+                                                                    <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0 top-0">
                                                                         <!-- Dropdown toggle button -->
                                                                         <button @click="dropdownMenu = ! dropdownMenu" class="dropdownButtons  flex items-center p-2 rounded-md" style="display: block">
                                                                             <svg class=" absolute hover:fill-blue-600 top-2 right-0 fill-slate-500" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z"/></svg>
@@ -2965,7 +2965,7 @@
                                                                         </svg>  --}}
                                                                     </div>
 
-                                                                        <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0">
+                                                                        <div x-cloak x-data="{dropdownMenu: false}" class=" absolute right-0 top-0">
                                                                             <!-- Dropdown toggle button -->
                                                                             <button @click="dropdownMenu = ! dropdownMenu" class="dropdownButtons  flex items-center p-2 rounded-md" style="display: block">
                                                                                 <svg class=" absolute hover:fill-blue-600 top-2 right-0 fill-slate-500" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z"/></svg>

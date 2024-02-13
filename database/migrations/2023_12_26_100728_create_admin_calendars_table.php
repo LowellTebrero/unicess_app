@@ -15,8 +15,7 @@ return new class extends Migration
     {
         Schema::create('admin_calendars', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('description')->nullable();
+            $table->text('title');
             $table->dateTime('start_time');
             $table->dateTime('end_time');
             $table->timestamps();
