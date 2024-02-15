@@ -29,7 +29,7 @@
                                     <h1 class="text-xs 2xl:text-sm tracking-wider">Created: {{ \Carbon\Carbon::parse($firstSemesterEvaluations->created_at)->format('M d, y g:i:s A') }}</h1>
                                 </div>
                                 <div>
-                                    <h1 class="text-xs">UUID : {{ $firstSemesterEvaluations->uuid }}</h1>
+                                    <h1 class="text-xs">ID : {{ $firstSemesterEvaluations->uuid }}</h1>
                                     <h1 class="text-xs tracking-wider">Status : {{ $firstSemesterEvaluations->status }}</h1>
                                 </div>
                                 <div>
@@ -60,7 +60,7 @@
                                     <h1 class="text-xs 2xl:text-sm tracking-wider">Created: {{ \Carbon\Carbon::parse($firstSemesterEvaluations->created_at)->format('M d, y g:i:s A') }}</h1>
                                 </div>
                                 <div>
-                                    <h1 class="text-xs">UUID : {{ $firstSemesterEvaluations->uuid }}</h1>
+                                    <h1 class="text-xs">ID : {{ $firstSemesterEvaluations->uuid }}</h1>
                                     <h1 class="text-xs tracking-wider">Status : {{ $firstSemesterEvaluations->status }}</h1>
                                 </div>
                                 <div>
@@ -113,7 +113,7 @@
                                     <h1 class="text-xs 2xl:text-sm tracking-wider">Created: {{ \Carbon\Carbon::parse($secondSemesterEvaluations->created_at)->format('M d, y g:i:s A') }}</h1>
                                 </div>
                                 <div>
-                                    <h1 class="text-xs">UUID : {{ $secondSemesterEvaluations->uuid }}</h1>
+                                    <h1 class="text-xs">ID : {{ $secondSemesterEvaluations->uuid }}</h1>
                                     <h1 class="text-xs tracking-wider">Status : {{ $secondSemesterEvaluations->status }}</h1>
                                 </div>
                                 <div>
@@ -146,7 +146,7 @@
                                     <h1 class="text-xs 2xl:text-sm tracking-wider">Created: {{ \Carbon\Carbon::parse($secondSemesterEvaluations->created_at)->format('M d, y g:i:s A') }}</h1>
                                 </div>
                                 <div>
-                                    <h1 class="text-xs">UUID : {{ $secondSemesterEvaluations->uuid }}</h1>
+                                    <h1 class="text-xs">ID : {{ $secondSemesterEvaluations->uuid }}</h1>
                                     <h1 class="text-xs tracking-wider">Status : {{ $secondSemesterEvaluations->status }}</h1>
                                 </div>
                                 <div>

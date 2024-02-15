@@ -1,4 +1,4 @@
-<div class="flex space-x-4  m-5 mx-0 h-[9vh] text-gray-700 ">
+{{--  <div class="flex space-x-4  m-5 mx-0 h-[9vh] text-gray-700 ">
 
     <div class="bg-slate-100 p-5 px-8 w-[10rem] hover:bg-white hover:border hover:border-teal-300 rounded-lg text-xs flex 2xl:flex-col flex-row items-center space-x-2 2xl:space-x-0 xl:space-y-0 2xl:space-y-2">
         <h1 class="tracking-wider">Pending</h1>
@@ -16,10 +16,10 @@
         <h1 class="tracking-wider">Total</h1>
         <h1 class="text-xl">{{ $statusCount }}</h1>
     </div>
-</div>
+</div>  --}}
 
 
-<div class="p-3 pt-0 px-0 overflow-x-auto h-[50vh] 2xl:h-[55vh] rounded-lg border  w-full">
+<div class="p-3 pt-0 px-0 overflow-x-auto h-[25vh] 2xl:h-[35vh] rounded-lg border  w-full">
     <table class="table-auto w-full relative">
         <thead
             class="text-[.7rem] font-semibold uppercase text-gray-400 bg-gray-50 top-0 sticky z-10">

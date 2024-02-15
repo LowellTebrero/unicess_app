@@ -1,3 +1,4 @@
+
 <x-app-layout>
 
     <section class="mt-4 2x:mt-5 m-8 rounded-lg 2xl:h-[87vh] h-[82vh] relative bg-white">
@@ -11,20 +12,33 @@
         </header>
         <hr>
 
-        <div class="rounded m-8">
-            <div class="flex justify-end">
+        <div class="flex justify-end absolute top-[4.5rem] 2xl:top-[5rem] right-4">
+            <div>
+                <input type="text" class="text-xs rounded border-gray-400 text-gray-700" placeholder="Search Project title..." id="searchInput">
+                <select class="text-xs rounded text-gray-500 border-gray-400" id="Year">
+                    @foreach ($years as $year )
+                        <option value="{{$year}}" @if ($year == date('Y')) selected="selected" @endif >{{ $year }}</option>
+                    @endforeach
+                </select>
+            </div>
 
-                <div>
-                    <input type="text" class="text-xs rounded border-gray-400 text-gray-700" placeholder="Search Project title..." id="searchInput">
-                    <select class="text-xs rounded text-gray-500 border-gray-400" id="Year" >
-                         <option value="">All Year</option>
-                        @foreach ($years as $year )
-                            <option value="{{$year}}" @if ($year == date('Y')) selected="selected" @endif >{{ $year }}</option>
-                        @endforeach
-                    </select>
+        </div>
+
+        <div class="rounded m-8 mt-0 2xl:mt-4 ">
+
+            <div class="flex space-x-10  items-center ">
+
+                <div class="h-[40vh] 2xl:h-full w-[15rem] 2xl:w-[25rem] flex items-center justify-center">
+                    <canvas id="myChartDoughnut"></canvas>
                 </div>
 
+                <div class=" h-[40vh] 2xl:h-full  w-[35rem] 2xl:w-[48rem] mt-5 2xl:mt-0">
+                    <canvas id="myChartBar"></canvas>
+
+                </div>
             </div>
+
+
 
             <div id="filtered-data">
                 @include('user.dashboard.MyProposal._filter-dashboard')
@@ -61,7 +75,6 @@
 
         });
 
-
         $(document).ready(function () {
             $('#Year').on('change', function () {
                 var selected_value = $(this).val();
@@ -83,4 +96,95 @@
             });
         });
     </script>
+
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            var labels =  {{ Js::from($labels) }};
+            var users =  {{ Js::from($data) }};
+
+            const ctx = document.getElementById('myChartDoughnut');
+            const myChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Status Count of Project',
+                        data: users,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1,
+                    }]
+                },
+                options: {
+                    maintainAspectRation: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            align: 'start',
+                        }
+                    }
+                }
+            });
+        }, true);
+    </script>
+
+     <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+       
+            var labels =  {{ Js::from($DateCountlabels) }};
+            var users =  {{ Js::from($DateCountdata) }};
+
+            const ctx = document.getElementById('myChartBar');
+            const myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Count of Project by Month',
+                        data: users,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1,
+                    }]
+                },
+                options: {
+                    maintainAspectRation: false,
+                }
+            });
+        }, true);
+    </script>
+
+
+
+
 </x-app-layout>
+
+

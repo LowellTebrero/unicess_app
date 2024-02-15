@@ -10,15 +10,15 @@ use Illuminate\Notifications\Notification;
 class UserTagRemoveProposalNotification extends Notification
 {
     use Queueable;
-    public $user;
+    public $model;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($user)
+    public function __construct($model)
     {
-        $this->user = $user;
+        $this->model = $model;
     }
 
     /**
@@ -49,8 +49,8 @@ class UserTagRemoveProposalNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-
-            'remove_proposal_id' => $this->user->proposal_id,
+            'remove_tag_id' => $this->model->user_id,
+            'remove_proposal_id' => $this->model->proposal_id,
             'message' => 'Remove',
         ];
     }

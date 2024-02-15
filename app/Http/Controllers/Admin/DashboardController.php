@@ -31,6 +31,7 @@ use App\Models\UserAttendanceMonitoring;
 use App\Notifications\ProposalNotification;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\UserTagProposalNotification;
+use App\Notifications\UserTagRemoveProposalNotification;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class DashboardController extends Controller
@@ -54,20 +55,20 @@ class DashboardController extends Controller
     {
         $request->validate([
 
-        'program_id' => 'required',
-        'project_title' => ['regex:/^[^<>?:|\/"*]+$/','required','min:6' ,Rule::unique('proposals'), new UniqueTitle],
-        'proposal_pdf' => "required_without_all:special_order_pdf,moa_pdf,office_order_pdf,travel_order_pdf,other_files,attendance,attendancem|file|mimes:pdf|max:10048",
-        'moa_pdf' => "required_without_all:proposal_pdf,special_order_pdf,office_order_pdf,travel_order_pdf,other_files,attendance,attendancem|file|mimes:pdf|max:10048",
-        'other_files' => "required_without_all:proposal_pdf,special_order_pdf,moa_pdf,office_order_pdf,travel_order_pdf,attendance,attendancem|max:10048",
-        'office_order_pdf' => "max:10048",
-        'travel_order_pdf' => "max:10048",
-        'special_order_pdf' => "max:10048",
-        'attendance' => "max:10048",
-        'attendancem' => "max:10048",
-        ],
-        [
-        'required_without_all' => 'Please upload at least one file among Proposal PDF, Special Order PDF, MOA PDF, Office Order PDF, Travel Order PDF.',
-        'project_title.regex' => 'Invalid characters: \ / : * ? " < > |',
+            'program_id' => 'required',
+            'project_title' => ['regex:/^[^<>?:|\/"*]+$/','required','min:6' ,Rule::unique('proposals'), new UniqueTitle],
+            'proposal_pdf' => "required_without_all:special_order_pdf,moa_pdf,office_order_pdf,travel_order_pdf,other_files,attendance,attendancem|file|mimes:pdf|max:10048",
+            'moa_pdf' => "required_without_all:proposal_pdf,special_order_pdf,office_order_pdf,travel_order_pdf,other_files,attendance,attendancem|file|mimes:pdf|max:10048",
+            'other_files' => "required_without_all:proposal_pdf,special_order_pdf,moa_pdf,office_order_pdf,travel_order_pdf,attendance,attendancem|max:10048",
+            'office_order_pdf' => "max:10048",
+            'travel_order_pdf' => "max:10048",
+            'special_order_pdf' => "max:10048",
+            'attendance' => "max:10048",
+            'attendancem' => "max:10048",
+            ],
+            [
+            'required_without_all' => 'Please upload at least one file among Proposal PDF, Special Order PDF, MOA PDF, Office Order PDF, Travel Order PDF.',
+            'project_title.regex' => 'Invalid characters: \ / : * ? " < > |',
         ]);
 
         $uuid = Str::random(7);
@@ -81,11 +82,19 @@ class DashboardController extends Controller
         $post->save();
 
         foreach ($request->tags as $tag) {
-            ProposalMember::create([
+
+            $model = ProposalMember::create([
                 'proposal_id' => $post->id, // Set proposal_id to the newly created proposal's ID
                 'user_id' => $tag, // Set user_id to the current tag (user's ID)
             ]);
+
+            $users = User::where('id',$tag)->get();
+            Notification::send($users, new ProposalNotification($post));
         }
+
+        $admin = User::whereHas('roles', function ($query) { $query->where('id', 1);})->get();
+        Notification::send($admin, new ProposalNotification($post));
+
 
         if ($request->hasFile('proposal_pdf')) {
             $post->addMediaFromRequest('proposal_pdf')->usingName('proposal')->usingFileName($request->project_title.'_proposal.pdf')->toMediaCollection('proposalPdf');
@@ -151,57 +160,13 @@ class DashboardController extends Controller
 
         }
 
-        $admin = User::whereHas('roles', function ($query) { $query->where('id', 1);})->get();
-
-        Notification::send($admin, new ProposalNotification($post));
-
-
-
-
-        // if($request->member !== null){
-
-        //     foreach ($request->member as $item) {
-
-        //         $model = new ProposalMember();
-        //         $model->proposal_id = $post->id;
-        //         $model->user_id = $item['id'];
-        //         $model->save();
-
-
-        //         $users = User::where('id', $item['id'])->get();
-        //         Notification::send($users, new UserTagProposalNotification($model));
-
-        //         $duplicateCount = DB::table('notifications')
-        //         ->whereJsonContains('data->tag_id', $item['id'])
-        //         ->whereJsonContains('data->proposal_id', $post->id)
-        //         ->count();
-
-        //         if ($duplicateCount > 1) {
-        //             // Use the offset method to skip the first occurrence
-        //             $firstDuplicate = DB::table('notifications')
-        //             ->whereJsonContains('data->tag_id', $item['id'])
-        //             ->whereJsonContains('data->proposal_id', $post->id)
-        //             ->offset(1)
-        //             ->first();
-
-        //             // Delete the second occurrence of duplicated data
-        //             DB::table('notifications')->where('id', $firstDuplicate->id)->delete();
-        //         }
-
-        //     }
-
-        //     ProposalMember::whereNull('user_id')->where('proposal_id', $post->id)->delete();
-
-        // }
 
         flash()->addSuccess('Project Uploaded Successfully.');
-
-
         return redirect(route('admin.dashboard.index'));
     }
 
     //  Edit Proposal
-    public function checkProposal(Request $request, $id, $notification )
+    public function checkProposal(Request $request, $id )
     {
         $users = User::all();
         $proposal = Proposal::where('id', $id)->first();
@@ -237,10 +202,6 @@ class DashboardController extends Controller
             return [$user->id => $user->name];
         });
 
-
-        if($notification){
-            auth()->user()->unreadNotifications->where('id', $notification)->markAsRead();
-        }
 
         $otherFilePdfCount = Media::where('collection_name', 'otherFile')->count();
         $travelCount = Media::where('collection_name', 'travelOrderPdf')->count();
@@ -355,6 +316,7 @@ class DashboardController extends Controller
         ]);
 
         $existingTags  = $proposals->proposal_members()->pluck('user_id')->toArray();
+
         $newTags = $request->input('tags');
 
         // Find tags to add (new tags not in existing tags)
@@ -362,15 +324,48 @@ class DashboardController extends Controller
         // Find tags to remove (existing tags not in new tags)
         $tagsToRemove = array_diff($existingTags, $newTags);
 
+
+        // To add -- -- -- -- -- -- -- -- --
         foreach ($tagsToAdd as $tag) {
             // Check if the tag already exists
             if (!ProposalMember::where('proposal_id', $proposals->id)->where('user_id', $tag)->exists()) {
-                ProposalMember::create([
-                    'proposal_id' => $proposals->id,
-                    'user_id' => $tag,
+                $model =  ProposalMember::create([
+                'proposal_id' => $proposals->id,
+                'user_id' => $tag,
                 ]);
+
+                $users = User::where('id',$tag)->get();
+                Notification::send($users, new UserTagProposalNotification($model));
+
+                DB::table('notifications')
+                ->where('data->remove_tag_id', $tag)
+                ->where('data->remove_proposal_id', $proposals->id)
+                ->where('type', 'App\Notifications\UserTagRemoveProposalNotification')
+                ->delete();
+
+
             }
         }
+
+        // To remove -- -- -- -- -- -- --
+        $toRemove = ProposalMember::where('proposal_id', $proposals->id)->whereIn('user_id', $tagsToRemove)->get();
+        foreach ($toRemove as $remove){
+          $user = User::where('id',$tagsToRemove)->get();
+          Notification::send($user, new UserTagRemoveProposalNotification($remove));
+        }
+
+        DB::table('notifications')
+        ->where('data->id', $proposals->id)
+        ->where('notifiable_id', $tagsToRemove)
+        ->where('type', 'App\Notifications\ProposalNotification')
+        ->delete();
+
+        DB::table('notifications')
+        ->where('data->proposal_id', $proposals->id)
+        ->where('data->tag_id', $tagsToRemove)
+        ->where('type', 'App\Notifications\UserTagProposalNotification')
+        ->delete();
+
 
         // Remove tags
         ProposalMember::where('proposal_id', $proposals->id)
@@ -378,7 +373,7 @@ class DashboardController extends Controller
         ->delete();
 
         flash()->addSuccess('Details Updated Successfully');
-        return redirect("/admin/dashboard/user-proposal/{$proposals->id}/{$proposals->id}");
+        return redirect("/admin/dashboard/user-proposal/{$proposals->id}");
     }
 
     public function DeleteProposal(Request $request){
@@ -415,15 +410,25 @@ class DashboardController extends Controller
         ->groupBy(DB::raw("name"))
         ->pluck('count','name');
 
+
         $programLabel = $proposals->keys();
         $programData = $proposals->values();
 
-        $proposals->keys();
-        $proposals->values();
+       
+
+        $proposalsWithCounts = Proposal::
+        whereYear('created_at', date('Y'))
+        ->select('authorize', \DB::raw('count(*) as count'))
+        ->groupBy('authorize')
+        ->get();
+        
+        $statusCounts = $proposalsWithCounts->pluck('count', 'authorize');
+        $CountStatuslabels = $statusCounts->keys();
+        $CountStatusdata = $statusCounts->values();
 
 
         return view('admin.dashboard.chart.index',compact( 'programLabel', 'programData', 'statusCount', 'pendingCount', 'ongoingCount', 'finishedCount',
-            'labels','data','customizes', 'allProposal', 'years'));
+            'labels','data','customizes', 'allProposal', 'years','CountStatuslabels','CountStatusdata'));
     }
 
     public function updateData(Request $request, $id){
@@ -664,54 +669,5 @@ class DashboardController extends Controller
         return view('admin.dashboard.chart.filter_index._index-dashboard',compact( 'programLabel', 'programData', 'statusCount', 'pendingCount', 'ongoingCount', 'finishedCount',
             'labels','data','customizes', 'allProposal', 'years'));
     }
-
-    public function NarrativeIndex(){
-
-        $narrativeReports = NarrativeReport::select('user_id')->with('users')->with('proposals')->groupBy('user_id')->get();
-        return view('admin.dashboard.narrative-report.index', compact('narrativeReports'));
-    }
-
-    public function NarrativeShow($id, $notification){
-
-        $narrativeReports = NarrativeReport::where('user_id', $id)->with('users')->with('proposals')->get();
-
-        if($notification){
-            auth()->user()->unreadNotifications->where('id', $notification)->markAsRead();
-        }
-        return view('admin.dashboard.narrative-report.show', compact('narrativeReports'));
-    }
-
-    public function TerminalIndex(){
-
-        $terminalReports = TerminalReport::all();
-
-        return view('admin.dashboard.terminal-report.index', compact('terminalReports'));
-    }
-
-    public function TerminalShow($id, $notification){
-
-        $terminalReports = TerminalReport::where('user_id', $id)->with('users')->with('proposals')->get();
-        if($notification){
-            auth()->user()->unreadNotifications->where('id', $notification)->markAsRead();
-        }
-        return view('admin.dashboard.terminal-report.show', compact('terminalReports'));
-    }
-
-    public function deleteAllNarrative($id){
-        NarrativeReport::where('proposal_id', $id)->delete();
-
-        flash()->addSuccess('Narratives Delete Successfully');
-        return back();
-    }
-
-    public function deleteAllTerminal($id){
-        TerminalReport::where('proposal_id', $id)->delete();
-
-        flash()->addSuccess('Terminals Delete Successfully');
-        return back();
-    }
-
-
-
 
 }

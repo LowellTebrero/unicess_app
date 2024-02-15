@@ -259,10 +259,10 @@
                             class="mt-1 border-b-2 border-blue-500 block w-full rounded-md shadow-sm text-xs 2xl:text-sm myInput"
                             autocomplete="gender">
                             <option value="">Choose Gender</option>
-                            <option value="Male" {{ old('gender', $user->gender) == 'Male' ? 'selected' : '' }}>
+                            <option value="male" {{ old('gender', $user->gender) == 'male' ? 'selected' : '' }}>
                                 Male
                             </option>
-                            <option value="Female" {{ old('gender', $user->gender) == 'Female' ? 'selected' : '' }}>
+                            <option value="female" {{ old('gender', $user->gender) == 'female' ? 'selected' : '' }}>
                                 Female
                             </option>
                             <option value="Prefer not to say"

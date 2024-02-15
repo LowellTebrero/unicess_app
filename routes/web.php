@@ -20,7 +20,6 @@ use App\Http\Controllers\AllProposalController;
 use App\Http\Controllers\ProfileRoleController;
 use App\Http\Controllers\UserWelcomeController;
 use App\Http\Controllers\Admin\ToggleController;
-use App\Http\Controllers\CreateFolderController;
 use App\Http\Controllers\Auth\ProviderController;
 use App\Http\Controllers\LnuAdditionalController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -59,6 +58,7 @@ Route::controller(PostController::class)->group(function () {
     Route::get('/proposal', 'proposal')->middleware(['auth', 'verified'])->name('proposal');
     Route::get('/mark-as-read/{id}', 'markasread')->name('markasread');
     Route::get('/mark-all-as-read', 'markAllAsRead')->name('markallsread');
+    Route::post('mark-notifications-as-read','markNotificationAsRead')->name('mark-notifications-as-read');
     Route::delete('/remove-notification/{id}', 'RemoveNotification')->name('remove-notification');
     Route::get('/privacy-policy', 'PrivacyPolicy');
     Route::get('/terms-of-services', 'TermsOfServices');
@@ -101,7 +101,7 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
     Route::controller(DashboardController::class)->group(function () {
         Route::get('/upload','create')->name('dashboard.create');
         Route::post('/post-upload','store')->name('dashboard.store');
-        Route::get('/dashboard/user-proposal/{id}/{notification}','checkProposal')->name('dashboard.edit-proposal');
+        Route::get('/dashboard/user-proposal/{id}','checkProposal')->name('dashboard.edit-proposal');
         Route::put('/update-user/proposal-file/{id}','AdminUpdateFiles')->name('dashboard-update-user-proposal');
         Route::put('/update-user-proposal/{id}',  'updateDetails')->name('dashboard.update-project-details');
         Route::delete('/delete-user-proposal',  'DeleteProposal')->name('dashboard.delete-project-proposal');
@@ -126,7 +126,7 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
 
     Route::controller(EvaluationController::class)->group(function () {
         Route::get('/evaluation-index','index')->name('evaluation.index');
-        Route::get('/evaluation/{id}/{year}/{notification}', 'show')->name('evaluation.show');
+        Route::get('/evaluation/{id}/{year}', 'show')->name('evaluation.show');
         Route::patch('/evaluation-update/{id}', 'update')->name('evaluation.update');
         Route::get('/filters','filters')->name('evaluation.filters');
         Route::delete('/evaluation-delete/{id}','deleteEvaluation')->name('evaluation.delete');
@@ -137,7 +137,7 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
     Route::controller(UserController::class)->group(function () {
         Route::get('/main','mainIndex')->name('users.main');
         Route::get('/search','searchUser')->name('users.search');
-        Route::get('/users/{user}/{user_id}','show')->name('users.show');
+        Route::get('/users/{user}','show')->name('users.show');
         Route::patch('/users/{id}','update')->name('users.update');
         Route::delete('/users/{user}','destroy')->name('users.destroy');
         Route::post('/users/{user}/roles','assignRole')->name('users.roles');
@@ -285,10 +285,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     });
 
-    Route::get('create-folder-index', [CreateFolderController::class, 'index']);
-    Route::post('create-folder-store', [CreateFolderController::class, 'store'])->name('folder.store');
-
-
 
 
     Route::controller(ProfileRoleController::class)->group(function () {
@@ -332,7 +328,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::delete('/delete-medias-permanently/{id}/{proposalId}','deleteMediasPermanently')->name('inventory-delete-media-permanently');
         Route::delete('/restore-medias/{id}','RestoreFile')->name('inventory-restore-media');
         Route::get('/inventory','index')->name('inventory.index');
-        Route::get('/inventory/{id}/{notification}','show')->name('inventory.show');
+        Route::get('/inventory/{id}','show')->name('inventory.show');
         Route::get('/downloads-moa/{id}','downloadsMoa')->name('inventory-download-moa');
         Route::get('/downloads-pdf/{id}','downloadProposalPdf')->name('inventory-download-proposalPdf');
         Route::get('/downloads-special-order/{id}','downloadsSpecialOrder')->name('inventory-download-specialPdf');

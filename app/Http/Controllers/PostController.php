@@ -86,6 +86,14 @@ class PostController extends Controller
         return back();
     }
 
+
+    public function markNotificationAsRead(Request $request)
+    {
+        auth()->user()->unreadNotifications->markAsRead();
+
+        return response()->json(['success' => true]);
+    }
+
     public function markAllAsRead()
 
     {

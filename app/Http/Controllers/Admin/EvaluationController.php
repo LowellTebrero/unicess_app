@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\AdminDeleteUserEvaluationNotification;
+use App\Notifications\AdminSubmitEvaluationStatusToUserNotification;
 
 
 class EvaluationController extends Controller
@@ -63,31 +64,6 @@ class EvaluationController extends Controller
 
     }
 
-    // public function filters(Request $request){
-
-        //     $selectedYear = $request->input('year');
-
-        //     $currentYear = date('Y');
-        //     $previousYear = $currentYear + 1;
-
-        //     [$startYear, $endYear] = explode('-', $selectedYear);
-
-        //     $currentYear = $startYear;
-        //     $previousYear = $endYear;
-
-        //     $latestYear = Evaluation::selectRaw('YEAR(created_at) as year')->orderByDesc('created_at')->groupBy('year')->pluck('year')->first();
-        //     $latestData = Evaluation::whereYear('created_at', $startYear)->get();
-
-
-        //     $evaluations = Evaluation::whereYear('created_at', '>=', $startYear)
-        //     ->whereYear('created_at', '<=', $endYear)
-        //     ->with('users')->get();
-
-        //     $id = 1;
-        //     $toggle = EvaluationStatus::findOrFail($id);
-
-        //     return view('admin.evaluation.index', compact( 'latestData','currentYear', 'previousYear', 'evaluations', 'toggle'));
-    // }
 
     public function show($id, $year, $notification){
 
@@ -127,6 +103,14 @@ class EvaluationController extends Controller
         + $request->input('judge_community') + $request->input('commencement_guest_speaker') +  $request->input('coordinator_organizer_consultants') + $request->input('resource_person_lecturer')
         + $request->input('facilitator') + $request->input('member');
 
+        $evaluation = Evaluation::find($id);
+
+        if($evaluation->status == 'pending'){
+            $users = User::where('id',$evaluation->user_id)->get();
+            Notification::send($users, new AdminSubmitEvaluationStatusToUserNotification($evaluation));
+        }
+
+
         Evaluation::where('id', $id)->update([
 
             'faculty_id' => $request->faculty_id,
@@ -163,6 +147,9 @@ class EvaluationController extends Controller
             'status' => $request->status,
             'total_points' => $total,
         ]);
+
+
+
 
         flash()->addSuccess('Evaluation Updated Successfully.');
         return redirect(route('admin.evaluation.index'))->with('message', 'Evaluation update successfully');

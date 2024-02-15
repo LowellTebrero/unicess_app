@@ -18,7 +18,12 @@
         </button>
     </div>
 
-
+    @if ($evaluation == null)
+    <main class="flex flex-col text-gray-700 items-center justify-center p-5 rounded-lg m-8 mt-5 h-[85%] 2xl:h-[90%] bg-white">
+        <img class="w-[12rem]" src="{{ asset('img/not-found.svg') }}" alt="">
+        <h1 class="mt-2">Evaluation not found..</h1>
+    </main>
+    @else
     <section class="text-gray-700 p-5 rounded-lg m-8 mt-5 bg-white relative">
 
 
@@ -1271,6 +1276,7 @@
             </form>
         </section>
     </section>
+    @endif
 
 
 

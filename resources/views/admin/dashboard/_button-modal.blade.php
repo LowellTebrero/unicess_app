@@ -47,7 +47,7 @@
 
         <div class="relative">
             <div class="flex space-x-2">
-                <span class="block xl:text-5xl 2xl:text-6xl text-4xl  font-medium">{{ $totalProposal }}</span>
+                <span class="block xl:text-5xl 2xl:text-6xl text-2xl  font-medium">{{ $totalProposal }}</span>
 
             <div class="flex flex-col ">
                 @if ($getCountProposals > 0)
@@ -59,7 +59,7 @@
                 @endif
             </div>
             </div>
-            <h1 class="xl:text-[.7rem] 2xl:text-sm text-xs">Total of Extension Program/Project </h1>
+            <h1 class="xl:text-[.6rem] 2xl:text-sm text-xs">Total of Extension Program/Project </h1>
         </div>
         <svg class="xl:w-[2rem] 2xl:w-[5rem] lg:w-[3rem] sm:w-[2rem] sm:absolute sm:top-2 sm:right-5 lg:relative xl:absolute xl:top-2 xl:right-7 2xl:sticky" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 512 512"><path fill="#374151" d="M428 224H288a48 48 0 0 1-48-48V36a4 4 0 0 0-4-4h-92a64 64 0 0 0-64 64v320a64 64 0 0 0 64 64h224a64 64 0 0 0 64-64V228a4 4 0 0 0-4-4Zm-92 160H176a16 16 0 0 1 0-32h160a16 16 0 0 1 0 32Zm0-80H176a16 16 0 0 1 0-32h160a16 16 0 0 1 0 32Z"/><path fill="#374151" d="M419.22 188.59L275.41 44.78a2 2 0 0 0-3.41 1.41V176a16 16 0 0 0 16 16h129.81a2 2 0 0 0 1.41-3.41Z"/></svg>
 

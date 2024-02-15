@@ -1,8 +1,5 @@
 
-<div class="border rounded h-[59vh] 2xl:h-[62vh] overflow-x-auto 2xl:w-[70rem] text-gray-600 relative">
-    <div class=" sticky top-0 z-10 bg-white py-2 border-b">
-        <h1 class="text-center w-full">CES FACULTY PERFORMANCE EVALUATION FORM {{ $currentYear  }}</h1>
-    </div>
+<div class="h-[40vh] 2xl:h-[45vh] overflow-x-auto text-gray-700 relative">
 
        <h1 class="text-xs text-left ml-5 mt-5">A. SERVICE TO THE UNIVERSITY</h1>
 

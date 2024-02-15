@@ -18,9 +18,9 @@
             <section class="mx-5 xl:mx-10 md:space-x-2 lg:space-x-7  xl:space-x-10 flex xl:flex-row flex-col sm:flex-row sm:space-x-2 justify-between 2xl:h-48 xl:h-36 lg:h-[20vh] text-gray-700 mt-4 2xl:mt-5">
 
                 <a href={{ route('User-dashboard.profile') }} class="w-full rounded-lg hover:border hover:border-teal-400 hover:from-cyan-300 hover:to-sky-200 bg-gradient-to-tl from-cyan-400 to-sky-300 md:p-2 xl:px-5 2xl:px-10 2xl:py-9 xl:py-5 flex flex-col xl:flex-row lg:pt-3 xl:p-0 items-center">
-                    @if($user->gender == 'Female')
+                    @if($user->gender == 'female')
                     <img src="{{ asset('/img/female.svg') }}" class="2xl:w-24 xl:mr-5 2xl:mr-8  xl:w-16 xl:h-16 2xl:h-20 w-12">
-                    @elseif($user->gender == 'Male')
+                    @elseif($user->gender == 'male')
                     <img src="{{ asset('/img/male.svg') }}" class="2xl:w-24 xl:mr-5 2xl:mr-8  xl:w-16 xl:h-16 2xl:h-20 w-12 lg:w-[4rem]">
                     @else
                     <img src="{{ asset('/upload/profile.png') }}" class="2xl:w-20 xl:mr-5 2xl:mr-8  xl:w-12 xl:h-12 2xl:h-20 w-16 lg:w-[4rem]">
@@ -58,7 +58,7 @@
                     </div>
                 </a>
 
-                <a href={{ route('evaluate.index') }} class="relative text-gray-800 w-full rounded-lg hover:from-sky-600 hover:to-sky-500  bg-gradient-to-tl from-sky-500 to-sky-400 xl:px-5  xl:py-5 2xl:px-10 2xl:py-5 flex ">
+                <a @if ($latestYearPoints == null) href={{ route('evaluate.index') }} @else href={{ route('evaluate.created', $latestYearPoints->id) }} @endif class="relative text-gray-800 w-full rounded-lg hover:from-sky-600 hover:to-sky-500  bg-gradient-to-tl from-sky-500 to-sky-400 xl:px-5  xl:py-5 2xl:px-10 2xl:py-5 flex ">
                     <div class="flex-1 text-gray-800 flex  md:flex-col  pl-5 justify-center">
                         <span  class=" font-medium text-5xl 2xl:text-6xl"> @if ($latestYearPoints == null) 0 @else {{ $latestYearPoints->total_points }} @endif</span>
                         <h1 class="font-thick  tracking-wide text-xs 2xl:text-sm">Total Points</h1>

@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use toastr;
 use Carbon\Carbon;
 use App\Models\User;
-use App\Models\Point;
 use App\Models\Program;
 use App\Models\Proposal;
 use App\Models\Template;
@@ -14,14 +12,10 @@ use App\Models\Evaluation;
 use App\Rules\UniqueTitle;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Models\ProposalFiles;
 use App\Models\TrashedRecord;
 use App\Models\ProposalMember;
 use App\Models\CollectionMedia;
-use App\Models\UserOfficeOrder;
-use App\Models\UserTravelOrder;
 use Illuminate\Validation\Rule;
-use App\Models\UserSpecialOrder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Models\AdminProgramServices;
@@ -32,7 +26,6 @@ use App\Notifications\ProposalNotification;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\UserTagProposalNotification;
 use App\Notifications\UserTagRemoveProposalNotification;
-use App\Notifications\AnotherUserTagProposalNotification;
 use App\Notifications\UserDeletedTheirProposaleNotification;
 use App\Notifications\AdminDeletedProposaleFromUserNotification;
 
@@ -87,7 +80,7 @@ class ProposalController extends Controller
     public function store(Request $request)
     {
 
-        $data = $request->validate([
+        $request->validate([
 
             'program_id' => 'required',
             'project_title' => ['regex:/^[^<>?:|\/"*]+$/','required','min:6' ,Rule::unique('proposals'), new UniqueTitle],
@@ -114,11 +107,18 @@ class ProposalController extends Controller
         $post->save();
 
         foreach ($request->tags as $tag) {
-            ProposalMember::create([
+
+            $model = ProposalMember::create([
                 'proposal_id' => $post->id, // Set proposal_id to the newly created proposal's ID
                 'user_id' => $tag, // Set user_id to the current tag (user's ID)
             ]);
+
+            $users = User::where('id',$tag)->get();
+            Notification::send($users, new ProposalNotification($post));
         }
+
+        $admin = User::whereHas('roles', function ($query) { $query->where('id', 1);})->get();
+        Notification::send($admin, new ProposalNotification($post));
 
 
         if ($request->hasFile('proposal_pdf')) {
@@ -220,18 +220,9 @@ class ProposalController extends Controller
         ]);
 
         }
-
-
-
-        $admin = User::whereHas('roles', function ($query) { $query->where('id', 1);})->get();
-
-        Notification::send($admin, new ProposalNotification($post));
-
-
         flash()->addSuccess('Project Uploaded Successfully.');
         return redirect(route('User-dashboard.index'));
     }
-
 
     public function showProposal($id)
     {
@@ -250,7 +241,11 @@ class ProposalController extends Controller
         })
         ->prepend('Select name', '');
 
-        $existingTagIds  = $proposals->proposal_members()->pluck('user_id')->toArray();
+        if ($proposals !== null) {
+            $existingTagIds = $proposals->proposal_members()->pluck('user_id')->toArray();
+        } else {
+            $existingTagIds = [];
+        }
         $existingTags = User::whereIn('id', $existingTagIds)->pluck('name', 'id')->toArray();
 
         // dd($existingTags);
@@ -294,15 +289,48 @@ class ProposalController extends Controller
         // Find tags to remove (existing tags not in new tags)
         $tagsToRemove = array_diff($existingTags, $newTags);
 
+
+        // To add -- -- -- -- -- -- -- -- --
         foreach ($tagsToAdd as $tag) {
             // Check if the tag already exists
             if (!ProposalMember::where('proposal_id', $proposals->id)->where('user_id', $tag)->exists()) {
-                ProposalMember::create([
-                    'proposal_id' => $proposals->id,
-                    'user_id' => $tag,
+                $model =  ProposalMember::create([
+                'proposal_id' => $proposals->id,
+                'user_id' => $tag,
                 ]);
+
+                $users = User::where('id',$tag)->get();
+                Notification::send($users, new UserTagProposalNotification($model));
+
+                DB::table('notifications')
+                ->where('data->remove_tag_id', $tag)
+                ->where('data->remove_proposal_id', $proposals->id)
+                ->where('type', 'App\Notifications\UserTagRemoveProposalNotification')
+                ->delete();
+
+
             }
         }
+
+        // To remove -- -- -- -- -- -- --
+        $toRemove = ProposalMember::where('proposal_id', $proposals->id)->whereIn('user_id', $tagsToRemove)->get();
+        foreach ($toRemove as $remove){
+          $user = User::where('id',$tagsToRemove)->get();
+          Notification::send($user, new UserTagRemoveProposalNotification($remove));
+        }
+
+        DB::table('notifications')
+        ->where('data->id', $proposals->id)
+        ->where('notifiable_id', $tagsToRemove)
+        ->where('type', 'App\Notifications\ProposalNotification')
+        ->delete();
+
+        DB::table('notifications')
+        ->where('data->proposal_id', $proposals->id)
+        ->where('data->tag_id', $tagsToRemove)
+        ->where('type', 'App\Notifications\UserTagProposalNotification')
+        ->delete();
+
 
         // Remove tags
         ProposalMember::where('proposal_id', $proposals->id)
@@ -310,32 +338,7 @@ class ProposalController extends Controller
         ->delete();
 
 
-        // if($request->member !== null){
-
-        //     ProposalMember::where('proposal_id', $proposals->id)->delete();
-
-        //     foreach ($request->member as $item) {
-
-        //         $model = new ProposalMember();
-        //         $model->proposal_id = $proposals->id;
-        //         $model->user_id = $item['id'];
-        //         $model->save();
-
-        //         $tags =  DB::table('notifications')->whereJsonDoesntContain('data->tag_id', $item['id'])
-        //         ->whereJsonContains('data->proposal_id', $proposals->id)
-        //         ->where('type', 'App\Notifications\UserTagProposalNotification')->delete();
-
-        //     }
-
-        // }else {
-
-        //     DB::table('notifications')->whereJsonContains('data->proposal_id', $proposals->id)
-        //     ->where('type', 'App\Notifications\UserTagProposalNotification')->delete();
-        //     ProposalMember::where('proposal_id', $proposals->id)->delete();
-
-        // }
         app('flasher')->addSuccess('Updated Successfully.');
-
         return redirect(route('User-dashboard.show-proposal', $proposals->id ));
     }
 
@@ -357,19 +360,17 @@ class ProposalController extends Controller
      public function createDirecrotory(Request $request)
      {
 
-         $request->validate([
-             'filename' => 'required',
-            ]);
+        $request->validate([
+            'filename' => 'required',
+        ]);
 
-         $path = public_path('upload/filefolder/'. $request->filename);
+        $path = public_path('upload/filefolder/'. $request->filename);
 
-         if(!File::isDirectory($path)){
-             File::makeDirectory($path, 0775, true, true);
+        if(!File::isDirectory($path)){
+            File::makeDirectory($path, 0775, true, true);
+        }
 
-     // retry storing the file in newly created path.
-         }
-
-         return redirect(route('index-file'));
+        return redirect(route('index-file'));
      }
 
 
@@ -529,11 +530,38 @@ class ProposalController extends Controller
         }})->count();
 
         $years = AdminYear::orderBy('year', 'DESC')->pluck('year');
+
         $proposals = Proposal::with(['proposal_members' => function ($query) {
         $query->where('user_id', auth()->user()->id);
         }])->whereYear('created_at', date('Y'))->get();
 
-        return view('user.dashboard.MyProposal.index', compact('proposals', 'years', 'count'));
+
+        $proposalsWithCounts = Proposal::with(['proposal_members' => function ($query) {
+            $query->where('user_id', auth()->user()->id);
+        }])
+        ->whereYear('created_at', date('Y'))
+        ->select('authorize', \DB::raw('count(*) as count'))
+        ->groupBy('authorize')
+        ->get();
+        
+        $statusCounts = $proposalsWithCounts->pluck('count', 'authorize');
+        $labels = $statusCounts->keys();
+        $data = $statusCounts->values();
+ 
+
+        $ProjectDateCount = Proposal::with(['proposal_members' => function ($query) {
+        $query->where('user_id', auth()->user()->id);}])
+        ->select(DB::raw("COUNT(*) as count"),  DB::raw("MONTHNAME(created_at) as month_name"))
+        ->groupBy(DB::raw("month_name"))->orderBy('month_name','ASC')->pluck('count','month_name');
+
+        $DateCountlabels = $ProjectDateCount->keys();
+        $DateCountdata = $ProjectDateCount->values();
+
+
+        
+
+        
+        return view('user.dashboard.MyProposal.index', compact('proposals', 'years', 'count', 'labels','data','DateCountlabels','DateCountdata'));
     }
 
     public function MyProposalSearch(Request $request, $id){

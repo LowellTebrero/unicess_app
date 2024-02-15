@@ -22,7 +22,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\CustomizeUserInventory;
 use App\Models\UserAttendanceMonitoring;
 use Spatie\MediaLibrary\Support\MediaStream;
+use App\Notifications\UserTagProposalNotification;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use App\Notifications\UserTagRemoveProposalNotification;
 use App\Notifications\UserDeletedTheirProposaleNotification;
 use App\Notifications\AdminDeletedProposaleFromUserNotification;
 
@@ -44,7 +46,7 @@ class InventoryController extends Controller
         return view('user.inventory.index', compact('inventory', 'years', 'myId', 'proposals', 'proposalmember'));
     }
 
-    public function show($id, $notification){
+    public function show($id){
 
         $proposals = Proposal::where('id', $id)->with(['medias' => function ($query) {
             $query->whereNot('collection_name', 'trash')->orderBy('file_name', 'asc');
@@ -57,27 +59,39 @@ class InventoryController extends Controller
                   ->orderBy('file_name', 'asc');
         }])->first();
 
-        $uniqueProposalFiles = $proposals->medias->unique('collection_name');
-        $myuniqueProposalFiles = $myfiles->medias->unique('collection_name');
-
-
         $formedia = Proposal::where('id', $id)
         ->with(['medias' => function ($query) {
         $query->whereNot('collection_name', 'trash')->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
         ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
         },])->first();
 
-        $uniqueformedias = $formedia->medias->unique('collection_name');
+
+        $uniqueProposalFiles = null;
+        $existingTagIds = null;
+        $existingTags = null;
+        if ($proposals) {
+            $uniqueProposalFiles = $proposals->medias ? $proposals->medias->unique('collection_name') : collect();
+            $existingTagIds = $proposals->proposal_members()->pluck('user_id')->toArray();
+            $existingTags = User::whereIn('id', $existingTagIds)->pluck('name', 'id')->toArray();
+        }
+
+        $myuniqueProposalFiles = null;
+        if ($myfiles) {
+            $myuniqueProposalFiles = $myfiles->medias ? $myfiles->medias->unique('collection_name'): collect();
+        }
+
+        $uniqueformedias = null;
+        if ($formedia) {
+            $uniqueformedias = $formedia->medias ? $formedia->medias->unique('collection_name'): collect();
+        }
+
+    
 
         $members = User::orderBy('name')->whereNot('name', 'Administrator')->pluck('name', 'id')->prepend('Select Username', '');
         $inventory = CustomizeUserInventory::where('id', 2)->get();
         $proposal = Proposal::where('id', $id)->with('programs')->where('authorize', 'finished')->first();
         $proposal_member = ProposalMember::where('user_id', auth()->user()->id)->first();
         $program = Program::orderBy('program_name')->pluck('program_name', 'id')->prepend('Select Program', '');
-
-        if($notification){
-            auth()->user()->unreadNotifications->where('id', $notification)->markAsRead();
-        }
 
         $users = User::all();
         $otherFilePdfCount = Media::where('collection_name', 'otherFile')->count();
@@ -90,8 +104,7 @@ class InventoryController extends Controller
         $terminalPdfCount = Media::where('collection_name', 'TerminalFile')->count();
         $mediaCount = Media::whereNot('collection_name','trash')->count();
 
-        $existingTagIds  = $proposals->proposal_members()->pluck('user_id')->toArray();
-        $existingTags = User::whereIn('id', $existingTagIds)->pluck('name', 'id')->toArray();
+      
 
         return view('user.inventory.show', compact('proposals', 'proposal', 'proposal_member', 'inventory', 'program', 'members'
         ,'formedia','uniqueProposalFiles','uniqueformedias', 'myuniqueProposalFiles','myfiles','users','mediaCount'
@@ -118,6 +131,7 @@ class InventoryController extends Controller
         ]);
 
         $existingTags  = $proposals->proposal_members()->pluck('user_id')->toArray();
+
         $newTags = $request->input('tags');
 
         // Find tags to add (new tags not in existing tags)
@@ -125,15 +139,48 @@ class InventoryController extends Controller
         // Find tags to remove (existing tags not in new tags)
         $tagsToRemove = array_diff($existingTags, $newTags);
 
+
+        // To add -- -- -- -- -- -- -- -- --
         foreach ($tagsToAdd as $tag) {
             // Check if the tag already exists
             if (!ProposalMember::where('proposal_id', $proposals->id)->where('user_id', $tag)->exists()) {
-                ProposalMember::create([
-                    'proposal_id' => $proposals->id,
-                    'user_id' => $tag,
+                $model =  ProposalMember::create([
+                'proposal_id' => $proposals->id,
+                'user_id' => $tag,
                 ]);
+
+                $users = User::where('id',$tag)->get();
+                Notification::send($users, new UserTagProposalNotification($model));
+
+                DB::table('notifications')
+                ->where('data->remove_tag_id', $tag)
+                ->where('data->remove_proposal_id', $proposals->id)
+                ->where('type', 'App\Notifications\UserTagRemoveProposalNotification')
+                ->delete();
+
+
             }
         }
+
+        // To remove -- -- -- -- -- -- --
+        $toRemove = ProposalMember::where('proposal_id', $proposals->id)->whereIn('user_id', $tagsToRemove)->get();
+        foreach ($toRemove as $remove){
+          $user = User::where('id',$tagsToRemove)->get();
+          Notification::send($user, new UserTagRemoveProposalNotification($remove));
+        }
+
+        DB::table('notifications')
+        ->where('data->id', $proposals->id)
+        ->where('notifiable_id', $tagsToRemove)
+        ->where('type', 'App\Notifications\ProposalNotification')
+        ->delete();
+
+        DB::table('notifications')
+        ->where('data->proposal_id', $proposals->id)
+        ->where('data->tag_id', $tagsToRemove)
+        ->where('type', 'App\Notifications\UserTagProposalNotification')
+        ->delete();
+
 
         // Remove tags
         ProposalMember::where('proposal_id', $proposals->id)
@@ -289,11 +336,9 @@ class InventoryController extends Controller
         $trashRecord->user_id = Auth()->user()->id;
         $trashRecord->save();
 
-
         flash()->addSuccess('Trashed Successfully');
         return back();
     }
-
 
     // Delete Media
     public function MoveToTrashMediaJson(Request $request)
@@ -366,7 +411,6 @@ class InventoryController extends Controller
         Media::findorFail($id)->update(['file_name' => $request->file_name, ]);
         return back()->with('message', 'Status updated successfully');
     }
-
 
     public function userUpdateFiles(Request $request, $id){
         $request->validate([
@@ -542,7 +586,6 @@ class InventoryController extends Controller
         $proposal_member = ProposalMember::where('user_id', auth()->user()->id)->first();
         return view('admin.inventory.show-inventory', compact('proposals', 'proposal', 'proposal_member'));
     }
-
 
     public function updateData(Request $request, $id){
         // Find the model instance you want to update

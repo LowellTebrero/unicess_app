@@ -58,7 +58,8 @@
                 </a>
             </div>
             <hr>
-            <div class="flex items-center justify-center h-[100%]">
+            <div class="flex items-center justify-center h-[100%] flex-col space-y-4">
+                <img class="w-[12rem]" src="{{ asset('img/not-found.svg') }}" alt="">
                 <h1 class="text-2xl tracking-wide text-gray-700">404 Error:<span class="text-red-500"> Not Found</span> </h1>
             </div>
 
@@ -508,7 +509,6 @@
                     </div>
 
                     <div id="mydocument-content"  class="tab-content  px-10 " style="display: none;">
-
                         @include('user.inventory.show._show_my_media')
                     </div>
 

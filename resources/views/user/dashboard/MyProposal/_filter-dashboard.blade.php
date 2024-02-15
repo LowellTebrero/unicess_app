@@ -1,5 +1,5 @@
 <h1 class="text-sm 2xl:text-base tracking-wider text-gray-700">Total of Projects: {{ $count }}</h1>
-<div class="mt-12 overflow-x-auto xl:h-[50vh] 2xl:h-[57vh] border border-gray-200">
+<div class="2xl:mt-12 overflow-x-auto h-[15vh] 2xl:h-[20vh] border border-gray-200">
   <table class="w-full text-left text-gray-500 border ">
 
       <thead class="text-[.6rem] text-gray-700 uppercase bg-gray-200">

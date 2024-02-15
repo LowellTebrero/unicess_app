@@ -65,6 +65,7 @@ class EvaluateController extends Controller
         $Evaluation = Evaluation::where('id', $id)->where('user_id', Auth()->user()->id)->first();
         $currentYear = date('Y');
 
+
         return view('user.evaluate.created_evaluation', compact('Evaluation',  'currentYear'));
 
     }
