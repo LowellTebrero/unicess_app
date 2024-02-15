@@ -5,29 +5,17 @@ namespace App\Http\Controllers\Admin;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Program;
-use App\Models\CesoRole;
-use App\Models\Location;
 use App\Models\Proposal;
 use App\Models\AdminYear;
 use App\Rules\UniqueTitle;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Charts\ProposalChart;
-use App\Models\ProposalFiles;
 use App\Models\ProposalMember;
-use App\Models\TerminalReport;
-use App\Models\UserAttendance;
-use App\Models\NarrativeReport;
-use App\Models\UserOfficeOrder;
-use App\Models\UserTravelOrder;
 use Illuminate\Validation\Rule;
-use App\Models\UserSpecialOrder;
-use App\Models\ParticipationName;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\AdminProgramServices;
 use App\Models\CustomizeAdminProposal;
-use App\Models\UserAttendanceMonitoring;
 use App\Notifications\ProposalNotification;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\UserTagProposalNotification;
@@ -414,14 +402,14 @@ class DashboardController extends Controller
         $programLabel = $proposals->keys();
         $programData = $proposals->values();
 
-       
+
 
         $proposalsWithCounts = Proposal::
         whereYear('created_at', date('Y'))
         ->select('authorize', \DB::raw('count(*) as count'))
         ->groupBy('authorize')
         ->get();
-        
+
         $statusCounts = $proposalsWithCounts->pluck('count', 'authorize');
         $CountStatuslabels = $statusCounts->keys();
         $CountStatusdata = $statusCounts->values();
