@@ -4,7 +4,7 @@
         <div>
             <div class="flex space-x-2">
                 <span class="flex items-center space-x-1  xl:text-5xl text-4xl font-medium">
-                    <span class="text-[2.8rem] text-gray-600 font-medium 2xl:text-6xl">{{ $evaluation }}</span>
+                    <span class="text-4xl text-gray-600 font-medium 2xl:text-6xl">{{ $evaluation }}</span>
                     <span class="text-xs">Out of</span>
                     <span class="block text-gray-600  text-lg ">{{ $totalAccount }}</span>
                 </span>
@@ -20,14 +20,14 @@
 
             <div class="relative">
                 <div class="flex space-x-2">
-                    <span class="block xl:text-5xl 2xl:text-6xl text-4xl font-medium">{{ $pendingAccount }}</span>
+                    <span class="block 2xl:text-6xl text-4xl font-medium">{{ $pendingAccount }}</span>
 
                 <div class="flex flex-col">
                     @if ($getCountUsers > 0)
-                    <span class="text-green-500">{{ $getCountUsers }} % </span>
+                    <span class="text-green-500 text-xs 2xl:text-sm">{{ $getCountUsers }} % </span>
                     <span class="text-xs text-green-500">of today</span>
                     @elseif ($getCountUsers <= 0)
-                    <span class="text-red-400">{{ $getCountUsers }} % </span>
+                    <span class="text-red-400 text-xs 2xl:text-sm">{{ $getCountUsers }} % </span>
                     <span class="text-xs text-red-400">of today</span>
                     @endif
                 </div>
@@ -47,14 +47,14 @@
 
         <div class="relative">
             <div class="flex space-x-2">
-                <span class="block xl:text-5xl 2xl:text-6xl text-2xl  font-medium">{{ $totalProposal }}</span>
+                <span class="block 2xl:text-6xl text-4xl  font-medium">{{ $totalProposal }}</span>
 
             <div class="flex flex-col ">
                 @if ($getCountProposals > 0)
-                <span class="text-green-500">{{ $getCountProposals }} % </span>
+                <span class="text-green-500 text-xs 2xl:text-sm">{{ $getCountProposals }} % </span>
                 <span class="text-xs text-green-500">of today</span>
                 @elseif ($getCountProposals <= 0)
-                <span class="text-red-400">{{ $getCountProposals }} % </span>
+                <span class="text-red-400 text-xs 2xl:text-sm">{{ $getCountProposals }} % </span>
                 <span class="text-xs text-red-400">of today</span>
                 @endif
             </div>
