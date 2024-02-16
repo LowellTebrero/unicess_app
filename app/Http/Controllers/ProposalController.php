@@ -108,7 +108,7 @@ class ProposalController extends Controller
 
         foreach ($request->tags as $tag) {
 
-            $model = ProposalMember::create([
+             ProposalMember::create([
                 'proposal_id' => $post->id, // Set proposal_id to the newly created proposal's ID
                 'user_id' => $tag, // Set user_id to the current tag (user's ID)
             ]);
@@ -543,11 +543,11 @@ class ProposalController extends Controller
         ->select('authorize', \DB::raw('count(*) as count'))
         ->groupBy('authorize')
         ->get();
-        
+
         $statusCounts = $proposalsWithCounts->pluck('count', 'authorize');
         $labels = $statusCounts->keys();
         $data = $statusCounts->values();
- 
+
 
         $ProjectDateCount = Proposal::with(['proposal_members' => function ($query) {
         $query->where('user_id', auth()->user()->id);}])
@@ -558,9 +558,9 @@ class ProposalController extends Controller
         $DateCountdata = $ProjectDateCount->values();
 
 
-        
 
-        
+
+
         return view('user.dashboard.MyProposal.index', compact('proposals', 'years', 'count', 'labels','data','DateCountlabels','DateCountdata'));
     }
 

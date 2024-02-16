@@ -22,9 +22,10 @@ class TrashController extends Controller
         with(['proposal_members' => function ($query) {
             $query->where('user_id', auth()->user()->id);
         },'medias' => function ($query) {
-        $query->where('collection_name', 'trash')->where('name', Auth()->user()->id);
+        $query->where('collection_name', 'trash');
        }])->orderBy('created_at', 'DESC')->distinct()->get();
        $trashedRecord = TrashedRecord::all();
+
 
         $mediaCollection = CollectionMedia::all();
         return view('user.trash.index', compact('trash', 'proposals','trashedRecord','mediaCollection'));

@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Proposal;
 use App\Models\Evaluation;
 use Illuminate\Http\Request;
+use App\Models\TrashedRecord;
 use App\Models\CollectionMedia;
 use App\Http\Controllers\Controller;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -20,7 +21,6 @@ class AdminTrashController extends Controller
 
         $evaluations = Evaluation::onlyTrashed()->get();
 
-
         $trash = Proposal::withTrashed()->
         with(['medias' => function ($query) {
         $query->where('collection_name', 'trash');
@@ -29,11 +29,10 @@ class AdminTrashController extends Controller
         ->distinct()->get();
 
         $users = User::get();
-
-
-        return view('admin.trash.index', compact('trash', 'proposals', 'evaluations','users'));
+        $trashedRecord = TrashedRecord::all();
+        $mediaCollection = CollectionMedia::all();
+        return view('admin.trash.index', compact('trash', 'proposals', 'evaluations','users','mediaCollection','trashedRecord'));
     }
-
 
     public function RestoreFile(Request $request){
 
