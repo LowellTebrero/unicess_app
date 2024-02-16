@@ -88,8 +88,8 @@ class DashboardController extends Controller
             $post->addMediaFromRequest('proposal_pdf')->usingName('proposal')->usingFileName($request->project_title.'_proposal.pdf')->toMediaCollection('proposalPdf');
         }
         if ($request->hasFile('moa_pdf')) {
-            $post->clearMediaCollection('MoaPDF');
-            $post->addMediaFromRequest('moa_pdf')->usingName('moa')->usingFileName($request->project_title.'_moa.pdf')->toMediaCollection('MoaPDF');
+            $post->clearMediaCollection('moaPdf');
+            $post->addMediaFromRequest('moa_pdf')->usingName('moa')->usingFileName($request->project_title.'_moa.pdf')->toMediaCollection('moaPdf');
         }
         if ($specialorder = $request->file('special_order_pdf')) {
 
@@ -232,8 +232,8 @@ class DashboardController extends Controller
         }
 
         if ($request->hasFile('moa_pdf')) {
-            $proposals->clearMediaCollection('MoaPDF');
-            $proposals->addMediaFromRequest('moa_pdf')->usingName('moa')->usingFileName($project_title.'_moa.pdf')->toMediaCollection('MoaPDF');
+            $proposals->clearMediaCollection('moaPdf');
+            $proposals->addMediaFromRequest('moa_pdf')->usingName('moa')->usingFileName($project_title.'_moa.pdf')->toMediaCollection('moaPdf');
         }
 
         if ($specialorder = $request->file('special_order_pdf')) {

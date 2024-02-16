@@ -1299,13 +1299,13 @@
 
                             @if (Auth::user()->authorize == 'checked')
                                 @hasrole('admin')
-                                    {{--  <x-dropdown-link :href="route('admin.index')">
+                                    <x-dropdown-link :href="route('admin.dashboard.index')">
                             {{ __('Dashboard') }}
-                        </x-dropdown-link>  --}}
+                        </x-dropdown-link>
                                 @else
-                                    {{--  <x-dropdown-link :href="route('ProjectProposal.index')">
+                                    <x-dropdown-link :href="route('dashboard.index')">
                             {{ __('Dashboard') }}
-                        </x-dropdown-link>  --}}
+                        </x-dropdown-link>
                                 @endhasrole
 
 
