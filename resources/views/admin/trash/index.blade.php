@@ -441,13 +441,13 @@
                                                 </div>
 
                                                 <div class="text-xs text-left">
-                                                Evaluation File
+                                                Evaluation ID : {{ $evaluation->uuid }}
                                                 </div>
                                             </div>
                                         </x-slot>
 
                                         <x-slot name="title">
-                                            <span>Evaluation ID: {{ Str::limit($evaluation->id) }}</span>
+                                            <span>Evaluation ID: {{ Str::limit($evaluation->uuid) }}</span>
                                         </x-slot>
 
                                         <div class="w-[50rem]">
@@ -461,7 +461,7 @@
                                     </x-alpine-modal>
                                 </th>
 
-                                <td class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-4 py-4 text-xs">File</td>
+                                <td class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-4 py-4 text-xs">Evaluation File</td>
 
                                 <td class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-4 py-4 text-xs">
                                     <span class="block xl:text-xs 2xl:text-sm">
