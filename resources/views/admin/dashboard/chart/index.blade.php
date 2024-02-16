@@ -39,16 +39,6 @@
                             <option value="{{ $year }}"  @if ($year == date('Y')) selected="selected" @endif >{{ $year }}</option>
                             @endforeach
                         </select>
-
-
-
-
-
-                        {{--  <select id="CustomizeFilter" class="text-xs rounded border border-gray-300 text-gray-700">
-                                <option value="1" {{ old('1', $customize->number) == '1' ? 'selected' : '' }}>View Statistics</option>
-                                <option value="2" {{ old('2', $customize->number) == '2' ? 'selected' : '' }}>View Project</option>
-                        </select>  --}}
-
                     </div>
 
                 </div>

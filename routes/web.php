@@ -89,8 +89,6 @@ Route::get('/pusher', function (){
 // Route for Admin
 Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group(function(){
 
-
-
     Route::controller(IndexController::class)->group(function () {
         Route::get('/',  'index')->name('dashboard.index');
         // Route::post('/create-proposal', 'store')->name('store');
@@ -110,6 +108,7 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
         Route::get('/dashboard-filter-status',  'FilterStatus')->name('dashboard.filter-status');
         Route::get('/dashboard-search-data',  'SearchData')->name('dashboard.search-data');
         Route::get('/dashboard-filter-year',  'FilterYears')->name('dashboard.filter-year');
+        Route::get('/dashboard-evaluation-chart',  'EvaluationChart')->name('dashboard.evaluation-chart');
 
     });
 
@@ -207,7 +206,6 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
     });
 
 
-
     Route::controller(ProjectProposalController::class)->group(function () {
         Route::put('/rename/files/{id}','RenameFile')->name('proposal.rename-ongoing-proposal');
         Route::delete('/delete-Mediafile','deleteMedia')->name('proposal.delete-media-proposal');
@@ -240,6 +238,8 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
     Route::get('/admin-trash', [AdminTrashController::class, 'index'])->name('trash.index');
     Route::delete('/admin-trash-restore', [AdminTrashController::class, 'RestoreFile'])->name('trash.restore');
     Route::delete('/admin-trash-hardelete', [AdminTrashController::class, 'DeleteFile'])->name('trash.hardelete');
+
+
 
 });
 

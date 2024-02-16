@@ -1303,7 +1303,7 @@
                             {{ __('Dashboard') }}
                         </x-dropdown-link>
                                 @else
-                                    <x-dropdown-link :href="route('dashboard.index')">
+                                    <x-dropdown-link :href="route('User-dashboard.index')">
                             {{ __('Dashboard') }}
                         </x-dropdown-link>
                                 @endhasrole

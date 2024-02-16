@@ -7,20 +7,22 @@ use App\Models\User;
 use App\Models\Program;
 use App\Models\Proposal;
 use App\Models\AdminYear;
+use App\Models\Evaluation;
 use App\Rules\UniqueTitle;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\ProposalMember;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use App\Models\AdminProgramServices;
 use App\Models\CustomizeAdminProposal;
 use App\Notifications\ProposalNotification;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\UserTagProposalNotification;
-use App\Notifications\UserTagRemoveProposalNotification;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use App\Notifications\UserTagRemoveProposalNotification;
 
 class DashboardController extends Controller
 {
@@ -69,16 +71,21 @@ class DashboardController extends Controller
         $post->user_id  = auth()->id();
         $post->save();
 
-        foreach ($request->tags as $tag) {
+        if($request->tags == !null){
 
-            $model = ProposalMember::create([
-                'proposal_id' => $post->id, // Set proposal_id to the newly created proposal's ID
-                'user_id' => $tag, // Set user_id to the current tag (user's ID)
-            ]);
+            foreach ($request->tags as $tag) {
 
-            $users = User::where('id',$tag)->get();
-            Notification::send($users, new ProposalNotification($post));
+                ProposalMember::create([
+                    'proposal_id' => $post->id, // Set proposal_id to the newly created proposal's ID
+                    'user_id' => $tag, // Set user_id to the current tag (user's ID)
+                ]);
+
+                $users = User::where('id',$tag)->get();
+                Notification::send($users, new ProposalNotification($post));
+            }
         }
+
+
 
         $admin = User::whereHas('roles', function ($query) { $query->where('id', 1);})->get();
         Notification::send($admin, new ProposalNotification($post));
@@ -656,6 +663,55 @@ class DashboardController extends Controller
 
         return view('admin.dashboard.chart.filter_index._index-dashboard',compact( 'programLabel', 'programData', 'statusCount', 'pendingCount', 'ongoingCount', 'finishedCount',
             'labels','data','customizes', 'allProposal', 'years'));
+    }
+
+
+    public function EvaluationChart(){
+
+        $evaluations = Evaluation::all();
+
+        $progressPoints = Evaluation::select('total_points', 'users.first_name')
+        ->join('users', 'evaluations.user_id', '=', 'users.id')
+        ->orderByDesc('total_points')
+        ->take(10)
+        ->get();
+        $maximumPoints = 100;
+
+
+
+        $points = Evaluation::select('total_points', 'users.first_name')
+        ->join('users', 'evaluations.user_id', '=', 'users.id')
+        ->orderByDesc('total_points')
+        ->take(10)
+        ->pluck('total_points', 'users.first_name');
+        $totalPoints = $points->values();
+        $userNames = $points->keys();
+
+        $roleCounts = Role::select('roles.name', DB::raw('COUNT(*) as count'))
+        ->join('model_has_roles', 'roles.id', '=', 'model_has_roles.role_id')
+        ->join('users', 'model_has_roles.model_id', '=', 'users.id')
+        ->join('evaluations', 'users.id', '=', 'evaluations.user_id')
+        ->groupBy('roles.name')
+        ->pluck('count', 'roles.name');
+        $RoleCount = $roleCounts->values();
+        $RoleNames = $roleCounts->keys();
+
+
+        $statusCounts = Evaluation::select('status', DB::raw('COUNT(*) as count'))
+        ->groupBy('status')
+        ->pluck('count', 'status');
+        $StatusCount = $statusCounts->values();
+        $StatusNames = $statusCounts->keys();
+
+        $facultyCounts = Evaluation::select('faculty_id', DB::raw('COUNT(*) as count'))
+        ->groupBy('faculty_id')
+        ->pluck('count', 'faculty_id');
+        $facultyCount = $facultyCounts->values();
+        $facultyNames = $facultyCounts->keys();
+
+        return view('admin.dashboard.evaluation-chart.index',
+        compact('evaluations', 'totalPoints', 'userNames','StatusCount','StatusNames','facultyCount','facultyNames'
+        ,'RoleCount','RoleNames','progressPoints','maximumPoints'));
     }
 
 }
