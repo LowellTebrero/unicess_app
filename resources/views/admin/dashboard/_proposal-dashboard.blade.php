@@ -33,7 +33,7 @@
             @foreach ($allProposal as $proposal)
                 <tr class="hover:bg-gray-100">
                     <td class="p-3 whitespace-nowrap hidden 2xl:block">
-                        <a href={{ route('admin.dashboard.edit-proposal',  ['id' => $proposal->id, 'notification' => $proposal->id ]) }}>
+                        <a href={{ route('admin.dashboard.edit-proposal',  $proposal->id) }}>
                         <div class="flex items-center">
                             <div class="flex-shrink-0 mr-2 sm:mr-3"><img
                                     class="rounded-full"
@@ -47,8 +47,8 @@
                     </a>
                     </td>
                     <td class="p-3 whitespace-nowrap">
-                        <a href={{ route('admin.dashboard.edit-proposal', ['id' => $proposal->id, 'notification' => $proposal->id ]) }}>
-                                                                                            
+                        <a href={{ route('admin.dashboard.edit-proposal', $proposal->id) }}>
+
                             <div class="text-left text-gray-600">
                                 {{ Str::limit($proposal->project_title, 70) }}
                             </div>
@@ -56,14 +56,14 @@
                     </td>
 
                     <td class="p-3 whitespace-nowrap  hidden sm:block">
-                        <a href={{ route('admin.dashboard.edit-proposal', ['id' => $proposal->id, 'notification' => $proposal->id ]) }}>
+                        <a href={{ route('admin.dashboard.edit-proposal', $proposal->id) }}>
                         <div class="text-left text-gray-600  xl:text-[.7rem]">
                             {{ \Carbon\Carbon::parse($proposal->created_at)->format('M d, Y,  g:i:s A')}}
                         </div>
                         </a>
                     </td>
                     <td class="p-3 whitespace-nowrap">
-                        <a href={{ route('admin.dashboard.edit-proposal', ['id' => $proposal->id, 'notification' => $proposal->id ]) }}>
+                        <a href={{ route('admin.dashboard.edit-proposal', $proposal->id) }}>
                         @if ($proposal->authorize == 'pending')
                             <div
                                 class="text-md text-center text-red-400 xl:text-[.7rem] ">
@@ -89,5 +89,4 @@
 @endif
 
 
-        
-   
+
