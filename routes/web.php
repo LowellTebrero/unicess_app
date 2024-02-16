@@ -171,9 +171,6 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
         Route::delete('/event/delete/{id}','EventDelete')->name('event.delete');
         Route::post('/toggle-update-article-status',  'UpdateToggleFeatureStatus')->name('features.update-article-status');
         Route::post('/toggle-update-event-status', 'UpdateToggleEventStatus')->name('features.update-event-status');
-    });
-
-    Route::controller(AdminPartnerBeneficiaryController::class)->group(function () {
         Route::get('/partner-beneficiary','index')->name('partner-beneficiary.index');
         Route::post('/partner/store','PartnerPost')->name('partner.store');
         Route::delete('/partner/delete/{id}','PartnerDelete')->name('partner.delete');
@@ -181,9 +178,6 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
         Route::post('/beneficiary/store','BeneficiaryPost')->name('beneficiary.store');
         Route::delete('/beneficiary/delete/{id}','BeneficiaryDelete')->name('beneficiary.delete');
         Route::patch('/beneficiary/update/{id}','BeneficiaryUpdate')->name('beneficiary.update');
-    });
-
-    Route::controller(AdminProgramServicesController::class)->group(function () {
         Route::get('/program-services','index')->name('program-services.index');
         Route::delete('/program-services/delete/{id}','ProgramServicesDelete')->name('program-services.delete');
         Route::patch('/program-services/update/{id}','ProgramServicesUpdate')->name('program-services.update');
@@ -196,8 +190,9 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
         Route::post('/toggle-program-services-status-environmental','UpdateToggleStatustoEnvironmental')->name('program-services.update-status-environmental');
         Route::post('/toggle-program-services-status-management','UpdateToggleStatustoManagement')->name('program-services.update-status-management');
         Route::post('/toggle-program-services-status-special','UpdateToggleStatustoSpecial')->name('program-services.update-status-special');
-
     });
+
+
 
     Route::controller(RoleController::class)->group(function () {
         Route::resource('/roles', RoleController::class);

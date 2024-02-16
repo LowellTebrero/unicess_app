@@ -47,7 +47,6 @@
                 </div>
 
                 <a href={{route('User-dashboard.my-proposal')}} class="relative w-full rounded-lg  hover:from-red-400 hover:to-pink-500  bg-gradient-to-tl from-red-500 to-pink-400 xl:px-5  xl:py-5 2xl:px-10 2xl:py-5 flex">
-
                     <div class="flex-1 text-gray-800 flex  md:flex-col  pl-5 justify-center">
                         <span  class=" font-medium text-5xl 2xl:text-6xl">{{$second}}</span>
                         <h1 class="font-thick  tracking-wide text-xs 2xl:text-sm">Total Project</h1>

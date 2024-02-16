@@ -65,7 +65,7 @@ class EvaluationController extends Controller
     }
 
 
-    public function show($id, $year, $notification){
+    public function show($id, $year){
 
 
         $evaluation = Evaluation::with('evaluationfile')->where('id', $id)
@@ -82,12 +82,6 @@ class EvaluationController extends Controller
                 ]);
             }
         ])->first();
-
-
-
-        if($notification){
-            auth()->user()->unreadNotifications->where('id', $notification)->markAsRead();
-        }
 
         return view('admin.evaluation.show', compact('evaluation'));
     }
