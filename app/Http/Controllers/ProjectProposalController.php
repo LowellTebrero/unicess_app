@@ -8,6 +8,7 @@ use App\Models\CesoRole;
 use App\Models\Location;
 use App\Models\Proposal;
 use Illuminate\Http\Request;
+use App\Models\TrashedRecord;
 use App\Models\ParticipationName;
 use Illuminate\Support\Facades\DB;
 use App\Models\CustomizeAdminInventory;
@@ -155,37 +156,42 @@ class ProjectProposalController extends Controller
                     $user->notify(new UserDeletedProposaleNotification($proposalDelete));
                 }
 
-           }
+            }
+
+            $trashRecord = new TrashedRecord();
+            $trashRecord->uuid = $proposalDelete->uuid;
+            $trashRecord->user_id = Auth()->user()->id;
+            $trashRecord->save();
+
            // proposal delete
            $proposalDelete->delete();
 
-
            $notifications = DB::table('notifications')->get();
 
-           foreach ($notifications as $notification) {
-            // Decode the JSON string into an array
-            $data = json_decode($notification->data, true);
+            foreach ($notifications as $notification) {
+                // Decode the JSON string into an array
+                $data = json_decode($notification->data, true);
 
-            // Check if the data array has an 'id' matching the one you want to delete
-            if (is_array($data) && array_key_exists('id', $data) && $data['id'] == $id) {
-            // Delete the notification
+                // Check if the data array has an 'id' matching the one you want to delete
+                if (is_array($data) && array_key_exists('id', $data) && $data['id'] == $id) {
+                // Delete the notification
 
-                DB::table('notifications')->where('id', $notification->id)->delete();
-            }
-            // Check if the data array has an 'id' matching the one you want to delete
-            if (is_array($data) && array_key_exists('proposal_id', $data) && $data['proposal_id'] == $id) {
-            // Delete the notification
-
-                DB::table('notifications')->where('id', $notification->id)->delete();
-            }
-
-            if (is_array($data) && array_key_exists('proposal_status_id', $data) && $data['proposal_status_id'] == $id) {
+                    DB::table('notifications')->where('id', $notification->id)->delete();
+                }
+                    // Check if the data array has an 'id' matching the one you want to delete
+                if (is_array($data) && array_key_exists('proposal_id', $data) && $data['proposal_id'] == $id) {
                 // Delete the notification
 
                     DB::table('notifications')->where('id', $notification->id)->delete();
                 }
 
-        }
+                if (is_array($data) && array_key_exists('proposal_status_id', $data) && $data['proposal_status_id'] == $id) {
+                // Delete the notification
+
+                    DB::table('notifications')->where('id', $notification->id)->delete();
+                }
+
+            }
 
 
 

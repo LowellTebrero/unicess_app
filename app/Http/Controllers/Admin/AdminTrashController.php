@@ -44,19 +44,23 @@ class AdminTrashController extends Controller
             $media = Media::where('uuid', $id)->first();
             $proposal = Proposal::where('uuid', $id)->withTrashed()->first();
             $evaluation = Evaluation::where('uuid', $id)->withTrashed()->first();
+            $removeTrashed = TrashedRecord::where('uuid', $id)->first();
 
             if ($media) {
                 $collect = CollectionMedia::where('media_id', $media->id)->first();
                 $media->collection_name = $collect->collection_name;
                 $media->save();
+                $removeTrashed->delete();
 
             } elseif ($proposal) {
                 // If the file exists in Proposal, restore it
                 $proposal->restore();
+                $removeTrashed->delete();
 
             } elseif ($evaluation) {
                 // If the file exists in Proposal, restore it
                 $evaluation->restore();
+                $removeTrashed->delete();
             }
         }
 
