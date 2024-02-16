@@ -471,6 +471,18 @@
 
 
                                 <td class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-4 py-4 text-xs 2xl:text-xs">
+                                    @foreach ($trashedRecord as $record )
+                                        @if ($evaluation->uuid == $record->uuid)
+                                            <div class="relative h-5 w-5 flex space-x-2 items-center">
+                                                <img class="rounded-full" id="showImage" src="{{ (!empty($record->user->avatar))? url('upload/image-folder/profile-image/'. $record->user->avatar): url('upload/profile.png') }}" alt="profileImage">
+                                                <h1 class="font-medium text-gray-500 text-xs">{{ $record->user->first_name }}</h1>
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                </td>
+
+
+                                <td class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-4 py-4 text-xs 2xl:text-xs">
                                     {{ \Carbon\Carbon::parse($evaluation->udpated_at)->format('M d, Y,  g:i:s A')}}
                                 </td>
 

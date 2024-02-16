@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\AdminYear;
 use App\Models\Evaluation;
 use Illuminate\Http\Request;
+use App\Models\TrashedRecord;
 use App\Models\EvaluationFile;
 use App\Models\ProposalMember;
 use App\Models\EvaluationStatus;
@@ -199,9 +200,11 @@ class EvaluationController extends Controller
     public function RestoreEvaluation($id){
 
         $restore = Evaluation::withTrashed()->where('id', $id)->first();
+        $removeTrashed = TrashedRecord::where('uuid', $id)->first();
 
         if($restore && $restore->trashed()){
             $restore->restore();
+            $removeTrashed->delete();
         }
 
         flash()->addSuccess('Evaluation has been restored');
@@ -211,6 +214,12 @@ class EvaluationController extends Controller
     public function TrashEvaluation($id){
 
         $delete = Evaluation::findorFail($id);
+
+        $trashRecord = new TrashedRecord();
+        $trashRecord->uuid = $delete->uuid;
+        $trashRecord->user_id = Auth()->user()->id;
+        $trashRecord->save();
+
         $delete->delete();
 
         return response()->json(['success' => 'Trashed Successfully']);
