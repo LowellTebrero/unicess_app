@@ -224,15 +224,16 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
         Route::post('/template-post', 'PostTemplate')->name('templatepost.upload');
         Route::put('/template-update/{id}', 'TemplateUpdate')->name('template.update');
         Route::delete('/template-delete/{id}/{templateId}', 'deleteMediasTemplate')->name('template.delete');
+        Route::get('/calendar-index', 'index')->name('calendar.index');
+        Route::post('/calendar-post', 'store')->name('calendar.store');
+        Route::patch('/calendar-update/{id}', 'update')->name('calendar.update');
+        Route::delete('/calendar-delete/{id}', 'delete')->name('calendar.delete');
     });
 
     Route::get('/edit-toggle/{id}', [ToggleController::class, 'edit'])->name('edit.submit');
 
     Route::controller(AdminCalendarController::class)->group(function () {
-        Route::get('/calendar-index', 'index')->name('calendar.index');
-        Route::post('/calendar-post', 'store')->name('calendar.store');
-        Route::patch('/calendar-update/{id}', 'update')->name('calendar.update');
-        Route::delete('/calendar-delete/{id}', 'delete')->name('calendar.delete');
+
     });
 
     Route::get('/admin-trash', [AdminTrashController::class, 'index'])->name('trash.index');

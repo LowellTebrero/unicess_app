@@ -6,6 +6,7 @@ use App\Models\Faculty;
 use App\Models\Template;
 use App\Models\AdminYear;
 use Illuminate\Http\Request;
+use App\Models\AdminCalendar;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -17,7 +18,18 @@ class OtherSettingsController extends Controller
         $templates = Template::with('medias')->get();
         $years = AdminYear::orderBy('year', 'DESC')->get();
         $faculties =  Faculty::orderBy('name')->get();
-        return view('admin.other-settings.index', compact('templates', 'years', 'faculties'));
+        $events = [];
+        $appointments  = AdminCalendar::all();
+
+        foreach ($appointments as $appointment) {
+            $events[] = [
+                'title' => $appointment->title,
+                'start' => $appointment->start_time,
+                'end' => $appointment->finish_time,
+            ];
+        }
+
+        return view('admin.other-settings.index', compact('templates', 'years', 'faculties','events', 'appointments'));
     }
 
     public function yearPost(Request $request){
@@ -117,5 +129,45 @@ class OtherSettingsController extends Controller
 
         return back();
 
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'title' => 'required',
+            'start_time' => 'required|date',
+            'end_time' => 'required|date|after:start_time',
+        ]);
+
+        AdminCalendar::create($data);
+
+        flash()->addSuccess('Data Uploded Successfully.');
+        return redirect()->route('admin.calendar.index');
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+
+            'title' => 'required',
+        ]);
+
+        AdminCalendar::where('id', $id)->update([
+
+            'title' => $request->title,
+            'start_time' => $request->start_time,
+            'end_time' => $request->end_time,
+        ]);
+
+        flash()->addSuccess('Data Updated Successfully.');
+        return back();
+    }
+    public function delete($id){
+
+        $data = AdminCalendar::find($id);
+        $data->delete();
+
+        flash()->addSuccess('Delete Successfully.');
+        return back();
     }
 }

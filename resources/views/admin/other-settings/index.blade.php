@@ -10,6 +10,33 @@
         border-top-left-radius: 4px;
         border-top-right-radius: 4px;
         }
+            .active-cad {
+        /* Add your active styles here */
+        background-color: #00aeff;
+        color: #ffffff;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+        }
+
+        .fc-event {
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 14px; /* Adjust the font size as needed */
+            background-color: #e0e0e0; /* Background color for events */
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .fc-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .fc-description {
+            color: #333; /* Text color for description */
+        }
+
+
 
     </style>
 
@@ -24,7 +51,7 @@
     <section class="rounded-xl shadow m-8 mt-4 2xl:mt-5 text-slate-700 bg-white h-[82vh] 2xl:h-[87vh]">
 
         <div class="p-5 py-4">
-            <h1 class=" font-semibold  text-lg 2xl:text-2xl tracking-wider">Others Settings </h1>
+            <h1 class=" font-semibold  text-lg 2xl:text-2xl tracking-wider">Settings Overview</h1>
         </div>
         <hr>
 
@@ -33,12 +60,13 @@
                 <li class="me-2"  id="tab-template">
                     <a href="#" onclick="showTab('template')" aria-current="page"  class="inline-block p-4 rounded-t-lg ">Template</a>
                 </li>
-                {{--  <li class="me-2"  id="tab-year">
-                    <a href="#"  onclick="showTab('year')" class="inline-block p-4 rounded-t-lg">Year</a>
-                </li>  --}}
                 <li class="me-2"  id="tab-department">
                     <a href="#"  onclick="showTab('department')" class="inline-block p-4 rounded-t-lg">Department</a>
                 </li>
+                <li class="me-2"  id="tab-calendar">
+                    <a href="#"  onclick="showTab('calendar')" class="inline-block p-4 rounded-t-lg">Calendar</a>
+                </li>
+
             </ul>
         </div>
 
@@ -122,36 +150,6 @@
             </div>
 
         </div>
-
-        {{--  <div class="w-full bg-white border rounded-lg shadow-sm tab-content" id="year-content" style="display: none;">
-            <div class="p-5 flex justify-between">
-                <h1 class="tracking-wider font-medium text-gray-600 text-xs 2xl:text-base">UPDATE YEAR HERE...</h1>
-                <h1 class="tracking-wider text-xs">Example: (2008)</h1>
-            </div>
-
-            <hr>
-
-            <div class="flex flex-col space-y-2 p-5">
-
-            <select class="rounded border-gray-500 border  text-xs 2xl:text-sm text-gray-700">
-                @foreach ($years as $year )
-                    <option>{{ $year->year }}</option>
-                @endforeach
-            </select>
-
-            <form action="{{ route('admin.yearpost.upload') }}" method="POST" class="flex flex-col space-y-3">
-                @csrf
-
-                <div class="flex flex-col">
-                    <input type="text" placeholder="Add Year" name="year" class="rounded text-xs 2xl:text-sm text-gray-700" onkeypress="return isNumber(event)" maxlength="4">
-                    @error('year') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
-                </div>
-
-                <button type="submit" class="bg-blue-400 hover:bg-blue-500 text-white p-2 rounded-lg text-sm">Submit Year</button>
-            </form>
-            </div>
-        </div>  --}}
-
 
         <div class="flex m-5 tab-content" id="department-content"  style="display: none;">
             <div class="flex py-2  flex-col  w-full">
@@ -249,12 +247,211 @@
             </div>
         </div>
 
+        <div class="flex m-5 tab-content overflow-auto h-[60vh]" id="calendar-content"  style="display: none;">
+
+            <div class="p-5 sticky top-[0rem] z-10 bg-white">
+                <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-300">
+                    <li class="me-2"  id="cad-calendar-data">
+                        <a href="#" onclick="showCad('calendar-data')" aria-current="page"  class="inline-block p-4 rounded-t-lg">Calendar Data</a>
+                    </li>
+
+                    <li class="me-2"  id="cad-calendar-date">
+                        <a href="#"  onclick="showCad('calendar-date')" class="inline-block p-4 rounded-t-lg">Calendar Date</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="cad-content" id="calendar-date-content" style="display: none;">
+                <div id="calendars" class="bg-white shadow rounded-lg  p-10 w-auto"></div>
+            </div>
+
+            <div class="cad-content bg-white w-auto 2xl:h-[40vh]  rounded-lg mb-5 2xl:mb-0 p-5" id="calendar-data-content" style="display: none;">
+                <header class="flex justify-between">
+                    <h1 class="text-lg font-medium text-gray-600">Calendar Data</h1>
+                    <!-- Modal toggle -->
+                    <button data-modal-target="default-modal-calendar-add" data-modal-toggle="default-modal-calendar-add" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                        + Add Data
+                    </button>
+
+                    <!-- Main modal -->
+                    <div id="default-modal-calendar-add" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                        <div class="relative p-4 w-full max-w-2xl max-h-full">
+                            <!-- Modal content -->
+                            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                <!-- Modal header -->
+                                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                        Add Calendar Data
+                                    </h3>
+                                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal-calendar-add">
+                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                        </svg>
+                                        <span class="sr-only">Close modal</span>
+                                    </button>
+                                </div>
+                                <!-- Modal body -->
+                                <form action={{ route('admin.calendar.store') }} method="POST">
+                                    @csrf
+                                    <div class="p-4 md:p-5 space-y-4">
+                                        <div class="flex flex-col">
+                                            <label class="text-sm 2xl:text-base leading-relaxed text-gray-200">Description</label>
+                                            <input type="text" class="text-sm 2xl:text-base leading-relaxed text-gray-600 rounded" name="title">
+                                            @error('title') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                        </div>
+
+                                        <div class="flex flex-col">
+                                            <label class="text-sm 2xl:text-base leading-relaxed text-gray-200">Start Date</label>
+                                            <input type="date" class="text-sm 2xl:text-base leading-relaxed text-gray-600 rounded" name="start_time">
+                                            @error('start_time') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                        </div>
+
+                                        <div class="flex flex-col">
+                                            <label class="text-sm 2xl:text-base leading-relaxed text-gray-200">End Date</label>
+                                            <input type="date" class="text-sm 2xl:text-base leading-relaxed text-gray-600 rounded" name="end_time">
+                                            @error('end_time') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                        </div>
+
+
+                                    </div>
+                                    <!-- Modal footer -->
+                                    <div class="flex items-center justify-between p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+                                        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Upload</button>
+                                        <button data-modal-hide="default-modal-calendar-add" type="button" class="ms-3 text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+                <div class="h-[30vh] overflow-x-auto">
+                    <table class="table-auto w-full relative">
+                        <thead class="text-[.7rem] font-semibold uppercase text-gray-400 bg-gray-50 top-0 sticky z-10">
+                            <tr>
+                                <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold text-left">Created</div>
+                                </th>
+                                <th class="p-2 whitespace-nowrap">
+                                    <div class="font-semibold text-left">Title</div>
+                                </th>
+
+                                <th class="p-2 whitespace-nowrap w-[10rem]">
+                                    <div class="font-semibold text-center">
+                                        Option
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="text-xs divide-y divide-gray-100 ">
+                            @foreach ($appointments as $calendar)
+                            <tr class="hover:bg-gray-100">
+                                <td class="p-3 whitespace-nowrap w-[5rem]">
+                                    <div class="text-left text-gray-700 xl:text-[.7rem]">
+                                        {{ \Carbon\Carbon::parse($calendar->created_at)->format('M d, Y,  g:i:s A')}}
+                                    </div>
+                                </td>
+
+                                <td class="p-3 whitespace-nowrap">
+                                    <div class="text-left text-gray-700  xl:text-[.7rem]">
+                                       {{Str::limit($calendar->title, 20)}}
+                                    </div>
+                                </td>
+
+                                <td class="p-3 whitespace-nowrap text-center w-[10rem]">
+                                    <div class="text-left text-gray-700 space-x-2 flex items-center justify-center">
+                                            <!-- Modal toggle -->
+                                            <button data-modal-target="default-modal-edit-calendar{{ $calendar->id }}" data-modal-toggle="default-modal-edit-calendar{{ $calendar->id }}" class="block text-white bg-green-400 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-3 py-1 text-center" type="button">
+                                                Edit
+                                            </button>
+
+                                            <!-- Main modal -->
+                                            <div id="default-modal-edit-calendar{{ $calendar->id }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+
+                                                <div class="relative p-4 w-full max-w-2xl max-h-full">
+                                                    <!-- Modal content -->
+                                                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                                        <!-- Modal header -->
+                                                        <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                                                Edit calendar Details
+                                                            </h3>
+                                                            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal-edit-calendar{{ $calendar->id }}">
+                                                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                                                </svg>
+                                                                <span class="sr-only">Close modal</span>
+                                                            </button>
+                                                        </div>
+                                                        <!-- Modal body -->
+                                                        <form action={{ route('admin.calendar.update', $calendar->id ) }} method="POST">
+                                                            @csrf @method('PATCH')
+                                                            <div class="p-4 md:p-5 space-y-4">
+                                                                <div class="flex flex-col">
+                                                                    <label class="text-base leading-relaxed text-gray-200">Title</label>
+                                                                    <input type="text" class="text-base leading-relaxed text-gray-600 rounded" name="title" value="{{$calendar->title}}">
+                                                                    @error('title') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                                                </div>
+
+                                                                <div class="flex flex-col">
+                                                                    <label class="text-base leading-relaxed text-gray-200">Description</label>
+                                                                    <textarea name="description" class="text-base leading-relaxed text-gray-600 rounded" id="" cols="30" rows="10">{{$calendar->description}}</textarea>
+                                                                    @error('description') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                                                </div>
+
+                                                                <div class="flex flex-col">
+                                                                    <label class="text-base leading-relaxed text-gray-200">Start Date</label>
+                                                                    <input type="datetime-local" class="text-base leading-relaxed text-gray-600 rounded" name="start_time" value="{{$calendar->start_time }}">
+                                                                    @error('start_time') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                                                </div>
+                                                                <div class="flex flex-col">
+                                                                    <label class="text-base leading-relaxed text-gray-200">End Date</label>
+                                                                    <input type="datetime-local" class="text-base leading-relaxed text-gray-600 rounded" name="end_time" value="{{$calendar->end_time}}">
+                                                                    @error('end_time') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
+                                                                </div>
+
+
+                                                            </div>
+                                                            <!-- Modal footer -->
+                                                            <div class="flex items-center justify-between p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+                                                                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Update Calendar Data</button>
+                                                                <button data-modal-hide="default-modal-edit-calendar{{ $calendar->id }}" type="button" class="ms-3 text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Decline</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        <form action="{{ route('admin.calendar.delete', $calendar->id) }}" method="POST" onsubmit="return confirm ('Are you sure?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit flex jusify-center items-center">
+                                                {{--  <svg class="fill-red-400" xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 96 960 960" width="30"><path d="M261 936q-24.75 0-42.375-17.625T201 876V306h-41v-60h188v-30h264v30h188v60h-41v570q0 24-18 42t-42 18H261Zm438-630H261v570h438V306ZM367 790h60V391h-60v399Zm166 0h60V391h-60v399ZM261 306v570-570Z"/></svg>  --}}
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="#ff4d4d" stroke-linecap="round" stroke-width="1.5"><path d="M9.17 4a3.001 3.001 0 0 1 5.66 0" opacity=".5"/><path d="M20.5 6h-17m15.333 2.5l-.46 6.9c-.177 2.654-.265 3.981-1.13 4.79c-.865.81-2.195.81-4.856.81h-.774c-2.66 0-3.99 0-4.856-.81c-.865-.809-.953-2.136-1.13-4.79l-.46-6.9"/><path d="m9.5 11l.5 5m4.5-5l-.5 5" opacity=".5"/></g></svg>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
 
     </section>
 
     <x-messages/>
 
 </x-admin-layout>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.js"></script>
+
 
     {{--  Phone Number Javascript  --}}
     <script>
@@ -327,6 +524,90 @@
             localStorage.setItem('selectedOtherSettingsTab', tabId);
         }
     </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#calendars').fullCalendar({
+                events: {!! json_encode($events) !!},
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                eventRender: function (event, element) {
+                    // Set the HTML content of the event element
+                    element.html('<strong>' + event.title + '</strong><br>' + event.description);
+
+                    element.css({
+                        padding: '10px', // Adjust the padding value as needed
+                        border: '1px solid #ccc', // Optional: Add a border for better visibility
+                        borderRadius: '5px', // Optional: Add border-radius for rounded corners
+                        backgroundColor: '#3080ff', // Optional: Add a background color
+                        cursor: 'pointer',
+                    });
+                }
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // Hide all cad contents
+            document.querySelectorAll('.cad-content').forEach(function (content) {
+                content.style.display = 'none';
+            });
+
+            // Check if there's a stored cad in localStorage
+            var storedCad = localStorage.getItem('selectedCalendarCad');
+            if (storedCad) {
+                // Show the stored cad content
+                document.getElementById(storedCad + '-content').style.display = 'block';
+
+                // Add 'active' class to the stored cad (if needed)
+                document.querySelector('[onclick="showCad(\'' + storedCad + '\')"]').classList.add('active');
+
+                // Add 'active' class to the corresponding <li>
+                document.getElementById('cad-' + storedCad).classList.add('active-cad');
+            } else {
+                // If no stored cad, show the 'narrative-content' by default
+                document.getElementById('calendar-data-content').style.display = 'block';
+
+                // Add 'active' class to the 'narrative' cad (if needed)
+                document.querySelector('[onclick="showCad(\'calendar-data\')"]').classList.add('active');
+
+                // Add 'active' class to the corresponding <li>
+                document.getElementById('cad-calendar-data').classList.add('active-cad');
+            }
+        });
+
+        function showCad(cadId) {
+            // Hide all cad contents
+            document.querySelectorAll('.cad-content').forEach(function (content) {
+                content.style.display = 'none';
+            });
+
+            // Remove 'active' class from all cads (if needed)
+            document.querySelectorAll('.cad').forEach(function (cad) {
+                cad.classList.remove('active');
+            });
+
+            // Remove 'active-cad' class from all <li> elements (if needed)
+            document.querySelectorAll('li').forEach(function (li) {
+                li.classList.remove('active-cad');
+            });
+
+            // Show the selected cad content
+            document.getElementById(cadId + '-content').style.display = 'block';
+
+            // Add 'active' class to the clicked cad (if needed)
+            document.querySelector('[onclick="showCad(\'' + cadId + '\')"]').classList.add('active');
+
+            // Add 'active-cad' class to the corresponding <li>
+            document.getElementById('cad-' + cadId).classList.add('active-cad');
+
+            // Store the selected cad in localStorage
+            localStorage.setItem('selectedCalendarCad', cadId);
+        }
+    </script>
+
 
 
 

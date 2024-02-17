@@ -108,12 +108,9 @@
                                     @endforeach
                                 </td>
 
-
                                 <td class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-4 py-4 text-xs 2xl:text-xs">
                                     {{ \Carbon\Carbon::parse($trashes->updated_at)->format('M d, Y,  g:i:s A')}}
                                 </td>
-
-
 
                                 <td class="xl:pl-4 2xl:pr-0 xl:px-0 2xl:px-2 py-4 relative">
 
