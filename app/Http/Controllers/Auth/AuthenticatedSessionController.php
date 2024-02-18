@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Auth;
 
 use Illuminate\View\View;
 use Illuminate\Http\Request;
-use Torann\GeoIP\Facades\GeoIP;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
