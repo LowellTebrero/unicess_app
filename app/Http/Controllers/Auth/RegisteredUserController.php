@@ -3,22 +3,15 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
-use App\Models\Faculty;
 use Illuminate\View\View;
-use App\Models\FacultyUser;
-use App\Models\UserFaculty;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules;
-use Illuminate\Support\Facades\DB;
-use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Auth\Events\Registered;
-use App\Providers\RouteServiceProvider;
-use Laravel\Socialite\Facades\Socialite;
+use Stevebauman\Location\Facades\Location;
 
 class RegisteredUserController extends Controller
 {
@@ -44,12 +37,22 @@ class RegisteredUserController extends Controller
         ]);
 
 
+        $userIp = $request->ip();
+        $location = false;
+
+        if ($userIp !== null) {
+            $location = Location::get($userIp);
+        }
+
+        $lastLoggedInAddress = $location !== false ? $location->regionName . ', ' . $location->cityName : null;
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'ip_address' => $request->ip(),
             'last_logged_in' => now(),
+            'last_logged_in_address' => $lastLoggedInAddress,
         ]);
 
 

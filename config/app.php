@@ -196,6 +196,8 @@ return [
         App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Stevebauman\Location\LocationServiceProvider::class,
+
 
     ],
 
@@ -214,7 +216,6 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'Notification' => Illuminate\Support\Facades\Notification::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
-        'GeoIP' => \Torann\GeoIP\Facades\GeoIP::class,
     ])->toArray(),
 
 ];

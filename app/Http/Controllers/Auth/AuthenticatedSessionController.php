@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\LoginRequest;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
 use Torann\GeoIP\Facades\GeoIP;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
+use App\Providers\RouteServiceProvider;
+use App\Http\Requests\Auth\LoginRequest;
+use Stevebauman\Location\Facades\Location;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -32,13 +33,22 @@ class AuthenticatedSessionController extends Controller
 
         $user = $request->user();
 
+        $userIp = $request->ip();
+        $location = false;
+
+        if ($userIp !== null) {
+            $location = Location::get($userIp);
+        }
+
+        $lastLoggedInAddress = $location !== false ? $location->regionName . ', ' . $location->cityName : null;
 
 
         auth()->user()->update([
             'last_logged_in' => now(),
             'ip_address' => $request->ip(),
+            'last_logged_in_address' => $lastLoggedInAddress,
         ]);
-        // $request->ip();
+
 
         // Check if the user has the 'admin' role
         if ($user->roles->contains('name', 'admin')) {

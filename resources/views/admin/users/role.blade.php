@@ -23,6 +23,148 @@
             background-position: 100% 50%;
         }
         }
+
+        .switch {
+            /* switch */
+            --switch-width: 46px;
+            --switch-height: 24px;
+            --switch-bg: rgb(131, 131, 131);
+            --switch-checked-bg: rgb(0, 218, 80);
+            --switch-offset: calc((var(--switch-height) - var(--circle-diameter)) / 2);
+            --switch-transition: all .2s cubic-bezier(0.27, 0.2, 0.25, 1.51);
+            /* circle */
+            --circle-diameter: 18px;
+            --circle-bg: #fff;
+            --circle-shadow: 1px 1px 2px rgba(146, 146, 146, 0.45);
+            --circle-checked-shadow: -1px 1px 2px rgba(163, 163, 163, 0.45);
+            --circle-transition: var(--switch-transition);
+            /* icon */
+            --icon-transition: all .2s cubic-bezier(0.27, 0.2, 0.25, 1.51);
+            --icon-cross-color: var(--switch-bg);
+            --icon-cross-size: 6px;
+            --icon-checkmark-color: var(--switch-checked-bg);
+            --icon-checkmark-size: 10px;
+            /* effect line */
+            --effect-width: calc(var(--circle-diameter) / 2);
+            --effect-height: calc(var(--effect-width) / 2 - 1px);
+            --effect-bg: var(--circle-bg);
+            --effect-border-radius: 1px;
+            --effect-transition: all .2s ease-in-out;
+          }
+
+          .switch input {
+            display: none;
+          }
+
+          .switch {
+            display: inline-block;
+          }
+
+          .switch svg {
+            -webkit-transition: var(--icon-transition);
+            -o-transition: var(--icon-transition);
+            transition: var(--icon-transition);
+            position: absolute;
+            height: auto;
+          }
+
+          .switch .checkmark {
+            width: var(--icon-checkmark-size);
+            color: var(--icon-checkmark-color);
+            -webkit-transform: scale(0);
+            -ms-transform: scale(0);
+            transform: scale(0);
+          }
+
+          .switch .cross {
+            width: var(--icon-cross-size);
+            color: var(--icon-cross-color);
+          }
+
+          .slider {
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            width: var(--switch-width);
+            height: var(--switch-height);
+            background: var(--switch-bg);
+            border-radius: 999px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            position: relative;
+            -webkit-transition: var(--switch-transition);
+            -o-transition: var(--switch-transition);
+            transition: var(--switch-transition);
+            cursor: pointer;
+          }
+
+          .circle {
+            width: var(--circle-diameter);
+            height: var(--circle-diameter);
+            background: var(--circle-bg);
+            border-radius: inherit;
+            -webkit-box-shadow: var(--circle-shadow);
+            box-shadow: var(--circle-shadow);
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -webkit-transition: var(--circle-transition);
+            -o-transition: var(--circle-transition);
+            transition: var(--circle-transition);
+            z-index: 1;
+            position: absolute;
+            left: var(--switch-offset);
+          }
+
+          .slider::before {
+            content: "";
+            position: absolute;
+            width: var(--effect-width);
+            height: var(--effect-height);
+            left: calc(var(--switch-offset) + (var(--effect-width) / 2));
+            background: var(--effect-bg);
+            border-radius: var(--effect-border-radius);
+            -webkit-transition: var(--effect-transition);
+            -o-transition: var(--effect-transition);
+            transition: var(--effect-transition);
+          }
+
+          /* actions */
+
+          .switch input:checked+.slider {
+            background: var(--switch-checked-bg);
+          }
+
+          .switch input:checked+.slider .checkmark {
+            -webkit-transform: scale(1);
+            -ms-transform: scale(1);
+            transform: scale(1);
+          }
+
+          .switch input:checked+.slider .cross {
+            -webkit-transform: scale(0);
+            -ms-transform: scale(0);
+            transform: scale(0);
+          }
+
+          .switch input:checked+.slider::before {
+            left: calc(100% - var(--effect-width) - (var(--effect-width) / 2) - var(--switch-offset));
+          }
+
+          .switch input:checked+.slider .circle {
+            left: calc(100% - var(--circle-diameter) - var(--switch-offset));
+            -webkit-box-shadow: var(--circle-checked-shadow);
+            box-shadow: var(--circle-checked-shadow);
+          }
     </style>
 
 
@@ -41,11 +183,11 @@
         </header>
         <hr>
 
-        <div class="hidden 2xl:block h-[7vh] xl:h-[9vh] 2xl:h-[12vh] bg-gradient-to-r
+        <div class="h-[7vh] xl:h-[9vh] 2xl:h-[12vh] bg-gradient-to-r
         from-slate-400 via-slate-300 to-slate-200 background-animate">
         </div>
 
-        <div class="w-32 2xl:w-40 xl:w-20 lg:w-28 absolute top-20 xl:top-[11vh] 2xl:top-28  left-12 z-20 ">
+        <div class="w-32 2xl:w-40 xl:w-24 lg:w-28 absolute top-20 xl:top-[17vh] 2xl:top-28  left-8 2xl:left-12 z-20 ">
             <img class="rounded-full border-8 border-white bg-white" id="showImage"
             src="{{ !empty($user->avatar) ? url('upload/image-folder/profile-image/' . $user->avatar) : url('upload/profile.png') }}">
         </div>
@@ -53,7 +195,7 @@
 
         <div class="xl:h-[14vh] h-[7vh]  2xl:h-[12vh] flex justify-end relative">
             <div class="left-[12rem] xl:left-[9rem] 2xl:left-[14rem] top-4 absolute ">
-                <div class="flex space-x-1  items-center">
+                <div class="flex space-x-1 items-center">
                     <h1 class="text-sm xl:text-base 2xl:text-lg font-medium tracking-wider">{{ $user->name }} </h1>
                     @if ($user->email_verified_at == '')
                         <h1 class="text-xs text-red-400">email unverified</h1>
@@ -74,23 +216,45 @@
             </div>
 
             <div class="p-5 pr-10 flex flex-col space-y-2 items-end">
-                <label class="toggle-switch">
-                    <input
-                        class="mr-2 mt-[0.3rem] h-3.5 w-8 appearance-none rounded-[0.4375rem] bg-neutral-300 before:pointer-events-none before:absolute before:h-3.5 before:w-3.5 before:rounded-full before:bg-transparent before:content-[''] after:absolute after:z-[2] after:-mt-[0.1875rem] after:h-5 after:w-5 after:rounded-full after:border-none after:bg-neutral-100 after:shadow-[0_0px_3px_0_rgb(0_0_0_/_7%),_0_2px_2px_0_rgb(0_0_0_/_4%)] after:transition-[background-color_0.2s,transform_0.2s] after:content-[''] checked:bg-primary checked:after:absolute checked:after:z-[2] checked:after:-mt-[3px] checked:after:ml-[1.0625rem] checked:after:h-5 checked:after:w-5 checked:after:rounded-full checked:after:border-none checked:after:bg-primary checked:after:shadow-[0_3px_1px_-2px_rgba(0,0,0,0.2),_0_2px_2px_0_rgba(0,0,0,0.14),_0_1px_5px_0_rgba(0,0,0,0.12)] checked:after:transition-[background-color_0.2s,transform_0.2s] checked:after:content-[''] hover:cursor-pointer focus:outline-none focus:ring-0 focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[3px_-1px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] focus:after:absolute focus:after:z-[1] focus:after:block focus:after:h-5 focus:after:w-5 focus:after:rounded-full focus:after:content-[''] checked:focus:border-primary checked:focus:bg-primary checked:focus:before:ml-[1.0625rem] checked:focus:before:scale-100 checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] dark:bg-neutral-600 dark:after:bg-neutral-400 dark:checked:bg-primary dark:checked:after:bg-primary dark:focus:before:shadow-[3px_-1px_0px_13px_rgba(255,255,255,0.4)] dark:checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca]"
-                        type="checkbox" data-id="{{ $toggle->id }}"
-                        {{ $toggle->authorize === 'checked' ? 'checked' : '' }} id="toggle" />
-                    <span class="toggle-slider"></span>
-                </label>
-                <h1 class="text-xs flex justify-between font-medium xl:text-sm">
-                    @if ($user->authorize == 'pending')
-                        <span class="text-red-500 text-lg xl:text-sm">Pending</span>
-                    @elseif ($user->authorize == 'checked')
-                        <span class="text-green-500 xl:text-sm">Approved</span>
-                    @else
-                        <span class="text-red-600 xl:text-sm">Declined</span>
-                    @endif
-                </h1>
+                <div class="flex flex-row space-x-2 justify-center ">
+                    <div>
+                        <label class="switch ">
+                            <input type="checkbox" data-id="{{ $toggle->id }}" {{ $toggle->authorize === 'checked' ? 'checked' : '' }} id="toggle">
+                            <div class="slider">
+                                <div class="circle">
+                                    <svg class="cross" xml:space="preserve" style="enable-background:new 0 0 512 512" viewBox="0 0 365.696 365.696" y="0" x="0" height="6" width="6" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                        <g>
+                                            <path data-original="#000000" fill="currentColor" d="M243.188 182.86 356.32 69.726c12.5-12.5 12.5-32.766 0-45.247L341.238 9.398c-12.504-12.503-32.77-12.503-45.25 0L182.86 122.528 69.727 9.374c-12.5-12.5-32.766-12.5-45.247 0L9.375 24.457c-12.5 12.504-12.5 32.77 0 45.25l113.152 113.152L9.398 295.99c-12.503 12.503-12.503 32.769 0 45.25L24.48 356.32c12.5 12.5 32.766 12.5 45.247 0l113.132-113.132L295.99 356.32c12.503 12.5 32.769 12.5 45.25 0l15.081-15.082c12.5-12.504 12.5-32.77 0-45.25zm0 0"></path>
+                                        </g>
+                                    </svg>
+                                    <svg class="checkmark" xml:space="preserve" style="enable-background:new 0 0 512 512" viewBox="0 0 24 24" y="0" x="0" height="10" width="10" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                        <g>
+                                            <path class="" data-original="#000000" fill="currentColor" d="M9.707 19.121a.997.997 0 0 1-1.414 0l-5.646-5.647a1.5 1.5 0 0 1 0-2.121l.707-.707a1.5 1.5 0 0 1 2.121 0L9 14.171l9.525-9.525a1.5 1.5 0 0 1 2.121 0l.707.707a1.5 1.5 0 0 1 0 2.121z"></path>
+                                        </g>
+                                    </svg>
+                                </div>
+                            </div>
+                        </label>
+
+                        <h1 class="text-xs flex text-center justify-between font-medium">
+                            @if ($user->authorize == 'pending')
+                                <span class="text-red-500 text-lg">Pending</span>
+                            @elseif ($user->authorize == 'checked')
+                                <span class="text-green-500">Approved</span>
+                            @else
+                                <span class="text-red-600">Declined</span>
+                            @endif
+                        </h1>
+                    </div>
+
+                    <div>
+                        <button>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><g fill="none" stroke="#ff8a8a" stroke-linecap="round" stroke-width="1.5"><path d="M9.17 4a3.001 3.001 0 0 1 5.66 0" opacity=".5"/><path d="M20.5 6h-17m15.333 2.5l-.46 6.9c-.177 2.654-.265 3.981-1.13 4.79c-.865.81-2.195.81-4.856.81h-.774c-2.66 0-3.99 0-4.856-.81c-.865-.809-.953-2.136-1.13-4.79l-.46-6.9"/><path d="m9.5 11l.5 5m4.5-5l-.5 5" opacity=".5"/></g></svg>
+                        </button>
+                    </div>
+                </div>
             </div>
+
         </div>
 
 
@@ -136,15 +300,19 @@
                             <div class="p-2">
                                 <h1 class="text-[.6rem] xl:text-[.67rem] 2xl:text-xs tracking-wider"> Last Logged in:  {{ $user->last_logged_in == null ? 'N/A' : \Carbon\Carbon::parse($user->last_logged_in)->format('M d, y g:i:s A') }}</h1>
                                 <h1 class="text-[.6rem] xl:text-[.67rem] 2xl:text-xs tracking-wider"> IP address:   {{ $user->ip_address == null ? 'N/A' : $user->ip_address }}  </h1>
+                                <h1 class="text-[.6rem] xl:text-[.67rem] 2xl:text-xs tracking-wider"> Address:   {{ $user->last_logged_in_address == null ? 'N/A' : $user->last_logged_in_address }}  </h1>
                             </div>
                         </div>
 
                     </div>
 
-                    <div class="border rounded px-2 py-1 w-full">
-                        <h1 class="tracking-wider 2xl:text-lg text-sm">Address Information</h1>
+                    <div class="border rounded  w-full">
+                        <div class="px-2 py-1">
+                            <h1 class="tracking-wider 2xl:text-lg text-sm">Address Information</h1>
+                        </div>
+
                         <hr>
-                        <div class="">
+                        <div class="p-2">
                             <h1 class="text-[.6rem] xl:text-[.67rem] 2xl:text-xs tracking-wider"> Contact no.:  {{ $user->contact_number == null ? 'N/A' : $user->contact_number }}</h1>
                             <h1 class="text-[.6rem] xl:text-[.67rem] 2xl:text-xs tracking-wider"> Province:   {{ $user->province == null ? 'N/A' : $user->province }}</h1>
                             <h1 class="text-[.6rem] xl:text-[.67rem] 2xl:text-xs tracking-wider"> City:   {{ $user->city == null ? 'N/A' : $user->city }}</h1>
@@ -156,7 +324,7 @@
                 </div>
             </div>
 
-            <div id="project-content" class="tab-content bg-white rounded border p-4 mt-5 h-[45vh]" style="display: none;">
+            <div id="project-content" class="tab-content bg-white rounded border p-4 mt-5 h-[38vh] 2xl:h-[45vh]" style="display: none;">
                 <div class="flex justify-between items-center mb-1">
                    <h1 class="tracking-wider text-[.7rem] 2xl:text-base">Projects</h1>
                    <div>
@@ -182,7 +350,7 @@
                </div>
            </div>
 
-           <div id="evaluation-content"  class="tab-content bg-white rounded border p-4 mt-5 h-[45vh]" style="display: none;">
+           <div id="evaluation-content"  class="tab-content bg-white rounded border p-4 mt-5 h-[38vh] 2xl:h-[45vh]" style="display: none;">
                 <div class="flex justify-between items-center mb-1">
                 <h1 class="tracking-wider text-xs 2xl:text-sm">Evaluation Overview</h1>
                 <div>

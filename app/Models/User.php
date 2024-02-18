@@ -54,7 +54,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'birth_date',
         'city',
         'ip_address',
-        'last_logged_in'
+        'last_logged_in',
+        'last_logged_in_address',
 
 
     ];

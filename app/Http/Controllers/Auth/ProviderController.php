@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
 use App\Events\RealtimeNotification;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +12,7 @@ use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\UserFollowNotification;
-use Google_Service_Calendar;
+use Stevebauman\Location\Facades\Location;
 
 class ProviderController extends Controller
 {
@@ -60,6 +59,15 @@ class ProviderController extends Controller
             return redirect('/login')->withErrors($validator)->withInput();
         }else{
 
+            $userIp = $request->ip();
+            $location = false;
+
+            if ($userIp !== null) {
+                $location = Location::get($userIp);
+            }
+
+            $lastLoggedInAddress = $location !== false ? $location->regionName . ', ' . $location->cityName : null;
+
             $user = User::create([
                 'name' => $cleanedUsername,
                 'email' => $user->email,
@@ -69,6 +77,7 @@ class ProviderController extends Controller
                 'google_refresh_token' => $user->refreshToken,
                 'ip_address' => $request->ip(),
                 'last_logged_in' => now(),
+                'last_logged_in_address' => $lastLoggedInAddress,
             ]);
 
             $user->email_verified_at = date('Y-m-d H:i:s');
