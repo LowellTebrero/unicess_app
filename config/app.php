@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Facade;
+use Stevebauman\Location\LocationServiceProvider;
 
 return [
 
@@ -182,7 +183,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
-        Stevebauman\Location\LocationServiceProvider::class,
+        LocationServiceProvider::class,
 
         /*
          * Package Service Providers...
