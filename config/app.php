@@ -182,6 +182,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        Stevebauman\Location\LocationServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -196,7 +197,6 @@ return [
         App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        Stevebauman\Location\LocationServiceProvider::class,
 
 
     ],
