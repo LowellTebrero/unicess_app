@@ -71,7 +71,7 @@
                         <h1 class="text-[.7rem] xl:text-sm tracking-wider">Created:
                             {{ \Carbon\Carbon::parse($proposals->created_at)->format('F-d-Y') }}</h1>
                         <h1 class="text-[.7rem] xl:text-sm tracking-wider">Status: {{ $proposals->authorize }}</h1>
-                        <h1 class="text-[.7rem] xl:text-sm tracking-wider">Program/Project ID: {{ $proposals->id }}</h1>
+                        <h1 class="text-[.7rem] xl:text-sm tracking-wider">Program/Project ID: {{ $proposals->uuid }}</h1>
 
                     </div>
                     <a class="text-black text-xl focus:bg-red-500 focus:text-white hover:bg-red-400 font-medium  px-2 py-2 rounded" href={{ route('admin.dashboard.index') }}>
@@ -131,7 +131,7 @@
                                                     Last Modified:  {{ \Carbon\Carbon::parse($proposals->updated_at)->format('M d, y g:i:s A') }}
                                                     </p>
                                                     <p class="text-xs text-white tracking-wider">
-                                                    Program/Project ID: {{ $proposals->id }}
+                                                    Program/Project ID: {{ $proposals->uuid }}
                                                     </p>
                                                     <p class="text-xs text-white tracking-wider">
                                                     Project Title: {{ $proposals->project_title }}

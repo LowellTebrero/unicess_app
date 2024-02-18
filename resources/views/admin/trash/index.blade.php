@@ -58,6 +58,8 @@
 
             </div>
 
+
+
             <table class="w-full border-collapse bg-white text-left text-sm text-gray-500 xl:text-xs 2xl:text-sm">
                 <thead class="bg-gray-50">
                     <tr class="">
@@ -606,6 +608,9 @@
 
                 </tbody>
             </table>
+
+
+
 
         </div>
 

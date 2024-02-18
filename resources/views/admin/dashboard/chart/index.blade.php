@@ -44,9 +44,10 @@
                 </div>
                 <hr>
                 @if ($allProposal->isEmpty())
-                    <div class="flex items-center justify-center h-[30vh]">
-                        <h1 class="text-gray-400 text-sm">Its empty here</h1>
-                    </div>
+                <div class="h-[45vh] 2xl:h-[52vh] flex flex-col items-center justify-center space-y-2">
+                    <img class="w-[13rem]" src="{{ asset('img/Empty.jpg') }}">
+                    <h1 class="text-md text-gray-500">It’s empty here</h1>
+                   </div>
                 @else
 
                     <div class="w-full flex justify-between h-[40vh]">

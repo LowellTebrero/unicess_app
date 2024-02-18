@@ -1,6 +1,6 @@
 <div class="bg-white shadow-lg rounded-lg  h-[82vh] 2xl:min-h-[87vh] m-8 mt-4 2xl:mt-5 text-gray-700">
-        <div class="py-2 flex justify-between 2xl:px-8 px-4">
-            <h4 class="tracking-wider 2xl:text-2xl font-semibold text-gray-700 text-lg">Accounts Overview</h4>
+        <div class="py-2 flex justify-between items-center 2xl:px-8 px-4">
+            <h4 class="tracking-wider 2xl:text-2xl font-semibold text-gray-700 text-md">Accounts Overview</h4>
 
             <div class="text-sm flex space-x-2">
 
@@ -68,10 +68,9 @@
                     </div>
                 </div>
 
-                <input type="text" name="search" wire:model.debounce.500ms="search" id="search"
-                    class="xl:text-xs  rounded 2xl:w-[20rem] 2xl:text-sm border-slate-400" placeholder="Search...">
+                <input type="text" name="search" wire:model.debounce.500ms="search" id="search" class="xl:text-xs  rounded 2xl:w-[20rem] 2xl:text-sm border-slate-400" placeholder="Search...">
 
-                <select class="text-xs 2xl:text-sm xl:text-xs rounded border-slate-400"
+                <select class="text-xs 2xl:text-sm  rounded border-slate-400 w-[10rem]"
                     wire:model="selectedFaculty">
                     @foreach ($faculties as $id => $name)
                         <option value="{{ $id }}">{{ $name }}</option>
@@ -79,14 +78,14 @@
                 </select>
 
                 <select wire:model="authorizing" name="authorizing" id="authorizing"
-                    class="text-xs xl:text-xs border-slate-400 2xl:text-sm rounded">
+                    class="text-xs border-slate-400 2xl:text-sm rounded">
                     <option value="">All Authorize</option>
                     <option value="pending">Pending</option>
                     <option value="checked">Approved</option>
                     <option value="close">Declined</option>
                 </select>
 
-                <select wire:model="paginate" name="paginate" id="paginate" class="text-xs xl:text-xs rounded  2xl:text-sm border-slate-400">
+                <select wire:model="paginate" name="paginate" id="paginate" class="text-xs rounded  2xl:text-sm border-slate-400">
                     <option value="13">13</option>
                     <option value="50">50</option>
                     <option value="70">70</option>

@@ -17,10 +17,7 @@ class AdminTrashController extends Controller
 {
     public function index(){
 
-        $proposals = Proposal::onlyTrashed()->whereYear('created_at',  date('Y'))
-        ->orderBy('created_at', 'DESC')->with('programs')->distinct()->get();
 
-        $evaluations = Evaluation::onlyTrashed()->get();
 
         $trash = Proposal::withTrashed()->
         with(['medias' => function ($query) {
@@ -29,12 +26,28 @@ class AdminTrashController extends Controller
         ->orderBy('created_at', 'DESC')
         ->distinct()->get();
 
+
+
         $users = User::get();
         $trashedRecord = TrashedRecord::all();
         $mediaCollection = CollectionMedia::all();
         $PermanentlyDelete = PermanenltyDelete::with('user')->get();
 
-        return view('admin.trash.index', compact('trash', 'proposals', 'evaluations','users','mediaCollection','trashedRecord','PermanentlyDelete'));
+        $proposals = Proposal::onlyTrashed()->whereYear('created_at',  date('Y'))
+        ->orderBy('created_at', 'DESC')->with('programs')->distinct()->get();
+        $evaluations = Evaluation::onlyTrashed()->get();
+
+
+
+
+
+
+
+
+
+
+        return view('admin.trash.index',
+        compact('trash', 'proposals', 'evaluations','users','mediaCollection','trashedRecord','PermanentlyDelete'));
     }
 
     public function RestoreFile(Request $request){

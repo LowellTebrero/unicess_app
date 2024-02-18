@@ -177,7 +177,7 @@
                         <div class="space-y-2">
                             <div>
                                 <label class="text-xs text-gray-700 font-semibold tracking-wider">Project ID:</label>
-                                <h1 class="text-xs">{{ $proposals->id }}</h1>
+                                <h1 class="text-xs">{{ $proposals->uuid }}</h1>
                             </div>
                             <div>
                                 <label class="text-xs text-gray-700 font-semibold tracking-wider">Created:</label>

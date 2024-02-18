@@ -6,7 +6,7 @@
             background-color: #f1f1f1;
             margin-bottom: 10px;
             border-radius: 10px;
-            
+
         }
         .progress-bar {
             height: 20px;
@@ -46,9 +46,10 @@
         <hr>
 
         @if ($evaluations->isEmpty())
-        <div class="flex items-center justify-center h-[30vh]">
-            <h1 class="text-gray-400 text-sm">Its empty here</h1>
-        </div>
+        <div class="h-[45vh] 2xl:h-[52vh] flex flex-col items-center justify-center space-y-2">
+            <img class="w-[13rem]" src="{{ asset('img/Empty.jpg') }}">
+            <h1 class="text-md text-gray-500">It’s empty here</h1>
+           </div>
         @else
 
         <main class="p-5 2xl:p-10   h-[80vh] flex space-x-4">
