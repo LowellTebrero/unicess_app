@@ -255,14 +255,12 @@ class ProposalController extends Controller
         ,'members', 'users','existingTags' ));
     }
 
-
     public function edit($id)
     {
         $proposal = Proposal::with('programs')->where('id', $id)->first();
         return view('dashboard.edit', compact('proposal'));
 
     }
-
 
     public function updateDetails(Request $request, $id)
     {

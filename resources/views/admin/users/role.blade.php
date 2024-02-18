@@ -6,6 +6,13 @@
         -moz-animation: AnimationName 30s ease infinite;
         animation: AnimationName 30s ease infinite;
         }
+        .active-tab {
+            /* Add your active styles here */
+            background-color: #cacaca;
+            color: #ffffff;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+        }
 
         @keyframes AnimationName {
         0%,
@@ -18,18 +25,20 @@
         }
     </style>
 
+
+
 <x-admin-layout>
 
-    <div class="bg-white rounded-lg shadow mt-4 2xl:mt-5  m-8  h-[82vh] 2xl:h-[87vh] relative text-gray-700 overflow-hidden">
+    <section class="bg-white rounded-lg shadow mt-4 2xl:mt-5  m-8  h-[82vh] 2xl:h-[87vh] relative text-gray-700 overflow-hidden">
 
-        <div class="p-4 px-6 pl-8 text-gray-900 flex  justify-between">
+        <header class="p-4 px-6 pl-8 text-gray-900 flex  justify-between">
             <h1 class="text-gray-600 xl:text-lg 2xl:text-xl tracking-wider font-semibold">Account details</h1>
             <a class=" px-1 py-1 rounded text-red-500 text-2xl font-bold hover:bg-gray-200 focus:bg-red-200 " href={{ route('admin.users.main') }}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </a>
-        </div>
+        </header>
         <hr>
 
         <div class="hidden 2xl:block h-[7vh] xl:h-[9vh] 2xl:h-[12vh] bg-gradient-to-r
@@ -59,14 +68,9 @@
 
                 </div>
 
-                 <span class="text-xs lg:text-sm">
-                 @if ($user->roles)
-                    @foreach ($user->roles as $user_role)
-                    {{ $user_role->name }}
-                    @endforeach
-                @endif
-                • {{  $user->faculty == null ? '' : $user->faculty->name }}</span>
-
+                <span class="text-xs lg:text-sm">
+                @if ($user->roles) @foreach ($user->roles as $user_role) {{ $user_role->name }} @endforeach @endif• {{  $user->faculty == null ? '' : $user->faculty->name }}
+                </span>
             </div>
 
             <div class="p-5 pr-10 flex flex-col space-y-2 items-end">
@@ -89,121 +93,122 @@
             </div>
         </div>
 
-        <div class="lg:space-x-0 lg:space-y-3 xl:space-x-4 xl:space-y-0 flex-col xl:flex-row 2xl:space-x-2 2xl:p-7 p-4 xl:p-4 xl:pt-0 2xl:pt-4 pt-0  flex text-gray-700 pb-0">
 
-            <div class="flex space-y-0 xl:space-x-0 xl:space-y-3 flex-row xl:flex-col rounded-lg 2xl:w-[30rem] xl:w-[20rem] 2xl:p-5 space-x-3 lg:space-x-4 xl:pt-2 ">
-                <div class="bg-white border full rounded xl:py-2 2xl:py-4 p-4 lg:space-y-1 2xl:space-x-2 w-full 2xl:h-full">
-                    <div class="flex justify-between items-center">
-                        <h1 class="tracking-wider 2xl:text-lg text-sm">Basic Information</h1>
-                      <h1 class="2xl:text-[.7rem] text-[.6rem] tracking-wider"> Joined: {{ $user->created_at->diffForHumans() }}</h1>
-                    </div>
+        <div class=" px-5">
 
-                    <hr>
-                    <h1 class="text-[.6rem] xl:text-[.67rem] 2xl:text-xs tracking-wider"> Email: {{ $user->email }}</h1>
-                    <h1 class="text-[.6rem] xl:text-[.67rem] 2xl:text-xs tracking-wider"> First name: {{ $user->first_name == null ? 'N/A' : $user->first_name }}</h1>
-                    <h1 class="text-[.6rem] xl:text-[.67rem] 2xl:text-xs tracking-wider"> Middle name: {{ $user->middle_name == null ? 'N/A' : $user->middle_name }}</h1>
-                    <h1 class="text-[.6rem] xl:text-[.67rem] 2xl:text-xs tracking-wider"> Last name:  {{ $user->last_name == null ? 'N/A' : $user->last_name }}</h1>
-                    <h1 class="text-[.6rem] xl:text-[.67rem] 2xl:text-xs tracking-wider"> Suffix:    {{ $user->suffix == null ? 'N/A' : $user->suffix }}</h1>
-                    <h1 class="text-[.6rem] xl:text-[.67rem] 2xl:text-xs tracking-wider"> Gender:    {{ $user->gender == null ? 'N/A' : $user->gender }}</h1>
+            <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-300">
+                <li class="me-2"  id="tab-information">
+                    <a href="#" onclick="showTab('information')" aria-current="page"  class="inline-block p-2 2xl:p-4 rounded-t-lg ">Information</a>
+                </li>
+                <li class="me-2"  id="tab-project">
+                    <a href="#" onclick="showTab('project')"  class="inline-block p-2 2xl:p-4 rounded-t-lg">Project</a>
+                </li>
+                <li class="me-2"  id="tab-evaluation">
+                    <a href="#" onclick="showTab('evaluation')"  class="inline-block p-2 2xl:p-4 rounded-t-lg">Evaluation</a>
+                </li>
 
-                </div>
+            </ul>
 
-                <div class="bg-white border lg:mt-4 rounded xl:py-2 2xl:py-4 p-4 lg:space-y-1 2xl:space-x-2 w-full 2xl:h-full">
-                    <h1 class="tracking-wider text-sm 2xl:text-base">Address Information</h1>
-                    <hr>
-                    <h1 class="text-[.6rem] xl:text-[.67rem] 2xl:text-xs tracking-wider"> Contact no.:  {{ $user->contact_number == null ? 'N/A' : $user->contact_number }}</h1>
-                    <h1 class="text-[.6rem] xl:text-[.67rem] 2xl:text-xs tracking-wider"> Province:   {{ $user->province == null ? 'N/A' : $user->province }}</h1>
-                    <h1 class="text-[.6rem] xl:text-[.67rem] 2xl:text-xs tracking-wider"> City:   {{ $user->city == null ? 'N/A' : $user->city }}</h1>
+            <div id="information-content" class="tab-content flex h-full mt-5" style="display: none;">
 
-                    <div class="">
-                        <h1 class="text-[.6rem] xl:text-[.67rem] 2xl:text-xs tracking-wider">Barangay: {{ $user->barangay == null ? 'N/A' : $user->barangay }}</h1>
-                    </div>
+                <div class="2xl:space-y-4 2xl:space-x-0 flex 2xl:flex-col flex-row space-y-0 space-x-4">
+                    <div class="flex flex-col space-y-4 w-full">
+                        <div class="border full rounded">
+                            <div class="flex justify-between items-center px-2 py-1">
+                                <h1 class="tracking-wider 2xl:text-lg text-sm">Basic Information</h1>
+                                <h1 class="2xl:text-[.7rem] text-[.6rem] tracking-wider"> Joined: {{ $user->created_at->diffForHumans() }}</h1>
+                            </div>
 
-                     <div class="overflow-x-scroll overflow-hidden">
-                        <div class="w-[40rem]">
-                            <h1 class="text-[.6rem] xl:text-[.67rem] 2xl:text-xs tracking-wider"> Address: {{ $user->address == null ? 'N/A' : $user->address }}</h1>
+                            <hr>
+                            <div class="p-2">
+                                <h1 class="text-[.6rem] xl:text-[.67rem] 2xl:text-xs tracking-wider"> Email: {{ $user->email }}</h1>
+                                <h1 class="text-[.6rem] xl:text-[.67rem] 2xl:text-xs tracking-wider"> First name: {{ $user->first_name == null ? 'N/A' : $user->first_name }}</h1>
+                                <h1 class="text-[.6rem] xl:text-[.67rem] 2xl:text-xs tracking-wider"> Middle name: {{ $user->middle_name == null ? 'N/A' : $user->middle_name }}</h1>
+                                <h1 class="text-[.6rem] xl:text-[.67rem] 2xl:text-xs tracking-wider"> Last name:  {{ $user->last_name == null ? 'N/A' : $user->last_name }}</h1>
+                                <h1 class="text-[.6rem] xl:text-[.67rem] 2xl:text-xs tracking-wider"> Suffix:    {{ $user->suffix == null ? 'N/A' : $user->suffix }}</h1>
+                                <h1 class="text-[.6rem] xl:text-[.67rem] 2xl:text-xs tracking-wider"> Gender:    {{ $user->gender == null ? 'N/A' : $user->gender }}</h1>
+                            </div>
+                        </div>
+
+                        <div class=" border rounded w-full">
+                            <h1 class="tracking-wider 2xl:text-lg text-sm px-2 py-1">LOGS Information</h1>
+                            <hr>
+                            <div class="p-2">
+                                <h1 class="text-[.6rem] xl:text-[.67rem] 2xl:text-xs tracking-wider"> Last Logged in:  {{ $user->last_logged_in == null ? 'N/A' : \Carbon\Carbon::parse($user->last_logged_in)->format('M d, y g:i:s A') }}</h1>
+                                <h1 class="text-[.6rem] xl:text-[.67rem] 2xl:text-xs tracking-wider"> IP address:   {{ $user->ip_address == null ? 'N/A' : $user->ip_address }}  </h1>
+                            </div>
                         </div>
 
                     </div>
-                    <h1 class="text-[.6rem] xl:text-[.67rem] 2xl:text-xs tracking-wider"> Zipcode: {{ $user->zipcode == null ? 'N/A' : $user->zipcode }}</h1>
 
+                    <div class="border rounded px-2 py-1 w-full">
+                        <h1 class="tracking-wider 2xl:text-lg text-sm">Address Information</h1>
+                        <hr>
+                        <div class="">
+                            <h1 class="text-[.6rem] xl:text-[.67rem] 2xl:text-xs tracking-wider"> Contact no.:  {{ $user->contact_number == null ? 'N/A' : $user->contact_number }}</h1>
+                            <h1 class="text-[.6rem] xl:text-[.67rem] 2xl:text-xs tracking-wider"> Province:   {{ $user->province == null ? 'N/A' : $user->province }}</h1>
+                            <h1 class="text-[.6rem] xl:text-[.67rem] 2xl:text-xs tracking-wider"> City:   {{ $user->city == null ? 'N/A' : $user->city }}</h1>
+                            <h1 class="text-[.6rem] xl:text-[.67rem] 2xl:text-xs tracking-wider">Barangay: {{ $user->barangay == null ? 'N/A' : $user->barangay }}</h1>
+                            <h1 class="text-[.6rem] xl:text-[.67rem] 2xl:text-xs tracking-wider"> Address: {{ $user->address == null ? 'N/A' : $user->address }}</h1>
+                            <h1 class="text-[.6rem] xl:text-[.67rem] 2xl:text-xs tracking-wider"> Zipcode: {{ $user->zipcode == null ? 'N/A' : $user->zipcode }}</h1>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-
-            <div class="rounded-lg flex-auto lg:w-auto xl:w-56 2xl:w-64 2xl:p-5 p-2 xl:p-4  xl:pt-2 xl:px-0 ">
-                @foreach ($customs as $custom )
-                    @if ($custom->number == '1')
-                    <div class="bg-white rounded border p-4">
-                        <div class="flex justify-between items-center mb-1">
-                           <h1 class="tracking-wider text-[.7rem] 2xl:text-base">Projects</h1>
-                           <div>
-                               <input type="text" id="searchInput" class="text-xs border-gray-200 rounded-md  xl:w-[12rem] 2xl:w-auto" placeholder="Search Project title...">
-                               <select  class="text-xs border-gray-200 rounded-md text-gray-700" id="Years">
-                                   <option value="">All Year</option>
-                                   @foreach ($years as $year )
-                                       <option value="{{ $year }}" @if ($year == date('Y')) selected="selected" @endif>{{ $year }}</option>
-                                   @endforeach
-                               </select>
-                               <select  class="text-xs border-gray-200 rounded-md text-gray-700" id="Status">
-                                   <option value=""> Status</option>
-                                   <option value="pending">Pending</option>
-                                   <option value="ongoing">Ongoing</option>
-                                   <option value="finished">Finished</option>
-                               </select>
-
-                               <select  class="text-xs border-gray-200 text-gray-700 rounded-md" id="Customize">
-                                @foreach ($customs as $custom )
-                                <option value="1" {{ old('1', $custom->number) == '1' ? 'selected' : '' }}>Projects</option>
-                                <option value="2" {{ old('2', $custom->number) == '2' ? 'selected' : '' }}>Evaluation</option>
-                                @endforeach
-                               </select>
-                           </div>
-                       </div>
-                       <hr>
-
-                       <div id="filtered-data">
-                           @include('admin.users.role-filter._dashboard-proposal-filter')
-                       </div>
-                   </div>
-                   @elseif ($custom->number == '2')
-
-                   <div class="bg-white rounded border p-4 h-full">
-                    <div class="flex justify-between items-center mb-1">
-                       <h1 class="tracking-wider text-xs 2xl:text-sm">Evaluation Overview</h1>
-                       <div>
-                            <select  class="text-xs border-gray-400 rounded-md" id="EvaluationYears">
-                               @foreach ($years as $year )
-                                   <option value="{{ $year }}" >{{ $year }}</option>
-                               @endforeach
-                            </select>
-                            <select  class="text-xs border-gray-400 rounded-md" id="EvaluationStatus">
-                               <option value="">Status</option>
-                               <option value="pending">Pending</option>
-                               <option value="evaluated">Validated</option>
-                            </select>
-
-                           <select  class="text-xs border-gray-200 rounded-md" id="Customize">
-                            @foreach ($customs as $custom )
-                            <option value="1" {{ old('1', $custom->number) == '1' ? 'selected' : '' }}>Projects</option>
-                            <option value="2" {{ old('2', $custom->number) == '2' ? 'selected' : '' }}>Evaluation</option>
-                            @endforeach
-                           </select>
-                       </div>
-                   </div>
-                   <hr>
-
-                   <div id="filtered-data">
-                       @include('admin.users.role-filter._dashboard-evaluation-filter')
+            <div id="project-content" class="tab-content bg-white rounded border p-4 mt-5 h-[45vh]" style="display: none;">
+                <div class="flex justify-between items-center mb-1">
+                   <h1 class="tracking-wider text-[.7rem] 2xl:text-base">Projects</h1>
+                   <div>
+                       <input type="text" id="searchInput" class="text-xs border-gray-200 rounded-md  xl:w-[12rem] 2xl:w-auto" placeholder="Search Project title...">
+                       <select  class="text-xs border-gray-200 rounded-md text-gray-700" id="Years">
+                           <option value="">All Year</option>
+                           @foreach ($years as $year )
+                               <option value="{{ $year }}" @if ($year == date('Y')) selected="selected" @endif>{{ $year }}</option>
+                           @endforeach
+                       </select>
+                       <select  class="text-xs border-gray-200 rounded-md text-gray-700" id="Status">
+                           <option value=""> Status</option>
+                           <option value="pending">Pending</option>
+                           <option value="ongoing">Ongoing</option>
+                           <option value="finished">Finished</option>
+                       </select>
                    </div>
                </div>
-                    @endif
-                @endforeach
+               <hr>
+
+               <div id="filtered-data">
+                   @include('admin.users.role-filter._dashboard-proposal-filter')
+               </div>
+           </div>
+
+           <div id="evaluation-content"  class="tab-content bg-white rounded border p-4 mt-5 h-[45vh]" style="display: none;">
+                <div class="flex justify-between items-center mb-1">
+                <h1 class="tracking-wider text-xs 2xl:text-sm">Evaluation Overview</h1>
+                <div>
+                        <select  class="text-xs border-gray-400 rounded-md" id="EvaluationYears">
+                        @foreach ($years as $year )
+                            <option value="{{ $year }}" >{{ $year }}</option>
+                        @endforeach
+                        </select>
+                        <select  class="text-xs border-gray-400 rounded-md" id="EvaluationStatus">
+                        <option value="">Status</option>
+                        <option value="pending">Pending</option>
+                        <option value="evaluated">Validated</option>
+                        </select>
+
+                </div>
+                </div>
+                <hr>
+
+                <div id="filtered-data">
+                    @include('admin.users.role-filter._dashboard-evaluation-filter')
+                </div>
 
             </div>
         </div>
 
-    </div>
+    </section>
 
     <script>
         // Wait for the DOM to load
@@ -374,6 +379,66 @@
 
 
 
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(function (content) {
+                content.style.display = 'none';
+            });
+
+            // Check if there's a stored tab in localStorage
+            var storedTab = localStorage.getItem('selectedProfileInformationTab');
+            if (storedTab) {
+                // Show the stored tab content
+                document.getElementById(storedTab + '-content').style.display = 'block';
+
+                // Add 'active' class to the stored tab (if needed)
+                document.querySelector('[onclick="showTab(\'' + storedTab + '\')"]').classList.add('active');
+
+                // Add 'active' class to the corresponding <li>
+                document.getElementById('tab-' + storedTab).classList.add('active-tab');
+            } else {
+                // If no stored tab, show the 'narrative-content' by default
+                document.getElementById('information-content').style.display = 'block';
+
+                // Add 'active' class to the 'narrative' tab (if needed)
+                document.querySelector('[onclick="showTab(\'information\')"]').classList.add('active');
+
+                // Add 'active' class to the corresponding <li>
+                document.getElementById('tab-information').classList.add('active-tab');
+            }
+        });
+
+        function showTab(tabId) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(function (content) {
+                content.style.display = 'none';
+            });
+
+            // Remove 'active' class from all tabs (if needed)
+            document.querySelectorAll('.tab').forEach(function (tab) {
+                tab.classList.remove('active');
+            });
+
+            // Remove 'active-tab' class from all <li> elements (if needed)
+            document.querySelectorAll('li').forEach(function (li) {
+                li.classList.remove('active-tab');
+            });
+
+            // Show the selected tab content
+            document.getElementById(tabId + '-content').style.display = 'block';
+
+            // Add 'active' class to the clicked tab (if needed)
+            document.querySelector('[onclick="showTab(\'' + tabId + '\')"]').classList.add('active');
+
+            // Add 'active-tab' class to the corresponding <li>
+            document.getElementById('tab-' + tabId).classList.add('active-tab');
+
+            // Store the selected tab in localStorage
+            localStorage.setItem('selectedProfileInformationTab', tabId);
+        }
     </script>
 
 

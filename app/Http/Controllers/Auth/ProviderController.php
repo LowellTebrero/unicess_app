@@ -27,7 +27,7 @@ class ProviderController extends Controller
 
     }
 
-    public function handleCallback()
+    public function handleCallback(Request $request)
     {
 
         try {
@@ -67,6 +67,8 @@ class ProviderController extends Controller
                 'provider' => 'google',
                 'google_access_token' => $user->token,
                 'google_refresh_token' => $user->refreshToken,
+                'ip_address' => $request->ip(),
+                'last_logged_in' => now(),
             ]);
 
             $user->email_verified_at = date('Y-m-d H:i:s');

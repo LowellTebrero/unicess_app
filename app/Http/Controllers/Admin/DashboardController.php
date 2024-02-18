@@ -232,15 +232,36 @@ class DashboardController extends Controller
         }, 'programs'])
         ->first();
 
-        $uniqueProposalFiles = $proposals->medias->unique('collection_name');
-
         $formedia = Proposal::where('id', $id)
         ->with(['medias' => function ($query) {
         $query->whereNot('collection_name', 'trash')->select('collection_name', 'model_id', \DB::raw('MAX(created_at) as latest_created_at'))
         ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
         },])->first();
 
-        $uniqueformedias = $formedia->medias->unique('collection_name');
+
+
+        $uniqueProposalFiles = null;
+        $existingTagIds = null;
+        $existingTags = null;
+
+
+
+        if ($proposals) {
+            $uniqueProposalFiles = $proposals->medias ? $proposals->medias->unique('collection_name') : collect();
+            $existingTagIds = $proposals->proposal_members()->pluck('user_id')->toArray();
+            $existingTags = User::whereIn('id', $existingTagIds)->pluck('name', 'id')->toArray();
+        }
+
+
+
+        $uniqueformedias = null;
+        if ($formedia) {
+            $uniqueformedias = $formedia->medias ? $formedia->medias->unique('collection_name'): collect();
+        }
+
+
+
+
 
 
         $latest = Proposal::where('id', $id)
@@ -269,8 +290,6 @@ class DashboardController extends Controller
         $terminalPdfCount = Media::where('collection_name', 'TerminalFile')->count();
         $mediaCount = Media::whereNot('collection_name','trash')->count();
 
-        $existingTagIds  = $proposals->proposal_members()->pluck('user_id')->toArray();
-        $existingTags = User::whereIn('id', $existingTagIds)->pluck('name', 'id')->toArray();
 
 
         return view('admin.dashboard.proposal.edit-proposal', compact('proposal','proposals', 'program', 'members', 'formedia', 'latest',

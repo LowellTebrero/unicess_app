@@ -12,7 +12,7 @@
         }
             .active-cad {
         /* Add your active styles here */
-        background-color: #00aeff;
+        background-color: #cecece;
         color: #ffffff;
         border-top-left-radius: 4px;
         border-top-right-radius: 4px;
@@ -71,24 +71,19 @@
         </div>
 
 
-        <div class="bg-white border shadow-sm  rounded-lg text-gray-700 m-5 p-5 tab-content" id="template-content" style="display: none;">
+        <div class="bg-white border border-gray-300 shadow-sm  rounded-lg text-gray-700 m-5 p-5 tab-content" id="template-content" style="display: none;">
             <div class=" p-5 flex justify-between" >
                 <div>
-                    <h1 class="tracking-wider font-medium text-gray-600 text-xs 2xl:text-base">UPDATE CESO TEMPLATE HERE</h1>
+                    <h1 class="tracking-wider font-medium text-gray-600 text-xs 2xl:text-base">CESO TEMPLATE HERE</h1>
                 </div>
 
-                @if ($templates->isEmpty())
-
                 <button data-modal-target="default-modal" data-modal-toggle="default-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
-                Upload File
+                    @if ($templates->isEmpty())
+                    Upload File
+                    @else
+                    Add File(s)
+                    @endif
                 </button>
-                @else
-
-                <button data-modal-target="default-modal" data-modal-toggle="default-modal" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs 2xl:text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
-                Add File(s)
-                </button>
-                @endif
-
 
                 <!-- Main modal -->
                 <div id="default-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -151,8 +146,8 @@
 
         </div>
 
-        <div class="flex m-5 tab-content" id="department-content"  style="display: none;">
-            <div class="flex py-2  flex-col  w-full">
+        <div class="flex m-5 tab-content border border-gray-300 rounded-lg p-5" id="department-content"  style="display: none;">
+            <div class="flex py-2  flex-col w-full">
 
                 <div class="space-y-2">
                     <div x-cloak  x-data="{ 'showModal': false }"  @keydown.escape="showModal = false" >
@@ -160,7 +155,7 @@
                         <!-- Trigger for Modal -->
                         <div class="flex justify-between items-center pb-4">
                             <h1 class="tracking-wider text-gray-600 font-medium">DEPARTMENT NAME</h1>
-                            <button class="bg-blue-400 hover:bg-blue-500 p-2 rounded-lg text-white text-sm" type="button" @click="showModal = true">+ Add Department</button>
+                            <button class="bg-blue-600 hover:bg-blue-500 p-2 rounded-lg text-white text-sm" type="button" @click="showModal = true">+ Add Department</button>
                         </div>
 
 
@@ -211,7 +206,6 @@
                     </div>
                 </div>
 
-
                 <div class="overflow-x-auto h-[40vh] 2xl:h-[50vh] bg-white border rounded-lg">
                     <table class="table-auto w-full border-collapse">
                         <thead class="text-xs font-semibold uppercase text-gray-400">
@@ -247,7 +241,7 @@
             </div>
         </div>
 
-        <div class="flex m-5 tab-content overflow-auto h-[60vh]" id="calendar-content"  style="display: none;">
+        <div class="flex m-5 tab-content overflow-auto h-[60vh] border border-gray-300 rounded-lg" id="calendar-content"  style="display: none;">
 
             <div class="p-5 sticky top-[0rem] z-10 bg-white">
                 <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-300">
@@ -265,8 +259,8 @@
                 <div id="calendars" class="bg-white shadow rounded-lg  p-10 w-auto"></div>
             </div>
 
-            <div class="cad-content bg-white w-auto 2xl:h-[40vh]  rounded-lg mb-5 2xl:mb-0 p-5" id="calendar-data-content" style="display: none;">
-                <header class="flex justify-between">
+            <div class="cad-content bg-white w-auto border m-5  rounded-lg p-5" id="calendar-data-content" style="display: none;">
+                <header class="flex justify-between mb-2">
                     <h1 class="text-lg font-medium text-gray-600">Calendar Data</h1>
                     <!-- Modal toggle -->
                     <button data-modal-target="default-modal-calendar-add" data-modal-toggle="default-modal-calendar-add" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
@@ -324,6 +318,7 @@
                         </div>
                     </div>
                 </header>
+
                 <div class="h-[30vh] overflow-x-auto">
                     <table class="table-auto w-full relative">
                         <thead class="text-[.7rem] font-semibold uppercase text-gray-400 bg-gray-50 top-0 sticky z-10">
@@ -453,8 +448,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.js"></script>
 
 
-    {{--  Phone Number Javascript  --}}
     <script>
+
         function isNumber(evt) {
             evt = (evt) ? evt : window.event;
             var charCode = (evt.which) ? evt.which : evt.keyCode;
@@ -463,9 +458,7 @@
             }
             return true;
         }
-    </script>
 
-    <script>
         document.addEventListener("DOMContentLoaded", function() {
             // Hide all tab contents
             document.querySelectorAll('.tab-content').forEach(function (content) {
@@ -536,7 +529,7 @@
                 },
                 eventRender: function (event, element) {
                     // Set the HTML content of the event element
-                    element.html('<strong>' + event.title + '</strong><br>' + event.description);
+                    element.html('<strong>' + event.title + '</strong>');
 
                     element.css({
                         padding: '10px', // Adjust the padding value as needed

@@ -8,6 +8,7 @@ use App\Models\Program;
 use App\Models\Proposal;
 use App\Models\AdminYear;
 use Illuminate\Http\Request;
+use App\Models\TrashedRecord;
 use App\Models\ProposalMember;
 use App\Models\TerminalReport;
 use App\Models\UserAttendance;
@@ -220,6 +221,12 @@ class AdminInventoryController extends Controller
                 $user->notify(new UserDeletedProposaleNotification($proposalDelete));
             }
         }
+
+        $trashRecord = new TrashedRecord();
+        $trashRecord->uuid = $proposalDelete->uuid;
+        $trashRecord->user_id = Auth()->user()->id;
+        $trashRecord->save();
+
        // proposal delete
        $proposalDelete->delete();
 

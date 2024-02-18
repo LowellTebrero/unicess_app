@@ -18,30 +18,17 @@ class ProposalRequestController extends Controller
     public function index(){
 
         $proposalMembers = ProposalMember::all();
-        $ProposalRequest = ProposalRequest::all();
 
-        return view('admin.dashboard.request.index', compact('ProposalRequest', 'proposalMembers'));
+
+        return view('admin.dashboard.request.index', compact('proposalMembers'));
     }
 
     public function show($id, $notiification){
 
-        $ProposalRequest = ProposalRequest::find($id);
+
         $members = User::orderBy('name')->whereNot('name', 'Administrator')->pluck('name', 'id')->prepend('Select Username', '');
-        $ceso_roles = CesoRole::orderBy('role_name')->pluck('role_name', 'id')->prepend('Select Role', '');
-        $locations = Location::orderBy('location_name')->pluck('location_name', 'id')->prepend('Select Location', '');
-        $parts_names = ParticipationName::orderBy('participation_name')->pluck('participation_name', 'id');
 
-        $leaderMember = ProposalMember::where('proposal_id', $ProposalRequest->proposal_id)
-        ->where('user_id', $ProposalRequest->user_id)
-        ->where('leader_member_type', $ProposalRequest->leader_member_type)
-        ->where('location_id', $ProposalRequest->leader_location)
-        ->get();
 
-        $Member = ProposalMember::where('proposal_id', $ProposalRequest->proposal_id)
-        ->where('user_id', $ProposalRequest->user_id)
-        ->where('member_type', $ProposalRequest->member_type)
-        ->where('location_id', NULL)
-        ->get();
 
         // dd($Member);
 

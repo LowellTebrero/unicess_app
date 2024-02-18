@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Torann\GeoIP\Facades\GeoIP;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -30,6 +31,14 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         $user = $request->user();
+
+
+
+        auth()->user()->update([
+            'last_logged_in' => now(),
+            'ip_address' => $request->ip(),
+        ]);
+        // $request->ip();
 
         // Check if the user has the 'admin' role
         if ($user->roles->contains('name', 'admin')) {

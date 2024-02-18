@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\PermanenltyDelete;
 use App\Models\User;
 use App\Models\Proposal;
 use App\Models\Evaluation;
@@ -31,7 +32,9 @@ class AdminTrashController extends Controller
         $users = User::get();
         $trashedRecord = TrashedRecord::all();
         $mediaCollection = CollectionMedia::all();
-        return view('admin.trash.index', compact('trash', 'proposals', 'evaluations','users','mediaCollection','trashedRecord'));
+        $PermanentlyDelete = PermanenltyDelete::with('user')->get();
+
+        return view('admin.trash.index', compact('trash', 'proposals', 'evaluations','users','mediaCollection','trashedRecord','PermanentlyDelete'));
     }
 
     public function RestoreFile(Request $request){
@@ -82,14 +85,38 @@ class AdminTrashController extends Controller
 
             if ($media) {
                 $collect = CollectionMedia::where('media_id', $media->id)->first();
+
+                $deleteRecord = new PermanenltyDelete();
+                $deleteRecord->uuid = $media->uuid;
+                $deleteRecord->user_id = Auth()->user()->id;
+                $deleteRecord->name = $media->file_name;
+                $deleteRecord->type = $collect->collection_name;
+                $deleteRecord->save();
+
                 $collect->delete();
                 $media->delete();
 
+
+
             } elseif ($proposal) {
                 // If the file exists in Proposal, restore it
+                $deleteRecord = new PermanenltyDelete();
+                $deleteRecord->uuid = $proposal->uuid;
+                $deleteRecord->user_id = Auth()->user()->id;
+                $deleteRecord->name = $proposal->project_title;
+                $deleteRecord->type = 'Project';
+                $deleteRecord->save();
+
                 $proposal->forceDelete();
             }
             elseif ($evaluation) {
+
+                $deleteRecord = new PermanenltyDelete();
+                $deleteRecord->uuid = $evaluation->uuid;
+                $deleteRecord->user_id = Auth()->user()->id;
+                $deleteRecord->name = $evaluation->users->name;
+                $deleteRecord->type = 'Evaluation file';
+                $deleteRecord->save();
                 // If the file exists in Proposal, restore it
                 $evaluation->forceDelete();
             }

@@ -214,6 +214,7 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'Notification' => Illuminate\Support\Facades\Notification::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'GeoIP' => \Torann\GeoIP\Facades\GeoIP::class,
     ])->toArray(),
 
 ];
