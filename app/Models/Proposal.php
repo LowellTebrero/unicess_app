@@ -2,19 +2,10 @@
 
 namespace App\Models;
 
-use App\Models\Location;
-use Spatie\Tags\HasTags;
-use App\Models\ProposalFiles;
+use App\Models\ProjectLike;
 use App\Models\ProposalMember;
-use App\Models\TerminalReport;
-use App\Models\UserAttendance;
-use App\Models\NarrativeReport;
-use App\Models\UserOfficeOrder;
-use App\Models\UserTravelOrder;
-use App\Models\UserSpecialOrder;
 use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\UserAttendanceMonitoring;
 use Illuminate\Notifications\Notifiable;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -67,6 +58,17 @@ class Proposal extends Model implements HasMedia
     public function medias()
     {
         return $this->hasMany(Media::class, 'model_id');
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(ProjectLike::class);
+    }
+
+
+    public function isLikedBy($userId)
+    {
+        return $this->likes()->where('user_id', $userId)->exists();
     }
 
 

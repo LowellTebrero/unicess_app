@@ -6,9 +6,9 @@
 
             <section class="m-8  rounded-lg  relative mt-4 2xl:mt-5 h-[82vh] 2xl:h-[87vh]  bg-white text-gray-700">
 
-                @foreach ($allproposal as $proposal )
 
-                    @if ($proposal->number == 1)
+
+
 
                         <div class="flex justify-between p-4 flex-col space-y-2 lg:space-y-0  lg:flex-row">
                             <div>
@@ -33,41 +33,7 @@
                         </div>
 
 
-                    @elseif ($proposal->number == 2)
 
-                        <div class="flex justify-between p-4">
-                            <div>
-                                <h1 class="xl:text-xl font-semibold tracking-wider text-lg">List of Program/Project </h1>
-                            </div>
-
-                            <div class="space-x-2">
-                                <input type="text" id="searchMyInput" class="rounded text-xs border-gray-300 text-gray-600" placeholder="Search Project Title...">
-
-                                <select name="myProposalDropdown" id="myProposalDropdown" class="text-xs text-gray-600 border-gray-300 rounded">
-                                    <option value="">Select Year</option>
-                                    @foreach ($years as $year )
-                                            <option value="{{ $year }}">{{ $year }}</option>
-                                    @endforeach
-                            </select>
-
-                                <select name="Proposal" id="Proposal" class="text-xs border-gray-300 text-gray-600 rounded">
-                                @foreach ($allproposal as $proposal )
-                                <option value="1" {{ old('1', $proposal->number) == '1' ? 'selected' : '' }}>All Proposal</option>
-                                <option value="2" {{ old('2', $proposal->number) == '2' ? 'selected' : '' }}>My Proposal</option>
-                                @endforeach
-                                </select>
-                            </div>
-                        </div>
-
-                        <hr>
-
-                        <div id="filtered-data">
-                        @include('user.allProposal._filtered-my-proposal')
-                        </div>
-
-
-                    @endif
-                @endforeach
 
 
 

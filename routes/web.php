@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\AllProposalController;
 use App\Http\Controllers\ProfileRoleController;
+use App\Http\Controllers\ProjectLikeController;
 use App\Http\Controllers\UserWelcomeController;
 use App\Http\Controllers\Admin\ToggleController;
 use App\Http\Controllers\Auth\ProviderController;
@@ -157,6 +158,7 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
         Route::get('/inventory/{id}','showInventory')->name('inventory.show-inventory');
         Route::delete('/inventory-delete-media/{id}',  'DeleteMedia')->name('inventory.delete-media');
         Route::delete('/inventory-delete-proposal/{id}','AdminDeleteInventoryProposal')->name('inventory.delete-project-proposal');
+        Route::get('/inventory-backup-project','BackUpProject')->name('inventory.backup-project');
     });
 
 
@@ -419,6 +421,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('trash', [TrashController::class, 'index'])->name('trash.index');
     Route::delete('/trash-restore-fileorfolder', [TrashController::class, 'RestoreFileOrFolder'])->name('trash.restore-fileorfolder');
     Route::delete('/trash-hardelete-fileorfolder', [TrashController::class, 'DeleteFileOrFolder'])->name('trash.hardelete-fileorfolder');
+
+    Route::post('proposals/{proposal}/like', [ProjectLikeController::class, 'likeProposal'])->name('proposal.like');
+    Route::get('proposals/{proposal}/like-count', [ProjectLikeController::class, 'likeCount'])->name('proposal.like.count');
+
 
 
 });

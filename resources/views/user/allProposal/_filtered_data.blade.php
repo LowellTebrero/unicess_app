@@ -1,5 +1,5 @@
 
-<div class="rounded-lg border border-gray-200 shadow-sm m-5 overflow-x-auto h-[60] 2xl:h-[70vh]">
+{{--  <div class="rounded-lg border border-gray-200 shadow-sm m-5 overflow-x-auto h-[60] 2xl:h-[70vh]">
     <table class="w-full border-collapse bg-white text-left text-sm text-gray-500 xl:text-xs 2xl:text-sm">
         <thead class="bg-gray-50">
             <tr class="sticky top-0 bg-gray-200 z-20">
@@ -20,35 +20,6 @@
                 <a href={{ route('allProposal.show', $proposal->id) }} class="inline-flex items-center gap-1 rounded-full py-1 text-xs  text-gray-700">
                     {{ $proposal->project_title }}
                 </a>
-                    {{--  @foreach ($proposal->medias as $mediaLibrary)
-                    @if (!empty($mediaLibrary->model_id) && !empty($mediaLibrary->collection_name == 'proposalPdf'))
-                        <div data-tooltip-target="tooltip-proposal" type="button"
-                            class="relative">
-
-                            <x-alpine-modal>
-
-                                <x-slot name="scripts">
-                                    <span class="text-[.7rem] 2xl:text-xs font-medium text-gray-700 tracking-wider">
-                                        {{ Str::limit($proposal->project_title, 70) }}
-                                    </span>
-                                </x-slot>
-
-                                <x-slot name="title">
-                                    <span class="">{{ Str::limit($mediaLibrary->file_name) }}</span>
-                                </x-slot>
-
-                                <div class="w-[50rem]">
-                                    <iframe class="2xl:w-[100%] drop-shadow mt-2 w-full h-[80vh]"
-                                        src="{{ $proposal->getFirstMediaUrl('proposalPdf') }}"
-                                    ></iframe>
-                                </div>
-                            </x-alpine-modal>
-                        </div>
-
-
-                    @endif
-                @endforeach  --}}
-
             </td>
 
             <td class="px-4 py-4 text-sm whitespace-nowrap ">
@@ -58,7 +29,6 @@
                     @foreach ($proposal->proposal_members as $props )
                         <img class="object-cover w-6 h-6 -mx-1 border-2 border-white bg-white rounded-full  shrink-0" src="{{ (!empty($props->user->avatar))? url('upload/image-folder/profile-image/'. $props->user->avatar): url('upload/profile.png') }}" alt="">
                     @endforeach
-                    {{--  <p class="flex items-center justify-center w-6 h-6 -mx-1 text-xs text-blue-600 bg-blue-100 border-2 border-white rounded-full">+4</p>  --}}
                 </div>
             </td>
 
@@ -73,184 +43,337 @@
                 <span class="inline-flex items-center gap-1 rounded-full py-1 text-[.7rem] 2xl:text-xs  text-gray-700">
                     {{ \Carbon\Carbon::parse($proposal->created_at)->format("M d, Y: H:i:s")}}
                 </span>
-
-                {{--  <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = false">
-
-                    <!-- Modal -->
-                    <div class="fixed inset-0 z-50  flex items-center justify-center overflow-auto bg-black bg-opacity-50" x-show="showModal">
-
-                        <!-- Modal inner -->
-                        <div class="w-1/4 py-4 text-left bg-white rounded-lg shadow-lg" x-show="showModal"
-                            x-transition:enter="motion-safe:ease-out duration-300"
-                            x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
-                            x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
-                            x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" @click.away="showModal = true">
-
-                            <!-- Title / Close-->
-                            <div class="flex items-center justify-between px-4 py-1">
-                                <h5 class="mr-3 text-black max-w-none text-xs">REQUEST TO JOIN ON THIS PROPOSAL</h5>
-                                <button type="button" class="z-50 cursor-pointer text-red-500 hover:bg-gray-200 rounded px-2 py-1 text-xl font-semibold" @click="showModal = false">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                </button>
-                            </div>
-                            <hr>
-
-                            <!-- content -->
-                            <div>
-                                <form action={{ route('allProposal.post') }} method="POST" enctype="multipart/form-data" onsubmit="return validateSelect({{ $proposal->id }})" >
-                                    @csrf
-
-                                    <div class="flex flex-col space-y-5 pt-5 px-5">
-
-                                        <input type="text" name="proposal_id" value="{{$proposal->id}}" hidden>
-                                        <div class="">
-                                            <label class="text-gray-700 tracking-wider text-xs">Project Title:</label>
-                                            <input type="text" name="proposal_title" value="{{ $proposal->project_title }}" class="text-xs w-full rounded border-zinc-300" readOnly>
-                                        </div>
-
-                                        <div class="">
-                                            <h1 class="tracking-wider text-xs text-gray-600 font-medium">
-                                                Select your type Member (choose what is applicable)
-                                            </h1>
-                                        </div>
-
-                                        <div class="flex items-center justify-center space-x-4">
-                                            <button class="bg-green-400 text-white rounded px-2 py-1 text-xs tracking-wider focus:bg-green-600 focus:ring active:bg-green-600" type="button" onclick="showDiv('Leader_{{ $proposal->id }}', 'Member_{{ $proposal->id }}'); resetSelect('Member_{{ $proposal->id }}', '{{ $proposal->id }}');">Leader</button>
-                                            <button class="bg-blue-400 text-white rounded px-2 py-1 text-xs tracking-wider focus:bg-blue-600" type="button" onclick="showDiv('Member_{{ $proposal->id }}', 'Leader_{{ $proposal->id }}'); resetSelect('Leader_{{ $proposal->id }}', '{{ $proposal->id }}');">Member</button>
-                                        </div>
-
-                                        <div class="flex flex-col" id="Leader_{{ $proposal->id }}" style="display: none">
-                                            <label class="tracking-wider text-xs text-green-600">Leader </label>
-                                            <div class="flex space-x-3">
-                                                <select name="leader_member_type" class="text-xs rounded-md w-full border-zinc-300" id="leader_member_type_{{ $proposal->id }}">
-                                                    <option value="">Select</option>
-                                                    @foreach ($leader_member as $id => $role_name )
-                                                    <option value="{{ $id }}"  @if ($id == old('leader_member_type')) selected="selected"@endif>{{ $role_name }}</option>@endforeach
-                                                </select>
-                                                @error('leader_member_type') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
-
-                                                <select id="location_id_{{ $proposal->id }}" type="text"  class="rounded-md text-xs w-full border-zinc-300 " name="location_id" value="{{ old('location_id') }}">
-                                                    @foreach ($locations as $id => $location_name ) <option value="{{ $id }}"@if ($id == old('location_id')) selected="selected" @endif>{{ $location_name }}</option>@endforeach
-                                                </select>
-                                                @error('location_id') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="flex flex-col" id="Member_{{ $proposal->id }}" style="display: none">
-                                            <label class="tracking-wider text-xs  text-blue-600">Member</label>
-
-                                            <select name="member_type" class="rounded-md text-xs border-zinc-300" id="member_type_{{ $proposal->id }}">
-                                                <option value="">Select</option>
-                                                @foreach ($participation_member as $name) <option value="{{ $name }}">{{ $name }}</option> @endforeach
-                                            </select>
-                                            @error('member_type') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
-                                        </div>
-
-                                        <div class="pt-5">
-                                            <label class="text-gray-600 tracking-wider text-xs">Upload files for reference </label>
-                                            <input type="file" name="files[]"  multiple class="w-full rounded-md border-zinc-300 text-xs border-z-500 border mt-2" id="file_input_{{ $proposal->id }}">
-                                            @error('files') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
-                                        </div>
-
-                                        <div class="flex space-x-4 pt-5">
-                                            <button type="submit" class="p-2 bg-blue-400 hover:bg-blue-600 rounded text-white">Upload</button>
-                                            <button type="button" class="cursor-pointer p-2 text-white hover:bg-red-600 rounded bg-red-400" @click="showModal = false">
-                                                Cancel
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div x-cloak x-data="{dropdownMenu: false}" class="relative">
-                        <!-- Dropdown toggle button -->
-                        <button @click="dropdownMenu = ! dropdownMenu" class="tooltipButton  flex items-center p-2 rounded-md" style="display: block">
-                            <svg class=" hover:fill-blue-500  fill-slate-700" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 96 960 960" width="24"><path d="M480 896q-33 0-56.5-23.5T400 816q0-33 23.5-56.5T480 736q33 0 56.5 23.5T560 816q0 33-23.5 56.5T480 896Zm0-240q-33 0-56.5-23.5T400 576q0-33 23.5-56.5T480 496q33 0 56.5 23.5T560 576q0 33-23.5 56.5T480 656Zm0-240q-33 0-56.5-23.5T400 336q0-33 23.5-56.5T480 256q33 0 56.5 23.5T560 336q0 33-23.5 56.5T480 416Z"/></svg>
-                        </button>
-                        <!-- Dropdown list -->
-                        <div x-show="dropdownMenu" class="z-50 absolute right-[0rem] top-3 py-2 mt-2 bg-white rounded-md shadow-xl w-[11.5rem] border" x-on:keydown.escape.window="dropdownMenu = false"  @click.away="dropdownMenu = false" @click="dropdownMenu = ! dropdownMenu"
-                            x-transition:enter="motion-safe:ease-out duration-100" x-transition:enter-start="opacity-0 scale-90"
-                            x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-200"
-                            x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
-                            x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
-
-
-                            @if ($proposalMembers->isEmpty() && $proposalRequest->isEmpty() )
-                            <button type="button" @click="showModal = true">Join as member </button>
-                            @endif
-
-
-
-
-                        </div>
-                    </div>
-                </div>  --}}
             </td>
 
         </tr>
         @endforeach
         </tbody>
     </table>
-</div>
+</div>  --}}
 
-    {{--  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!-- Toastr -->
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <style>
+        .ui-bookmark {
+        --icon-size: 24px;
+        --icon-secondary-color: rgb(77, 77, 77);
+        --icon-hover-color: rgb(97, 97, 97);
+        --icon-primary-color: rgb(252, 54, 113);
+        --icon-circle-border: 1px solid var(--icon-primary-color);
+        --icon-circle-size: 35px;
+        --icon-anmt-duration: 0.3s;
+      }
 
-   <script>
+      .ui-bookmark input {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        display: none;
+      }
 
+      .ui-bookmark .bookmark {
+        width: var(--icon-size);
+        height: auto;
+        fill: var(--icon-secondary-color);
+        cursor: pointer;
+        -webkit-transition: 0.2s;
+        -o-transition: 0.2s;
+        transition: 0.2s;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        position: relative;
+        -webkit-transform-origin: top;
+        -ms-transform-origin: top;
+        transform-origin: top;
+      }
 
+      .bookmark::after {
+        content: "";
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        -webkit-box-shadow: 0 30px 0 -4px var(--icon-primary-color),
+          30px 0 0 -4px var(--icon-primary-color),
+          0 -30px 0 -4px var(--icon-primary-color),
+          -30px 0 0 -4px var(--icon-primary-color),
+          -22px 22px 0 -4px var(--icon-primary-color),
+          -22px -22px 0 -4px var(--icon-primary-color),
+          22px -22px 0 -4px var(--icon-primary-color),
+          22px 22px 0 -4px var(--icon-primary-color);
+        box-shadow: 0 30px 0 -4px var(--icon-primary-color),
+          30px 0 0 -4px var(--icon-primary-color),
+          0 -30px 0 -4px var(--icon-primary-color),
+          -30px 0 0 -4px var(--icon-primary-color),
+          -22px 22px 0 -4px var(--icon-primary-color),
+          -22px -22px 0 -4px var(--icon-primary-color),
+          22px -22px 0 -4px var(--icon-primary-color),
+          22px 22px 0 -4px var(--icon-primary-color);
+        border-radius: 50%;
+        -webkit-transform: scale(0);
+        -ms-transform: scale(0);
+        transform: scale(0);
+        padding: 1px;
+      }
 
-        function showDiv(showId, hideId) {
-            document.getElementById(showId).style.display = 'flex';
-            document.getElementById(hideId).style.display = 'none';
+      .bookmark::before {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        border: var(--icon-circle-border);
+        opacity: 0;
+      }
+
+      /* actions */
+
+      .ui-bookmark:hover .bookmark {
+        fill: var(--icon-hover-color);
+      }
+
+      .ui-bookmark input:checked + .bookmark::after {
+        -webkit-animation: circles var(--icon-anmt-duration)
+          cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        animation: circles var(--icon-anmt-duration)
+          cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        -webkit-animation-delay: var(--icon-anmt-duration);
+        animation-delay: var(--icon-anmt-duration);
+      }
+
+      .ui-bookmark input:checked + .bookmark {
+        fill: var(--icon-primary-color);
+        -webkit-animation: bookmark var(--icon-anmt-duration) forwards;
+        animation: bookmark var(--icon-anmt-duration) forwards;
+        -webkit-transition-delay: 0.3s;
+        -o-transition-delay: 0.3s;
+        transition-delay: 0.3s;
+      }
+
+      .ui-bookmark input:checked + .bookmark::before {
+        -webkit-animation: circle var(--icon-anmt-duration)
+          cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        animation: circle var(--icon-anmt-duration)
+          cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        -webkit-animation-delay: var(--icon-anmt-duration);
+        animation-delay: var(--icon-anmt-duration);
+      }
+
+      @-webkit-keyframes bookmark {
+        50% {
+          -webkit-transform: scaleY(0.6);
+          transform: scaleY(0.6);
         }
 
+        100% {
+          -webkit-transform: scaleY(1);
+          transform: scaleY(1);
+        }
+      }
 
-
-        function validateSelect(proposalId) {
-            var leaderSelect = document.getElementById('leader_member_type_' + proposalId);
-            var memberSelect = document.getElementById('member_type_' + proposalId);
-            var fileInput = document.getElementById('file_input_' + proposalId);
-
-
-            if (leaderSelect.value === '' && memberSelect.value === '') {
-                toastr.warning('Please select either Leader or Member.');
-                return false;
-            }
-
-            if (fileInput.files.length === 0) {
-                toastr.warning('Please upload your file for reference.');
-                return false;
-            }
-
-            return true;
+      @keyframes bookmark {
+        50% {
+          -webkit-transform: scaleY(0.6);
+          transform: scaleY(0.6);
         }
 
+        100% {
+          -webkit-transform: scaleY(1);
+          transform: scaleY(1);
+        }
+      }
+
+      @-webkit-keyframes circle {
+        from {
+          width: 0;
+          height: 0;
+          opacity: 0;
+        }
+
+        90% {
+          width: var(--icon-circle-size);
+          height: var(--icon-circle-size);
+          opacity: 1;
+        }
+
+        to {
+          opacity: 0;
+        }
+      }
+
+      @keyframes circle {
+        from {
+          width: 0;
+          height: 0;
+          opacity: 0;
+        }
+
+        90% {
+          width: var(--icon-circle-size);
+          height: var(--icon-circle-size);
+          opacity: 1;
+        }
+
+        to {
+          opacity: 0;
+        }
+      }
+
+      @-webkit-keyframes circles {
+        from {
+          -webkit-transform: scale(0);
+          transform: scale(0);
+        }
+
+        40% {
+          opacity: 1;
+        }
+
+        to {
+          -webkit-transform: scale(0.8);
+          transform: scale(0.8);
+          opacity: 0;
+        }
+      }
+
+      @keyframes circles {
+        from {
+          -webkit-transform: scale(0);
+          transform: scale(0);
+        }
+
+        40% {
+          opacity: 1;
+        }
+
+        to {
+          -webkit-transform: scale(0.8);
+          transform: scale(0.8);
+          opacity: 0;
+        }
+      }
+
+    
+    .hover:hover .img {
+        transform: scale(1.2); /* Adjust the scale factor as needed */
+        transition: transform 0.7s ease-in-out; /* Add transition for smooth scaling */
+    }
+
+    </style>
+
+    <main class="rounded-lg m-5 overflow-x-auto h-[60] 2xl:h-[75vh]">
+
+        <div class="grid grid-cols-3 2xl:grid-cols-4 gap-4">
+            @foreach ($proposals as $proposal )
+
+                <div class="max-w-md bg-white h-full border border-gray-200 rounded-lg shadow hover overflow-hidden">
+                    <div class="overflow-hidden">
+                        <a href={{ route('allProposal.show', $proposal->id) }}>
+                            <img class="rounded-t-lg img"  src="{{  url('upload/CESO.png') }}" alt="" />
+                        </a>
+                    </div>
+                   
+                    <div class="p-5 flex flex-col  justify-between h-[40%]">
+
+                        <div class=" h-full">
+                            <h5 class="text-sm 2xl:text-lg font-semibold tracking-tight text-gray-600 ">{{ Str::limit($proposal->project_title, 70)}}</h5>
+                             {{--  <p class="mb-4 font-normal text-gray-400 text-xs">Here are the biggest enterprise technology acquisitions</p>  --}}
+                        </div>
+
+                        <div class="h-full pt-7 flex justify-between items-center ">
+
+                            <div class="flex space-x-2 justify-center">
+
+                                <img class="rounded-full"
+                                src="{{!empty($proposal->user->avatar) ? url('upload/image-folder/profile-image/' . $proposal->user->avatar) : url('upload/profile.png') }}"
+                                width="30" height="20">
+
+                                <div class="text-gray-400">
+                                    <h1 class="text-xs">{{ $proposal->user->first_name }}</h1>
+                                    <h1 class="text-[.7rem]"> {{ \Carbon\Carbon::parse($proposal->created_at)->format('M d, Y ') }}</h1>
+                                </div>
+                            </div>
+
+                            <div class="flex space-x-2 justify-center items-center">
+                                <form id="likeForm_{{ $proposal->id }}" action="{{ route('proposal.like', ['proposal' => $proposal->id]) }}" method="POST">
+                                    @csrf
+                                    <label class="ui-bookmark">
+                                        <!-- Use the proposal ID to make the input field ID unique -->
+                                        <input id="likeCheckbox_{{ $proposal->id }}" type="checkbox" name="like" {{ $proposal->isLikedBy(auth()->id()) ? 'checked' : '' }}>
+                                        <div class="bookmark">
+                                            <svg viewBox="0 0 16 16" style="margin-top:4px" class="bi bi-heart-fill" height="25" width="25" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314" fill-rule="evenodd"></path>
+                                            </svg>
+                                        </div>
+
+                                    </label>
+                                </form>
+                                <!-- Display the like count next to the input field -->
+                                <span class="text-gray-400 text-xs font-medium" id="likeCount_{{ $proposal->id }}">{{ $proposal->likes()->count() }}</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            @endforeach
 
 
-            function resetSelect(divId, proposalId) {
-
-                var selectField = document.querySelector('#' + divId + ' select');
-                var locationSelect = document.getElementById('location_id_' + proposalId);
+        </div>
 
 
-                selectField.selectedIndex = 0; // Reset the select field
-                locationSelect.selectedIndex = 0;
-            }
-
-            // Your JavaScript code here
+    </main>
 
 
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Handle checkbox change event for all checkboxes whose ID starts with 'likeCheckbox_'
+            $('[id^=likeCheckbox_]').change(function() {
+                // Get the proposal ID from the checkbox ID
+                var proposalId = $(this).attr('id').split('_')[1];
+                // Form selector for the current proposal
+                var formSelector = '#likeForm_' + proposalId;
+                // Submit the form asynchronously
+                $.ajax({
+                    type: 'POST',
+                    url: $(formSelector).attr('action'),
+                    data: $(formSelector).serialize(),
+                    success: function(response) {
+                        // Fetch and update like count for the current proposal
+                        fetchLikeCount(proposalId);
+                        // Optionally, you can display a message if needed
+                        console.log(response.message);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+        });
 
+        // Function to fetch total like count for a specific proposal
+        function fetchLikeCount(proposalId) {
+            $.ajax({
+                type: 'GET',
+                url: '/proposals/' + proposalId + '/like-count',
+                success: function(response) {
+                    // Update the like count for the current proposal
+                    $('#likeCount_' + proposalId).text(response.count);
+                    console.log("Like count updated for proposal " + proposalId + ": " + response.count);
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        }
 
-    </script>  --}}
+        // Initial fetch of total like count for all proposals
+        $('[id^=likeCheckbox_]').each(function() {
+            var proposalId = $(this).attr('id').split('_')[1];
+            fetchLikeCount(proposalId);
+        });
 
-
+    </script>

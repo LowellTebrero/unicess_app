@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\CustomizeAdminInventory;
 use App\Models\UserAttendanceMonitoring;
+use Spatie\MediaLibrary\Support\MediaStream;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use App\Notifications\UserDeletedProposaleNotification;
 use App\Notifications\AdmindDeletedProposaleNotification;
@@ -37,8 +38,10 @@ class AdminInventoryController extends Controller
         $medias = Media::whereNot('collection_name', 'trash')->get();
         $proposals = Proposal::orderBy('created_at', 'ASC')->get();
         $users = User::all();
+        $totalFileSize = $this->getTotalFileSize();
 
-        return view('admin.inventory.index', compact('program' , 'proposal', 'inventory', 'medias', 'years', 'proposals','users'));
+
+        return view('admin.inventory.index', compact('program' , 'proposal', 'inventory', 'medias', 'years', 'proposals','users','totalFileSize'));
     }
 
      // Show Faculty Admin
@@ -262,7 +265,70 @@ class AdminInventoryController extends Controller
         return back();
     }
 
+    public function BackUpProject(){
+
+    $proposals = Proposal::all();
+    $date = now()->format('F_d_Y'); // Get the current date in the desired format
+    $mainZip = new \ZipArchive();
+    $mainZipFileName = $date . '_projects_backup.zip';
+    if ($mainZip->open($mainZipFileName, \ZipArchive::CREATE | \ZipArchive::OVERWRITE) === true) {
+        foreach($proposals as $proposal){
+            $proposalZip = new \ZipArchive();
+            $proposalZipFileName = $proposal->project_title . '_backup.zip';
+            if ($proposalZip->open($proposalZipFileName, \ZipArchive::CREATE | \ZipArchive::OVERWRITE) === true) {
+                $media = Media::where('model_id', $proposal->id)->where('collection_name', '<>', 'trash')->get();
+                foreach ($media as $file) {
+                    $proposalZip->addFile($file->getPath(), $file->file_name);
+                }
+                $proposalZip->close();
+                $mainZip->addFromString($proposalZipFileName, file_get_contents($proposalZipFileName));
+                unlink($proposalZipFileName); // Remove the temporary proposal ZIP file
+            } else {
+                // handle the case where proposal zip file couldn't be created
+            }
+        }
+        $mainZip->close();
+        return response()->download($mainZipFileName)->deleteFileAfterSend();
+    } else {
+        // handle the case where main zip file couldn't be created
+    }
 
 
+    }
+
+    public function getTotalFileSize() {
+        // Retrieve all the files from the Media model
+        $mediaFiles = Media::all();
+
+        $totalSizeBytes = 0;
+
+        // Loop through each file to calculate total size in bytes
+        foreach ($mediaFiles as $file) {
+            // Parse file size from KB to bytes
+            $size = strtolower(preg_replace('/[^0-9\.]/', '', $file->size));
+            $numericValue = (float)$size;
+            $fileSizeBytes = (strpos($file->size, 'kb') !== false) ? $numericValue * 1024 : $numericValue;
+
+            // Add the file size to the total size
+            $totalSizeBytes += $fileSizeBytes;
+        }
+
+        // Convert total size to the appropriate unit
+        $totalSize = $this->formatSize($totalSizeBytes);
+
+        return $totalSize;
+    }
+
+    public function formatSize($bytes) {
+        $units = ['B', 'KB', 'MB', 'GB', 'TB'];
+
+        // Loop through units until bytes are smaller than 1024
+        for ($i = 0; $bytes > 1024; $i++) {
+            $bytes /= 1024;
+        }
+
+        // Round to two decimal places
+        return round($bytes, 2) . ' ' . $units[$i];
+    }
 
 }
