@@ -7,7 +7,7 @@
             @include('user.evaluate.index_filter._filter_userform2_index')
         </div>
 
-        <div class="flex items-start justify-evenly  px-2 py-2">
+        <div class="flex items-start justify-between 2xl:justify-evenly  px-2 py-2">
 
             <div class="flex space-x-2 items-center">
                 <div>
