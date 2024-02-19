@@ -273,10 +273,10 @@
 
             </ul>
 
-            <div id="information-content" class="tab-content flex h-[40vh] 2xl:h-full mt-5" style="display: none;">
+            <div id="information-content" class="tab-content flex h-[38vh] 2xl:h-[45vh] mt-2 2xl:mt-5 " style="display: none;">
 
                 <div class="2xl:space-y-4 2xl:space-x-0 flex 2xl:flex-col flex-row space-y-0 space-x-4">
-                    <div class="flex flex-col space-y-4 w-full">
+                    <div class="flex flex-col space-y-2 2xl:space-y-4 w-full">
                         <div class="border full rounded">
                             <div class="flex justify-between items-center px-2 py-1">
                                 <h1 class="tracking-wider 2xl:text-lg text-sm">Basic Information</h1>
@@ -324,7 +324,7 @@
                 </div>
             </div>
 
-            <div id="project-content" class="tab-content bg-white rounded border p-4 mt-5 h-[38vh] 2xl:h-[45vh]" style="display: none;">
+            <div id="project-content" class="tab-content bg-white rounded border p-4 mt-2 2xl:mt-5 h-[38vh] 2xl:h-[45vh]" style="display: none;">
                 <div class="flex justify-between items-center mb-1">
                    <h1 class="tracking-wider text-[.7rem] 2xl:text-base">Projects</h1>
                    <div>
@@ -350,7 +350,7 @@
                </div>
            </div>
 
-           <div id="evaluation-content"  class="tab-content bg-white rounded border p-4 mt-5 h-[38vh] 2xl:h-[45vh]" style="display: none;">
+           <div id="evaluation-content"  class="tab-content bg-white rounded border p-4 mt-2 2xl:mt-5 h-[38vh] 2xl:h-[45vh]" style="display: none;">
                 <div class="flex justify-between items-center mb-1">
                 <h1 class="tracking-wider text-xs 2xl:text-sm">Evaluation Overview</h1>
                 <div>
