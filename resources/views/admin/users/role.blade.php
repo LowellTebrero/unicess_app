@@ -273,7 +273,7 @@
 
             </ul>
 
-            <div id="information-content" class="tab-content flex h-full mt-5" style="display: none;">
+            <div id="information-content" class="tab-content flex h-[40vh] 2xl:h-full mt-5" style="display: none;">
 
                 <div class="2xl:space-y-4 2xl:space-x-0 flex 2xl:flex-col flex-row space-y-0 space-x-4">
                     <div class="flex flex-col space-y-4 w-full">

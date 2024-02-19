@@ -243,7 +243,7 @@
 
         <div class="flex m-5 tab-content overflow-x-auto h-[50vh] 2xl:h-[60vh] border border-gray-300 rounded-lg" id="calendar-content"  style="display: none;">
 
-            <div class="p-5 sticky top-[0rem] z-10 bg-white">
+            <div class="p-5 sticky top-[0rem] z-20 bg-white">
                 <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-300">
                     <li class="me-2"  id="cad-calendar-data">
                         <a href="#" onclick="showCad('calendar-data')" aria-current="page"  class="inline-block p-4 rounded-t-lg">Calendar Data</a>
