@@ -241,7 +241,7 @@
             </div>
         </div>
 
-        <div class="flex m-5 tab-content overflow-x-auto h-[60vh] border border-gray-300 rounded-lg" id="calendar-content"  style="display: none;">
+        <div class="flex m-5 tab-content overflow-x-auto h-[30vh] 2xl:h-[60vh] border border-gray-300 rounded-lg" id="calendar-content"  style="display: none;">
 
             <div class="p-5 sticky top-[0rem] z-10 bg-white">
                 <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-300">
