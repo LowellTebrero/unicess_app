@@ -256,7 +256,7 @@
       }
 
     
-    .hover:hover .img {
+    .hover .img:hover {
         transform: scale(1.2); /* Adjust the scale factor as needed */
         transition: transform 0.7s ease-in-out; /* Add transition for smooth scaling */
     }
