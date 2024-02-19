@@ -10,7 +10,7 @@
 
     <section class="rounded-xl m-8 mt-4 2xl:mt-5 bg-white h-[82vh] 2xl:min-h-[87vh]">
 
-        <div class="p-4 py-2 flex justify-between">
+        <header class="p-4 py-2 flex justify-between">
             <div class="flex space-x-1 items-center">
                 <h1 class="2xl:text-2xl font-semibold text-gray-700 tracking-wider text-lg">Inventory Section</h1>
                 <h1>
@@ -24,18 +24,26 @@
                     @endif
                     @endforeach
                 </h1>
+            </div>
+
+            <div class="flex space-x-4 items-center">
+                <div>
+                    <button class="text-xs bg-blue-500 hover:bg-blue-600 text-white  rounded-xl px-3 p-2 flex space-x-4 items-center">Back up Project
+
+                        <svg class="ml-2" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12 2v8m4-4l-4 4l-4-4"/><rect width="20" height="8" x="2" y="14" rx="2"/><path d="M6 18h.01M10 18h.01"/></g></svg>
+                    </button>
+                </div>
+                <select id="myDropdown" class="xl:text-xs border-slate-500 rounded-lg">
+                    @foreach ($inventory as $invent )
+                    <option value="1" {{ old('1', $invent->number) == '1' ? 'selected' : '' }}>By Program</option>
+                    <option value="3" {{ old('3', $invent->number) == '3' ? 'selected' : '' }}>By Files</option>
+                    <option value="4" {{ old('4', $invent->number) == '4' ? 'selected' : '' }}>By Project</option>
+                    @endforeach
+                </select>
 
             </div>
 
-            <select id="myDropdown" class="xl:text-xs border-slate-500 rounded-lg">
-                @foreach ($inventory as $invent )
-                <option value="1" {{ old('1', $invent->number) == '1' ? 'selected' : '' }}>By Program</option>
-                <option value="3" {{ old('3', $invent->number) == '3' ? 'selected' : '' }}>By Files</option>
-                <option value="4" {{ old('4', $invent->number) == '4' ? 'selected' : '' }}>By Project</option>
-                @endforeach
-            </select>
-
-        </div>
+        </header>
 
         <hr class="my-2">
 
@@ -123,21 +131,7 @@
                 </div>
                 @else
                     <div class="px-5 flex justify-between space-x-2">
-                        {{--  <div>
-                            <select class="xl:text-xs border-slate-500 rounded-lg" id="MySort">
-                            <option value="asc">A-Z</option>
-                            <option value="desc">Z-A</option>
-                            </select>
-                        </div>  --}}
-                        <div>
-                        {{--  <input type="text"  class="xl:text-xs border-slate-500 rounded-lg w-[20rem]" placeholder="Search name..." id="searchInput">
-                        <select class="xl:text-xs border-slate-500 rounded-lg" id="MyYear">
-                            <option {{ '' == request('selected_value') ? 'selected ' : '' }} value="">Select Year</option>
-                            @foreach ($years as $year )
-                            <option value="{{ $year }}">{{ $year }}</option>
-                            @endforeach
-                        </select>  --}}
-                        </div>
+
                     </div>
                     <div id="filtered-data">
                         @include('admin.inventory.index-filter._proposal-medias')
