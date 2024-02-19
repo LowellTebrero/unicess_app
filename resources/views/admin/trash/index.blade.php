@@ -39,7 +39,7 @@
             </ul>
         </div>
 
-        <div id="trash-content"  class="tab-content overflow-x-auto h-[60vh] 2xl:h-[65vh] rounded-lg border border-gray-200 shadow-sm m-5" style="display: none;">
+        <div id="trash-content"  class="tab-content overflow-x-auto h-[55vh] 2xl:h-[65vh] rounded-lg border border-gray-200 shadow-sm m-5" style="display: none;">
             <div class="flex justify-between  w-full ">
                 <div></div>
                 <div class="flex">
@@ -614,7 +614,7 @@
 
         </div>
 
-        <div id="permanent-content"  class="tab-content overflow-x-auto h-[60vh] 2xl:h-[65vh] rounded-lg border border-gray-200 shadow-sm  m-5" style="display: none;">
+        <div id="permanent-content"  class="tab-content overflow-x-auto h-[55vh] 2xl:h-[65vh] rounded-lg border border-gray-200 shadow-sm  m-5" style="display: none;">
 
             <table class="w-full border-collapse bg-white text-left text-sm text-gray-500 xl:text-xs 2xl:text-sm">
                 <thead class="bg-gray-50">
