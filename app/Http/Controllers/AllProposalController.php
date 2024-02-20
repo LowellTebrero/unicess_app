@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\ProposalMember;
 use App\Models\ProposalRequest;
 use App\Models\ParticipationName;
+use App\Models\AdminProgramServices;
 use App\Models\CustomizeUserAllProposal;
 
 class AllProposalController extends Controller
@@ -21,7 +22,7 @@ class AllProposalController extends Controller
         $years = AdminYear::orderBy('year', 'DESC')->pluck('year');
         $proposals = Proposal::with(['proposal_members' => function ($query) {
             $query->take(5)->latest();
-        }])->orderBy('created_at', 'asc')->get();
+        },'AdminProgram'])->orderBy('created_at', 'asc')->get();
 
         $myproposal = Proposal::with(['proposal_members' => function ($query) {
         $query->where('user_id', auth()->user()->id); }])->get();
@@ -33,11 +34,12 @@ class AllProposalController extends Controller
 
     public function show($id){
 
-
-        $proposals = Proposal::where('id', $id)->with(['medias' => function ($query) {
-            $query->whereNot('collection_name', 'trash')->orderBy('file_name', 'asc');
-        }, 'programs'])
+        $proposals = Proposal::where('id', $id)->with([
+        'medias' => function ($query) { $query->whereNot('collection_name', 'trash')->orderBy('file_name', 'asc'); },
+        'AdminProgram','programs'])
         ->first();
+
+        // dd($proposals);
 
 
         $uniqueProposalFiles = $proposals->medias->unique('collection_name');

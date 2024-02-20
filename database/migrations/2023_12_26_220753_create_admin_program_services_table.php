@@ -15,11 +15,12 @@ return new class extends Migration
     {
         Schema::create('admin_program_services', function (Blueprint $table) {
             $table->id();
-            $table->integer('proposal_id');
+            $table->unsignedBigInteger('proposal_id')->unsigned();
             $table->string('title')->nullable();
             $table->longtext('description')->nullable();
             $table->string('image')->nullable();
             $table->string('status')->default('close');
+            $table->foreign('proposal_id')->references('id')->on('proposals')->onDelete('cascade');
             $table->timestamps();
         });
     }

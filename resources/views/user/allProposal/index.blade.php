@@ -5,38 +5,27 @@
         @unlessrole('admin|New User')
 
             <section class="m-8  rounded-lg  relative mt-4 2xl:mt-5 h-[82vh] 2xl:h-[87vh]  bg-white text-gray-700">
+                <div class="flex justify-between p-4 flex-col space-y-2 lg:space-y-0  lg:flex-row">
+                    <div>
+                        <h1 class="font-semibold tracking-wider md:text-lg text-base xl:text-2xl">List of Program/Projects</h1>
+                    </div>
 
+                    <div class="sm:space-x-2 space-y-2 md:space-y-0 lg:flex-row text-xs">
+                        <input type="text" id="searchInput" class="rounded text-xs border-gray-300 w-full  sm:w-[15rem] md:w-[20rem]" placeholder="Search Project Title...">
 
+                        <select name="MyAllDropdown" id="MyAllDropdown" class="text-xs border-gray-300 rounded w-full 2xl:w-[7rem] sm:w-[8rem]">
+                                @foreach ($years as $year )
+                            <option value="{{ $year }}">{{ $year }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
 
+                <hr>
 
-
-                        <div class="flex justify-between p-4 flex-col space-y-2 lg:space-y-0  lg:flex-row">
-                            <div>
-                                <h1 class="font-semibold tracking-wider md:text-lg text-base xl:text-2xl">List of Program/Projects</h1>
-                            </div>
-
-                            <div class="sm:space-x-2 space-y-2 md:space-y-0 lg:flex-row text-xs">
-                                <input type="text" id="searchInput" class="rounded text-xs border-gray-300 w-full  sm:w-[15rem] md:w-[20rem]" placeholder="Search Project Title...">
-
-                                <select name="MyAllDropdown" id="MyAllDropdown" class="text-xs border-gray-300 rounded w-full 2xl:w-[7rem] sm:w-[8rem]">
-                                        @foreach ($years as $year )
-                                    <option value="{{ $year }}">{{ $year }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
-                        <hr>
-
-                        <div id="filtered-data">
-                            @include('user.allProposal._filtered_data')
-                        </div>
-
-
-
-
-
-
+                <div id="filtered-data">
+                    @include('user.allProposal._filtered_data')
+                </div>
 
             </section>
 

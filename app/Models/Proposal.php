@@ -71,6 +71,14 @@ class Proposal extends Model implements HasMedia
         return $this->likes()->where('user_id', $userId)->exists();
     }
 
+    public function AdminProgram()
+    {
+       return  $this->hasMany(AdminProgramServices::class, 'proposal_id');
+    }
+
+
+
+
 
 
 }

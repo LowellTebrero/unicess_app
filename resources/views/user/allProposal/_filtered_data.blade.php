@@ -256,10 +256,10 @@
       }
 
     
-    .hover .img:hover {
-        transform: scale(1.2); /* Adjust the scale factor as needed */
-        transition: transform 0.7s ease-in-out; /* Add transition for smooth scaling */
-    }
+        .hover .img:hover {
+            transform: scale(1.2); /* Adjust the scale factor as needed */
+            transition: transform 0.7s ease-in-out; /* Add transition for smooth scaling */
+        }
 
     </style>
 
@@ -270,8 +270,14 @@
 
                 <div class="max-w-md bg-white h-full border border-gray-200 rounded-lg shadow hover overflow-hidden">
                     <div class="overflow-hidden">
+
                         <a href={{ route('allProposal.show', $proposal->id) }}>
-                            <img class="rounded-t-lg img"  src="{{  url('upload/CESO.png') }}" alt="" />
+                        @foreach ($proposal->AdminProgram as $adminProgram)
+                        <img class="rounded-t-lg img h-[25vh] w-full object-cover"
+                        src="{{!empty($adminProgram->image) ? url('upload/image-folder/program-services-folder/' . $adminProgram->image) : url('upload/CESO.png') }}">
+                        @endforeach
+                       
+                            {{--  <img class="rounded-t-lg img"  src="{{  url('upload/CESO.png') }}" alt="" />  --}}
                         </a>
                     </div>
                    
