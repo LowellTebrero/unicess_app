@@ -19,11 +19,11 @@
                 <div class="flex justify-between items-center xl:p-4 p-2">
                     <h2 class="hidden xl:block font-semibold text-gray-600 2xl:text-sm xl:text-xs xl:mr-2 text-xs">Project Dashboard</h2>
                     <div class="block xl:hidden">
-                        <header class="px-5 sm:px-2 xl:pb-4  flex justify-between">
+                        <header class="space-x-2 sm:px-2 xl:pb-4  flex justify-between">
                             <div class="flex flex-col sm:flex-row  md:flex-row sm:justify-between space-y-2 sm:space-y-0 space-x-0  w-full">
                                 <div class="flex sm:space-x-2 space-x-0  items-center">
 
-                                    <select class="text-[.7rem] xl:text-xs rounded border border-gray-300 text-gray-700" id="myDropdown"
+                                    <select class="text-[.6rem] sm:text-[.7rem] xl:text-xs rounded border border-gray-300 text-gray-700" id="myDropdown"
                                         name="authorize_name">
                                         <option {{ '' == request('authorize_name') ? 'selected ' : '' }} value="">
                                             Select Status</option>
@@ -44,7 +44,7 @@
 
                     <!-- Create Proposal -->
                     <a href={{ route('admin.dashboard.create') }}
-                        class="text-white bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 focus:text-[.8rem] transition-all rounded-lg text-xs xl:text-xs px-3 py-2 2xl:text-sm">+
+                        class="text-white bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 focus:text-[.8rem] transition-all rounded-lg text-[.5rem] sm:text-xs xl:text-xs px-3 py-2 2xl:text-sm">+
                         Upload Projects
                     </a>
                 </div>
