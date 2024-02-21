@@ -5,7 +5,7 @@
         <h1 class="text-md text-gray-500">It’s empty here</h1>
    </div>
 @else
-<div class="p-3 pt-0 px-0 overflow-x-auto h-[45vh] 2xl:h-[57vh] text-gray-700">
+<div class="p-3 pt-0 px-0 overflow-x-auto  h-[20vh] xl:h-[45vh] 2xl:h-[57vh] text-gray-700">
     <table class="table-auto w-full relative">
         <thead
             class="text-[.7rem] font-semibold uppercase text-gray-400 bg-gray-50 top-0 sticky ">
@@ -49,7 +49,7 @@
                     <td class="p-3 whitespace-nowrap">
                         <a href={{ route('admin.dashboard.edit-proposal', $proposal->id) }}>
 
-                            <div class="text-left text-gray-600">
+                            <div class="text-left text-gray-600 text-[.6rem] xl:text-xs">
                                 {{ Str::limit($proposal->project_title, 70) }}
                             </div>
                         </a>
@@ -57,7 +57,7 @@
 
                     <td class="p-3 whitespace-nowrap  hidden sm:block">
                         <a href={{ route('admin.dashboard.edit-proposal', $proposal->id) }}>
-                        <div class="text-left text-gray-600  xl:text-[.7rem]">
+                        <div class="text-left text-gray-600  text-[.6rem] xl:text-xs">
                             {{ \Carbon\Carbon::parse($proposal->created_at)->format('M d, Y,  g:i:s A')}}
                         </div>
                         </a>
@@ -66,15 +66,15 @@
                         <a href={{ route('admin.dashboard.edit-proposal', $proposal->id) }}>
                         @if ($proposal->authorize == 'pending')
                             <div
-                                class="text-md text-center text-red-400 xl:text-[.7rem] ">
+                                class="text-md text-center text-red-400 text-[.6rem] xl:text-xs ">
                                 {{ $proposal->authorize }}</div>
                         @elseif ($proposal->authorize == 'ongoing')
                             <div
-                                class="text-md text-center text-blue-500 xl:text-[.7rem] ">
+                                class="text-md text-center text-blue-500 text-[.6rem] xl:text-xs ">
                                 {{ $proposal->authorize }}</div>
                         @elseif ($proposal->authorize == 'finished')
                             <div
-                                class="text-md text-center text-green-700 xl:text-[.7rem] ">
+                                class="text-md text-center text-green-700 text-[.6rem] xl:text-xs ">
                                 {{ $proposal->authorize }}</div>
                         @endif
                         </a>
