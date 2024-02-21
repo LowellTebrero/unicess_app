@@ -1,22 +1,3 @@
-{{--  <div class="flex space-x-4  m-5 mx-0 h-[9vh] text-gray-700 ">
-
-    <div class="bg-slate-100 p-5 px-8 w-[10rem] hover:bg-white hover:border hover:border-teal-300 rounded-lg text-xs flex 2xl:flex-col flex-row items-center space-x-2 2xl:space-x-0 xl:space-y-0 2xl:space-y-2">
-        <h1 class="tracking-wider">Pending</h1>
-        <h1 class="text-xl">{{ $pendingCount }}</h1>
-    </div>
-    <div class="bg-slate-100 p-5 px-8 w-[10rem] hover:bg-white hover:border hover:border-teal-300 rounded-lg text-xs flex 2xl:flex-col flex-row items-center space-x-2 2xl:space-x-0 xl:space-y-0 2xl:space-y-2">
-        <h1 class="tracking-wider">Ongoing</h1>
-        <h1 class="text-xl">{{ $ongoingCount }}</h1>
-    </div>
-    <div class="bg-slate-100 p-5 px-8 w-[10rem] hover:bg-white hover:border hover:border-teal-300 rounded-lg text-xs flex 2xl:flex-col flex-row items-center space-x-2 2xl:space-x-0 xl:space-y-0 2xl:space-y-2">
-        <h1 class="tracking-wider">Finished</h1>
-        <h1 class="text-xl">{{ $finishedCount }}</h1>
-    </div>
-    <div class="bg-slate-100 p-5 px-8 w-[10rem] hover:bg-white hover:border hover:border-teal-300 rounded-lg text-xs flex 2xl:flex-col flex-row items-center space-x-2 2xl:space-x-0 xl:space-y-0 2xl:space-y-2">
-        <h1 class="tracking-wider">Total</h1>
-        <h1 class="text-xl">{{ $statusCount }}</h1>
-    </div>
-</div>  --}}
 
 
 <div class="p-3 pt-0 px-0 overflow-x-auto h-[25vh] 2xl:h-[35vh] rounded-lg border  w-full">
@@ -24,9 +5,7 @@
         <thead
             class="text-[.7rem] font-semibold uppercase text-gray-400 bg-gray-50 top-0 sticky z-10">
             <tr>
-                {{--  <th class="p-2 pr-0 whitespace-nowrap hidden 2xl:block">
-                    <div class="font-semibold text-left ">Uploader</div>
-                </th>  --}}
+
                 <th class="p-2 whitespace-nowrap">
                     <div class="font-semibold text-left">Project Title</div>
                 </th>
@@ -45,24 +24,10 @@
             </tr>
         </thead>
 
-
         <tbody class="text-xs divide-y divide-gray-100 ">
 
             @foreach ($allProposal as $proposal)
                 <tr id="proposal_id{{ $proposal->id }}" class="hover:bg-gray-100">
-                    {{--  <td class="p-3 pr-0 whitespace-nowrap hidden 2xl:block ">
-                    <a href={{ route('admin.dashboard.edit-proposal', ['id' => $proposal->id, 'notification' => $proposal->id ]) }}>
-                            <div class="relative flex items-center">
-                                <div class="flex-shrink-0 mr-2 sm:mr-3">
-                                    <img class="rounded-full" src="{{ !empty($proposal->user->avatar) ? url('upload/image-folder/profile-image/' . $proposal->user->avatar) : url('upload/profile.png') }}"
-                                        width="30" height="30">
-                                </div>
-                                <div class="font-medium text-gray-800 text-[.7rem]">
-                                    {{ $proposal->user->first_name }}
-                                </div>
-                            </div>
-                        </a>
-                    </td>  --}}
                     <td class="p-3 whitespace-nowrap">
                     <a href={{ route('admin.dashboard.edit-proposal', ['id' => $proposal->id, 'notification' => $proposal->id ]) }}>
                         <div

@@ -217,6 +217,8 @@ class EvaluationController extends Controller
 
         $trashRecord = new TrashedRecord();
         $trashRecord->uuid = $delete->uuid;
+        $trashRecord->name = $delete->users->name;
+        $trashRecord->type = 'evaluation';
         $trashRecord->user_id = Auth()->user()->id;
         $trashRecord->save();
 

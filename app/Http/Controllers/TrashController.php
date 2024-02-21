@@ -6,6 +6,7 @@ use App\Models\Proposal;
 use Illuminate\Http\Request;
 use App\Models\TrashedRecord;
 use App\Models\CollectionMedia;
+use App\Models\PermanenltyDelete;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class TrashController extends Controller
@@ -69,22 +70,27 @@ class TrashController extends Controller
 
             $media = Media::where('uuid', $id)->first();
             $proposal = Proposal::where('uuid', $id)->withTrashed()->first();
+            $removeTrashed = TrashedRecord::where('uuid', $id)->first();
 
+            if($removeTrashed){
+                $deleteRecord = new PermanenltyDelete();
+                $deleteRecord->uuid = $removeTrashed->uuid;
+                $deleteRecord->user_id = Auth()->user()->id;
+                $deleteRecord->name = $removeTrashed->name;
+                $deleteRecord->type = $removeTrashed->type;
+                $deleteRecord->save();
+
+                $removeTrashed->delete();
+            }
 
             if ($media) {
                 $collect = CollectionMedia::where('media_id', $media->id)->first();
-                $removeTrashed = TrashedRecord::where('uuid', $id)->first();
-                $removeTrashed->delete();
                 $collect->delete();
                 $media->delete();
 
 
             } elseif ($proposal) {
-                // If the file exists in Proposal, restore it
-                $removeTrashed = TrashedRecord::where('uuid', $id)->first();
-                $removeTrashed->delete();
                 $proposal->forceDelete();
-
             }
         }
 

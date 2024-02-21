@@ -241,6 +241,7 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
     Route::get('/admin-trash', [AdminTrashController::class, 'index'])->name('trash.index');
     Route::delete('/admin-trash-restore', [AdminTrashController::class, 'RestoreFile'])->name('trash.restore');
     Route::delete('/admin-trash-hardelete', [AdminTrashController::class, 'DeleteFile'])->name('trash.hardelete');
+    Route::delete('/admin-delete-permanently', [AdminTrashController::class, 'DeletePermanentlyFile'])->name('trash.permanently-delete');
 
 
 

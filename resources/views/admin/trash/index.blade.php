@@ -22,6 +22,22 @@
 
         <header class="flex justify-between p-5 py-4 flex-col sm:flex-row">
             <h1 class="xl:text-2xl sm:text-lg text-[.9rem] font-semibold tracking-wider text-slate-700">Trash Overview</h1>
+            <div class="flex flex-row space-x-1" id="showOptionRestore" style="display: none">
+                <button class="text-xs rounded text-white px-2 py-1 bg-blue-500" id="YesRestore">Restore</button>
+                <button class="text-xs rounded text-white px-2 py-1 bg-blue-500" id="selectAllRestore">Select all</button>
+                <button class="text-xs rounded text-white px-2 py-1 bg-blue-500" id="cancelButtonRestore">Cancel</button>
+            </div>
+
+            <div class="flex flex-row space-x-1" id="showOptionDelete" style="display: none">
+                <button class="text-xs rounded text-white px-2 py-1 bg-red-500" id="YesDelete">Delete</button>
+                <button class="text-xs rounded text-white px-2 py-1 bg-red-500" id="selectAll">Select all</button>
+                <button class="text-xs rounded text-white px-2 py-1 bg-red-500" id="cancelButton">Cancel</button>
+            </div>
+            <div class="flex flex-row space-x-1" id="SecondshowOptionDelete" style="display: none">
+                <button class="text-xs rounded text-white px-2 py-1 bg-red-500" id="SecondYesDelete">Delete</button>
+                <button class="text-xs rounded text-white px-2 py-1 bg-red-500" id="SecondselectAll">Select all</button>
+                <button class="text-xs rounded text-white px-2 py-1 bg-red-500" id="SecondcancelButton">Cancel</button>
+            </div>
         </header>
         <hr>
 
@@ -32,7 +48,7 @@
                 </li>
                 @if ($PermanentlyDelete->isNotEmpty())
                 <li class="me-2"  id="tab-permanent">
-                    <a href="#" onclick="showTab('permanent')"  class="inline-block p-4 rounded-t-lg">Permenetly Deleted</a>
+                    <a href="#" onclick="showTab('permanent')"  class="inline-block p-4 rounded-t-lg">Permanently Deleted</a>
                 </li>
                 @endif
 
@@ -41,21 +57,6 @@
 
         <div id="trash-content"  class="tab-content overflow-x-auto h-[55vh] 2xl:h-[65vh] rounded-lg border border-gray-200 shadow-sm mt-0 m-5" style="display: none;">
             <div class="flex justify-between  w-full ">
-                <div></div>
-                <div class="flex">
-                    <div class="flex flex-row space-x-1 p-4" id="showOptionRestore" style="display: none">
-                        <button class="text-xs rounded text-white px-2 py-1 bg-blue-500" id="YesRestore">Restore</button>
-                        <button class="text-xs rounded text-white px-2 py-1 bg-blue-500" id="selectAllRestore">Select all</button>
-                        <button class="text-xs rounded text-white px-2 py-1 bg-blue-500" id="cancelButtonRestore">Cancel</button>
-                    </div>
-
-                    <div class="flex flex-row space-x-1 p-4" id="showOptionDelete" style="display: none">
-                        <button class="text-xs rounded text-white px-2 py-1 bg-red-500" id="YesDelete">Delete</button>
-                        <button class="text-xs rounded text-white px-2 py-1 bg-red-500" id="selectAll">Select all</button>
-                        <button class="text-xs rounded text-white px-2 py-1 bg-red-500" id="cancelButton">Cancel</button>
-                    </div>
-                </div>
-
             </div>
 
 
@@ -96,17 +97,19 @@
                                     </x-slot>
 
                                     <x-slot name="title">
-                                        <span>{{ Str::limit($trashes->project_title) }}</span>
+                                        <span>Restoring project</span>
                                     </x-slot>
 
-                                    <div class="w-[50rem]">
-                                        Restore Project?
+                                    <div class="w-[40rem] h-[12vh] flex flex-col items-center justify-center space-y-2">
+                                        <h1 class="text-base mt-4 font-semibold text-gray-700">Restore Project?</h1>
+                                        <span class="text-xs">{{ Str::limit($trashes->project_title) }}</span>
                                         <form action="{{ route('report-project.restore', $trashes->id) }}" method="POST" enctype="multipart/form-data" onsubmit="return confirm ('Are you sure?')">
                                             @csrf
                                             @method('DELETE')
-                                            <button class="block text-slate-800 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="submit">Yes</button>
+                                            <button class="block text-white text-base px-3 hover:bg-blue-400 w-full text-left  bg-blue-500 py-1 rounded-xl" type="submit">Yes, Im sure</button>
                                         </form>
                                     </div>
+
                                 </x-alpine-modal>
 
                             </th>
@@ -160,7 +163,10 @@
                                                 <p class="text-xs leading-relaxed text-white tracking-wide">
                                                 Project Name: {{ $trashes->project_title }}
                                                 </p>
-                                                <hr>
+                                                <p class="text-xs leading-relaxed text-white tracking-wide pb-2 border-b border-gray-600">
+                                                Owner Name: {{ $trashes->user->name }}
+                                                </p>
+
 
                                                 <p class="text-xs leading-relaxed tracking-wide text-white pt-5">
                                                 Deleted: {{ \Carbon\Carbon::parse($trashes->updated_at)->format('M d, Y,  g:i:s A')}}
@@ -178,8 +184,6 @@
                                     </div>
                                 </div>
 
-                                {{--  <input type="checkbox" class="hidden-checkbox absolute top-[1.8rem] right-[4.55rem]" style="display: none"  name="ids" value="{{ $trashes->uuid }}">  --}}
-
                                 <div class="checkbox-wrapper-12">
                                     <div class="cbx">
                                     <input type="checkbox" class="hidden-checkbox" name="ids" value="{{ $trashes->uuid }}" style="display: none">
@@ -188,16 +192,6 @@
                                         <path d="M2 8.36364L6.23077 12L13 2"></path>
                                     </svg>
                                     </div>
-
-                                    {{--  <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
-                                    <defs>
-                                        <filter id="goo-12">
-                                        <feGaussianBlur result="blur" stdDeviation="4" in="SourceGraphic"></feGaussianBlur>
-                                        <feColorMatrix result="goo-12" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -7" mode="matrix" in="blur"></feColorMatrix>
-                                        <feBlend in2="goo-12" in="SourceGraphic"></feBlend>
-                                        </filter>
-                                    </defs>
-                                    </svg>  --}}
                                 </div>
 
                                 <div x-cloak x-data="{dropdownMenu: false}" class=" absolute left-[2.2rem] top-[1rem]">
@@ -214,19 +208,6 @@
 
                                         <!-- Modal toggle -->
                                         <button data-modal-target="default-modal-project{{ $trashes->id }}" data-modal-toggle="default-modal-project{{ $trashes->id }}" class="block text-slate-800 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="button">Detail</button>
-
-                                        {{--  <form action="{{ route('report-project.restore', $trashes->id) }}" method="POST" enctype="multipart/form-data" onsubmit="return confirm ('Are you sure?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="block text-slate-800 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="submit">Restore Project</button>
-                                        </form>
-
-                                        <form action={{ route('report-project.delete', $trashes->id) }} method="POST" enctype="multipart/form-data" onsubmit="return confirm ('Are you sure?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="block text-slate-800 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="submit">Permanently delete</button>
-                                        </form>  --}}
-
                                         <button class="restoreButton block text-slate-800 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="button"> Restore File</button>
                                         <button class="DeleteButton block text-slate-800 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="button">Permanently delete</button>
                                     </div>
@@ -397,8 +378,6 @@
                                         </div>
                                     </div>
 
-                                    {{--  <input type="checkbox" class="hidden-checkbox absolute top-[1.8rem] right-[4.55rem]" style="display: none"  name="ids" value="{{ $mediaLibrary->uuid }}">  --}}
-
                                     <div class="checkbox-wrapper-12">
                                         <div class="cbx">
                                           <input type="checkbox" class="hidden-checkbox" name="ids" value="{{ $mediaLibrary->uuid }}" style="display: none">
@@ -408,15 +387,7 @@
                                           </svg>
                                         </div>
 
-                                        {{--  <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
-                                          <defs>
-                                            <filter id="goo-12">
-                                              <feGaussianBlur result="blur" stdDeviation="4" in="SourceGraphic"></feGaussianBlur>
-                                              <feColorMatrix result="goo-12" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -7" mode="matrix" in="blur"></feColorMatrix>
-                                              <feBlend in2="goo-12" in="SourceGraphic"></feBlend>
-                                            </filter>
-                                          </defs>
-                                        </svg>  --}}
+
                                     </div>
 
                                     <div x-cloak x-data="{dropdownMenu: false}" class=" absolute left-[2.2rem] top-[1rem]">
@@ -433,18 +404,6 @@
 
                                             <!-- Modal toggle -->
                                             <button data-modal-target="default-modal-media{{ $mediaLibrary->id }}" data-modal-toggle="default-modal-media{{ $mediaLibrary->id }}" class="block text-slate-800 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="button">Detail</button>
-
-                                            {{--  <form action="{{ route('inventory-restore-media', $mediaLibrary->id) }}" method="POST" enctype="multipart/form-data" onsubmit="return confirm ('Are you sure?')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="block text-slate-800 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="submit">Restore File</button>
-                                            </form>
-
-                                            <form action={{ route('inventory-delete-media-permanently', [ 'id' => $mediaLibrary->id, 'proposalId' => $mediaLibrary->model_id]) }} method="POST" enctype="multipart/form-data" onsubmit="return confirm ('Are you sure?')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="block text-slate-800 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="submit">Permanently delete</button>
-                                            </form>  --}}
 
                                             <button class="restoreButton block text-slate-800 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="button"> Restore File</button>
                                             <button class="DeleteButton block text-slate-800 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="button">Permanently delete</button>
@@ -549,8 +508,6 @@
                                     </div>
                                 </div>
 
-                                {{--  <input type="checkbox" class="hidden-checkbox absolute top-[1.8rem] right-[4.55rem]" style="display: none"  name="ids" value="{{ $evaluation->uuid }}">  --}}
-
                                 <div class="checkbox-wrapper-12">
                                     <div class="cbx">
                                       <input type="checkbox" class="hidden-checkbox" name="ids" value="{{ $evaluation->uuid }}" style="display: none">
@@ -559,16 +516,6 @@
                                         <path d="M2 8.36364L6.23077 12L13 2"></path>
                                       </svg>
                                     </div>
-
-                                    {{--  <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
-                                      <defs>
-                                        <filter id="goo-12">
-                                          <feGaussianBlur result="blur" stdDeviation="4" in="SourceGraphic"></feGaussianBlur>
-                                          <feColorMatrix result="goo-12" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -7" mode="matrix" in="blur"></feColorMatrix>
-                                          <feBlend in2="goo-12" in="SourceGraphic"></feBlend>
-                                        </filter>
-                                      </defs>
-                                    </svg>  --}}
                                 </div>
 
                                 <div x-cloak x-data="{dropdownMenu: false}" class=" absolute left-[2.2rem] top-[1rem]">
@@ -585,19 +532,6 @@
 
                                         <!-- Modal toggle -->
                                         <button data-modal-target="default-modal-evaluation{{ $evaluation->id }}" data-modal-toggle="default-modal-evaluation{{ $evaluation->id }}" class="block text-slate-800 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="button">Detail</button>
-
-                                        {{--  <form action="{{ route('admin.evaluation.restore', $evaluation->id) }}" method="POST" enctype="multipart/form-data" onsubmit="return confirm ('Are you sure?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="block text-slate-800 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="submit">Restore Evaluation</button>
-                                        </form>
-
-                                        <form action={{route('admin.evaluation.delete', $evaluation->id) }} method="POST" enctype="multipart/form-data" onsubmit="return confirm ('Are you sure?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="block text-slate-800 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="submit">Permanently delete</button>
-                                        </form>  --}}
-
                                         <button class="restoreButton block text-slate-800 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="button"> Restore File</button>
                                         <button class="DeleteButton block text-slate-800 text-xs px-2 hover:bg-gray-200 w-full text-left hover:text-black" type="button">Permanently delete</button>
                                     </div>
@@ -609,38 +543,35 @@
                 </tbody>
             </table>
 
-
-
-
         </div>
 
         <div id="permanent-content"  class="tab-content overflow-x-auto h-[55vh] 2xl:h-[65vh] rounded-lg border border-gray-200 shadow-sm  mt-0 m-5" style="display: none;">
 
+
+
             <table class="w-full border-collapse bg-white text-left text-sm text-gray-500 xl:text-xs 2xl:text-sm">
                 <thead class="bg-gray-50">
                     <tr class="text-gray-500">
-                        <th scope="col" class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-4 py-4 font-medium">ID</th>
-                        <th scope="col" class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-4 py-4 font-medium">Name</th>
-                        <th scope="col" class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-4 py-4 font-medium">Type</th>
-                        <th scope="col" class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-4 py-4 font-medium">Deleted by</th>
-                        <th scope="col" class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-4 py-4 font-medium">Deleted date</th>
-                        <th scope="col" class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-4 py-4 text-center font-medium w-[8rem]">Action</th>
+                        <th scope="col" class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-4 py-4 font-normal">ID</th>
+                        <th scope="col" class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-4 py-4 font-normal">Name</th>
+                        <th scope="col" class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-4 py-4 font-normal">Type</th>
+                        <th scope="col" class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-4 py-4 font-normal">Deleted by</th>
+                        <th scope="col" class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-4 py-4 font-normal">Deleted date</th>
+                        <th scope="col" class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-4 py-4 text-center font-normal w-[8rem]">Action</th>
                     </tr>
                 </thead>
 
                 <tbody class="divide-y divide-gray-100 border-t border-gray-100">
 
                     @foreach ($PermanentlyDelete as $deleted )
-                        <tr class="hover:bg-gray-50" id="media_id{{ $deleted->uuid }}">
-                            <th class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-4 py-4 text-xs font-normal text-gray-500">
+                        <tr class="hover:bg-gray-50 text-gray-400" id="media_id{{ $deleted->uuid }}">
+                            <th class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-4 py-4 text-xs font-normal text-gray-400">
                                 <h1>{{ $deleted->uuid }}</h1>
                             </th>
 
-
-
                             <td class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-4 py-4 text-xs">
                                 <span class="block text-xs">
-                                    {{ $deleted->name }}
+                                    {{ Str::limit($deleted->name, 50) }}
                                 </span>
                             </td>
 
@@ -653,11 +584,10 @@
 
                                 <div class="relative h-5 w-5 flex space-x-2 items-center">
                                     <img class="rounded-full" id="showImage" src="{{ (!empty($deleted->user->avatar))? url('upload/image-folder/profile-image/'. $deleted->user->avatar): url('upload/profile.png') }}" alt="profileImage">
-                                    <h1 class="font-medium text-gray-500 text-xs">{{ $deleted->user->first_name }}</h1>
+                                    <h1 class="font-medium text-gray-400 text-xs">{{ $deleted->user->first_name }}</h1>
                                 </div>
 
                             </td>
-
 
                             <td class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-4 py-4 text-xs ">
                                 {{ \Carbon\Carbon::parse($deleted->created_at)->format('M d, Y,  g:i:s A')}}
@@ -665,21 +595,25 @@
 
                             <td class="xl:pl-4 2xl:pr-0 xl:px-0 2xl:px-2 py-4 relative">
 
-                                <div class="checkbox-wrapper-12">
-                                    <div class="cbx">
-                                    <input type="checkbox" class="hidden-checkbox" name="ids" value="{{ $deleted->uuid }}" style="display: none">
-                                    <label for="cbx-12"></label>
-                                    <svg fill="none" viewBox="0 0 15 14" height="14" width="15">
-                                        <path d="M2 8.36364L6.23077 12L13 2"></path>
-                                    </svg>
+                                <div class=" absolute top-5 right-14">
+                                    <div class="checkbox-wrapper-12">
+                                        <div class="cbx">
+                                        <input type="checkbox" class="secondhidden-checkbox" name="ids" value="{{ $deleted->uuid }}" style="display: none">
+                                        <label for="cbx-12"></label>
+                                        <svg fill="none" viewBox="0 0 15 14" height="14" width="15">
+                                            <path d="M2 8.36364L6.23077 12L13 2"></path>
+                                        </svg>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div class=" absolute left-[2.2rem] top-[1rem]">
-                                    <button class="DeleteButton block text-slate-800 text-xs px-2  w-full text-left hover:text-black" type="button">
+                                <div class="DeleteWrapper absolute left-[2.2rem] top-[1rem]" style="display: block;">
+                                    <button class="SecondDeleteButton block text-slate-800 text-xs px-2  w-full text-left hover:text-black" type="button">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><g fill="none" stroke="#919191" stroke-linecap="round" stroke-width="1.5"><path d="M9.17 4a3.001 3.001 0 0 1 5.66 0" opacity=".5"/><path d="M20.5 6h-17m15.333 2.5l-.46 6.9c-.177 2.654-.265 3.981-1.13 4.79c-.865.81-2.195.81-4.856.81h-.774c-2.66 0-3.99 0-4.856-.81c-.865-.809-.953-2.136-1.13-4.79l-.46-6.9"/><path d="m9.5 11l.5 5m4.5-5l-.5 5" opacity=".5"/></g></svg>
                                     </button>
                                 </div>
+
+
                             </td>
                         </tr>
                     @endforeach
@@ -705,7 +639,6 @@
 
             var RestoreButton = document.getElementById('selectAllRestore');
             var RestoreSelectedButton = document.getElementById('YesRestore');
-            // Get all checkboxes inside the foreach loop
             var checkboxes = document.querySelectorAll('.hidden-checkbox');
 
 
@@ -722,8 +655,6 @@
                     checkbox.checked = !allChecked;
                 });
             });
-
-
             RestoreSelectedButton.addEventListener('click', function () {
                 // Filter out the checked checkboxes
                 var checkedCheckboxes = Array.from(document.querySelectorAll('.hidden-checkbox:checked'));
@@ -772,13 +703,8 @@
 
             });
 
-
-
-
-            // Get the toggle all button
             var DeleteButton = document.getElementById('selectAll');
             var deleteSelectedButton = document.getElementById('YesDelete');
-            // Get all checkboxes inside the foreach loop
             var checkboxes = document.querySelectorAll('.hidden-checkbox');
 
 
@@ -845,6 +771,73 @@
 
             });
 
+            var SecondDeleteButton = document.getElementById('SecondselectAll');
+            var SecondDeleteSelectedButton = document.getElementById('SecondYesDelete');
+            var Secondcheckboxes = document.querySelectorAll('.secondhidden-checkbox');
+
+            // Add click event listener to the toggle all button
+            SecondDeleteButton.addEventListener('click', function () {
+                // Check if all checkboxes are checked
+
+                var allChecked = Array.from(Secondcheckboxes).every(function (checkbox) {
+                    return checkbox.checked;
+                });
+
+                // If all checkboxes are checked, reset all checkboxes; otherwise, check all checkboxes
+                Secondcheckboxes.forEach(function (checkbox) {
+                    checkbox.checked = !allChecked;
+                });
+            });
+
+
+            SecondDeleteSelectedButton.addEventListener('click', function () {
+                // Filter out the checked checkboxes
+                var checkedCheckboxes = Array.from(document.querySelectorAll('.secondhidden-checkbox:checked'));
+
+                // Create an array to store the IDs of checked checkboxes
+                var all_ids = checkedCheckboxes.map(function (checkbox) {
+                    return checkbox.value;
+                });
+
+
+                if (all_ids.length > 0 ) {
+                    // Perform deletion logic for the checked checkboxes
+                    if (confirm('Are you sure you want to permanently delete?')) {
+
+                        $.ajax({
+                            url: "{{ route('admin.trash.permanently-delete') }}",
+                            type: "DELETE",
+                            data: {
+                                ids: all_ids,
+                                _token: '{{ csrf_token() }}'
+                            },
+                            success: function (response) {
+                                checkedCheckboxes.forEach(function (checkbox) {
+                                    // Replace 'proposal_id' with the appropriate ID prefix
+                                    $('#media_id' + checkbox.value).remove();
+                                });
+                                if (response.success) {
+                                    toastr.success(response.success);
+                                    // Additional logic if needed
+                                } else if (response.error) {
+                                    toastr.error(response.error);
+                                    // Additional error handling logic
+                                }
+                            },
+                            error: function (error) {
+                                console.log(error);
+                                toastr.error('Error in AJAX request');
+                            }
+                        });
+                    };
+
+
+                } else {
+                    toastr.warning('No checkboxes are selected for deletion.');
+                }
+
+            });
+
         });
 
 
@@ -852,6 +845,7 @@
             // Get the delete all button
             var restoreButton = document.querySelectorAll('.restoreButton');
             var DeletePermanently = document.querySelectorAll('.DeleteButton');
+            var DeleteSecondPermanently = document.querySelectorAll('.SecondDeleteButton');
 
             restoreButton.forEach(function (button) {
 
@@ -880,6 +874,33 @@
                 });
             });
 
+
+            DeleteSecondPermanently.forEach(function (button) {
+
+                button.addEventListener('click', function () {
+
+                    var hiddenCheckboxes = document.querySelectorAll('.secondhidden-checkbox');
+                    var dropdownButton = document.querySelectorAll('.DeleteWrapper');
+                    document.getElementById("SecondshowOptionDelete").style.display = "block";
+
+
+                    hiddenCheckboxes.forEach(function (checkbox) {
+                        if (checkbox.style.display === 'none' || checkbox.style.display === '') {
+                            checkbox.style.display = 'block';
+                        } else {
+                            checkbox.style.display = 'none';
+                        }
+                    });
+
+                    dropdownButton.forEach(function (div) {
+                        if (div.style.display === 'block' ) {
+                            div.style.display = 'none';
+                        } else {
+                            div.style.display = 'block';
+                        }
+                    });
+                });
+            });
 
             DeletePermanently.forEach(function (button) {
 
@@ -910,6 +931,7 @@
 
             var cancelButtonRestore = document.getElementById('cancelButtonRestore');
             var cancelButton = document.getElementById('cancelButton');
+            var SecondcancelButton = document.getElementById('SecondcancelButton');
 
             cancelButtonRestore.addEventListener('click', function () {
 
@@ -924,6 +946,30 @@
                 });
 
                 document.getElementById("showOptionRestore").style.display = "none";
+
+                tooltipButtons.forEach(function (button) {
+                    if (button.style.display === 'none' ) {
+                        button.style.display = 'block';
+                    } else {
+                        button.style.display = 'none';
+                    }
+                });
+
+            });
+
+            SecondcancelButton.addEventListener('click', function () {
+
+                var hiddenCheckbox = document.querySelectorAll('.secondhidden-checkbox');
+                var tooltipButtons = document.querySelectorAll('.DeleteWrapper');
+
+                hiddenCheckbox.forEach(function (checkbox) {
+                    if (checkbox.style.display === 'block' ) {
+                        checkbox.checked = false;
+                        checkbox.style.display = 'none';
+                    }
+                });
+
+                document.getElementById("SecondshowOptionDelete").style.display = "none";
 
                 tooltipButtons.forEach(function (button) {
                     if (button.style.display === 'none' ) {

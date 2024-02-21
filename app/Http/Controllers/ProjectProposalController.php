@@ -65,7 +65,16 @@ class ProjectProposalController extends Controller
 
         $ids = $request->ids;
         DB::table('notifications')->whereJsonContains('data->proposal_id', $ids)->delete();
-        $proposalDelete =  Proposal::destroy($ids);
+        $proposalDelete =  Proposal::where('id',$ids)->first();
+
+        $trashRecord = new TrashedRecord();
+        $trashRecord->uuid = $proposalDelete->uuid;
+        $trashRecord->user_id = Auth()->user()->id;
+        $trashRecord->name = $proposalDelete->project_title;
+        $trashRecord->type = 'project';
+        $trashRecord->save();
+
+        $proposalDelete->delete();
 
         if ($proposalDelete) {
             // Flash a success message
@@ -76,9 +85,6 @@ class ProjectProposalController extends Controller
         }
 
     }
-
-
-
 
 
     // Download
@@ -161,6 +167,8 @@ class ProjectProposalController extends Controller
             $trashRecord = new TrashedRecord();
             $trashRecord->uuid = $proposalDelete->uuid;
             $trashRecord->user_id = Auth()->user()->id;
+            $trashRecord->name = $proposalDelete->project_title;
+            $trashRecord->type = 'project';
             $trashRecord->save();
 
            // proposal delete

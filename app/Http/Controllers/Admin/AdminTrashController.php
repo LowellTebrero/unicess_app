@@ -17,16 +17,12 @@ class AdminTrashController extends Controller
 {
     public function index(){
 
-
-
         $trash = Proposal::withTrashed()->
         with(['medias' => function ($query) {
         $query->where('collection_name', 'trash');
         }])
         ->orderBy('created_at', 'DESC')
         ->distinct()->get();
-
-
 
         $users = User::get();
         $trashedRecord = TrashedRecord::all();
@@ -36,15 +32,6 @@ class AdminTrashController extends Controller
         $proposals = Proposal::onlyTrashed()->whereYear('created_at',  date('Y'))
         ->orderBy('created_at', 'DESC')->with('programs')->distinct()->get();
         $evaluations = Evaluation::onlyTrashed()->get();
-
-
-
-
-
-
-
-
-
 
         return view('admin.trash.index',
         compact('trash', 'proposals', 'evaluations','users','mediaCollection','trashedRecord','PermanentlyDelete'));
@@ -95,43 +82,49 @@ class AdminTrashController extends Controller
             $media = Media::where('uuid', $id)->first();
             $proposal = Proposal::where('uuid', $id)->withTrashed()->first();
             $evaluation = Evaluation::where('uuid', $id)->withTrashed()->first();
+            $removeTrashed = TrashedRecord::where('uuid', $id)->first();
+
+            if($removeTrashed){
+                $deleteRecord = new PermanenltyDelete();
+                $deleteRecord->uuid = $removeTrashed->uuid;
+                $deleteRecord->user_id = Auth()->user()->id;
+                $deleteRecord->name = $removeTrashed->name;
+                $deleteRecord->type = $removeTrashed->type;
+                $deleteRecord->save();
+                $removeTrashed->delete();
+            }
 
             if ($media) {
                 $collect = CollectionMedia::where('media_id', $media->id)->first();
-
-                $deleteRecord = new PermanenltyDelete();
-                $deleteRecord->uuid = $media->uuid;
-                $deleteRecord->user_id = Auth()->user()->id;
-                $deleteRecord->name = $media->file_name;
-                $deleteRecord->type = $collect->collection_name;
-                $deleteRecord->save();
-
                 $collect->delete();
                 $media->delete();
+            }
 
-
-
-            } elseif ($proposal) {
-                // If the file exists in Proposal, restore it
-                $deleteRecord = new PermanenltyDelete();
-                $deleteRecord->uuid = $proposal->uuid;
-                $deleteRecord->user_id = Auth()->user()->id;
-                $deleteRecord->name = $proposal->project_title;
-                $deleteRecord->type = 'Project';
-                $deleteRecord->save();
-
+            if ($proposal) {
                 $proposal->forceDelete();
             }
-            elseif ($evaluation) {
 
-                $deleteRecord = new PermanenltyDelete();
-                $deleteRecord->uuid = $evaluation->uuid;
-                $deleteRecord->user_id = Auth()->user()->id;
-                $deleteRecord->name = $evaluation->users->name;
-                $deleteRecord->type = 'Evaluation file';
-                $deleteRecord->save();
-                // If the file exists in Proposal, restore it
+            if ($evaluation) {
                 $evaluation->forceDelete();
+            }
+        }
+
+        // Flash a success message
+        return response()->json(['success' => 'Deleted Successfully']);
+
+    }
+
+
+    public function DeletePermanentlyFile(Request $request){
+
+        $ids = $request->ids;
+
+          foreach ($ids as $id) {
+
+            $perma = PermanenltyDelete::where('uuid', $id)->first();
+
+            if ($perma) {
+                $perma->delete();
             }
         }
 

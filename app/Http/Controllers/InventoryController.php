@@ -7,20 +7,12 @@ use App\Models\Program;
 use App\Models\Proposal;
 use App\Models\AdminYear;
 use Illuminate\Http\Request;
-use App\Models\ProposalFiles;
 use App\Models\TrashedRecord;
 use App\Models\ProposalMember;
-use App\Models\TerminalReport;
-use App\Models\UserAttendance;
 use App\Models\CollectionMedia;
-use App\Models\NarrativeReport;
-use App\Models\UserOfficeOrder;
-use App\Models\UserTravelOrder;
-use App\Models\UserSpecialOrder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\CustomizeUserInventory;
-use App\Models\UserAttendanceMonitoring;
 use Spatie\MediaLibrary\Support\MediaStream;
 use App\Notifications\UserTagProposalNotification;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -85,7 +77,7 @@ class InventoryController extends Controller
             $uniqueformedias = $formedia->medias ? $formedia->medias->unique('collection_name'): collect();
         }
 
-    
+
 
         $members = User::orderBy('name')->whereNot('name', 'Administrator')->pluck('name', 'id')->prepend('Select Username', '');
         $inventory = CustomizeUserInventory::where('id', 2)->get();
@@ -104,7 +96,7 @@ class InventoryController extends Controller
         $terminalPdfCount = Media::where('collection_name', 'TerminalFile')->count();
         $mediaCount = Media::whereNot('collection_name','trash')->count();
 
-      
+
 
         return view('user.inventory.show', compact('proposals', 'proposal', 'proposal_member', 'inventory', 'program', 'members'
         ,'formedia','uniqueProposalFiles','uniqueformedias', 'myuniqueProposalFiles','myfiles','users','mediaCount'
@@ -327,14 +319,18 @@ class InventoryController extends Controller
     {
         $media = Media::findOrFail($id);
 
+
+        $trashRecord = new TrashedRecord();
+        $trashRecord->uuid = $media->uuid;
+        $trashRecord->name = $media->file_name;
+        $trashRecord->type = $media->collection_name;
+        $trashRecord->user_id = Auth()->user()->id;
+        $trashRecord->save();
+
         // Set the collection name to 'trash'
         $media->collection_name = 'trash';
         $media->save();
 
-        $trashRecord = new TrashedRecord();
-        $trashRecord->uuid = $media->uuid;
-        $trashRecord->user_id = Auth()->user()->id;
-        $trashRecord->save();
 
         flash()->addSuccess('Trashed Successfully');
         return back();
@@ -348,13 +344,17 @@ class InventoryController extends Controller
         // Update each media item
         foreach ($ids as $id) {
             $media = Media::findOrFail($id);
-            $media->collection_name = 'trash';
-            $media->save();
+
 
             $trashRecord = new TrashedRecord();
             $trashRecord->uuid = $media->uuid;
+            $trashRecord->name = $media->file_name;
+            $trashRecord->type = $media->collection_name;
             $trashRecord->user_id = Auth()->user()->id;
             $trashRecord->save();
+
+            $media->collection_name = 'trash';
+            $media->save();
 
         }
         if ($media) {
@@ -725,6 +725,8 @@ class InventoryController extends Controller
 
         $trashRecord = new TrashedRecord();
         $trashRecord->uuid = $proposal->uuid;
+        $trashRecord->name = $proposal->project_title;
+        $trashRecord->type = 'project';
         $trashRecord->user_id = Auth()->user()->id;
         $trashRecord->save();
 
@@ -740,7 +742,6 @@ class InventoryController extends Controller
 
     public function TrashFolderMediaJS(Request $request){
 
-
         $ids = $request->ids;
 
         foreach ($ids as $id) {
@@ -750,13 +751,15 @@ class InventoryController extends Controller
 
             foreach($trashCollection as $trashCollect){
 
-                $trashCollect->collection_name = 'trash';
-                $trashCollect->save();
-
                 $trashRecord = new TrashedRecord();
                 $trashRecord->uuid = $trashCollect->uuid;
+                $trashRecord->name = $trashCollect->file_name;
+                $trashRecord->type = $trashCollect->collection_name;
                 $trashRecord->user_id = Auth()->user()->id;
                 $trashRecord->save();
+
+                $trashCollect->collection_name = 'trash';
+                $trashCollect->save();
             }
 
         }

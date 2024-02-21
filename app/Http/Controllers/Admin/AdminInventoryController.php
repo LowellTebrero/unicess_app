@@ -9,18 +9,9 @@ use App\Models\Proposal;
 use App\Models\AdminYear;
 use Illuminate\Http\Request;
 use App\Models\TrashedRecord;
-use App\Models\ProposalMember;
-use App\Models\TerminalReport;
-use App\Models\UserAttendance;
-use App\Models\NarrativeReport;
-use App\Models\UserOfficeOrder;
-use App\Models\UserTravelOrder;
-use App\Models\UserSpecialOrder;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\CustomizeAdminInventory;
-use App\Models\UserAttendanceMonitoring;
-use Spatie\MediaLibrary\Support\MediaStream;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use App\Notifications\UserDeletedProposaleNotification;
 use App\Notifications\AdmindDeletedProposaleNotification;
@@ -227,6 +218,8 @@ class AdminInventoryController extends Controller
 
         $trashRecord = new TrashedRecord();
         $trashRecord->uuid = $proposalDelete->uuid;
+        $trashRecord->name = $proposalDelete->project_title;
+        $trashRecord->type = 'project';
         $trashRecord->user_id = Auth()->user()->id;
         $trashRecord->save();
 

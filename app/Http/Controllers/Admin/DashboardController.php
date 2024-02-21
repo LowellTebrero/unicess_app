@@ -315,57 +315,113 @@ class DashboardController extends Controller
 
         if ($request->hasFile('proposal_pdf')) {
             $proposals->clearMediaCollection('proposalPdf');
-            $proposals->addMediaFromRequest('proposal_pdf')->usingName('proposal')->usingFileName($project_title.'_proposal.pdf')->toMediaCollection('proposalPdf');
+            $media =  $proposals->addMediaFromRequest('proposal_pdf')->usingName(auth()->id())->usingFileName($request->project_title.'_proposal.pdf')->toMediaCollection('proposalPdf');
+
+
+            $collect = new CollectionMedia();
+            $collect->media_id = $media->id ;
+            $collect->proposal_id =  $proposals->id;
+            $collect->user_id = auth()->id();
+            $collect->collection_name = 'proposalPdf' ;
+            $collect->save();
         }
 
         if ($request->hasFile('moa_pdf')) {
             $proposals->clearMediaCollection('moaPdf');
-            $proposals->addMediaFromRequest('moa_pdf')->usingName('moa')->usingFileName($project_title.'_moa.pdf')->toMediaCollection('moaPdf');
+            $media = $proposals->addMediaFromRequest('moa_pdf')->usingName('moa')->usingFileName($project_title.'_moa.pdf')->toMediaCollection('moaPdf');
+
+            $collect = new CollectionMedia();
+            $collect->media_id = $media->id ;
+            $collect->proposal_id =  $proposals->id;
+            $collect->user_id = auth()->id();
+            $collect->collection_name = 'moaPdf';
+            $collect->save();
         }
+
 
         if ($specialorder = $request->file('special_order_pdf')) {
 
             foreach ($specialorder as $specials) {
-                $proposals->addMedia($specials)->usingName('special_order')->toMediaCollection('specialOrderPdf');
+                $media =   $proposals->addMedia($specials)->usingName(auth()->id())->toMediaCollection('specialOrderPdf');
+
+                $collect = new CollectionMedia();
+                $collect->media_id = $media->id ;
+                $collect->proposal_id =  $proposals->id;
+                $collect->user_id = auth()->id();
+                $collect->collection_name = 'specialOrderPdf';
+                $collect->save();
             }
         }
 
         if ($travelorder = $request->file('travel_order_pdf')) {
 
             foreach ($travelorder as $travels) {
-                $proposals->addMedia($travels)->usingName('travel_order_pdf')->toMediaCollection('travelOrderPdf');
+                $media = $proposals->addMedia($travels)->usingName(auth()->id())->toMediaCollection('travelOrderPdf');
+
+                $collect = new CollectionMedia();
+                $collect->media_id = $media->id ;
+                $collect->proposal_id =  $proposals->id;
+                $collect->user_id = auth()->id();
+                $collect->collection_name = 'travelOrderPdf';
+                $collect->save();
             }
         }
 
         if ($officeorder = $request->file('office_order_pdf')) {
 
-
             foreach ($officeorder as $offices) {
-                $proposals->addMedia($offices)->usingName('office_order_pdf')->toMediaCollection('officeOrderPdf');
+                $media =  $proposals->addMedia($offices)->usingName(auth()->id())->toMediaCollection('officeOrderPdf');
+
+                $collect = new CollectionMedia();
+                $collect->media_id = $media->id ;
+                $collect->proposal_id =  $proposals->id;
+                $collect->user_id = auth()->id();
+                $collect->collection_name = 'officeOrderPdf';
+                $collect->save();
             }
         }
 
         if ($attendance = $request->file('attendance')) {
 
-
             foreach ($attendance as $attends) {
-                $proposals->addMedia($attends)->usingName('attendance')->toMediaCollection('Attendance');
+                $media =  $proposals->addMedia($attends)->usingName(auth()->id())->toMediaCollection('Attendance');
+
+                $collect = new CollectionMedia();
+                $collect->media_id = $media->id ;
+                $collect->proposal_id =  $proposals->id;
+                $collect->user_id = auth()->id();
+                $collect->collection_name = 'Attendance';
+                $collect->save();
             }
         }
+
         if ($attendancem = $request->file('attendancem')) {
 
             foreach ($attendancem as $attendm) {
-                $proposals->addMedia($attendm)->usingName('attendancemonitoring')->toMediaCollection('AttendanceMonitoring');
+                $media = $proposals->addMedia($attendm)->usingName(auth()->id())->toMediaCollection('AttendanceMonitoring');
+
+                $collect = new CollectionMedia();
+                $collect->media_id = $media->id ;
+                $collect->proposal_id =  $proposals->id;
+                $collect->user_id = auth()->id();
+                $collect->collection_name = 'AttendanceMonitoring';
+                $collect->save();
             }
         }
-
-
         if ($files = $request->file('other_files')) {
 
             foreach ($files as $file) {
-                $proposals->addMedia($file)->usingName('other')->toMediaCollection('otherFile');
+                $media = $proposals->addMedia($file)->usingName(auth()->id())->toMediaCollection('otherFile');
+
+                $collect = new CollectionMedia();
+                $collect->media_id = $media->id ;
+                $collect->proposal_id =  $proposals->id;
+                $collect->user_id = auth()->id();
+                $collect->collection_name = 'otherFile';
+                $collect->save();
             }
         }
+
 
 
         app('flasher')->addSuccess('Files successfully updated.');

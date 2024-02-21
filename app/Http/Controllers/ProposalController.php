@@ -340,12 +340,7 @@ class ProposalController extends Controller
         return redirect(route('User-dashboard.show-proposal', $proposals->id ));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function fileIndex()
     {
 
@@ -391,22 +386,24 @@ class ProposalController extends Controller
         foreach ($admin as $adminUser) {
             $adminUser->notify(new AdminDeletedProposaleFromUserNotification($proposal));
         }
-        // Notify Users
-       foreach($proposal->proposal_members as $member){
 
-        $users = User::where('id', $member->user_id )->get();
-        foreach($users as $user){
-            $user->notify(new UserDeletedTheirProposaleNotification($proposal));
+        // Notify Users
+        foreach($proposal->proposal_members as $member){
+            $users = User::where('id', $member->user_id )->get();
+            foreach($users as $user){
+                $user->notify(new UserDeletedTheirProposaleNotification($proposal));
+            }
+
         }
 
-       }
        // proposal delete
-
        $proposal->delete();
 
-       $uuid = Str::random(7);
+       Str::random(7);
        $trashRecord = new TrashedRecord();
        $trashRecord->uuid = $proposal->uuid;
+       $trashRecord->name = $proposal->project_title;
+       $trashRecord->type = 'project';
        $trashRecord->user_id = Auth()->user()->id;
        $trashRecord->save();
 
@@ -434,7 +431,7 @@ class ProposalController extends Controller
 
                 DB::table('notifications')->where('id', $notification->id)->delete();
             }
-        }
+       }
 
         return redirect(route('User-dashboard.index'))->with('message', 'Proposal Deleted Successfully');
      }
