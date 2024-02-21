@@ -30,7 +30,7 @@
         @endforeach
     @endif
 
-    <section class="mt-4 2xl:mt-5 m-8 rounded-xl 2xl:h-[87vh] h-[82vh] overflow-x-auto bg-white text-gray-700">
+    <section class="mt-4 2xl:mt-5 m-4 sm:m-8 rounded-xl 2xl:h-[87vh] h-[82vh] overflow-x-auto bg-white text-gray-700">
 
         <header class="flex justify-between items-center p-4 xl:py-3 2xl:py-4 sticky top-0 bg-white z-10">
             <h1 class="2xl:text-2xl xl:text-lg text-[.9rem] font-semibold text-slate-600">Upload Project <span
@@ -50,7 +50,7 @@
             @endforeach
         @endif
 
-        <form class="pt-2 px-5 2xl:px-10 xl:mt-2 2xl:mt-5 " id="FormSubmit"
+        <form class="pt-2 px-2 sm:px-5 2xl:px-10 xl:mt-2 2xl:mt-5 " id="FormSubmit"
             action="{{ route('admin.dashboard.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
@@ -60,11 +60,11 @@
                     <!-- Project details -->
                     <div class=" w-full border border-gray-400 rounded-md p-5">
                         <h1 class="text-lg mb-5 tracking-wide font-semibold text-gray-600">Project Details</h1>
-                        <div class="gap-2 grid-cols-2 grid w-full">
+                        <div class="gap-2 grid-cols-1 sm:grid-cols-2 grid w-full">
                             <div class="w-full">
-                                <label class="text-xs block text-slate-600  mb-2 2xl:text-sm"
+                                <label class="text-[.6rem] sm:text-xs block text-slate-600  mb-2 2xl:text-sm"
                                     for="program_id">Program Name <span class="text-red-500">*</span></label>
-                                <select id="program_id" class="rounded-md text-xs w-full border-zinc-300  py-2 px-3"
+                                <select id="program_id" class="rounded-md text-[.6rem] sm:text-xs w-full border-zinc-300  py-2 px-3"
                                     name="program_id" value="{{ old('program_id') }}" required>
                                     @foreach ($programs as $id => $program_name)
                                         <option value="{{ $id }}"
@@ -73,37 +73,37 @@
                                     @endforeach
                                 </select>
                                 @error('program_id')
-                                    <span class="text-red-500  text-xs">{{ $message }}</span>
+                                    <span class="text-red-500  text-[.6rem] sm:text-xs">{{ $message }}</span>
                                 @enderror
                             </div>
 
                             <div class="w-full">
-                                <label class="text-xs block text-slate-600   mb-2 2xl:text-sm"
+                                <label class="text-[.6rem] sm:text-xs block text-slate-600   mb-2 2xl:text-sm"
                                     for="project_title">Project Title <span class="text-red-500">*</span></label>
                                 <input
-                                    class="border-zinc-300 text-xs  appearance-none border rounded w-full  py-2 px-3 text-slate-600 leading-tight focus:outline-none"
+                                    class="border-zinc-300 text-[.6rem] sm:text-xs  appearance-none border rounded w-full  py-2 px-3 text-slate-600 leading-tight focus:outline-none"
                                     name="project_title" id="project_title" type="text" value="{{ old('project_title') }}"
                                     placeholder="Input your project title" required>
                                 @error('project_title')
-                                    <span class="text-red-500  text-xs">{{ $message }}</span>
+                                    <span class="text-red-500  text-[.6rem] sm:text-xs">{{ $message }}</span>
                                 @enderror
                             </div>
 
                             <div class="w-full">
-                                <label class="text-xs block text-slate-600   2xl:text-sm">Start Date (optional)</label>
-                                <input class="border-zinc-300 text-xs  appearance-none border  rounded w-full py-2 mt-2 px-3 text-slate-600  leading-tight focus:outline-none"
+                                <label class="text-[.6rem] sm:text-xs block text-slate-600   2xl:text-sm">Start Date (optional)</label>
+                                <input class="border-zinc-300 text-[.6rem] sm:text-xs  appearance-none border  rounded w-full py-2 mt-2 px-3 text-slate-600  leading-tight focus:outline-none"
                                     value="{{ old('started_date') }}" name="started_date" id="started_date" type="date">
                                 @error('started_date')
-                                    <span class="text-red-500  text-xs">{{ $message }}</span>
+                                    <span class="text-red-500  text-[.6rem] sm:text-xs">{{ $message }}</span>
                                 @enderror
                             </div>
 
                             <div class="w-full">
-                                <label class="text-xs block text-slate-600   2xl:text-sm">Ended Date (optional)</label>
-                                <input class="border-zinc-300 text-xs appearance-none border  rounded w-full py-2 mt-2 px-3 text-slate-600  leading-tight focus:outline-none"
+                                <label class="text-[.6rem] sm:text-xs block text-slate-600   2xl:text-sm">Ended Date (optional)</label>
+                                <input class="border-zinc-300 text-[.6rem] sm:text-xs appearance-none border  rounded w-full py-2 mt-2 px-3 text-slate-600  leading-tight focus:outline-none"
                                     value="{{ old('finished_date') }}" name="finished_date" id="finished_date" type="date">
                                 @error('finished_date')
-                                    <span class="text-red-500 text-xs">{{ $message }}</span>
+                                    <span class="text-red-500 text-[.6rem] sm:text-xs">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
@@ -116,8 +116,8 @@
 
                             <div class="pt-0 2xl:pt-2 flex space-x-2 items-center w-full 2xl:h-[17vh]">
                                 <div class="flex flex-col space-y-2  w-full">
-                                    <h1 class="xl:text-sm text-xs text-slate-600 ">Search and tag a name of Faculty/Personnel <span class="text-xs">(optional)</span></h1>
-                                    <select name="tags[]" id="tags" class="tags w-full text-xs" multiple="multiple"></select>
+                                    <h1 class="xl:text-sm text-[.6rem] sm:text-xs text-slate-600 ">Search and tag a name of Faculty/Personnel <span class="text-[.6rem] sm:text-xs">(optional)</span></h1>
+                                    <select name="tags[]" id="tags" class="tags w-full text-[.6rem] sm:text-xs" multiple="multiple"></select>
                                 </div>
                             </div>
                         </div>
@@ -128,72 +128,72 @@
                 <!-- Project documents -->
                 <div class="border border-gray-400 rounded-md p-5">
                     <h1 class="text-lg mb-5 tracking-wide font-semibold text-gray-600">Project Documents</h1>
-                    <h1 id="filemessagerror" class="text-xs tracking-wider mt-4 mb-2">
+                    <h1 id="filemessagerror" class="text-[.6rem] sm:text-xs tracking-wider mt-4 mb-2">
                      Please upload at least one file among Proposal PDF, Special Order PDF, MOA PDF, Office Order PDF, Travel Order PDF, Other File(s). <span class="text-red-500">*</span>
                     </h1>
 
-                    <div class="grid grid-cols-3 2xl:grid-cols-2 gap-2 mt-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-3 2xl:grid-cols-2 gap-2 mt-4">
                         <div class="w-full">
-                            <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Project Proposal (PDF)</label>
+                            <label class="text-[.6rem] sm:text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Project Proposal (PDF)</label>
                             <input class="custom-file bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
                             name="proposal_pdf" id="proposal_pdf" type="file" accept="application/pdf">
 
                         </div>
 
                         <div class="w-full">
-                            <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">MOA (PDF)</label>
+                            <label class="text-[.6rem] sm:text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">MOA (PDF)</label>
                             <input class="custom-file bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
                             name="moa_pdf" id="moa_pdf" type="file" accept="application/pdf">
 
                         </div>
 
                         <div class="w-full">
-                            <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Office Order (PDF) <span class="text-xs">(Multiple files)</span></label>
+                            <label class="text-[.6rem] sm:text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Office Order (PDF) <span class="text-[.6rem] sm:text-xs">(Multiple files)</span></label>
                             <input class="custom-file bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
                             name="office_order_pdf[]" multiple id="office_order_pdf" type="file" accept="application/pdf" onchange="displayOfficeFileNames(this)">
-                            <div id="file-office-container" class="text-xs mt-1 font-thin"></div>
+                            <div id="file-office-container" class="text-[.6rem] sm:text-xs mt-1 font-thin"></div>
                         </div>
 
                         <div class="w-full">
-                            <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Travel Order (PDF) <span class="text-xs">(Multiple files)</span></label>
+                            <label class="text-[.6rem] sm:text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Travel Order (PDF) <span class="text-[.6rem] sm:text-xs">(Multiple files)</span></label>
                             <input class="custom-file bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
                             name="travel_order_pdf[]" multiple id="travel_order_pdf" type="file" accept="application/pdf" onchange="displayTravelFileNames(this)">
-                            <div id="file-travel-container" class="text-xs mt-1 font-thin"></div>
+                            <div id="file-travel-container" class="text-[.6rem] sm:text-xs mt-1 font-thin"></div>
                         </div>
 
                         <div class="w-full">
-                            <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Special Order (PDF) <span class="text-xs">(Multiple files)</span></label>
+                            <label class="text-[.6rem] sm:text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Special Order (PDF) <span class="text-[.6rem] sm:text-xs">(Multiple files)</span></label>
                             <input class="bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
                             name="special_order_pdf[]" multiple id="special_order_pdf" type="file" accept="application/pdf" onchange="displaySpecialFileNames(this)">
-                            <div id="file-special-container" class="text-xs mt-1 font-thin"></div>
+                            <div id="file-special-container" class="text-[.6rem] sm:text-xs mt-1 font-thin"></div>
                         </div>
 
                         <div class="w-full">
-                            <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Attendance <span class="text-xs">(Multiple files)</span></label>
+                            <label class="text-[.6rem] sm:text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Attendance <span class="text-[.6rem] sm:text-xs">(Multiple files)</span></label>
                             <input class="bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
                             name="attendance[]" multiple id="attendance" type="file" onchange="displayAttendanceFileNames(this)">
-                            <div id="file-attendance-container" class="text-xs mt-1 font-thin"></div>
+                            <div id="file-attendance-container" class="text-[.6rem] sm:text-xs mt-1 font-thin"></div>
                         </div>
 
                         <div class="w-full">
-                            <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Attendance Monitoring <span class="text-xs">(Multiple files)</span></label>
+                            <label class="text-[.6rem] sm:text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Attendance Monitoring <span class="text-[.6rem] sm:text-xs">(Multiple files)</span></label>
                             <input class="bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
                             name="attendancem[]" multiple id="attendancem" type="file" onchange="displayAttendanceMFileNames(this)">
-                            <div id="file-attendancem-container" class="text-xs mt-1 font-thin"></div>
+                            <div id="file-attendancem-container" class="text-[.6rem] sm:text-xs mt-1 font-thin"></div>
                         </div>
 
                         <div class="w-full">
-                            <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Special Order (PDF)</label>
+                            <label class="text-[.6rem] sm:text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Special Order (PDF)</label>
                             <input class="bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
                             name="special_order_pdf[]" multiple id="special_order_pdf" type="file" accept="application/pdf" onchange="displaySpecialFileNames(this)">
-                            <div id="file-special-container" class="text-xs mt-1 font-thin"></div>
+                            <div id="file-special-container" class="text-[.6rem] sm:text-xs mt-1 font-thin"></div>
                         </div>
 
                         <div class="w-full">
-                            <label class="text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Other Files <span class="text-xs">(Multiple files)</span></label>
+                            <label class="text-[.6rem] sm:text-xs block text-slate-600  font-medium mb-2 2xl:text-sm">Other Files <span class="text-[.6rem] sm:text-xs">(Multiple files)</span></label>
                             <input class="bg-white border-zinc-300 text-[.7rem] appearance-none border  rounded w-full px-3 text-slate-600 leading-tight focus:outline-none"
                             name="other_files[]" multiple id="other_files" type="file" onchange="displayOtherFileNames(this)">
-                            <div id="file-othernames-container" class="text-xs mt-1"></div>
+                            <div id="file-othernames-container" class="text-[.6rem] sm:text-xs mt-1"></div>
                         </div>
                     </div>
                 </div>
