@@ -30,6 +30,8 @@
             -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
             background-color: #7d8086;
         }
+
+        
     </style>
 
     @php
@@ -84,16 +86,10 @@
                 <hr>
 
                 {{--  Wrapper  --}}
-                <div class="xl:flex">
+                <div class="flex">
 
                     {{--  Container-1  --}}
-                    <div class="proposal-sidebar shadow-2xl transition-all xl:relative text-xs  bg-slate-100 xl:bg-white xl:shadow-none rounded-lg  2xl:w-1/4 xl:w-[20rem] px-5 py-2 xl:border-r pt-7  xl:pt-2">
-                        <button class="xl:hidden block absolute top-2 right-2 leftclose-button text-red-500">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                        </button>
-
+                    <div class="border-r hidden lg:block p-4 w-[20rem] xl:w-[20rem]">             
                         <div class="flex flex-col space-y-2 mb-4">
                             <div class="flex justify-between">
                                 <h1 class="text-base font-medium tracking-wide">Summary:</h1>
@@ -226,7 +222,7 @@
                         </div>
 
                         <div class="mb-2 mt-5 xl:mt-0 w-full overflow-x-auto h-[15vh] 2xl:h-[20vh]">
-                            <div class="w-full sticky top-0 z-10 bg-gray-100 xl:bg-white">
+                            <div class="w-full sticky top-0 z-10  bg-white">
                             <label class="text-gray-700 font-semibold xl:text-[.7rem] text-[.7rem] ">Project Member(s)</label>
                             </div>
 
@@ -246,22 +242,22 @@
                         </div>
 
 
-                        <div class="flex flex-col">
-                            <div class="flex flex-col text-xs">
-                                <label class="text-gray-700 font-semibold tracking-wider mb-2 xl:text-[.7rem] text-[.7rem]">Change status here:</label>
-                                <select id="myDropdown" class="xl:text-[.7rem] text-[.7rem] border-slate-500 rounded-lg">
-                                    <option value="pending"
-                                        {{ old('pending', $proposals->authorize) == 'pending' ? 'selected' : '' }}>Pending
-                                    </option>
-                                    <option value="ongoing"
-                                        {{ old('pending', $proposals->authorize) == 'ongoing' ? 'selected' : '' }}>Ongoing
-                                    </option>
-                                    <option value="finished"
-                                        {{ old('pending', $proposals->authorize) == 'finished' ? 'selected' : '' }}>
-                                        Finished</option>
-                                </select>
-                            </div>
+                        
+                        <div class="flex flex-col text-xs">
+                            <label class="text-gray-700 font-semibold tracking-wider mb-2 xl:text-[.7rem] text-[.7rem]">Change status here:</label>
+                            <select id="myDropdown" class="xl:text-[.7rem] text-[.7rem] border-slate-500 rounded-lg">
+                                <option value="pending"
+                                    {{ old('pending', $proposals->authorize) == 'pending' ? 'selected' : '' }}>Pending
+                                </option>
+                                <option value="ongoing"
+                                    {{ old('pending', $proposals->authorize) == 'ongoing' ? 'selected' : '' }}>Ongoing
+                                </option>
+                                <option value="finished"
+                                    {{ old('pending', $proposals->authorize) == 'finished' ? 'selected' : '' }}>
+                                    Finished</option>
+                            </select>
                         </div>
+                        
                     </div>
 
                     {{--  Container-2  --}}
@@ -636,6 +632,95 @@
                             </div>
                         </div>
 
+                        
+                        <!-- Modal Show summary -->
+                        <div id="modal-show-all-summary-2" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                            <div class="relative p-4 w-full max-w-4xl h-[60%]">
+                                <!-- Modal content -->
+                                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                    <!-- Modal header -->
+                                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                            Program/Project Details
+                                        </h3>
+                                        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="modal-show-all-summary-2">
+                                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                            </svg>
+                                            <span class="sr-only">Close modal</span>
+                                        </button>
+                                    </div>
+                                    <!-- Modal body -->
+
+                                    <div class="p-4 h-[45vh] 2xl:h-[50vh] overflow-auto scrollbar"  id="style-2">
+                                        <h1 class="text-white text-base mb-2 tracking-wider">Details</h1>
+
+                                        <div class="space-y-2">
+                                            <p class="text-xs text-white tracking-wider">
+                                            Created at:  {{ \Carbon\Carbon::parse($proposals->created_at)->format('M d, y g:i:s A') }}
+                                            </p>
+                                            <p class="text-xs text-white tracking-wider">
+                                            Last Modified:  {{ \Carbon\Carbon::parse($proposals->updated_at)->format('M d, y g:i:s A') }}
+                                            </p>
+                                            <p class="text-xs text-white tracking-wider">
+                                            Program/Project ID: {{ $proposals->uuid }}
+                                            </p>
+                                            <p class="text-xs text-white tracking-wider">
+                                            Project Title: {{ $proposals->project_title }}
+                                            </p>
+
+                                            <p class="text-xs text-white tracking-wider">
+                                            Status: {{ $proposals->authorize }}
+                                            </p>
+
+                                            <p class="text-xs text-white tracking-wider">
+                                            Uploader: {{ $proposals->user->name }}
+                                            </p>
+                                            <p class="text-xs text-white tracking-wider">
+                                            Started date: {{ $proposals->started_date == null ? 'No date' :  $proposals->started_date->format('M. d, Y') }}
+                                            </p>
+                                            <p class="text-xs text-white tracking-wider">
+                                            Finished date: {{ $proposals->finished_date == null ? 'No date' :  $proposals->finished_date->format('M. d, Y') }}
+                                            </p>
+                                            <p class="text-xs text-white tracking-wide">
+                                                Total of Members: {{ $proposals->proposal_members->count() }}
+                                            </p>
+                                        </div>
+                                        <div class="">
+                                        <div class="mt-4 flex space-x-1  bg-gray-700">
+                                            <h1 class="text-white text-base my-5 tracking-wider">Project Members</h1>
+
+                                        </div>
+
+                                        <div class="space-y-3">
+
+                                            <div class="flex flex-col space-y-4">
+
+                                                    @foreach ($proposals->proposal_members as $proposal_mem)
+                                                        @if ($proposal_mem !== null)
+                                                            <div class="flex space-x-2">
+                                                                <div>
+                                                                    <div class="flex space-x-2">
+                                                                        <h1 class="xl:text-[.7rem] text-[.6rem] text-white tracking-wider">Name:</h1>
+                                                                        <span class="font-light 2xl:text-xs xl:text-[.7rem] text-[.7rem] text-white tracking-wider">{{ $proposal_mem->user->name }}</span>
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+                                                        @endif
+                                                    @endforeach
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
                         <!-- Left side bar with the Buttons -->
                         <div class="bg-gray-100 h-full absolute z-30 right-0 bg-opacity-40 flex items-end justify-end transition-all" id="mySidebar">
                             <div class="h-full w-[0rem] bg-gray-700 transition-all" id="subSidebar">
@@ -660,6 +745,7 @@
                                             </svg>
                                             Upload Documents
                                         </button>
+
                                         <button data-modal-target="modal-edit-project-details" data-modal-toggle="modal-edit-project-details" class="px-2 py-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 text-xs xl:text-[.8rem] 2xl:text-xs xl:text-xs space-x-2 flex hover:bg-blue-600 hover:text-white" type="button">
                                             <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="17"
                                                 height="17" viewBox="0 0 16 16">
@@ -672,6 +758,7 @@
                                             </svg>
                                             Edit Project Details
                                         </button>
+
                                         <a class="border-blue-600 bg-white border px-2 py-2 rounded-xl text-blue-600 text-xs  2xl:text-xs  flex hover:bg-blue-600 hover:text-white"
                                             href={{ url('download', $proposal->id) }}>
                                             <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" height="15"
@@ -681,14 +768,35 @@
                                             </svg>
                                             Download this Project
                                         </a>
+
                                         <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="bg-white border w-full border-blue-600 rounded-xl text-blue-600 2xl:text-xs text-xs space-x-2 flex p-2 hover:bg-blue-600 hover:text-white" type="button">
                                             <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 32 32"><path fill="currentColor" d="M12 12h2v12h-2zm6 0h2v12h-2z"/><path fill="currentColor" d="M4 6v2h2v20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8h2V6zm4 22V8h16v20zm4-26h8v2h-8z"/></svg>
                                                 Trash this Project
                                         </button>
+
                                         <button data-modal-target="modal-track-documents" data-modal-toggle="modal-track-documents" class="px-2 py-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 text-xs xl:text-[.8rem] 2xl:text-xs xl:text-xs space-x-2 flex hover:bg-blue-600 hover:text-white" type="button">
                                             <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 256 256"><path fill="currentColor" d="M88 112a8 8 0 0 1 8-8h80a8 8 0 0 1 0 16H96a8 8 0 0 1-8-8m8 40h80a8 8 0 0 0 0-16H96a8 8 0 0 0 0 16m136-88v120a24 24 0 0 1-24 24H32a24 24 0 0 1-24-23.89V88a8 8 0 0 1 16 0v96a8 8 0 0 0 16 0V64a16 16 0 0 1 16-16h160a16 16 0 0 1 16 16m-16 0H56v120a23.84 23.84 0 0 1-1.37 8H208a8 8 0 0 0 8-8Z"/></svg>
                                                 Track Documents
                                         </button>
+
+                                        <button data-modal-target="modal-show-all-summary-2" data-modal-toggle="modal-show-all-summary-2" class="block lg:hidden px-2 py-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 text-xs xl:text-[.8rem] 2xl:text-xs xl:text-xs space-x-2 hover:bg-blue-600 hover:text-white" type="button">
+                                            Show All
+                                        </button>
+
+                                        <div class="flex flex-col text-xs">            
+                                            <select id="myDropdown2" class="block lg:hidden px-2 py-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 text-xs xl:text-[.8rem] 2xl:text-xs xl:text-xs space-x-2  ">
+                                                <option value="pending"
+                                                    {{ old('pending', $proposals->authorize) == 'pending' ? 'selected' : '' }}>Pending
+                                                </option>
+                                                <option value="ongoing"
+                                                    {{ old('pending', $proposals->authorize) == 'ongoing' ? 'selected' : '' }}>Ongoing
+                                                </option>
+                                                <option value="finished"
+                                                    {{ old('pending', $proposals->authorize) == 'finished' ? 'selected' : '' }}>
+                                                    Finished</option>
+                                            </select>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -705,7 +813,7 @@
 
                             </div>
 
-                            <button class="leftbtn-slide block xl:hidden">☰</button>
+                            {{--  <button class="leftbtn-slide block xl:hidden">☰</button>  --}}
                             <button class="openbtn" onclick="openNav()">☰</button>
                         </div>
 
@@ -3854,6 +3962,25 @@
 
         $(document).ready(function() {
             $('#myDropdown').on('change', function() {
+                var selectedValue = $(this).val();
+                var proposalId = {{ $proposals->id ?? 'null' }};
+                $.ajax({
+                    url: '/api/update-data/' + proposalId,
+                    method: 'POST',
+                    data: {
+                        selected_value: selectedValue,
+                        _token: '{{ csrf_token() }}' // Add CSRF token for security
+                    },
+
+                    success: function(response) {
+                        window.location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+            $('#myDropdown2').on('change', function() {
                 var selectedValue = $(this).val();
                 var proposalId = {{ $proposals->id ?? 'null' }};
                 $.ajax({

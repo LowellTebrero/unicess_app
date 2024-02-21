@@ -9,11 +9,11 @@
 
 }
 
-.proposal-sidebar.active {
+/* .proposal-sidebar.active {
     width: 15rem;
     visibility: visible;
 
-}
+} */
 
 @media screen and (max-width: 300) {
 
@@ -53,7 +53,7 @@
 
 }
 
-@media screen and (max-width: 1279px) {
+/* @media screen and (max-width: 1256px) {
 
     .proposal-sidebar {
         visibility: hidden;
@@ -64,7 +64,7 @@
 
     }
 
-}
+} */
 
 
   /* @media screen and (max-width: 932px) {
