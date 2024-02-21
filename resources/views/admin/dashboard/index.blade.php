@@ -35,7 +35,7 @@
                                             value="finished">Finished</option>
                                     </select>
                                     <input id="searchInput"
-                                        class=" text-[.7rem] xl:text-xs  rounded border border-gray-300 2xl:w-[20rem] sm:w-[15rem] w-full text-gray-700"
+                                        class="text-[.6rem] sm:text-[.7rem] xl:text-xs  rounded border border-gray-300 2xl:w-[20rem] sm:w-[15rem] w-full text-gray-700"
                                         type="text" placeholder="Search Project Title...">
                                 </div>
                             </div>
@@ -44,7 +44,7 @@
 
                     <!-- Create Proposal -->
                     <a href={{ route('admin.dashboard.create') }}
-                        class="text-white bg-blue-500 hover:bg-blue-600 focus:bg-blue-700 focus:text-[.8rem] transition-all rounded-lg text-[.5rem] sm:text-xs xl:text-xs px-3 py-2 2xl:text-sm">+
+                        class="text-white bg-blue-500 hover:bg-blue-600 rounded-lg text-[.6rem] sm:text-xs xl:text-xs px-3 py-2 2xl:text-sm">+
                         Upload Projects
                     </a>
                 </div>
