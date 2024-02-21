@@ -11,10 +11,13 @@
         }
 
     </style>
-<div class="hidden xl:block 2xl:w-[25rem] w-[14rem]">
-    <div class="  h-full flex flex-col justify-between ">
+
+    <div class="hidden xl:block w-[14rem]  2xl:w-[25rem]">
+
+
+    <div class="h-full  flex flex-col space-y-4 justify-between ">
         {{--  Proposal Summary  --}}
-        <div class="flex flex-col p-5 rounded-lg  bg-white">
+        <div class="h-full flex flex-col p-5 rounded-lg  bg-white">
             <h1 class="text-gray-700 text-sm text-center 2xl:text-[1.1rem] tracking-wider font-medium">Project Monitoring</h1>
             <div class="justify-between flex mt-2 2xl:mt-3 flex-col space-y-2 ">
 
@@ -66,8 +69,7 @@
             </div>
         </div>
 
-        <div class="flex flex-col p-5 2xl:px-5 px-3 rounded-lg   bg-white text-gray-800  h-[50%] 2xl:h-[60%]">
-
+        <div class="h-full flex flex-col p-5 2xl:px-5 px-3 rounded-lg   bg-white text-gray-800">
 
             <div id="default-carousel" class="relative w-full h-[100%]" data-carousel="slide">
                 <!-- Carousel wrapper -->
@@ -219,6 +221,7 @@
         </div>
     </div>
 </div>
+
 
 
 

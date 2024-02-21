@@ -14,19 +14,20 @@
             </div>
 
             <!-- Proposal Dashboard -->
-            <section  class="w-full flex-col h-full flex mt-10 md:mt-5 bg-white 2xl:shadow rounded-xl text-white sm:w-full xl:shadow-none">
+            <section  class="w-full flex-col h-full flex mt-10 lg:mt-5 bg-white 2xl:shadow rounded-xl text-white sm:w-full xl:shadow-none">
 
                 <div class="flex justify-between items-center xl:p-4 p-2">
                     <h2 class="hidden xl:block font-semibold text-gray-600 2xl:text-sm xl:text-xs xl:mr-2 text-xs">Project Dashboard</h2>
                     <div class="block xl:hidden">
                         <header class="space-x-2 sm:px-2 xl:pb-4  flex justify-between">
                             <div class="flex flex-col sm:flex-row  md:flex-row sm:justify-between space-y-2 sm:space-y-0 space-x-0  w-full">
-                                <div class="flex sm:space-x-2 space-x-0  items-center">
+                                <div class="flex sm:space-x-2 space-x-1  items-center">
 
-                                    <select class="text-[.6rem] sm:text-[.7rem] xl:text-xs rounded border border-gray-300 text-gray-700" id="myDropdown"
+                                    <select class="text-[.6rem] sm:text-[.7rem] w-[3rem] xl:text-xs rounded border border-gray-300 text-gray-700" id="myDropdown"
                                         name="authorize_name">
                                         <option {{ '' == request('authorize_name') ? 'selected ' : '' }} value="">
-                                            Select Status</option>
+                                           Filter
+                                        </option>
                                         <option {{ 'pending' == request('authorize_name') ? 'selected ' : '' }}
                                             value="pending">Pending</option>
                                         <option {{ 'ongoing' == request('authorize_name') ? 'selected ' : '' }}
@@ -44,7 +45,7 @@
 
                     <!-- Create Proposal -->
                     <a href={{ route('admin.dashboard.create') }}
-                    class="text-white bg-blue-500 hover:bg-blue-600 rounded-lg text-[.6rem] sm:text-xs xl:text-xs px-1 sm:px-3 py-2 2xl:text-sm">
+                    class="text-white bg-blue-500 hover:bg-blue-600 rounded-lg text-[.6rem] sm:text-xs xl:text-xs px-2 sm:px-3 py-2 2xl:text-sm">
                     +Upload Projects
                     </a>
                 </div>

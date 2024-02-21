@@ -5,7 +5,7 @@
         <h1 class="text-md text-gray-500">It’s empty here</h1>
    </div>
 @else
-<div class="p-3 pt-0 px-0 overflow-x-auto  h-[20vh] xl:h-[45vh] 2xl:h-[57vh] text-gray-700">
+<div class="p-3 pt-0 px-0 overflow-x-auto  h-[30vh] xl:h-[45vh] 2xl:h-[57vh] text-gray-700">
     <table class="table-auto w-full relative">
         <thead
             class="text-[.7rem] font-semibold uppercase text-gray-400 bg-gray-50 top-0 sticky ">
