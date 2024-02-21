@@ -44,8 +44,8 @@
 
                     <!-- Create Proposal -->
                     <a href={{ route('admin.dashboard.create') }}
-                        class="text-white bg-blue-500 hover:bg-blue-600 rounded-lg text-[.6rem] sm:text-xs xl:text-xs px-3 py-2 2xl:text-sm">+
-                        Upload Projects
+                    class="text-white bg-blue-500 hover:bg-blue-600 rounded-lg text-[.6rem] sm:text-xs xl:text-xs px-1 sm:px-3 py-2 2xl:text-sm">
+                    +Upload Projects
                     </a>
                 </div>
 
