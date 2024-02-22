@@ -30,7 +30,7 @@
 
 </head>
 
-<body class="font-sans antialiased overflow-hidden">
+<body class="font-sans antialiased">
 
 
 
