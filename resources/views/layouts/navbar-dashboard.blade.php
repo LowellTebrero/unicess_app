@@ -20,7 +20,7 @@
     @endphp
 @endauth
 
-<nav x-data="{ open: false }" class="bg-blue-800 border-b border-blue-900  sticky top-0 z-50">
+<nav x-data="{ open: false }" class="bg-blue-800 border-b border-blue-900  sticky top-0 z-50 transition-all">
 
     <!-- Primary Navigation Menu -->
     <div class="max-w-[100%] m-auto sm:px-4">
@@ -1397,16 +1397,17 @@
 
             <!-- Responsive Settings Options -->
             <div class="pt-4 pb-1 border-t border-gray-200">
-                <div class="px-4">
+                {{--  <div class="px-4">
                     <div class="font-medium text-sm text-slate-500">{{ Auth::user()->first_name }}</div>
-                </div>
+                </div>  --}}
 
                 <div class="mt-3 space-y-1">
 
-                    <x-responsive-nav-link :href="route('dashboard')" class="text-white" class="dynamic-link">
-                        {{ __('Dashboard') }}
+                    <x-responsive-nav-link :href="route('lnu')" class="text-xs sm:text-sm text-white dynamic-link">
+                        {{ __('Home Page') }}
                     </x-responsive-nav-link>
-                    <x-responsive-nav-link :href="route('profile.partials.edit-auth-profile', $user->id)" class="text-white" class="dynamic-link">
+
+                    <x-responsive-nav-link :href="route('profile.partials.edit-auth-profile', $user->id)" class="text-xs sm:text-sm text-white dynamic-link">
                         {{ __('Profile') }}
                     </x-responsive-nav-link>
 
@@ -1414,7 +1415,7 @@
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
 
-                        <x-responsive-nav-link :href="route('logout')" class="text-white"
+                        <x-responsive-nav-link :href="route('logout')" class="text-xs sm:text-sm text-white"
                             onclick="event.preventDefault();
                                         this.closest('form').submit();">
                             {{ __('Log Out') }}

@@ -34,7 +34,7 @@
 
 
 
-    <section class="flex w-full relative h-[100vh]  overflow-hidden">
+    <section class="flex w-full relative h-[100vh]">
 
         <!-- Sidebar Section  -->
         <div class="sidebar xl:w-[12rem] 2xl:w-[14rem] sticky top-0 left-0 transition-all h-full ">
@@ -44,9 +44,9 @@
         <div class="flex-col flex w-full flex-1 relative">
             <!-- Navbar Section  -->
             <div class="w-full flex sticky top-0 z-40">
-                <div class="bg-blue-800 flex items-center justify-center xl:hidden">
-                    <button class="ml-4 btn-slide">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6h18M3 12h18M3 18h18"/></svg>
+                <div class="bg-blue-800 flex items-center justify-center xl:hidden ">
+                    <button class="ml-2 sm:ml-4 btn-slide ">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"><path fill="#ffffff" d="M19 13H3v-2h16l-4-4l1.4-1.4l6.4 6.4l-6.4 6.4L15 17zM3 6h10v2H3zm10 10v2H3v-2z"/></svg>
                     </button>
                 </div>
                 <div class="w-full">
