@@ -41,7 +41,7 @@
     </nav>
 
     <div class="py-2 flex justify-between items-center 2xl:px-8 px-4">
-        <h4 class="tracking-wider 2xl:text-2xl font-semibold text-gray-700 text-md">Accounts Overview</h4>
+        <h4 class="tracking-wider 2xl:text-2xl font-semibold text-gray-700 text-xs sm:text-md">Accounts Overview</h4>
 
         <div class="text-sm flex space-x-2">
 
@@ -109,7 +109,7 @@
                 </div>
             </div>
 
-            <input type="text" name="search" wire:model.debounce.500ms="search" id="search" class="w-[7rem] sm:w-[10rem] text-xs  rounded 2xl:text-sm border-slate-400" placeholder="Search...">
+            <input type="text" name="search" wire:model.debounce.500ms="search" id="search" class="w-[9rem] sm:w-[10rem] text-xs  rounded 2xl:text-sm border-slate-400" placeholder="Search...">
 
             <button class="block md:hidden" onclick="openNav()">☰</button>
 
