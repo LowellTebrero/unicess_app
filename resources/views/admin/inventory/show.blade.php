@@ -5,7 +5,7 @@
     <section class=" bg-white rounded-xl h-full">
 
         <div class="w-full flex justify-between p-4">
-            <h1 class="tracking-wider text-sm">Program Name:{{ $programID->program_name }}</h1>
+            <h1 class="tracking-wider text-xs sm:text-sm">Program Name:{{ Str::limit($programID->program_name, 20) }}</h1>
             <a class="text-red-500 font-bold text-xl focus:bg-gray-300 rounded"   href={{ route('admin.inventory.index') }}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -16,7 +16,7 @@
         <hr>
         <div class="flex flex-col px-4">
 
-            <div class="grid 2xl:grid-cols-7 grid-cols-4 mt-4 text-gray-700 relative">
+            <div class="grid 2xl:grid-cols-7 grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 mt-4 text-gray-700 relative">
                 @forelse ($proposalID as $proposal )
                     @if ($programID->id === $proposal->program_id)
                         <div class="flex bg-slate-100  shadow-md rounded-lg relative hover:bg-slate-200" data-tooltip-target="tooltip-bottom{{$proposal->id}}" data-tooltip-placement="right"
@@ -25,7 +25,7 @@
 
                             <a class="p-3 pl-2 rounded-lg w-full flex flex-col" href={{ route('admin.inventory.show-inventory', $proposal->id) }}>
                                 <svg class="fill-yellow-400 mr-3" xmlns="http://www.w3.org/2000/svg" height="55" viewBox="0 96 960 960" width="55"><path d="M141 896q-24 0-42-18.5T81 836V316q0-23 18-41.5t42-18.5h280l60 60h340q23 0 41.5 18.5T881 376v460q0 23-18.5 41.5T821 896H141Z"/></svg>
-                                <span class="block xl:text-[.7rem] text-gray-700 font-medium">{{ Str::limit($proposal->project_title, 50) }}</span>
+                                <span class="block text-[.7rem] sm:text-xs text-gray-700 font-medium">{{ Str::limit($proposal->project_title, 40) }}</span>
                             </a>
 
                             <div x-cloak  x-data="{ 'showModal{{ $proposal->id }}': false }" @keydown.escape="showModal{{ $proposal->id }} = false" class="absolute top-0 right-2">
