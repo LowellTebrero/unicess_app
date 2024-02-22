@@ -109,7 +109,7 @@
                 </div>
             </div>
 
-            <input type="text" name="search" wire:model.debounce.500ms="search" id="search" class=" text-xs  rounded 2xl:text-sm border-slate-400" placeholder="Search...">
+            <input type="text" name="search" wire:model.debounce.500ms="search" id="search" class="w-[7rem] sm:w-[10rem] text-xs  rounded 2xl:text-sm border-slate-400" placeholder="Search...">
 
             <button class="block md:hidden" onclick="openNav()">☰</button>
 
