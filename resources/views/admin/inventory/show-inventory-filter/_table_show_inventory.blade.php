@@ -5,12 +5,12 @@ $maxLength = 18; // Adjust the maximum length as needed
     <table class="w-full text-sm text-left text-gray-500 ">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 sticky top-0 z-10">
             <tr>
-                <th scope="col" class="px-6 py-3">Name</th>
-                <th scope="col" class="px-6 py-3">Last Modified</th>
-                <th scope="col" class="px-6 py-3">Document type</th>
-                <th scope="col" class="px-6 py-3">File type</th>
-                <th scope="col" class="px-6 py-3">File size</th>
-                <th scope="col" class="px-6 py-3"><span>&nbsp;</span></th>
+                <th scope="col" class="px-2 sm:px-6 py-3 text-[.6rem] sm:text-xs">Name</th>
+                <th scope="col" class="px-2 sm:px-6 py-3 text-[.6rem] sm:text-xs">Last Modified</th>
+                <th scope="col" class="px-2 sm:px-6 py-3 text-[.6rem] sm:text-xs">Document type</th>
+                <th scope="col" class="px-2 sm:px-6 py-3 text-[.6rem] sm:text-xs">File type</th>
+                <th scope="col" class="px-2 sm:px-6 py-3 text-[.6rem] sm:text-xs">File size</th>
+                <th scope="col" class="px-2 sm:px-6 py-3 text-[.6rem] sm:text-xs"><span>&nbsp;</span></th>
             </tr>
         </thead>
         <tbody>
@@ -18,23 +18,25 @@ $maxLength = 18; // Adjust the maximum length as needed
                 @if (!empty($mediaLibrary->model_type == 'App\Models\Proposal'))
                     <tr class="bg-white border-b  hover:bg-gray-50 ">
 
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 flex items-center space-x-2">
+                        <td class="px-2 sm:px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 flex items-center space-x-2">
                             <x-alpine-modal>
                                 <x-slot name="scripts">
                                     <div class="flex items-center  space-x-2 " target="__blank">
                                         <div>
-                                            @if ($mediaLibrary->mime_type == 'image/jpeg' || $mediaLibrary->mime_type == 'image/png' || $mediaLibrary->mime_type == 'image/jpg')
-                                                <img src="{{ asset('img/image-icon.png') }}" class="xl:w-[2rem]" width="30">
-                                            @elseif ($mediaLibrary->mime_type == 'text/plain')
-                                                <img src="{{ asset('img/text-document.png') }}" class="xl:w-[2rem]" width="30">
-                                            @elseif ($mediaLibrary->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-                                                <img src="{{ asset('img/docx.png') }}" class="xl:w-[2rem]" width="30">
-                                                @else
-                                                <img src="{{ asset('img/pdf.png') }}" class="xl:w-[2rem]" width="30">
-                                            @endif
+                                            <div class="hidden sm:block">
+                                                @if ($mediaLibrary->mime_type == 'image/jpeg' || $mediaLibrary->mime_type == 'image/png' || $mediaLibrary->mime_type == 'image/jpg')
+                                                    <img src="{{ asset('img/image-icon.png') }}" class="xl:w-[2rem]" width="30">
+                                                @elseif ($mediaLibrary->mime_type == 'text/plain')
+                                                    <img src="{{ asset('img/text-document.png') }}" class="xl:w-[2rem]" width="30">
+                                                @elseif ($mediaLibrary->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+                                                    <img src="{{ asset('img/docx.png') }}" class="xl:w-[2rem]" width="30">
+                                                    @else
+                                                    <img src="{{ asset('img/pdf.png') }}" class="xl:w-[2rem]" width="30">
+                                                @endif
+                                            </div>
                                         </div>
 
-                                        <div class="text-xs text-left">
+                                        <div class="text-[.7rem] sm:text-xs text-left">
                                             @if (strlen($mediaLibrary->file_name) <= 10)
                                             <span>{{ Str::limit($mediaLibrary->file_name, 20) }} {{ substr($mediaLibrary->file_name, -$maxLength) }}</span>
                                             @else
@@ -45,7 +47,7 @@ $maxLength = 18; // Adjust the maximum length as needed
                                 </x-slot>
 
                                 <x-slot name="title">
-                                    <span>{{ Str::limit($mediaLibrary->file_name) }}</span>
+                                    <span>{{ Str::limit($mediaLibrary->file_name, 20) }}</span>
                                 </x-slot>
 
                                 <div class="w-[50rem]">
@@ -64,16 +66,16 @@ $maxLength = 18; // Adjust the maximum length as needed
                             </x-alpine-modal>
                         </td>
 
-                        <td class="px-6 py-4">
-                            <span class="block xl:text-xs 2xl:text-sm">{{ $mediaLibrary->updated_at }}</span>
+                        <td class="px-2 sm:px-6 py-4">
+                            <span class="block text-[.7rem] sm:text-xs 2xl:text-sm">{{ $mediaLibrary->updated_at }}</span>
                         </td>
 
-                        <td class="px-6 py-4">
-                            <span class="block xl:text-xs 2xl:text-sm">{{ $mediaLibrary->collection_name }}</span>
+                        <td class="px-2 sm:px-6 py-4">
+                            <span class="block text-[.7rem] sm:text-xs 2xl:text-sm">{{ $mediaLibrary->collection_name }}</span>
                         </td>
 
-                        <td class="px-6 py-4">
-                            <span class="block xl:text-xs 2xl:text-sm">
+                        <td class="px-2 sm:px-6 py-4">
+                            <span class="block text-[.7rem] sm:text-xs 2xl:text-sm">
                                 @if ( $mediaLibrary->mime_type == "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
                                 Docx
                                 @elseif ( $mediaLibrary->mime_type == "application/pdf")
@@ -86,12 +88,12 @@ $maxLength = 18; // Adjust the maximum length as needed
                             </span>
                         </td>
 
-                        <td class="px-6 py-4">
-                            <span class="block xl:text-xs 2xl:text-sm">{{ $mediaLibrary->human_readable_size }}</span>
+                        <td class="px-2 sm:px-6 py-4">
+                            <span class="block text-[.7rem]  sm:text-xs 2xl:text-sm">{{ $mediaLibrary->human_readable_size }}</span>
                         </td>
 
 
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-center  text-gray-800 relative">
+                        <td class="px-2 sm:px-6 py-4 whitespace-nowrap text-sm text-center  text-gray-800 relative">
                             <div x-cloak  x-data="{ 'showModal': false }" @keydown.escape="showModal = false" class="absolute top-4 left-0">
 
                                 <!-- Modal -->
@@ -160,7 +162,7 @@ $maxLength = 18; // Adjust the maximum length as needed
                 @endif
             @endforeach
 
-           
+
         </tbody>
     </table>
 </div>

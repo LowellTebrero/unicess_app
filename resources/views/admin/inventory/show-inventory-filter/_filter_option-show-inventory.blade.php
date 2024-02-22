@@ -20,7 +20,7 @@
             background-color: #7d8086;
         }
     </style>
-    <div class="pl-5 py-2 space-x-2 flex justify-start">
+    <div class="pl-3 sm:pl-5 py-2 space-x-2 flex justify-start">
         {{--  Upload  --}}
         <button data-modal-target="modal-upload-documents" data-modal-toggle="modal-upload-documents" class="px-2 py-2 bg-white border border-blue-600 rounded-xl text-blue-600 text-xs xl:text-[.8rem] 2xl:text-xs xl:text-xs space-x-2 flex hover:bg-blue-600 hover:text-white" type="button">
             <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="17"
@@ -32,7 +32,7 @@
                         d="M14 8A6 6 0 1 1 2 8a6 6 0 0 1 12 0Zm-1 0A5 5 0 1 0 3 8a5 5 0 0 0 10 0Z" />
                 </g>
             </svg>
-            Upload Documents
+            Upload <span class="hidden sm:block">Documents</span>
         </button>
 
         <!-- Modal Upload modal documents -->
@@ -140,7 +140,7 @@
                 <path fill="currentColor"
                     d="M220 896q-24 0-42-18t-18-42V693h60v143h520V693h60v143q0 24-18 42t-42 18H220Zm260-153L287 550l43-43 120 120V256h60v371l120-120 43 43-193 193Z" />
             </svg>
-            Download this Project
+            Download <span class="hidden sm:block">this Project</span>
         </a>
 
         {{--  Proposal Detail  --}}
@@ -148,7 +148,7 @@
 
             <button class="hover:bg-blue-600 hover:text-white p-2 bg-white border border-blue-600 rounded-xl text-blue-600 text-xs xl:text-[.8rem] 2xl:text-xs xl:text-xs space-x-2 flex" type="button" @click="showModal{{ $proposals->id }} = true">
                 <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 36 36"><path fill="currentColor" d="M32 6H4a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h28a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2m0 22H4V8h28Z" class="clr-i-outline clr-i-outline-path-1"/><path fill="currentColor" d="M9 14h18a1 1 0 0 0 0-2H9a1 1 0 0 0 0 2" class="clr-i-outline clr-i-outline-path-2"/><path fill="currentColor" d="M9 18h18a1 1 0 0 0 0-2H9a1 1 0 0 0 0 2" class="clr-i-outline clr-i-outline-path-3"/><path fill="currentColor" d="M9 22h10a1 1 0 0 0 0-2H9a1 1 0 0 0 0 2" class="clr-i-outline clr-i-outline-path-4"/><path fill="none" d="M0 0h36v36H0z"/></svg>
-                Project Details
+               <span class="hidden sm:block">Project</span>  Details
             </button>
 
             <!-- Modal -->
@@ -219,7 +219,7 @@
 
         <button data-modal-target="modal-track-documents" data-modal-toggle="modal-track-documents" class="px-2 py-2 bg-white border border-blue-600 rounded-xl text-blue-600 text-xs xl:text-[.8rem] 2xl:text-xs xl:text-xs space-x-2 flex hover:bg-blue-600 hover:text-white" type="button">
             <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 256 256"><path fill="currentColor" d="M88 112a8 8 0 0 1 8-8h80a8 8 0 0 1 0 16H96a8 8 0 0 1-8-8m8 40h80a8 8 0 0 0 0-16H96a8 8 0 0 0 0 16m136-88v120a24 24 0 0 1-24 24H32a24 24 0 0 1-24-23.89V88a8 8 0 0 1 16 0v96a8 8 0 0 0 16 0V64a16 16 0 0 1 16-16h160a16 16 0 0 1 16 16m-16 0H56v120a23.84 23.84 0 0 1-1.37 8H208a8 8 0 0 0 8-8Z"/></svg>
-                Track Documents
+                Track <span class="hidden sm:block">Documents</span>
         </button>
 
         <!-- Modal Track documents -->
