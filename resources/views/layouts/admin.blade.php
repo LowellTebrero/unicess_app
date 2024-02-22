@@ -34,7 +34,7 @@
 
 
 
-    <section class="flex w-full relative h-[100vh] overflow-x-hidden">
+    <section class="flex w-full relative h-[100vh] overflow-x-hidden bg-blue-100">
 
         <!-- Sidebar Section  -->
         <div class="sidebar xl:w-[12rem] 2xl:w-[14rem] sticky top-0 left-0 transition-all h-full ">
@@ -56,7 +56,7 @@
             </div>
 
              <!-- Hero Section  -->
-            <main id="hero-section" class="p-3 sm:p-5 bg-blue-100 h-full w-full transition-all">
+            <main id="hero-section" class="p-3 sm:p-5  h-full w-full transition-all">
                 {{ $slot }}
             </main>
         </div>
