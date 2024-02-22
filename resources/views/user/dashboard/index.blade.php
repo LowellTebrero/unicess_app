@@ -75,7 +75,7 @@
 
                             <div class="flex space-x-2  items-center">
 
-                                <select class="text-xs rounded border border-gray-300 w-[5rem] sm:w-[10rem]" id="myDropdown" name="authorize_name">
+                                <select class="text-xs rounded border border-gray-300 w-[4rem] sm:w-[10rem]" id="myDropdown" name="authorize_name">
                                     <option {{ '' == request('authorize_name') ? 'selected ' : '' }} value="">Select Status</option>
                                     <option {{ 'pending' == request('authorize_name') ? 'selected ' : '' }} value="pending">Pending</option>
                                     <option {{ 'ongoing' == request('authorize_name') ? 'selected ' : '' }} value="ongoing">Ongoing</option>
