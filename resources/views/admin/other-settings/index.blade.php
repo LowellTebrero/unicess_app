@@ -48,7 +48,7 @@
         @endforeach
     @endif
 
-    <section class="rounded-xl shadow m-8 mt-4 2xl:mt-5 text-slate-700 bg-white h-[82vh] 2xl:h-[87vh]">
+    <section class="rounded-xl shadow  text-slate-700 bg-white h-full">
 
         <div class="p-5 py-4">
             <h1 class=" font-semibold  text-lg 2xl:text-2xl tracking-wider">Settings Overview</h1>
@@ -71,8 +71,8 @@
         </div>
 
 
-        <div class="bg-white border border-gray-300 shadow-sm  rounded-lg text-gray-700 m-5 p-5 tab-content" id="template-content" style="display: none;">
-            <div class=" p-5 flex justify-between" >
+        <div class="bg-white border border-gray-300 shadow-sm  rounded-lg text-gray-700 m-5 p-2 tab-content" id="template-content" style="display: none;">
+            <div class="p-5 flex justify-between items-center">
                 <div>
                     <h1 class="tracking-wider font-medium text-gray-600 text-xs 2xl:text-base">CESO TEMPLATE HERE</h1>
                 </div>
@@ -124,25 +124,31 @@
                 </div>
             </div>
             <hr>
-            <div class="p-4">
+            @if ($templates->isEmpty())
+            <div class="h-[30vh] 2xl:h-[52vh] flex flex-col items-center justify-center space-y-2">
+                <img class="w-[13rem]" src="{{ asset('img/Empty.jpg') }}">
+                <h1 class="text-md text-gray-500">It’s empty here</h1>
+               </div>
+            @else
+                <div class="p-4">
+                    @foreach ($templates as $template )
+                        @foreach ($template->medias as $media )
+                            <div class="flex justify-between space-y-2">
+                                <h1 class="text-xs 2xl:text-sm">{{ $media->file_name }}</h1>
+                                <div class="flex space-x-2 ">
+                                    <a href={{ url('download-media', $media->id) }} class="text-white bg-green-400 rounded-lg px-2 py-1 text-xs">Download</a>
+                                    <form action={{ route('admin.template.delete', ['id' => $media->id, 'templateId' => $template->id]) }} method="POST" onsubmit="return confirm ('Are you sure?')">
+                                        @csrf @method('DELETE')
+                                        <button class="text-white bg-red-400 rounded-lg px-2 py-1 text-xs" type="submit">Delete</button>
+                                    </form>
 
-                @foreach ($templates as $template )
-                @foreach ($template->medias as $media )
-                <div class="flex justify-between space-y-2">
-                    <h1 class="text-xs 2xl:text-sm">{{ $media->file_name }}</h1>
-                    <div class="flex space-x-2 ">
-                        <a href={{ url('download-media', $media->id) }} class="text-white bg-green-400 rounded-lg px-2 py-1 text-xs">Download</a>
-                        <form action={{ route('admin.template.delete', ['id' => $media->id, 'templateId' => $template->id]) }} method="POST" onsubmit="return confirm ('Are you sure?')">
-                            @csrf @method('DELETE')
-                            <button class="text-white bg-red-400 rounded-lg px-2 py-1 text-xs" type="submit">Delete</button>
-                        </form>
-
-                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    @endforeach
                 </div>
-                @endforeach
-                @endforeach
+            @endif
 
-            </div>
 
         </div>
 

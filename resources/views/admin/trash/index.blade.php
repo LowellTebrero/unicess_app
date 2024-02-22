@@ -18,7 +18,7 @@
     $maxLength = 18; // Adjust the maximum length as needed
     @endphp
 
-    <section class="m-8  rounded-lg text-slate-600 relative mt-4 2xl:mt-5 h-[82vh] bg-white 2xl:h-[87vh]">
+    <section class="rounded-xl shadow text-slate-600 relative  bg-white h-full">
 
         <header class="flex justify-between p-5 py-4 flex-col sm:flex-row">
             <h1 class="xl:text-2xl sm:text-lg text-[.9rem] font-semibold tracking-wider text-slate-700">Trash Overview</h1>

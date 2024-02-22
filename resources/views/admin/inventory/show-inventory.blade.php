@@ -10,7 +10,7 @@
 
 <x-admin-layout>
 
-    <section class="bg-white shadow rounded-xl h-[82vh] 2xl:h-[87vh] m-8 mt-4 2xl:mt-5">
+    <section class="bg-white shadow rounded-xl h-full">
 
             <div class="flex justify-between p-4">
                 <h1 class="tracking-wider text-sm">Project Title: {{ $proposals->project_title }} </h1>

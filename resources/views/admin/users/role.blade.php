@@ -171,7 +171,7 @@
 
 <x-admin-layout>
 
-    <section class="bg-white rounded-lg shadow mt-4 2xl:mt-5  m-8  h-[82vh] 2xl:h-[87vh] relative text-gray-700 overflow-hidden">
+    <section class="bg-white rounded-lg shadow h-full relative text-gray-700 overflow-hidden">
 
         <header class="p-4 px-6 pl-8 text-gray-900 flex  justify-between">
             <h1 class="text-gray-600 xl:text-lg 2xl:text-xl tracking-wider font-semibold">Account details</h1>

@@ -2,7 +2,7 @@
 
 <x-admin-layout>
 
-    <section class="mt-4 2xl:mt-5 m-8 bg-white rounded-xl h-[82vh] 2xl:h-[87vh]">
+    <section class=" bg-white rounded-xl h-full">
 
         <div class="w-full flex justify-between p-4">
             <h1 class="tracking-wider text-sm">Program Name:{{ $programID->program_name }}</h1>

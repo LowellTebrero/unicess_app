@@ -24,7 +24,7 @@
         <h1 class="mt-2">Evaluation not found..</h1>
     </main>
     @else
-    <section class="text-gray-700 p-5 rounded-lg m-8 mt-5 bg-white relative">
+    <section class="text-gray-700 p-5 rounded-lg h-full  bg-white relative">
 
 
 

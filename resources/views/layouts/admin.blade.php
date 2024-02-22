@@ -30,26 +30,19 @@
 
 </head>
 
-<body class="font-sans antialiased min-h-full">
+<body class="font-sans antialiased overflow-hidden">
 
 
 
-    {{--  <h1>Pusher Test</h1>
-    <p>
-      Try publishing an event to channel <code>my-channel</code>
-      with event name <code>my-event</code>.
-    </p>  --}}
+    <section class="flex w-full relative h-[100vh]  overflow-hidden">
 
-    {{--  md:flex-row xl:flex-row min-h-screen   --}}
-    <section class="flex w-full relative min-h-[100vh]">
-
-            {{--  Sidebar Section  --}}
-            <div class="sidebar xl:w-[12rem] 2xl:w-[14rem] sticky top-0 left-0 transition-all h-full ">
-                @include('layouts._admin_sidebar')
-            </div>
+        <!-- Sidebar Section  -->
+        <div class="sidebar xl:w-[12rem] 2xl:w-[14rem] sticky top-0 left-0 transition-all h-full ">
+            @include('layouts._admin_sidebar')
+        </div>
 
         <div class="flex-col flex w-full flex-1 relative">
-            {{--  Navbar Section  --}}
+            <!-- Navbar Section  -->
             <div class="w-full flex sticky top-0 z-40">
                 <div class="bg-blue-800 flex items-center justify-center xl:hidden">
                     <button class="ml-4 btn-slide">
@@ -62,8 +55,8 @@
 
             </div>
 
-            {{--  Hero Section  --}}
-            <main id="hero-section" class="bg-blue-100 h-full w-full transition-all overflow-hidden">
+             <!-- Hero Section  -->
+            <main id="hero-section" class="p-5 bg-blue-100 h-full w-full transition-all">
                 {{ $slot }}
             </main>
         </div>
