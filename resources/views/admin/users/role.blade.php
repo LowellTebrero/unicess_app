@@ -173,10 +173,10 @@
 
     <section class="bg-white rounded-lg shadow h-full relative text-gray-700 overflow-hidden">
 
-        <header class="p-4 px-4 sm:px-6 sm:pl-8 text-gray-900 flex  justify-between">
+        <header class="sm:p-4 py-2 px-4 sm:px-6 sm:pl-8 text-gray-900 flex items-center  justify-between">
             <h1 class="text-gray-600 xl:text-lg 2xl:text-xl tracking-wider font-semibold">Account details</h1>
             <a class=" px-1 py-1 rounded text-red-500 text-2xl font-bold hover:bg-gray-200 focus:bg-red-200 " href={{ route('admin.users.main') }}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </a>
