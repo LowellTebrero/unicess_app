@@ -56,7 +56,7 @@
             </div>
 
              <!-- Hero Section  -->
-            <main id="hero-section" class="p-5 bg-blue-100 h-full w-full transition-all">
+            <main id="hero-section" class="p-3 sm:p-5 bg-blue-100 h-full w-full transition-all">
                 {{ $slot }}
             </main>
         </div>

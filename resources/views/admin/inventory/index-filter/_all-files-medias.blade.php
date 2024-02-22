@@ -1,6 +1,5 @@
 <div class="flex justify-evenly 2xl:space-x-5 xl:space-x-2 p-5 pb-0 xl:text-xs ">
     <div class="flex flex-col w-full">
-        <div class="">
             <div class="min-w-full inline-block align-middle">
 
                 <div class="flex justify-between ">
@@ -38,19 +37,21 @@
 
                                                     <div class="flex items-center space-x-2">
                                                         <div class="flex" target="__blank">
-                                                            @if ($media->mime_type == 'image/jpeg' || $media->mime_type == 'image/png' || $media->mime_type == 'image/jpg')
-                                                            <img src="{{ asset('img/image-icon.png') }}"
-                                                                class="2xl:w-[2rem]" width="30" alt="">
+                                                            <div class="hidden lg:block">
+                                                                @if ($media->mime_type == 'image/jpeg' || $media->mime_type == 'image/png' || $media->mime_type == 'image/jpg')
+                                                                <img src="{{ asset('img/image-icon.png') }}"
+                                                                    class="2xl:w-[2rem]" width="30" alt="">
 
-                                                            @elseif ($media->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-                                                            <img src="{{ asset('img/docx.png') }}" class="2xl:w-[2rem]" width="25" alt="">
-                                                            @else
-                                                            <img src="{{ asset('img/pdf.png') }}" class="2xl:w-[2rem]"
-                                                                width="30" alt="">
-                                                            @endif
+                                                                @elseif ($media->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+                                                                <img src="{{ asset('img/docx.png') }}" class="2xl:w-[2rem]" width="25" alt="">
+                                                                @else
+                                                                <img src="{{ asset('img/pdf.png') }}" class="2xl:w-[2rem]"
+                                                                    width="30" alt="">
+                                                                @endif
+                                                            </div>
                                                         </div>
                                                         <div>
-                                                            {{  Str::limit($media->file_name, 70) }}
+                                                            {{  Str::limit($media->file_name, 30) }}
                                                         </div>
 
                                                     </div>
@@ -84,7 +85,7 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-xs text-gray-800 ">{{ $media->collection_name }}</td>
                                     <td class="px-6 py-4 pr-0 whitespace-nowrap text-xs text-gray-800 ">{{ $media->human_readable_size }}</td>
                                     <td class="px-6 py-4 pr-0 whitespace-nowrap text-xs text-gray-800 "> {{ \Carbon\Carbon::parse($media->created_at)->format('M d, y g:i:s A') }}</td>
-                                    <td class="whitespace-nowrap text-left text-xs font-medium relative">
+                                    <td class="whitespace-nowrap text-left text-xs font-medium relative ">
 
                                         <div x-cloak  x-data="{'showModal{{ $media->id }}': false }" @keydown.escape="showModal{{ $media->id }} = true" class="absolute right-2 top-7 ">
 
@@ -192,22 +193,12 @@
                                                   <svg fill="none" viewBox="0 0 15 14" height="12" width="14">
                                                     <path d="M2 8.36364L6.23077 12L13 2"></path>
                                                   </svg>
-                                                </div>
-
-                                                {{--  <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
-                                                  <defs>
-                                                    <filter id="goo-12">
-                                                      <feGaussianBlur result="blur" stdDeviation="4" in="SourceGraphic"></feGaussianBlur>
-                                                      <feColorMatrix result="goo-12" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 22 -7" mode="matrix" in="blur"></feColorMatrix>
-                                                      <feBlend in2="goo-12" in="SourceGraphic"></feBlend>
-                                                    </filter>
-                                                  </defs>
-                                                </svg>  --}}
+                                                </div>                                           
                                             </div>
 
                                             <div type="button" class="dropdownButtons relative" style="display: block">
 
-                                                <div class="absolute left-[-0.55rem] bottom-[2.5rem]">
+                                                <div class="absolute left-4 lg:left-[-0.55rem] bottom-[2.5rem]">
                                                     <x-tooltip-modal>
                                                         <!-- Modal toggle -->
                                                         <div class="flex flex-col space-y-2 items-start pl-2 text-gray-600 ">
@@ -241,8 +232,7 @@
                     </table>
                 </div>
 
-            </div>
-        </div>
+            </div>      
     </div>
 </div>
 

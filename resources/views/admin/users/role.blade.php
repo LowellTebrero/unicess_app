@@ -187,7 +187,7 @@
          from-slate-400 via-slate-300 to-slate-200 background-animate">
         </div>
 
-        <div class="w-20 2xl:w-40  md:w-28 sm:w-24 absolute top-20 2xl:top-[8rem] xl:top-[17vh]  md:top-[16vh]   sm:top-[17vh]  left-2 md:left-5  2xl:left-8  z-20 ">
+        <div class="w-20 2xl:w-40  md:w-28 sm:w-24 absolute top-[4rem] 2xl:top-[8rem] xl:top-[17vh]  md:top-[16vh]   sm:top-[17vh]  left-2 md:left-5  2xl:left-8  z-20 ">
             <img class="rounded-full border-8 border-white bg-white" id="showImage"
             src="{{ !empty($user->avatar) ? url('upload/image-folder/profile-image/' . $user->avatar) : url('upload/profile.png') }}">
         </div>
