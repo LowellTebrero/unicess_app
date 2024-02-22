@@ -11,7 +11,7 @@
                     </div>
                 </div>
 
-                <div class="overflow-x-auto h-[55vh] 2xl:h-[67vh] border">
+                <div class="overflow-x-auto h-[67vh] border">
 
                     <table class="min-w-full divide-y divide-gray-200 ">
                         <thead>
@@ -193,7 +193,7 @@
                                                   <svg fill="none" viewBox="0 0 15 14" height="12" width="14">
                                                     <path d="M2 8.36364L6.23077 12L13 2"></path>
                                                   </svg>
-                                                </div>                                           
+                                                </div>
                                             </div>
 
                                             <div type="button" class="dropdownButtons relative" style="display: block">
@@ -232,7 +232,7 @@
                     </table>
                 </div>
 
-            </div>      
+            </div>
     </div>
 </div>
 
