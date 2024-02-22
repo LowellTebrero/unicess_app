@@ -75,21 +75,21 @@
 
                             <div class="flex space-x-2  items-center">
 
-                                <select class="text-xs rounded border border-gray-300" id="myDropdown" name="authorize_name">
+                                <select class="text-xs rounded border border-gray-300 w-[5rem] sm:w-[10rem]" id="myDropdown" name="authorize_name">
                                     <option {{ '' == request('authorize_name') ? 'selected ' : '' }} value="">Select Status</option>
                                     <option {{ 'pending' == request('authorize_name') ? 'selected ' : '' }} value="pending">Pending</option>
                                     <option {{ 'ongoing' == request('authorize_name') ? 'selected ' : '' }} value="ongoing">Ongoing</option>
                                     <option {{ 'finished' == request('authorize_name') ? 'selected ' : '' }} value="finished">Finished</option>
                                 </select>
 
-                                <input id="searchInput"  class="text-xs rounded border border-gray-300 w-[20rem]" type="text" placeholder="Search Project Title...">
+                                <input id="searchInput"  class="text-xs rounded border border-gray-300  sm:w-[20rem]" type="text" placeholder="Search Project Title...">
 
                             </div>
 
                             <x-alpine-modal>
 
                                 <x-slot name="scripts">
-                                    <div class="bg-blue-600 px-2 py-2 rounded-md text-white xl:text-[.8rem] 2xl:text-base xl:text-xs flex text-xs">+ Upload Documents</div>
+                                    <div class="bg-blue-600 px-2 py-2 rounded-md text-white xl:text-[.8rem] 2xl:text-base xl:text-xs flex text-xs">+ Upload <span class="hidden sm:block">Documents</span></div>
                                 </x-slot>
 
                                 <x-slot name="title">Upload Documents</x-slot>
@@ -149,7 +149,7 @@
                         </div>
 
                         @if ($proposalMembers->isEmpty())
-                        <div class="h-full flex flex-col items-center justify-center space-y-2">
+                        <div class="h-[40vh] sm:h-[50vh]  flex flex-col items-center justify-center space-y-2">
                             <img class="w-[10rem] sm:w-[13rem]" src="{{ asset('img/Empty.jpg') }}">
                             <h1 class="text-md text-gray-500">It’s empty here</h1>
                         </div>
