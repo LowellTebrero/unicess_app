@@ -31,7 +31,7 @@
             background-color: #7d8086;
         }
 
-        
+
     </style>
 
     @php
@@ -46,7 +46,7 @@
 
     <x-admin-layout>
 
-        <section class="bg-white shadow rounded-xl m-8 mt-4 2xl:mt-5 h-[82vh] 2xl:min-h-[87vh] text-gray-600 overflow-hidden">
+        <section class="bg-white shadow rounded-xl m-4 sm:m-8 mt-4 2xl:mt-5 h-[82vh] 2xl:min-h-[87vh] text-gray-600 overflow-hidden">
 
             @if ($proposals == null)
                 <div class="flex justify-between p-2 2xl:p-3 bg-white rounded-tl rounded-tr">
@@ -69,13 +69,14 @@
 
             @else
                 <header class="flex justify-between p-2 2xl:p-3 {{ $proposals->authorize == 'pending' ? 'bg-red-200' : ($proposals->authorize == 'ongoing' ? 'bg-blue-200' : 'bg-green-200') }} rounded-tl rounded-tr">
-                    <div class="flex flex-col sm:flex-row sm:space-x-8 font-medium text-gray-700">
-                        <h1 class="text-[.7rem] xl:text-sm tracking-wider">Created:
-                            {{ \Carbon\Carbon::parse($proposals->created_at)->format('F-d-Y') }}</h1>
-                        <h1 class="text-[.7rem] xl:text-sm tracking-wider">Status: {{ $proposals->authorize }}</h1>
-                        <h1 class="text-[.7rem] xl:text-sm tracking-wider">Program/Project ID: {{ $proposals->uuid }}</h1>
 
-                    </div>
+                        <div class="items-center flex sm:flex-row sm:space-x-4 md:space-x-8 font-medium text-gray-700">
+                            <h1 class="hidden sm:block text-[.7rem] xl:text-sm tracking-wider">Created:
+                                {{ \Carbon\Carbon::parse($proposals->created_at)->format('F-d-Y') }}</h1>
+                            <h1 class="hidden sm:block text-[.7rem] xl:text-sm tracking-wider">Status: {{ $proposals->authorize }}</h1>
+                            <h1 class="hidden sm:block text-[.7rem] xl:text-sm tracking-wider">ID: {{ $proposals->uuid }}</h1>
+                        </div>
+
                     <a class="text-black text-xl focus:bg-red-500 focus:text-white hover:bg-red-400 font-medium  px-2 py-2 rounded" href={{ route('admin.dashboard.index') }}>
                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
@@ -89,7 +90,7 @@
                 <div class="flex">
 
                     {{--  Container-1  --}}
-                    <div class="border-r hidden lg:block p-4 w-[20rem] xl:w-[20rem]">             
+                    <div class="border-r hidden lg:block p-4 w-[20rem] xl:w-[20rem]">
                         <div class="flex flex-col space-y-2 mb-4">
                             <div class="flex justify-between">
                                 <h1 class="text-base font-medium tracking-wide">Summary:</h1>
@@ -241,8 +242,6 @@
                             @endforeach
                         </div>
 
-
-                        
                         <div class="flex flex-col text-xs">
                             <label class="text-gray-700 font-semibold tracking-wider mb-2 xl:text-[.7rem] text-[.7rem]">Change status here:</label>
                             <select id="myDropdown" class="xl:text-[.7rem] text-[.7rem] border-slate-500 rounded-lg">
@@ -257,7 +256,7 @@
                                     Finished</option>
                             </select>
                         </div>
-                        
+
                     </div>
 
                     {{--  Container-2  --}}
@@ -632,7 +631,7 @@
                             </div>
                         </div>
 
-                        
+
                         <!-- Modal Show summary -->
                         <div id="modal-show-all-summary-2" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                             <div class="relative p-4 w-full max-w-4xl h-[60%]">
@@ -779,12 +778,16 @@
                                                 Track Documents
                                         </button>
 
-                                        <button data-modal-target="modal-show-all-summary-2" data-modal-toggle="modal-show-all-summary-2" class="block lg:hidden px-2 py-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 text-xs xl:text-[.8rem] 2xl:text-xs xl:text-xs space-x-2 hover:bg-blue-600 hover:text-white" type="button">
-                                            Show All
-                                        </button>
+                                        <div class="block lg:hidden">
+                                            <button data-modal-target="modal-show-all-summary-2" data-modal-toggle="modal-show-all-summary-2" class="px-2 py-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 text-xs xl:text-[.8rem] 2xl:text-xs xl:text-xs space-x-2 flex hover:bg-blue-600 hover:text-white" type="button">
+                                                <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 20 20"><g fill="none"><path d="M3.26 11.602C3.942 8.327 6.793 6 10 6c3.206 0 6.057 2.327 6.74 5.602a.5.5 0 0 0 .98-.204C16.943 7.673 13.693 5 10 5c-3.693 0-6.943 2.673-7.72 6.398a.5.5 0 0 0 .98.204z" fill="currentColor"/><path d="M10 8a3.5 3.5 0 1 0 0 7a3.5 3.5 0 0 0 0-7zm-2.5 3.5a2.5 2.5 0 1 1 5 0a2.5 2.5 0 0 1-5 0z" fill="currentColor"/></g></svg>
+                                                Show Details
+                                          </button>
+                                        </div>
 
-                                        <div class="flex flex-col text-xs">            
-                                            <select id="myDropdown2" class="block lg:hidden px-2 py-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 text-xs xl:text-[.8rem] 2xl:text-xs xl:text-xs space-x-2  ">
+
+                                        <div class="flex flex-col text-xs">
+                                            <select id="myStatusDropdown" class="block lg:hidden px-2 py-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 text-xs xl:text-[.8rem] 2xl:text-xs xl:text-xs space-x-2  ">
                                                 <option value="pending"
                                                     {{ old('pending', $proposals->authorize) == 'pending' ? 'selected' : '' }}>Pending
                                                 </option>
@@ -3935,17 +3938,7 @@
         });
 
 
-        let leftbutton = document.querySelector(".leftbtn-slide")
-        let leftsidebar = document.querySelector(".proposal-sidebar")
-        let leftclosebutton = document.querySelector(".leftclose-button")
 
-        leftbutton.addEventListener('click',() => {
-            leftsidebar.classList.toggle('active');
-        });
-
-        leftclosebutton.addEventListener('click',() => {
-            leftsidebar.classList.remove('active');
-        });
 
         function openNav() {
             document.getElementById("mySidebar").style.width = "100%";
@@ -3980,7 +3973,7 @@
                     }
                 });
             });
-            $('#myDropdown2').on('change', function() {
+            $('#myStatusDropdown').on('change', function() {
                 var selectedValue = $(this).val();
                 var proposalId = {{ $proposals->id ?? 'null' }};
                 $.ajax({
@@ -3999,6 +3992,7 @@
                     }
                 });
             });
+
         });
 
         $('input[type=file]').on('input', function() {
