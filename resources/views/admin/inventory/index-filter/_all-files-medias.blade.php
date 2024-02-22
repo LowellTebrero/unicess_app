@@ -16,11 +16,11 @@
                     <table class="min-w-full divide-y divide-gray-200 ">
                         <thead>
                         <tr class="sticky top-0 bg-gray-100 z-10">
-                            <th scope="col" class="px-2 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
-                            <th scope="col" class="px-2 sm:px-6 pr-0 py-3 text-left text-xs font-medium text-gray-500 uppercase w-[10rem]">Document Type</th>
-                            <th scope="col" class="px-2 sm:px-6 pr-0 py-3 text-left text-xs font-medium text-gray-500 uppercase w-[7rem]">Size</th>
-                            <th scope="col" class="px-2 sm:px-6 pr-0 py-3 text-left text-xs font-medium text-gray-500 uppercase w-[10rem]">Uploaded</th>
-                            <th scope="col" class="text-left text-xs font-medium text-gray-500 uppercase w-[5rem]">Action</th>
+                            <th scope="col" class="px-2 sm:px-6 py-3 text-left text-[.6rem] sm:text-xs font-medium text-gray-500 uppercase">Name</th>
+                            <th scope="col" class="px-2 sm:px-6 pr-0 py-3 text-left text-[.6rem] sm:text-xs font-medium text-gray-500 uppercase w-[10rem]">Document Type</th>
+                            <th scope="col" class="px-2 sm:px-6 pr-0 py-3 text-left text-[.6rem] sm:text-xs font-medium text-gray-500 uppercase w-[7rem]">Size</th>
+                            <th scope="col" class="px-2 sm:px-6 pr-0 py-3 text-left text-[.6rem] sm:text-xs font-medium text-gray-500 uppercase w-[10rem]">Uploaded</th>
+                            <th scope="col" class="text-left text-[.6rem] sm:text-xs font-medium text-gray-500 uppercase w-[5rem]">Action</th>
                         </tr>
                         </thead>
 
@@ -28,7 +28,7 @@
                         <tbody class="divide-y divide-gray-200">
                             @foreach ($medias as $media )
                                 <tr class="hover:bg-gray-100 dark:hover:bg-gray-200"  id="media_id{{ $media->id }}">
-                                    <td class="px-2 sm:px-6 py-4 whitespace-nowrap text-xs font-medium text-gray-800">
+                                    <td class="px-2 sm:px-6 py-4 whitespace-nowrap text-[.6rem] sm:text-xs font-medium text-gray-800">
                                         <div type="button" class="relative ">
 
                                             <x-alpine-modal>
@@ -82,10 +82,10 @@
 
                                         </div>
                                     </td>
-                                    <td class="px-2 sm:px-6 py-4 whitespace-nowrap text-xs text-gray-800 ">{{ $media->collection_name }}</td>
-                                    <td class="px-2 sm:px-6 py-4 pr-0 whitespace-nowrap text-xs text-gray-800 ">{{ $media->human_readable_size }}</td>
-                                    <td class="px-2 sm:px-6 py-4 pr-0 whitespace-nowrap text-xs text-gray-800 "> {{ \Carbon\Carbon::parse($media->created_at)->format('M d, y g:i:s A') }}</td>
-                                    <td class="px-2 sm:px-6 whitespace-nowrap text-left text-xs font-medium relative ">
+                                    <td class="px-2 sm:px-6 py-4 whitespace-nowrap text-[.6rem] sm:text-xs text-gray-800 ">{{ $media->collection_name }}</td>
+                                    <td class="px-2 sm:px-6 py-4 pr-0 whitespace-nowrap text-[.6rem] sm:text-xs text-gray-800 ">{{ $media->human_readable_size }}</td>
+                                    <td class="px-2 sm:px-6 py-4 pr-0 whitespace-nowrap text-[.6rem] sm:text-xs text-gray-800 "> {{ \Carbon\Carbon::parse($media->created_at)->format('M d, y g:i:s A') }}</td>
+                                    <td class="px-2 sm:px-6 whitespace-nowrap text-left text-[.6rem] sm:text-xs font-medium relative ">
 
                                         <div x-cloak  x-data="{'showModal{{ $media->id }}': false }" @keydown.escape="showModal{{ $media->id }} = true" class="absolute right-2 top-7 ">
 
