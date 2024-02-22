@@ -173,7 +173,7 @@
 
     <section class="bg-white rounded-lg shadow h-full relative text-gray-700 overflow-hidden">
 
-        <header class="p-4 px-6 pl-8 text-gray-900 flex  justify-between">
+        <header class="p-4 px-4 sm:px-6 sm:pl-8 text-gray-900 flex  justify-between">
             <h1 class="text-gray-600 xl:text-lg 2xl:text-xl tracking-wider font-semibold">Account details</h1>
             <a class=" px-1 py-1 rounded text-red-500 text-2xl font-bold hover:bg-gray-200 focus:bg-red-200 " href={{ route('admin.users.main') }}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -183,18 +183,18 @@
         </header>
         <hr>
 
-        <div class="h-[12vh]  bg-gradient-to-r
+        <div class="hidden sm:block h-[12vh]  bg-gradient-to-r
          from-slate-400 via-slate-300 to-slate-200 background-animate">
         </div>
 
-        <div class="w-12 2xl:w-40  md:w-28 sm:w-24 absolute top-20 2xl:top-[8rem] xl:top-[17vh]  md:top-[16vh]   sm:top-[17vh]  left-2 md:left-5  2xl:left-8  z-20 ">
+        <div class="w-20 2xl:w-40  md:w-28 sm:w-24 absolute top-20 2xl:top-[8rem] xl:top-[17vh]  md:top-[16vh]   sm:top-[17vh]  left-2 md:left-5  2xl:left-8  z-20 ">
             <img class="rounded-full border-8 border-white bg-white" id="showImage"
             src="{{ !empty($user->avatar) ? url('upload/image-folder/profile-image/' . $user->avatar) : url('upload/profile.png') }}">
         </div>
 
 
-        <div class="h-[14vh]  2xl:h-[12vh] flex justify-end relative">
-            <div class="sm:left-[7rem] md:left-[9rem] 2xl:left-[14rem] top-3 md:top-4 absolute ">
+        <div class="h-[20vh] sm:h-[14vh]  2xl:h-[12vh] flex justify-end relative">
+            <div class="sm:left-[7rem] md:left-[9rem] 2xl:left-[14rem] left-[1.5rem] top-[6rem] sm:top-4 absolute ">
                 <div class="flex space-x-1 items-center">
                     <h1 class="text-sm xl:text-base 2xl:text-lg font-medium tracking-wider">{{ $user->name }} </h1>
                     @if ($user->email_verified_at == '')
@@ -209,7 +209,7 @@
 
                 </div>
 
-                <span class="text-xs lg:text-sm">
+                <span class="text-[.6rem] sm:text-xs lg:text-sm">
                 @if ($user->roles) @foreach ($user->roles as $user_role) {{ $user_role->name }} @endforeach @endif• {{  $user->faculty == null ? '' : $user->faculty->name }}
                 </span>
             </div>
@@ -274,7 +274,7 @@
 
             <div id="information-content" class="tab-content flex h-[38vh] 2xl:h-[45vh] mt-2 2xl:mt-5 " style="display: none;">
 
-                <div class="2xl:space-y-4 2xl:space-x-0 flex 2xl:flex-col flex-row space-y-0 space-x-4">
+                <div class="2xl:space-y-4 2xl:space-x-0 flex 2xl:flex-col flex-col sm:flex-row space-y-2 space-x-0 sm:space-y-0 sm:space-x-4">
                     <div class="flex flex-col space-y-2 2xl:space-y-4 w-full">
                         <div class="border full rounded">
                             <div class="flex justify-between items-center px-2 py-1">
