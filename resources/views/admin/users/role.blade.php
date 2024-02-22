@@ -183,29 +183,28 @@
         </header>
         <hr>
 
-        <div class="h-[7vh] xl:h-[9vh] 2xl:h-[12vh] bg-gradient-to-r
-        from-slate-400 via-slate-300 to-slate-200 background-animate">
+        <div class="h-[12vh]  bg-gradient-to-r
+         from-slate-400 via-slate-300 to-slate-200 background-animate">
         </div>
 
-        <div class="w-32 2xl:w-40 xl:w-24 lg:w-28 absolute top-20 xl:top-[17vh] 2xl:top-28  left-8 2xl:left-12 z-20 ">
+        <div class="w-12 2xl:w-40  md:w-28 sm:w-24 absolute top-20 xl:top-[17vh]  sm:top-28  left-2 md:left-5  2xl:left-8 2xl:top-[8rem] z-20 ">
             <img class="rounded-full border-8 border-white bg-white" id="showImage"
             src="{{ !empty($user->avatar) ? url('upload/image-folder/profile-image/' . $user->avatar) : url('upload/profile.png') }}">
         </div>
 
 
-        <div class="xl:h-[14vh] h-[7vh]  2xl:h-[12vh] flex justify-end relative">
-            <div class="left-[12rem] xl:left-[9rem] 2xl:left-[14rem] top-4 absolute ">
+        <div class="h-[14vh]  2xl:h-[12vh] flex justify-end relative">
+            <div class="sm:left-[7rem] md:left-[9rem] 2xl:left-[14rem] top-3 md:top-4 absolute ">
                 <div class="flex space-x-1 items-center">
                     <h1 class="text-sm xl:text-base 2xl:text-lg font-medium tracking-wider">{{ $user->name }} </h1>
                     @if ($user->email_verified_at == '')
                         <h1 class="text-xs text-red-400">email unverified</h1>
                     @else
-                    <svg class="fill-green-500" xmlns="http://www.w3.org/2000/svg" height="22"
-                    viewBox="0 96 960 960" width="24">
-                    <path
-                        d="m344 996-76-128-144-32 14-148-98-112 98-112-14-148 144-32 76-128 136 58 136-58 76 128 144 32-14 148 98 112-98 112 14 148-144 32-76 128-136-58-136 58Zm94-278 226-226-56-58-170 170-86-84-56 56 142 142Z" />
-                </svg>
-
+                        <svg class="fill-green-500" xmlns="http://www.w3.org/2000/svg" height="22"
+                        viewBox="0 96 960 960" width="24">
+                        <path
+                            d="m344 996-76-128-144-32 14-148-98-112 98-112-14-148 144-32 76-128 136 58 136-58 76 128 144 32-14 148 98 112-98 112 14 148-144 32-76 128-136-58-136 58Zm94-278 226-226-56-58-170 170-86-84-56 56 142 142Z" />
+                        </svg>
                     @endif
 
                 </div>
@@ -215,7 +214,7 @@
                 </span>
             </div>
 
-            <div class="p-5 pr-10 flex flex-col space-y-2 items-end">
+            <div class="p-5 pr-5 md:pr-10 flex flex-col space-y-2 items-end">
                 <div class="flex flex-row space-x-2 justify-center ">
                     <div>
                         <label class="switch ">
