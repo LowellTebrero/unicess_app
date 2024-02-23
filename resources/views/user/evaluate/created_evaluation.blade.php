@@ -108,13 +108,12 @@
 
     </style>
 
-
     <x-app-layout>
         @section('title', 'Show Evaluations | ' . config('app.name', 'UniCESS'))
             @if (Auth::user()->authorize == 'checked')
                 @unlessrole('admin|New User')
 
-                <section class="m-8  rounded-lg text-slate-600 relative mt-4 2xl:mt-5 h-[82vh] bg-white 2xl:h-[87vh]">
+                <section class="h-full rounded-xl text-slate-600 relative  bg-white">
 
                     <header class="flex justify-between p-5 py-4 flex-col sm:flex-row">
                         <h1 class="xl:text-2xl sm:text-lg text-[.9rem] font-semibold tracking-wider text-slate-700">Show Evaluation</h1>
@@ -127,59 +126,58 @@
                     </header>
                     <hr>
                     @if ($Evaluation == null)
-
-                    <main class="flex flex-col items-center justify-center p-5 h-[85%] 2xl:h-[90%]">
-                        <img class="w-[12rem]" src="{{ asset('img/not-found.svg') }}" alt="">
-                        <h1 class="mt-2">Something went wrong..</h1>
-                    </main>
+                        <main class="flex flex-col items-center justify-center p-5 h-[85%] 2xl:h-[90%]">
+                            <img class="w-[12rem]" src="{{ asset('img/not-found.svg') }}" alt="">
+                            <h1 class="mt-2">Something went wrong..</h1>
+                        </main>
                     @else
-                    <main class="flex flex-col items-center justify-center p-5 h-[85%] 2xl:h-[90%] ">
-                        @if ($Evaluation->status == 'pending')
+                        <main class="flex flex-col items-center justify-center p-5 h-[90%]  sm:h-[85%] 2xl:h-[90%] ">
+                            @if ($Evaluation->status == 'pending')
 
-                            <div id="div1" class="animated-div-container animated-div flex space-y-3 items-center justify-center flex-col text-green-500 text-lg font-medium">
-                                <img src="{{ asset('img/submit-successfully.png') }}" width="90" class="submitted-image">
-                                <h1 class="text-xl submitted-text">Evaluation form submitted </h1>
-                                <p class="text-gray-500 tracking-wider text-sm submitted-description">Please wait for the admin to verify your evaluation form. </p>
-                            </div>
-
-                            <div id="div2" class="hidden-div-container hidden-div flex flex-col  w-[75%] 2xl:w-[80%]">
-                                <div class="flex space-x-2  text-lg font-medium items-center justify-between">
-                                    <div class="flex items-center space-x-2">
-                                        <svg class="submitted-image" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#68bf7b" d="M12 23c6.075 0 11-4.925 11-11S18.075 1 12 1S1 5.925 1 12s4.925 11 11 11ZM7.5 10.586l3 3l6-6L17.914 9L10.5 16.414L6.086 12L7.5 10.586Z"/></svg>
-                                        <div>
-                                            <h1 class="text-sm 2xl:text-lg submitted-text">Evaluation form submitted </h1>
-                                            <p class="text-gray-500 tracking-wider submitted-description text-xs">Please wait for the admin to verify your evaluation form.  </p>
-                                        </div>
-                                    </div>
-                                   <h1>&nbsp;</h1>
+                                <div id="div1" class="animated-div-container animated-div flex space-y-3 items-center justify-center flex-col text-green-500 text-lg font-medium">
+                                    <img src="{{ asset('img/submit-successfully.png') }}" width="90" class="submitted-image">
+                                    <h1 class="text-xl submitted-text">Evaluation form submitted </h1>
+                                    <p class="text-gray-500 tracking-wider text-sm submitted-description">Please wait for the admin to verify your evaluation form. </p>
                                 </div>
-                                @include('user.evaluate.index_filter._filter_userform1_index')
-                            </div>
 
-                        @else
-
-                            <div id="div1" class="animated-div-container animated-div flex flex-col items-center justify-center space-y-2 text-green-500">
-                                <img src="{{ asset('img/confetti.png') }}" width="75" class="head-primary-main">
-                                <h1 class="text-2xl font-medium tracking-wide head-primary-sub">Congratulations </h1>
-                                <p class="text-gray-700 tracking-wider">Your evaluation form has been verified.</p>
-                            </div>
-
-                            <div id="div2" class="hidden-div-container hidden-div flex flex-col  w-[75%] 2xl:w-[80%]">
-                                <div class=" py-2 flex space-x-2  text-lg font-medium justify-between">
-                                    <div class="flex items-center space-x-2">
-                                        <img src="{{ asset('img/confetti.png') }}" width="35" class="head-primary-main">
-                                        <div>
-                                            <h1 class="text-sm 2xl:text-lg submitted-text ">Congratulations</h1>
-                                            <p class="text-gray-500 tracking-wider submitted-description text-xs">Your evaluation form has been verified. </p>
+                                <div id="div2" class="hidden-div-container hidden-div flex flex-col lg:w-[80%] ">
+                                    <div class="flex space-x-2  text-lg font-medium items-center justify-between">
+                                        <div class="flex items-center space-x-2">
+                                            <svg class="submitted-image" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#68bf7b" d="M12 23c6.075 0 11-4.925 11-11S18.075 1 12 1S1 5.925 1 12s4.925 11 11 11ZM7.5 10.586l3 3l6-6L17.914 9L10.5 16.414L6.086 12L7.5 10.586Z"/></svg>
+                                            <div>
+                                                <h1 class="text-xs sm:text-sm 2xl:text-lg submitted-text">Evaluation form submitted </h1>
+                                                <p class="text-gray-500 submitted-description text-[.6rem] sm:text-xs">Please wait for the admin to verify your evaluation form.</p>
+                                            </div>
                                         </div>
-                                    </div>
                                     <h1>&nbsp;</h1>
+                                    </div>
+                                    @include('user.evaluate.index_filter._filter_userform1_index')
                                 </div>
-                                @include('user.evaluate.index_filter._filter_userform1_index')
-                            </div>
 
-                        @endif
-                    </main>
+                            @else
+
+                                <div id="div1" class="animated-div-container animated-div flex flex-col items-center justify-center space-y-2 text-green-500">
+                                    <img src="{{ asset('img/confetti.png') }}" width="75" class="head-primary-main">
+                                    <h1 class="text-2xl font-medium tracking-wide head-primary-sub">Congratulations </h1>
+                                    <p class="text-gray-700 tracking-wider">Your evaluation form has been verified.</p>
+                                </div>
+
+                                <div id="div2" class="hidden-div-container hidden-div flex flex-col  lg:w-[80%] ">
+                                    <div class=" py-2 flex space-x-2  text-lg font-medium justify-between">
+                                        <div class="flex items-center space-x-2">
+                                            <img src="{{ asset('img/confetti.png') }}" width="35" class="head-primary-main">
+                                            <div>
+                                                <h1 class="text-sm 2xl:text-lg submitted-text ">Congratulations</h1>
+                                                <p class="text-gray-500 tracking-wider submitted-description text-xs">Your evaluation form has been verified. </p>
+                                            </div>
+                                        </div>
+                                        <h1>&nbsp;</h1>
+                                    </div>
+                                    @include('user.evaluate.index_filter._filter_userform1_index')
+                                </div>
+
+                            @endif
+                        </main>
 
                     @endif
 
@@ -189,18 +187,18 @@
 
         @elseif (Auth::user()->authorize == 'close')
 
-        <div class="flex items-center justify-center h-[80vh]">
-            <div class="mt-14">
-            <iframe src="https://embed.lottiefiles.com/animation/133760"></iframe>
+            <div class="flex items-center justify-center h-[80vh]">
+                <div class="mt-14">
+                <iframe src="https://embed.lottiefiles.com/animation/133760"></iframe>
+                </div>
+                <h1 class="text-2xl text-slate-700 font-bold">
+                    <span> <img src="{{ asset('img/caution-1.png') }}" class="xl:w-[4rem] " width="200" alt=""></span>
+                    Your account have been declined for some reason, <br> the admin is reviewing your account details
+                    <span class="block text-lg mt-3 font-medium">Here are the hint to get authorize:</span>
+                    <span class="block text-sm mt-1 font-medium ml-3"><li>Select your role</li></span>
+                    <span class="block text-sm mt-1 font-medium ml-3"><li>Fill out your Profile Information</li></span>
+                </h1>
             </div>
-            <h1 class="text-2xl text-slate-700 font-bold">
-                <span> <img src="{{ asset('img/caution-1.png') }}" class="xl:w-[4rem] " width="200" alt=""></span>
-                Your account have been declined for some reason, <br> the admin is reviewing your account details
-                <span class="block text-lg mt-3 font-medium">Here are the hint to get authorize:</span>
-                <span class="block text-sm mt-1 font-medium ml-3"><li>Select your role</li></span>
-                <span class="block text-sm mt-1 font-medium ml-3"><li>Fill out your Profile Information</li></span>
-            </h1>
-        </div>
 
         @elseif (Auth::user()->authorize == 'pending')
 

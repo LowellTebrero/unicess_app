@@ -18,7 +18,7 @@
         @include('user.evaluate.index_filter._header_index')
 
 
-        <div id="filtered-data" class="">
+        <div id="filtered-data">
             @include('user.evaluate.index_filter._filter_new_index')
         </div>
 
