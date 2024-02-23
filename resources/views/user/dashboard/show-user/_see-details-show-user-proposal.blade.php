@@ -78,7 +78,7 @@
             <div id="defaultModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-70 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
                 <div class="relative w-full max-w-2xl max-h-full">
                     <!-- Modal content -->
-                    <div class="relative bg-white rounded-lg shadow h-[60%]">
+                    <div class="relative bg-white rounded-lg shadow">
 
 
                         <!-- Modal header -->
@@ -97,43 +97,42 @@
                         <form action={{ route('User-dashboard.update-project-details', $proposal->id) }} method="POST"  onsubmit="return confirm('Are you sure?')">
                             @csrf @method('PUT')
                             <!-- Modal body -->
-                            <div class="p-6 space-y-6">
+                            <div class="p-3 sm:p-6 space-y-3 sm:space-y-6">
                                 <div class="flex space-y-4 flex-col">
                                     <div class="w-full">
-                                        <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs" for="program_id">Program Name <span class="text-red-500">*</span></label>
-                                        <select id="program_id" class="rounded-md xl:text-xs w-full border-zinc-400  py-2 px-3" name="program_id" value="{{ old('program_id') }}" required>
+                                        <label class="text-[.7rem] sm:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider" for="program_id">Program Name <span class="text-red-500">*</span></label>
+                                        <select id="program_id" class="rounded-md text-[.7rem] sm:text-xs w-full border-zinc-400  py-2 px-3" name="program_id" value="{{ old('program_id') }}" required>
                                             @foreach ($program as $id => $program_name ) <option value="{{ $id }}" @if ($id == $proposal->program_id) selected="selected" @endif >{{ $program_name }}</option> @endforeach
                                         </select>
                                         @error('program_id') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
                                     </div>
 
                                     <div class="w-full">
-                                        <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs" for="project_title">Proposal Title <span class="text-red-500">*</span></label>
-                                        <input class="border-zinc-400 xl:text-xs shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="project_title" id="project_title" type="text" value="{{ $proposal->project_title }}" placeholder="project title" required>
+                                        <label class="text-[.7rem] sm:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider" for="project_title">Proposal Title <span class="text-red-500">*</span></label>
+                                        <input class="border-zinc-400 text-[.7rem] sm:text-xs shadow appearance-none border rounded w-full  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="project_title" id="project_title" type="text" value="{{ $proposal->project_title }}" placeholder="project title" required>
                                         @error('project_title') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
                                     </div>
                                 </div>
 
                                 <div class="flex space-y-2 flex-col mt-3">
 
-                                    <div class="flex space-x-4 w-full" >
+                                    <div class="flex flex-col space-y-2 sm:space-y-4 sm:flex-row sm:space-x-4 w-full" >
                                         <div class="w-full">
-                                            <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs">Started Date</label>
-                                            <input class="border-zinc-400 xl:text-xs shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" value="{{ $proposal->started_date }}" name="started_date" id="started_date" type="datetime-local">
+                                            <label class="text-[.7rem] sm:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider">Started Date</label>
+                                            <input class="border-zinc-400 text-[.7rem] sm:text-xs shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" value="{{ $proposal->started_date }}" name="started_date" id="started_date" type="datetime-local">
                                             @error('started_date') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
                                         </div>
 
                                         <div class="w-full">
-                                            <label class="xl:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider 2xl:text-xs"> Ended Date</label>
-                                            <input class="border-zinc-400 xl:text-xs shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" value="{{ $proposal->finished_date }}" name="finished_date" id="finished_date" type="datetime-local">
+                                            <label class="text-[.7rem] sm:text-xs block text-gray-700 text-sm font-medium mb-2 tracking-wider"> Ended Date</label>
+                                            <input class="border-zinc-400 text-[.7rem] sm:text-xs shadow appearance-none border  rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" value="{{ $proposal->finished_date }}" name="finished_date" id="finished_date" type="datetime-local">
                                             @error('finished_date') <span class="text-red-500  text-xs">{{ $message }}</span> @enderror
                                         </div>
                                     </div>
 
-                                    <div class="mt-4 w-full overflow-x-auto h-[20vh]">
+                                    <div class="mt-2 sm:mt-4 w-full overflow-x-auto h-[20vh]">
 
-                                        <label class="xl:text-xs block text-gray-700 text-sm font-medium tracking-wider mb-2">Project Member</label>
-
+                                        <label class="text-[.7rem] sm:text-xs block text-gray-700 text-sm font-medium tracking-wider mb-2 sticky top-0 bg-white w-full z-10">Project Member</label>
                                         <select name="tags[]" id="tags" class="tags w-full" multiple="multiple" required>
                                             @foreach($existingTags as $userId => $userName)
                                                 <option value="{{ $userId }}" selected>{{ $userName }}</option>
@@ -146,7 +145,7 @@
 
                             </div>
                             <!-- Modal footer -->
-                            <div class="flex justify-between items-center p-6 space-x-2 border-t border-gray-200 rounded-b">
+                            <div class="flex justify-between items-center p-3 sm:p-6 space-x-2 border-t border-gray-200 rounded-b">
                                 <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Update</button>
                                 <button data-modal-hide="defaultModal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
                             </div>
