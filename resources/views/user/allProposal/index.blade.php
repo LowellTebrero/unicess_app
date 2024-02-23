@@ -4,16 +4,16 @@
     @if (Auth::user()->authorize == 'checked')
         @unlessrole('admin|New User')
 
-            <section class="m-8  rounded-lg  relative mt-4 2xl:mt-5 h-[82vh] 2xl:h-[87vh]  bg-white text-gray-700">
-                <div class="flex justify-between p-4 flex-col space-y-2 lg:space-y-0  lg:flex-row">
+            <section class="h-full rounded-xl relative bg-white text-gray-700">
+                <div class="flex justify-between p-2 sm:py-2 md:py-4 sm:p-4 items-center ">
                     <div>
-                        <h1 class="font-semibold tracking-wider md:text-lg text-base xl:text-2xl">List of Program/Projects</h1>
+                        <h1 class="font-semibold tracking-wider text-xs md:text-lg sm:text-sm xl:text-2xl">List of Program/Projects</h1>
                     </div>
 
                     <div class="sm:space-x-2 space-y-2 md:space-y-0 lg:flex-row text-xs">
-                        <input type="text" id="searchInput" class="rounded text-xs border-gray-300 w-full  sm:w-[15rem] md:w-[20rem]" placeholder="Search Project Title...">
+                        <input type="text" id="searchInput" class="rounded  text-xs border-gray-300 w-[8rem]   sm:w-[10rem]" placeholder="Search Project Title...">
 
-                        <select name="MyAllDropdown" id="MyAllDropdown" class="text-xs border-gray-300 rounded w-full 2xl:w-[7rem] sm:w-[8rem]">
+                        <select name="MyAllDropdown" id="MyAllDropdown" class="text-xs border-gray-300 rounded  w-[3rem] sm:w-[5rem]">
                                 @foreach ($years as $year )
                             <option value="{{ $year }}">{{ $year }}</option>
                             @endforeach

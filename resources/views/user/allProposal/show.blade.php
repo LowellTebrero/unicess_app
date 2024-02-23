@@ -228,7 +228,7 @@
         }
       }
 
-    
+
         .hover .img:hover {
             transform: scale(1.2); /* Adjust the scale factor as needed */
             transition: transform 0.7s ease-in-out; /* Add transition for smooth scaling */
@@ -246,7 +246,7 @@
     @if (Auth::user()->authorize == 'checked')
         @unlessrole('admin|New User')
 
-            <section class="m-8 rounded-lg  relative mt-4 2xl:mt-5 h-[82vh] 2xl:h-[87vh]  bg-white text-gray-700 overflow-x-auto">
+            <section class="h-full rounded-xl relative bg-white text-gray-700 overflow-x-auto">
 
                 @if ($proposals == null)
                     <div class="flex justify-between p-5 py-3">
@@ -318,7 +318,7 @@
                                                     <path d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314" fill-rule="evenodd"></path>
                                                 </svg>
                                             </div>
-    
+
                                         </label>
                                     </form>
                                     <!-- Display the like count next to the input field -->
@@ -329,7 +329,7 @@
                         </div>
 
                     </div>
-                    
+
                     <main class="h-[20vh] 2xl:h-auto  overflow-y-auto w-[95%] mt-5 mx-auto grid 2xl:grid-cols-5 grid-cols-4 bg-gray-50 2xl:bg-white gap-4">
 
                         @foreach($uniqueProposalFiles as $proposalfile)
@@ -422,7 +422,7 @@
                             @endif
 
                             @if ($proposalfile->collection_name == 'moaPdf')
-                          
+
 
                                 <!-- Modal toggle -->
                                 <button data-modal-target="default-modal-moa" data-modal-toggle="default-modal-moa" class="buttonModal text-sm p-4 text-center h-full flex flex-col space-y-4 items-center w-full bg-white rounded-lg border hover:bg-gray-200" type="button">
@@ -508,10 +508,10 @@
                                         </div>
                                     </div>
                                 </div>
-                            
+
                             @endif
 
-                            @if ($proposalfile->collection_name == 'otherFile')                     
+                            @if ($proposalfile->collection_name == 'otherFile')
                                 <!-- Modal toggle -->
                                 <button  data-modal-target="default-modal-otherfile" data-modal-toggle="default-modal-otherfile" class="buttonModal text-sm p-4 text-center flex flex-col space-y-4 items-center w-full bg-white rounded-lg border hover:bg-gray-200" type="button">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 32 32"><g fill="none"><path fill="#FFB02E" d="m15.385 7.39l-2.477-2.475A3.121 3.121 0 0 0 10.698 4H4.126A2.125 2.125 0 0 0 2 6.125V13.5h28v-3.363a2.125 2.125 0 0 0-2.125-2.125H16.888a2.126 2.126 0 0 1-1.503-.621"/><path fill="#FCD53F" d="M27.875 30H4.125A2.118 2.118 0 0 1 2 27.888V13.112C2 11.945 2.951 11 4.125 11h23.75c1.174 0 2.125.945 2.125 2.112v14.776A2.118 2.118 0 0 1 27.875 30"/></g></svg>
@@ -597,10 +597,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>                         
+                                </div>
                             @endif
 
-                            @if ($proposalfile->collection_name == 'travelOrderPdf')                       
+                            @if ($proposalfile->collection_name == 'travelOrderPdf')
                                 <!-- Modal toggle -->
                                 <button data-modal-target="default-modal-travelorder" data-modal-toggle="default-modal-travelorder" class="buttonModal text-sm p-4 text-center h-full flex flex-col space-y-4 items-center w-full bg-white rounded-lg border hover:bg-gray-200" type="button">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 32 32"><g fill="none"><path fill="#FFB02E" d="m15.385 7.39l-2.477-2.475A3.121 3.121 0 0 0 10.698 4H4.126A2.125 2.125 0 0 0 2 6.125V13.5h28v-3.363a2.125 2.125 0 0 0-2.125-2.125H16.888a2.126 2.126 0 0 1-1.503-.621"/><path fill="#FCD53F" d="M27.875 30H4.125A2.118 2.118 0 0 1 2 27.888V13.112C2 11.945 2.951 11 4.125 11h23.75c1.174 0 2.125.945 2.125 2.112v14.776A2.118 2.118 0 0 1 27.875 30"/></g></svg>
@@ -684,10 +684,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>                       
+                                </div>
                             @endif
 
-                            @if ($proposalfile->collection_name == 'specialOrderPdf')                   
+                            @if ($proposalfile->collection_name == 'specialOrderPdf')
                                 <!-- Modal toggle -->
                                 <button data-modal-target="default-modal-specialorder" data-modal-toggle="default-modal-specialorder" class="buttonModal text-sm p-4 text-center h-full flex flex-col space-y-4 items-center w-full bg-white rounded-lg border hover:bg-gray-200" type="button">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 32 32"><g fill="none"><path fill="#FFB02E" d="m15.385 7.39l-2.477-2.475A3.121 3.121 0 0 0 10.698 4H4.126A2.125 2.125 0 0 0 2 6.125V13.5h28v-3.363a2.125 2.125 0 0 0-2.125-2.125H16.888a2.126 2.126 0 0 1-1.503-.621"/><path fill="#FCD53F" d="M27.875 30H4.125A2.118 2.118 0 0 1 2 27.888V13.112C2 11.945 2.951 11 4.125 11h23.75c1.174 0 2.125.945 2.125 2.112v14.776A2.118 2.118 0 0 1 27.875 30"/></g></svg>
@@ -771,10 +771,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>                        
+                                </div>
                             @endif
 
-                            @if ($proposalfile->collection_name == 'officeOrderPdf')                           
+                            @if ($proposalfile->collection_name == 'officeOrderPdf')
                                 <!-- Modal toggle -->
                                 <button data-modal-target="default-modal-officeorder" data-modal-toggle="default-modal-officeorder" class="buttonModal text-sm p-4 text-center flex flex-col space-y-4 items-center w-full bg-white rounded-lg border hover:bg-gray-200" type="button">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 32 32"><g fill="none"><path fill="#FFB02E" d="m15.385 7.39l-2.477-2.475A3.121 3.121 0 0 0 10.698 4H4.126A2.125 2.125 0 0 0 2 6.125V13.5h28v-3.363a2.125 2.125 0 0 0-2.125-2.125H16.888a2.126 2.126 0 0 1-1.503-.621"/><path fill="#FCD53F" d="M27.875 30H4.125A2.118 2.118 0 0 1 2 27.888V13.112C2 11.945 2.951 11 4.125 11h23.75c1.174 0 2.125.945 2.125 2.112v14.776A2.118 2.118 0 0 1 27.875 30"/></g></svg>
@@ -859,10 +859,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>                        
+                                </div>
                             @endif
 
-                            @if ($proposalfile->collection_name == 'Attendance')                     
+                            @if ($proposalfile->collection_name == 'Attendance')
                                 <!-- Modal toggle -->
                                 <button data-modal-target="default-modal-attendance" data-modal-toggle="default-modal-attendance" class="buttonModal text-sm p-4 text-center h-full flex flex-col space-y-4 items-center w-full bg-white rounded-lg border hover:bg-gray-200" type="button">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 32 32"><g fill="none"><path fill="#FFB02E" d="m15.385 7.39l-2.477-2.475A3.121 3.121 0 0 0 10.698 4H4.126A2.125 2.125 0 0 0 2 6.125V13.5h28v-3.363a2.125 2.125 0 0 0-2.125-2.125H16.888a2.126 2.126 0 0 1-1.503-.621"/><path fill="#FCD53F" d="M27.875 30H4.125A2.118 2.118 0 0 1 2 27.888V13.112C2 11.945 2.951 11 4.125 11h23.75c1.174 0 2.125.945 2.125 2.112v14.776A2.118 2.118 0 0 1 27.875 30"/></g></svg>
@@ -948,10 +948,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>                           
+                                </div>
                             @endif
 
-                            @if ($proposalfile->collection_name == 'AttendanceMonitoring')                       
+                            @if ($proposalfile->collection_name == 'AttendanceMonitoring')
                                 <!-- Modal toggle -->
                                 <button data-modal-target="default-modal-attendancemonitoring" data-modal-toggle="default-modal-attendancemonitoring" class="buttonModal text-sm p-4 text-center h-full flex flex-col space-y-4 items-center w-full bg-white rounded-lg border hover:bg-gray-200" type="button">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 32 32"><g fill="none"><path fill="#FFB02E" d="m15.385 7.39l-2.477-2.475A3.121 3.121 0 0 0 10.698 4H4.126A2.125 2.125 0 0 0 2 6.125V13.5h28v-3.363a2.125 2.125 0 0 0-2.125-2.125H16.888a2.126 2.126 0 0 1-1.503-.621"/><path fill="#FCD53F" d="M27.875 30H4.125A2.118 2.118 0 0 1 2 27.888V13.112C2 11.945 2.951 11 4.125 11h23.75c1.174 0 2.125.945 2.125 2.112v14.776A2.118 2.118 0 0 1 27.875 30"/></g></svg>
@@ -1038,10 +1038,10 @@
                                         </div>
                                     </div>
                                 </div>
-                           
+
                             @endif
 
-                            @if ($proposalfile->collection_name == 'NarrativeFile')                   
+                            @if ($proposalfile->collection_name == 'NarrativeFile')
                                 <!-- Modal toggle -->
                                 <button data-modal-target="default-modal-narrative" data-modal-toggle="default-modal-narrative" class="buttonModal text-sm p-4 text-center h-full flex flex-col space-y-4 items-center w-full bg-white rounded-lg border hover:bg-gray-200" type="button">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 32 32"><g fill="none"><path fill="#FFB02E" d="m15.385 7.39l-2.477-2.475A3.121 3.121 0 0 0 10.698 4H4.126A2.125 2.125 0 0 0 2 6.125V13.5h28v-3.363a2.125 2.125 0 0 0-2.125-2.125H16.888a2.126 2.126 0 0 1-1.503-.621"/><path fill="#FCD53F" d="M27.875 30H4.125A2.118 2.118 0 0 1 2 27.888V13.112C2 11.945 2.951 11 4.125 11h23.75c1.174 0 2.125.945 2.125 2.112v14.776A2.118 2.118 0 0 1 27.875 30"/></g></svg>
@@ -1127,10 +1127,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>                         
+                                </div>
                             @endif
 
-                            @if ($proposalfile->collection_name == 'TerminalFile')                        
+                            @if ($proposalfile->collection_name == 'TerminalFile')
                                 <!-- Modal toggle -->
                                 <button data-modal-target="default-modal-terminal" data-modal-toggle="default-modal-terminal" class="buttonModal text-sm p-4 text-center h-full flex flex-col space-y-4 items-center w-full bg-white rounded-lg border hover:bg-gray-200" type="button">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 32 32"><g fill="none"><path fill="#FFB02E" d="m15.385 7.39l-2.477-2.475A3.121 3.121 0 0 0 10.698 4H4.126A2.125 2.125 0 0 0 2 6.125V13.5h28v-3.363a2.125 2.125 0 0 0-2.125-2.125H16.888a2.126 2.126 0 0 1-1.503-.621"/><path fill="#FCD53F" d="M27.875 30H4.125A2.118 2.118 0 0 1 2 27.888V13.112C2 11.945 2.951 11 4.125 11h23.75c1.174 0 2.125.945 2.125 2.112v14.776A2.118 2.118 0 0 1 27.875 30"/></g></svg>
@@ -1142,7 +1142,7 @@
                                     <div class="relative p-4 w-full max-w-5xl h-[80%]">
                                         <!-- Modal content -->
                                         <div class="relative bg-white rounded-lg shadow h-full overflow-x-hidden">
-                                            
+
                                             <!-- Modal header -->
                                             <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t z-10 sticky top-0 bg-white">
                                                 <h3 class="text-xl font-semibold text-gray-600">
@@ -1218,7 +1218,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>                      
+                                </div>
                             @endif
 
 

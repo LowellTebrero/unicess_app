@@ -1,55 +1,4 @@
 
-{{--  <div class="rounded-lg border border-gray-200 shadow-sm m-5 overflow-x-auto h-[60] 2xl:h-[70vh]">
-    <table class="w-full border-collapse bg-white text-left text-sm text-gray-500 xl:text-xs 2xl:text-sm">
-        <thead class="bg-gray-50">
-            <tr class="sticky top-0 bg-gray-200 z-20">
-                <th scope="col" class="px-6 py-4 font-medium ">Project Title</th>
-                <th scope="col" class="px-6 py-4 font-medium ">Members</th>
-                <th scope="col" class="px-6 py-4 font-medium ">Status</th>
-                <th scope="col" class="px-6 py-4 font-medium w-[15rem]">Uploaded</th>
-            </tr>
-        </thead>
-
-        <tbody class="divide-y divide-gray-100 border-t border-gray-100" id="searchResults">
-            @foreach ($proposals as $proposal )
-
-        <tr class="hover:bg-gray-50">
-
-            <td class="px-6 py-4">
-
-                <a href={{ route('allProposal.show', $proposal->id) }} class="inline-flex items-center gap-1 rounded-full py-1 text-xs  text-gray-700">
-                    {{ $proposal->project_title }}
-                </a>
-            </td>
-
-            <td class="px-4 py-4 text-sm whitespace-nowrap ">
-                <div class="flex items-center">
-
-
-                    @foreach ($proposal->proposal_members as $props )
-                        <img class="object-cover w-6 h-6 -mx-1 border-2 border-white bg-white rounded-full  shrink-0" src="{{ (!empty($props->user->avatar))? url('upload/image-folder/profile-image/'. $props->user->avatar): url('upload/profile.png') }}" alt="">
-                    @endforeach
-                </div>
-            </td>
-
-            <td class="px-6 py-4">
-                <span class="inline-flex items-center gap-1 rounded-full py-1 text-xs  text-gray-700">
-                    {{ $proposal->authorize }}
-                </span>
-            </td>
-
-            <td class="px-6 py-4 flex space-x-1 justify-between">
-
-                <span class="inline-flex items-center gap-1 rounded-full py-1 text-[.7rem] 2xl:text-xs  text-gray-700">
-                    {{ \Carbon\Carbon::parse($proposal->created_at)->format("M d, Y: H:i:s")}}
-                </span>
-            </td>
-
-        </tr>
-        @endforeach
-        </tbody>
-    </table>
-</div>  --}}
 
     <style>
         .ui-bookmark {
@@ -255,7 +204,7 @@
         }
       }
 
-    
+
         .hover .img:hover {
             transform: scale(1.2); /* Adjust the scale factor as needed */
             transition: transform 0.7s ease-in-out; /* Add transition for smooth scaling */
@@ -265,7 +214,7 @@
 
     <main class="rounded-lg m-5 overflow-x-auto h-[60] 2xl:h-[75vh]">
 
-        <div class="grid grid-cols-3 2xl:grid-cols-4 gap-4">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
             @foreach ($proposals as $proposal )
 
                 <div class="max-w-md bg-white h-full border border-gray-200 rounded-lg shadow hover overflow-hidden">
@@ -276,11 +225,11 @@
                         <img class="rounded-t-lg img h-[25vh] w-full object-cover"
                         src="{{!empty($adminProgram->image) ? url('upload/image-folder/program-services-folder/' . $adminProgram->image) : url('upload/CESO.png') }}">
                         @endforeach
-                       
+
                             {{--  <img class="rounded-t-lg img"  src="{{  url('upload/CESO.png') }}" alt="" />  --}}
                         </a>
                     </div>
-                   
+
                     <div class="p-5 flex flex-col  justify-between h-[40%]">
 
                         <div class=" h-full">
