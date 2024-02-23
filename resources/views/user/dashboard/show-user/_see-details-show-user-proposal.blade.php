@@ -11,42 +11,40 @@
 
 
     <!-- content -->
-    <div class="px-5 w-[50rem]">
+    <div class="px-5">
 
         <div class="flex text-gray-700 mt-2 space-x-2">
             <div class="text-[.7rem] w-full">
-                <label class="block font-bold mb-2" for="description">Project ID:</label>
-                        <h1 class="text-[.8rem] py-2">{{ $proposal->uuid }}</h1>
-
+                <label class="block font-bold" for="description">Project ID:</label>
+                <h1 class="text-[.7rem] sm:text-[.8rem] py-2">{{ $proposal->uuid }}</h1>
             </div>
 
             <div class="text-[.7rem] w-full">
-                <label class="block font-bold mb-2" for="description">Status:</label>
-                <h1 class="text-[.8rem] py-2">{{ $proposal->authorize }}</h1>
+                <label class="block font-bold" for="description">Status:</label>
+                <h1 class="text-[.7rem] sm:text-[.8rem] py-2">{{ $proposal->authorize }}</h1>
             </div>
         </div>
 
         <div class="mb-4 w-full text-[.7rem]">
-            <label class="block text-gray-700  font-bold mb-2"> Program Name:</label>
+            <label class="block text-gray-700  font-bold"> Program Name:</label>
 
-                <h1 class="text-[.8rem] py-2">{{ $proposal->programs->program_name }}</h1>
+                <h1 class="text-[.7rem] sm:text-[.8rem] py-2">{{ $proposal->programs->program_name }}</h1>
         </div>
 
         <div class="mb-4 text-gray-700">
-            <label class="block font-bold mb-2 text-[.7rem]" for="project_title">Project
+            <label class="block font-bold text-[.7rem]" for="project_title">Project
                 title</label>
-                <h1 class="text-[.8rem] py-2">{{ $proposal->project_title }}</h1>
+                <h1 class="text-[.7rem] sm:text-[.8rem] py-2">{{ $proposal->project_title }}</h1>
         </div>
 
 
         <div class="flex space-x-4">
             <div class="mb-4 text-gray-700 w-full">
-                <label class="block font-bold mb-2 text-[.7rem]" for="project_title">Project
-                    Member</label>
-                <div>
+                <label class="block font-bold text-[.7rem]" for="project_title">Project Member</label>
+                <div class=" overflow-y-auto h-[15vh]">
                     @foreach ($proposal->proposal_members as $proposal_mem)
                         @if ($proposal_mem !== null)
-                                <h1 class="text-[.8rem] py-2">{{$proposal_mem->user->name }}</h1>
+                                <h1 class="text-[.7rem] sm:text-[.8rem] py-2">{{$proposal_mem->user->name }}</h1>
                         @endif
                     @endforeach
                 </div>
@@ -57,14 +55,14 @@
         <div class="flex text-gray-700 mb-2 space-x-4">
             <div class="text-[.7rem] w-full">
                 <label class="block font-bold mb-2" for="description">Started Date</label>
-                <h1 class="text-[.8rem] py-2">{{$proposal->started_date == null ? 'No date' : $proposal->started_date->format('M. d, Y') }}</h1>
+                <h1 class="text-[.7rem] sm:text-[.8rem] py-2">{{$proposal->started_date == null ? 'No date' : $proposal->started_date->format('M. d, Y') }}</h1>
 
 
             </div>
 
             <div class="text-[.7rem] w-full">
                 <label class="block font-bold mb-2" for="description">Finished Date</label>
-                    <h1 class="text-[.8rem] py-2">{{$proposal->finished_date == null ? 'No date' : $proposal->finished_date->format('M. d, Y') }}</h1>
+                    <h1 class="text-[.7rem] sm:text-[.8rem] py-2">{{$proposal->finished_date == null ? 'No date' : $proposal->finished_date->format('M. d, Y') }}</h1>
 
             </div>
         </div>
@@ -133,7 +131,6 @@
                                     </div>
 
                                     <div class="mt-4 w-full overflow-x-auto h-[20vh]">
-
 
                                         <label class="xl:text-xs block text-gray-700 text-sm font-medium tracking-wider mb-2">Project Member</label>
 
