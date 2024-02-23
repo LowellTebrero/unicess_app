@@ -100,8 +100,6 @@
                                         <h1 class="text-[.7rem] sm:text-xs">{{ Str::limit($mediaLibrary->file_name, 20) }} <span class="hidden sm:block mr-1">file uploaded</span></h1>
                                     </div>
                                     @endforeach
-
-
                                 </div>
 
 

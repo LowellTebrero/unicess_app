@@ -11,7 +11,7 @@
 
 
     <!-- content -->
-    <div class="px-5">
+    <div class="px-5 sm:w-[30rem] lg:w-[50rem]">
 
         <div class="flex text-gray-700 mt-2 space-x-2">
             <div class="text-[.7rem] w-full">
