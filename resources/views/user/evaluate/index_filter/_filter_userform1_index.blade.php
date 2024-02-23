@@ -51,7 +51,7 @@
     </div>
 
 
-    <div class="w-full sm:w-2/5 flex flex-col space-y-4">
+    <div class="w-full sm:w-2/5 flex flex-col space-y-2 sm:space-y-4">
 
         <div class="bg-gradient-to-t from-blue-400 to-blue-600 rounded-lg h-full relative">
 
@@ -73,11 +73,11 @@
 
         </div>
 
-        <div class="flex items-start justify-start">
+        <div class="flex items-start justify-start pb-2 sm:pb-0">
             @if ($Evaluation->status == 'pending')
             <h1 class="px-2 py-2 text-center text-gray-700 2xl:text-sm text-xs w-full">Wait for the admin to validate</h1>
             @else
-            <a href={{ route('evaluate-pdf',$Evaluation->id ) }} class="bg-blue-400 hover:bg-blue-500 px-2 py-2 text-center rounded-xl text-white 2xl:text-sm text-xs w-full">Click here to download PDF</a>
+            <a href={{ route('evaluate-pdf',$Evaluation->id ) }} class="bg-blue-400 hover:bg-blue-500 px-2 py-2 text-center rounded-lg sm:rounded-xl text-white 2xl:text-sm text-xs w-full">Click here to download PDF</a>
             @endif
         </div>
     </div>
