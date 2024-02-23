@@ -159,7 +159,7 @@
                                 <div id="div1" class="animated-div-container animated-div flex flex-col items-center justify-center space-y-2 text-green-500">
                                     <img src="{{ asset('img/confetti.png') }}" width="75" class="head-primary-main">
                                     <h1 class="text-2xl font-medium tracking-wide head-primary-sub">Congratulations </h1>
-                                    <p class="text-gray-700 tracking-wider">Your evaluation form has been verified.</p>
+                                    <p class="text-gray-700 tracking-wider text-center">Your evaluation form has been verified.</p>
                                 </div>
 
                                 <div id="div2" class="hidden-div-container hidden-div flex flex-col  lg:w-[80%] ">
@@ -168,7 +168,7 @@
                                             <img src="{{ asset('img/confetti.png') }}" width="35" class="head-primary-main">
                                             <div>
                                                 <h1 class="text-sm 2xl:text-lg submitted-text ">Congratulations</h1>
-                                                <p class="text-gray-500 tracking-wider submitted-description text-center text-xs">Your evaluation form has been verified. </p>
+                                                <p class="text-gray-500 tracking-wider submitted-description text-xs">Your evaluation form has been verified. </p>
                                             </div>
                                         </div>
                                         <h1>&nbsp;</h1>
