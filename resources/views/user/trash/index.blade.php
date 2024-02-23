@@ -13,7 +13,7 @@
             $maxLength = 18; // Adjust the maximum length as needed
             @endphp
 
-                <section class="m-8  rounded-lg text-slate-600 relative mt-4 2xl:mt-5 h-[82vh] bg-white 2xl:h-[87vh]">
+                <section class="h-full rounded-xl text-slate-600 relative  bg-white">
                     <header class="flex justify-between p-5 py-4 flex-col sm:flex-row">
                         <h1 class="xl:text-2xl sm:text-lg text-[.9rem] font-semibold tracking-wider text-slate-700">My Trash </h1>
 
@@ -40,13 +40,12 @@
                             <table class="w-full border-collapse bg-white text-left text-sm text-gray-500 xl:text-xs 2xl:text-sm">
                                 <thead class="bg-gray-50">
                                     <tr class="">
-                                        <th scope="col" class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-4 py-4 font-medium text-gray-600">File</th>
-                                        <th scope="col" class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-4 py-4 font-medium text-gray-600">Document Type</th>
-                                        <th scope="col" class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-4 py-4 font-medium text-gray-600">File Type</th>
-                                        <th scope="col" class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-4 py-4 font-medium text-gray-600">Deleted By</th>
-                                        <th scope="col" class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-4 py-4 font-medium text-gray-600">Date</th>
-                                        <th scope="col" class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-4 py-4 text-center font-medium text-gray-600 w-[5rem] 2xl:w-[8rem]">Action</th>
-
+                                        <th scope="col" class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-4 py-4 font-medium text-gray-600 text-[.7rem] sm:text-sm">File</th>
+                                        <th scope="col" class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-4 py-4 font-medium text-gray-600 text-[.7rem] sm:text-sm">Document Type</th>
+                                        <th scope="col" class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-4 py-4 font-medium text-gray-600 text-[.7rem] sm:text-sm">File Type</th>
+                                        <th scope="col" class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-4 py-4 font-medium text-gray-600 text-[.7rem] sm:text-sm">Deleted By</th>
+                                        <th scope="col" class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-4 py-4 font-medium text-gray-600 text-[.7rem] sm:text-sm">Date</th>
+                                        <th scope="col" class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-4 py-4 text-center font-medium text-gray-600 w-[5rem] 2xl:w-[8rem] text-[.7rem] sm:text-sm">Action</th>
                                     </tr>
                                 </thead>
 
@@ -103,7 +102,7 @@
                                                     Folder
                                                 </td>
 
-                                                <td class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-4 py-4 text-xs 2xl:text-xs">
+                                                <td class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-4 py-4 text-xs">
                                                     @foreach ($trashedRecord as $record )
                                                         @if ($trashes->uuid == $record->uuid)
                                                             <div class="relative h-5 w-5 flex space-x-2 items-center">
@@ -114,7 +113,7 @@
                                                     @endforeach
                                                 </td>
 
-                                                <td class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-4 py-4 text-xs 2xl:text-xs">
+                                                <td class="px-4 xl:pl-4 xl:px-0 2xl:px-4 2xl:pl-4 py-4 text-xs">
                                                     {{ \Carbon\Carbon::parse($trashes->updated_at)->format('M d, Y,  g:i:s A')}}
                                                 </td>
 
@@ -208,24 +207,25 @@
                                                                 <x-slot name="scripts">
                                                                     <div class="flex items-center  space-x-2 " target="__blank">
                                                                         <div>
-                                                                            @if ($mediaLibrary->mime_type == 'image/jpeg' || $mediaLibrary->mime_type == 'image/png' || $mediaLibrary->mime_type == 'image/jpg')
-                                                                                <img src="{{ asset('img/image-icon.png') }}" class="xl:w-[2rem]" width="30">
-                                                                            @elseif ($mediaLibrary->mime_type == 'text/plain')
-                                                                                <img src="{{ asset('img/text-document.png') }}" class="xl:w-[2rem]" width="30">
-                                                                            @elseif ($mediaLibrary->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-                                                                                <img src="{{ asset('img/docx.png') }}" class="xl:w-[2rem]" width="30">
-                                                                                @else
+                                                                            <div class="hidden md:block">
+                                                                                @if ($mediaLibrary->mime_type == 'image/jpeg' || $mediaLibrary->mime_type == 'image/png' || $mediaLibrary->mime_type == 'image/jpg')
+                                                                                    <img src="{{ asset('img/image-icon.png') }}" class="xl:w-[2rem]" width="30">
+                                                                                @elseif ($mediaLibrary->mime_type == 'text/plain')
+                                                                                    <img src="{{ asset('img/text-document.png') }}" class="xl:w-[2rem]" width="30">
+                                                                                @elseif ($mediaLibrary->mime_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+                                                                                    <img src="{{ asset('img/docx.png') }}" class="xl:w-[2rem]" width="30">
+                                                                                    @else
                                                                                 <img src="{{ asset('img/pdf.png') }}" class="xl:w-[2rem]" width="30">
-                                                                            @endif
-
+                                                                                @endif
+                                                                            </div>
 
                                                                         </div>
 
                                                                         <div class="text-xs text-left">
                                                                             @if (strlen($mediaLibrary->file_name) <= 10)
-                                                                            <span>{{ Str::limit($mediaLibrary->file_name, 20) }} {{ substr($mediaLibrary->file_name, -$maxLength) }}</span>
+                                                                            <span>{{ Str::limit($mediaLibrary->file_name, 15) }} {{ substr($mediaLibrary->file_name, -$maxLength) }}</span>
                                                                             @else
-                                                                            <span>{{ Str::limit($mediaLibrary->file_name, 20) }} {{ substr($mediaLibrary->file_name, -$maxLength) }}</span>
+                                                                            <span>{{ Str::limit($mediaLibrary->file_name, 15) }} {{ substr($mediaLibrary->file_name, -$maxLength) }}</span>
                                                                             @endif
                                                                         </div>
                                                                     </div>
