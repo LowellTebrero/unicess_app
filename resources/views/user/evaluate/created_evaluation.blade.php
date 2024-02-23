@@ -137,7 +137,7 @@
                                 <div id="div1" class="animated-div-container animated-div flex space-y-3 items-center justify-center flex-col text-green-500 text-lg font-medium">
                                     <img src="{{ asset('img/submit-successfully.png') }}" width="90" class="submitted-image">
                                     <h1 class="text-xl submitted-text">Evaluation form submitted </h1>
-                                    <p class="text-gray-500 tracking-wider text-sm submitted-description">Please wait for the admin to verify your evaluation form. </p>
+                                    <p class="text-gray-500 tracking-wider text-sm submitted-description text-center">Please wait for the admin to verify your evaluation form. </p>
                                 </div>
 
                                 <div id="div2" class="hidden-div-container hidden-div flex flex-col lg:w-[80%] ">
