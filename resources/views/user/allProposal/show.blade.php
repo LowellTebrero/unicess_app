@@ -274,20 +274,22 @@
                     </div>
                     <hr>
 
-                    <div class=" flex space-x-4  w-[95%] mt-5 mx-auto h-[40vh] ">
-                        <div class="w-3/4 h-full">
+                    <div class=" flex sm:space-x-4 flex-col sm:flex-row  w-[95%] mt-5 mx-auto h-[40vh] ">
+
+                        <div class="w-full h-[30%]  sm:w-3/4 sm:h-full">
                             @foreach ($proposals->AdminProgram as $adminProgram)
                             <img class="rounded-lg h-full object-cover w-full"
                             src="{{!empty($adminProgram->image) ? url('upload/image-folder/program-services-folder/' . $adminProgram->image) : url('upload/CESO.png') }}">
                             @endforeach
                         </div>
-                        <div class="w-full h-full p-4 pt-0">
-                              <h1 class="hidden 2xl:block text-xs text-gray-500 tracking-wide">{{ \Carbon\Carbon::parse($proposals->created_at)->format('M d, Y ') }}</h1>
-                              <h1 class="text-lg 2xl:text-2xl 2xl:mt-4 font-medium">{{ $proposals->project_title }}</h1>
-                              <h1 class="text-xs 2xl:text-sm">{{ $proposals->programs->program_name }}</h1>
 
-                              <div class="mt-5 overflow-y-auto h-[17vh] 2xl:h-[20vh]  scrollbar" id="style-2">
-                                <p class="text-xs text-justify text-gray-500">
+                        <div class="w-full h-[30%] sm:h-full p-2 sm:p-4 pt-3 sm:pt-0 ">
+                              <h1 class="hidden 2xl:block text-xs text-gray-500 tracking-wide">{{ \Carbon\Carbon::parse($proposals->created_at)->format('M d, Y ') }}</h1>
+                              <h1 class="text-[.8rem] sm:text-base lg:text-lg 2xl:text-2xl 2xl:mt-4 font-medium">{{ $proposals->project_title }}</h1>
+                              <h1 class="text-[.6rem] sm:text-xs 2xl:text-sm">{{ $proposals->programs->program_name }}</h1>
+
+                              <div class="mt-5 overflow-y-auto h-[10vh] sm:h-[17vh] 2xl:h-[20vh] scrollbar" id="style-2">
+                                <p class="text-[.6rem] sm:text-xs text-justify text-gray-500">
                                     @foreach ($proposals->AdminProgram as $adminProgram)
                                         @if (!empty($adminProgram->description))
                                             {{$adminProgram->description}}
@@ -298,7 +300,7 @@
                                   </p>
                               </div>
 
-                              <div class="mt-5 flex items-center space-x-10 justify-between">
+                              <div class="mt-0 sm:mt-5 flex items-center space-x-10 justify-between">
                                 <div class="space-x-2 flex items-center">
                                     <img class="rounded-full"
                                     src="{{!empty($proposals->user->avatar) ? url('upload/image-folder/profile-image/' . $proposals->user->avatar) : url('upload/profile.png') }}"
@@ -330,7 +332,7 @@
 
                     </div>
 
-                    <main class="h-[20vh] 2xl:h-auto  overflow-y-auto w-[95%] mt-5 mx-auto grid 2xl:grid-cols-5 grid-cols-4 bg-gray-50 2xl:bg-white gap-4">
+                    <main class="sm:-[15vh] lg:h-[20vh] 2xl:h-auto  overflow-y-auto w-[95%] mt-5 mx-auto grid 2xl:grid-cols-5 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 bg-gray-50 2xl:bg-white gap-4">
 
                         @foreach($uniqueProposalFiles as $proposalfile)
                             @if ($proposalfile->collection_name == 'proposalPdf')
