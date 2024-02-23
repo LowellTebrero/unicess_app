@@ -149,7 +149,7 @@
                                                 <p class="text-gray-500 submitted-description text-[.6rem] sm:text-xs">Please wait for the admin to verify your evaluation form.</p>
                                             </div>
                                         </div>
-                                    <h1>&nbsp;</h1>
+
                                     </div>
                                     @include('user.evaluate.index_filter._filter_userform1_index')
                                 </div>
@@ -168,7 +168,7 @@
                                             <img src="{{ asset('img/confetti.png') }}" width="35" class="head-primary-main">
                                             <div>
                                                 <h1 class="text-sm 2xl:text-lg submitted-text ">Congratulations</h1>
-                                                <p class="text-gray-500 tracking-wider submitted-description text-xs">Your evaluation form has been verified. </p>
+                                                <p class="text-gray-500 tracking-wider submitted-description text-center text-xs">Your evaluation form has been verified. </p>
                                             </div>
                                         </div>
                                         <h1>&nbsp;</h1>
