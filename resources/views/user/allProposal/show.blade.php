@@ -305,8 +305,8 @@
                                     <img class="rounded-full"
                                     src="{{!empty($proposals->user->avatar) ? url('upload/image-folder/profile-image/' . $proposals->user->avatar) : url('upload/profile.png') }}"
                                     width="30" height="20">
-                                    <h1 class="text-xs text-gray-400">{{$proposals->user->first_name}}</h1>
-                                    <h1 class="block 2xl:hidden text-xs text-gray-400 tracking-wide">{{ \Carbon\Carbon::parse($proposals->created_at)->format('M d, Y ') }}</h1>
+                                    <h1 class="text-[.6rem]  text-xs text-gray-400">{{$proposals->user->first_name}}</h1>
+                                    <h1 class="block 2xl:hidden text-[.6rem] sm:text-xs text-gray-400 tracking-wide">{{ \Carbon\Carbon::parse($proposals->created_at)->format('M d, Y ') }}</h1>
                                 </div>
 
                                 <div class="flex space-x-2 justify-center items-center">
