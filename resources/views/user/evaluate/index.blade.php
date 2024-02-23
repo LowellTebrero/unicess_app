@@ -3,11 +3,11 @@
 @if (Auth::user()->authorize == 'checked')
 @unlessrole('admin|New User')
 
-    <section class="m-8  rounded-lg text-slate-600 relative mt-4 2xl:mt-5 h-[82vh] bg-white 2xl:h-[87vh]">
+    <section class="h-full rounded-xl text-slate-600 relative  bg-white">
 
-        <header class="flex justify-between p-5 py-4 flex-col sm:flex-row">
-            <h1 class="xl:text-2xl sm:text-lg text-[.9rem] font-semibold tracking-wider text-slate-700">Evaluation overview <button data-tooltip-target="tooltip-right3" data-tooltip-placement="bottom" class="inline-block" type="button"><img src="{{ asset('img/i.png') }}" width="18" alt=""></button></h1>
-            <select name="Years" id="Years" class="sm:text-sm text-xs  border-slate-500 rounded-lg">
+        <header class="flex justify-between p-5 py-2 sm:py-4 items-center">
+            <h1 class="xl:text-2xl sm:text-lg text-[.8rem] font-semibold tracking-wider text-slate-700">Evaluation overview <button data-tooltip-target="tooltip-right3" data-tooltip-placement="bottom" class="inline-block" type="button"><img src="{{ asset('img/i.png') }}" width="18" alt=""></button></h1>
+            <select name="Years" id="Years" class="sm:text-sm text-xs  border-slate-500 rounded-lg w-[5rem] sm:w-[10rem]">
                 @foreach ($years as $year )
                 <option value="{{ $year }}">{{ $year }}</option>
                 @endforeach

@@ -4,20 +4,20 @@
         @unlessrole('admin|New User')
             <style>[x-cloak] {display: none}</style>
 
-            <section class="mt-4 2xl:mt-5 m-8 bg-white rounded-lg h-[82vh] 2xl:h-[87vh] text-gray-600">
+            <section class="h-full bg-white rounded-xl text-gray-600">
 
-                <div class="p-4 flex justify-between sm:flex-col space-y-2 sm:space-y-0 md:flex-row flex-col space-x-0">
-                    <h1 class="font-semibold tracking-wider sm:text-xl xl:text-2xl text-slate-700 text-base">My Inventory</h1>
+                <div class="p-4 flex justify-between items-center">
+                    <h1 class="font-semibold tracking-wider text-sm sm:text-base xl:text-2xl text-slate-700">My Inventory</h1>
 
                     <div class="sm:space-x-2 space-y-2">
-                        <input id="searchInput"  class="text-xs rounded border border-slate-400 sm:w-[15rem] xl:w-[20rem] w-full" type="text" placeholder="Search Project Title...">
-                        <select name="Years" id="Years" class="md:text-xs text-xs  border-slate-400 rounded w-full sm:w-[8rem]">
+                        <input id="searchInput"  class="text-xs rounded border border-slate-400 sm:w-[12rem] xl:w-[20rem] w-[7rem]" type="text" placeholder="Search Project Title...">
+                        <select name="Years" id="Years" class="md:text-xs text-xs  border-slate-400 rounded w-[3rem] sm:w-[5rem]">
                             @foreach ($years as $year )
                             <option value="{{ $year }}" @if ($year == date('Y')) selected="selected" @endif >{{ $year }}</option>
                             @endforeach
                         </select>
 
-                        <select id="myDropdown" class="rounded text-xs w-full sm:w-[8rem] border-slate-400">
+                        <select id="myDropdown" class="rounded text-xs w-[2rem] sm:w-[4rem] border-slate-400">
                             @foreach ($inventory as $invent )
                             <option value="1" {{ old('1', $invent->number) == '1' ? 'selected' : '' }}>Tiles</option>
                             <option value="2" {{ old('2', $invent->number) == '2' ? 'selected' : '' }}>Medium Icon</option>
@@ -29,7 +29,7 @@
                 <hr>
                 @if ($proposalmember->isEmpty())
                 <div class="h-[45vh] 2xl:h-[60vh] flex flex-col items-center justify-center space-y-2">
-                    <img class="w-[13rem]" src="{{ asset('img/Empty.jpg') }}">
+                    <img class="w-[10rem] sm:w-[13rem]" src="{{ asset('img/Empty.jpg') }}">
                     <h1 class="text-md text-gray-500">It’s empty here</h1>
                 </div>
                 @else
