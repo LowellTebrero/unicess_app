@@ -46,7 +46,7 @@
 
     <x-admin-layout>
 
-        <section class="bg-white shadow rounded-xl m-4 sm:m-8 mt-4 2xl:mt-5 h-[82vh] 2xl:min-h-[87vh] text-gray-600 overflow-hidden">
+        <section class="bg-white shadow rounded-xl h-full text-gray-600 overflow-hidden">
 
             @if ($proposals == null)
                 <div class="flex justify-between p-2 2xl:p-3 bg-white rounded-tl rounded-tr">
