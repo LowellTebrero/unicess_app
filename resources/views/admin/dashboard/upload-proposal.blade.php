@@ -30,7 +30,7 @@
         @endforeach
     @endif
 
-    <section class="mt-4 2xl:mt-5 m-4 sm:m-8 rounded-xl 2xl:h-[87vh] h-[82vh] overflow-x-auto bg-white text-gray-700">
+    <section class="h-full rounded-xl overflow-x-auto bg-white text-gray-700">
 
         <header class="flex justify-between items-center p-4 xl:py-3 2xl:py-4 sticky top-0 bg-white z-10">
             <h1 class="2xl:text-2xl xl:text-lg text-[.9rem] font-semibold text-slate-600">Upload Project <span
