@@ -18,7 +18,7 @@
 
                 <div class="flex justify-between items-center xl:p-4 p-2">
                     <h2 class="hidden xl:block font-semibold text-gray-600 2xl:text-sm xl:text-xs xl:mr-2 text-xs">Project Dashboard</h2>
-                    <div class="block xl:hidden">
+                    {{--  <div class="block xl:hidden">
                         <header class="space-x-2 sm:px-2 xl:pb-4  flex justify-between">
                             <div class="flex flex-col sm:flex-row  md:flex-row sm:justify-between space-y-2 sm:space-y-0 space-x-0  w-full">
                                 <div class="flex sm:space-x-2 space-x-1  items-center">
@@ -41,7 +41,7 @@
                                 </div>
                             </div>
                         </header>
-                    </div>
+                    </div>  --}}
 
                     <!-- Create Proposal -->
                     <a href={{ route('admin.dashboard.create') }}
