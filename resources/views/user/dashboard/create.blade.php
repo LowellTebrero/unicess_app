@@ -24,7 +24,7 @@
 
     </style>
 
-    <section class="h-full rounded-xl  overflow-x-auto bg-white text-gray-700">
+    <section class="h-auto 2xl:h-full rounded-xl overflow-x-auto bg-white text-gray-700">
 
         <header class="flex justify-between items-center p-4 xl:py-3 2xl:py-4 sticky top-0 bg-white z-10">
             <h1 class="2xl:text-2xl xl:text-lg text-[.9rem] font-semibold text-slate-600">Upload Project <span

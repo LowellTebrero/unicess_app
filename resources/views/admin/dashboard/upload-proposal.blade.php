@@ -30,9 +30,9 @@
         @endforeach
     @endif
 
-    <section class="h-full rounded-xl overflow-x-auto bg-white text-gray-700">
+    <section class="h-auto 2xl:h-full rounded-lg overflow-x-auto bg-white text-gray-700">
 
-        <header class="flex justify-between items-center p-4 xl:py-3 2xl:py-4 sticky top-0 bg-white z-10">
+        <header class="flex justify-between items-center p-4 xl:py-3 2xl:py-4 2xl:sticky top-0 bg-white z-10">
             <h1 class="2xl:text-2xl xl:text-lg text-[.9rem] font-semibold text-slate-600">Upload Project <span
                     class="text-red-500 text-xs tracking-wide font-light"> (*) required fields</span></h1>
             <a href="{{ route('admin.dashboard.index') }}" class="text-red-500 text-xl hover:bg-gray-200 rounded-md  focus:bg-gray-300 focus:rounded">

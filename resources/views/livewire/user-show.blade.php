@@ -1,14 +1,14 @@
-   
+
 
 <div class="bg-white shadow-lg rounded-lg h-full text-gray-700 relative overflow-hidden">
 
     <nav id="nav" class="absolute top-0 h-full right-0 w-[0rem] bg-gray-500 z-10 text-white transition-all">
-        
+
         <div class="p-4 relative">
             <a href="javascript:void(0)" class="absolute top-2 right-2 text-2xl" onclick="closeNav()">×</a>
             <h1 class="text-xs mt-5 mb-3">Options</h1>
 
-            <div class="navoption2 text-gray-700 flex space-y-2 w-full">            
+            <div class="navoption2 text-gray-700 flex space-y-2 w-full ">
                 <select class="text-xs 2xl:text-sm  rounded border-slate-400 w-full"
                     wire:model="selectedFaculty">
                     @foreach ($faculties as $id => $name)
@@ -113,7 +113,7 @@
 
             <button class="block md:hidden" onclick="openNav()">☰</button>
 
-            <div class="navoption1">            
+            <div class="navoption1">
                 <select class="text-xs 2xl:text-sm  rounded border-slate-400 w-[5rem] lg:w-[10rem]"
                     wire:model="selectedFaculty">
                     @foreach ($faculties as $id => $name)
@@ -152,7 +152,7 @@
                     <th class="p-2 whitespace-nowrap text-left">Action</th>
                 </tr>
             </thead>
-            <tbody class="">
+            <tbody>
 
                 @forelse ($users as $user )
 
@@ -234,20 +234,21 @@
         </table>
 
     </div>
-    <div class="px-4 pb-2 text-xs md:text-sm">{{ $users->links() }}</div>
-    </div>
+    <div class="px-4">{{ $users->links() }}</div>
 </div>
+
+
 <x-messages/>
 
         <script>
 
             function openNav() {
-               
+
                 document.getElementById("nav").style.width = "10rem";
-                
+
             }
             function closeNav() {
-              
+
                 document.getElementById("nav").style.width = "0";
             }
         </script>

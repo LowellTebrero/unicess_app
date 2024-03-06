@@ -2,26 +2,32 @@
 
     <style>
         @media screen and (max-width: 767px) {
-    
-        .navoption1 {
-         display: none;
+            .navoption1 {
+                display: none;
+            }
+            .navoption2 {
+                display: block;
+            }
         }
 
-        .navoption2 {
+        @media screen and (min-width: 768px) and (max-width: 1536px) {
+            .navoption1 {
+                display: block;
+            }
+            .navoption2 {
+                display: none;
+            }
 
-            display: block;
-           }
-    
         }
-       
-        </style>
+
+    </style>
 
     @section('title', 'Accounts | ' . config('app.name', 'UniCESS'))
-    <div>
+    <div class="h-full">
         <livewire:user-show>
     </div>
 
 
-    
+
 
 </x-admin-layout>

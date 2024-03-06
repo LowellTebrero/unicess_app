@@ -16,7 +16,7 @@
             <section class="h-full flex flex-col space-y-4">
 
                 <div class="h-[15vh] grid grid-cols-2 sm:grid-cols-4 gap-2 mb-10 sm:mb-0">
-                    <a href={{ route('User-dashboard.profile') }} class="w-full rounded-lg hover:border hover:border-teal-400 hover:from-cyan-300 hover:to-sky-200 bg-gradient-to-tl from-cyan-400 to-sky-300 pt-2 sm:pt-4 md:p-2 xl:px-5 2xl:px-10 2xl:py-9 xl:py-5 flex flex-row px-2 space-x-2 sm:flex-col xl:flex-row lg:pt-3 xl:p-0 items-center">
+                    <a href={{ route('User-dashboard.profile') }} class="w-full rounded-lg  hover:from-cyan-300 hover:to-sky-200 bg-gradient-to-tl from-cyan-400 to-sky-300 pt-2 sm:pt-4 md:p-2 xl:px-5 2xl:px-10 2xl:py-9 xl:py-5 flex flex-row px-2 space-x-2 sm:flex-col xl:flex-row lg:pt-3 xl:p-0 items-center">
                         @if($user->gender == 'female')
                         <img src="{{ asset('/img/female.svg') }}" class="2xl:w-24 xl:mr-5 2xl:mr-8  xl:w-16 xl:h-16 2xl:h-20 w-12">
                         @elseif($user->gender == 'male')
@@ -31,7 +31,6 @@
                                 @endforeach
                             </span>
                         </h1>
-
                     </a>
 
                     <div class="w-full rounded-lg bg-gradient-to-tl from-violet-400 to-sky-500 p-2 xl:px-5 xl:py-5 2xl:px-10 2xl:py-5 flex lg:p-2 relative">
@@ -335,11 +334,6 @@
         updateDynamicTime();
         updateGreeting();
     </script>
-
-
-
-
-
 
     @endsection
 </x-app-layout>
