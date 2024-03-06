@@ -46,7 +46,7 @@
 
     <x-admin-layout>
 
-        <section class="bg-white shadow rounded-xl h-full text-gray-600 overflow-hidden">
+        <section class="bg-white shadow rounded-lg h-full text-gray-600 overflow-hidden">
 
             @if ($proposals == null)
                 <div class="flex justify-between p-2 2xl:p-3 bg-white rounded-tl rounded-tr">
@@ -87,7 +87,7 @@
                 <hr>
 
                 {{--  Wrapper  --}}
-                <div class="flex">
+                <div class="flex h-full ">
 
                     {{--  Container-1  --}}
                     <div class="border-r hidden lg:block p-4 w-[20rem] xl:w-[20rem]">
@@ -222,7 +222,7 @@
                             </div>
                         </div>
 
-                        <div class="mb-2 mt-5 xl:mt-0 w-full overflow-x-auto h-[15vh] 2xl:h-[20vh]">
+                        <div class="mb-2 mt-5 xl:mt-0 w-full overflow-x-auto h-[20vh] 2xl:h-[20vh]">
                             <div class="w-full sticky top-0 z-10  bg-white">
                             <label class="text-gray-700 font-semibold xl:text-[.7rem] text-[.7rem] ">Project Member(s)</label>
                             </div>
@@ -260,7 +260,7 @@
                     </div>
 
                     {{--  Container-2  --}}
-                    <div class="w-full flex flex-col relative">
+                    <div class="w-full h-full flex flex-col relative">
 
                         <!-- Modal Upload modal documents -->
                         <div id="modal-upload-documents" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -821,7 +821,7 @@
                         </div>
 
                         <!-- Media -->
-                        <div class="overflow-x-auto h-[74vh] 2xl:h-[77vh]">
+                        <div class="overflow-x-auto h-auto 2xl:h-[77vh] ">
                             <div class="flex py-3 items-center flex-wrap px-2">
 
                                 @foreach($uniqueProposalFiles as $proposalfile)
@@ -3627,7 +3627,6 @@
             });
         });
 
-
         document.addEventListener('DOMContentLoaded', function () {
 
 
@@ -3938,8 +3937,6 @@
         });
 
 
-
-
         function openNav() {
             document.getElementById("mySidebar").style.width = "100%";
             document.getElementById("subSidebar").style.width = "15rem";
@@ -4009,11 +4006,7 @@
             // Set the disabled property of the button based on the condition
             $('#upload-file').prop('disabled', allFilesEmpty);
         });
-    </script>
 
-
-
-    <script>
         function displayTravelFileNames(input) {
             // Get the selected files
             var files = input.files;
