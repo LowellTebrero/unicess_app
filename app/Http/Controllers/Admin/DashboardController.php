@@ -18,7 +18,9 @@ use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use App\Models\AdminProgramServices;
+use Illuminate\Support\Facades\Http;
 use App\Models\CustomizeAdminProposal;
+use Illuminate\Support\Facades\Storage;
 use App\Notifications\ProposalNotification;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\UserTagProposalNotification;
@@ -27,6 +29,22 @@ use App\Notifications\UserTagRemoveProposalNotification;
 
 class DashboardController extends Controller
 {
+
+    private function token(){
+        $client_id = \Config('services.google.client_id');
+        $client_secret = \Config('services.google.client_secret');
+        $refresh_token = \Config('services.google.refresh_token');
+        $response = Http::post('https://oauth2.googleapis.com/token', [
+            'client_id' => $client_id,
+            'client_secret' => $client_secret,
+            'refresh_token' => $refresh_token,
+            'grant_type' => 'refresh_token',
+        ]);
+
+        $accessToken = json_decode((string)$response->getBody(),true)['access_token'];
+        return $accessToken;
+    }
+
     public function create(){
 
         $programs = Program::orderBy('program_name')->pluck('program_name', 'id')->prepend('Select Program', '');
@@ -61,6 +79,8 @@ class DashboardController extends Controller
             'required_without_all' => 'Please upload at least one file among Proposal PDF, Special Order PDF, MOA PDF, Office Order PDF, Travel Order PDF.',
             'project_title.regex' => 'Invalid characters: \ / : * ? " < > |',
         ]);
+
+        // $accessToken = $this->token();
 
         $uuid = Str::random(7);
         $post = new Proposal();
@@ -99,6 +119,37 @@ class DashboardController extends Controller
             $collect->user_id = auth()->id();
             $collect->collection_name = 'proposalPdf' ;
             $collect->save();
+
+
+            // $name = $request->proposal_pdf->getClientOriginalName();
+            // $path = $request->proposal_pdf->getRealPath();
+
+            // dd($path);
+
+            // Debugging: Check the value of $name and $path
+            // echo $name;
+
+
+            // $response = Http::withToken($accessToken)
+            //     ->attach('data', file_get_contents($path), $name)
+            //     ->post('https://www.googleapis.com/upload/drive/v3/files', [
+            //         'name' => $name,
+            //     ], [
+            //         'Content-Type' => 'application/octet-stream',
+            //     ]);
+
+            // // Debugging: Log response for inspection
+            // // Log::info($response->body());
+
+            // if ($response->successful()) {
+            //     return response('File uploaded to Google Drive');
+            // } else {
+            //     return response('File failed to upload in Google Drive');
+            // }
+
+
+
+
         }
 
         if ($request->hasFile('moa_pdf')) {
@@ -194,6 +245,10 @@ class DashboardController extends Controller
                 $collect->save();
             }
         }
+
+
+
+
 
 
         AdminProgramServices::create([

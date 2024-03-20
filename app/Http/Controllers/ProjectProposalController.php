@@ -65,16 +65,23 @@ class ProjectProposalController extends Controller
 
         $ids = $request->ids;
         DB::table('notifications')->whereJsonContains('data->proposal_id', $ids)->delete();
-        $proposalDelete =  Proposal::where('id',$ids)->first();
+        // Delete proposals
 
-        $trashRecord = new TrashedRecord();
-        $trashRecord->uuid = $proposalDelete->uuid;
-        $trashRecord->user_id = Auth()->user()->id;
-        $trashRecord->name = $proposalDelete->project_title;
-        $trashRecord->type = 'project';
-        $trashRecord->save();
 
-        $proposalDelete->delete();
+    // Create TrashedRecord for each deleted proposal
+    foreach ($ids as $id) {
+        $proposalDelete = Proposal::find($id);
+        if ($proposalDelete) {
+            $trashRecord = new TrashedRecord();
+            $trashRecord->uuid = $proposalDelete->uuid;
+            $trashRecord->user_id = Auth()->user()->id;
+            $trashRecord->name = $proposalDelete->project_title;
+            $trashRecord->type = 'project';
+            $trashRecord->save();
+        }
+    }
+
+    Proposal::whereIn('id', $ids)->delete();
 
         if ($proposalDelete) {
             // Flash a success message
