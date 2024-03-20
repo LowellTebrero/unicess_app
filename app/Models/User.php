@@ -96,18 +96,13 @@ class User extends Authenticatable implements MustVerifyEmail
        return $this->belongsTo(Faculty::class, 'faculty_id');
     }
 
-    public function partners()
-    {
-       return $this->belongsTo(Partner::class, 'partners_id');
-    }
+
 
     public function proposal(){
         return $this->hasMany(Proposal::class);
     }
 
-    public function proposalrequest(){
-        return $this->hasMany(ProposalRequest::class);
-    }
+
 
     public function evaluation(){
         return $this->hasMany(Evaluation::class);
@@ -132,7 +127,8 @@ class User extends Authenticatable implements MustVerifyEmail
             $search = "%$search%";
     return  $query->where(function($query) use ($search){
 
-            $query->where('first_name', 'like',   $search)
+            $query->where('name', 'like',   $search)
+                ->orWhere('first_name', 'like',   $search)
                 ->orWhere('middle_name', 'like',   $search)
                 ->orWhere('last_name', 'like',   $search)
                 ->orWhere('gender', 'like',    $search)

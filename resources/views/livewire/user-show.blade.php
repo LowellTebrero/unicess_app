@@ -143,11 +143,12 @@
         <table class="table-auto w-full border-collapse">
             <thead class="text-[.7rem] text-gray-700 uppercase sticky top-0 bg-gray-200 w-full">
                 <tr>
+                    <th class="p-2 whitespace-nowrap text-left">Username</th>
                     <th class="p-2 whitespace-nowrap text-left">First Name</th>
                     <th class="p-2 whitespace-nowrap text-left">Last Name</th>
                     <th class="p-2 whitespace-nowrap text-left">Email</th>
                     <th class="p-2 whitespace-nowrap text-left">Department Name</th>
-                    <th class="p-2 whitespace-nowrap text-left hidden md:block">Role</th>
+                    {{-- <th class="p-2 whitespace-nowrap text-left hidden md:block">Role</th> --}}
                     <th class="p-2 whitespace-nowrap text-left">Authorize</th>
                     <th class="p-2 whitespace-nowrap text-left">Action</th>
                 </tr>
@@ -158,6 +159,13 @@
 
                     <tr class="text-xs 2xl:text-sm  hover:bg-slate-200 border-b  dark:border-gray-500 text-gray-600">
 
+                        <td class="p-3 whitespace-nowrap">
+                            <a href={{ route('admin.users.show', ['user' => $user->id, 'user_id' =>  $user->id ]) }}>
+                            <div class="text-left">
+                                <div>{{ $user->name == null ? '----------' : $user->name }}</div>
+                            </div>
+                            </a>
+                        </td>
                         <td class="p-3 whitespace-nowrap">
                             <a href={{ route('admin.users.show', ['user' => $user->id, 'user_id' =>  $user->id ]) }}>
                             <div class="text-left">
@@ -187,7 +195,7 @@
                                 </a>
                         </td>
 
-                        <td class="hidden md:block">
+                        {{-- <td class="hidden md:block">
                             <a href={{ route('admin.users.show',  ['user' => $user->id, 'user_id' =>  $user->id ]) }}>
                             <div class="text-left">
                                 @if (!empty($user->getRoleNames()))
@@ -197,7 +205,7 @@
                                 @endif
                             </div>
                             </a>
-                        </td>
+                        </td> --}}
                         <td>
                             <a href={{ route('admin.users.show',  ['user' => $user->id, 'user_id' =>  $user->id ]) }}>
                             <div class="text-left">
