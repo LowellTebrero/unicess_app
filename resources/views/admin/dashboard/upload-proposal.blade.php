@@ -1,7 +1,7 @@
 <x-admin-layout>
     <style>
         [x-cloak] {
-            display: none
+            display: none;
         }
 
         form button:disabled,
