@@ -119,7 +119,7 @@
                         eventRender: function (event, element) {
                             // Set the HTML content of the event element
                             // ...
-                        element.html('<strong class="tracking-wider">' + event.title + '</strong><br><span class="text-[.7rem] tracking-wider">' + event.description + '</span>');
+                        element.html('<strong class="tracking-wider">' + event.title + '</strong>');
 
 
 
@@ -129,9 +129,6 @@
                                 borderRadius: '5px', // Optional: Add border-radius for rounded corners
                                 backgroundColor: '#3080ff', // Optional: Add a background color
                                 cursor: 'pointer',
-
-
-
                             });
                         }
                     });
