@@ -73,9 +73,7 @@ class ExtensionMonitoring extends Component
             })
 
             ->when($this->collegesStatus, function ($query) {
-                $query->whereHas('user', function ($query) {
-                    $query->where('colleges', $this->collegesStatus);
-                });
+                $query->where('proposals.colleges_name', $this->collegesStatus); // Filter by year
             })
 
             ->when($startDate && $endDate, function ($query) use ($startDate, $endDate) {

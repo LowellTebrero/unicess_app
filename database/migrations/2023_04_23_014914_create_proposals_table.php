@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('uuid', 7);
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('program_id');
+            $table->string('colleges_name')->nullable();
             $table->dateTime('started_date')->nullable();
             $table->dateTime('finished_date')->nullable();
             $table->longtext('project_title');

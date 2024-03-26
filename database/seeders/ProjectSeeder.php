@@ -37,6 +37,7 @@ class ProjectSeeder extends Seeder
                 'uuid' => Str::random(7),
                 'project_title' => $faker->sentence(),
                 'program_id' => $faker->numberBetween(1, 8),
+                'colleges_name' => $faker->randomElement(['BSED', 'CAS', 'CME', 'COE','Graduate School']),
                 'started_date' => $faker->dateTimeBetween('-1 year', 'now')->format('Y-m-d'),
                 'finished_date' => $faker->dateTimeBetween('now', '+1 year')->format('Y-m-d'),
                 'authorize' => $faker->randomElement(['pending', 'finished', 'ongoing']),

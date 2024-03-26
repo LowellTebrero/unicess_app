@@ -51,6 +51,7 @@ class DashboardController extends Controller
         $request->validate([
 
             'program_id' => 'required',
+            'colleges_name' => 'required',
             'project_title' => ['regex:/^[^<>?:|\/"*]+$/','required','min:6' ,Rule::unique('proposals'), new UniqueTitle],
             'proposal_pdf' => "required_without_all:special_order_pdf,moa_pdf,office_order_pdf,travel_order_pdf,other_files,attendance,attendancem|file|mimes:pdf|max:10048",
             'moa_pdf' => "required_without_all:proposal_pdf,special_order_pdf,office_order_pdf,travel_order_pdf,other_files,attendance,attendancem|file|mimes:pdf|max:10048",
@@ -72,6 +73,7 @@ class DashboardController extends Controller
         $post = new Proposal();
         $post->uuid = $uuid;
         $post->program_id =  $request->program_id;
+        $post->colleges_name =  $request->colleges_name;
         $post->project_title =  $request->project_title;
         $post->started_date =  $request->started_date;
         $post->finished_date =  $request->finished_date;
@@ -201,11 +203,6 @@ class DashboardController extends Controller
                 $collect->save();
             }
         }
-
-
-
-
-
 
         AdminProgramServices::create([
             'proposal_id' => $post->id,

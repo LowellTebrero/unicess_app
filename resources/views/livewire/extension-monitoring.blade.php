@@ -8,13 +8,6 @@
 
             <input type="text" name="search" wire:model.debounce.500ms="search" id="search" class="w-[9rem] sm:w-[10rem] text-xs  rounded border-slate-400" placeholder="Search...">
 
-            <select class="text-xs  rounded border-slate-400 w-[8rem]" wire:model="status">
-                <option  value="">Status</option>
-                <option  value="pending">Pending</option>
-                <option  value="ongoing">Ongoing</option>
-                <option  value="finished">Finished</option>
-            </select>
-
             <select class="text-xs  rounded border-slate-400 w-[8rem]" wire:model="collegesStatus">
                 <option  value="">Colleges</option>
                 <option  value="BSED">BSED</option>
@@ -24,6 +17,15 @@
                 <option  value="Graduate School">Graduate School</option>
             </select>
 
+            <select class="text-xs  rounded border-slate-400 w-[8rem]" wire:model="status">
+                <option  value="">Status</option>
+                <option  value="pending">Pending</option>
+                <option  value="ongoing">Ongoing</option>
+                <option  value="finished">Finished</option>
+            </select>
+
+
+
             <select class="text-xs  rounded border-slate-400 w-[6rem]" wire:model="activationStatus">
                 <option  value="">Activation Status</option>
                 <option  value="active">Active</option>
@@ -31,16 +33,17 @@
             </select>
 
 
-            <select wire:model="paginate" name="paginate" id="paginate" class="w-[5rem] text-xs rounded  border-slate-400">
-                <option value="12">12</option>
-                <option value="50">50</option>
-                <option value="70">70</option>
-            </select>
 
             <select wire:model="semester" name="semester" id="semester" class="w-[7rem] text-xs rounded  border-slate-400">
                 <option  value="">Semester</option>
                 <option value="1">1st Semester</option>
                 <option value="2">2nd Semester</option>
+            </select>
+
+            <select wire:model="yearStatus" name="yearStatus" id="yearStatus" class="w-[6rem] text-xs rounded  border-slate-400">
+                @foreach ($years as $year )
+                <option value="{{ $year }}" @if ($yearStatus == date('Y')) selected="selected" @endif>{{ $year }}</option>
+                @endforeach
             </select>
 
             <select wire:model="date" name="date" id="date" class="w-[7rem] text-xs rounded border-slate-400">
@@ -52,19 +55,19 @@
             </select>
 
 
-            <select wire:model="yearStatus" name="yearStatus" id="yearStatus" class="w-[6rem] text-xs rounded  border-slate-400">
-                @foreach ($years as $year )
-                <option value="{{ $year }}" @if ($yearStatus == date('Y')) selected="selected" @endif>{{ $year }}</option>
-                @endforeach
-
+            <select wire:model="paginate" name="paginate" id="paginate" class="w-[5rem] text-xs rounded  border-slate-400">
+                <option value="12">12</option>
+                <option value="50">50</option>
+                <option value="70">70</option>
             </select>
+
 
         </div>
 
     </div>
 
 
-    <div class="overflow-x-auto p-2 pt-0 h-[65vh] 2xl:h-[75vh] ">
+    <div class="overflow-x-auto p-2 pt-0 h-[62vh] 2xl:h-[75vh] ">
         <table class="table-auto w-full border-collapse">
             <thead class="text-[.7rem] text-gray-700 uppercase sticky top-0 bg-gray-200 w-full">
                 @if ($allProposal->isNotEmpty())
@@ -135,7 +138,7 @@
                         <a href={{ route('admin.dashboard.edit-proposal', $proposal->id) }}>
 
                             <div class=" text-gray-600 text-[.6rem] xl:text-xs">
-                                {{ $proposal->user->colleges }}
+                                {{ $proposal->colleges_name }}
                             </div>
                         </a>
                     </td>
