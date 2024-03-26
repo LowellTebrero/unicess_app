@@ -20,7 +20,7 @@ class ProjectSeeder extends Seeder
     {
         $faker = Factory::create();
 
-        for ($i = 0; $i < 200; $i++) { // Assuming you want to create 100 data
+        for ($i = 0; $i < 100; $i++) { // Assuming you want to create 100 data
             $created_at = $faker->dateTimeThisYear();
             $updated_at = $faker->dateTimeThisYear();
 
