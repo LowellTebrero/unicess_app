@@ -76,6 +76,41 @@ class Proposal extends Model implements HasMedia
        return  $this->hasMany(AdminProgramServices::class, 'proposal_id');
     }
 
+    public function scopeSearch($query, $search)
+    {
+            $search = "%$search%";
+    return  $query->where(function($query) use ($search){
+
+            $query->where('project_title', 'like',   $search)
+            ->orWhere('proposals.authorize', 'like', $search)
+            ->orWhere('proposals.status', 'like', $search);
+            // ->orWhere('users.name', 'like', $search)
+            // ->orWhere('users.first_name', 'like', $search)
+            // ->orWhere('users.last_name', 'like', $search)
+            // ->orWhere('users.email', 'like', $search)
+            // ->orWhere('users.gender', 'like', $search)
+            // ->orWhere('users.colleges', 'like', $search);
+
+        })
+        ->orWhereHas('proposal_members', function ($query) use ($search) {
+            $query->whereHas('user', function ($query) use ($search) {
+                $query->where('name', 'like', $search)
+                ->orWhere('colleges', 'like', $search)
+                ->orWhere('first_name', 'like', $search)
+                ->orWhere('last_name', 'like', $search)
+                ->orWhere('email', 'like', $search)
+                ->orWhere('gender', 'like', $search)
+                ->orWhere('colleges', 'like', $search);
+            });
+
+        })
+        ->orWhereHas('user', function ($query) use ($search) {
+            $query->whereHas('faculty', function ($query) use ($search) {
+                $query->where('name', 'like', $search);
+            });
+        });
+
+    }
 
 
 

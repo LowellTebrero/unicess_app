@@ -176,6 +176,7 @@ class UserShow extends Component
             })
             ->orderBy('first_name', 'asc')
             ->paginate($this->paginate),
+
             'faculties' => Faculty::orderBy('name')->pluck('name', 'id')->prepend('All Faculties', ''),
             'roled' => Role::orderBy('name')->pluck('name', 'id')->prepend('All Role', ''),
             'Usercount' => User::doesntHave('roles', 'and', function ($query) {
@@ -191,6 +192,7 @@ class UserShow extends Component
                 $query->where('id', 1); })->get(['id', 'name'])->mapWithKeys(function ($user) {
                 return [$user->id => $user->name]; })->count(),
             'user' => User::with('role')->get(),
+
             'college_extension_coordinator' => DB::table('model_has_roles')
             ->where('model_type', 'App\Models\User')
             ->where('role_id', 2)

@@ -36,6 +36,7 @@ use App\Http\Controllers\Admin\AdminInventoryController;
 use App\Http\Controllers\Admin\GoogleCalendarController;
 use App\Http\Controllers\Admin\ProposalRequestController;
 use App\Http\Controllers\Admin\AdminArticleEventController;
+use App\Http\Controllers\Admin\ExtensionMonitoringController;
 use App\Http\Controllers\Admin\AdminProgramServicesController;
 use App\Http\Controllers\Admin\AdminPartnerBeneficiaryController;
 
@@ -113,6 +114,12 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
 
     });
 
+
+    Route::controller(ExtensionMonitoringController::class)->group(function () {
+        Route::get('/extension-index', 'index')->name('extension-monitoring.index');
+        Route::get('/show-extension/{uuid}', 'show')->name('extension-monitoring.show');
+
+    });
     Route::controller(AdminPointController::class)->group(function () {
         Route::get('/points', 'index')->name('points.index');
         Route::get('/points/{id}/{year}', 'show')->name('points.show');

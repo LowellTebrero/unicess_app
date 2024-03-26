@@ -59,6 +59,7 @@ class ProfileRoleController extends Controller
 
             'role' => ['required'],
             'faculty_id' => ['required'],
+            'colleges' => ['required'],
 
         ]);
         $user = User::find($id);
@@ -71,15 +72,21 @@ class ProfileRoleController extends Controller
             $request->faculty_id;
             $user->save();
         }
+        if($colleges = ($request->input('colleges'))){
+            $request->input('colleges');
+            $request->colleges;
+            $user->save();
+        }
 
 
         User::where('id', $id)->update([
 
         'faculty_id' => $faculties,
+        'colleges' => $colleges,
         ]);
 
 
-        flash()->addSuccess('Role and Faculty Updated Successfully');
+        flash()->addSuccess('Role and Department/College Updated Successfully');
         return back();
     }
 

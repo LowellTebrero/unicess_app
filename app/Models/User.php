@@ -33,6 +33,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $fillable = [
         'role',
         'faculty_id',
+        'colleges',
         'name',
         'first_name',
         'middle_name',
@@ -81,10 +82,7 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
 
-    public function posts(){
 
-        return  $this->hasMany(Post::class);
-     }
 
      public function getIsAdminAttribute()
      {
@@ -118,7 +116,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
 
 
-    public function role():BelongsToMany{
+    public function role(){
         return $this->belongsToMany(Role::class, 'model_has_roles' ,'model_id', 'role_id');
     }
 
@@ -135,7 +133,8 @@ class User extends Authenticatable implements MustVerifyEmail
                 ->orWhere('email', 'like',   $search)
                 ->orWhere('address', 'like',    $search)
                 ->orWhere('authorize', 'like',     $search)
-                ->orWhere('contact_number', 'like',   $search);
+                ->orWhere('contact_number', 'like',   $search)
+                ->orWhere('colleges', 'like',   $search);
         })
 
         ->orWhereHas('faculty', function($query) use ($search){

@@ -246,17 +246,17 @@
 </div>
 
 
-<x-messages/>
+    <x-messages/>
 
-        <script>
+    <script>
 
-            function openNav() {
+        function openNav() {
 
-                document.getElementById("nav").style.width = "10rem";
+            document.getElementById("nav").style.width = "10rem";
 
-            }
-            function closeNav() {
+        }
+        function closeNav() {
 
-                document.getElementById("nav").style.width = "0";
-            }
-        </script>
+            document.getElementById("nav").style.width = "0";
+        }
+    </script>

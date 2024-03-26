@@ -53,7 +53,7 @@
                 <div class="flex flex-col justify-center h-full w-full rounded-xl">
                     <hr>
                     <div class="w-full mx-auto bg-white p-2 pt-0  2xl:rounded-md  border-gray-200 h-full rounded-xl">
-                        <div class="hidden xl:block">
+                        {{--  <div class="hidden xl:block">
                             <header class="px-5 sm:px-2 pb-2 xl:pb-4 py-2 border-b border-gray-100 flex justify-between">
                                 <div
                                     class="flex flex-col sm:flex-row  md:flex-row sm:justify-between space-y-2 sm:space-y-0 space-x-0  w-full">
@@ -76,14 +76,17 @@
                                     </div>
                                 </div>
                             </header>
-                        </div>
+                        </div>  --}}
 
 
-                        <div id="filtered-data">
-                            @include('admin.dashboard._proposal-dashboard')
-                        </div>
+
+                        <livewire:admin-dashboard-project>
+
+
 
                     </div>
+
+
                 </div>
             </section>
         </div>

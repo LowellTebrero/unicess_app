@@ -44,33 +44,51 @@
                 </div>
                 <hr>
                 @if ($allProposal->isEmpty())
-                <div class="h-[45vh] 2xl:h-[52vh] flex flex-col items-center justify-center space-y-2">
-                    <img class="w-[13rem]" src="{{ asset('img/Empty.jpg') }}">
-                    <h1 class="text-md text-gray-500">It’s empty here</h1>
-                   </div>
+                    <div class="h-[45vh] 2xl:h-[52vh] flex flex-col items-center justify-center space-y-2">
+                        <img class="w-[13rem]" src="{{ asset('img/Empty.jpg') }}">
+                        <h1 class="text-md text-gray-500">It’s empty here</h1>
+                    </div>
                 @else
 
-                    <div class="w-full flex justify-between h-[40vh]">
+                <div id="filtered-data">
+                    @include('admin.dashboard.chart.filter_index._index-dashboard')
+                </div>
 
-                        <div class="pt-6 p-8 2xl:p-12 h-[40vh] 2xl:h-full w-[20rem] 2xl:w-full flex items-center justify-center ">
-                            <canvas id="myChartBar"></canvas>
+
+
+                <div id="accordion-collapse" data-accordion="collapse" class="mt-4">
+                    <h2 id="accordion-collapse-heading-1">
+                      <button type="button" class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-600 border border-b border-gray-200 rounded-t-xl focus:ring-2 focus:ring-gray-200   hover:bg-blue-500 hover:text-white  gap-3" data-accordion-target="#accordion-collapse-body-1" aria-expanded="true" aria-controls="accordion-collapse-body-1">
+                        <span>Project Extension Analytics</span>
+                        <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+                        </svg>
+                      </button>
+                    </h2>
+                    <div id="accordion-collapse-body-1" class="hidden" aria-labelledby="accordion-collapse-heading-1">
+                      <div class="p-2 border border-t-0 border-gray-200 dark:border-gray-700 dark:bg-gray-200 rounded-bl-lg rounded-br-lg">
+                        <div class="w-full flex justify-between h-[30vh]">
+
+                            <div class="pt-6 p-8 2xl:p-12 h-[40vh] 2xl:h-full w-[20rem] 2xl:w-full flex items-center justify-center ">
+                                <canvas id="myChartBar"></canvas>
+                            </div>
+
+                            <div class="pt-6 p-8 2xl:p-12 h-[40vh] 2xl:h-full w-[20rem] 2xl:w-full flex flex-col space-y-2 items-center justify-center ">
+                                <h1 class="text-sm tracking-wide text-gray-700">Count of Status</h1>
+                                <canvas id="myChartDoughnut"></canvas>
+                            </div>
+
+                            <div class="pt-8 p-12 2xl:p-12 h-[40vh] 2xl:h-full w-[20rem] 2xl:w-full flex flex-col space-y-2 items-center justify-center ">
+                                <h1 class="text-sm tracking-wide text-gray-700">Count of Used Program</h1>
+                                <canvas id="myChartPie"></canvas>
+                            </div>
                         </div>
 
-                        <div class="pt-6 p-8 2xl:p-12 h-[40vh] 2xl:h-full w-[20rem] 2xl:w-full flex flex-col space-y-2 items-center justify-center ">
-                            <h1 class="text-sm tracking-wide text-gray-700">Count of Status</h1>
-                            <canvas id="myChartDoughnut"></canvas>
-                        </div>
-
-                        <div class="pt-8 p-12 2xl:p-12 h-[40vh] 2xl:h-full w-[20rem] 2xl:w-full flex flex-col space-y-2 items-center justify-center ">
-                            <h1 class="text-sm tracking-wide text-gray-700">Count of Used Program</h1>
-                            <canvas id="myChartPie"></canvas>
-                        </div>
-
+                      </div>
                     </div>
+                </div>
 
-                    <div id="filtered-data">
-                        @include('admin.dashboard.chart.filter_index._index-dashboard')
-                    </div>
+
                 @endif
             </div>
 

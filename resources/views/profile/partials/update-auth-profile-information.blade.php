@@ -48,89 +48,103 @@
                             @endrole
                         </div>
 
-                            {{--  Modal Starts here  --}}
-                            <!-- Modal -->
-                            <div class="fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-black bg-opacity-50"
-                                x-show="showModal">
+                        {{--  Modal Starts here  --}}
+                        <!-- Modal -->
+                        <div class="fixed inset-0 z-50 flex items-center justify-center overflow-auto bg-black bg-opacity-50"
+                            x-show="showModal">
 
-                                <!-- Modal inner -->
-                                <div class="w-1/4 py-4 mx-auto text-left bg-white rounded-lg shadow-lg" x-show="showModal"
-                                    x-transition:enter="motion-safe:ease-out duration-300"
-                                    x-transition:enter-start="opacity-0 scale-90"
-                                    x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-200"
-                                    x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
-                                    x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                                    @click.away="showModal = false">
+                            <!-- Modal inner -->
+                            <div class="w-1/4 py-4 mx-auto text-left bg-white rounded-lg shadow-lg" x-show="showModal"
+                                x-transition:enter="motion-safe:ease-out duration-300"
+                                x-transition:enter-start="opacity-0 scale-90"
+                                x-transition:enter-end="opacity-100 scale-100" x-transition:leave="ease-in duration-200"
+                                x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                                x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                                @click.away="showModal = false">
 
 
-                                    <!-- Title / Close-->
-                                    <div class="flex items-center justify-between mb-5 px-4 py-1">
-                                        <h5 class="mr-3 text-black max-w-none">Update Role/Department</h5>
-                                        <button type="button"
-                                            class=" z-50 cursor-pointer text-red-500 text-xl font-semibold"
-                                            @click="showModal = false">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                            </svg>
-                                        </button>
-                                    </div>
-                                    <hr>
+                                <!-- Title / Close-->
+                                <div class="flex items-center justify-between mb-5 px-4 py-1">
+                                    <h5 class="mr-3 text-black max-w-none">Update Role/Department</h5>
+                                    <button type="button"
+                                        class=" z-50 cursor-pointer text-red-500 text-xl font-semibold"
+                                        @click="showModal = false">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <hr>
 
-                                    <!-- content -->
-                                    <div class="w-full px-5 py-1 mt-2">
+                                <!-- content -->
+                                <div class="w-full px-5 py-1 mt-2">
 
-                                        <form action="{{ route('profile.update-role-faculty', $user->id) }}" method="POST">
-                                            @csrf @method('PATCH')
+                                    <form action="{{ route('profile.update-role-faculty', $user->id) }}" method="POST">
+                                        @csrf @method('PATCH')
 
-                                            <div class="form-group mb-6 mt-5">
-                                                <h1 class="text-xs">Role Name:</h1>
-                                                <select id="role" name="role"
-                                                    class=" w-full px-3 py-1.5 text-sm font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded
-                                                    transition ease-in-ou m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" required>
-                                                    <option value="">Select Role</option>
-                                                    @foreach ($role as $id => $name)
-                                                        <option value="{{ $name }}"
-                                                            @if ($user->roles->contains($id)) selected  @class(['bg-blue-500']) @endif>
-                                                            {{ $name }}
-                                                        </option>
+                                        <div class="form-group mb-6 mt-5">
+                                            <h1 class="text-xs">Role Name:</h1>
+                                            <select id="role" name="role"
+                                                class=" w-full px-3 py-1.5 text-sm font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded
+                                                transition ease-in-ou m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" required>
+                                                <option value="">Select Role</option>
+                                                @foreach ($role as $id => $name)
+                                                    <option value="{{ $name }}"
+                                                        @if ($user->roles->contains($id)) selected  @class(['bg-blue-500']) @endif>
+                                                        {{ $name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+
+                                            @error('role')
+                                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                            @enderror
+
+                                        </div>
+
+                                        <div class="mt-4 w-full">
+
+                                            <div>
+                                                <x-input-label  class="lg:text-xs" for="faculty_id" :value="__('Department Name')" />
+
+                                                <select id="faculty_id"
+                                                    class="greeting lg:text-xs xl:text-sm block mt-1 w-full rounded-md shadow-sm border-gray-300 text-gray-900 "
+                                                    type="text" name="faculty_id" autofocus autocomplete="faculty_id" required>
+                                                    <option value="">Select Department</option>
+                                                    @foreach ($faculties as $id => $name)
+                                                        <option value="{{ $id }}"
+                                                            @if ($id == old('faculty_id', $user->faculty_id)) selected="selected" @endif>
+                                                            {{ $name }}</option>
                                                     @endforeach
                                                 </select>
-
-                                                @error('role')
-                                                    <span class="text-red-500 text-sm">{{ $message }}</span>
-                                                @enderror
-
                                             </div>
 
-                                            <div class="mt-4 w-full">
+                                            <div class="mt-4">
+                                                <x-input-label  class="lg:text-xs" for="colleges" :value="__('Colleges')" />
 
-                                                <div id="facultyId">
-                                                    <x-input-label  class="lg:text-xs " for="faculty_id" :value="__('Department Name')" />
+                                                <select id="colleges"
+                                                    class="greeting lg:text-xs xl:text-sm block mt-1 w-full rounded-md shadow-sm border-gray-300 text-gray-900 "
+                                                    type="text" name="colleges" autofocus autocomplete="colleges" required>
+                                                    <option value="">Select Colleges</option>
+                                                    <option value="CAS" {{ $user->colleges == 'CAS' ? 'selected' : '' }}>CAS</option>
+                                                    <option value="CME" {{ $user->colleges == 'CME' ? 'selected' : '' }}>CME</option>
+                                                    <option value="COE" {{ $user->colleges == 'COE' ? 'selected' : '' }}>COE</option>
+                                                    <option value="Graduate School" {{ $user->colleges == 'Graduate School' ? 'selected' : '' }}>Graduate School</option>
+                                                </select>
+                                            </div>
 
-                                                    <select id="faculty_id"
-                                                        class="greeting lg:text-xs xl:text-sm block mt-1 w-full rounded-md shadow-sm border-gray-300 text-gray-900 "
-                                                        type="text" name="faculty_id" autofocus autocomplete="faculty_id" required>
-                                                        <option value="">Select Department</option>
-                                                        @foreach ($faculties as $id => $name)
-                                                            <option value="{{ $id }}"
-                                                                @if ($id == old('faculty_id', $user->faculty_id)) selected="selected" @endif>
-                                                                {{ $name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-
-                                                <div class="form-group mb-6 mt-6" id="submit">
-                                                    <button type="submit"
-                                                        class=" w-full px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight
-                                                    uppercase shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
-                                                    active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out rounded-xl">Update</button>
-                                                </div>
-                                        </form>
-                                        <x-input-error :messages="$errors->get('faculty_id')" class="mt-2" />
-                                    </div>
+                                            <div class="form-group mb-6 mt-6" id="submit">
+                                                <button type="submit"
+                                                    class=" w-full px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight
+                                                uppercase shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
+                                                active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out rounded-xl">Update</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <x-input-error :messages="$errors->get('faculty_id')" class="mt-2" />
                                 </div>
                             </div>
-                            </div>
+                        </div>
                     </div>
 
 
@@ -141,7 +155,7 @@
                                 <div class="flex flex-col">
                                     <h1 class="text-xs 2xl:text-base"> {{ $user_role->name }} </h1>
                                     @if ($user_role->name == 'New User')
-                                        <h1 class="text-xs text-red-500">Note: Please Update your Role and Department</h1>
+                                        <h1 class="text-xs text-red-500">Note: Please Update your Role, Department and College</h1>
                                     @endif
                                 </div>
                                 @endforeach
@@ -150,13 +164,21 @@
                         </div>
                     </div>
 
-                    <div class="mt-4 lg:mt-7 space-y-1">
+                    <div class="mt-4 lg:mt-7 space-y-5">
                         @if ($user->faculty == !null)
 
                         @hasrole('admin')
                         @else
-                        <h1 class="text-xs">Department Name:</h1>
-                        <h1 class="text-xs 2xl:text-base">{{ $user->faculty->name }}</h1>
+                        <div class="space-y-1">
+
+                            <h1 class="text-xs">Department Name:</h1>
+                            <h1 class="text-xs 2xl:text-base">{{ $user->faculty->name }}</h1>
+                        </div>
+
+                        <div class="space-y-1">
+                            <h1 class="text-xs">College Name:</h1>
+                            <h1 class="text-xs 2xl:text-base">{{ $user->colleges }}</h1>
+                        </div>
                         @endrole
 
                         @elseif ($user->faculty == null)

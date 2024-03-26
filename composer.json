@@ -9,7 +9,6 @@
         "barryvdh/laravel-dompdf": "^2.0",
         "beyondcode/laravel-websockets": "^1.14",
         "consoletvs/charts": "^6.6",
-        "google/apiclient": "^2.15",
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "^2.7",
         "laravel/framework": "^9.19",

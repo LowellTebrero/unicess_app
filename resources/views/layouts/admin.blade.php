@@ -77,6 +77,7 @@
         <livewire:pending-proposal>
             <livewire:ongoing-proposal>
                 <livewire:finished-proposal>
+                {{--  <livewire:admin-dashboard-project>  --}}
                     {{--  <livewire:admin-notification>  --}}
 </body>
 

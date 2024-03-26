@@ -108,7 +108,7 @@ class ProposalController extends Controller
 
         foreach ($request->tags as $tag) {
 
-             ProposalMember::create([
+            ProposalMember::create([
                 'proposal_id' => $post->id, // Set proposal_id to the newly created proposal's ID
                 'user_id' => $tag, // Set user_id to the current tag (user's ID)
             ]);

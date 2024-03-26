@@ -17,6 +17,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('faculty_id')->nullable();
+            $table->string('colleges')->nullable();
             $table->string('avatar')->nullable();
             $table->string('name');
             $table->string('suffix')->nullable();

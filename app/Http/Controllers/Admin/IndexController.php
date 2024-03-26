@@ -32,7 +32,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
         $projectProposal = Proposal::where('authorize', 'pending')->count();
         $ongoingProposal = Proposal::where('authorize', 'ongoing')->count();
         $finishedProposal = Proposal::where('authorize', 'finished')->count();
-        $allProposal = Proposal::orderBy('created_at', 'desc')->with('programs')->with('proposal_members')->get();
+        $allProposal = Proposal::orderBy('created_at', 'desc')->with('programs')->with('proposal_members')->paginate(7);
         $pendingAccount = User::where('authorize', 'pending')->count();
         $totalAccount = DB::table('users')->select('id')->count();
         $totalProposal = DB::table('proposals')->select('id')->count();
@@ -75,7 +75,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
                 $query->where('authorize', $companyId);
             }})->when($query, function ($querys) use ($query) {
                 return $querys->where('project_title', 'like', "%$query%");
-            })->get();
+            })->paginate(7);
 
 
 
@@ -106,7 +106,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
         })->where(function ($query) {
             if($companyId = request('selected_value')){
                 $query->where('authorize', $companyId);
-            }})->get();
+            }})->paginate(7);
 
 
 

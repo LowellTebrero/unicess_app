@@ -82,10 +82,22 @@
 
                 </tr>
             @endforeach
+
+
         </tbody>
 
+
+
+
+
     </table>
+
+    <div class="">
+        {{ $allProposal->links() }}
+    </div>
+
 </div>
+
 @endif
 
 
