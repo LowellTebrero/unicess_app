@@ -117,7 +117,7 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
 
     Route::controller(ExtensionMonitoringController::class)->group(function () {
         Route::get('/extension-index', 'index')->name('extension-monitoring.index');
-        Route::get('/show-extension/{uuid}', 'show')->name('extension-monitoring.show');
+        Route::get('/show-extension/{id}', 'show')->name('extension-monitoring.show');
 
     });
     Route::controller(AdminPointController::class)->group(function () {

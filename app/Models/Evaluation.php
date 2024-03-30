@@ -43,4 +43,26 @@ class Evaluation extends Model implements HasMedia
     public function evaluationfile(){
         return $this->hasMany(EvaluationFile::class);
     }
+
+    public function scopeSearch($query, $search)
+    {
+            $search = "%$search%";
+     return $query->where(function($query) use ($search) {
+        $query->whereHas('users', function($query) use ($search) {
+            $query->where('name', 'like', $search)
+            ->orWhere('first_name', 'like', $search)
+            ->orWhere('last_name', 'like', $search)
+            ->orWhere('email', 'like', $search)
+            ->orWhere('colleges', 'like', $search)
+
+            ->orWhereHas('faculty', function($query) use ($search){
+                $query->where('name', 'like',   $search);
+            })
+            ->orWhereHas('roles', function($query) use ($search){
+                $query->where('name', 'like',   $search);
+            });
+
+        });
+    });
+}
 }

@@ -143,6 +143,7 @@
         <table class="table-auto w-full border-collapse">
             <thead class="text-[.7rem] text-gray-700 uppercase sticky top-0 bg-gray-200 w-full">
                 <tr>
+                    <th class="p-2 whitespace-nowrap text-left"><div>#</div></th>
                     <th class="p-2 whitespace-nowrap text-left">Username</th>
                     <th class="p-2 whitespace-nowrap text-left">First Name</th>
                     <th class="p-2 whitespace-nowrap text-left">Last Name</th>
@@ -155,9 +156,16 @@
             </thead>
             <tbody>
 
+                @php
+                $count = ($users->currentPage() - 1) * $users->perPage();
+                 @endphp
+
                 @forelse ($users as $user )
 
+
                     <tr class="text-xs 2xl:text-sm  hover:bg-slate-200 border-b  dark:border-gray-500 text-gray-600">
+
+                        <td class="text-xs pl-2">{{ ++$count }}</td>
 
                         <td class="p-3 whitespace-nowrap">
                             <a href={{ route('admin.users.show', ['user' => $user->id, 'user_id' =>  $user->id ]) }}>

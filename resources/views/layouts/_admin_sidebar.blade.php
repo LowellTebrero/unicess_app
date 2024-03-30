@@ -50,7 +50,7 @@
             Accounts
         </x-custom-nav-link>
 
-        <x-custom-nav-link :href="route('admin.inventory.index')" :active="request()->routeIs('admin.inventory.*')">
+        {{-- <x-custom-nav-link :href="route('admin.inventory.index')" :active="request()->routeIs('admin.inventory.*')">
             <svg class="fill-white mr-2" xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 96 960 960"
                 width="30">
                 <path
@@ -58,7 +58,7 @@
             </svg>
 
             Inventory
-        </x-custom-nav-link>
+        </x-custom-nav-link> --}}
 
 
         <x-custom-nav-link :href="route('admin.article-event.index')" :active="request()->routeIs('admin.article-event.*')">

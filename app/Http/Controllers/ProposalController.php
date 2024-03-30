@@ -9,6 +9,7 @@ use App\Models\Proposal;
 use App\Models\Template;
 use App\Models\AdminYear;
 use App\Models\Evaluation;
+use App\Models\UserProjectCount;
 use App\Rules\UniqueTitle;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -119,6 +120,7 @@ class ProposalController extends Controller
 
         $admin = User::whereHas('roles', function ($query) { $query->where('id', 1);})->get();
         Notification::send($admin, new ProposalNotification($post));
+
 
 
         if ($request->hasFile('proposal_pdf')) {

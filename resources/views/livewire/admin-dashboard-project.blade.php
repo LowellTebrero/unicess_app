@@ -146,7 +146,7 @@
                 @empty
                     <tr colspan="12">
                         <td class="text-lg">
-                            <div class="h-[45vh] 2xl:h-[52vh] flex flex-col items-center justify-center space-y-2">
+                            <div class="h-[35vh] 2xl:h-[52vh] flex flex-col items-center justify-center space-y-2">
                                 <img class="w-[13rem]" src="{{ asset('img/Empty.jpg') }}">
                                 <h1 class="text-md text-gray-500">Not Found!</h1>
                             </div>

@@ -45,9 +45,9 @@ class Proposal extends Model implements HasMedia
        return  $this->belongsTo(User::class );
     }
 
-    public function users(){
-        return $this->belongsToMany(User::class, 'proposal_members', )->withPivot('created_at', 'proposal_id', 'leader_member_type' , 'member_type')->withTimestamps();
-    }
+    // public function users(){
+    //     return $this->belongsToMany(User::class, 'proposal_members', )->withPivot('created_at', 'proposal_id', 'leader_member_type' , 'member_type')->withTimestamps();
+    // }
 
 
     public function proposal_members(){
@@ -78,8 +78,9 @@ class Proposal extends Model implements HasMedia
 
     public function scopeSearch($query, $search)
     {
-            $search = "%$search%";
-    return  $query->where(function($query) use ($search){
+        $search = "%$search%";
+
+        return  $query->where(function($query) use ($search){
 
             $query->where('project_title', 'like',   $search)
             ->orWhere('proposals.authorize', 'like', $search)
@@ -104,6 +105,9 @@ class Proposal extends Model implements HasMedia
             });
 
         })
+        ->orWhereHas('programs', function($query) use ($search){
+            $query->where('program_name', 'like',   $search);
+        })
         ->orWhereHas('user', function ($query) use ($search) {
             $query->whereHas('faculty', function ($query) use ($search) {
                 $query->where('name', 'like', $search);
@@ -117,5 +121,3 @@ class Proposal extends Model implements HasMedia
 
 
 }
-
-

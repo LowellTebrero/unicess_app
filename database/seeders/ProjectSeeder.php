@@ -7,6 +7,7 @@ use App\Models\Proposal;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use App\Models\ProposalMember;
+use App\Models\UserProjectCount;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class ProjectSeeder extends Seeder
@@ -51,9 +52,12 @@ class ProjectSeeder extends Seeder
             ProposalMember::create([
                 'proposal_id' => $projects->id, // Set proposal_id to the newly created proposal's ID
                 'user_id' => $faker->numberBetween(2,100), // Set user_id to the current tag (user's ID)
+                'created_at' => $created_at->format('Y-m-d H:i:s'),
+                'updated_at' => $updated_at->format('Y-m-d H:i:s'),
             ]);
 
             }
+
 
         }
     }

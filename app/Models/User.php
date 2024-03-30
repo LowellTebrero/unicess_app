@@ -57,8 +57,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'ip_address',
         'last_logged_in',
         'last_logged_in_address',
-
-
     ];
 
 
@@ -81,9 +79,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-
-
-
      public function getIsAdminAttribute()
      {
          return $this->roles()->where('id', 1)->exists();
@@ -94,13 +89,9 @@ class User extends Authenticatable implements MustVerifyEmail
        return $this->belongsTo(Faculty::class, 'faculty_id');
     }
 
-
-
     public function proposal(){
         return $this->hasMany(Proposal::class);
     }
-
-
 
     public function evaluation(){
         return $this->hasMany(Evaluation::class);
@@ -114,34 +105,40 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(TemporaryEvaluationFile::class );
     }
 
-
-
     public function role(){
         return $this->belongsToMany(Role::class, 'model_has_roles' ,'model_id', 'role_id');
     }
 
+    public function project_count()
+    {
+        return $this->HasMany(UserProjectCount::class);
+    }
+
     public function scopeSearch($query, $search)
     {
-            $search = "%$search%";
-    return  $query->where(function($query) use ($search){
+        $search = "%$search%";
+
+        return  $query->where(function($query) use ($search){
 
             $query->where('name', 'like',   $search)
-                ->orWhere('first_name', 'like',   $search)
-                ->orWhere('middle_name', 'like',   $search)
-                ->orWhere('last_name', 'like',   $search)
-                ->orWhere('gender', 'like',    $search)
-                ->orWhere('email', 'like',   $search)
-                ->orWhere('address', 'like',    $search)
-                ->orWhere('authorize', 'like',     $search)
-                ->orWhere('contact_number', 'like',   $search)
-                ->orWhere('colleges', 'like',   $search);
+            ->orWhere('first_name', 'like',   $search)
+            ->orWhere('middle_name', 'like',   $search)
+            ->orWhere('last_name', 'like',   $search)
+            ->orWhere('gender', 'like',    $search)
+            ->orWhere('email', 'like',   $search)
+            ->orWhere('address', 'like',    $search)
+            ->orWhere('authorize', 'like',     $search)
+            ->orWhere('contact_number', 'like',   $search)
+            ->orWhere('colleges', 'like',   $search);
         })
 
         ->orWhereHas('faculty', function($query) use ($search){
             $query->where('name', 'like',   $search);
+        })
+        ->orWhereHas('roles', function($query) use ($search){
+            $query->where('name', 'like',   $search);
+        });
 
-
-       });
 
     }
 
