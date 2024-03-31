@@ -641,6 +641,13 @@
 
                                 <div class="p-3 space-y-2 flex justify-start flex-col">
 
+                                    <div class="">
+                                        <button data-modal-target="modal-show-all-summary" data-modal-toggle="modal-show-all-summary" class="px-2 py-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 text-xs xl:text-[.8rem] 2xl:text-xs xl:text-xs space-x-2 flex hover:bg-blue-600 hover:text-white" type="button">
+                                            <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 20 20"><g fill="none"><path d="M3.26 11.602C3.942 8.327 6.793 6 10 6c3.206 0 6.057 2.327 6.74 5.602a.5.5 0 0 0 .98-.204C16.943 7.673 13.693 5 10 5c-3.693 0-6.943 2.673-7.72 6.398a.5.5 0 0 0 .98.204z" fill="currentColor"/><path d="M10 8a3.5 3.5 0 1 0 0 7a3.5 3.5 0 0 0 0-7zm-2.5 3.5a2.5 2.5 0 1 1 5 0a2.5 2.5 0 0 1-5 0z" fill="currentColor"/></g></svg>
+                                            Show Details
+                                      </button>
+                                    </div>
+
                                     <!-- Modal toggle -->
                                     <button data-modal-target="modal-upload-documents" data-modal-toggle="modal-upload-documents" class="px-2 py-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 text-xs xl:text-[.8rem] 2xl:text-xs xl:text-xs space-x-2 flex hover:bg-blue-600 hover:text-white" type="button">
                                         <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="17"
@@ -656,15 +663,7 @@
                                     </button>
 
                                     <button data-modal-target="modal-edit-project-details" data-modal-toggle="modal-edit-project-details" class="px-2 py-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 text-xs xl:text-[.8rem] 2xl:text-xs xl:text-xs space-x-2 flex hover:bg-blue-600 hover:text-white" type="button">
-                                        <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="17"
-                                            height="17" viewBox="0 0 16 16">
-                                            <g fill="currentColor">
-                                                <path
-                                                    d="m5.369 7.92l2.14-2.14v5.752h1v-5.68l2.066 2.067l.707-.707l-2.957-2.956h-.707L4.662 7.212l.707.707Z" />
-                                                <path
-                                                    d="M14 8A6 6 0 1 1 2 8a6 6 0 0 1 12 0Zm-1 0A5 5 0 1 0 3 8a5 5 0 0 0 10 0Z" />
-                                            </g>
-                                        </svg>
+                                        <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"><path fill="currentColor" d="M5 19h1.098L16.796 8.302l-1.098-1.098L5 17.902zm-1 1v-2.52L17.18 4.288q.154-.137.34-.212q.186-.075.387-.075q.202 0 .39.063q.19.064.35.23l1.066 1.072q.166.16.226.35q.061.191.061.382q0 .203-.069.389q-.068.185-.218.339L6.52 20zM19.02 6.092l-1.112-1.111zm-2.783 1.67l-.539-.558l1.098 1.098z"/></svg>
                                         Edit Project Details
                                     </button>
 
@@ -688,29 +687,12 @@
                                             Track Documents
                                     </button>
 
-                                    {{-- <div class="block lg:hidden">
-                                        <button data-modal-target="modal-show-all-summary-2" data-modal-toggle="modal-show-all-summary-2" class="px-2 py-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 text-xs xl:text-[.8rem] 2xl:text-xs xl:text-xs space-x-2 flex hover:bg-blue-600 hover:text-white" type="button">
-                                            <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 20 20"><g fill="none"><path d="M3.26 11.602C3.942 8.327 6.793 6 10 6c3.206 0 6.057 2.327 6.74 5.602a.5.5 0 0 0 .98-.204C16.943 7.673 13.693 5 10 5c-3.693 0-6.943 2.673-7.72 6.398a.5.5 0 0 0 .98.204z" fill="currentColor"/><path d="M10 8a3.5 3.5 0 1 0 0 7a3.5 3.5 0 0 0 0-7zm-2.5 3.5a2.5 2.5 0 1 1 5 0a2.5 2.5 0 0 1-5 0z" fill="currentColor"/></g></svg>
-                                            Show Details
-                                      </button>
-                                    </div> --}}
-
-                                    <div class="">
-                                        <button data-modal-target="modal-show-all-summary" data-modal-toggle="modal-show-all-summary" class="px-2 py-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 text-xs xl:text-[.8rem] 2xl:text-xs xl:text-xs space-x-2 flex hover:bg-blue-600 hover:text-white" type="button">
-                                            <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 20 20"><g fill="none"><path d="M3.26 11.602C3.942 8.327 6.793 6 10 6c3.206 0 6.057 2.327 6.74 5.602a.5.5 0 0 0 .98-.204C16.943 7.673 13.693 5 10 5c-3.693 0-6.943 2.673-7.72 6.398a.5.5 0 0 0 .98.204z" fill="currentColor"/><path d="M10 8a3.5 3.5 0 1 0 0 7a3.5 3.5 0 0 0 0-7zm-2.5 3.5a2.5 2.5 0 1 1 5 0a2.5 2.5 0 0 1-5 0z" fill="currentColor"/></g></svg>
-                                            Show Details
-                                      </button>
-                                    </div>
-
-                                    {{-- <button data-modal-target="modal-show-all-summary" data-modal-toggle="modal-show-all-summary" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full" type="button">
-                                        <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 20 20"><g fill="none"><path d="M3.26 11.602C3.942 8.327 6.793 6 10 6c3.206 0 6.057 2.327 6.74 5.602a.5.5 0 0 0 .98-.204C16.943 7.673 13.693 5 10 5c-3.693 0-6.943 2.673-7.72 6.398a.5.5 0 0 0 .98.204z" fill="currentColor"/><path d="M10 8a3.5 3.5 0 1 0 0 7a3.5 3.5 0 0 0 0-7zm-2.5 3.5a2.5 2.5 0 1 1 5 0a2.5 2.5 0 0 1-5 0z" fill="currentColor"/></g></svg>
-                                        Show Details
-                                    </button> --}}
-
                                     <div class="flex flex-col text-xs">
                                         <select id="myStatusDropdown" class="px-2 py-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 text-xs xl:text-[.8rem] 2xl:text-xs xl:text-xs space-x-2  ">
                                             <option value="pending"
-                                                {{ old('pending', $proposals->authorize) == 'pending' ? 'selected' : '' }}>Pending
+                                                {{ old('pending', $proposals->authorize) == 'pending' ? 'selected' : '' }}>
+                                                <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"><path fill="currentColor" d="M17.385 21q-1.672 0-2.836-1.164Q13.385 18.67 13.385 17t1.164-2.836Q15.713 13 17.385 13q1.67 0 2.835 1.164T21.385 17q0 1.671-1.165 2.836T17.385 21m1.655-1.798l.547-.546l-1.818-1.821v-2.72H17v3.047zM4 20V4h6.252q.14-.587.623-.986T12 2.615q.654 0 1.134.4q.48.398.62.985H20v7.635q-.258-.133-.488-.233T19 11.223V5h-3v2.23H8V5H5v14h6.742q.08.28.189.521q.11.24.28.479zm8.003-14.77q.345 0 .575-.232q.23-.234.23-.578q0-.345-.233-.575q-.234-.23-.578-.23q-.345 0-.575.234q-.23.233-.23.577q0 .345.233.575q.234.23.578.23"/></svg>
+                                                Pending
                                             </option>
                                             <option value="ongoing"
                                                 {{ old('pending', $proposals->authorize) == 'ongoing' ? 'selected' : '' }}>Ongoing
@@ -727,10 +709,10 @@
                     </div>
 
                     <div class="flex justify-between px-4 2xl:py-2 xl:py-1 text-lg">
-                        <div class="flex gap-3">
-                            <h4 class="text-xs">Created: {{ $proposals->created_at }}</h4>
-                            <h4 class="text-xs">Status: {{ $proposals->authorize }}</h4>
-                            <h4 class="text-xs">{{ $proposals->status }}</h4>
+                        <div class="flex gap-4">
+                            <h4 class="text-xs 2xl:text-sm tracking-wider">created: {{ \Carbon\Carbon::parse($proposals->created_at)->format('M d, y g:i:s A') }}</h4>
+                            <h4 class="text-xs 2xl:text-sm tracking-wider">status: {{ $proposals->authorize }}</h4>
+                            <h4 class="text-xs 2xl:text-sm tracking-wider">{{ $proposals->status }}</h4>
                         </div>
                         <div>
                             <div class="flex flex-row space-x-1" style="display:none;" id="showOptionFolder">

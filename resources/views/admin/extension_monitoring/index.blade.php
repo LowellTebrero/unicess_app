@@ -18,10 +18,10 @@
 
         <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-300">
             <li class="me-2"  id="tab-extension">
-                <a href="#" onclick="showTab('extension')" aria-current="page"  class="inline-block p-2 2xl:p-4 rounded-t-lg ">Project Extension</a>
+                <a href="#" onclick="showTab('extension')" aria-current="page"  class="inline-block p-2 2xl:p-4 rounded-t-lg">Project Extension</a>
             </li>
             <li class="me-2"  id="tab-userextension">
-                <a href="#" onclick="showTab('userextension')"  class="inline-block p-2 2xl:p-4 rounded-t-lg">User's Extension Ranking</a>
+                <a href="#" onclick="showTab('userextension')"  class="inline-block p-2 2xl:p-4 rounded-t-lg">Users Extension Ranking</a>
             </li>
 
         </ul>
