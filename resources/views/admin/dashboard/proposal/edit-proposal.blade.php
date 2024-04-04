@@ -68,12 +68,14 @@
                 </div>
 
             @else
-                <header class="flex justify-between p-2 2xl:p-3 {{ $proposals->authorize == 'pending' ? 'bg-red-200' : ($proposals->authorize == 'ongoing' ? 'bg-blue-200' : 'bg-green-200') }} rounded-tl rounded-tr">
+                <header class="flex justify-between p-2 2xl:p-3 {{ $proposals->status == 'inactive' ? 'bg-red-200' : 'bg-green-200' }} rounded-tl rounded-tr">
 
                         <div class="items-center flex sm:flex-row sm:space-x-4 md:space-x-8 font-medium text-gray-700">
-                            <h1 class="hidden sm:block text-[.7rem] xl:text-sm tracking-wider">Created:
-                                {{ \Carbon\Carbon::parse($proposals->created_at)->format('F-d-Y') }}</h1>
-                            <h1 class="hidden sm:block text-[.7rem] xl:text-sm tracking-wider">Status: {{ $proposals->authorize }}</h1>
+                            <h1 class="hidden sm:block text-[.7rem] xl:text-sm tracking-wider">Duration:
+                                {{--  {{ \Carbon\Carbon::parse($proposals->created_at)->format('F-d-Y') }}  --}}
+                                {{ $proposals->created_at->diffForHumans() }}
+                            </h1>
+                            <h1 class="hidden sm:block text-[.7rem] xl:text-sm tracking-wider">Status: {{ $proposals->authorize }} {{ $proposals->status }}</h1>
                             <h1 class="hidden sm:block text-[.7rem] xl:text-sm tracking-wider">ID: {{ $proposals->uuid }}</h1>
                         </div>
 
@@ -632,6 +634,37 @@
                         </div>
 
 
+                        <!-- Modal Track CHART -->
+                        <div id="modal-track-chart" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                            <div class="relative p-4 w-full max-w-4xl max-h-full">
+                                <!-- Modal content -->
+                                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                    <!-- Modal header -->
+                                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                             Count of uploaded Activity by Month
+                                        </h3>
+                                        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="modal-track-chart">
+                                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                            </svg>
+                                            <span class="sr-only">Close modal</span>
+                                        </button>
+                                    </div>
+                                    <!-- Modal body -->
+
+                                    <div class="relative p-4 w-full max-h-full">
+                                        <div class="p-4 md:p-5 h-[50vh] overflow-x-auto scrollbar" id="style-2">
+                                            <div class="text-white">
+                                                <livewire:admin-show-project-chart :proposalId="$proposal->id">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
                         <!-- Modal Show summary -->
                         <div id="modal-show-all-summary-2" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                             <div class="relative p-4 w-full max-w-4xl h-[60%]">
@@ -720,6 +753,8 @@
                         </div>
 
 
+
+
                         <!-- Left side bar with the Buttons -->
                         <div class="bg-gray-100 h-full absolute z-30 right-0 bg-opacity-40 flex items-end justify-end transition-all" id="mySidebar">
                             <div class="h-full w-[0rem] bg-gray-700 transition-all" id="subSidebar">
@@ -785,6 +820,11 @@
                                           </button>
                                         </div>
 
+                                        <button data-modal-target="modal-track-chart" data-modal-toggle="modal-track-chart" class="px-2 py-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 text-xs xl:text-[.8rem] 2xl:text-xs xl:text-xs space-x-2 flex hover:bg-blue-600 hover:text-white" type="button">
+                                            <svg class="mr-1" xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24"><path fill="currentColor" d="M5 3v16h16v2H3V3zm15.293 3.293l1.414 1.414L16 13.414l-3-2.999l-4.293 4.292l-1.414-1.414L13 7.586l3 2.999z"/></svg>
+                                                Show Statistics
+                                        </button>
+
 
                                         <div class="flex flex-col text-xs">
                                             <select id="myStatusDropdown" class="block lg:hidden px-2 py-2 bg-white border w-full border-blue-600 rounded-xl text-blue-600 text-xs xl:text-[.8rem] 2xl:text-xs xl:text-xs space-x-2  ">
@@ -819,6 +859,8 @@
                             {{--  <button class="leftbtn-slide block xl:hidden">☰</button>  --}}
                             <button class="openbtn" onclick="openNav()">☰</button>
                         </div>
+
+
 
                         <!-- Media -->
                         <div class="overflow-x-auto h-auto 2xl:h-[77vh] ">
@@ -3444,14 +3486,69 @@
 
                             </div>
                         </div>
+
+
                     </div>
                 </div>
             @endif
         </section>
 
+
         <x-messages />
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+    <script>
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: @json($chartData['labels']),
+                datasets: [{
+                    label: 'Uploaded Activity',
+                    data: @json($chartData['data']),
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1,
+                    fill: true,
+                    cubicInterpolationMode: 'monotone',
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#d9d9d9' // Change the color of dataset label text to white
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: '#d9d9d9' // Change the color of tick marks and numbers on the y-axis to white
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: '#d9d9d9' // Change the color of labels on the x-axis to white
+                        }
+                    }
+
+                },
+                elements: {
+                    point: {
+                        backgroundColor: 'rgba(75, 192, 192, 1)', // Change the color of the data points
+                    },
+                    line: {
+                        borderColor: 'rgba(75, 192, 192, 1)' // Change the color of the lines connecting data points
+                    }
+                }
+            }
+        });
+    </script>
 
     <script>
 

@@ -24,11 +24,9 @@ return new class extends Migration
             $table->longtext('project_title');
             $table->string('authorize')->default('pending');
             $table->string('status')->default('active');
+            $table->string('status_check_at')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('program_id')->references('id')->on('programs')->onDelete('cascade');
-
-
-
             $table->timestamps();
 
         });

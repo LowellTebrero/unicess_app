@@ -26,34 +26,9 @@
                 </div>
             </div>
 
-            {{-- <div>
-                <input type="text" placeholder="Search name or email..." class="border-slate-400 rounded-lg text-xs" id="searchInput">
 
-
-                <select name="semester" id="semester" class="border-slate-400 rounded-lg text-xs w-[5rem] md:w-[6.2rem]">
-                    <option value="first_sem">1st Sem</option>
-                    <option value="second_sem">2nd Sem</option>
-                </select>
-
-                <select name="myDropdown" id="myDropdown" class="border-slate-400 rounded-lg text-xs  w-[5rem] md:w-[6.2rem]">
-                    @foreach ($years as $year )
-                        <option value="{{ $year }}" @if ($year == date('Y')) selected="selected" @endif>{{ $year }}</option>
-                    @endforeach
-                </select>
-            </div> --}}
         </header>
         <hr>
-
-        {{-- <div id="filtered-data">
-            @if ($firstSemesterEvaluations->isEmpty())
-                <div class="h-[45vh] 2xl:h-[50vh] flex flex-col items-center justify-center space-y-2">
-                    <img class="w-[12rem]" src="{{ asset('img/Empty.jpg') }}">
-                    <h1 class="text-md text-gray-500">It’s empty here</h1>
-                </div>
-            @else
-                @include('admin.evaluation._filter_evaluation')
-            @endif
-        </div> --}}
 
         <livewire:admin-evaluation>
 
@@ -93,24 +68,6 @@
             });
         });
 
-       /* function centerModal() {
-            // Assuming your modal has an ID like 'popup-modal'
-            var modal = $(this).data('evaluation-id');
-
-            // Assuming your modal content is directly inside the modal
-            var modalContent = modal.find('.modal-content');
-
-            // Calculate the top and left positions to center the modal
-            var topPosition = ($(window).height() - modalContent.outerHeight()) / 2;
-            var leftPosition = ($(window).width() - modalContent.outerWidth()) / 2;
-
-            // Apply the calculated positions
-            modal.css({
-                'top': topPosition + 'px',
-                'left': leftPosition + 'px',
-            });
-        }
-        */
 
         $(document).ready(function() {
            $(document).on('click', '.delete-button', function() {
@@ -177,99 +134,8 @@
         });
 
 
-        $(document).ready(function() {
-            // Define the timer variable
-            let timer;
-
-            // Function to show active tab content
-            function showActiveTabContent(tabId) {
-                // Hide all tab contents
-                $('.tab-content').hide();
-                // Show the selected tab content
-                $('#' + tabId + '-content').show();
-            }
-
-            // Function to handle select change
-            $('#myDropdown').on('change', function() {
-                var selectedValue = $(this).val();
-                // Filter evaluation based on selected year
-                filterEvaluation(selectedValue);
-            });
-
-            // Function to filter evaluation
-            function filterEvaluation(selectedValue, query = '') {
-                $.ajax({
-                    url: '/api/filter-evaluation',
-                    type: 'GET',
-                    data: {
-                        selected_value: selectedValue,
-                        query: query // Pass the search query
-                    },
-                    success: function(data) {
-                        console.log('AJAX success', data);
-                        // Update the content of filtered-data div
-                        $('#filtered-data').html(data);
-                        // Show active tab content based on stored tab
-                        var storedTab = localStorage.getItem('selectedAdminEvaluation');
-                        showActiveTabContent(storedTab);
-                        // Set display property to "block" for the filtered data
-                        $('#filtered-data').css('display', 'block');
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('AJAX error:', error);
-                    }
-                });
-            }
-
-            // Function to handle search input
-            $('#searchInput').on('input', function() {
-                clearTimeout(timer);
-                var query = $(this).val();
-                var selectedValue = $('#myDropdown').val(); // Get the selected dropdown value
-
-                // Set a timer to delay the search
-                timer = setTimeout(function() {
-                    // Filter evaluation based on selected year and search query
-                    filterEvaluation(selectedValue, query);
-                }, 300); // 300 milliseconds delay
-            });
-
-            // Handle select change event
-            $('#semester').on('change', function() {
-                var selectedTab = $(this).val();
-                // Hide all tab contents
-                $('.tab-content').hide();
-                // Show the selected tab content
-                $('#' + selectedTab + '-content').show();
-                // Store the selected tab in localStorage
-                localStorage.setItem('selectedAdminEvaluation', selectedTab);
-            });
-
-            // Check if there's a stored tab in localStorage
-            var storedTab = localStorage.getItem('selectedAdminEvaluation');
-            console.log("Stored tab:", storedTab);
-            if (storedTab) {
-                // Show the stored tab content
-                showActiveTabContent(storedTab);
-                // Select the corresponding option in the dropdown
-                $('#semester').val(storedTab);
-            } else {
-                // If no stored tab, show the first tab content by default
-                showActiveTabContent('first_sem');
-                console.log("No stored tab, showing first_sem-content");
-                // Add 'active' class to the corresponding option in the dropdown
-                $('#semester option[value="first_sem"]').prop('selected', true); // Updated selector to match the select option
-            }
-        });
-
 
 
     </script>
-
-
-
-
-
-
 
 </x-admin-layout>

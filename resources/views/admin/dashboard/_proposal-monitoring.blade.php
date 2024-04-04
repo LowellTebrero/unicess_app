@@ -18,14 +18,12 @@
     <div class="h-full  flex flex-col space-y-4 justify-between ">
         {{--  Proposal Summary  --}}
         <div class="h-full flex flex-col p-5 rounded-lg  bg-white">
-            <h1 class="text-gray-700 text-sm text-center 2xl:text-[1.1rem] tracking-wider font-medium">Project Monitoring</h1>
+            <h1 class="text-gray-700 text-[.7rem] text-center 2xl:text-[1.1rem] tracking-wider font-medium">Extension Project Monitoring</h1>
             <div class="justify-between flex mt-2 2xl:mt-3 flex-col space-y-2 ">
 
                 <button
                     class="border border-gray-400 h-[8vh] bg-gradient-to-r from-green-200 to-green-500  w-full rounded-lg p-5  flex space-x-5 items-center relative overflow-hidden  duration-100"
-                    type="button" x-data="{}"
-                    x-on:click="window.livewire.emitTo('finished-proposal', 'show')">
-
+                    type="button" x-data="{}" x-on:click="window.livewire.emitTo('finished-proposal', 'show')">
                         <svg class="fill-white hidden xl:block" xmlns="http://www.w3.org/2000/svg" height="50"
                             width="50">
                             <path d="m20 32.4-7.85-7.85 2.4-2.4L20 27.6l13.45-13.45 2.4 2.4Z" />
@@ -37,10 +35,7 @@
 
                 <button
                     class="border border-gray-400 h-[8vh] bg-gradient-to-r from-sky-400 to-blue-500 w-full  rounded-lg p-5 flex space-x-5 items-center relative overflow-hidden  duration-100"
-                    type="button" x-data="{}"
-                    x-on:click="window.livewire.emitTo('ongoing-proposal', 'show')">
-
-
+                    type="button" x-data="{}" x-on:click="window.livewire.emitTo('ongoing-proposal', 'show')">
                     <svg class="fill-white hidden xl:block" xmlns="http://www.w3.org/2000/svg" width="40" height="40"
                         viewBox="0 0 24 24">
                         <path
@@ -53,10 +48,7 @@
 
                 <button
                     class="border border-gray-400 h-[8vh] bg-gradient-to-l from-orange-600 via-orange-400 to-yellow-300   w-full rounded-lg p-5 space-x-5   items-center relative overflow-hidden flex "
-                    type="button" x-data="{}"
-                    x-on:click="window.livewire.emitTo('pending-proposal', 'show')">
-
-
+                    type="button" x-data="{}" x-on:click="window.livewire.emitTo('pending-proposal', 'show')">
 
                     <svg class="fill-white hidden xl:block" xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 24 24">
                         <path
@@ -64,6 +56,19 @@
                     </svg>
                     <h1 class="text-sm font-semibold text-white tracking-wider xl:text-xs 2xl:text-sm">PENDING</h1>
                     <h1 class="text-xl 2xl:text-3xl text-white font-bold ">{{ $projectProposal }}</h1>
+
+                </button>
+
+                <button
+                    class="border border-gray-400 h-[8vh] bg-gradient-to-l from-red-600 via-red-500 to-red-400   w-full rounded-lg p-5 space-x-5   items-center relative overflow-hidden flex "
+                    type="button" x-data="{}" x-on:click="window.livewire.emitTo('pending-proposal', 'show')">
+
+                    <svg class="fill-white hidden xl:block" xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 24 24">
+                        <path
+                            d="M4 2a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h8.41A7 7 0 0 0 16 23a7 7 0 0 0 7-7a7 7 0 0 0-5-6.7V8l-6-6H4m0 2h7v5h5a7 7 0 0 0-7 7a7 7 0 0 0 1.26 4H4V4m12 7a5 5 0 0 1 5 5a5 5 0 0 1-5 5a5 5 0 0 1-5-5a5 5 0 0 1 5-5m-1 1v5l3.61 2.16l.75-1.22l-2.86-1.69V12H15Z" />
+                    </svg>
+                    <h1 class="text-sm font-semibold text-white tracking-wider xl:text-xs 2xl:text-sm">ACTIVE</h1>
+                    <h1 class="text-xl 2xl:text-3xl text-white font-bold ">{{ $activeProject }}</h1>
 
                 </button>
             </div>

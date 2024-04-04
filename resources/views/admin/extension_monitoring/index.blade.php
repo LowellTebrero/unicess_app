@@ -21,7 +21,10 @@
                 <a href="#" onclick="showTab('extension')" aria-current="page"  class="inline-block p-2 2xl:p-4 rounded-t-lg">Project Extension</a>
             </li>
             <li class="me-2"  id="tab-userextension">
-                <a href="#" onclick="showTab('userextension')"  class="inline-block p-2 2xl:p-4 rounded-t-lg">Users Extension Ranking</a>
+                <a href="#" onclick="showTab('userextension')"  class="inline-block p-2 2xl:p-4 rounded-t-lg">Users Extensions Report</a>
+            </li>
+            <li class="me-2"  id="tab-noneuserextension">
+                <a href="#" onclick="showTab('noneuserextension')"  class="inline-block p-2 2xl:p-4 rounded-t-lg">Users Non Extensions Report</a>
             </li>
 
         </ul>

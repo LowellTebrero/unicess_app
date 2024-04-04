@@ -3,21 +3,17 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
-use App\Models\Faculty;
 use App\Models\Proposal;
 use App\Models\AdminYear;
 use App\Models\Evaluation;
-use App\Models\UserFaculty;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use App\Models\CustomizeAdminUserData;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Notification;
-use App\Notifications\UserFollowNotification;
 use App\Notifications\UserAuthorizeNotification;
-use App\Events\UserStatusUpdateRealtimeNotification;
+
 
 class UserController extends Controller
 {

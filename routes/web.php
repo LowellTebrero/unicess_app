@@ -83,10 +83,6 @@ Route::controller(LnuAdditionalController::class)->group(function () {
 
 
 
-Route::get('/pusher', function (){
-     return view('pusher');
-});
-
 
 // Route for Admin
 Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group(function(){
@@ -120,11 +116,7 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
         Route::get('/show-extension/{id}', 'show')->name('extension-monitoring.show');
 
     });
-    Route::controller(AdminPointController::class)->group(function () {
-        Route::get('/points', 'index')->name('points.index');
-        Route::get('/points/{id}/{year}', 'show')->name('points.show');
-        Route::get('/adminfilter','AdminPointsfilter')->name('points.AdminPointsfilter');
-    });
+
 
     Route::controller(EvaluationController::class)->group(function () {
         Route::get('/evaluation-index','index')->name('evaluation.index');
@@ -241,9 +233,6 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
 
     Route::get('/edit-toggle/{id}', [ToggleController::class, 'edit'])->name('edit.submit');
 
-    Route::controller(AdminCalendarController::class)->group(function () {
-
-    });
 
     Route::get('/admin-trash', [AdminTrashController::class, 'index'])->name('trash.index');
     Route::delete('/admin-trash-restore', [AdminTrashController::class, 'RestoreFile'])->name('trash.restore');
@@ -259,7 +248,7 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
 // Route for Auth User
 Route::middleware(['auth', 'verified'])->group(function () {
 
-    Route::get('/calendar', [GoogleCalendarController::class, 'GoogleCalendar'])->name('calendar');
+
 
     Route::controller(ProposalController::class)->group(function () {
         Route::put('update-project-details/{id}',  'updateDetails')->name('User-dashboard.update-project-details');
@@ -420,7 +409,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/evaluate/{id}', [EvaluateController::class, 'create'])->name('evaluate.create');
     Route::get('/evaluate-created/{id}', [EvaluateController::class, 'createdEvaluation'])->name('evaluate.created');
     Route::post('/post-evaluate', [EvaluateController::class, 'post'])->name('evaluate.post');
-    // Route::get('/filter/evaluate/index', [EvaluateController::class, 'EvaluateFilterIndex'])->name('evaluate.EvaluateFilterIndex');
     Route::get('/evaluate-pdf/{id}', [EvaluateController::class, 'evaluatePdf'])->name('evaluate-pdf')->middleware('auth');
 
     Route::post('update-proposal/{proposal}', [SelectController::class, 'update']);

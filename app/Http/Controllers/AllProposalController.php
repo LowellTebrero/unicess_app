@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CesoRole;
-use App\Models\Location;
+
 use App\Models\Proposal;
 use App\Models\AdminYear;
 use Illuminate\Http\Request;
 use App\Models\ProposalMember;
-use App\Models\ProposalRequest;
-use App\Models\ParticipationName;
-use App\Models\AdminProgramServices;
 use App\Models\CustomizeUserAllProposal;
 
 class AllProposalController extends Controller

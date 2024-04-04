@@ -267,11 +267,6 @@ class DashboardController extends Controller
             $uniqueformedias = $formedia->medias ? $formedia->medias->unique('collection_name'): collect();
         }
 
-
-
-
-
-
         $latest = Proposal::where('id', $id)
         ->with(['medias' => function ($query) {
             $query->latest()->first();
@@ -288,6 +283,100 @@ class DashboardController extends Controller
         });
 
 
+        // $mediaData = Proposal::where('id', $id)
+        // ->with('medias')
+        // ->get()
+        // ->flatMap(function ($proposal) {
+        //     return $proposal->medias->map(function ($media) {
+        //         return $media->created_at->format('F'); // Format month and year
+        //     });
+        // });
+
+        // $startMonth = $mediaData->isEmpty() ? null : Carbon::createFromFormat('F', $mediaData->first());
+        // $allMonths = $startMonth ? collect($startMonth->format('F'))->merge($startMonth->addMonthsNoOverflow()->monthsUntil(Carbon::now()->endOfYear())->map(function ($date) {
+        //     return $date->format('F');
+        // }))->toArray() : [];
+
+        // $chartData = [
+        //     'labels' => $allMonths,
+        //     'data' => $mediaData->countBy()->values()->toArray(),
+        // ];
+
+        $allMonths = [];
+        $currentMonth = Carbon::now()->startOfYear();
+        $endOfYear = Carbon::now()->endOfYear();
+        while ($currentMonth <= $endOfYear) {
+            $allMonths[] = $currentMonth->format('F');
+            $currentMonth->addMonth();
+        }
+
+        // Count the occurrences of each month
+        $mediaData = Proposal::where('id', $id)
+            ->with('medias')
+            ->get()
+            ->flatMap(function ($proposal) {
+                return $proposal->medias->map(function ($media) {
+                    return $media->created_at->format('F'); // Format month
+                });
+            });
+
+        $monthCounts = $mediaData->countBy()->toArray();
+
+        // Fill in counts for each month, including zero counts
+        $data = [];
+        foreach ($allMonths as $month) {
+            $data[] = isset($monthCounts[$month]) ? $monthCounts[$month] : 0;
+        }
+
+        $chartData = [
+            'labels' => $allMonths,
+            'data' => $data,
+        ];
+
+
+        // $allMonths = [];
+        // $currentMonth = Carbon::now()->startOfYear();
+        // $endOfYear = Carbon::now()->endOfYear();
+        // while ($currentMonth <= $endOfYear) {
+        //     $allMonths[] = $currentMonth->format('F');
+        //     $currentMonth->addMonth();
+        // }
+
+        // $mediaData = Proposal::where('id', $id)
+        //     ->with('medias')
+        //     ->get()
+        //     ->flatMap(function ($proposal) {
+        //         return $proposal->medias->map(function ($media) {
+        //             return [
+        //                 'month' => $media->created_at->format('F'), // Format month
+        //                 'title' => $media->file_name, // Assuming there's a title attribute in the media model
+        //             ];
+        //         });
+        //     });
+
+        // // Initialize data array with empty arrays
+        // $data = array_fill(0, count($allMonths), ['count' => 0, 'titles' => []]);
+
+        // // Update data array with counts and titles
+        // foreach ($mediaData as $media) {
+        //     $monthIndex = array_search($media['month'], $allMonths);
+        //     if ($monthIndex !== false) {
+        //         $data[$monthIndex]['count']++; // Increment count
+        //         $data[$monthIndex]['titles'][] = $media['title']; // Append title
+        //     }
+        // }
+
+        $chartData = [
+            'labels' => $allMonths,
+            'data' => $data,
+        ];
+
+
+
+
+        // dd($chartData);
+
+
         $otherFilePdfCount = Media::where('collection_name', 'otherFile')->count();
         $travelCount = Media::where('collection_name', 'travelOrderPdf')->count();
         $officeCount = Media::where('collection_name', 'officeOrderPdf')->count();
@@ -302,7 +391,7 @@ class DashboardController extends Controller
 
         return view('admin.dashboard.proposal.edit-proposal', compact('proposal','proposals', 'program', 'members', 'formedia', 'latest',
         'uniqueProposalFiles', 'uniqueformedias','users','otherFilePdfCount','travelCount','officeCount','specialPdfCount','attendancePdfCount',
-        'attendancemPdfCount','narrativePdfCount','terminalPdfCount','mediaCount','existingTags'));
+        'attendancemPdfCount','narrativePdfCount','terminalPdfCount','mediaCount','existingTags', 'chartData'));
     }
 
     public function AdminUpdateFiles(Request $request, $id)

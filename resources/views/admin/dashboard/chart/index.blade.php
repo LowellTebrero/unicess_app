@@ -3,7 +3,7 @@
     <section class="h-full rounded-xl bg-white">
 
         <header class="p-4 py-2 flex justify-between items-center">
-            <h1 class="text-lg font-medium tracking-wider text-slate-700">Extension Program/Project Overview</h1>
+            <h1 class="text-lg font-medium tracking-wider text-slate-700">Extension Project Statistics</h1>
             <a href={{ route('admin.dashboard.index') }} class="hover:bg-gray-200 focus:bg-red-200 rounded px-2 py-1">
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -14,7 +14,7 @@
 
             <div class="flex 2xl:flex-col flex-col pt-0  m-5 mt-0 rounded-lg ">
 
-                <div class="flex justify-between py-2">
+                {{--  <div class="flex justify-between py-2">
 
                     <div id="wrapper" class="flex items-center transition-all px-2 py-1 rounded border ">
                         <button class="flex items-center space-x-2 text-xs text-gray-700" id="YesDelete">
@@ -41,8 +41,8 @@
                         </select>
                     </div>
 
-                </div>
-                <hr>
+                </div>  --}}
+                {{--  <hr>  --}}
                 @if ($allProposal->isEmpty())
                     <div class="h-[45vh] 2xl:h-[52vh] flex flex-col items-center justify-center space-y-2">
                         <img class="w-[13rem]" src="{{ asset('img/Empty.jpg') }}">
@@ -50,9 +50,9 @@
                     </div>
                 @else
 
-                <div id="filtered-data">
+                {{--  <div id="filtered-data">
                     @include('admin.dashboard.chart.filter_index._index-dashboard')
-                </div>
+                </div>  --}}
 
 
 
@@ -173,7 +173,8 @@
                             'rgba(255, 159, 64, 1)'
                         ],
                         borderWidth: 1,
-
+                        fill: true,
+                        cubicInterpolationMode: 'monotone',
                     }]
                 },
                 options: {
