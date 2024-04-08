@@ -2,17 +2,17 @@
     <x-modals wire:model="show">
 
         <!-- Title / Close-->
-        <div class="flex items-center justify-between pb-2 px-4 pt-4 bg-blue-200">
+        <div class="flex items-center justify-between pb-2 px-4 pt-4 bg-red-200">
 
             <h5 class="mr-3 text-gray-700 font-medium max-w-none tracking-wider">
                 @if ($Count > 0 )
-                {{ $Count }} ONGOING PROJECT EXTENSION
+                {{ $Count }} ACTIVE PROJECT EXTENSION
                 @else
-                No ongoing project
+                No active project
                 @endif
                 </h5>
 
-                <button type="button" class="flex z-50 cursor-pointer text-white bg-blue-500  hover:bg-blue-600 text-md px-2 py-2 rounded " @click="show = false">
+                <button type="button" class="flex z-50 cursor-pointer text-white bg-red-500  hover:bg-red-600 text-md px-2 py-2 rounded " @click="show = false">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                     </svg>
@@ -78,9 +78,6 @@
             <div>
                 {{ $projectProposals->links() }}
             </div>
-
-
-
         </div>
 
     </div>

@@ -42,7 +42,7 @@
         </svg>
     </div>
 
-    <a href="{{ route('admin.dashboard.chart-index') }}"
+    <a href="{{ route('admin.extension-monitoring.index') }}"
         class="bg-white w-full text-gray-600 rounded-lg xl:rounded-xl  hover:bg-slate-100 transition-all flex justify-between items-center  p-4 sm:p-0 px-4 md:px-6 xl:px-10 shadow relative hover:border hover:border-teal-300">
 
         <div class="relative">

@@ -66,7 +66,7 @@ class ExtensionMonitoring extends Component
         $yearStartDate = Carbon::now()->subYear()->toDateString();
 
         return view('livewire.extension-monitoring', [
-            'allProposal' => Proposal::orderBy('proposals.created_at', 'asc')
+            'allProposal' => Proposal::orderBy('proposals.created_at', 'desc')
                 ->with('programs')->with('proposal_members')
                 ->search(trim($this->search))
                 ->whereBetween('created_at', [$startDate, $endDate])

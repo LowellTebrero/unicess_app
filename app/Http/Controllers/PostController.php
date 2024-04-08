@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
+use App\Models\Proposal;
 use App\Models\User;
 use App\Models\Latest;
 use App\Models\Feature;
@@ -32,17 +32,6 @@ class PostController extends Controller
     // }
 
 
-    public function index()
-    {
-        $posts = Post::orderBy('updated_at', 'desc')->get();
-        return view('dashboard', compact('posts'));
-    }
-    public function proposal()
-    {
-        $posts = Post::orderBy('updated_at', 'desc')->get();
-        return view('proposal', compact('posts'));
-    }
-
     public function lnuShow()
     {
         $authorize = DB::table('users')->select('authorize')->get();
@@ -51,6 +40,8 @@ class PostController extends Controller
         $partners = AdminPartner::take(6)->get();
         $beneficiaries = AdminBeneficiary::take(6)->get();
         $programservices = AdminProgramServices::all();
+        $totalProject = Proposal::count();
+        $ActiveProject = Proposal::where('status', 'active')->count();
 
         $events = [];
         $appointments  = AdminCalendar::all();
@@ -63,7 +54,8 @@ class PostController extends Controller
                 'end' => $appointment->finish_time,
             ];
         }
-        return view('lnu', compact('slider', 'authorize', 'articles', 'partners','beneficiaries', 'events', 'programservices' ));
+        return view('lnu', compact('slider', 'authorize', 'articles', 'partners','beneficiaries', 'events', 'programservices',
+        'totalProject','ActiveProject' ));
     }
 
     public function PrivacyPolicy(){

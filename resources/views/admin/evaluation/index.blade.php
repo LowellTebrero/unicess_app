@@ -67,8 +67,6 @@
                 }));
             });
         });
-
-
         $(document).ready(function() {
            $(document).on('click', '.delete-button', function() {
                 // Get the evaluation ID from the data attribute
@@ -106,9 +104,6 @@
 
             });
         });
-
-
-
         $(document).on('click', '[data-modal-toggle]', function() {
             // Retrieve the evaluation ID from the data attribute
             var evaluationId = $(this).data('modal-toggle').replace('popup-modal', '');
@@ -132,10 +127,6 @@
             // Code to show the modal
             $('#' + modalId).addClass('hidden');
         });
-
-
-
-
     </script>
 
 </x-admin-layout>

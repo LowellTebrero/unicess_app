@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('uuid', 7);
             $table->unsignedBigInteger('user_id')->unsigned();
+            $table->string('colleges_name');
             $table->string('faculty_id');
             $table->string('period_of_evaluation');
             $table->string('chairmanship_university')->nullable();

@@ -30,24 +30,6 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
     public function index()
     {
 
-        // $proposals = Proposal::all();
-
-
-        // foreach ($proposals as $proposal) {
-
-        //     $terminalMediaExists = $proposal->medias()
-        //     ->where('created_at', '>', $proposal->created_at)
-        //     ->where('created_at', '<=', $proposal->status_check_at)
-        //     ->exists();
-
-        //     $proposal->status = $terminalMediaExists ? 'active' : 'inactive';
-        //     $proposal->save();
-        // }
-
-
-
-
-
         $activeProject = Proposal::where('status', 'active')->count();
         $projectProposal = Proposal::where('authorize', 'pending')->count();
         $ongoingProposal = Proposal::where('authorize', 'ongoing')->count();

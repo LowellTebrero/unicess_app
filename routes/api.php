@@ -44,7 +44,6 @@ Route::post('/toggle-update/{id}', [EvaluationController::class, 'updateSystem']
 
 Route::post('/toggle-update/user/{id}', [UserController::class, 'updateSystem'])->name('toggle.update-user');
 
-Route::post('/toggle-update/event/{id}', [EventController::class, 'updateSystem'])->name('toggle.update-event');
 
 
 Route::post('/update-data/{id}', [UpdatePendingProposalController::class, 'updateData'])->name('update.data');
@@ -79,11 +78,6 @@ Route::get('/filter-user-proposal/{id}', [AllProposalController::class, 'filterU
 Route::get('/proposal/search', [AllProposalController::class, 'searchAllProposal'])->name('proposal.search');
 Route::get('/proposal/search-my-proposal/{id}', [AllProposalController::class, 'searchMyProposal'])->name('proposal.search-my-proposal');
 Route::get('/filter-my-proposal', [AllProposalController::class, 'MyProposal'])->name('filter.proposal');
-
-Route::get('/filter-points', [AdminFilterController::class, 'filter_points'])->name('filter.points');
-Route::get('/filter-search-points', [AdminFilterController::class, 'filter_searchPoints'])->name('filter.search-points');
-Route::get('/filter-evaluation', [AdminFilterController::class, 'filter_evaluation'])->name('filter.evaluation');
-Route::get('/search-evaluation', [AdminFilterController::class, 'filter_searchEvaluation'])->name('filter.search-evaluation');
 
 
 Route::post('/dashboard-customize/{id}', [DashboardController::class, 'updateData'])->name('dashboard.update-customize');

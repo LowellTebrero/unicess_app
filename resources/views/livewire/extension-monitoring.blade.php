@@ -110,7 +110,7 @@
 
                     <td class="text-xs pl-2">{{ ++$count }}</td>
                     <td class="p-3 whitespace-nowrap hidden 2xl:block">
-                        <a href={{ route('admin.extension-monitoring.show',  $proposal->id) }}>
+                        <a href={{ route('admin.dashboard.edit-proposal',  $proposal->id) }}>
                         <div class="flex items-center">
                             <div class="flex-shrink-0 mr-2 sm:mr-3"><img
                                     class="rounded-full"
@@ -124,7 +124,7 @@
                     </a>
                     </td>
                     <td class="p-3 whitespace-nowrap">
-                        <a href={{ route('admin.extension-monitoring.show', $proposal->id) }}>
+                        <a href={{ route('admin.dashboard.edit-proposal', $proposal->id) }}>
 
                             <div class="text-left text-gray-600 text-[.6rem] xl:text-xs flex gap-1 items-center">
                                 <svg class="fill-yellow-400 hover:fill-yellow-500" xmlns="http://www.w3.org/2000/svg" height="20"
@@ -137,7 +137,7 @@
                     </td>
 
                     <td class="p-3 whitespace-nowrap text-center">
-                        <a href={{ route('admin.extension-monitoring.show', $proposal->id) }}>
+                        <a href={{ route('admin.dashboard.edit-proposal', $proposal->id) }}>
 
                             <div class=" text-gray-600 text-[.6rem] xl:text-xs">
                                 {{ $proposal->colleges_name }}
@@ -146,7 +146,7 @@
                     </td>
 
                     <td class="p-3 whitespace-nowrap  hidden sm:block">
-                        <a href={{ route('admin.extension-monitoring.show', $proposal->id) }}>
+                        <a href={{ route('admin.dashboard.edit-proposal', $proposal->id) }}>
                         {{--  <div class="text-left text-gray-600  text-[.6rem] xl:text-[.7rem]">
                             {{ \Carbon\Carbon::parse($proposal->created_at)->format('M d, Y,  g:i:s A')}}
                         </div>  --}}
@@ -158,7 +158,7 @@
 
 
                     <td class="py-3 whitespace-nowrap w-[1rem]">
-                        <a href={{ route('admin.extension-monitoring.show', $proposal->id) }}>
+                        <a href={{ route('admin.dashboard.edit-proposal', $proposal->id) }}>
                         @if ($proposal->status == 'inactive')
                             <div
                                 class="text-md text-center text-red-700 text-[.6rem] xl:text-xs flex items-center justify-start space-x-2">
@@ -178,7 +178,7 @@
                     </td>
 
                     <td class="p-3 pl-0 whitespace-nowrap">
-                        <a href={{ route('admin.extension-monitoring.show', $proposal->id) }}>
+                        <a href={{ route('admin.dashboard.edit-proposal', $proposal->id) }}>
                         @if ($proposal->authorize == 'pending')
                             <div
                                 class="text-md text-center  text-[.6rem] xl:text-xs ">

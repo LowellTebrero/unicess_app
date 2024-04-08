@@ -6,7 +6,7 @@
 
             <h5 class="mr-3 text-gray-700 font-medium max-w-none tracking-wider">
                 @if ($Count > 0 )
-                {{ $Count }} finished project
+                {{ $Count }} FINISHED PROJECT EXTENSION
                 @else
                 No finished project
                 @endif
@@ -75,7 +75,11 @@
 
                     @endforelse
                 </tbody>
+
             </table>
+            <div>
+                {{ $projectProposals->links() }}
+            </div>
 
         </div>
 

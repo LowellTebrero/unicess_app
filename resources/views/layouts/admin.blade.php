@@ -31,9 +31,6 @@
 </head>
 
 <body class="font-sans antialiased">
-
-
-
     <section class="flex w-full relative h-[100vh] overflow-x-hidden bg-blue-100">
 
         <!-- Sidebar Section  -->
@@ -77,8 +74,7 @@
         <livewire:pending-proposal>
             <livewire:ongoing-proposal>
                 <livewire:finished-proposal>
-                {{--  <livewire:admin-dashboard-project>  --}}
-                    {{--  <livewire:admin-notification>  --}}
+                <livewire:active-proposal>
 </body>
 
 </html>

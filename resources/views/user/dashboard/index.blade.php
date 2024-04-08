@@ -12,7 +12,7 @@
 
     @if (Auth::user()->authorize == 'checked')
 
-        @unlessrole('admin|New User')
+        @unlessrole('super-admin|admin|New User')
             <section class="h-full flex flex-col space-y-4">
 
                 <div class="h-[15vh] grid grid-cols-2 sm:grid-cols-4 gap-2 mb-10 sm:mb-0">

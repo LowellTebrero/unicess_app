@@ -24,7 +24,8 @@ class EvaluationSeeder extends Seeder
             Evaluation::create([
                 'uuid' => Str::random(7),
                 'user_id' => $faker->numberBetween(2,100),
-                'faculty_id' => $faker->numberBetween(1,8),
+                'faculty_id' => $faker->numberBetween(1,21),
+                'colleges_name' => $faker->randomElement(['BSED', 'CAS', 'COE', 'CME', 'Graduate School']),
                 'period_of_evaluation' => '2024-2025',
                 'chairmanship_university' => $faker->numberBetween(1,20),
                 'chairmanship_college' => $faker->numberBetween(1,12),

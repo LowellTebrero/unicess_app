@@ -18,9 +18,7 @@ use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use App\Models\AdminProgramServices;
-use Illuminate\Support\Facades\Http;
 use App\Models\CustomizeAdminProposal;
-use Illuminate\Support\Facades\Storage;
 use App\Notifications\ProposalNotification;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\UserTagProposalNotification;
@@ -246,21 +244,15 @@ class DashboardController extends Controller
         ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
         },])->first();
 
-
-
         $uniqueProposalFiles = null;
         $existingTagIds = null;
         $existingTags = null;
-
-
 
         if ($proposals) {
             $uniqueProposalFiles = $proposals->medias ? $proposals->medias->unique('collection_name') : collect();
             $existingTagIds = $proposals->proposal_members()->pluck('user_id')->toArray();
             $existingTags = User::whereIn('id', $existingTagIds)->pluck('name', 'id')->toArray();
         }
-
-
 
         $uniqueformedias = null;
         if ($formedia) {
@@ -282,25 +274,6 @@ class DashboardController extends Controller
             return [$user->id => $user->name];
         });
 
-
-        // $mediaData = Proposal::where('id', $id)
-        // ->with('medias')
-        // ->get()
-        // ->flatMap(function ($proposal) {
-        //     return $proposal->medias->map(function ($media) {
-        //         return $media->created_at->format('F'); // Format month and year
-        //     });
-        // });
-
-        // $startMonth = $mediaData->isEmpty() ? null : Carbon::createFromFormat('F', $mediaData->first());
-        // $allMonths = $startMonth ? collect($startMonth->format('F'))->merge($startMonth->addMonthsNoOverflow()->monthsUntil(Carbon::now()->endOfYear())->map(function ($date) {
-        //     return $date->format('F');
-        // }))->toArray() : [];
-
-        // $chartData = [
-        //     'labels' => $allMonths,
-        //     'data' => $mediaData->countBy()->values()->toArray(),
-        // ];
 
         $allMonths = [];
         $currentMonth = Carbon::now()->startOfYear();
@@ -332,49 +305,6 @@ class DashboardController extends Controller
             'labels' => $allMonths,
             'data' => $data,
         ];
-
-
-        // $allMonths = [];
-        // $currentMonth = Carbon::now()->startOfYear();
-        // $endOfYear = Carbon::now()->endOfYear();
-        // while ($currentMonth <= $endOfYear) {
-        //     $allMonths[] = $currentMonth->format('F');
-        //     $currentMonth->addMonth();
-        // }
-
-        // $mediaData = Proposal::where('id', $id)
-        //     ->with('medias')
-        //     ->get()
-        //     ->flatMap(function ($proposal) {
-        //         return $proposal->medias->map(function ($media) {
-        //             return [
-        //                 'month' => $media->created_at->format('F'), // Format month
-        //                 'title' => $media->file_name, // Assuming there's a title attribute in the media model
-        //             ];
-        //         });
-        //     });
-
-        // // Initialize data array with empty arrays
-        // $data = array_fill(0, count($allMonths), ['count' => 0, 'titles' => []]);
-
-        // // Update data array with counts and titles
-        // foreach ($mediaData as $media) {
-        //     $monthIndex = array_search($media['month'], $allMonths);
-        //     if ($monthIndex !== false) {
-        //         $data[$monthIndex]['count']++; // Increment count
-        //         $data[$monthIndex]['titles'][] = $media['title']; // Append title
-        //     }
-        // }
-
-        $chartData = [
-            'labels' => $allMonths,
-            'data' => $data,
-        ];
-
-
-
-
-        // dd($chartData);
 
 
         $otherFilePdfCount = Media::where('collection_name', 'otherFile')->count();

@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Proposal;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Carbon\Carbon;
 
 class ExtensionMonitoringController extends Controller
 {
@@ -32,13 +33,9 @@ class ExtensionMonitoringController extends Controller
         ->groupBy('model_id','collection_name')->orderBy('latest_created_at', 'desc')->pluck('collection_name', 'model_id');
         },])->first();
 
-
-
         $uniqueProposalFiles = null;
         $existingTagIds = null;
         $existingTags = null;
-
-
 
         if ($proposals) {
             $uniqueProposalFiles = $proposals->medias ? $proposals->medias->unique('collection_name') : collect();
@@ -46,13 +43,10 @@ class ExtensionMonitoringController extends Controller
             $existingTags = User::whereIn('id', $existingTagIds)->pluck('name', 'id')->toArray();
         }
 
-
-
         $uniqueformedias = null;
         if ($formedia) {
             $uniqueformedias = $formedia->medias ? $formedia->medias->unique('collection_name'): collect();
         }
-
 
         $latest = Proposal::where('id', $id)
         ->with(['medias' => function ($query) {
@@ -70,6 +64,38 @@ class ExtensionMonitoringController extends Controller
         });
 
 
+        $allMonths = [];
+        $currentMonth = Carbon::now()->startOfYear();
+        $endOfYear = Carbon::now()->endOfYear();
+        while ($currentMonth <= $endOfYear) {
+            $allMonths[] = $currentMonth->format('F');
+            $currentMonth->addMonth();
+        }
+
+        // Count the occurrences of each month
+        $mediaData = Proposal::where('id', $id)
+            ->with('medias')
+            ->get()
+            ->flatMap(function ($proposal) {
+                return $proposal->medias->map(function ($media) {
+                    return $media->created_at->format('F'); // Format month
+                });
+            });
+
+        $monthCounts = $mediaData->countBy()->toArray();
+
+        // Fill in counts for each month, including zero counts
+        $data = [];
+        foreach ($allMonths as $month) {
+            $data[] = isset($monthCounts[$month]) ? $monthCounts[$month] : 0;
+        }
+
+        $chartData = [
+            'labels' => $allMonths,
+            'data' => $data,
+        ];
+
+
         $otherFilePdfCount = Media::where('collection_name', 'otherFile')->count();
         $travelCount = Media::where('collection_name', 'travelOrderPdf')->count();
         $officeCount = Media::where('collection_name', 'officeOrderPdf')->count();
@@ -84,7 +110,6 @@ class ExtensionMonitoringController extends Controller
 
         return view('admin.extension_monitoring.show', compact('proposal','proposals', 'program', 'members', 'formedia', 'latest',
         'uniqueProposalFiles', 'uniqueformedias','users','otherFilePdfCount','travelCount','officeCount','specialPdfCount','attendancePdfCount',
-        'attendancemPdfCount','narrativePdfCount','terminalPdfCount','mediaCount','existingTags'));
+        'attendancemPdfCount','narrativePdfCount','terminalPdfCount','mediaCount','existingTags', 'chartData'));
     }
-
 }

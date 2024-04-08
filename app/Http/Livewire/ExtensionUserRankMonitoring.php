@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\AdminYear;
+use App\Models\Faculty;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\ProposalMember;
@@ -18,6 +19,8 @@ class ExtensionUserRankMonitoring extends Component
     public $semester = null;
 
     public $collegesStatus = null;
+
+    public $facultyName = '';
 
 
     // public function __construct($id = null)
@@ -75,9 +78,15 @@ class ExtensionUserRankMonitoring extends Component
                     $userQuery->where('colleges', $this->collegesStatus);
                 });
             })
+            ->when($this->facultyName, function ($query) {
+                $query->whereHas('user', function ($userQuery) {
+                    $userQuery->where('faculty_id', $this->facultyName);
+                });
+            })
             ->groupBy('user_id')
             ->paginate($this->paginateUsers),
-        'years' => AdminYear::orderBy('year', 'desc')->pluck('year')
+            'departments' => Faculty::orderBy('name')->pluck('name', 'id')->prepend('Select Department', ''),
+            'years' => AdminYear::orderBy('year', 'desc')->pluck('year')
     ]);
     }
 }

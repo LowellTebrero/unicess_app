@@ -24,10 +24,8 @@
                 <button
                     class="border border-gray-400 h-[8vh] bg-gradient-to-r from-green-200 to-green-500  w-full rounded-lg p-5  flex space-x-5 items-center relative overflow-hidden  duration-100"
                     type="button" x-data="{}" x-on:click="window.livewire.emitTo('finished-proposal', 'show')">
-                        <svg class="fill-white hidden xl:block" xmlns="http://www.w3.org/2000/svg" height="50"
-                            width="50">
-                            <path d="m20 32.4-7.85-7.85 2.4-2.4L20 27.6l13.45-13.45 2.4 2.4Z" />
-                        </svg>
+
+                        <svg class=" hidden lg:block" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 1024 1024"><path fill="#ffffff" d="M280.768 753.728L691.456 167.04a32 32 0 1 1 52.416 36.672L314.24 817.472a32 32 0 0 1-45.44 7.296l-230.4-172.8a32 32 0 0 1 38.4-51.2zM736 448a32 32 0 1 1 0-64h192a32 32 0 1 1 0 64zM608 640a32 32 0 0 1 0-64h319.936a32 32 0 1 1 0 64zM480 832a32 32 0 1 1 0-64h447.936a32 32 0 1 1 0 64z"/></svg>
                         <h1 class="text-sm font-semibold text-white tracking-wider xl:text-xs 2xl:text-sm"> FINISHED </h1>
                         <h1 class="text-xl 2xl:text-3xl font-bold text-white">
                         {{ $finishedProposal }}</h1>
@@ -36,7 +34,7 @@
                 <button
                     class="border border-gray-400 h-[8vh] bg-gradient-to-r from-sky-400 to-blue-500 w-full  rounded-lg p-5 flex space-x-5 items-center relative overflow-hidden  duration-100"
                     type="button" x-data="{}" x-on:click="window.livewire.emitTo('ongoing-proposal', 'show')">
-                    <svg class="fill-white hidden xl:block" xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+                    <svg class="fill-white hidden lg:block" xmlns="http://www.w3.org/2000/svg" width="40" height="40"
                         viewBox="0 0 24 24">
                         <path
                             d="M15.25 5q-.525 0-.888-.363T14 3.75q0-.525.363-.888t.887-.362q.525 0 .888.363t.362.887q0 .525-.363.888T15.25 5Zm0 16.5q-.525 0-.888-.363T14 20.25q0-.525.363-.888T15.25 19q.525 0 .888.363t.362.887q0 .525-.363.888t-.887.362Zm4-13q-.525 0-.888-.363T18 7.25q0-.525.363-.888T19.25 6q.525 0 .888.363t.362.887q0 .525-.363.888t-.887.362Zm0 9.5q-.525 0-.888-.363T18 16.75q0-.525.363-.888t.887-.362q.525 0 .888.363t.362.887q0 .525-.363.888T19.25 18Zm1.5-4.75q-.525 0-.888-.363T19.5 12q0-.525.363-.888t.887-.362q.525 0 .888.363T22 12q0 .525-.363.888t-.887.362ZM2 12q0-3.925 2.613-6.75t6.412-3.2q.4-.05.688.238T12 3q0 .4-.263.7t-.662.35q-3.025.35-5.05 2.6T4 12q0 3.125 2.025 5.363t5.05 2.587q.4.05.663.35T12 21q0 .425-.288.713t-.687.237Q7.2 21.575 4.6 18.75T2 12Zm10 2q-.825 0-1.413-.588T10 12q0-.125.013-.263t.062-.262L8.7 10.1q-.275-.275-.275-.7t.275-.7q.275-.275.7-.275t.7.275l1.375 1.375q.1-.025.525-.075q.825 0 1.413.588T14 12q0 .825-.588 1.413T12 14Z" />
@@ -50,26 +48,20 @@
                     class="border border-gray-400 h-[8vh] bg-gradient-to-l from-orange-600 via-orange-400 to-yellow-300   w-full rounded-lg p-5 space-x-5   items-center relative overflow-hidden flex "
                     type="button" x-data="{}" x-on:click="window.livewire.emitTo('pending-proposal', 'show')">
 
-                    <svg class="fill-white hidden xl:block" xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 24 24">
+                    <svg class="fill-white hidden lg:block" xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 24 24">
                         <path
                             d="M4 2a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h8.41A7 7 0 0 0 16 23a7 7 0 0 0 7-7a7 7 0 0 0-5-6.7V8l-6-6H4m0 2h7v5h5a7 7 0 0 0-7 7a7 7 0 0 0 1.26 4H4V4m12 7a5 5 0 0 1 5 5a5 5 0 0 1-5 5a5 5 0 0 1-5-5a5 5 0 0 1 5-5m-1 1v5l3.61 2.16l.75-1.22l-2.86-1.69V12H15Z" />
                     </svg>
                     <h1 class="text-sm font-semibold text-white tracking-wider xl:text-xs 2xl:text-sm">PENDING</h1>
                     <h1 class="text-xl 2xl:text-3xl text-white font-bold ">{{ $projectProposal }}</h1>
-
                 </button>
 
                 <button
-                    class="border border-gray-400 h-[8vh] bg-gradient-to-l from-red-600 via-red-500 to-red-400   w-full rounded-lg p-5 space-x-5   items-center relative overflow-hidden flex "
-                    type="button" x-data="{}" x-on:click="window.livewire.emitTo('pending-proposal', 'show')">
-
-                    <svg class="fill-white hidden xl:block" xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 24 24">
-                        <path
-                            d="M4 2a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h8.41A7 7 0 0 0 16 23a7 7 0 0 0 7-7a7 7 0 0 0-5-6.7V8l-6-6H4m0 2h7v5h5a7 7 0 0 0-7 7a7 7 0 0 0 1.26 4H4V4m12 7a5 5 0 0 1 5 5a5 5 0 0 1-5 5a5 5 0 0 1-5-5a5 5 0 0 1 5-5m-1 1v5l3.61 2.16l.75-1.22l-2.86-1.69V12H15Z" />
-                    </svg>
+                    class="border border-gray-400 h-[8vh] bg-gradient-to-l from-red-600 via-red-500 to-red-400 w-full rounded-lg p-5 space-x-5 items-center relative overflow-hidden flex justify-between"
+                    type="button" x-data="{}" x-on:click="window.livewire.emitTo('active-proposal', 'show')">
+                    <svg class="hidden lg:block" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#ffffff" d="M16.558 19.75h.769v-3.27h-.77zm2.115 0h.77v-3.27h-.77zM6.77 8.73h10.462v-1H6.769zM18 22.116q-1.671 0-2.836-1.164T14 18.115q0-1.67 1.164-2.835T18 14.115q1.671 0 2.836 1.165T22 18.115q0 1.672-1.164 2.836Q19.67 22.115 18 22.115M4 20.77V5.615q0-.67.472-1.143Q4.944 4 5.615 4h12.77q.67 0 1.143.472q.472.472.472 1.143v5.945q-.244-.09-.485-.154q-.24-.064-.515-.1v-5.69q0-.231-.192-.424Q18.615 5 18.385 5H5.615q-.23 0-.423.192Q5 5.385 5 5.615V19.05h6.344q.068.41.176.802q.109.392.303.748l-.035.035l-1.134-.827l-1.346.961l-1.346-.961l-1.347.961l-1.346-.961zm2.77-4.5h4.709q.056-.275.138-.515q.083-.24.193-.485H6.77zm0-3.769h7.31q.49-.387 1.05-.645q.56-.259 1.197-.355H6.769zM5 19.05V5z"/></svg>
                     <h1 class="text-sm font-semibold text-white tracking-wider xl:text-xs 2xl:text-sm">ACTIVE</h1>
                     <h1 class="text-xl 2xl:text-3xl text-white font-bold ">{{ $activeProject }}</h1>
-
                 </button>
             </div>
         </div>

@@ -11,7 +11,7 @@
         .progress-bar {
             height: 20px;
             border-radius: 10px;
-            background-image: linear-gradient(to right, #FFDD77, #FFA500);
+            background-image: linear-gradient(to right, #77efff, #00a2ff);
             text-align: center;
             line-height: 20px;
             color: white;
@@ -78,7 +78,7 @@
             </div>
 
             <div class="w-1/2">
-                <div class="border border-gray-400 rounded-xl h-[67vh] 2xl:h-full p-5">
+                <div class="border border-gray-400 rounded-xl overflow-y-auto h-[67vh] 2xl:h-full p-5">
 
                     @foreach($progressPoints as $progressPoint)
                     <div class="flex space-x-4">

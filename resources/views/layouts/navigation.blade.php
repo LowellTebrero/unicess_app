@@ -77,7 +77,7 @@
                 <!-- Notification -->
                 @auth
                     <div class="flex">
-                        @role('admin')
+                        @hasanyrole('super|admin')
                             <div class="relative" x-data="{ open: false }" @click.outside="open = false" @close.stop="open = false">
                                 <div @click="open = ! open">
                                     <button class="mt-2 sm:mt-4  2xl:mt-4 relative ">
@@ -485,7 +485,7 @@
                                     </div>
                                 </div>
                             </div>
-                        @endrole
+                        @endhasanyrole
 
                         @unlessrole('admin')
                             <div class="relative" x-data="{ open: false }" @click.outside="open = false"

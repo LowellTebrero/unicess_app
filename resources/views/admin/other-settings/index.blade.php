@@ -67,6 +67,12 @@
                     <a href="#"  onclick="showTab('calendar')" class="inline-block p-4 rounded-t-lg">Calendar</a>
                 </li>
 
+                @role('super')
+                <li class="me-2"  id="tab-access">
+                    <a href="#"  onclick="showTab('access')" class="inline-block p-4 rounded-t-lg">Access</a>
+                </li>
+                @endrole
+
             </ul>
         </div>
 
@@ -436,6 +442,11 @@
 
         </div>
 
+        <div class="flex m-5 tab-content border border-gray-300 rounded-lg p-5" id="access-content"  style="display: none;">
+            @include('admin.other-settings.filter_access')
+        </div>
+
+
     </section>
 
     <x-messages/>
@@ -516,9 +527,7 @@
             // Store the selected tab in localStorage
             localStorage.setItem('selectedOtherSettingsTab', tabId);
         }
-    </script>
 
-    <script>
         $(document).ready(function() {
             $('#calendars').fullCalendar({
                 events: {!! json_encode($events) !!},

@@ -1,5 +1,4 @@
-<div
-    class="sidebar-toggle shadow-2xl h-screen bg-gradient-to-t from-blue-500 to-blue-800 transition-all fixed  xl:w-[12rem] 2xl:w-[14rem]">
+<div class="sidebar-toggle shadow-2xl h-screen bg-gradient-to-t from-blue-500 to-blue-800 transition-all fixed  xl:w-[12rem] 2xl:w-[14rem]">
     <nav class="flex-grow pr-2 pl-2 pb-4 space-y-2 md:block md:pb-0 navigation transition-all">
 
         <div class="flex items-center py-3 justify-between px-4 xl:px-0 xl:justify-center space-x-2">
@@ -22,7 +21,6 @@
             </svg>
             Dashboard
         </x-custom-nav-link>
-
 
         <x-custom-nav-link :href="route('admin.extension-monitoring.index')" :active="request()->routeIs('admin.extension-monitoring.*')">
             <svg class="fill-white mr-2" xmlns="http://www.w3.org/2000/svg" width="35" height="30" viewBox="0 0 24 24">
@@ -60,7 +58,6 @@
             Inventory
         </x-custom-nav-link> --}}
 
-
         <x-custom-nav-link :href="route('admin.article-event.index')" :active="request()->routeIs('admin.article-event.*')">
             <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 14 14">
                 <g fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round">
@@ -81,7 +78,6 @@
             Settings
         </x-custom-nav-link>
 
-
         <x-custom-nav-link :href="route('admin.trash.index')" :active="request()->routeIs('admin.trash*')" class="dynamic-link">
             <svg class="fill-white mr-2" xmlns="http://www.w3.org/2000/svg" width="35" height="35"
                 viewBox="0 0 24 24">
@@ -96,8 +92,7 @@
             Trash
         </x-custom-nav-link>
 
-
-
-        {{--  End of Manage Account Collapse   --}}
     </nav>
 </div>
+
+

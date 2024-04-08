@@ -6,7 +6,7 @@
 
             <h5 class="mr-3 text-gray-700 font-medium max-w-none tracking-wider">
                 @if ($Count > 0)
-                    {{ $Count }} pending project
+                    {{ $Count }} PENDING PROJECT EXTENSION
                 @else
                     No pending project
                 @endif
@@ -72,6 +72,10 @@
                         @endforeach
                     </tbody>
                 </table>
+                <div>
+                    {{ $projectProposals->links() }}
+                </div>
+
 
             </div>
 

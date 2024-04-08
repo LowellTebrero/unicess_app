@@ -5,7 +5,9 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\Evaluation;
 use App\Models\AdminYear;
+use App\Models\Faculty;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Livewire\WithPagination;
 
 class AdminEvaluation extends Component
@@ -17,6 +19,10 @@ class AdminEvaluation extends Component
     public $yearStatus;
     public $paginateAdminEvaluation = 10; // Pagination for all proposals
     public $EvaluationSemester = null;
+
+    public $collegesStatus = '';
+    public $facultyName = '';
+    public $Status = '';
     public $date = null;
 
 
@@ -32,6 +38,7 @@ class AdminEvaluation extends Component
 
     public function render()
     {
+
 
         $startDate = null;
         $endDate = null;
@@ -57,7 +64,9 @@ class AdminEvaluation extends Component
 
 
         return view('livewire.admin-evaluation', [
+
           'evaluations' => Evaluation::with('users')->with('evaluationfile')
+
           ->search(trim($this->searchAdminEvaluation))
           ->whereBetween('created_at', [$startDate, $endDate])
           ->when($this->yearStatus, function ($query) {
@@ -78,9 +87,20 @@ class AdminEvaluation extends Component
         ->when($this->date == 'year', function ($query) use ($yearStartDate) {
             $query->where('evaluations.created_at', '<', $yearStartDate); // Filter older than a year
         })
+        ->when($this->collegesStatus, function ($query) {
+            $query->where('evaluations.colleges_name', $this->collegesStatus); // Filter by year
+        })
+        ->when($this->facultyName, function ($query) {
+            $query->where('evaluations.faculty_id', $this->facultyName); // Filter by year
+        })
+        ->when($this->Status, function ($query) {
+            $query->where('evaluations.status', $this->Status); // Filter by year
+        })
+
         ->orderBy('total_points', 'desc')
         ->paginate($this->paginateAdminEvaluation),
         'years' => AdminYear::orderBy('year', 'desc')->pluck('year'),
+        'departments' => Faculty::orderBy('name')->pluck('name', 'id')->prepend('Select Department', ''),
         'currentYear' => date('Y')
         ]);
 

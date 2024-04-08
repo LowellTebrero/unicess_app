@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 use App\Models\Proposal;
 
@@ -32,10 +33,13 @@ class CheckProposalStatus extends Command
         $proposals = Proposal::all();
 
         foreach ($proposals as $proposal) {
+            // Convert status_check_at to a Carbon instance
+            $statusCheckAt = Carbon::parse($proposal->status_check_at);
+
             // Check if there exists a Terminal media record associated with the proposal and its creation date falls within the status_check_at period
             $terminalMediaExists = $proposal->media()
                 ->where('created_at', '>', $proposal->created_at)
-                ->where('created_at', '<=', $proposal->status_check_at)
+                ->where('created_at', '<=', $statusCheckAt)
                 ->exists();
 
             // Set the proposal's status based on the existence of Terminal media records and their creation dates
@@ -47,4 +51,5 @@ class CheckProposalStatus extends Command
 
         return count($proposals);
     }
+
 }

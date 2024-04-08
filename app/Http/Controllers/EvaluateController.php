@@ -137,6 +137,7 @@ class EvaluateController extends Controller
         $uuid = Str::random(7);
         $evaluate = new Evaluation();
             $evaluate->uuid = $uuid;
+            $evaluate->colleges_name = Auth()->user()->college;
             $evaluate->faculty_id = $request->faculty_id;
             $evaluate->period_of_evaluation = $request->period_of_evaluation;
             $evaluate->chairmanship_university = $request->chairmanship_university;

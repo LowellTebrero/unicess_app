@@ -59,6 +59,9 @@
     {{--  Values Section  --}}
     @include('lnu-partials.lnu-values-section')
 
+    <!-- LNU Metrics -->
+    @include('lnu-partials.lnu-metrics')
+
     {{--  Lastest Section  --}}
     <section id="events-section">
         @include('lnu-partials.lnu-latest-section')

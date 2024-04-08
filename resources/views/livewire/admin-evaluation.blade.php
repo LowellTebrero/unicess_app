@@ -10,19 +10,39 @@
                 <option value="2" {{ $EvaluationSemester == 2 ? 'selected' : '' }}>2nd Semester</option>
             </select>
 
+            <select class="text-xs rounded border-slate-400 w-[8rem]" wire:model="collegesStatus">
+                <option  value="">Colleges</option>
+                <option  value="BSED">BSED</option>
+                <option  value="CME">CME</option>
+                <option  value="COE">COE</option>
+                <option  value="CAS">CAS</option>
+                <option  value="Graduate School">Graduate School</option>
+            </select>
+
+
+            <select wire:model="facultyName" name="facultyName" id="facultyName" class="w-[11rem] text-xs rounded  border-slate-400">
+                @foreach ($departments as $id => $name ) <option value="{{ $id }}">{{ $name }}</option> @endforeach
+            </select>
+
+            <select class="text-xs rounded border-slate-400 w-[6rem]" wire:model="Status">
+                <option  value="">Status</option>
+                <option  value="pending">Pending</option>
+                <option  value="evaluated">Validated</option>
+            </select>
+
             <select wire:model="yearStatus" name="yearStatus" id="yearStatus" class="w-[6rem] text-xs rounded  border-slate-400">
                 @foreach ($years as $year )
                 <option value="{{ $year }}" @if ($yearStatus == date('Y')) selected="selected" @endif>{{ $year }}</option>
                 @endforeach
             </select>
 
-            <select wire:model="date" name="date" id="date" class="w-[7rem] text-xs rounded border-slate-400">
+            {{-- <select wire:model="date" name="date" id="date" class="w-[7rem] text-xs rounded border-slate-400">
                 <option value="">Anytime</option>
                 <option value="week">Older than a week</option>
                 <option value="month">Older than a month</option>
                 <option value="six_months">Older than six months</option>
                 <option value="year">Older than a year</option>
-            </select>
+            </select> --}}
 
 
             <select wire:model="paginateAdminEvaluation" name="paginateAdminEvaluation" id="paginateAdminEvaluation" class="w-[5rem] text-xs rounded  border-slate-400">
@@ -79,6 +99,8 @@
 
 
 
+
+
                 @forelse ($evaluations as $evaluation )
 
                 <tr class="hover:bg-gray-100 border ">
@@ -107,7 +129,7 @@
 
                     <td class="p-3 whitespace-nowrap text-center">
                         <div class=" text-gray-600 text-[.6rem] xl:text-xs">
-                            {{ $evaluation->users->colleges}}
+                            {{ $evaluation->colleges_name}}
                         </div>
                     </td>
 

@@ -18,6 +18,22 @@ class AdminSeeder extends Seeder
     public function run()
     {
 
+        $superAdmin =  User::create([
+            'name' => 'SuperAdministrator',
+            'first_name' =>'Super Admin',
+            'middle_name' =>'Super Admin',
+            'last_name' =>'Super Admin',
+            'gender' =>'Male',
+            'email' => 'Superadmin@gmail.com',
+            'email_verified_at' => now(),
+            'address' => 'Tacloban City',
+            'contact_number' => '0955325345',
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'faculty_id' => 2,
+            'authorize' => 'checked',
+            'provider' => 'google',
+
+        ]);
         $admin =  User::create([
             'name' => 'Administrator',
             'first_name' =>'CesoAdmin',
@@ -35,6 +51,8 @@ class AdminSeeder extends Seeder
 
         ]);
 
+        $superAdmin->assignRole('super');
+        $superAdmin->assignRole('admin');
         $admin->assignRole('admin');
 
         $faker = Factory::create();
