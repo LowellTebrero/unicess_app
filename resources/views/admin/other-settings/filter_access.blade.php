@@ -56,17 +56,18 @@
     }
 </style>
 
+    <h1 class="mb-2">ADMIN NAVBAR ACCESS</h1>
     <div class="flex gap-2">
-        <!-- Toggle buttons for each navbar item -->
-        <div id="navbar-controls" class="flex flex-col gap-2">
-            @for ($i = 1; $i <= 7; $i++)
-                <label class="switch">
-                    <input type="checkbox" id="toggle-navbar-{{ $i }}">
-                    <span class="slider round"></span>
+        <div class="flex flex-col gap-2">
+            @foreach ($AccessData as $access )
+            <label class="switch">
+                <input type="checkbox" id="toggle-navbar-{{ $access->id }}" data-id="{{ $access->id }}" {{ $access->status === 'checked' ? 'checked' : '' }}
+                onclick="return confirm ('Are you sure?')">
+                <span class="slider round"></span>
 
-                </label>
-            @endfor
-        </div>
+            </label>
+            @endforeach
+            </div>
 
         <div class="flex flex-col text-sm gap-[0.35rem]">
             <h1>Dashboard</h1>
@@ -78,50 +79,41 @@
             <h1>Trash</h1>
         </div>
 
-        <!-- Your navbar divs -->
-        {{-- @for ($i = 1; $i <= 7; $i++)
-            <div class="flex flex-col bg-red-500">
-                <div id="navbar-{{ $i }}" class="navbar " style="display: none;">
-                    <!-- Navbar item {{ $i }} content -->
-                    Navbar Item {{ $i }}
-                </div>
-            </div>
-        @endfor --}}
     </div>
 
 
     <script>
-        // Function to toggle visibility of navbar div based on checkbox state
-        function toggleNavbarVisibility(navbarId, checkboxId) {
-            var navbarDiv = document.getElementById(navbarId);
-            var checkbox = document.getElementById(checkboxId);
+         // Wait for the DOM to load
+         document.addEventListener('DOMContentLoaded', function() {
+            var toggleSwitches = document.querySelectorAll('[id^="toggle-navbar-"]');
 
-            navbarDiv.style.display = (checkbox.checked) ? 'block' : 'none';
-            localStorage.setItem(checkboxId, checkbox.checked);
-        }
+            toggleSwitches.forEach(function(toggleSwitch) {
+                toggleSwitch.addEventListener('change', function() {
+                    console.log(toggleSwitch);
+                    var toggleState = this.checked;
+                    var recordId = this.getAttribute('data-id');
 
-        // Retrieve and set the initial state of each navbar div
-        window.onload = function() {
-            for (var i = 1; i <= 7; i++) {
-                var checkboxId = 'toggle-navbar-' + i;
-                var navbarId = 'navbar-' + i;
-                var checkboxState = localStorage.getItem(checkboxId);
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', '/admin/toggle-update-access/' + recordId, true);
+                    xhr.setRequestHeader('Content-Type', 'application/json');
+                    xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}');
 
-                if (checkboxState === 'true') {
-                    document.getElementById(checkboxId).checked = true;
-                    document.getElementById(navbarId).style.display = 'block';
-                }
-            }
-        }
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState === 4) {
+                            if (xhr.status === 200) {
+                                var response = JSON.parse(xhr.responseText);
+                                if (response.success) {
+                                    console.log('Toggle state updated successfully!');
+                                }
+                            } else {
+                                console.error('Error occurred: ' + xhr.status);
+                            }
+                        }
+                    };
 
-        // Attach event listeners to each toggle button
-        for (var i = 1; i <= 7; i++) {
-            (function() {
-                var checkboxId = 'toggle-navbar-' + i;
-                var navbarId = 'navbar-' + i;
-                document.getElementById(checkboxId).addEventListener('change', function() {
-                    toggleNavbarVisibility(navbarId, checkboxId);
+                    xhr.send(JSON.stringify({ state: toggleState }));
                 });
-            })();
-        }
+            });
+        });
+
     </script>

@@ -77,7 +77,7 @@
                 <!-- Notification -->
                 @auth
                     <div class="flex">
-                        @hasanyrole('super|admin')
+                        @hasrole('super-admin|admin')
                             <div class="relative" x-data="{ open: false }" @click.outside="open = false" @close.stop="open = false">
                                 <div @click="open = ! open">
                                     <button class="mt-2 sm:mt-4  2xl:mt-4 relative ">
@@ -485,9 +485,9 @@
                                     </div>
                                 </div>
                             </div>
-                        @endhasanyrole
+                        @endrole
 
-                        @unlessrole('admin')
+                        @unlessrole('admin|super-admin')
                             <div class="relative" x-data="{ open: false }" @click.outside="open = false"
                                 @close.stop="open = false">
                                 <div @click="open = ! open">
@@ -1301,7 +1301,7 @@
                                 <x-slot name="content">
 
                                     @if (Auth::user()->authorize == 'checked')
-                                        @hasrole('admin')
+                                        @hasrole('super-admin|admin')
                                             <x-dropdown-link :href="route('admin.dashboard.index')">
                                     {{ __('Dashboard') }}
                                 </x-dropdown-link>
@@ -1478,13 +1478,13 @@
                         {{ __('Contact us') }}
                     </x-nav-link>
 
-                    @role('admin')
+                    @hasrole('super-admin|admin')
                     <x-nav-link :href="route('admin.dashboard.index')" class="text-white text-xs xl:text-sm ">
                        {{ __('Dashboard') }}
                     </x-nav-link>
                     @endrole
 
-                    @unlessrole('admin')
+                    @unlessrole('super-admin|admin')
                     <x-nav-link :href="route('User-dashboard.index')" class="w-auto text-white text-xs xl:text-sm ">
                         {{ __('Dashboard') }}
                     </x-nav-link>

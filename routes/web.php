@@ -85,7 +85,7 @@ Route::controller(LnuAdditionalController::class)->group(function () {
 
 
 // Route for Admin
-Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group(function(){
+Route::middleware(['auth','admin.role'])->name('admin.')->prefix('admin')->group(function(){
 
     Route::controller(IndexController::class)->group(function () {
         Route::get('/',  'index')->name('dashboard.index');
@@ -229,6 +229,8 @@ Route::middleware(['auth','role:admin'])->name('admin.')->prefix('admin')->group
         Route::post('/calendar-post', 'store')->name('calendar.store');
         Route::patch('/calendar-update/{id}', 'update')->name('calendar.update');
         Route::delete('/calendar-delete/{id}', 'delete')->name('calendar.delete');
+        Route::post('/toggle-update-access/{id}', 'updateAccess');
+
     });
 
     Route::get('/edit-toggle/{id}', [ToggleController::class, 'edit'])->name('edit.submit');

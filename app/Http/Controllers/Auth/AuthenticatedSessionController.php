@@ -50,7 +50,7 @@ class AuthenticatedSessionController extends Controller
 
 
         // Check if the user has the 'admin' role
-        if ($user->roles->contains('name', 'admin')) {
+        if ($user->roles->whereIn('name', ['admin', 'super-admin'])->isNotEmpty()) {
             flash()->addInfo('Welcome to UniCESS.');
             return redirect()->intended(RouteServiceProvider::ADMINDASHBOARD);
         } else {

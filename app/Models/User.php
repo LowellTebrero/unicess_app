@@ -109,11 +109,19 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(Role::class, 'model_has_roles' ,'model_id', 'role_id');
     }
 
-    public function project_count()
+    public function isAdminOnly(): bool
     {
-        return $this->HasMany(UserProjectCount::class);
+        return $this->hasRole('admin') && !$this->hasRole('super-admin');
     }
 
+    public function hasAnyRole($roles): bool
+    {
+        if (is_array($roles)) {
+            return $this->roles->whereIn('name', $roles)->count() > 0;
+        }
+
+        return $this->roles->contains('name', $roles);
+    }
     public function scopeSearch($query, $search)
     {
         $search = "%$search%";

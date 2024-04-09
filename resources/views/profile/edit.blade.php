@@ -1,4 +1,4 @@
-@hasrole('admin')
+@hasrole('admin|super-admin')
     <x-admin-layout>
 
         @section('title', 'Profile | ' . config('app.name', 'UniCESS'))

@@ -36,7 +36,7 @@
                     </div>
                 @else
 
-                    @unlessrole('admin|New User')
+                    @unlessrole('super-admin|admin|New User')
                         <div class="mx-5 my-5 text-white">
                             <h1 class="tracking-wider text-xs sm:text-sm font-medium" id="greeting">Hi, {{ Auth()->user()->name }}</h1>
                             <div class="flex space-x-1">
@@ -47,7 +47,7 @@
                     @endunlessrole
                 @endif
 
-                @role('admin')
+                @hasrole('super-admin|admin')
                     <div class="mx-5 my-5 text-white">
                         <h1 class="tracking-wider text-xs sm:text-sm font-medium" id="greeting">Hi, {{ Auth()->user()->name }}</h1>
                         <div class="flex space-x-1">
@@ -61,7 +61,7 @@
 
             @auth
                 <div class="flex">
-                    @role('admin')
+                    @hasrole('super-admin|admin')
                         <div class="relative" x-data="{ open: false }" @click.outside="open = false" @close.stop="open = false">
                             <div @click="open = ! open">
                                 <button class="mt-4 relative ">
@@ -471,7 +471,7 @@
                         </div>
                     @endrole
 
-                    @unlessrole('admin')
+                    @unlessrole('super-admin|admin')
                         <div class="relative" x-data="{ open: false }" @click.outside="open = false"
                             @close.stop="open = false">
                             <div @click="open = ! open">

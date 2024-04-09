@@ -51,8 +51,7 @@ class AdminSeeder extends Seeder
 
         ]);
 
-        $superAdmin->assignRole('super');
-        $superAdmin->assignRole('admin');
+        $superAdmin->assignRole('super-admin');
         $admin->assignRole('admin');
 
         $faker = Factory::create();

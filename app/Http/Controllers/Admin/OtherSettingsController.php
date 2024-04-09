@@ -8,6 +8,7 @@ use App\Models\AdminYear;
 use Illuminate\Http\Request;
 use App\Models\AdminCalendar;
 use App\Http\Controllers\Controller;
+use App\Models\CustomizeAdminAccess;
 use Illuminate\Support\Facades\Storage;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
@@ -20,6 +21,8 @@ class OtherSettingsController extends Controller
         $faculties =  Faculty::orderBy('name')->get();
         $events = [];
         $appointments  = AdminCalendar::all();
+        $AccessData = CustomizeAdminAccess::orderBy('id', 'asc')->get();
+
 
         foreach ($appointments as $appointment) {
             $events[] = [
@@ -29,7 +32,7 @@ class OtherSettingsController extends Controller
             ];
         }
 
-        return view('admin.other-settings.index', compact('templates', 'years', 'faculties','events', 'appointments'));
+        return view('admin.other-settings.index', compact('templates', 'years', 'faculties','events', 'appointments','AccessData'));
     }
 
     public function yearPost(Request $request){
@@ -170,4 +173,19 @@ class OtherSettingsController extends Controller
         flash()->addSuccess('Delete Successfully.');
         return back();
     }
+
+    public function UpdateAccess(Request $request, $id)
+    {
+        // Find the record in the database
+        $toggle = CustomizeAdminAccess::findOrFail($id);
+
+        // Toggle the data in the table based on the current state
+        $toggle->update([
+            'status' => $request->input('state') ? 'checked' : 'close',
+        ]);
+
+        return response()->json(['success' => true]);
+
+    }
+
 }

@@ -42,7 +42,7 @@
                             </div>
 
                             <!-- Trigger for Modal -->
-                            @hasrole('admin')
+                            @hasrole('super-admin|admin')
                             @else
                             <button class="text-xs text-red-600" type="button" @click="showModal = true">Edit</button>
                             @endrole
@@ -167,7 +167,7 @@
                     <div class="mt-4 lg:mt-7 space-y-5">
                         @if ($user->faculty == !null)
 
-                        @hasrole('admin')
+                        @hasrole('super-admin|admin')
                         @else
                         <div class="space-y-1">
 

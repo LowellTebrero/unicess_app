@@ -1,12 +1,12 @@
 
     <style>
-        .active-tab {
-    /* Add your active styles here */
-    background-color: #ffbb00;
-    color: #ffffff;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-    }
+            .active-tab {
+        /* Add your active styles here */
+        background-color: #ffbb00;
+        color: #ffffff;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+        }
     </style>
 <x-admin-layout>
 
@@ -27,8 +27,8 @@
 
 
          <!-- Navbar -->
-        <nav class="p-5">
-            <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-300">
+        <nav class="p-5 pb-0">
+            <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 ">
                 <li class="me-2"  id="tab-article">
                     <a href="#" onclick="showTab('article')" aria-current="page"  class="inline-block p-4 rounded-t-lg ">Article</a>
                 </li>
@@ -50,7 +50,7 @@
 
         <!-- Main Section -->
 
-        <div id="article-content" class="tab-content bg-white shadow p-2 m-5 rounded-lg border" style="display: none;">
+        <div id="article-content" class="tab-content bg-white shadow p-2 m-5 mt-0 rounded-lg border" style="display: none;">
             <div class="flex justify-between mb-2">
                 <h1 class="tracking-wider">Article Overview</h1>
 
@@ -247,7 +247,7 @@
             @endif
         </div>
 
-        <div id="event-content" class="tab-content bg-white shadow p-2 m-5 rounded-lg border" style="display: none;">
+        <div id="event-content" class="tab-content bg-white shadow p-2 m-5 mt-0 rounded-lg border" style="display: none;">
             <div class="flex justify-between mb-2">
                 <h1 class="tracking-wider">Event Overview</h1>
 
@@ -451,7 +451,7 @@
             @endif
         </div>
 
-        <div id="partner-content" class="tab-content bg-white shadow p-2 m-5 rounded-lg border" style="display: none;">
+        <div id="partner-content" class="tab-content bg-white shadow p-2 m-5 mt-0 rounded-lg border" style="display: none;">
             <div class="flex justify-between mb-2">
                 <h1 class="tracking-wider">Partner Overview</h1>
 
@@ -491,7 +491,7 @@
 
                                     <div class="flex flex-col">
                                         <label class="text-base leading-relaxed text-gray-200">Description</label>
-                                        <textarea name="description" class="text-base leading-relaxed text-gray-600 rounded" id="" cols="30" rows="10">{{ old('description') }}</textarea>
+                                        <textarea name="description" class="text-base leading-relaxed text-gray-600 rounded h-[20vh]" id="" cols="30" rows="10">{{ old('description') }}</textarea>
                                         @error('description') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                     </div>
 
@@ -602,7 +602,7 @@
 
                                                             <div class="flex flex-col">
                                                                 <label class="text-base leading-relaxed text-gray-200">Description</label>
-                                                                <textarea name="description" class="text-base leading-relaxed text-gray-600 rounded" id="" cols="30" rows="10">{{$partner->description}}</textarea>
+                                                                <textarea name="description" class="text-base leading-relaxed text-gray-600 rounded h-[20vh]" id="" cols="30" rows="10">{{$partner->description}}</textarea>
                                                                 @error('description') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                                             </div>
 
@@ -640,7 +640,7 @@
             @endif
         </div>
 
-        <div id="beneficiary-content" class="tab-content bg-white shadow p-2 m-5 rounded-lg border" style="display: none;">
+        <div id="beneficiary-content" class="tab-content bg-white shadow p-2 m-5 mt-0 rounded-lg border" style="display: none;">
             <div class="flex justify-between mb-2">
                 <h1 class="tracking-wider">Beneficiary Overview</h1>
 
@@ -678,7 +678,7 @@
 
                                     <div class="flex flex-col">
                                         <label class="text-base leading-relaxed text-gray-200">Description</label>
-                                        <textarea name="description" class="text-base leading-relaxed text-gray-600 rounded" id="" cols="30" rows="10">{{ old('description') }}</textarea>
+                                        <textarea name="description" class="text-base leading-relaxed text-gray-600 rounded h-[20vh]" id="" cols="30" rows="10">{{ old('description') }}</textarea>
                                         @error('description') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                     </div>
 
@@ -789,7 +789,7 @@
 
                                                             <div class="flex flex-col">
                                                                 <label class="text-base leading-relaxed text-gray-200">Description</label>
-                                                                <textarea name="description" class="text-base leading-relaxed text-gray-600 rounded" id="" cols="30" rows="10">{{$beneficiary->description}}</textarea>
+                                                                <textarea name="description" class="text-base leading-relaxed text-gray-600 rounded h-[20vh]" id="" cols="30" rows="10">{{$beneficiary->description}}</textarea>
                                                                 @error('description') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                                                             </div>
 
@@ -827,7 +827,7 @@
             @endif
         </div>
 
-        <div id="program-and-services-content" class="tab-content bg-white shadow p-2 m-5 rounded-lg border" style="display: none;">
+        <div id="program-and-services-content" class="tab-content bg-white shadow p-2 m-5 mt-0 rounded-lg border" style="display: none;">
 
             @if ($programservices->isEmpty())
             <div class="h-[45vh] 2xl:h-[52vh] flex flex-col items-center justify-center space-y-2">

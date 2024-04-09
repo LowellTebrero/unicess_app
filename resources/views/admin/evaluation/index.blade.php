@@ -1,5 +1,65 @@
 
+
+
 <x-admin-layout>
+
+    <style>
+        /* Add your CSS styles here */
+        /* Styles for the slider toggle */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 40px; /* Adjust the width of the switch */
+            height: 18px; /* Adjust the height of the switch */
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+            border-radius: 34px; /* Rounded corners for the slider */
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 14px; /* Adjust the height of the slider button */
+            width: 14px; /* Adjust the width of the slider button */
+            left: 2px; /* Adjust the left position of the slider button */
+            bottom: 2px; /* Adjust the bottom position of the slider button */
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+            border-radius: 50%; /* Make the slider button circular */
+        }
+
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px #2196F3;
+        }
+
+        input:checked + .slider:before {
+            -webkit-transform: translateX(21px); /* Adjust the distance the slider button moves */
+            -ms-transform: translateX(21px);
+            transform: translateX(21px);
+        }
+    </style>
+
 
     @section('title', 'Evaluation | ' . config('app.name', 'UniCESS'))
 
@@ -12,10 +72,14 @@
 
             </div>
             <div id="toggle-container" class="mt-2 flex items-center">
-                <input
-                class="mr-2 mt-[0.3rem] h-3.5 w-8 appearance-none rounded-[0.4375rem] bg-neutral-300 before:pointer-events-none before:absolute before:h-3.5 before:w-3.5 before:rounded-full before:bg-transparent before:content-[''] after:absolute after:z-[2] after:-mt-[0.1875rem] after:h-5 after:w-5 after:rounded-full after:border-none after:bg-neutral-100 after:shadow-[0_0px_3px_0_rgb(0_0_0_/_7%),_0_2px_2px_0_rgb(0_0_0_/_4%)] after:transition-[background-color_0.2s,transform_0.2s] after:content-[''] checked:bg-primary checked:after:absolute checked:after:z-[2] checked:after:-mt-[3px] checked:after:ml-[1.0625rem] checked:after:h-5 checked:after:w-5 checked:after:rounded-full checked:after:border-none checked:after:bg-primary checked:after:shadow-[0_3px_1px_-2px_rgba(0,0,0,0.2),_0_2px_2px_0_rgba(0,0,0,0.14),_0_1px_5px_0_rgba(0,0,0,0.12)] checked:after:transition-[background-color_0.2s,transform_0.2s] checked:after:content-[''] hover:cursor-pointer focus:outline-none focus:ring-0 focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[3px_-1px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] focus:after:absolute focus:after:z-[1] focus:after:block focus:after:h-5 focus:after:w-5 focus:after:rounded-full focus:after:content-[''] checked:focus:border-primary checked:focus:bg-primary checked:focus:before:ml-[1.0625rem] checked:focus:before:scale-100 checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] dark:bg-neutral-600 dark:after:bg-neutral-400 dark:checked:bg-primary dark:checked:after:bg-primary dark:focus:before:shadow-[3px_-1px_0px_13px_rgba(255,255,255,0.4)] dark:checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca]"
-                type="checkbox" data-id="{{ $toggle->id }}" {{ $toggle->status === 'checked' ? 'checked' : '' }}
-                id="toggle" onclick="return confirm ('Are you sure?')" />
+                <div id="navbar-controls" class="flex flex-col gap-2">
+                    <label class="switch">
+                        <input type="checkbox" data-id="{{ $toggle->id }}" {{ $toggle->status === 'checked' ? 'checked' : '' }}
+                        id="toggle" onclick="return confirm ('Are you sure?')">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+
                 <button data-tooltip-target="tooltip-left" data-tooltip-placement="left" type="button">
                     <svg class="fill-gray-600" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 256 256"><path  d="M142 176a6 6 0 0 1-6 6a14 14 0 0 1-14-14v-40a2 2 0 0 0-2-2a6 6 0 0 1 0-12a14 14 0 0 1 14 14v40a2 2 0 0 0 2 2a6 6 0 0 1 6 6m-18-82a10 10 0 1 0-10-10a10 10 0 0 0 10 10m106 34A102 102 0 1 1 128 26a102.12 102.12 0 0 1 102 102m-12 0a90 90 0 1 0-90 90a90.1 90.1 0 0 0 90-90"/></svg>
                 </button>

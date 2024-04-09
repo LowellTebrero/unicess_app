@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\CustomizeAdminAccess;
 use App\Models\CustomizeAdminInventory;
 use App\Models\CustomizeAdminProposal;
 use App\Models\CustomizeAdminUserData;
@@ -27,5 +28,10 @@ class CustomizeSeeder extends Seeder
         CustomizeUserInventory::create(['number' => 1 ]);
         CustomizeUserInventory::create(['number' => 2 ]);
         EvaluationStatus::create(['status' => 'close' ]);
+
+        for ($i = 0; $i < 7; $i++) {
+            CustomizeAdminAccess::create(['status' => 'checked' ]);
+        }
+
     }
 }

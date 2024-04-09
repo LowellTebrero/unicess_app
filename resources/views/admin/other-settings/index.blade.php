@@ -55,8 +55,8 @@
         </div>
         <hr>
 
-        <div class="p-5">
-            <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-300">
+        <div class="p-5 pb-0">
+            <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 ">
                 <li class="me-2"  id="tab-template">
                     <a href="#" onclick="showTab('template')" aria-current="page"  class="inline-block p-4 rounded-t-lg ">Template</a>
                 </li>
@@ -67,7 +67,7 @@
                     <a href="#"  onclick="showTab('calendar')" class="inline-block p-4 rounded-t-lg">Calendar</a>
                 </li>
 
-                @role('super')
+                @role('super-admin')
                 <li class="me-2"  id="tab-access">
                     <a href="#"  onclick="showTab('access')" class="inline-block p-4 rounded-t-lg">Access</a>
                 </li>
@@ -77,8 +77,8 @@
         </div>
 
 
-        <div class="bg-white border border-gray-300 shadow-sm  rounded-lg text-gray-700 m-5 p-2 tab-content" id="template-content" style="display: none;">
-            <div class="p-5 flex justify-between items-center">
+        <div class="bg-white border border-gray-300 shadow-sm  rounded-lg text-gray-700 m-5 mt-0 p-2 tab-content" id="template-content" style="display: none;">
+            <div class="p-2 flex justify-between items-center">
                 <div>
                     <h1 class="tracking-wider font-medium text-gray-600 text-xs 2xl:text-base">CESO TEMPLATE HERE</h1>
                 </div>
@@ -154,12 +154,10 @@
                     @endforeach
                 </div>
             @endif
-
-
         </div>
 
-        <div class="flex m-5 tab-content border border-gray-300 rounded-lg p-5" id="department-content"  style="display: none;">
-            <div class="flex py-2  flex-col w-full">
+        <div class="flex m-5 mt-0 tab-content border border-gray-300 rounded-lg p-5" id="department-content"  style="display: none;">
+            <div class="flex flex-col w-full">
 
                 <div class="space-y-2">
                     <div x-cloak  x-data="{ 'showModal': false }"  @keydown.escape="showModal = false" >
@@ -253,9 +251,9 @@
             </div>
         </div>
 
-        <div class="flex m-5 tab-content overflow-x-auto h-[50vh] 2xl:h-[60vh] border border-gray-300 rounded-lg" id="calendar-content"  style="display: none;">
+        <div class="flex m-5 mt-0 tab-content overflow-x-auto h-[50vh] 2xl:h-[60vh] border border-gray-300 rounded-lg" id="calendar-content"  style="display: none;">
 
-            <div class="p-5 sticky top-[0rem] z-20 bg-white">
+            <div class="p-2 sticky top-[0rem] z-20 bg-white">
                 <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-300">
                     <li class="me-2"  id="cad-calendar-data">
                         <a href="#" onclick="showCad('calendar-data')" aria-current="page"  class="inline-block p-4 rounded-t-lg">Calendar Data</a>
@@ -442,7 +440,7 @@
 
         </div>
 
-        <div class="flex m-5 tab-content border border-gray-300 rounded-lg p-5" id="access-content"  style="display: none;">
+        <div class="flex m-5 mt-0 tab-content border border-gray-300 rounded-lg p-5" id="access-content"  style="display: none;">
             @include('admin.other-settings.filter_access')
         </div>
 
