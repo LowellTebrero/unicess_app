@@ -1,9 +1,5 @@
 <div>
-    {{-- <div class="w-[100%]">
-        <div class="pt-6 p-8 2xl:p-12 h-[50vh] 2xl:h-full">
-            <canvas id="myChartBar"></canvas>
-        </div>
-    </div> --}}
+
 
     <div class="flex gap-2 text-gray-700 justify-between">
         <h1 class="text-sm tracking-wide">Project Extension Statistics</h1>
@@ -22,10 +18,11 @@
     </div>
 
 
-    <div class="w-[100%] flex justify-between gap-4 pt-6">
+    <div class="w-[100%] flex justify-between gap-4 pt-6 2xl:flex-col">     
         <div class="2xl:p-12 h-[50vh] 2xl:h-full w-[50%]">
             <canvas wire:ignore id="myChart1"></canvas>
         </div>
+ 
         <div class="2xl:p-12 h-[50vh] 2xl:h-full w-[50%]">
             <canvas wire:ignore id="myChart2"></canvas>
         </div>

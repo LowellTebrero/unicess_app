@@ -16,15 +16,6 @@
             <!-- Proposal Dashboard -->
             <section  class="w-full flex-col h-full flex mt-10 lg:mt-5 bg-white 2xl:shadow rounded-xl text-white sm:w-full xl:shadow-none">
 
-                {{-- <div class="flex justify-between items-center xl:p-4 p-2">
-                    <h2 class="hidden xl:block font-semibold text-gray-600 2xl:text-sm xl:text-xs xl:mr-2 text-xs">Extension Statistics</h2>
-
-
-                    <a href={{ route('admin.dashboard.create') }}
-                    class="text-white bg-blue-500 hover:bg-blue-600 rounded-lg text-[.6rem] sm:text-xs xl:text-xs px-2 sm:px-3 py-2 2xl:text-sm">
-                    +Upload Projects
-                    </a>
-                </div> --}}
 
                 <div class="flex flex-col justify-center h-full w-full rounded-xl">
                     <hr>
@@ -32,9 +23,8 @@
 
                         <div class="h-[57vh] 2xl:h-[60vh]  2xl:w-full flex">
 
-                            <div class="w-[100%]">
-                                <div class="pt-6 p-4 2xl:p-12 h-[50vh] 2xl:h-full ">
-
+                            <div class="w-full ">
+                                <div class="pt-6 p-4 2xl:p-12 h-[50vh] 2xl:h-full w-full">
                                     <livewire:admin-dashboard-chart-extension>
                                 </div>
                             </div>
