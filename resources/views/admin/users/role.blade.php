@@ -183,17 +183,17 @@
         </header>
         <hr>
 
-        <div class="hidden sm:block h-[12vh]  bg-gradient-to-r
+        <div class="hidden 2xl:block h-[12vh]  bg-gradient-to-r
          from-slate-400 via-slate-300 to-slate-200 background-animate">
         </div>
 
-        <div class="w-20 2xl:w-40  md:w-28 sm:w-24 absolute top-[4rem] 2xl:top-[8rem] xl:top-[17vh]  md:top-[16vh]   sm:top-[17vh]  left-2 md:left-5  2xl:left-8  z-20 ">
+        <div class="w-20 2xl:w-40  md:w-28 sm:w-24 absolute top-[4rem] 2xl:top-[8rem] xl:top-[10vh]  md:top-[16vh]   sm:top-[17vh]  left-2 md:left-5  2xl:left-8  z-20 ">
             <img class="rounded-full border-8 border-white bg-white" id="showImage"
             src="{{ !empty($user->avatar) ? url('upload/image-folder/profile-image/' . $user->avatar) : url('upload/profile.png') }}">
         </div>
 
 
-        <div class="h-[20vh] sm:h-[14vh]  2xl:h-[12vh] flex justify-end relative">
+        <div class="h-[25vh] sm:h-[14vh]  2xl:h-[12vh] flex justify-end relative">
             <div class="sm:left-[7rem] md:left-[9rem] 2xl:left-[14rem] left-[1.5rem] top-[6rem] sm:top-4 absolute ">
                 <div class="flex space-x-1 items-center">
                     <h1 class="text-sm xl:text-base 2xl:text-lg font-medium tracking-wider">{{ $user->name }} </h1>
@@ -256,9 +256,9 @@
 
         </div>
 
-        <div class=" px-5">
+        <div class="pt-10 px-5">
 
-            <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-300">
+            <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 ">
                 <li class="me-2"  id="tab-information">
                     <a href="#" onclick="showTab('information')" aria-current="page"  class="inline-block p-2 2xl:p-4 rounded-t-lg ">Information</a>
                 </li>
@@ -271,7 +271,7 @@
 
             </ul>
 
-            <div id="information-content" class="tab-content flex overflow-y-auto h-auto 2xl:h-[45vh] mt-2 2xl:mt-5 " style="display: none;">
+            <div id="information-content" class="tab-content flex overflow-y-auto h-auto 2xl:h-[45vh] 2xl:mt-5 " style="display: none;">
 
                 <div class="2xl:space-y-4 2xl:space-x-0 flex 2xl:flex-col flex-col sm:flex-row space-y-2 space-x-0 sm:space-y-0 sm:space-x-4">
                     <div class="flex flex-col space-y-2 2xl:space-y-4 w-full">
@@ -322,13 +322,12 @@
                 </div>
             </div>
 
-            <div id="project-content" class="tab-content bg-white rounded border p-4 mt-2 2xl:mt-5 h-[38vh] 2xl:h-[45vh]" style="display: none;">
+            <div id="project-content" class="tab-content bg-white rounded border p-4 2xl:mt-5 h-[45vh] 2xl:h-[45vh]" style="display: none;">
                 <div class="flex justify-between items-center mb-1">
                    <h1 class="tracking-wider text-[.7rem] 2xl:text-base">Projects</h1>
                    <div>
                        <input type="text" id="searchInput" class="text-xs border-gray-200 rounded-md  xl:w-[12rem] 2xl:w-auto" placeholder="Search Project title...">
                        <select  class="text-xs border-gray-200 rounded-md text-gray-700" id="Years">
-                           <option value="">All Year</option>
                            @foreach ($years as $year )
                                <option value="{{ $year }}" @if ($year == date('Y')) selected="selected" @endif>{{ $year }}</option>
                            @endforeach
@@ -348,7 +347,7 @@
                </div>
            </div>
 
-           <div id="evaluation-content"  class="tab-content bg-white rounded border p-4 mt-2 2xl:mt-5 h-[38vh] 2xl:h-[45vh]" style="display: none;">
+           <div id="evaluation-content"  class="tab-content bg-white rounded border p-4 2xl:mt-5 h-[45vh] 2xl:h-[45vh]" style="display: none;">
                 <div class="flex justify-between items-center mb-1">
                 <h1 class="tracking-wider text-xs 2xl:text-sm">Evaluation Overview</h1>
                 <div>

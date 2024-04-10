@@ -1,7 +1,7 @@
 <div class="flex flex-col mt-2">
     <div class="-m-1.5 overflow-x-auto">
       <div class="p-1.5 min-w-full inline-block align-middle">
-        <div class="overflow-x-auto h-[32vh] lg:h-[26vh] 2xl:h-[42.5vh]">
+        <div class="overflow-x-auto h-[32vh] lg:h-[26vh] xl:h-[30vh] 2xl:h-[42.5vh]">
           <table class="min-w-full divide-y divide-gray-200 ">
             <thead>
               <tr class="sticky top-0 bg-white">

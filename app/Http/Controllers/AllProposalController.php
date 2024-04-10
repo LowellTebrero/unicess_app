@@ -19,12 +19,7 @@ class AllProposalController extends Controller
         $proposals = Proposal::with(['proposal_members' => function ($query) {
             $query->take(5)->latest();
         },'AdminProgram'])->orderBy('created_at', 'asc')->get();
-
-        $myproposal = Proposal::with(['proposal_members' => function ($query) {
-        $query->where('user_id', auth()->user()->id); }])->get();
-        $proposalMembers = ProposalMember::all();
-
-        return view('user.allProposal.index', compact('proposals','myproposal', 'allproposal',
+        return view('user.allProposal.index', compact('proposals','allproposal',
          'years', 'proposalmember'));
     }
 

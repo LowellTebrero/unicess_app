@@ -77,7 +77,7 @@
         </div>
 
 
-        <div class="bg-white border border-gray-300 shadow-sm  rounded-lg text-gray-700 m-5 mt-0 p-2 tab-content" id="template-content" style="display: none;">
+        <div class="bg-white border border-gray-300 shadow-sm h-[70%] rounded-lg text-gray-700 m-5 mt-0 p-2 tab-content" id="template-content" style="display: none;">
             <div class="p-2 flex justify-between items-center">
                 <div>
                     <h1 class="tracking-wider font-medium text-gray-600 text-xs 2xl:text-base">CESO TEMPLATE HERE</h1>
@@ -156,7 +156,7 @@
             @endif
         </div>
 
-        <div class="flex m-5 mt-0 tab-content border border-gray-300 rounded-lg p-5" id="department-content"  style="display: none;">
+        <div class="flex h-[70%] m-5 mt-0 tab-content border border-gray-300 rounded-lg p-5" id="department-content"  style="display: none;">
             <div class="flex flex-col w-full">
 
                 <div class="space-y-2">
@@ -251,7 +251,7 @@
             </div>
         </div>
 
-        <div class="flex m-5 mt-0 tab-content overflow-x-auto h-[50vh] 2xl:h-[60vh] border border-gray-300 rounded-lg" id="calendar-content"  style="display: none;">
+        <div class="flex m-5 mt-0 tab-content overflow-x-auto h-[65%] 2xl:h-[60vh] border border-gray-300 rounded-lg" id="calendar-content"  style="display: none;">
 
             <div class="p-2 sticky top-[0rem] z-20 bg-white">
                 <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-300">
@@ -440,7 +440,7 @@
 
         </div>
 
-        <div class="flex m-5 mt-0 tab-content border border-gray-300 rounded-lg p-5" id="access-content"  style="display: none;">
+        <div class="flex m-5 mt-0 tab-content border border-gray-300 h-[70%] rounded-lg p-5" id="access-content"  style="display: none;">
             @include('admin.other-settings.filter_access')
         </div>
 

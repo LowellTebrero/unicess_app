@@ -38,13 +38,31 @@
 
                             <td class=" 2xl:px-6 xl:px-4 py-4  xl:text-[.6rem] 2xl:text-[.8rem]">
                                 <a class="xl:text-[.7rem]" href={{ route('User-dashboard.show-proposal', $proposal->id) }}>
-                                    @if ($proposal->authorize == 'pending')
-                                    <div class="text-md  text-red-400">{{ $proposal->authorize}}</div>
-                                    @elseif ($proposal->authorize == 'ongoing')
-                                    <div class="text-md  text-blue-500">{{ $proposal->authorize}}</div>
-                                    @elseif ($proposal->authorize == 'finished')
-                                    <div class="text-md  text-green-500">{{ $proposal->authorize}}</div>
-                                    @endif
+                                  <div class="flex gap-2 items-center">
+
+                                    <div>
+                                        @if ($proposal->authorize == 'pending')
+                                        <div class="text-md">{{ $proposal->authorize}}</div>
+                                        @elseif ($proposal->authorize == 'ongoing')
+                                        <div class="text-md">{{ $proposal->authorize}}</div>
+                                        @elseif ($proposal->authorize == 'finished')
+                                        <div class="text-md">{{ $proposal->authorize}}</div>
+                                        @endif
+                                    </div>
+
+                                    <div>
+                                        @if ($proposal->status == 'inactive')
+                                            <div class="text-md text-center text-red-700 text-[.6rem] xl:text-xs flex items-center justify-start space-x-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24"><path fill="#ff5757" d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10s10-4.47 10-10S17.53 2 12 2"/></svg>
+                                            </div>
+
+                                        @elseif ($proposal->status == 'active')
+                                            <div class="text-md text-center text-green-700 text-[.6rem] xl:text-xs flex items-center justify-start  space-x-2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24"><path fill="#04dc3a" d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10s10-4.47 10-10S17.53 2 12 2"/></svg>
+                                            </div>
+                                        @endif
+                                    </div>
+                                  </div>
                                 </a>
                             </td>
                         </tr>

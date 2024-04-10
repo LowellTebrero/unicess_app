@@ -11,7 +11,7 @@
 
     <section class="h-full rounded-lg relative bg-white text-gray-700 overflow-hidden">
         <header class="p-2 sm:p-4 flex justify-between">
-            <h1 class="text-lg sm:text-xl font-medium tracking-wider">User Profile</h1>
+            <h1 class="text-lg sm:text-xl font-medium tracking-wider">With Department User</h1>
             <a href={{ route('User-dashboard.index') }} class="focus:bg-red-100 rounded-md px-2 py-1 hover:bg-gray-200 text-red-500">
                 <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -22,7 +22,7 @@
 
         <div class="2xl:h-[12vh] h-[8vh] footer w-full"></div>
 
-        <div class="2xl:w-40 lg:w-28 w-28 absolute 2xl:top-28  top-[10vh] left-[8.5rem] sm:left-12 z-20">
+        <div class="2xl:w-40 lg:w-28 w-28 absolute 2xl:top-28  top-[13vh] left-[8.5rem] sm:left-12 z-20">
             <img class="rounded-full border-8 border-white bg-white"
             src="{{ !empty( Auth()->user()->avatar) ? url('upload/image-folder/profile-image/' . Auth()->user()->avatar) : url('upload/profile.png') }}">
         </div>
@@ -52,17 +52,17 @@
         </div>
 
         <div class="flex p-5 pt-0 ">
-            <div class="shadow-md bg-gray-100 rounded-lg w-full p-5">
+            <div class="shadow-md bg-white border rounded-lg w-full p-5">
                 <div class="flex justify-between mb-2">
                     <h1 class="text-xs">With {{ Auth()->user()->faculty->name }}</h1>
                     {{--  <input type="text" placeholder="Search name..." class="text-xs rounded">  --}}
                 </div>
-                <div class="overflow-x-auto 2xl:h-[46vh] h-[40vh]">
+                <div class="overflow-x-auto 2xl:h-[46vh] h-[38vh]">
                 <table class="min-w-full divide-y divide-gray-200 ">
-                    <thead>
+                    <thead class="sticky top-0 w-full bg-gray-200 z-10">
                       <tr>
                         <th scope="col" class="px-2 sm:px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
-                        <th scope="col" class="px-2 sm:px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Department name</th>
+                        <th scope="col" class="px-2 sm:px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">Role name</th>
                       </tr>
                     </thead>
 

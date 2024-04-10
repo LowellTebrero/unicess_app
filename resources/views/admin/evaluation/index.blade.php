@@ -71,8 +71,8 @@
 
 
             </div>
-            <div id="toggle-container" class="mt-2 flex items-center">
-                <div id="navbar-controls" class="flex flex-col gap-2">
+            <div id="toggle-container" class="mt-2 flex items-center gap-2">
+                <div id="navbar-controls" class="flex flex-col">
                     <label class="switch">
                         <input type="checkbox" data-id="{{ $toggle->id }}" {{ $toggle->status === 'checked' ? 'checked' : '' }}
                         id="toggle" onclick="return confirm ('Are you sure?')">

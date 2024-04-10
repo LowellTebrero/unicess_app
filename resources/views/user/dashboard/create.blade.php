@@ -50,17 +50,51 @@
 
             <div class="p-4 grid gap-6 grid-cols 2xl:grid-cols-2 relative rounded-md">
 
-                <div class="space-y-6">
-
+                <div class="space-y-6 h-[100%]">
                     <!-- Project details -->
                     <div class=" w-full border border-gray-400 rounded-md p-5">
                         <h1 class="text-lg mb-5 tracking-wide font-semibold text-gray-600">Project Details</h1>
 
+                        <div class="w-full mb-2">
+                            <label class="text-[.6rem] sm:text-xs block text-slate-600   mb-2 2xl:text-sm"
+                                for="project_title">Project Title <span class="text-red-500">*</span></label>
+                            <input
+                                class="border-zinc-300 text-[.6rem] sm:text-xs  appearance-none border rounded w-full  py-2 px-3 text-slate-600 leading-tight focus:outline-none"
+                                name="project_title" id="project_title" type="text" value="{{ old('project_title') }}"
+                                placeholder="Input your project title" required>
+                            @error('project_title')
+                                <span class="text-red-500  text-[.6rem] sm:text-xs">{{ $message }}</span>
+                            @enderror
+                        </div>
                         <div class="gap-2 grid-cols-1 sm:grid-cols-2 grid w-full">
                             <div class="w-full">
-                                <label class="text-[.7rem] sm:text-xs block text-slate-600  mb-2 2xl:text-sm"
+                                <label class="text-[.6rem] sm:text-xs block text-slate-600  mb-2 2xl:text-sm"
+                                    for="colleges_name">Colleges Name<span class="text-red-500">*</span></label>
+                                <select id="colleges_name" class="rounded-md text-[.6rem] sm:text-xs w-full border-zinc-300  py-2 px-3"
+                                    name="colleges_name" value="{{ old('colleges_name') }}" required>
+
+                                        <option value="">Select Colleges
+                                        </option>
+                                        <option value="BSED">BSED
+                                        </option>
+                                        <option value="CAS">CAS
+                                        </option>
+                                        <option value="CME">CME
+                                        </option>
+                                        <option value="COE">COE
+                                        </option>
+                                        <option value="Graduate School">Graduate School
+                                        </option>
+
+                                </select>
+                                @error('colleges_name')
+                                    <span class="text-red-500  text-[.6rem] sm:text-xs">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="w-full">
+                                <label class="text-[.6rem] sm:text-xs block text-slate-600  mb-2 2xl:text-sm"
                                     for="program_id">Program Name <span class="text-red-500">*</span></label>
-                                <select id="program_id" class="rounded-md text-[.7rem] sm:text-xs w-full border-zinc-300  py-2 px-3"
+                                <select id="program_id" class="rounded-md text-[.6rem] sm:text-xs w-full border-zinc-300  py-2 px-3"
                                     name="program_id" value="{{ old('program_id') }}" required>
                                     @foreach ($programs as $id => $program_name)
                                         <option value="{{ $id }}"
@@ -69,37 +103,27 @@
                                     @endforeach
                                 </select>
                                 @error('program_id')
-                                    <span class="text-red-500  text-[.7rem] sm:text-xs">{{ $message }}</span>
+                                    <span class="text-red-500  text-[.6rem] sm:text-xs">{{ $message }}</span>
                                 @enderror
                             </div>
 
-                            <div class="w-full">
-                                <label class="text-[.7rem] sm:text-xs block text-slate-600   mb-2 2xl:text-sm"
-                                    for="project_title">Project Title <span class="text-red-500">*</span></label>
-                                <input
-                                    class="border-zinc-300 text-[.7rem] sm:text-xs  appearance-none border rounded w-full  py-2 px-3 text-slate-600 leading-tight focus:outline-none"
-                                    name="project_title" id="project_title" type="text" value="{{ old('project_title') }}"
-                                    placeholder="Input your project title" required>
-                                @error('project_title')
-                                    <span class="text-red-500  text-[.7rem] sm:text-xs">{{ $message }}</span>
-                                @enderror
-                            </div>
+
 
                             <div class="w-full">
-                                <label class="text-[.7rem] sm:text-xs block text-slate-600   2xl:text-sm">Start Date (optional)</label>
-                                <input class="border-zinc-300 text-[.7rem] sm:text-xs  appearance-none border  rounded w-full py-2 mt-2 px-3 text-slate-600  leading-tight focus:outline-none"
+                                <label class="text-[.6rem] sm:text-xs block text-slate-600   2xl:text-sm">Start Date (optional)</label>
+                                <input class="border-zinc-300 text-[.6rem] sm:text-xs  appearance-none border  rounded w-full py-2 mt-2 px-3 text-slate-600  leading-tight focus:outline-none"
                                     value="{{ old('started_date') }}" name="started_date" id="started_date" type="date">
                                 @error('started_date')
-                                    <span class="text-red-500  text-[.7rem] sm:text-xs">{{ $message }}</span>
+                                    <span class="text-red-500  text-[.6rem] sm:text-xs">{{ $message }}</span>
                                 @enderror
                             </div>
 
                             <div class="w-full">
-                                <label class="text-[.7rem] sm:text-xs block text-slate-600   2xl:text-sm">Ended Date (optional)</label>
-                                <input class="border-zinc-300 text-[.7rem] sm:text-xs appearance-none border  rounded w-full py-2 mt-2 px-3 text-slate-600  leading-tight focus:outline-none"
+                                <label class="text-[.6rem] sm:text-xs block text-slate-600   2xl:text-sm">Ended Date (optional)</label>
+                                <input class="border-zinc-300 text-[.6rem] sm:text-xs appearance-none border  rounded w-full py-2 mt-2 px-3 text-slate-600  leading-tight focus:outline-none"
                                     value="{{ old('finished_date') }}" name="finished_date" id="finished_date" type="date">
                                 @error('finished_date')
-                                    <span class="text-red-500 text-[.7rem] sm:text-xs">{{ $message }}</span>
+                                    <span class="text-red-500 text-[.6rem] sm:text-xs">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
@@ -110,23 +134,16 @@
                         <h1 class="text-lg mb-5 tracking-wide font-semibold text-gray-600">Project Member</h1>
                         <div class="flex flex-col space-y-4 2xl:flex-row 2xl:space-y-0 2xl:space-x-4 mt-4 ">
 
-                            <div class="pt-0 2xl:pt-2 flex space-x-2 items-center w-full">
-                                <div class="flex flex-col space-y-2">
-                                    <div class="flex flex-col space-y-2  w-full">
-                                        <div class="flex space-x-2 w-full items-center">
-                                            <h1 class="text-[.7rem] xl:text-sm sm:text-xs text-slate-600 ">Search and tag a name of Faculty/Personnel <span class="text-red-500">*</span></h1>
-                                        </div>
-                                    </div>
+                            <div class="pt-0 2xl:pt-2 flex space-x-2 items-center w-full 2xl:h-[17vh]">
+                                <div class="flex flex-col space-y-2  w-full">
+                                    <h1 class="xl:text-sm text-[.6rem] sm:text-xs text-slate-600 ">Search and tag a name of Faculty/Personnel <span class="text-[.6rem] sm:text-xs">(optional)</span></h1>
+                                    <select name="tags[]" id="tags" class="tags w-full text-[.6rem] sm:text-xs" multiple="multiple"></select>
                                 </div>
                             </div>
                         </div>
-
-                        <select name="tags[]" id="tags" class="tags w-full text-xs" multiple="multiple" required></select>
-
                     </div>
 
                 </div>
-
                 <!-- Project documents -->
                 <div class="border border-gray-400 rounded-md p-5">
                     <h1 class="text-lg mb-5 tracking-wide font-semibold text-gray-600">Project Documents</h1>

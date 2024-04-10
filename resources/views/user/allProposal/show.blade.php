@@ -264,17 +264,13 @@
                     </div>
 
                 @else
-                    <div class="p-4 flex justify-between items-center bg-white sticky top-0 z-10">
-                        <h1 class="font-semibold tracking-wider md:text-lg text-sm sm:text-base xl:text-2xl">Show Program/Projects</h1>
-                        <a href={{ URL::previous() }}>
+                    <div class="flex sm:space-x-4 flex-col sm:flex-row mt-5 h-[40vh] relative">
+
+                        <a href={{ URL::previous() }} class="absolute top-0 right-4">
                             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                             </svg>
                         </a>
-                    </div>
-                    <hr>
-
-                    <div class=" flex sm:space-x-4 flex-col sm:flex-row  w-[95%] mt-5 mx-auto h-[40vh] ">
 
                         <div class="w-full h-[30%]  sm:w-3/4 sm:h-full">
                             @foreach ($proposals->AdminProgram as $adminProgram)
@@ -283,51 +279,50 @@
                             @endforeach
                         </div>
 
-                        <div class="w-full h-[30%] sm:h-full p-2 sm:p-4 pt-3 sm:pt-0 ">
-                              <h1 class="hidden 2xl:block text-xs text-gray-500 tracking-wide">{{ \Carbon\Carbon::parse($proposals->created_at)->format('M d, Y ') }}</h1>
-                              <h1 class="text-[.8rem] sm:text-base lg:text-lg 2xl:text-2xl 2xl:mt-4 font-medium">{{ $proposals->project_title }}</h1>
-                              <h1 class="text-[.6rem] sm:text-xs 2xl:text-sm">{{ $proposals->programs->program_name }}</h1>
+                        <div class="w-full h-[30%] sm:h-full p-2 sm:p-4 sm:pt-0 sm:pl-0 ">
+                            <h1 class="hidden 2xl:block text-xs text-gray-500 tracking-wide">{{ \Carbon\Carbon::parse($proposals->created_at)->format('M d, Y ') }}</h1>
+                            <h1 class="text-[.8rem] sm:text-base lg:text-lg 2xl:text-xl 2xl:mt-4 font-medium w-[90%]">{{ $proposals->project_title }}</h1>
+                            <h1 class="text-[.6rem] sm:text-xs 2xl:text-sm">{{ $proposals->programs->program_name }}</h1>
 
-                              <div class="mt-5 overflow-y-auto h-[10vh] sm:h-[17vh] 2xl:h-[20vh] scrollbar" id="style-2">
-                                <p class="text-[.6rem] sm:text-xs text-justify text-gray-500">
-                                    @foreach ($proposals->AdminProgram as $adminProgram)
-                                        @if (!empty($adminProgram->description))
-                                            {{$adminProgram->description}}
-                                        @else
-                                            <i>no description</i>
-                                        @endif
-                                    @endforeach
-                                  </p>
-                              </div>
+                            <div class="mt-5 overflow-y-auto h-[10vh] sm:h-[17vh] 2xl:h-[20vh] scrollbar" id="style-2">
+                            <p class="text-[.6rem] sm:text-xs text-justify text-gray-500">
+                                @foreach ($proposals->AdminProgram as $adminProgram)
+                                    @if (!empty($adminProgram->description))
+                                        {{$adminProgram->description}}
+                                    @else
+                                        <i>no description</i>
+                                    @endif
+                                @endforeach
+                                </p>
+                            </div>
 
-                              <div class="mt-0 sm:mt-5 flex items-center space-x-10 justify-between">
-                                <div class="space-x-2 flex items-center">
-                                    <img class="rounded-full"
-                                    src="{{!empty($proposals->user->avatar) ? url('upload/image-folder/profile-image/' . $proposals->user->avatar) : url('upload/profile.png') }}"
-                                    width="30" height="20">
-                                    <h1 class="text-[.6rem]  text-xs text-gray-400">{{$proposals->user->first_name}}</h1>
-                                    <h1 class="block 2xl:hidden text-[.6rem] sm:text-xs text-gray-400 tracking-wide">{{ \Carbon\Carbon::parse($proposals->created_at)->format('M d, Y ') }}</h1>
-                                </div>
+                            <div class="mt-0 sm:mt-5 flex items-center justify-between pr-5">
+                            <div class="space-x-2 flex items-center">
+                                <img class="rounded-full"
+                                src="{{!empty($proposals->user->avatar) ? url('upload/image-folder/profile-image/' . $proposals->user->avatar) : url('upload/profile.png') }}"
+                                width="30" height="20">
+                                <h1 class="text-[.6rem]  text-xs text-gray-400">{{$proposals->user->first_name}}</h1>
+                                <h1 class="block 2xl:hidden text-[.6rem] sm:text-xs text-gray-400 tracking-wide">{{ \Carbon\Carbon::parse($proposals->created_at)->format('M d, Y ') }}</h1>
+                            </div>
 
-                                <div class="flex space-x-2 justify-center items-center">
-                                    <form id="likeForm_{{ $proposals->id }}" action="{{ route('proposal.like', ['proposal' => $proposals->id]) }}" method="POST">
-                                        @csrf
-                                        <label class="ui-bookmark">
-                                            <!-- Use the proposal ID to make the input field ID unique -->
-                                            <input id="likeCheckbox_{{ $proposals->id }}" type="checkbox" name="like" {{ $proposals->isLikedBy(auth()->id()) ? 'checked' : '' }}>
-                                            <div class="bookmark">
-                                                <svg viewBox="0 0 16 16" style="margin-top:4px" class="bi bi-heart-fill" height="25" width="25" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314" fill-rule="evenodd"></path>
-                                                </svg>
-                                            </div>
+                            <div class="flex space-x-2 justify-center items-center">
+                                <form id="likeForm_{{ $proposals->id }}" action="{{ route('proposal.like', ['proposal' => $proposals->id]) }}" method="POST">
+                                    @csrf
+                                    <label class="ui-bookmark">
+                                        <!-- Use the proposal ID to make the input field ID unique -->
+                                        <input id="likeCheckbox_{{ $proposals->id }}" type="checkbox" name="like" {{ $proposals->isLikedBy(auth()->id()) ? 'checked' : '' }}>
+                                        <div class="bookmark">
+                                            <svg viewBox="0 0 16 16" style="margin-top:4px" class="bi bi-heart-fill" height="25" width="25" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314" fill-rule="evenodd"></path>
+                                            </svg>
+                                        </div>
 
-                                        </label>
-                                    </form>
-                                    <!-- Display the like count next to the input field -->
-                                    <span class="text-gray-400 text-xs font-medium" id="likeCount_{{ $proposals->id }}">{{ $proposals->likes()->count() }}</span>
-                                </div>
-                              </div>
-
+                                    </label>
+                                </form>
+                                <!-- Display the like count next to the input field -->
+                                <span class="text-gray-400 text-xs font-medium" id="likeCount_{{ $proposals->id }}">{{ $proposals->likes()->count() }}</span>
+                            </div>
+                            </div>
                         </div>
 
                     </div>
@@ -407,7 +402,7 @@
                                                                         </div>
 
                                                                         @else
-                                                                            <div><iframe class="shadow mt-2 w-full h-[80vh]" src="{{  $media->getUrl() }}"></iframe></div>
+                                                                            <div><iframe class="shadow mt-2 w-full h-[80vh]" src="{{  $media->getUrl() }}#toolbar=0"></iframe></div>
                                                                         @endif
                                                                     </div>
                                                                 </div>

@@ -101,21 +101,25 @@ class ProposalController extends Controller
         $post = new Proposal();
         $post->uuid = $uuid;
         $post->program_id =  $request->program_id;
+        $post->colleges_name =  $request->colleges_name;
         $post->project_title =  $request->project_title;
         $post->started_date =  $request->started_date;
         $post->finished_date =  $request->finished_date;
         $post->user_id  = auth()->id();
         $post->save();
 
-        foreach ($request->tags as $tag) {
+        if($request->tags == !null){
 
-            ProposalMember::create([
-                'proposal_id' => $post->id, // Set proposal_id to the newly created proposal's ID
-                'user_id' => $tag, // Set user_id to the current tag (user's ID)
-            ]);
+            foreach ($request->tags as $tag) {
 
-            $users = User::where('id',$tag)->get();
-            Notification::send($users, new ProposalNotification($post));
+                ProposalMember::create([
+                    'proposal_id' => $post->id, // Set proposal_id to the newly created proposal's ID
+                    'user_id' => $tag, // Set user_id to the current tag (user's ID)
+                ]);
+
+                $users = User::where('id',$tag)->get();
+                Notification::send($users, new ProposalNotification($post));
+            }
         }
 
         $admin = User::whereHas('roles', function ($query) { $query->where('id', 1);})->get();
@@ -174,8 +178,6 @@ class ProposalController extends Controller
         }
 
         if ($officeorder = $request->file('office_order_pdf')) {
-
-
 
             foreach ($officeorder as $offices) {
                 $media =  $post->addMedia($offices)->usingName(auth()->id())->toMediaCollection('officeOrderPdf');

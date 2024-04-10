@@ -15,13 +15,12 @@
                 <option  value="Graduate School">Graduate School</option>
             </select>
 
-            <select wire:model="facultyName" name="facultyName" id="facultyName" class="w-[6rem] text-xs rounded  border-slate-400">
+            <select wire:model="facultyName" name="facultyName" id="facultyName" class="w-[11rem] text-xs rounded  border-slate-400">
                 @foreach ($departments as $id => $name ) <option value="{{ $id }}">{{ $name }}</option> @endforeach
             </select>
 
 
             <select wire:model="semester" name="semester" id="semester" class="w-[7rem] text-xs rounded  border-slate-400">
-
                 <option value="" {{ $semester == "" ? 'selected' : '' }}>All Semester</option>
                 <option value="1" {{ $semester == 1 ? 'selected' : '' }}>1st Semester</option>
                 <option value="2" {{ $semester == 2 ? 'selected' : '' }}>2nd Semester</option>
