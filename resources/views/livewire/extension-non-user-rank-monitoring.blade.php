@@ -36,7 +36,7 @@
         </div>
     </div>
 
-    <div class="overflow-x-auto p-2 pt-0 h-[56vh] 2xl:h-[70vh] ">
+    <div class="overflow-x-auto p-2 pt-0 h-[52vh] 2xl:h-[70vh] ">
         <table class="table-auto w-full border-collapse">
             <thead class="text-[.7rem] text-gray-700 uppercase sticky top-0 bg-gray-200 w-full">
                 @if ($users->isNotEmpty())
