@@ -127,7 +127,7 @@
                         {{-- <a href={{ route('admin.dashboard.edit-proposal', $proposal->id) }}> --}}
 
                             <div class=" text-gray-600 text-[.6rem] xl:text-xs">
-                                {{ $proposal->user->faculty->name }}
+                                {{ $proposal->user->faculty !== null ? $proposal->user->faculty->name : null }}
                             </div>
                         {{-- </a> --}}
                     </td>

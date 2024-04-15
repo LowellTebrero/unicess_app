@@ -1359,9 +1359,9 @@
                                 {{ __('Login') }}
                             </x-dropdown-link>
 
-                            <x-dropdown-link :href="route('register')">
+                            {{--  <x-dropdown-link :href="route('register')">
                                 {{ __('Register') }}
-                            </x-dropdown-link>
+                            </x-dropdown-link>  --}}
 
                         </x-slot>
                     </x-dropdown>
